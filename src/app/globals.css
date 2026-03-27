@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #faf9f6; /* cream / warm white */
+  --foreground: #1a2332; /* navy */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a2332; /* navy */
+    --foreground: #faf9f6; /* cream */
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
