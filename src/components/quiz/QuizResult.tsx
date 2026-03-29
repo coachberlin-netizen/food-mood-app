@@ -6,7 +6,7 @@ import { moods } from "@/data/moods"
 import { useQuizStore } from "@/store/useQuizStore"
 import { useAuthStore } from "@/store/useAuthStore"
 import { useRouter } from "next/navigation"
-import { Share2, Bookmark, ArrowRight, BookOpen } from "lucide-react"
+import { Share2, Bookmark, ArrowRight, BookOpen, Loader2, Sparkles } from "lucide-react"
 import { WaitlistForm } from "@/components/auth/WaitlistForm"
 import { saveTestResultToSupabase } from "@/lib/supabase"
 
@@ -19,6 +19,8 @@ export function QuizResult() {
   const [showResult, setShowResult] = useState(false)
   const [email, setEmail] = useState("")
   const [isSaving, setIsSaving] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [aiRecipe, setAiRecipe] = useState<any>(null)
 
   const mood = moods.find(m => m.id === resultMoodId)
 
@@ -137,10 +139,91 @@ export function QuizResult() {
           style={{ backgroundColor: mood.color, color: "#fff" }}
           onClick={() => router.push(`/recetas?mood=${mood.id}`)}
         >
-          Descubre tu receta
+          Explorar recetario
           <ArrowRight className="ml-3 w-5 h-5" />
         </button>
+        <button 
+          className="w-full sm:flex-1 py-5 text-lg font-light rounded-xl shadow-sm hover:shadow-md border border-[#D4AF37]/50 bg-white text-[#1B2A49] flex items-center justify-center transition-all duration-300 disabled:opacity-50"
+          disabled={isGenerating}
+          onClick={async () => {
+            try {
+              setIsGenerating(true)
+              const res = await fetch('/api/recipe/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ moodId: mood.id, moodName: mood.nombre })
+              })
+              const data = await res.json()
+              if (!res.ok) throw new Error(data.error)
+              setAiRecipe(data)
+            } catch (err) {
+              alert("Uh oh, la conexión con Claude ha fallado. Intenta de nuevo.")
+              console.error(err)
+            } finally {
+              setIsGenerating(false)
+            }
+          }}
+        >
+          {isGenerating ? (
+            <>
+              <Loader2 className="mr-3 w-5 h-5 animate-spin text-[#D4AF37]" />
+              Creando alquimia...
+            </>
+          ) : (
+            <>
+              Generar con IA
+              <Sparkles className="ml-3 w-5 h-5 text-[#D4AF37]" />
+            </>
+          )}
+        </button>
       </motion.div>
+
+      {/* Renderizado de la receta IA generada */}
+      {aiRecipe && (
+        <motion.div 
+          initial={{ opacity: 0, height: 0 }} 
+          animate={{ opacity: 1, height: 'auto' }} 
+          className="w-full bg-white rounded-xl p-8 md:p-10 border border-[#D4AF37]/30 mt-8 shadow-sm text-left overflow-hidden relative"
+        >
+          <div className="absolute top-0 right-0 p-4">
+            <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#D4AF37]">Generada por Claude ✨</span>
+          </div>
+          <h2 className="text-3xl font-serif text-[#1B2A49] mb-2 pr-16">{aiRecipe.title}</h2>
+          <p className="text-sm font-light italic text-[#1B2A49]/70 mb-6">&quot;{aiRecipe.tagline}&quot;</p>
+          
+          <div className="flex gap-4 mb-8 text-xs font-sans tracking-wide uppercase text-[#1B2A49]/60 flex-wrap">
+            <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#edeae3]">⏱ {aiRecipe.prepTime} min</span>
+            <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#edeae3]">📈 {aiRecipe.difficulty}</span>
+            <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#edeae3]">🍽 {aiRecipe.servings} px</span>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-[11px] font-sans uppercase tracking-[0.2em] text-[#1B2A49]/50 mb-4 border-b border-[#edeae3] pb-2">Ingredientes</h3>
+              <ul className="space-y-2 text-[#1B2A49]/80 font-light text-sm">
+                {aiRecipe.ingredients?.map((ing: any, i: number) => (
+                  <li key={i} className="flex justify-between border-b border-[#1B2A49]/5 pb-1">
+                    <span>{ing.name}</span>
+                    <span className="font-medium text-[#1B2A49]/50">{ing.quantity}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-[11px] font-sans uppercase tracking-[0.2em] text-[#1B2A49]/50 mb-4 border-b border-[#edeae3] pb-2">Preparación</h3>
+              <ol className="space-y-4 text-[#1B2A49]/80 font-light text-sm list-decimal list-outside pl-4">
+                {aiRecipe.steps?.map((step: string, i: number) => (
+                  <li key={i} className="leading-relaxed pl-2">{step}</li>
+                ))}
+              </ol>
+            </div>
+          </div>
+          
+          <div className="mt-8 bg-[#D4AF37]/5 p-5 rounded-xl text-sm font-light text-[#1B2A49]/80 italic border-l-2 border-[#D4AF37]">
+            🧠 {aiRecipe.foodMoodNote}
+          </div>
+        </motion.div>
+      )}
 
       <motion.div 
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}

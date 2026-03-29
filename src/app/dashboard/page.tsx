@@ -3,182 +3,184 @@
 import { useQuizStore } from "@/store/useQuizStore";
 import { moods } from "@/data/moods";
 import { recipesData } from "@/data/recipes";
-import { RecipeCard } from "@/components/recipe/RecipeCard";
-import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Activity, CheckCircle2, Calendar, Lightbulb, ChefHat, Clock } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AuthGuard } from "@/components/auth/AuthGuard";
-import { DailyMoodTracker } from "@/components/mood/DailyMoodTracker";
-import { MoodStats } from "@/components/mood/MoodStats";
-import { useAuthStore } from "@/store/useAuthStore";
-import dynamic from "next/dynamic";
-
-const MoodCalendar = dynamic(() => import("@/components/mood/MoodCalendar").then(mod => mod.MoodCalendar), { 
-  ssr: false, 
-  loading: () => <div className="h-64 bg-navy/5 animate-pulse rounded-3xl" /> 
-});
-const MoodTrend = dynamic(() => import("@/components/mood/MoodTrend").then(mod => mod.MoodTrend), { 
-  ssr: false,
-  loading: () => <div className="h-64 bg-navy/5 animate-pulse rounded-3xl" /> 
-});
-
-const DID_YOU_KNOW = [
-  "El 90% de la serotonina humana se produce en tu intestino.",
-  "Los fermentos vivos aumentan de inmediato la diversidad de tu microbioma.",
-  "Los alimentos de sabor amargo activan enzimas hepáticas de desintoxicación.",
-  "Comer acompañado eleva la producción de oxitocina, calmando la digestión.",
-  "El nervio vago es la autopista directa bi-direccional entre tu cerebro y tu sistema digestivo."
-];
 
 export default function DashboardPage() {
-  const { user } = useAuthStore();
-  const { moodHistory, resultMood, savedRecipes, completedRecipes, quizCount, syncFromSupabase } = useQuizStore();
+  const { resultMood, quizCount, syncFromSupabase } = useQuizStore();
   const [mounted, setMounted] = useState(false);
+  const [randomRecipe, setRandomRecipe] = useState<typeof recipesData[0] | null>(null);
 
   useEffect(() => {
     setMounted(true);
     syncFromSupabase();
-  }, [syncFromSupabase]);
+    
+    // Select random recipe based on current mood
+    const currentMoodId = resultMood || "social";
+    const moodRecipes = recipesData.filter((r) => r.moodId === currentMoodId);
+    
+    if (moodRecipes.length > 0) {
+      const randomIndex = Math.floor(Math.random() * moodRecipes.length);
+      setRandomRecipe(moodRecipes[randomIndex]);
+    } else {
+      setRandomRecipe(recipesData[0]);
+    }
+  }, [syncFromSupabase, resultMood]);
 
   if (!mounted) return null;
 
-  const currentMoodId = resultMood || (moodHistory.length > 0 ? moodHistory[moodHistory.length - 1].moodId : null);
-  const currentMoodObj = moods.find(m => m.id === currentMoodId);
-  
-  // Recommend a recipe based on mood
-  const moodRecipes = currentMoodId ? recipesData.filter(r => r.moodId === currentMoodId) : recipesData;
-  const recommendedRecipe = moodRecipes[Math.floor(Math.random() * moodRecipes.length)];
-  
-  const savedRecipesList = recipesData.filter(r => savedRecipes.includes(r.id));
-  
-  // Formatting today's date
-  const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  const mostFrequentMoodId = moodHistory.length > 0 
-    ? [...moodHistory].sort((a,b) => 
-        moodHistory.filter(v => v.moodId===a.moodId).length - moodHistory.filter(v => v.moodId===b.moodId).length
-      ).pop()?.moodId 
-    : null;
-  const frequentMoodObj = moods.find(m => m.id === mostFrequentMoodId);
+  // 1. DATA PREPARATION
+  const today = new Date().toLocaleDateString("es-ES", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+  const todayFormatted = today.charAt(0).toUpperCase() + today.slice(1);
 
-  const randomFact = DID_YOU_KNOW[Math.floor(Math.random() * DID_YOU_KNOW.length)];
+  const currentMoodId = resultMood || "social";
+  const currentMood = moods.find((m) => m.id === currentMoodId) || moods[0];
+
+  // Mock History Data (últimos 7 días)
+  const historyDays = [
+    { label: "Lu", color: "#e67e5a", hasData: true }, // Activacion
+    { label: "Ma", color: "#e5e7eb", hasData: false }, // Empty
+    { label: "Mi", color: "#6b8e9b", hasData: true }, // Focus
+    { label: "Ju", color: "#e5e7eb", hasData: false }, // Empty
+    { label: "Vi", color: "#6b8e9b", hasData: true }, // Focus
+    { label: "Sá", color: "#c9a84c", hasData: true }, // Social
+    { label: "Do", color: currentMood.color, hasData: true }, // Today
+  ];
 
   return (
-    <AuthGuard>
-      <div className="min-h-screen p-6 md:p-12 lg:p-24 transition-colors duration-1000 bg-[var(--background)]">
-      <div className="max-w-6xl mx-auto space-y-16">
+    <div className="min-h-screen bg-[#FDFBF7]">
+      <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
         
-        {/* 1. SALUDO PERSONALIZADO */}
-        <header>
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-[11px] font-sans tracking-[0.2em] uppercase text-navy/40 mb-4 capitalize">{today}</p>
-            <h1 className="text-4xl md:text-6xl font-serif text-navy leading-[1.2]">
-              Hola, {user?.name || "Viajero"}. <br className="hidden md:block"/>
-              <span className="text-navy/60 italic font-light">¿Cómo anda tu intestino hoy?</span>
-            </h1>
-          </motion.div>
+        {/* 1. HEADER */}
+        <header className="flex flex-col gap-4">
+          <p className="font-serif text-2xl font-semibold text-[#1B2A49]">
+            Food<span className="text-[#D4AF37]">·</span>Mood
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-5xl font-serif text-[#1B2A49] leading-[1.15]">
+            Hola. Tu intestino tiene algo que decirte.
+          </h1>
+          <div className="flex items-center gap-4 mt-6">
+            <div className="h-px bg-[#D4AF37] opacity-40 w-16"></div>
+            <p className="text-[#1B2A49]/60 font-serif italic tracking-wide">
+              {todayFormatted}
+            </p>
+          </div>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* LEFT COLUMN: Current Mood & Stats */}
-          <div className="lg:col-span-5 space-y-8 flex flex-col">
-            
-            {/* 2. DAILY MOOD TRACKING SYSTEM */}
-            <DailyMoodTracker />
-
-            {/* 6. ESTADISTICAS SIMPLES */}
-            <MoodStats />
-
-          </div>
-
-          {/* RIGHT COLUMN: Recipe, History, Saved */}
-          <div className="lg:col-span-7 space-y-8">
-            
-            {/* 3. RECETA DEL DIA */}
-            <section>
-              <div className="flex justify-between items-end mb-8">
-                <div>
-                  <h2 className="text-3xl font-serif text-navy">Tu receta para hoy</h2>
-                  <p className="text-navy/60 text-sm font-light mt-2">Puro placer para tu cuerpo.</p>
+        {/* 2. MOOD ACTUAL */}
+        <section className="flex flex-col gap-8">
+          <div
+            className="rounded-[1.5rem] p-10 md:p-14 shadow-sm transition-all duration-300 relative overflow-hidden border-l-[12px] border-[#D4AF37]"
+            style={{ backgroundColor: `${currentMood.color}15` }}
+          >
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 z-10 relative">
+              <div className="max-w-xl">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-8 h-px bg-[#D4AF37]"></div>
+                  <h2 className="text-xs font-semibold text-[#1B2A49]/60 uppercase tracking-[0.2em]">
+                    Tu mood de hoy
+                  </h2>
                 </div>
-                <Link href="/recetas">
-                  <span className="text-[11px] font-sans tracking-[0.2em] uppercase text-navy/50 hover:text-navy transition-colors flex items-center gap-1">
-                    Descubrir más <ArrowRight className="w-3 h-3"/>
-                  </span>
-                </Link>
-              </div>
-              {recommendedRecipe ? (
-                 <div className="h-full">
-                    <RecipeCard recipe={recommendedRecipe} />
-                 </div>
-              ) : (
-                <div className="bg-white p-12 rounded-xl border border-[#edeae3] shadow-luxury text-center text-navy/50 font-light">
-                  Completa tu perfil o quiz para recibir recomendaciones
-                </div>
-              )}
-            </section>
-
-            {/* 4. HISTORIAL MOOD (HEATMAP & TREND) */}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-               <MoodTrend />
-               <MoodCalendar />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* 5. RECETAS GUARDADAS */}
-              <section className="bg-white p-10 rounded-xl border border-[#edeae3] shadow-luxury">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3">
-                    <BookOpen className="w-5 h-5 text-navy/40" />
-                    <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-navy">Tus recetas favoritas</h2>
-                  </div>
-                </div>
-                
-                {savedRecipesList.length > 0 ? (
-                  <div className="space-y-4">
-                    {savedRecipesList.slice(0, 3).map(recipe => {
-                      const m = moods.find(md => md.id === recipe.moodId);
-                      return (
-                        <Link href={`/recetas/${recipe.id}`} key={recipe.id}>
-                          <div className="flex items-center gap-6 p-4 rounded-lg bg-[var(--background)] hover:bg-[#edeae3] transition-colors group cursor-pointer border border-[#edeae3]/50">
-                            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 opacity-80" style={{ backgroundColor: `${m?.color}15`, color: m?.color }}>
-                              {m?.emoji}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="font-serif text-lg text-navy truncate group-hover:text-amber-800 transition-colors">{recipe.title}</p>
-                              <p className="text-xs text-navy/50 truncate flex items-center gap-1.5 font-light"><Clock className="w-3 h-3"/> {recipe.prepTime} min</p>
-                            </div>
-                          </div>
-                        </Link>
-                      )
-                    })}
-                    {savedRecipesList.length > 3 && (
-                      <Link href="/recetas">
-                         <p className="text-[11px] font-sans tracking-[0.2em] text-center text-navy/40 mt-6 uppercase hover:text-navy cursor-pointer transition-colors">Ver {savedRecipesList.length - 3} más</p>
-                      </Link>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-navy/40 text-sm text-center py-4">No has guardado recetas aún.</p>
-                )}
-              </section>
-
-              {/* 7. SECCION "SABIAS QUE..." */}
-              <section className="bg-navy text-white p-12 md:p-14 rounded-2xl shadow-luxury relative overflow-hidden flex flex-col justify-center">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-white opacity-[0.02] rounded-bl-full pointer-events-none" />
-                <Lightbulb className="w-6 h-6 text-gold/80 mb-8" />
-                <h2 className="text-[11px] font-sans uppercase tracking-[0.2em] text-white/50 mb-4">¿Sabías que...?</h2>
-                <p className="text-2xl font-serif italic leading-[1.6] text-cream">
-                  &quot;{randomFact}&quot;
+                <h3 className="text-5xl font-serif text-[#1B2A49] mb-4">
+                  {currentMood.nombre}
+                </h3>
+                <p className="text-xl text-[#1B2A49]/80 font-light leading-relaxed">
+                  {currentMood.descripcion_corta}
                 </p>
-              </section>
+              </div>
+              <Link
+                href="/test"
+                className="inline-flex items-center justify-center px-10 py-4 border border-[#1B2A49]/20 rounded-full text-[#1B2A49] bg-white/50 transition-all hover:bg-white hover:border-[#D4AF37] font-light text-base tracking-widest uppercase whitespace-nowrap backdrop-blur-sm shadow-sm"
+              >
+                Volver a evaluar
+              </Link>
             </div>
-
           </div>
+        </section>
+
+        {/* 3. RECETA DEL DÍA */}
+        <section className="flex flex-col gap-8">
+          <div className="flex items-center gap-4">
+            <h2 className="text-xs font-semibold text-[#1B2A49]/40 uppercase tracking-[0.2em]">
+              Nutrición recomendada
+            </h2>
+            <div className="h-px bg-[#D4AF37] flex-1 opacity-20"></div>
+          </div>
+          <div className="bg-white rounded-[1.5rem] p-10 border border-[#edeae3] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="flex flex-col gap-3">
+              <h3 className="text-3xl font-serif text-[#1B2A49] group-hover:text-[#D4AF37] transition-colors">
+                {randomRecipe?.title || "Receta no disponible"}
+              </h3>
+              <div className="flex items-center gap-6 text-sm text-[#1B2A49]/60 font-light mt-2 uppercase tracking-wider">
+                <span className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-[#D4AF37]"></span>
+                  {randomRecipe?.prepTime || "0 min"}
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-[#D4AF37]"></span>
+                  {randomRecipe?.difficulty || "Fácil"}
+                </span>
+              </div>
+            </div>
+            <Link
+              href={randomRecipe ? `/recetas/${randomRecipe.id}` : "#"}
+              className="inline-flex items-center justify-center px-8 py-3 rounded-full border border-[#D4AF37]/50 text-[#1B2A49] hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-white transition-all font-light text-sm tracking-wide whitespace-nowrap shadow-sm"
+            >
+              Ver menú completo
+            </Link>
+          </div>
+        </section>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-12">
+          {/* 4. HISTORIAL */}
+          <section className="flex flex-col gap-8">
+            <div className="flex items-center gap-4">
+              <h2 className="text-xs font-semibold text-[#1B2A49]/40 uppercase tracking-[0.2em]">
+                Balance Semanal
+              </h2>
+            </div>
+            <div className="bg-white rounded-[1.5rem] p-10 border border-[#edeae3] shadow-sm flex flex-col justify-center h-full gap-10">
+              <div className="flex justify-between items-center w-full px-2">
+                {historyDays.map((day, i) => (
+                  <div key={i} className="flex flex-col items-center gap-5">
+                    <div 
+                      className={`w-3 h-12 rounded-full transition-all ${!day.hasData ? "opacity-20" : "shadow-inner border border-black/5"}`}
+                      style={{ backgroundColor: day.hasData ? day.color : "#d1d5db" }}
+                    />
+                    <span className="text-[10px] text-[#1B2A49]/40 font-medium uppercase tracking-widest">
+                      {day.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* 5. ESTADÍSTICAS */}
+          <section className="flex flex-col gap-8">
+            <div className="flex items-center gap-4">
+              <h2 className="text-xs font-semibold text-[#1B2A49]/40 uppercase tracking-[0.2em]">
+                Métricas
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 gap-6 h-full">
+              <div className="bg-white rounded-[1.5rem] p-8 border border-[#edeae3] shadow-sm flex flex-col justify-between">
+                <span className="text-[10px] text-[#1B2A49]/50 font-medium tracking-[0.2em] uppercase">Evaluaciones</span>
+                <span className="text-4xl font-serif text-[#D4AF37] mt-6">{quizCount || 3}</span>
+              </div>
+              <div className="bg-white rounded-[1.5rem] p-8 border border-[#edeae3] shadow-sm flex flex-col justify-between">
+                <span className="text-[10px] text-[#1B2A49]/50 font-medium tracking-[0.2em] uppercase">Tendencia</span>
+                <span className="text-2xl font-serif text-[#1B2A49] mt-6 italic">Focus</span>
+              </div>
+            </div>
+          </section>
         </div>
+
       </div>
     </div>
-    </AuthGuard>
   );
 }

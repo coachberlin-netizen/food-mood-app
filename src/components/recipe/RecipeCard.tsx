@@ -1,7 +1,7 @@
 import { Recipe } from "@/data/recipes";
 import { moods } from "@/data/moods";
 import Link from "next/link";
-import { Clock, ChefHat, ArrowRight } from "lucide-react";
+import { Clock, ChefHat, ArrowRight, Utensils } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import imageMapData from "@/data/recipe-image-map.json";
@@ -20,10 +20,9 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         className="h-full bg-white border border-[#edeae3] rounded-xl overflow-hidden shadow-luxury hover:shadow-luxury-hover transition-all duration-500 flex flex-col"
       >
         <div 
-          className="relative w-full aspect-[4/3] bg-gray-50 border-b border-[#edeae3] overflow-hidden" 
-          style={{ backgroundImage: imageUrl ? 'none' : `linear-gradient(to bottom right, ${color}10, ${color}30)` }}
+          className="relative w-full aspect-[4/3] border-b border-[#edeae3] overflow-hidden" 
         >
-          {imageUrl && (
+          {imageUrl ? (
             <Image 
               src={imageUrl} 
               alt={recipe.title} 
@@ -31,6 +30,14 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
+          ) : (
+            <div 
+              className="w-full h-full flex items-center justify-center relative transition-transform duration-700 group-hover:scale-105"
+              style={{ background: `linear-gradient(135deg, ${color}dd, ${color})` }}
+            >
+              <div className="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
+              <Utensils className="w-12 h-12 text-[#FDFBF7]/40 relative z-10" strokeWidth={1.5} />
+            </div>
           )}
         </div>
         

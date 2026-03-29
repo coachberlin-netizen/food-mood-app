@@ -8,9 +8,6 @@ export function Footer() {
         <span className="font-serif text-2xl font-semibold text-white">
           Food<span className="text-gold">·</span>Mood
         </span>
-        <p className="font-serif italic text-white/50 text-xl">
-          &quot;Come bien. Siente todo.&quot;
-        </p>
         <div className="flex flex-col items-center space-y-4 pt-8 border-t border-white/5 w-full max-w-3xl">
           <p className="text-[13px] font-light text-white/40 text-center leading-relaxed px-4">
             Food·Mood recomienda recetas y alimentos funcionales basados en divulgación científica. No ofrece diagnóstico, tratamiento ni terapia. Ante cualquier duda de salud, consulta a un profesional.

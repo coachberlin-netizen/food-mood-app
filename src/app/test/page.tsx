@@ -33,7 +33,7 @@ export default function TestPage() {
     <motion.div 
       className="min-h-[calc(100vh-80px)] w-full flex flex-col p-6 md:p-12 lg:p-16 transition-colors duration-1000 ease-in-out"
       animate={{ backgroundColor }}
-      style={{ backgroundColor: "var(--background)" }}
+      style={{ backgroundColor: "#faf9f6" }}
     >
       <div className="w-full max-w-4xl mx-auto flex-1 flex flex-col pt-8 lg:pt-16">
         {!isFinished && currentStep < quizData.length ? (
