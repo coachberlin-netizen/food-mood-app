@@ -8,9 +8,13 @@ import { useQuizStore } from "@/store/useQuizStore"
 import { QuizStep } from "@/components/quiz/QuizStep"
 import { QuizProgress } from "@/components/quiz/QuizProgress"
 import { QuizResult } from "@/components/quiz/QuizResult"
+import { useRouter } from "next/navigation"
+import { useAuthStore } from "@/store/useAuthStore"
 
 export default function TestPage() {
   const { currentStep, isFinished, leadingMood, calculateResult } = useQuizStore()
+  const { isAuthenticated } = useAuthStore()
+  const router = useRouter()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -22,6 +26,9 @@ export default function TestPage() {
       calculateResult()
     }
   }, [currentStep, isFinished, calculateResult])
+
+  // Se ha eliminado la redirección automática a /auth/register
+  // para permitir que el usuario vea su resultado del test en pantalla.
 
   // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) return null;

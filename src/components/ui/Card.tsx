@@ -6,13 +6,13 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "rounded-xl text-navy transition-all duration-300",
+  "rounded-xl text-aubergine-dark transition-all duration-300",
   {
     variants: {
       variant: {
-        elevated: "bg-white shadow-luxury hover:shadow-luxury-hover border border-[#edeae3]",
-        flat: "border border-[#edeae3] bg-white",
-        glass: "bg-white/80 backdrop-blur-md border border-[#edeae3] shadow-luxury",
+        elevated: "bg-cream shadow-luxury hover:shadow-luxury-hover border border-aubergine-dark/20",
+        flat: "border border-aubergine-dark/20 bg-cream",
+        glass: "bg-cream/80 backdrop-blur-md border border-aubergine-dark/20 shadow-luxury",
       },
     },
     defaultVariants: {

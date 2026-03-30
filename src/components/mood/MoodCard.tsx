@@ -39,14 +39,14 @@ export function MoodCard({ mood, className, index = 0 }: MoodCardProps) {
             {mood.nombre}
           </h3>
           
-          <p className="text-sm font-medium text-navy/80 dark:text-navy/70 mb-4 transition-all duration-300 group-hover:line-clamp-none line-clamp-2">
+          <p className="text-sm font-medium text-aubergine-dark/80 dark:text-aubergine-dark/70 mb-4 transition-all duration-300 group-hover:line-clamp-none line-clamp-2">
             &quot;{mood.descripcion_corta}&quot;
           </p>
         </div>
 
         {/* Expandable ingredients list */}
         <div className="mt-auto overflow-hidden opacity-80 max-h-0 group-hover:max-h-[200px] group-hover:opacity-100 transition-all duration-500 ease-in-out">
-          <div className="pt-4 border-t border-navy/10 mt-2">
+          <div className="pt-4 border-t border-aubergine-dark/10 mt-2">
             <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: mood.color }}>
               Ingredientes Clave
             </p>
@@ -54,7 +54,7 @@ export function MoodCard({ mood, className, index = 0 }: MoodCardProps) {
               {mood.ingredientes.map((ing) => (
                 <span 
                   key={ing} 
-                  className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-white/60 dark:bg-black/5 text-navy border border-navy/5 shadow-sm"
+                  className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-cream/60 dark:bg-black/5 text-aubergine-dark border border-aubergine-dark/5 shadow-sm"
                 >
                   {ing}
                 </span>

@@ -69,9 +69,9 @@ export function InstallBanner() {
         exit={{ y: 100, opacity: 0 }}
         className="fixed bottom-0 left-0 right-0 z-50 p-4 md:hidden"
       >
-        <div className="bg-navy rounded-2xl shadow-luxury-hover p-4 flex items-center justify-between text-white border border-white/10">
+        <div className="bg-aubergine-dark rounded-2xl shadow-luxury-hover p-4 flex items-center justify-between text-white border border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center font-serif text-gold font-bold">
+            <div className="w-10 h-10 bg-cream/10 rounded-xl flex items-center justify-center font-serif text-gold font-bold">
               FM
             </div>
             <div className="flex flex-col">
@@ -82,7 +82,7 @@ export function InstallBanner() {
           <div className="flex items-center gap-2">
             <button 
               onClick={handleInstallClick}
-              className="bg-gold hover:bg-gold/90 text-navy font-medium text-xs px-4 py-2 rounded-full transition-colors"
+              className="bg-gold hover:bg-gold/90 text-aubergine-dark font-medium text-xs px-4 py-2 rounded-full transition-colors"
             >
               Instalar
             </button>

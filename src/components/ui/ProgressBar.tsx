@@ -12,7 +12,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
     return (
-      <div ref={ref} className={cn("h-2 w-full overflow-hidden rounded-full bg-navy/10 dark:bg-cream/10", className)} {...props}>
+      <div ref={ref} className={cn("h-2 w-full overflow-hidden rounded-full bg-aubergine-dark/10 dark:bg-cream/10", className)} {...props}>
         <motion.div
           className="h-full bg-gold"
           initial={{ width: 0 }}

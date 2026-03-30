@@ -15,8 +15,8 @@ export function RecipeFilter({ activeMood, onSelectMood }: RecipeFilterProps) {
         onClick={() => onSelectMood(null)}
         className={`px-5 py-2.5 rounded-lg text-[11px] font-sans uppercase tracking-[0.1em] transition-all ${
           activeMood === null 
-            ? "bg-navy text-white shadow-luxury" 
-            : "bg-[var(--background)] border border-[#edeae3] text-navy/60 hover:border-navy/30 hover:shadow-sm"
+            ? "bg-aubergine-dark text-white shadow-luxury" 
+            : "bg-[var(--background)] border border-aubergine-dark/20 text-aubergine-dark/60 hover:border-aubergine-dark/30 hover:shadow-sm"
         }`}
       >
         Todos
@@ -29,7 +29,7 @@ export function RecipeFilter({ activeMood, onSelectMood }: RecipeFilterProps) {
             key={mood.id}
             onClick={() => onSelectMood(mood.id)}
             className={`px-5 py-2.5 rounded-lg text-[11px] font-sans uppercase tracking-[0.1em] transition-all flex items-center gap-2 ${
-              isActive ? "shadow-luxury scale-[1.02]" : "hover:border-navy/30 hover:shadow-sm bg-[var(--background)] border border-[#edeae3]"
+              isActive ? "shadow-luxury scale-[1.02]" : "hover:border-aubergine-dark/30 hover:shadow-sm bg-[var(--background)] border border-aubergine-dark/20"
             }`}
             style={{ 
               backgroundColor: isActive ? mood.color : undefined,

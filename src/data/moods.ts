@@ -5,7 +5,7 @@ export const moods: MoodState[] = [
     id: "activacion",
     nombre: "Activacion",
     nombre_en: "Activation",
-    emoji: "☀️",
+    emoji: "1",
     color: "#d4856e",
     fondo: "#fdf0ec",
     descripcion_corta: "El primer sorbo que lo cambia todo",
@@ -18,7 +18,7 @@ export const moods: MoodState[] = [
   {
     id: "calma",
     nombre: "Calma",
-    emoji: "🌙",
+    emoji: "2",
     color: "#8a80a8",
     fondo: "#f3f0f8",
     descripcion_corta: "Escucha el gong. Respira hondo.",
@@ -29,7 +29,7 @@ export const moods: MoodState[] = [
   {
     id: "focus",
     nombre: "Focus",
-    emoji: "🎯",
+    emoji: "3",
     color: "#3d7a5f",
     fondo: "#e8f5e9",
     descripcion_corta: "Afila la mente, no la ansiedad.",
@@ -40,7 +40,7 @@ export const moods: MoodState[] = [
   {
     id: "social",
     nombre: "Social",
-    emoji: "🥂",
+    emoji: "4",
     color: "#c9a67e",
     fondo: "#fdf5ec",
     descripcion_corta: "Todo sabe mejor con alguien enfrente.",
@@ -51,7 +51,7 @@ export const moods: MoodState[] = [
   {
     id: "reset",
     nombre: "Reset",
-    emoji: "🌿",
+    emoji: "5",
     color: "#5bb0ad",
     fondo: "#e6f5f4",
     descripcion_corta: "El cuerpo sabe como volver.",
@@ -62,7 +62,7 @@ export const moods: MoodState[] = [
   {
     id: "confort",
     nombre: "Confort",
-    emoji: "🥣",
+    emoji: "6",
     color: "#b89a52",
     fondo: "#f5efd8",
     descripcion_corta: "Calienta el intestino, calma el mundo.",

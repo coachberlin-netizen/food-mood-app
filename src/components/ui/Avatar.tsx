@@ -24,7 +24,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         ref={ref}
         whileHover={{ scale: 1.05 }}
         className={cn(
-          "relative flex shrink-0 overflow-hidden rounded-full bg-sage/20 items-center justify-center text-navy dark:text-cream border border-sage/30",
+          "relative flex shrink-0 overflow-hidden rounded-full bg-sage/20 items-center justify-center text-aubergine-dark dark:text-cream border border-sage/30",
           sizeClasses[size],
           className
         )}

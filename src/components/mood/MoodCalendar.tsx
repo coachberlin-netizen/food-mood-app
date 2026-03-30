@@ -20,13 +20,13 @@ export function MoodCalendar() {
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
   return (
-    <div className="bg-white p-10 rounded-xl shadow-luxury border border-[#edeae3]">
+    <div className="bg-cream p-10 rounded-xl shadow-luxury border border-aubergine-dark/20">
       <div className="flex items-center gap-3 mb-8">
-        <Calendar className="w-5 h-5 text-navy/40" />
-        <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-navy">Historial Mensual</h2>
+        <Calendar className="w-5 h-5 text-aubergine-dark/40" />
+        <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark">Historial Mensual</h2>
       </div>
 
-      <div className="grid grid-cols-7 gap-y-4 gap-x-2 text-center text-[10px] font-sans tracking-[0.15em] uppercase text-navy/40 mb-4">
+      <div className="grid grid-cols-7 gap-y-4 gap-x-2 text-center text-[10px] font-sans tracking-[0.15em] uppercase text-aubergine-dark/40 mb-4">
         <div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sa</div><div>Do</div>
       </div>
 
@@ -43,14 +43,14 @@ export function MoodCalendar() {
             <div key={day} className="aspect-square flex flex-col justify-center items-center group relative">
                <div 
                  className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center transition-transform hover:scale-[1.05] cursor-pointer ${
-                   mood ? 'shadow-sm opacity-80 hover:opacity-100' : 'bg-[var(--background)] border border-[#edeae3]'
+                   mood ? 'shadow-sm opacity-80 hover:opacity-100' : 'bg-[var(--background)] border border-aubergine-dark/20'
                  }`}
                  style={{ backgroundColor: mood?.color }}
                />
-               <span className="text-[10px] text-navy/30 font-medium mt-1">{day}</span>
+               <span className="text-[10px] text-aubergine-dark/30 font-medium mt-1">{day}</span>
                
                {mood && (
-                 <div className="absolute bottom-full mb-3 bg-navy text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10 shadow-luxury font-light">
+                 <div className="absolute bottom-full mb-3 bg-aubergine-dark text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10 shadow-luxury font-light">
                    {mood.emoji} {mood.nombre}
                  </div>
                )}

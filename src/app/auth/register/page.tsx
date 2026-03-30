@@ -71,7 +71,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-6 py-12 relative overflow-hidden">
+    <div className="min-h-screen bg-aubergine-dark flex flex-col items-center justify-center p-6 py-12 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-green-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
@@ -84,9 +84,9 @@ export default function RegisterPage() {
           </Link>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full">
-          <h1 className="text-2xl font-serif font-bold text-navy mb-2 text-center">Empieza tu viaje</h1>
-          <p className="text-navy/60 text-center text-sm mb-6">Entiende qué te pide tu intestino.</p>
+        <div className="bg-cream rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full">
+          <h1 className="text-2xl font-serif font-bold text-aubergine-dark mb-2 text-center">Empieza tu viaje</h1>
+          <p className="text-aubergine-dark/60 text-center text-sm mb-6">Entiende qué te pide tu intestino.</p>
 
           {error && (
             <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4 text-center">
@@ -96,38 +96,38 @@ export default function RegisterPage() {
 
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-navy/50 mb-1.5">Nombre</label>
+              <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-1.5">Nombre</label>
               <input 
                 type="text" 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full bg-navy/5 border border-navy/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-navy"
+                className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-aubergine-dark"
                 placeholder="Tu nombre"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-navy/50 mb-1.5">Email</label>
+              <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-1.5">Email</label>
               <input 
                 type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-navy/5 border border-navy/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-navy"
+                className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-aubergine-dark"
                 placeholder="tu@email.com"
               />
             </div>
             
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-navy/50 mb-1.5">Contraseña</label>
+              <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-1.5">Contraseña</label>
               <input 
                 type="password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full bg-navy/5 border border-navy/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-navy"
+                className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-aubergine-dark"
                 placeholder="Crea una contraseña segura"
               />
             </div>
@@ -138,9 +138,9 @@ export default function RegisterPage() {
                   type="checkbox" 
                   checked={joinWaitlist}
                   onChange={(e) => setJoinWaitlist(e.target.checked)}
-                  className="mt-1 w-5 h-5 rounded border-navy/20 text-navy focus:ring-navy/30 bg-navy/5"
+                  className="mt-1 w-5 h-5 rounded border-aubergine-dark/20 text-aubergine-dark focus:ring-navy/30 bg-aubergine-dark/5"
                 />
-                <span className="text-sm text-navy/70 group-hover:text-navy transition-colors">
+                <span className="text-sm text-aubergine-dark/70 group-hover:text-aubergine-dark transition-colors">
                   <strong>Quiero unirme a la lista de espera</strong> para acceso anticipado a la app móvil.
                 </span>
               </label>
@@ -151,9 +151,9 @@ export default function RegisterPage() {
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
                   required
-                  className="mt-1 w-5 h-5 rounded border-navy/20 text-navy focus:ring-navy/30 bg-navy/5"
+                  className="mt-1 w-5 h-5 rounded border-aubergine-dark/20 text-aubergine-dark focus:ring-navy/30 bg-aubergine-dark/5"
                 />
-                <span className="text-sm text-navy/70 group-hover:text-navy transition-colors">
+                <span className="text-sm text-aubergine-dark/70 group-hover:text-aubergine-dark transition-colors">
                   Acepto la <Link href="#" className="font-bold underline">política de privacidad</Link> y el uso de mis datos para el test.
                 </span>
               </label>
@@ -162,7 +162,7 @@ export default function RegisterPage() {
             <button 
               type="submit"
               disabled={!acceptTerms || loading}
-              className="w-full bg-navy text-white hover:bg-navy/90 disabled:opacity-50 disabled:cursor-not-allowed py-4 rounded-xl font-bold shadow-md transition-all flex justify-center items-center gap-2 mt-6"
+              className="w-full bg-aubergine-dark text-white hover:bg-aubergine-dark/90 disabled:opacity-50 disabled:cursor-not-allowed py-4 rounded-xl font-bold shadow-md transition-all flex justify-center items-center gap-2 mt-6"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -172,8 +172,8 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="text-center text-navy/60 text-sm mt-8 border-t border-navy/5 pt-6">
-            ¿Ya tienes cuenta? <Link href="/auth/login" className="font-bold text-navy hover:underline">Iniciar sesión</Link>
+          <p className="text-center text-aubergine-dark/60 text-sm mt-8 border-t border-aubergine-dark/5 pt-6">
+            ¿Ya tienes cuenta? <Link href="/auth/login" className="font-bold text-aubergine-dark hover:underline">Iniciar sesión</Link>
           </p>
         </div>
       </div>

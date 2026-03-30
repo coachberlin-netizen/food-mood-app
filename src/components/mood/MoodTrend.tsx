@@ -9,10 +9,10 @@ export function MoodTrend() {
 
   if (moodHistory.length < 2) {
     return (
-      <div className="bg-white p-12 rounded-xl border border-[#edeae3] text-center shadow-luxury">
-        <TrendingUp className="w-6 h-6 text-navy/20 mx-auto mb-6" />
-        <h3 className="text-[11px] font-sans tracking-[0.2em] uppercase text-navy/40 mb-3">Tendencia</h3>
-        <p className="text-navy/60 text-sm font-light">Registra al menos 2 días para ver tu evolución gráfica.</p>
+      <div className="bg-cream p-12 rounded-xl border border-aubergine-dark/20 text-center shadow-luxury">
+        <TrendingUp className="w-6 h-6 text-aubergine-dark/20 mx-auto mb-6" />
+        <h3 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/40 mb-3">Tendencia</h3>
+        <p className="text-aubergine-dark/60 text-sm font-light">Registra al menos 2 días para ver tu evolución gráfica.</p>
       </div>
     );
   }
@@ -69,14 +69,14 @@ export function MoodTrend() {
   }
 
   return (
-    <div className="bg-white p-10 rounded-xl shadow-luxury border border-[#edeae3] overflow-hidden relative">
+    <div className="bg-cream p-10 rounded-xl shadow-luxury border border-aubergine-dark/20 overflow-hidden relative">
       <div className="flex justify-between items-start mb-8">
         <div className="flex items-center gap-3">
-          <TrendingUp className="w-5 h-5 text-navy/40" />
-          <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-navy">Tu Evolución</h2>
+          <TrendingUp className="w-5 h-5 text-aubergine-dark/40" />
+          <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark">Tu Evolución</h2>
         </div>
         {trendText && (
-          <span className="text-[11px] font-sans tracking-[0.1em] bg-[var(--background)] px-3 py-1.5 rounded-full text-navy/60 border border-[#edeae3]">{trendText}</span>
+          <span className="text-[11px] font-sans tracking-[0.1em] bg-[var(--background)] px-3 py-1.5 rounded-full text-aubergine-dark/60 border border-aubergine-dark/20">{trendText}</span>
         )}
       </div>
 
@@ -84,8 +84,8 @@ export function MoodTrend() {
         {/* Y Axis Grid lines corresponding to moods */}
         <div className="absolute inset-x-0 inset-y-5 flex flex-col justify-between z-0 pointer-events-none opacity-30">
           {[...moods].reverse().map(m => (
-            <div key={m.id} className="w-full border-b border-dashed border-[#edeae3] h-0 flex items-center">
-              <span className="text-[9px] font-sans tracking-wider uppercase text-navy/40 bg-white pr-3 leading-none" style={{ color: m.color }}>{m.nombre}</span>
+            <div key={m.id} className="w-full border-b border-dashed border-aubergine-dark/20 h-0 flex items-center">
+              <span className="text-[9px] font-sans tracking-wider uppercase text-aubergine-dark/40 bg-cream pr-3 leading-none" style={{ color: m.color }}>{m.nombre}</span>
             </div>
           ))}
         </div>

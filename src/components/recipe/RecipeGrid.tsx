@@ -8,8 +8,8 @@ export function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
   if (recipes.length === 0) {
     return (
       <div className="w-full py-20 text-center">
-        <p className="text-xl font-serif text-navy/50">No hemos encontrado recetas con estos filtros.</p>
-        <p className="text-sm mt-2 text-navy/40">Intenta buscar otro estado o ingrediente.</p>
+        <p className="text-xl font-serif text-aubergine-dark/50">No hemos encontrado recetas con estos filtros.</p>
+        <p className="text-sm mt-2 text-aubergine-dark/40">Intenta buscar otro estado o ingrediente.</p>
       </div>
     );
   }

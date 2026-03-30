@@ -7,6 +7,7 @@ export const supabase = createClient(
 );
 
 export async function saveTestResultToSupabase(
+  userId: string,
   userEmail: string,
   foodMoodState: string,
   testAnswers: Record<string, any>
@@ -14,6 +15,7 @@ export async function saveTestResultToSupabase(
   const { data, error } = await supabase
     .from('test_results')
     .insert([{
+      user_id: userId,
       user_email: userEmail,
       food_mood_state: foodMoodState,
       test_answers: testAnswers

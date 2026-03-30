@@ -47,30 +47,30 @@ export default function FAQPage() {
       a: "El sistema cuenta con un abanico de recetas curadas para cada mood. Cada vez que tomes el quiz experimentarás con la rotación aleatoria de nuestro repertorio estacional."
     },
     {
-      q: "¿Cómo contactar con Susana?",
+      q: "¿Cómo contactar con nuestro equipo?",
       a: "Nos encantaría leerte. Puedes enviarnos cualquier duda, comentario o logro personal a nuestra bandeja directa (hola@food-mood.com) para recibir apoyo de nuestro equipo de bienestar."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7]">
+    <div className="min-h-screen bg-aubergine">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-16 md:gap-20">
         
         {/* HEADER */}
         <header className="flex flex-col gap-4 text-center">
-          <p className="font-serif text-2xl font-semibold text-[#1B2A49] mb-4">
+          <p className="font-serif text-2xl font-semibold text-aubergine-dark mb-4">
             Food<span className="text-[#D4AF37]">·</span>Mood
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#1B2A49] leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-aubergine-dark leading-tight">
             Preguntas Frecuentes
           </h1>
-          <p className="text-[#1B2A49]/60 font-medium tracking-wide pt-4 max-w-xl mx-auto">
+          <p className="text-aubergine-dark/60 font-medium tracking-wide pt-4 max-w-xl mx-auto">
             Respuestas simples desde la unión de la neurociencia y la intuición.
           </p>
         </header>
 
         {/* FAQ LIST */}
-        <section className="bg-white rounded-[2rem] p-8 md:p-14 border border-[#edeae3] shadow-sm">
+        <section className="bg-cream rounded-[2rem] p-8 md:p-14 border border-aubergine-dark/20 shadow-sm">
           <div className="flex flex-col gap-12">
             {faqs.map((faq, idx) => (
               <article key={idx} className="flex flex-col gap-3 group">
@@ -79,10 +79,10 @@ export default function FAQPage() {
                     {(idx + 1).toString().padStart(2, '0')}.
                   </span>
                   <div className="flex flex-col gap-3">
-                    <h2 className="text-2xl font-serif text-[#1B2A49] group-hover:text-[#D4AF37] transition-colors leading-snug">
+                    <h2 className="text-2xl font-serif text-aubergine-dark group-hover:text-[#D4AF37] transition-colors leading-snug">
                       {faq.q}
                     </h2>
-                    <p className="text-lg text-[#1B2A49]/80 font-light leading-relaxed">
+                    <p className="text-lg text-aubergine-dark/80 font-light leading-relaxed">
                       {faq.a}
                     </p>
                   </div>
@@ -97,8 +97,8 @@ export default function FAQPage() {
         </section>
         
         {/* Footer CTAs / Thanks */}
-        <div className="text-center pt-8 border-t border-[#1B2A49]/10">
-          <p className="text-[#1B2A49]/60 font-light italic text-xl font-serif">
+        <div className="text-center pt-8 border-t border-aubergine-dark/10">
+          <p className="text-aubergine-dark/60 font-light italic text-xl font-serif">
             Tu intestino tiene algo que decirte. Escúchalo.
           </p>
         </div>

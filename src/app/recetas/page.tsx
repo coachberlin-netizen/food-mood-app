@@ -34,10 +34,10 @@ function RecipesContent() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-12"
         >
-          <h1 className="text-4xl md:text-6xl font-serif text-navy mb-6 leading-[1.2]">
+          <h1 className="text-4xl md:text-6xl font-serif text-cream mb-6 leading-[1.2]">
             Recetas con superpoderes
           </h1>
-          <p className="text-xl text-navy/60 font-light max-w-2xl">
+          <p className="text-xl text-cream/70 font-light max-w-2xl">
             Encuentra lo que tu cuerpo necesita hoy. Puro placer, cero culpa.
           </p>
         </motion.div>
@@ -51,9 +51,9 @@ function RecipesContent() {
               placeholder="Buscar ingrediente o receta..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 rounded-xl bg-white border border-[#edeae3] shadow-sm focus:outline-none focus:border-navy/30 focus:shadow-luxury transition-all font-light text-navy placeholder:text-navy/40"
+              className="w-full pl-12 pr-4 py-4 rounded-xl bg-cream border border-aubergine-dark/20 shadow-sm focus:outline-none focus:border-aubergine-dark/30 focus:shadow-luxury transition-all font-light text-aubergine-dark placeholder:text-aubergine-dark/40"
             />
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-navy/30 w-5 h-5" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-aubergine-dark/30 w-5 h-5" />
           </div>
         </div>
 

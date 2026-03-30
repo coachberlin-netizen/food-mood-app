@@ -13,12 +13,12 @@ export default function NotFound() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", bounce: 0.5 }}
       >
-        <div className="w-24 h-24 bg-navy/5 rounded-full flex items-center justify-center mx-auto mb-8">
-          <Activity className="w-12 h-12 text-navy/30" />
+        <div className="w-24 h-24 bg-aubergine-dark/5 rounded-full flex items-center justify-center mx-auto mb-8">
+          <Activity className="w-12 h-12 text-aubergine-dark/30" />
         </div>
-        <h1 className="text-6xl md:text-8xl font-serif text-navy font-bold mb-4">404</h1>
-        <h2 className="text-2xl font-serif text-navy mb-4">Página no encontrada</h2>
-        <p className="text-navy/60 max-w-md mx-auto mb-10">
+        <h1 className="text-6xl md:text-8xl font-serif text-aubergine-dark font-bold mb-4">404</h1>
+        <h2 className="text-2xl font-serif text-aubergine-dark mb-4">Página no encontrada</h2>
+        <p className="text-aubergine-dark/60 max-w-md mx-auto mb-10">
           Parece que hemos perdido la conexión temporalmente. Tu intestino no sabe interpretar esta ruta web.
         </p>
         

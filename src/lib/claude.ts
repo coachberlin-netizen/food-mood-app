@@ -6,10 +6,14 @@ const client = new Anthropic({
 
 export async function generateRecipeForMood(
   moodId: string,
-  moodName: string
+  moodName: string,
+  excludedTitles?: string
 ) {
-  const prompt = `Crea UNA receta Food·Mood para el estado "${moodName}".
-
+  let prompt = `Crea UNA receta Food·Mood para el estado "${moodName}".\n`;
+  if (excludedTitles) {
+    prompt += `IMPORTANTE: El usuario ya ha probado estas recetas este mes: ${excludedTitles}. Por favor, genera una receta COMPLETAMENTE DIFERENTE a estas.\n`;
+  }
+  prompt += `
 Responde SOLO JSON puro (sin markdown, sin bloques de código, solo el objeto JSON crudo):
 {
   "title": "nombre de la receta interactiva y wellness",
@@ -21,7 +25,7 @@ Responde SOLO JSON puro (sin markdown, sin bloques de código, solo el objeto JS
   "steps": ["paso 1 de preparación", "paso 2"],
   "foodMoodNote": "Dato curioso sobre la conexión intestino-cerebro (max 2 frases cálidas)",
   "imagePrompt": "descripción visual minimalista para generar la imagen de la receta"
-}`
+}`;
 
   const msg = await client.messages.create({
     model: 'claude-3-haiku-20240307',

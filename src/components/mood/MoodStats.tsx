@@ -57,28 +57,28 @@ export function MoodStats() {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <div className="bg-white p-8 rounded-xl border border-[#edeae3] shadow-luxury flex flex-col items-start hover:shadow-luxury-hover transition-all duration-300">
-        <Activity className="w-5 h-5 text-navy/30 mb-8" />
+      <div className="bg-cream p-8 rounded-xl border border-aubergine-dark/20 shadow-luxury flex flex-col items-start hover:shadow-luxury-hover transition-all duration-300">
+        <Activity className="w-5 h-5 text-aubergine-dark/30 mb-8" />
         <div className="flex items-center gap-2">
           {mostFrequentMood && (
              <span className="text-3xl filter drop-shadow-sm">{mostFrequentMood.emoji}</span>
           )}
-          <p className="text-4xl font-serif text-navy">{mostFrequentMood?.nombre || "-"}</p>
+          <p className="text-4xl font-serif text-aubergine-dark">{mostFrequentMood?.nombre || "-"}</p>
         </div>
-        <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-navy/50 mt-4">Mood Mensual</p>
+        <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-aubergine-dark/50 mt-4">Mood Mensual</p>
       </div>
       
-      <div className="bg-white p-8 rounded-xl border border-[#edeae3] shadow-luxury flex flex-col items-start hover:shadow-luxury-hover transition-all duration-300">
-        <Flame className="w-5 h-5 text-navy/30 mb-8" />
-        <p className="text-4xl font-serif text-navy flex items-baseline gap-2">
+      <div className="bg-cream p-8 rounded-xl border border-aubergine-dark/20 shadow-luxury flex flex-col items-start hover:shadow-luxury-hover transition-all duration-300">
+        <Flame className="w-5 h-5 text-aubergine-dark/30 mb-8" />
+        <p className="text-4xl font-serif text-aubergine-dark flex items-baseline gap-2">
           {currentStreak}
-          <span className="text-sm font-sans text-navy/50">días</span>
+          <span className="text-sm font-sans text-aubergine-dark/50">días</span>
         </p>
-        <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-navy/50 mt-4">Racha Actual</p>
+        <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-aubergine-dark/50 mt-4">Racha Actual</p>
       </div>
 
-      <div className="bg-white p-8 rounded-xl border border-[#edeae3] shadow-luxury flex flex-col justify-between hover:shadow-luxury-hover transition-all duration-300">
-        <PieChart className="w-5 h-5 text-navy/30 mb-6" />
+      <div className="bg-cream p-8 rounded-xl border border-aubergine-dark/20 shadow-luxury flex flex-col justify-between hover:shadow-luxury-hover transition-all duration-300">
+        <PieChart className="w-5 h-5 text-aubergine-dark/30 mb-6" />
         <div className="flex h-4 w-full rounded-full overflow-hidden mt-2 border border-black/5">
           {Object.entries(moodCounts).map(([id, count]) => {
              const m = moods.find(x => x.id === id);
@@ -86,7 +86,7 @@ export function MoodStats() {
              return <div key={id} style={{ width, backgroundColor: m?.color }} title={`${m?.nombre}: ${count}`} />
           })}
         </div>
-        <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-navy/50 mt-4">Distribución (30d)</p>
+        <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-aubergine-dark/50 mt-4">Distribución (30d)</p>
       </div>
     </div>
   );

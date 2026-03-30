@@ -39,7 +39,14 @@ export default function LoginPage() {
         name: data.user?.user_metadata?.name || email.split("@")[0], 
       });
 
-      router.push("/dashboard");
+      const { useQuizStore } = await import("@/store/useQuizStore");
+      const isFinished = useQuizStore.getState().isFinished;
+      
+      if (isFinished) {
+        router.push("/test");
+      } else {
+        router.push("/dashboard");
+      }
       router.refresh();
     } else {
       setLoading(false);
@@ -48,10 +55,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-aubergine-dark flex flex-col items-center justify-center p-6 relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cream/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-cream/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
       
       <div className="w-full max-w-md z-10">
         <div className="text-center mb-10">
@@ -61,9 +68,9 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full">
-          <h1 className="text-2xl font-serif font-bold text-navy mb-2 text-center">Bienvenido de nuevo</h1>
-          <p className="text-navy/60 text-center text-sm mb-6">Conecta con tu estado interior hoy.</p>
+        <div className="bg-cream rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full">
+          <h1 className="text-2xl font-serif font-bold text-aubergine-dark mb-2 text-center">Bienvenido de nuevo</h1>
+          <p className="text-aubergine-dark/60 text-center text-sm mb-6">Conecta con tu estado interior hoy.</p>
 
           {error && (
             <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4 text-center">
@@ -73,21 +80,21 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-navy/50 mb-2">Email</label>
+              <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-2">Email</label>
               <input 
                 type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-navy/5 border border-navy/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-navy"
+                className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-aubergine-dark"
                 placeholder="tu@email.com"
               />
             </div>
             
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="block text-xs font-bold uppercase tracking-widest text-navy/50">Contraseña</label>
-                <Link href="#" className="text-xs text-navy/40 hover:text-navy transition-colors font-semibold">
+                <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50">Contraseña</label>
+                <Link href="#" className="text-xs text-aubergine-dark/40 hover:text-aubergine-dark transition-colors font-semibold">
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
@@ -96,7 +103,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full bg-navy/5 border border-navy/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-navy"
+                className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-navy/20 transition-all font-medium text-aubergine-dark"
                 placeholder="••••••••"
               />
             </div>
@@ -104,7 +111,7 @@ export default function LoginPage() {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full bg-navy text-white hover:bg-navy/90 py-4 rounded-xl font-bold shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2 mt-4 disabled:opacity-70"
+              className="w-full bg-aubergine-dark text-white hover:bg-aubergine-dark/90 py-4 rounded-xl font-bold shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2 mt-4 disabled:opacity-70"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -114,8 +121,8 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="text-center text-navy/60 text-sm mt-8 border-t border-navy/5 pt-8">
-            ¿No tienes cuenta? <Link href="/auth/register" className="font-bold text-navy hover:underline">Crear cuenta gratis</Link>
+          <p className="text-center text-aubergine-dark/60 text-sm mt-8 border-t border-aubergine-dark/5 pt-8">
+            ¿No tienes cuenta? <Link href="/auth/register" className="font-bold text-aubergine-dark hover:underline">Crear cuenta gratis</Link>
           </p>
         </div>
       </div>

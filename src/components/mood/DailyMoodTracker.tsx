@@ -46,7 +46,7 @@ export function DailyMoodTracker() {
   };
 
   return (
-    <div className="bg-white rounded-xl p-10 md:p-14 shadow-luxury border border-[#edeae3] relative overflow-hidden transition-all duration-500">
+    <div className="bg-cream rounded-xl p-10 md:p-14 shadow-luxury border border-aubergine-dark/20 relative overflow-hidden transition-all duration-500">
       
       {trackedMoodId && hasTrackedToday && !selectedMood && !showSuccess && (
         <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-[100px] opacity-[0.08] -mr-20 -mt-20 pointer-events-none" style={{ backgroundColor: moods.find(m => m.id === trackedMoodId)?.color }} />
@@ -68,8 +68,8 @@ export function DailyMoodTracker() {
             >
               <CheckCircle2 className="w-16 h-16 mb-8 text-gold mx-auto drop-shadow-sm" />
             </motion.div>
-            <h3 className="text-3xl font-serif text-navy mb-4">Registro Completo</h3>
-            <p className="text-navy/60 font-light text-lg">Tu microbioma te lo agradece.</p>
+            <h3 className="text-3xl font-serif text-aubergine-dark mb-4">Registro Completo</h3>
+            <p className="text-aubergine-dark/60 font-light text-lg">Tu microbioma te lo agradece.</p>
           </motion.div>
         ) : (
           <motion.div 
@@ -79,12 +79,12 @@ export function DailyMoodTracker() {
             exit={{ opacity: 0, scale: 0.95 }}
           >
             <div className="flex items-center gap-4 mb-10">
-              <div className="p-3 bg-[var(--background)] border border-[#edeae3] rounded-lg">
-                <CalendarPlus className="w-5 h-5 text-navy/40" />
+              <div className="p-3 bg-[var(--background)] border border-aubergine-dark/20 rounded-lg">
+                <CalendarPlus className="w-5 h-5 text-aubergine-dark/40" />
               </div>
               <div>
-                <h2 className="text-[11px] font-sans uppercase tracking-[0.2em] text-navy/50 mb-2">Check-in Diario</h2>
-                <p className="font-serif text-2xl md:text-3xl text-navy">
+                <h2 className="text-[11px] font-sans uppercase tracking-[0.2em] text-aubergine-dark/50 mb-2">Check-in Diario</h2>
+                <p className="font-serif text-2xl md:text-3xl text-aubergine-dark">
                   {hasTrackedToday ? "¿Ha cambiado tu estado hoy?" : "¿Cómo te sientes hoy?"}
                 </p>
               </div>
@@ -104,10 +104,10 @@ export function DailyMoodTracker() {
                     whileTap={{ scale: 0.98 }}
                     className={`relative w-full aspect-square rounded-xl flex flex-col items-center justify-center p-6 transition-all duration-300 border ${
                       isSelected 
-                        ? 'border-navy shadow-luxury' 
+                        ? 'border-aubergine-dark shadow-luxury' 
                         : isSavedToday
                         ? 'border-transparent shadow-sm'
-                        : 'border-[#edeae3] hover:border-navy/30 hover:shadow-luxury bg-[var(--background)]'
+                        : 'border-aubergine-dark/20 hover:border-aubergine-dark/30 hover:shadow-luxury bg-[var(--background)]'
                     }`}
                     style={{ 
                       backgroundColor: isSelected || isSavedToday ? mood.color : undefined,
@@ -118,14 +118,14 @@ export function DailyMoodTracker() {
                       {mood.emoji}
                     </span>
                     <span 
-                      className={`font-serif text-lg ${isSelected || isSavedToday ? 'text-navy' : 'text-navy/70'}`}
+                      className={`font-serif text-lg ${isSelected || isSavedToday ? 'text-aubergine-dark' : 'text-aubergine-dark/70'}`}
                     >
                       {mood.nombre}
                     </span>
                     
                     {isSelected && (
                       <motion.div
-                        className="absolute inset-0 rounded-xl bg-navy mix-blend-overlay"
+                        className="absolute inset-0 rounded-xl bg-aubergine-dark mix-blend-overlay"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: [0, 0.05, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}

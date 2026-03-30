@@ -11,8 +11,8 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-transparent bg-navy text-cream hover:bg-navy/80 dark:bg-cream dark:text-navy dark:hover:bg-cream/80",
-        outline: "text-foreground border-navy/20 dark:border-cream/20",
+        default: "border-transparent bg-aubergine-dark text-cream hover:bg-aubergine-dark/80 dark:bg-cream dark:text-aubergine-dark dark:hover:bg-cream/80",
+        outline: "text-foreground border-aubergine-dark/20 dark:border-cream/20",
         gold: "border-transparent bg-gold/20 text-gold-foreground border-gold/50",
       },
       mood: {

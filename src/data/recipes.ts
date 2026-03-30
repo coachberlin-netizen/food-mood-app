@@ -23,6 +23,7 @@ export interface Recipe {
   scienceQR: string;
   tags: string[];
   imagePrompt: string;
+  image?: string;
   season: string[];
 }
 
@@ -56,6 +57,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Los gingeroles estimulan la termogénesis y aceleran la digestión.",
     tags: ["Despertar", "Metabolismo", "Probiótico"],
     imagePrompt: "Un vaso de chupito corto lleno de un líquido amarillo dorado vibrante con pequeñas burbujas, sobre una encimera de mármol negro con rodajas de limón fresco y jengibre al lado, luz dura oblicua de la mañana.",
+    image: "/images/recetas/r1.png",
     season: ["Todo el año"]
   },
   {
@@ -87,6 +89,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "El ácido acético de la kombucha modula la curva de glucosa post-comida.",
     tags: ["Crujiente", "Ligero", "Energía sostenida"],
     imagePrompt: "Una ensalada colorida de cítricos rosas y naranjas con hinojo blanco translúcido en un bol de cerámica rústica blanca plana, pistachos esparcidos, vinagreta dorada brillando, fotografía cenital minimalista.",
+    image: "/images/recetas/r2.png",
     season: ["Invierno", "Primavera"]
   },
   {
@@ -118,6 +121,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "La piperina aumenta drásticamente la absorción gástrica de nutrientes.",
     tags: ["Rápido", "Snack", "Dopamina"],
     imagePrompt: "Rebanada crujiente de pan de masa madre rústico con mantequilla derretida y miel dorada cayendo, salpicada de cáscara de limón amarilla brillante y pimienta negra gruesa, primerísimo plano texturizado.",
+    image: "/images/recetas/r3.png",
     season: ["Todo el año"]
   },
 
@@ -151,6 +155,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "El miso vivo aporta bacterias que modulan el nervio simpático bajando la frecuencia cardíaca.",
     tags: ["Bálsamo", "Umami", "Cena"],
     imagePrompt: "Un cuenco de cerámica negra profunda humeante con caldo miso translúcido, diminutos y perfectos cubos de tofu sedoso blanco y finos anillos verdes de cebolleta en la superficie, luz tenue de cena cálida.",
+    image: "/images/recetas/r4.png",
     season: ["Otoño", "Invierno"]
   },
   {
@@ -182,6 +187,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "La cúrcuma unida a las grasas del ghee cruza la barrera intestinal eficientemente bajando marcadores proinflamatorios autonómicos.",
     tags: ["Ritual de noche", "Antiinflamatorio", "Emulsión"],
     imagePrompt: "Taza de cerámica artesanal gruesa sostenida por dos manos, llena de un líquido espeso, espumoso y amarillo dorado (leche dorada), salpicada de canela por encima, atmósfera de interior nocturno acogedor.",
+    image: "/images/recetas/r5.png",
     season: ["Todo el año"]
   },
   {
@@ -212,6 +218,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Los receptores GABA intestinales detectan apigenina e inducen relajación sistémica.",
     tags: ["Sedante herbal", "Sin teína", "Antes de dormir"],
     imagePrompt: "Una taza de cristal transparente que muestra una infusión de color amarillo ámbar suave, vapores de agua cálidos elevándose, un par de pequeñas flores púrpuras de lavanda enteras flotando, iluminación muy suave, relajante.",
+    image: "/images/recetas/r6.png",
     season: ["Todo el año"]
   },
 
@@ -245,6 +252,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "L-teanina + Cafeína (Matcha) generan ondas cerebrales alfa asociadas al hiper-foco calmo.",
     tags: ["Densidad", "Superalimentos", "Desayuno"],
     imagePrompt: "Un bol de desayuno redondo y liso color hueso lleno de un yogur grueso color verde matcha pastel, espolvoreado con nibs de cacao crudos oscuros y semillas de calabaza planas brillantes, arándanos azules regordetes a un lado, luz de estudio brillante.",
+    image: "/images/recetas/r7.png",
     season: ["Todo el año"]
   },
   {
@@ -276,6 +284,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Los alimentos amargos optimizan la digestión péptica reduciendo la niebla cerebral post-comida.",
     tags: ["Comida de trabajo", "Low-carb", "Ligero"],
     imagePrompt: "Plato de ensalada elegante con hojas de rúcula de color verde oscuro, barquillos de hojas de endivia pálida brillante, bastones muy finos de manzana crujiente verde y trozos dorados de nueces, bañado en una ligera vinagreta de limón, iluminación fresca brillante orientada de lado a lado.",
+    image: "/images/recetas/r8.png",
     season: ["Primavera", "Verano"]
   },
   {
@@ -306,6 +315,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Las antocianinas de arándanos salvajes mejoran transitoriamente el rendimiento ejecutivo frontal.",
     tags: ["Líquido", "Antioxidantes", "Rápido"],
     imagePrompt: "Un vaso alto lleno de un vibrante batido morado profundo perlado por la condensación fría en el cristal. Un par de arándanos congelados asoman por la superficie espesa. Luz dura cinematográfica moderna.",
+    image: "/images/recetas/r9.png",
     season: ["Todo el año"]
   },
 
@@ -338,6 +348,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Compartir comida rica en simbiontes baja la respuesta de amenaza en la amígdala vía conexión entérica.",
     tags: ["Picoteo", "Encuentro", "Pre+Probiótico"],
     imagePrompt: "Una rústica tabla de madera de olivo llena de humus cremoso con espirales de aceite de oliva virgen extra dorado, chispas rojas de pimentón brillante, rodeada por palitos de rábano de un vibrante color rosa magenta y crujientes panes de pita calientes rotos al azar. Luz dorada de atardecer, cenital.",
+    image: "/images/recetas/r10.png",
     season: ["Todo el año"]
   },
   {
@@ -369,6 +380,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Las burbujas estimulan terminaciones nerviosas digestivas aumentando la producción temprana de ácido clorhídrico y facilitando las digestiones pesadas.",
     tags: ["Bebida", "Celebración", "Aperitivo líquido"],
     imagePrompt: "En un vaso de cóctel corto clásico sobre una superficie festiva, un cubito de hielo cristalino extra grande flota rodeado de un líquido esfervescente rosa rojizo oscuro y una ramita muy verde de romero fresco sobresaliendo, con delicadas burbujitas ascendiendo y condensación lateral.",
+    image: "/images/recetas/r11.png",
     season: ["Verano", "Otoño"]
   },
   {
@@ -400,6 +412,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Los componentes del ajo rinden como potentes pre-bióticos y los polifenoles de la aceituna oscura combaten inflamación colateral.",
     tags: ["Bocado directo", "Intenso", "Salado"],
     imagePrompt: "Una crujiente bruschetta rectangular dorada en la parrilla generosamente cargada de tapenade grueso de aceitunas calamata moradas brillantes, trocitos de alcaparras verde pálido, y ralladura de limón amarillo canario fresca sobre la superficie superior con un fondo difuso del resto de la mesa y una copa a lo lejos, cálida luz natural.",
+    image: "/images/recetas/r12.png",
     season: ["Todo el año"]
   },
 
@@ -433,6 +446,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Activa enzimas glutatión permitiendo procesos eficientes de regeneración celular hepática nocturna.",
     tags: ["Ayuno", "Calor ligero", "Depurador"],
     imagePrompt: "Un austero y refinado caldo limpiador totalmente claro y reluciente en amarillo pajizo en un vaso grueso transparente, donde se puede ver el fondo. Humo asciende lentamente desde la superficie. Fondo oscuro y limpio, sensación clínica pero elegante y espiritual.",
+    image: "/images/recetas/r13.png",
     season: ["Invierno", "Primavera"]
   },
   {
@@ -463,6 +477,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Promueve alcalinidad plasmática a través de quelantes de ácidos débiles orgánicos e hidrata a nivel intracelular sin insulina.",
     tags: ["Temprano", "Líquido total", "Frescura extrema"],
     imagePrompt: "Un vaso extra alto lleno de agua transparente, iluminada a contraluz donde se ven largas y delicadas cintas retorcidas de pepino verde vibrante y una mínima rodaja circular de limón, con refracciones de luz espectaculares en el agua. Macro muy estético de hidratación pura.",
+    image: "/images/recetas/r14.png",
     season: ["Verano", "Primavera"]
   },
   {
@@ -494,6 +509,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "El efecto de rastreo mecánico por celulosa insoluble limpia los pliegues mucosos preparando base para absorción fina futura.",
     tags: ["Crudo vibrante", "Mediodía", "Vegano"],
     imagePrompt: "Un extravagante mosaico visual en bol cerámico: cintas finas pálidas de rábano y zanahoria cruzándose salvajemente con grandes trozos rojo carmesí-violeta de radicchio marmoleado y rubíes triangulares anaranjados brillantes de naranja sanguina, bañados de luz directa contrastada y atractiva, sobre fondo de granito gris.",
+    image: "/images/recetas/r15.png",
     season: ["Invierno", "Otoño"]
   },
 
@@ -526,6 +542,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Fermentos tipo Aka-miso concentran melanoidinas protectoras potentes que desinflaman tejidos de forma calmante y lenta.",
     tags: ["Abrazo cálido", "Invierno denso", "Mediodía o Cena"],
     imagePrompt: "En un tazón rústico de cerámica marrón tierra moteada, un denso, oscuro líquido rojo opaco de miso enmarca pedazos irregulares supertiernos de moniato color naranja quemado hundidos. Un hilo minúsculo de de sésamo dorado brilla. Fotografía hogareña y de cerca que huele cálido y acogedor.",
+    image: "/images/recetas/r16.png",
     season: ["Invierno", "Otoño"]
   },
   {
@@ -554,6 +571,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Las grasas estables untadas sobre los almidones pre-digeridos envían endorfinas protectoras del eje recompensa cerebral apagando alarma visceral.",
     tags: ["Placer instantáneo", "Recarga emocional", "Grasas amigas"],
     imagePrompt: "Miga extra alveolada rústica tostada intensivamente exhibiendo islas amarillas muy brillantes semiderretidas de mantequilla fermentada y cristales reflectantes miniatura y texturados de sal marina arriba. Enfoque hiper detalista e hiper estético de panadería gourmet en luz lateral rica de cocina interior tradicional.",
+    image: "/images/recetas/r17.png",
     season: ["Todo el año"]
   },
   {
@@ -584,6 +602,7 @@ export const recipesData: Recipe[] = [
     scienceQR: "Las fibras mas espesas celulósicas asadas lenta y grasamente crean la perfecta matriz pre-biótica calmante para el lecho del microbioma final de larga digestión.",
     tags: ["Plato Lento", "Para el Alma", "Densidad vegetal asada"],
     imagePrompt: "Una bandeja rústica de acero u horno oscura conteniendo gruesos e irregulares vegetales de raíz rústicos y terrosos muy dorados y en un borde glaseados brillantes con sirope espeso muy oscuro. Se ve tomillo chamuscado rústico. Una sensación visual cálida e irresistible de asado dominguero orgánico y moderno.",
+    image: "/images/recetas/r18.png",
     season: ["Invierno", "Otoño"]
   }
 ];

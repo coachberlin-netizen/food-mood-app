@@ -71,7 +71,7 @@ export function WaitlistForm({ className = "" }: { className?: string }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full bg-white/10 border border-navy/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-navy dark:text-white placeholder-navy/40 dark:placeholder-white/40"
+                className="w-full bg-cream/10 border border-aubergine-dark/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-aubergine-dark dark:text-white placeholder-navy/40 dark:placeholder-white/40"
                 placeholder="Tu nombre"
               />
               <input 
@@ -79,18 +79,18 @@ export function WaitlistForm({ className = "" }: { className?: string }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-white/10 border border-navy/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-navy dark:text-white placeholder-navy/40 dark:placeholder-white/40"
+                className="w-full bg-cream/10 border border-aubergine-dark/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-aubergine-dark dark:text-white placeholder-navy/40 dark:placeholder-white/40"
                 placeholder="tu@email.com"
               />
             </div>
             <button 
               type="submit"
               disabled={loading}
-              className="w-full bg-amber-400 text-navy hover:bg-amber-300 py-3 rounded-xl font-bold shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2 disabled:opacity-70"
+              className="w-full bg-amber-400 text-aubergine-dark hover:bg-amber-300 py-3 rounded-xl font-bold shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2 disabled:opacity-70"
             >
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Unirme a la lista de espera <Send className="w-4 h-4" /></>}
             </button>
-            <p className="text-center text-xs text-navy/60 dark:text-white/60 font-medium mt-2">
+            <p className="text-center text-xs text-aubergine-dark/60 dark:text-white/60 font-medium mt-2">
               Únete a las <strong className="text-amber-500">{waitlistCount !== null ? waitlistCount : '...'} personas</strong> que ya están en la lista.
             </p>
           </motion.form>

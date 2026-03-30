@@ -26,18 +26,18 @@ export default async function AdminWaitlistPage() {
 
   if (!isAdminOrAuthorized) {
     return (
-      <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-6">
-        <div className="bg-white rounded-2xl p-8 max-w-sm w-full">
-          <h1 className="text-2xl font-serif text-navy font-bold text-center mb-6">Admin Login</h1>
+      <div className="min-h-screen bg-aubergine-dark flex flex-col items-center justify-center p-6">
+        <div className="bg-cream rounded-2xl p-8 max-w-sm w-full">
+          <h1 className="text-2xl font-serif text-aubergine-dark font-bold text-center mb-6">Admin Login</h1>
           <form action={verifyPassword} className="space-y-4">
             <input 
               type="password" 
               name="password"
               placeholder="Admin Password"
-              className="w-full bg-navy/5 border border-navy/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-navy/20"
+              className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-navy/20"
               required 
             />
-            <button type="submit" className="w-full bg-navy text-white py-3 rounded-xl font-bold">
+            <button type="submit" className="w-full bg-aubergine-dark text-white py-3 rounded-xl font-bold">
               Unlock
             </button>
           </form>
@@ -84,9 +84,9 @@ export default async function AdminWaitlistPage() {
     <div className="min-h-screen bg-gray-50 p-6 md:p-12">
       <div className="max-w-6xl mx-auto space-y-8">
         
-        <header className="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <header className="flex justify-between items-center bg-cream p-6 rounded-2xl shadow-sm border border-gray-100">
           <div>
-            <h1 className="text-2xl font-bold text-navy">Waitlist Dashboard</h1>
+            <h1 className="text-2xl font-bold text-aubergine-dark">Waitlist Dashboard</h1>
             <p className="text-sm text-gray-500 mt-1">Total Signups: {waitlist?.length || 0}</p>
           </div>
           <div className="flex items-center gap-4">
@@ -98,14 +98,14 @@ export default async function AdminWaitlistPage() {
               <Download className="w-4 h-4" /> Export CSV
             </a>
             <form action={logout}>
-              <button type="submit" className="text-gray-500 hover:text-navy p-2 bg-gray-100 rounded-lg">
+              <button type="submit" className="text-gray-500 hover:text-aubergine-dark p-2 bg-gray-100 rounded-lg">
                 <LogOut className="w-5 h-5" />
               </button>
             </form>
           </div>
         </header>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-cream rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>

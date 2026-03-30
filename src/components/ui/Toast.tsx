@@ -16,9 +16,9 @@ export function Toast({ id, message, type = "default", onClose }: ToastProps) {
   }, [id, onClose])
 
   const colors = {
-    default: "bg-navy text-cream dark:bg-cream dark:text-navy",
-    success: "bg-sage text-navy",
-    error: "bg-coral text-navy",
+    default: "bg-aubergine-dark text-cream dark:bg-cream dark:text-aubergine-dark",
+    success: "bg-sage text-aubergine-dark",
+    error: "bg-coral text-aubergine-dark",
   }
 
   return (

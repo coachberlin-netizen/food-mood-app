@@ -19,7 +19,7 @@ export function QuizStep({ question }: { question: QuizQuestion }) {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="w-full flex flex-col items-center justify-center flex-1"
     >
-      <h2 className="text-3xl md:text-6xl font-serif text-navy mb-16 text-center tracking-tight leading-[1.2]">
+      <h2 className="text-3xl md:text-6xl font-serif text-aubergine-dark mb-16 text-center tracking-tight leading-[1.2]">
         {question.question}
       </h2>
 

@@ -34,6 +34,8 @@ export const quizData: QuizQuestion[] = [
       { text: "Disperso/a, me cuesta concentrarme", points: [{ mood: "focus", points: 2 }] },
       { text: "Solo/a, me apetece compañía", points: [{ mood: "social", points: 2 }] },
       { text: "Agotado/a emocionalmente", points: [{ mood: "confort", points: 2 }, { mood: "reset", points: 1 }] },
+      { text: "Bien, con energía positiva", points: [{ mood: "activacion", points: 2 }] },
+      { text: "Tranquilo/a y en calma", points: [{ mood: "calma", points: 2 }] },
     ]
   },
   {
