@@ -25,6 +25,7 @@ export function QuizResult() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [aiRecipe, setAiRecipe] = useState<any>(null)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [aiError, setAiError] = useState<string | null>(null)
 
   const mood = moods.find(m => m.id === resultMoodId)
 
@@ -185,8 +186,8 @@ export function QuizResult() {
               if (!res.ok) throw new Error(data.error)
               setAiRecipe(data)
               setIsFavorite(false)
-            } catch (err) {
-              alert("Uh oh, la conexión con Claude ha fallado. Intenta de nuevo.")
+            } catch (err: any) {
+              setAiError('Error conectando con Claude. Intenta de nuevo.')
               console.error(err)
             } finally {
               setIsGenerating(false)
@@ -206,7 +207,18 @@ export function QuizResult() {
           )}
           </button>
           )}
-          {!isAuthenticated && !aiRecipe && (
+          {aiError && (
+          <div className="w-full mt-3 p-4 rounded-xl bg-red-50 border border-red-200 flex flex-col items-center gap-3">
+            <p className="text-sm text-red-700 text-center font-light">⚠️ {aiError}</p>
+            <button
+              onClick={() => { setAiError(null) }}
+              className="text-xs font-sans text-red-600 hover:text-red-800 underline transition-colors"
+            >
+              Reintentar
+            </button>
+          </div>
+        )}
+        {!isAuthenticated && !aiRecipe && (
             <Link href="/auth/register" className="text-xs text-aubergine-dark/60 mt-3 font-sans hover:text-aubergine-dark transition-colors text-center w-full">
               Crea cuenta para recetas sin repetir cada día →
             </Link>

@@ -163,8 +163,11 @@ export default function DashboardPage() {
             Food<span className="text-[#C9A84C]">·</span>Mood
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-aubergine-dark leading-[1.15]">
-            Hola, {user?.name?.split(' ')[0] || "Viajero"}. ¿Qué te apetece hoy?
+            Bienvenido, {user?.name?.split(' ')[0] || "alma inquieta"}. Todo empieza por escucharte.
           </h1>
+                      <p className="text-base text-aubergine/60 font-sans font-light mt-2 max-w-xl leading-relaxed">
+                                    Variedad y salud para tu microbiota, una receta con propósito a la vez.
+                                                </p>
           <div className="flex items-center gap-4 mt-6">
             <div className="h-px bg-[#C9A84C] opacity-40 w-16"></div>
             <p className="text-aubergine/80 font-serif font-light italic tracking-wide">
