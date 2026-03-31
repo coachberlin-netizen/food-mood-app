@@ -30,24 +30,29 @@ export default function Home() {
     <main ref={containerRef} className="min-h-screen bg-[var(--background)] overflow-hidden font-sans font-light">
       
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center items-center px-6 pt-32 pb-24">
+      <section className="relative min-h-[90vh] flex flex-col justify-center items-center px-6 pt-32 pb-24 bg-aubergine">
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
           <motion.div 
             initial="hidden" animate="visible" variants={staggerContainer}
             className="space-y-12 flex flex-col items-center"
           >
             <motion.div variants={fadeIn} className="text-[11px] font-sans tracking-[0.2em] uppercase text-gold">
-              Escucha a tu cuerpo
+              ESCUCHA A TU CUERPO
             </motion.div>
             
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream leading-[1.2] md:leading-[1.1] tracking-tight">
-              Tu intestino lleva<br/>
-              toda la vida hablando.<br/>
-              <span className="italic font-light text-cream/80">Por fin alguien lo escucha.</span>
-            </motion.h1>
+            <div className="space-y-6">
+              <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream leading-[1.2] md:leading-[1.1] tracking-tight">
+                Recetas que te cambian el humor.<br/>
+                <span className="italic font-light text-cream/80">Cada una tiene un porqué.</span>
+              </motion.h1>
+              
+              <motion.p variants={fadeIn} className="text-2xl md:text-3xl text-[#F5F0E8] text-center font-serif">
+                Y está increíblemente buena.
+              </motion.p>
+            </div>
             
-            <motion.p variants={fadeIn} className="text-lg md:text-xl text-cream/80 max-w-2xl leading-[1.8] font-sans">
-              Descubre qué estado de ánimo eres ahora mismo y qué comer para equilibrarte. Puro sabor, puro placer, cero restricciones.
+            <motion.p variants={fadeIn} className="text-base text-cream/70 max-w-md mx-auto text-center leading-[1.8] font-sans">
+              Descubre qué necesita tu cuerpo ahora mismo y recibe recetas diseñadas para equilibrarte. Puro placer. Cero restricciones.
             </motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-6 items-center pt-8 w-full justify-center">
