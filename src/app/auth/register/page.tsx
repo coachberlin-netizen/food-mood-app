@@ -11,7 +11,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [joinWaitlist, setJoinWaitlist] = useState(true);
+  
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -51,15 +51,10 @@ export default function RegisterPage() {
         if (profileError) {
           console.error("Error creating profile:", profileError);
         }
-
-        // Add to waitlist if checked
-        if (joinWaitlist) {
-          await supabase.from("waitlist").insert({ email, name });
-        }
       }
 
       // Update the legacy store as well for components still relying on it
-      setAuthStoreRegister({ email, name }, joinWaitlist);
+      setAuthStoreRegister({ email, name }, false);
 
       // Tras registro manda al test
       router.push("/test");
@@ -132,18 +127,7 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="pt-2 space-y-3">
-              <label className="flex items-start gap-3 cursor-pointer group">
-                <input 
-                  type="checkbox" 
-                  checked={joinWaitlist}
-                  onChange={(e) => setJoinWaitlist(e.target.checked)}
-                  className="mt-1 w-5 h-5 rounded border-aubergine-dark/20 text-aubergine-dark focus:ring-navy/30 bg-aubergine-dark/5"
-                />
-                <span className="text-sm text-aubergine-dark/70 group-hover:text-aubergine-dark transition-colors">
-                  <strong>Quiero unirme a la lista de espera</strong> para acceso anticipado a la app móvil.
-                </span>
-              </label>
+            <div className="pt-2">
 
               <label className="flex items-start gap-3 cursor-pointer group">
                 <input 
