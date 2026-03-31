@@ -47,8 +47,7 @@ export async function middleware(request: NextRequest) {
           const url = request.nextUrl.clone()
               url.pathname = '/test'
                   return NextResponse.redirect(url)
-                    }
-    }
+    }                  
 
   // Basic password protection for admin can be handled within the page itself
   // so we don't necessarily block it here unless we implement full admin auth.
