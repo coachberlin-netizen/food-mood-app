@@ -28,7 +28,7 @@ Responde SOLO JSON puro (sin markdown, sin bloques de código, solo el objeto JS
 }`;
 
   const msg = await client.messages.create({
-    model: 'claude-3-haiku-20240307',
+    model: 'claude-3-5-haiku-20241022',
     max_tokens: 1500,
     temperature: 0.7,
     messages: [{role: 'user', content: prompt}]
