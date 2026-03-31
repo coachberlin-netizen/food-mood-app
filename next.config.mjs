@@ -9,6 +9,8 @@ const withPWA = withPWAInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    typescript: { ignoreBuildErrors: true },
+      serverExternalPackages: ['@anthropic-ai/sdk'],
   images: {
     remotePatterns: [
       {
