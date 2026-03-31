@@ -260,7 +260,7 @@ export default function DashboardPage() {
                         <Lock className="w-6 h-6 text-[#C9A84C]" />
                         <span className="font-serif text-lg">Desbloquea Premium</span>
                         <span className="text-xs font-light text-white/70 uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full">
-                          $4.99 / mes
+                          9€ / mes
                         </span>
                       </button>
                     </div>
