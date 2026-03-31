@@ -200,7 +200,7 @@ export function QuizResult() {
             </>
           ) : (
             <>
-              Generar con la IA de Food·Mood
+              IA entrenada por el equipo Food·Mood
               <Sparkles className="ml-3 w-5 h-5 text-[#D4AF37]" />
             </>
           )}
