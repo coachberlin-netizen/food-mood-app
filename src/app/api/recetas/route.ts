@@ -57,6 +57,12 @@ export async function GET(req: NextRequest) {
       )
     }
 
+    // Filter by premium_level (0=free, 2=michelin)
+    const premiumLevel = searchParams.get('premium_level')
+    if (premiumLevel !== null) {
+      query = query.eq('premium_level', parseInt(premiumLevel, 10))
+    }
+
     // ── Pagination ────────────────────────────────────────────
     const from = (page - 1) * limit
     const to = from + limit - 1
