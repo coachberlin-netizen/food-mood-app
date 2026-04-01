@@ -7,7 +7,7 @@ import { useQuizStore } from "@/store/useQuizStore"
 import { useAuthStore } from "@/store/useAuthStore"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Share2, Bookmark, ArrowRight, BookOpen, Loader2, Sparkles } from "lucide-react"
+import { Share2, Bookmark, ArrowRight, BookOpen } from "lucide-react"
 import { WaitlistForm } from "@/components/auth/WaitlistForm"
 import { saveTestResultToSupabase } from "@/lib/supabase"
 import { createClient } from "@/lib/supabase/client"
@@ -22,10 +22,7 @@ export function QuizResult() {
   const [showResult, setShowResult] = useState(false)
   const [email, setEmail] = useState("")
   const [isSaving, setIsSaving] = useState(false)
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [aiRecipe, setAiRecipe] = useState<any>(null)
-  const [isFavorite, setIsFavorite] = useState(false)
-  const [aiError, setAiError] = useState<string | null>(null)
+
 
   const mood = moods.find(m => m.id === resultMoodId)
 
@@ -170,55 +167,7 @@ export function QuizResult() {
           <ArrowRight className="ml-3 w-5 h-5" />
         </button>
         <div className="w-full sm:flex-1 flex flex-col items-center">
-          {!aiRecipe && (
-          <button 
-            className="w-full py-5 text-lg font-light rounded-xl shadow-sm hover:shadow-md border border-[#D4AF37]/50 bg-cream text-aubergine-dark flex items-center justify-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={!isAuthenticated || isGenerating}
-          onClick={async () => {
-            try {
-              setIsGenerating(true)
-              const res = await fetch('/api/recipe/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ moodId: mood.id, moodName: mood.nombre, userEmail: user?.email })
-              })
-              const data = await res.json()
-              if (!res.ok) throw new Error(data.error)
-              setAiRecipe(data)
-              setIsFavorite(false)
-            } catch (err: any) {
-              setAiError('Error conectando con Claude. Intenta de nuevo.')
-              console.error(err)
-            } finally {
-              setIsGenerating(false)
-            }
-          }}
-        >
-          {isGenerating ? (
-            <>
-              <Loader2 className="mr-3 w-5 h-5 animate-spin text-[#D4AF37]" />
-              Creando alquimia...
-            </>
-          ) : (
-            <>
-              IA entrenada por el equipo Food·Mood
-              <Sparkles className="ml-3 w-5 h-5 text-[#D4AF37]" />
-            </>
-          )}
-          </button>
-          )}
-          {aiError && (
-          <div className="w-full mt-3 p-4 rounded-xl bg-red-50 border border-red-200 flex flex-col items-center gap-3">
-            <p className="text-sm text-red-700 text-center font-light">⚠️ {aiError}</p>
-            <button
-              onClick={() => { setAiError(null) }}
-              className="text-xs font-sans text-red-600 hover:text-red-800 underline transition-colors"
-            >
-              Reintentar
-            </button>
-          </div>
-        )}
-        {!isAuthenticated && !aiRecipe && (
+          {!isAuthenticated && (
             <Link href="/auth/register" className="text-xs text-aubergine-dark/60 mt-3 font-sans hover:text-aubergine-dark transition-colors text-center w-full">
               Crea cuenta para recetas sin repetir cada día →
             </Link>
@@ -226,72 +175,7 @@ export function QuizResult() {
         </div>
       </motion.div>
 
-      {/* Renderizado de la receta IA generada */}
-      {aiRecipe && (
-        <motion.div 
-          initial={{ opacity: 0, height: 0 }} 
-          animate={{ opacity: 1, height: 'auto' }} 
-          className="w-full bg-cream rounded-xl p-8 md:p-10 border border-[#D4AF37]/30 mt-8 shadow-sm text-left overflow-hidden relative"
-        >
-          <div className="absolute top-0 right-0 p-4">
-            <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#D4AF37]">Generada por Claude ✨</span>
-          </div>
-          <h2 className="text-3xl font-serif text-gray-900 mb-2 pr-16">{aiRecipe.title}</h2>
-          <p className="text-sm font-light italic text-gray-700 mb-6">&quot;{aiRecipe.tagline}&quot;</p>
-          
-          <div className="flex gap-4 mb-8 text-xs font-sans tracking-wide uppercase text-gray-800 flex-wrap">
-            <span className="bg-aubergine px-3 py-1 rounded-full border border-gray-200">⏱ {aiRecipe.prepTime} min</span>
-            <span className="bg-aubergine px-3 py-1 rounded-full border border-gray-200">📈 {aiRecipe.difficulty}</span>
-            <span className="bg-aubergine px-3 py-1 rounded-full border border-gray-200">🍽 {aiRecipe.servings} px</span>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-[11px] font-sans uppercase tracking-[0.2em] text-gray-900 mb-4 border-b border-gray-200 pb-2">Ingredientes</h3>
-              <ul className="space-y-2 text-gray-800 font-light text-sm">
-                {aiRecipe.ingredients?.map((ing: any, i: number) => (
-                  <li key={i} className="flex justify-between border-b border-gray-100 pb-1">
-                    <span className="text-gray-900">{ing.name}</span>
-                    <span className="font-medium text-gray-700">{ing.quantity}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-[11px] font-sans uppercase tracking-[0.2em] text-gray-900 mb-4 border-b border-gray-200 pb-2">Preparación</h3>
-              <ol className="space-y-4 text-gray-800 font-light text-sm list-decimal list-outside pl-4">
-                {aiRecipe.steps?.map((step: string, i: number) => (
-                  <li key={i} className="leading-relaxed pl-2 text-gray-800">{step}</li>
-                ))}
-              </ol>
-            </div>
-          </div>
-          
-          <div className="mt-8 bg-[#D4AF37]/5 p-5 rounded-xl text-sm font-light text-gray-800 italic border-l-2 border-[#D4AF37]">
-            🧠 {aiRecipe.foodMoodNote}
-          </div>
-
-          <div className="mt-6 flex justify-end">
-            <button
-              disabled={isFavorite}
-              onClick={async () => {
-                const supabase = createClient()
-                const { error } = await supabase
-                  .from('recipe_history')
-                  .update({ is_favorite: true })
-                  .eq('recipe_id', aiRecipe.id)
-                  
-                if (!error) setIsFavorite(true)
-              }}
-              className="px-6 py-2.5 rounded-full text-sm font-medium transition-colors border flex items-center gap-2
-                disabled:opacity-100 disabled:bg-[#D4AF37]/10 disabled:border-[#D4AF37] disabled:text-[#D4AF37]
-                hover:bg-cream hover:border-[#D4AF37] text-aubergine-dark border-aubergine-dark/20"
-            >
-               {isFavorite ? "❤️ Guardada en favoritas" : "🤍 Guardar como favorita"}
-            </button>
-          </div>
-        </motion.div>
-      )}
 
       {/* Redirección silenciosa si de alguna manera llegaron al result (sin Auth - ya protegido por TestPage, fallback opcional) */}
       {!isAuthenticated && (
