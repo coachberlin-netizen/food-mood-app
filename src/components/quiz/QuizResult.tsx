@@ -161,9 +161,9 @@ export function QuizResult() {
         <button 
           className="w-full sm:flex-1 py-5 text-lg font-light rounded-xl shadow-luxury hover:shadow-luxury-hover border border-transparent flex items-center justify-center transition-all duration-300"
           style={{ backgroundColor: mood.color, color: "#fff" }}
-          onClick={() => router.push(`/recetas?mood=${mood.id}`)}
+          onClick={() => router.push(`/resultado?mood=${mood.id}`)}
         >
-          Explorar recetario
+          Ver mi receta personalizada
           <ArrowRight className="ml-3 w-5 h-5" />
         </button>
         <div className="w-full sm:flex-1 flex flex-col items-center">

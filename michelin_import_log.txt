@@ -1,0 +1,49 @@
+﻿[dotenv@17.3.1] injecting env (7) from .env.local -- tip: ÔÜÖ´©Å  enable debug logging with { debug: true }
+­ƒôé Loading: C:\Users\coach\.gemini\antigravity\scratch\food-mood\public\data\food_mood_michelin_200.json
+Ô£à 200 Michelin recipes loaded (premium_level=2)
+­ƒÜÇ Inserting 200 recipes in 4 batches of 50...
+
+node :   ÔØî Batch 1/4 
+FAILED: new row for 
+relation "recetas" 
+violates check constraint 
+"recetas_grupo_edad_check"
+En línea: 1 Carácter: 1
++ node 
+importar_michelin.mjs 
+2>&1 | Out-File -FilePath 
+"C:\Users\coach\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (   
+   ÔØî Batch 1/4...upo_   
+ edad_check":String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+  ÔØî Batch 2/4 FAILED: 
+new row for relation 
+"recetas" violates check 
+constraint 
+"recetas_grupo_edad_check"
+  ÔØî Batch 3/4 FAILED: 
+new row for relation 
+"recetas" violates check 
+constraint 
+"recetas_grupo_edad_check"
+  ÔØî Batch 4/4 FAILED: 
+new row for relation 
+"recetas" violates check 
+constraint 
+"recetas_grupo_edad_check"
+
+========================================
+­ƒôè IMPORT COMPLETE
+   Ô£à Inserted: 0
+   ÔØî Errors: 4
+========================================
+
+­ƒöì Verification: SELECT count(*) WHERE premium_level=2 ÔåÆ 0

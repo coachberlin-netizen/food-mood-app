@@ -1,0 +1,166 @@
+﻿{
+    "recetas":  [
+                    {
+                        "id":  "FM-M4560-ACT-02501",
+                        "sexo":  "mujer",
+                        "grupo_edad":  "45-60",
+                        "nombre_es":  "Jengibre fresco FoodÂ·Mood",
+                        "nombre_en":  "Activator with pomelo rosa",
+                        "mood_es":  "ActivaciÃ³n \u0026 EnergÃ­a",
+                        "mood_en":  "Activation \u0026 Energy",
+                        "capitulo":  1,
+                        "contexto_es":  "ActivaciÃ³n \u0026 EnergÃ­a â bowl de activaciÃ³n",
+                        "contexto_en":  "Activation \u0026 Energy â parfait de kÃ©fir",
+                        "base_acida":  "vinagre de kombucha de tÃ© verde (10 ml)",
+                        "ingredientes_es":  [
+                                                "vinagre de kombucha de tÃ© verde (10 ml)",
+                                                "bergamota â 50 g",
+                                                "mandarina â 80 g",
+                                                "rÃºcula â 80 g",
+                                                "apio â 80 g",
+                                                "atÃºn fresco â 30 g",
+                                                "cacao crudo â 2 cdas",
+                                                "miel cruda de tomillo â 2 cdas"
+                                            ],
+                        "preparacion_es":  [
+                                               "Calienta el aceite con las especias hasta que aromen.",
+                                               "SofrÃ­e la proteÃ­na brevemente.",
+                                               "AÃ±ade las verduras crudas encima.",
+                                               "Emulsiona el vinagre con la miel.",
+                                               "Vierte el aliÃ±o. Come caliente."
+                                           ],
+                        "variantes_es":  [
+                                             "express (3 min): todo en el vaso",
+                                             "spa: reduce el Ã¡cido, aÃ±ade pepino y menta"
+                                         ],
+                        "nota_food_mood_es":  "La acidez del vinagre estimula la motilidad intestinal, clave para la sÃ­ntesis de neurotransmisores. El eje intestino-cerebro recibe su primera seÃ±al del dÃ­a: activaciÃ³n limpia sin inflamaciÃ³n. Especialmente indicada en la perimenopausia: activa el eje suprarrenal sin excitar el cortisol. Los Ã¡cidos vivos apoyan la absorciÃ³n de hierro y vitamina D, frecuentemente deficientes en esta etapa.",
+                        "qr_es":  "El vinagre de kombucha activa el nervio vago y estimula la producciÃ³n intestinal de serotonina. Fuente de energÃ­a limpia sin pico de cortisol. Tu eje intestino-cerebro empieza el dÃ­a en modo activo.",
+                        "qr_en":  "El vinagre de kombucha activa el nervio vago y estimula la producciÃ³n intestinal de serotonina. Fuente de energÃ­a limpia sin pico de cortisol. Tu eje intestino-cerebro empieza el dÃ­a en modo activo.",
+                        "tags":  [
+                                     "cap1",
+                                     "activacion",
+                                     "hedonista",
+                                     "kombucha",
+                                     "45-60",
+                                     "antiinflamatorio",
+                                     "mujer",
+                                     "probiÃ³tico"
+                                 ],
+                        "tiempo_preparacion_min":  25,
+                        "dificultad":  "media",
+                        "temporada":  "otoÃ±o-invierno",
+                        "tipo_plato":  "shot activador",
+                        "created_at":  "2026-04-01T13:56:22.965283+00:00",
+                        "fts":  "\u002710\u0027:13 \u0027activ\u0027:6 \u0027food\u0027:3 \u0027fresc\u0027:2 \u0027jengibr\u0027:1 \u0027kombuch\u0027:9 \u0027ml\u0027:14 \u0027mood\u0027:4 \u0027shot\u0027:5 \u0027te\u0027:11 \u0027verd\u0027:12 \u0027vinagr\u0027:7"
+                    },
+                    {
+                        "id":  "FM-M4560-ACT-02502",
+                        "sexo":  "mujer",
+                        "grupo_edad":  "45-60",
+                        "nombre_es":  "Amanecer â yuzu",
+                        "nombre_en":  "Boost with jengibre fresco",
+                        "mood_es":  "ActivaciÃ³n \u0026 EnergÃ­a",
+                        "mood_en":  "Activation \u0026 Energy",
+                        "capitulo":  1,
+                        "contexto_es":  "ActivaciÃ³n \u0026 EnergÃ­a â parfait de kÃ©fir",
+                        "contexto_en":  "Activation \u0026 Energy â zumo prensado en frÃ­o",
+                        "base_acida":  "vinagre de manzana crudo con madre (1 cdta)",
+                        "ingredientes_es":  [
+                                                "vinagre de manzana crudo con madre (1 cdta)",
+                                                "limÃ³n â 80 g",
+                                                "bergamota â 80 g",
+                                                "alcachofa â 30 g",
+                                                "escarola â 30 g",
+                                                "queso de cabra â 30 g",
+                                                "miel cruda de tomillo â 1 cda",
+                                                "semillas de chÃ­a â 1 cdta"
+                                            ],
+                        "preparacion_es":  [
+                                               "Tritura el jengibre y el cÃ­trico con el vinagre de kombucha.",
+                                               "Filtra y reserva el lÃ­quido activador.",
+                                               "DispÃ³n la base en el plato.",
+                                               "AÃ±ade la proteÃ­na y los extras.",
+                                               "Corona con el lÃ­quido y flor de sal."
+                                           ],
+                        "variantes_es":  [
+                                             "vegan: reemplaza proteÃ­na animal por tempeh marinado",
+                                             "express (3 min): todo en el vaso"
+                                         ],
+                        "nota_food_mood_es":  "La acidez del vinagre estimula la motilidad intestinal, clave para la sÃ­ntesis de neurotransmisores. El eje intestino-cerebro recibe su primera seÃ±al del dÃ­a: activaciÃ³n limpia sin inflamaciÃ³n. Especialmente indicada en la perimenopausia: activa el eje suprarrenal sin excitar el cortisol. Los Ã¡cidos vivos apoyan la absorciÃ³n de hierro y vitamina D, frecuentemente deficientes en esta etapa.",
+                        "qr_es":  "El vinagre de kombucha activa el nervio vago y estimula la producciÃ³n intestinal de serotonina. Fuente de energÃ­a limpia sin pico de cortisol. Tu eje intestino-cerebro empieza el dÃ­a en modo activo.",
+                        "qr_en":  "El vinagre de kombucha activa el nervio vago y estimula la producciÃ³n intestinal de serotonina. Fuente de energÃ­a limpia sin pico de cortisol. Tu eje intestino-cerebro empieza el dÃ­a en modo activo.",
+                        "tags":  [
+                                     "cap1",
+                                     "activacion",
+                                     "hedonista",
+                                     "45-60",
+                                     "fermentado",
+                                     "adaptÃ³geno",
+                                     "mujer",
+                                     "vinagre_vivo"
+                                 ],
+                        "tiempo_preparacion_min":  40,
+                        "dificultad":  "media",
+                        "temporada":  "todo el aÃ±o",
+                        "tipo_plato":  "shot activador",
+                        "created_at":  "2026-04-01T13:56:22.965283+00:00",
+                        "fts":  "\u00271\u0027:11 \u0027activ\u0027:4 \u0027amanec\u0027:1 \u0027cdta\u0027:12 \u0027crud\u0027:8 \u0027madr\u0027:10 \u0027manzan\u0027:7 \u0027shot\u0027:3 \u0027vinagr\u0027:5 \u0027yuzu\u0027:2"
+                    },
+                    {
+                        "id":  "FM-M4560-ACT-02503",
+                        "sexo":  "mujer",
+                        "grupo_edad":  "45-60",
+                        "nombre_es":  "TazÃ³n de desayuno activador",
+                        "nombre_en":  "Aurora â cÃºrcuma fresca",
+                        "mood_es":  "ActivaciÃ³n \u0026 EnergÃ­a",
+                        "mood_en":  "Activation \u0026 Energy",
+                        "capitulo":  1,
+                        "contexto_es":  "ActivaciÃ³n \u0026 EnergÃ­a â tazÃ³n de desayuno",
+                        "contexto_en":  "Activation \u0026 Energy â bowl de activaciÃ³n",
+                        "base_acida":  "vinagre de manzana crudo con madre (1 cdta)",
+                        "ingredientes_es":  [
+                                                "vinagre de manzana crudo con madre (1 cdta)",
+                                                "bergamota â 100 g",
+                                                "pomelo rosa â 100 g",
+                                                "rÃºcula â 100 g",
+                                                "endivias â 80 g",
+                                                "tempeh marinado â 30 g",
+                                                "semillas de chÃ­a â 1 cda",
+                                                "pimienta negra â Â½ cdta"
+                                            ],
+                        "preparacion_es":  [
+                                               "Tritura el jengibre y el cÃ­trico con el vinagre de kombucha.",
+                                               "Filtra y reserva el lÃ­quido activador.",
+                                               "DispÃ³n la base en el plato.",
+                                               "AÃ±ade la proteÃ­na y los extras.",
+                                               "Corona con el lÃ­quido y flor de sal."
+                                           ],
+                        "variantes_es":  [
+                                             "express (3 min): todo en el vaso",
+                                             "spa: reduce el Ã¡cido, aÃ±ade pepino y menta"
+                                         ],
+                        "nota_food_mood_es":  "El vinagre de kombucha activa el nervio vago y estimula la producciÃ³n intestinal de serotonina, iniciando el dÃ­a desde el eje intestino-cerebro. Fuente de energÃ­a limpia sin pico de cortisol. Especialmente indicada en la perimenopausia: activa el eje suprarrenal sin excitar el cortisol. Los Ã¡cidos vivos apoyan la absorciÃ³n de hierro y vitamina D, frecuentemente deficientes en esta etapa.",
+                        "qr_es":  "El vinagre de kombucha activa el nervio vago y estimula la producciÃ³n intestinal de serotonina. Fuente de energÃ­a limpia sin pico de cortisol. Tu eje intestino-cerebro empieza el dÃ­a en modo activo.",
+                        "qr_en":  "El vinagre de kombucha activa el nervio vago y estimula la producciÃ³n intestinal de serotonina. Fuente de energÃ­a limpia sin pico de cortisol. Tu eje intestino-cerebro empieza el dÃ­a en modo activo.",
+                        "tags":  [
+                                     "cap1",
+                                     "activacion",
+                                     "45-60",
+                                     "kombucha",
+                                     "prebiÃ³tico",
+                                     "adaptÃ³geno",
+                                     "mujer",
+                                     "vinagre_vivo"
+                                 ],
+                        "tiempo_preparacion_min":  8,
+                        "dificultad":  "media",
+                        "temporada":  "primavera-verano",
+                        "tipo_plato":  "bowl de activaciÃ³n",
+                        "created_at":  "2026-04-01T13:56:22.965283+00:00",
+                        "fts":  "\u00271\u0027:14 \u0027activ\u0027:4,7 \u0027bowl\u0027:5 \u0027cdta\u0027:15 \u0027crud\u0027:11 \u0027desayun\u0027:3 \u0027madr\u0027:13 \u0027manzan\u0027:10 \u0027tazon\u0027:1 \u0027vinagr\u0027:8"
+                    }
+                ],
+    "total":  1250,
+    "page":  1,
+    "totalPages":  417
+}
