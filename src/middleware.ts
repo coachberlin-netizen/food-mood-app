@@ -35,19 +35,14 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const isProtectedRoute = pathname.startsWith('/perfil');
   const isAdminRoute = pathname.startsWith('/admin');
-    const isRecetasRoute = pathname.startsWith('/recetas');
+  const isRecetasRoute = pathname.startsWith('/recetas');
 
+  // Redirect unauthenticated users from protected routes (not /recetas — that's public)
   if (isProtectedRoute && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
     return NextResponse.redirect(url)
   }
-
-    if (isRecetasRoute && !user) {
-          const url = request.nextUrl.clone()
-              url.pathname = '/test'
-                  return NextResponse.redirect(url)
-    }                  
 
   // Basic password protection for admin can be handled within the page itself
   // so we don't necessarily block it here unless we implement full admin auth.

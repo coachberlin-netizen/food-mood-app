@@ -62,8 +62,7 @@ export default function LoginPage() {
       
       <div className="w-full max-w-md z-10">
         <div className="text-center mb-10">
-          <Link href="/" className="inline-flex items-center justify-center gap-2 text-white">
-            <Leaf className="w-8 h-8 text-amber-300" />
+          <Link href="/" className="inline-flex items-center justify-center text-white">
             <span className="text-3xl font-serif font-bold tracking-tight">Food·Mood</span>
           </Link>
         </div>
