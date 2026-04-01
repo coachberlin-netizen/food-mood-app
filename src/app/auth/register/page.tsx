@@ -73,15 +73,14 @@ export default function RegisterPage() {
       
       <div className="w-full max-w-md z-10">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center justify-center gap-2 text-white">
-            <Leaf className="w-8 h-8 text-amber-300" />
+          <Link href="/" className="inline-flex items-center justify-center text-white">
             <span className="text-3xl font-serif font-bold tracking-tight">Food·Mood</span>
           </Link>
         </div>
 
         <div className="bg-cream rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full">
           <h1 className="text-2xl font-serif font-bold text-aubergine-dark mb-2 text-center">Empieza tu viaje</h1>
-          <p className="text-aubergine-dark/60 text-center text-sm mb-6">Entiende qué te pide tu intestino.</p>
+          <p className="text-aubergine-dark/60 text-center text-sm mb-6">Tus emociones te hablan. Empieza a escucharlas.</p>
 
           {error && (
             <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4 text-center">

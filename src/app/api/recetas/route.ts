@@ -1,0 +1,96 @@
+import { createClient } from '@supabase/supabase-js'
+import { NextRequest, NextResponse } from 'next/server'
+
+// Direct client for the recetas database
+// Uses the new Supabase project where the 10k recipes live
+const RECETAS_SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL!
+const RECETAS_SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = req.nextUrl
+
+    // ── Parse query params ────────────────────────────────────
+    const sexo = searchParams.get('sexo')          // "mujer" | "hombre"
+    const edad = searchParams.get('edad')           // "18-30" | "31-44" | "45-60" | "60+"
+    const mood = searchParams.get('mood')           // mood name string
+    const tiempo = searchParams.get('tiempo')       // max prep minutes
+    const temporada = searchParams.get('temporada') // season string
+    const q = searchParams.get('q')                 // free text search
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10))
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '24', 10)))
+
+    // ── Build Supabase query ──────────────────────────────────
+    const supabase = createClient(RECETAS_SUPABASE_URL, RECETAS_SUPABASE_KEY)
+
+    let query = supabase
+      .from('recetas')
+      .select('*', { count: 'exact' })
+
+    // Apply filters only when present
+    if (sexo) {
+      query = query.eq('sexo', sexo)
+    }
+
+    if (edad) {
+      query = query.eq('grupo_edad', edad)
+    }
+
+    if (mood) {
+      query = query.ilike('mood_es', `%${mood}%`)
+    }
+
+    if (tiempo) {
+      const maxMin = parseInt(tiempo, 10)
+      if (!isNaN(maxMin)) {
+        query = query.lte('tiempo_preparacion_min', maxMin)
+      }
+    }
+
+    if (temporada) {
+      query = query.ilike('temporada', `%${temporada}%`)
+    }
+
+    if (q) {
+      query = query.or(
+        `nombre_es.ilike.%${q}%,tipo_plato.ilike.%${q}%`
+      )
+    }
+
+    // ── Pagination ────────────────────────────────────────────
+    const from = (page - 1) * limit
+    const to = from + limit - 1
+
+    query = query
+      .order('id', { ascending: true })
+      .range(from, to)
+
+    // ── Execute ───────────────────────────────────────────────
+    const { data, error, count } = await query
+
+    if (error) {
+      console.error('Supabase query error:', error)
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      )
+    }
+
+    const total = count ?? 0
+    const totalPages = Math.ceil(total / limit)
+
+    return NextResponse.json({
+      recetas: data,
+      total,
+      page,
+      totalPages,
+    })
+
+  } catch (err) {
+    console.error('API /api/recetas error:', err)
+    return NextResponse.json(
+      { error: 'Error interno del servidor' },
+      { status: 500 }
+    )
+  }
+}

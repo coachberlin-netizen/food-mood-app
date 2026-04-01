@@ -48,9 +48,18 @@ export function RecipeDetail({ recipe }: { recipe: Recipe }) {
       <div 
         className="h-64 md:h-[400px] w-full flex items-end relative overflow-hidden bg-[#6B2737] shadow-inner"
       >
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="text-[12rem] md:text-[20rem] opacity-[0.04] select-none filter blur-sm leading-none mix-blend-overlay">{mood?.emoji}</span>
-        </div>
+        {recipe.image ? (
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span className="text-[12rem] md:text-[20rem] opacity-[0.04] select-none filter blur-sm leading-none mix-blend-overlay">{mood?.emoji}</span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#6B2737]/90 via-[#6B2737]/40 to-transparent" />
         
         <div className="max-w-4xl mx-auto w-full px-6 py-12 relative z-10 flex flex-col md:flex-row gap-8 justify-between items-end">
           <div>

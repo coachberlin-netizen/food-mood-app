@@ -163,11 +163,10 @@ export default function DashboardPage() {
             Food<span className="text-[#C9A84C]">·</span>Mood
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-aubergine-dark leading-[1.15]">
-            Bienvenido, {user?.name?.split(' ')[0] || "alma inquieta"}. Todo empieza por escucharte.
+            {isAuthenticated && user?.name
+              ? <>Hola, {user.name.split(' ')[0]}. ¿Qué te apetece hoy?</>
+              : <>Hola. ¿Qué te apetece hoy?</>}
           </h1>
-                      <p className="text-base text-aubergine/60 font-sans font-light mt-2 max-w-xl leading-relaxed">
-                                    Variedad y salud para tu microbiota, una receta con propósito a la vez.
-                                                </p>
           <div className="flex items-center gap-4 mt-6">
             <div className="h-px bg-[#C9A84C] opacity-40 w-16"></div>
             <p className="text-aubergine/80 font-serif font-light italic tracking-wide">
@@ -197,13 +196,32 @@ export default function DashboardPage() {
                   {taglines[currentMood.id] || currentMood.descripcion_corta}
                 </p>
               </div>
-              <Link
-                href="/test"
-                onClick={() => resetQuiz()}
-                className="inline-flex items-center justify-center px-10 py-4 border border-aubergine-dark/20 rounded-full text-aubergine-dark bg-cream/50 transition-all hover:bg-cream hover:border-[#C9A84C] font-medium text-sm tracking-wide shadow-sm"
-              >
-                ¿Cambió tu mood?
-              </Link>
+              <div className="flex flex-col gap-3 shrink-0">
+                <button
+                  onClick={() => {
+                    if (monthlyRecipe) {
+                      document.getElementById('receta-del-dia')?.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      handleGenerateTodayRecipe();
+                    }
+                  }}
+                  disabled={isGenerating || !isAuthenticated}
+                  className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-aubergine-dark text-white font-medium text-sm tracking-wide shadow-luxury hover:bg-aubergine transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isGenerating ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Creando...</>
+                  ) : (
+                    <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Receta del día</>
+                  )}
+                </button>
+                <Link
+                  href="/test"
+                  onClick={() => resetQuiz()}
+                  className="inline-flex items-center justify-center px-10 py-3 border border-aubergine-dark/20 rounded-full text-aubergine-dark/70 bg-transparent hover:bg-cream hover:border-[#C9A84C] hover:text-aubergine-dark font-light text-xs tracking-wide transition-all"
+                >
+                  ¿Cambió tu mood?
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -253,26 +271,29 @@ export default function DashboardPage() {
                     </div>
                   </div>
                   
-                  {/* Premium Lock Overlay */}
+                  {/* Subtle blur overlay – no per-card button */}
                   {!isPremium && (
-                    <div className="absolute inset-0 z-10 flex items-center justify-center p-6">
-                      <button className="flex flex-col items-center justify-center gap-3 w-full bg-aubergine-dark/95 backdrop-blur-md text-white p-6 rounded-2xl shadow-luxury hover:bg-aubergine-dark transition-colors border border-white/10">
-                        <Lock className="w-6 h-6 text-[#C9A84C]" />
-                        <span className="font-serif text-lg">Desbloquea Premium</span>
-                        <span className="text-xs font-light text-white/70 uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full">
-                          9€ / mes
-                        </span>
-                      </button>
-                    </div>
+                    <div className="absolute inset-0 z-10 bg-cream/10 backdrop-blur-[2px] rounded-[1.5rem]" />
                   )}
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Single CTA below the carousel */}
+          {!isPremium && (
+            <div className="flex flex-col items-center gap-3 pt-2">
+              <button className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-full bg-aubergine-dark text-white font-medium text-sm tracking-wide shadow-luxury hover:bg-aubergine transition-colors border border-white/10">
+                <Lock className="w-4 h-4 text-[#C9A84C]" />
+                Desbloquea Premium · $4.99 / mes
+              </button>
+              <p className="text-xs text-aubergine-dark/40 font-sans tracking-wide">Alta cocina funcional, sin límites</p>
+            </div>
+          )}
         </section>
 
         {/* 3. RECETA DEL DÍA / IA */}
-        <section className="flex flex-col gap-8">
+        <section id="receta-del-dia" className="flex flex-col gap-8 scroll-mt-8">
           <div className="flex items-center gap-4">
             <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
               Tu antojo para hoy
@@ -286,37 +307,79 @@ export default function DashboardPage() {
                 <Loader2 className="w-8 h-8 animate-spin" />
               </div>
             ) : monthlyRecipe ? (
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 h-full">
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-3xl md:text-4xl font-serif font-black text-gray-900 group-hover:text-[#C9A84C] transition-colors">
-                    {monthlyRecipe.title}
-                  </h3>
-                  <div className="flex items-center gap-6 text-sm text-gray-700 font-light mt-4 uppercase tracking-wider">
-                    <span className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
-                      {monthlyRecipe.prepTime} min
+              <div className="flex flex-col gap-8">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+                  <div className="flex flex-col gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3" /> Generada por tu IA Food·Mood
                     </span>
-                    <span className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
-                      {monthlyRecipe.difficulty}
-                    </span>
+                    <h3 className="text-3xl md:text-4xl font-serif font-black text-gray-900">
+                      {monthlyRecipe.title}
+                    </h3>
+                    {monthlyRecipe.tagline && (
+                      <p className="text-aubergine-dark/60 italic font-light text-base">&quot;{monthlyRecipe.tagline}&quot;</p>
+                    )}
+                    <div className="flex items-center gap-6 text-sm text-gray-700 font-light mt-2 uppercase tracking-wider">
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
+                        {monthlyRecipe.prepTime} min
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
+                        {monthlyRecipe.difficulty}
+                      </span>
+                      {monthlyRecipe.servings && (
+                        <span className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
+                          {monthlyRecipe.servings} px
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <Link
-                    href={`/recetas?mood=${currentMood.id}`}
-                    className="inline-flex items-center justify-center px-8 py-3 rounded-full border border-[#C9A84C]/50 text-aubergine-dark hover:bg-[#C9A84C] hover:border-[#C9A84C] hover:text-white transition-all font-light text-sm tracking-wide whitespace-nowrap shadow-sm"
-                  >
-                    Ver detalles
-                  </Link>
                   <button
                     onClick={handleToggleFavorite}
-                    className={`inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-sans font-medium transition-colors ${isFavorite ? 'text-red-500' : 'text-aubergine-dark/50 hover:text-aubergine-dark'}`}
+                    className={`inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-sans font-medium transition-colors shrink-0 ${isFavorite ? 'text-red-500' : 'text-aubergine-dark/50 hover:text-aubergine-dark'}`}
                   >
                     <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
                     {isFavorite ? 'Favorita' : 'Guardar'}
                   </button>
                 </div>
+
+                {/* Ingredientes + Pasos */}
+                {(monthlyRecipe.ingredients || monthlyRecipe.steps) && (
+                  <div className="grid md:grid-cols-2 gap-8 pt-6 border-t border-aubergine-dark/10">
+                    {monthlyRecipe.ingredients && (
+                      <div>
+                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/50 mb-4">Ingredientes</h4>
+                        <ul className="space-y-2">
+                          {monthlyRecipe.ingredients.map((ing: any, i: number) => (
+                            <li key={i} className="flex justify-between border-b border-aubergine-dark/10 pb-2 text-sm font-light text-aubergine-dark/80">
+                              <span>{ing.name}</span>
+                              <span className="font-medium text-aubergine-dark">{ing.quantity}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {monthlyRecipe.steps && (
+                      <div>
+                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/50 mb-4">Preparación</h4>
+                        <ol className="space-y-3 list-decimal list-outside pl-4">
+                          {monthlyRecipe.steps.map((step: string, i: number) => (
+                            <li key={i} className="text-sm font-light text-aubergine-dark/80 leading-relaxed pl-1">{step}</li>
+                          ))}
+                        </ol>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Food·Mood Note */}
+                {monthlyRecipe.foodMoodNote && (
+                  <div className="bg-[#C9A84C]/5 p-5 rounded-xl border-l-2 border-[#C9A84C] text-sm font-light text-aubergine-dark/80 italic">
+                    🧠 {monthlyRecipe.foodMoodNote}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center text-center gap-6">
