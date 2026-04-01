@@ -7,7 +7,7 @@ import { moods } from "@/data/moods";
 import { recipesData } from "@/data/recipes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Loader2, Sparkles, Heart, Lock } from "lucide-react";
+import { Loader2, Sparkles, Heart } from "lucide-react";
 
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
@@ -127,32 +127,7 @@ export default function DashboardPage() {
     { label: "Do", color: currentMood.color, hasData: true }, // Today
   ];
 
-  const isPremium = false; // Mock data for now
-
-  const michelinRecipes = [
-    {
-      id: "michelin-1",
-      title: "Tartar de remolacha con kombucha y trufa negra",
-      image: "https://images.unsplash.com/photo-1544025162-83155708cb8e?q=80&w=800&auto=format&fit=crop",
-      moodMatch: currentMood.nombre,
-      functionalBenefit: "Lion's Mane · Claridad mental"
-    },
-    {
-      id: "michelin-2",
-      title: "Consomé cristalino de hongos fermentados",
-      image: "https://images.unsplash.com/photo-1548943487-a2e4b43b584d?q=80&w=800&auto=format&fit=crop",
-      moodMatch: currentMood.nombre,
-      functionalBenefit: "Reishi · Modulación del estrés"
-    },
-    {
-      id: "michelin-3",
-      title: "Milhojas de tupinambo asado con emulsión de azafrán",
-      image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=800&auto=format&fit=crop",
-      moodMatch: currentMood.nombre,
-      functionalBenefit: "Prebióticos · Equilibrio microbiota"
-    }
-  ];
-
+  
   return (
     <div className="min-h-screen bg-transparent">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
@@ -226,70 +201,64 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* 2.5 MICHELIN RECIPES */}
+        {/* 2.5 SUBSCRIPTION BENEFITS */}
         <section className="flex flex-col gap-8">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest">
-                {!isPremium && <Lock className="w-3 h-3" />}
-                Premium
-              </span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-black text-aubergine-dark">
-              Alta cocina funcional
+          <div className="flex items-center gap-4">
+            <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
+              Tu plan Food·Mood
             </h2>
-            <p className="text-aubergine-dark/60 font-light text-sm md:text-base">
-              Recetas inspiradas en estrellas Michelin, diseñadas para tu mood
-            </p>
+            <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
           </div>
 
-          <div className="relative">
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:px-0 md:mx-0 scrollbar-hide">
-              {michelinRecipes.map((recipe, idx) => (
-                <div key={idx} className="relative shrink-0 w-[85vw] md:w-[340px] snap-center">
-                  <div className={`flex flex-col h-full bg-cream rounded-[1.5rem] border border-aubergine-dark/10 shadow-sm overflow-hidden transition-all ${!isPremium ? 'blur-sm opacity-90 select-none' : 'hover:shadow-md cursor-pointer'}`}>
-                    <div className="h-48 relative overflow-hidden">
-                      <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" />
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        <span className="px-3 py-1 bg-white/90 backdrop-blur text-aubergine-dark text-[10px] font-bold uppercase tracking-widest rounded-full shadow-sm">
-                          {recipe.moodMatch}
-                        </span>
-                      </div>
+          <div className="bg-gradient-to-br from-aubergine-dark via-aubergine to-aubergine-dark rounded-[1.5rem] p-10 md:p-14 relative overflow-hidden">
+            {/* Decorative glows */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A84C]/8 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-cream/3 rounded-full blur-3xl" />
+
+            <div className="relative flex flex-col gap-8">
+              <div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20 mb-4">
+                  <Sparkles className="w-3 h-3" /> Premium
+                </span>
+                <h3 className="text-2xl md:text-3xl font-serif font-bold text-cream/90 leading-snug mb-2">
+                  Un plan adecuado y variado para ti
+                </h3>
+                <p className="text-cream/40 font-light text-sm max-w-lg">
+                  Cada día una combinación nueva. Sin repeticiones, siempre adaptada a lo que tu cuerpo necesita.
+                </p>
+              </div>
+
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { icon: "🍽", text: "10.000 recetas sin repetirse", detail: "Variedad real para tu microbiota" },
+                  { icon: "⭐", text: "200 recetas Michelin-inspired", detail: "Alta cocina funcional exclusiva" },
+                  { icon: "🔬", text: "Filtros por mood, edad y sexo", detail: "Ciencia personalizada" },
+                  { icon: "❤️", text: "Favoritos ilimitados", detail: "Guarda las que más te gusten" },
+                ].map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-3.5 bg-cream/5 rounded-xl p-4 border border-cream/8">
+                    <span className="text-lg shrink-0 mt-0.5">{benefit.icon}</span>
+                    <div>
+                      <p className="text-sm font-medium text-cream/80">{benefit.text}</p>
+                      <p className="text-[11px] text-cream/35 font-light mt-0.5">{benefit.detail}</p>
                     </div>
-                    <div className="p-6 md:p-8 flex flex-col flex-1 gap-6">
-                      <span className="self-start text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] flex items-center gap-1.5 border-b border-[#C9A84C]/30 pb-1">
-                        <Sparkles className="w-3 h-3" /> Técnica Michelin
-                      </span>
-                      <h3 className="text-xl font-serif font-bold text-aubergine-dark leading-[1.3] min-h-[52px]">
-                        {recipe.title}
-                      </h3>
-                      <div className="mt-auto pt-6 border-t border-aubergine-dark/10">
-                        <span className="text-[11px] font-sans font-medium text-aubergine-dark/60 bg-aubergine-dark/5 px-3 py-1.5 rounded-lg border border-aubergine-dark/10 inline-block">
-                          {recipe.functionalBenefit}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Subtle blur overlay – no per-card button */}
-                  {!isPremium && (
-                    <div className="absolute inset-0 z-10 bg-cream/10 backdrop-blur-[2px] rounded-[1.5rem]" />
-                  )}
-                </div>
-              ))}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-col items-start gap-3">
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9A84C] hover:bg-[#b8953e] text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Suscríbete — 9€/mes
+                </Link>
+                <p className="text-[11px] text-cream/25 font-light">
+                  Cancela cuando quieras · Sin permanencia
+                </p>
+              </div>
             </div>
           </div>
-
-          {/* Single CTA below the carousel */}
-          {!isPremium && (
-            <div className="flex flex-col items-center gap-3 pt-2">
-              <button className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-full bg-aubergine-dark text-white font-medium text-sm tracking-wide shadow-luxury hover:bg-aubergine transition-colors border border-white/10">
-                <Lock className="w-4 h-4 text-[#C9A84C]" />
-                Desbloquea Premium · $4.99 / mes
-              </button>
-              <p className="text-xs text-aubergine-dark/40 font-sans tracking-wide">Alta cocina funcional, sin límites</p>
-            </div>
-          )}
         </section>
 
         {/* 3. RECETA DEL DÍA / IA */}
