@@ -1,42 +1,51 @@
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * POST /api/checkout
- * Creates a Stripe Checkout Session for the €9/month premium plan.
- * Redirects the user to Stripe's hosted checkout page.
+ * Creates a Stripe Checkout Session for the selected plan.
+ * Body: { plan: "monthly" | "quarterly" }
  */
-export async function POST() {
+export async function POST(req: NextRequest) {
   try {
+    const { plan } = await req.json()
+
+    // Select Price ID based on plan
+    const priceId =
+      plan === 'quarterly'
+        ? process.env.STRIPE_PRICE_ID_QUARTERLY
+        : process.env.STRIPE_PRICE_ID_MONTHLY || process.env.STRIPE_PRICE_ID
+
+    if (!priceId) {
+      console.error('[checkout] Missing Stripe Price ID for plan:', plan)
+      return NextResponse.json(
+        { error: 'Plan no configurado' },
+        { status: 500 }
+      )
+    }
+
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
-    // Build session params
-    const sessionParams: Parameters<typeof stripe.checkout.sessions.create>[0] = {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.food-mood.app'
+
+    // Build Stripe Checkout Session
+    const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
-      line_items: [
-        {
-          price: process.env.STRIPE_PRICE_ID!,
-          quantity: 1,
-        },
-      ],
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/recetas?upgraded=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/pricing`,
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${baseUrl}/dashboard?success=true`,
+      cancel_url: `${baseUrl}/pricing`,
       allow_promotion_codes: true,
       billing_address_collection: 'auto',
-    }
-
-    // If user is authenticated, prefill their email & link to their ID
-    if (user?.email) {
-      sessionParams.customer_email = user.email
-      sessionParams.metadata = { supabase_user_id: user.id }
-      sessionParams.subscription_data = {
-        metadata: { supabase_user_id: user.id },
-      }
-    }
-
-    const session = await stripe.checkout.sessions.create(sessionParams)
+      ...(user?.email && {
+        customer_email: user.email,
+        metadata: { supabase_user_id: user.id, plan },
+        subscription_data: {
+          metadata: { supabase_user_id: user.id, plan },
+        },
+      }),
+    })
 
     return NextResponse.json({ url: session.url })
   } catch (err) {

@@ -52,13 +52,33 @@ export default function PricingPage() {
     checkUser();
   }, []);
 
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
     if (!isAuthenticated) {
       window.location.href = `/login?redirect=/pricing`;
       return;
     }
-    // Authenticated free user → go to checkout
-    window.location.href = `/checkout?plan=${plan}`;
+    // Authenticated user → create Stripe Checkout Session
+    setIsCheckingOut(true);
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Error al conectar con el pasarela de pago.');
+        setIsCheckingOut(false);
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      alert('Error al conectar con el pasarela de pago.');
+      setIsCheckingOut(false);
+    }
   };
 
   if (!mounted) return null;
