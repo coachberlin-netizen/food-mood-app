@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Crown, Sparkles, Star, ChefHat } from "lucide-react";
+import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Crown, Sparkles, Star, ChefHat, Baby } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -64,7 +64,9 @@ interface Receta {
   premium_level?: number;
 }
 
-type TabId = 'recetas' | 'michelin';
+type TabId = 'recetas' | 'michelin' | 'kids';
+
+const KIDS_EDADES = ["3-7", "8-12", "13-17"] as const;
 
 interface ApiResponse {
   recetas: Receta[];
@@ -211,6 +213,67 @@ function MichelinCard({ receta, locked = false }: { receta: Receta; locked?: boo
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
+/* ── Kids Card ────────────────────────────────────────────────── */
+function KidsCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
+  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS[0];
+  const ageEmoji = receta.grupo_edad === '3-7' ? '🧒' : receta.grupo_edad === '8-12' ? '👦' : '🧑';
+
+  const card = (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={locked ? {} : { y: -4, boxShadow: "0 12px 32px rgba(99,102,241,0.12)" }}
+      transition={{ duration: 0.25 }}
+      className={`relative bg-gradient-to-br from-[#f0f4ff] to-[#fdf2f8] rounded-2xl border border-indigo-200/40 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
+        locked ? '' : 'cursor-pointer'
+      }`}
+    >
+      {/* Fun accent */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-violet-200/30 to-transparent rounded-full blur-2xl" />
+
+      {/* Top row: age badge + time */}
+      <div className="flex items-center justify-between mb-4 relative">
+        <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-600 border border-indigo-200/50">
+          {ageEmoji} {receta.grupo_edad} años
+        </span>
+        <span className="flex items-center gap-1 text-[11px] text-aubergine-dark/40 font-medium">
+          <Clock className="w-3 h-3" />
+          {receta.tiempo_preparacion_min} min
+        </span>
+      </div>
+
+      {/* Title */}
+      <h3 className="text-lg font-serif font-bold text-aubergine-dark/90 leading-snug mb-1.5 group-hover:text-indigo-600 transition-colors line-clamp-2">
+        {receta.nombre_es}
+      </h3>
+
+      {/* Mood pill */}
+      <div className="mt-auto pt-4 flex items-center gap-2">
+        <span
+          className="text-[10px] font-semibold px-2.5 py-1 rounded-lg capitalize"
+          style={{ color: mood.color, backgroundColor: mood.bg }}
+        >
+          {mood.emoji} {mood.id}
+        </span>
+        <span className="text-[10px] bg-aubergine-dark/5 text-aubergine-dark/40 px-2.5 py-1 rounded-lg capitalize">
+          {receta.tipo_plato}
+        </span>
+      </div>
+
+      {/* Lock overlay */}
+      {locked && (
+        <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center bg-white/70 backdrop-blur-[2px]">
+          <Lock className="w-6 h-6 text-indigo-400/50 mb-2" />
+          <span className="text-[11px] text-indigo-500/60 font-medium">Exclusivo Premium</span>
+        </div>
+      )}
+    </motion.div>
+  );
+
+  if (locked) return card;
+  return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
+}
+
 /* ── Main Content ────────────────────────────────────────────── */
 function RecetasContent() {
   const router = useRouter();
@@ -239,6 +302,13 @@ function RecetasContent() {
   const [michelinTotal, setMichelinTotal] = useState(0);
   const [isMichelinLoading, setIsMichelinLoading] = useState(false);
   const [michelinLoaded, setMichelinLoaded] = useState(false);
+
+  // ── Kids data ────────────────────────────────────────────────
+  const [kidsRecetas, setKidsRecetas] = useState<Receta[]>([]);
+  const [kidsTotal, setKidsTotal] = useState(0);
+  const [isKidsLoading, setIsKidsLoading] = useState(false);
+  const [kidsLoaded, setKidsLoaded] = useState(false);
+  const [kidsAge, setKidsAge] = useState<string>('');
 
   // ── User tier (free users see limited view) ─────────────────
   const [userTier, setUserTier] = useState<'free' | 'premium'>('free');
@@ -319,6 +389,24 @@ function RecetasContent() {
     }
   }, [activeTab, michelinLoaded]);
 
+  // ── Fetch Kids recipes when tab activates ─────────────────────
+  useEffect(() => {
+    if (activeTab === 'kids') {
+      setIsKidsLoading(true);
+      const params = new URLSearchParams({ premium_level: '1', limit: '100' });
+      if (kidsAge) params.set('edad', kidsAge);
+      fetch(`/api/recetas?${params.toString()}`)
+        .then(r => r.json())
+        .then((data: ApiResponse) => {
+          setKidsRecetas(data.recetas || []);
+          setKidsTotal(data.total || 0);
+          setKidsLoaded(true);
+        })
+        .catch(() => setKidsRecetas([]))
+        .finally(() => setIsKidsLoading(false));
+    }
+  }, [activeTab, kidsAge]);
+
   // ── Handlers ───────────────────────────────────────────────
   const resetFilters = () => {
     setSexo(""); setEdad(""); setMood(""); setTiempo(40); setQ(""); setPage(1);
@@ -374,7 +462,7 @@ function RecetasContent() {
           </motion.div>
 
           {/* ── Tab switcher ────────────────────────────────── */}
-          <div className="flex gap-1 mt-8 bg-aubergine-dark/5 rounded-xl p-1 max-w-xs">
+          <div className="flex gap-1 mt-8 bg-aubergine-dark/5 rounded-xl p-1 max-w-md">
             <button
               onClick={() => setActiveTab('recetas')}
               className={`flex-1 py-2.5 px-4 rounded-lg text-xs font-semibold uppercase tracking-widest transition-all duration-200 ${
@@ -384,6 +472,16 @@ function RecetasContent() {
               }`}
             >
               Recetas
+            </button>
+            <button
+              onClick={() => setActiveTab('kids')}
+              className={`flex-1 py-2.5 px-4 rounded-lg text-xs font-semibold tracking-widest transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                activeTab === 'kids'
+                  ? 'bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm'
+                  : 'text-aubergine-dark/40 hover:text-indigo-500/70'
+              }`}
+            >
+              <Baby className="w-3 h-3" /> Kids
             </button>
             <button
               onClick={() => setActiveTab('michelin')}
@@ -690,6 +788,112 @@ function RecetasContent() {
                     <Crown className="w-4 h-4" /> Premium — 9€/mes
                   </Link>
                 </motion.div>
+              )}
+            </>
+          )}
+        </section>
+      )}
+
+      {/* ═══════════════ KIDS & TEENS TAB ════════════════════════ */}
+      {activeTab === 'kids' && (
+        <section className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-10">
+          {/* Kids header */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-100 text-indigo-600 text-[10px] font-bold uppercase tracking-[0.15em] border border-indigo-200/50">
+                <Baby className="w-3 h-3" /> Kids & Teens
+              </span>
+              <span className="text-xs text-aubergine-dark/40 font-light">{kidsTotal} recetas para peques</span>
+            </div>
+            <p className="text-sm text-aubergine-dark/50 font-light max-w-xl leading-relaxed">
+              1.500 recetas diseñadas para niños y adolescentes. Snacks, desayunos y comidas pensadas para su desarrollo y bienestar emocional.
+            </p>
+
+            {/* Age group filter */}
+            <div className="flex gap-2 mt-5">
+              <button
+                onClick={() => setKidsAge('')}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all border ${
+                  kidsAge === ''
+                    ? 'bg-indigo-500 text-white border-indigo-500 shadow-sm'
+                    : 'bg-white text-aubergine-dark/60 border-aubergine-dark/15 hover:border-indigo-300'
+                }`}
+              >
+                Todos
+              </button>
+              {KIDS_EDADES.map(age => (
+                <button
+                  key={age}
+                  onClick={() => setKidsAge(prev => prev === age ? '' : age)}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all border ${
+                    kidsAge === age
+                      ? 'bg-indigo-500 text-white border-indigo-500 shadow-sm'
+                      : 'bg-white text-aubergine-dark/60 border-aubergine-dark/15 hover:border-indigo-300'
+                  }`}
+                >
+                  {age === '3-7' ? '🧒 3-7 años' : age === '8-12' ? '👦 8-12 años' : '🧑 13-17 años'}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Loading */}
+          {isKidsLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="bg-gradient-to-br from-[#f0f4ff] to-[#fdf2f8] rounded-2xl border border-indigo-200/30 p-6 animate-pulse">
+                  <div className="h-5 w-20 bg-indigo-100 rounded-full mb-4" />
+                  <div className="h-6 w-3/4 bg-indigo-50 rounded mb-2" />
+                  <div className="h-4 w-1/2 bg-indigo-50 rounded mb-6" />
+                  <div className="h-4 w-20 bg-indigo-50 rounded" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <>
+              {/* Kids grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <AnimatePresence mode="popLayout">
+                  {(tierLoaded && isFreeUser ? kidsRecetas.slice(0, 6) : kidsRecetas).map((receta, index) => (
+                    <KidsCard
+                      key={receta.id}
+                      receta={receta}
+                      locked={tierLoaded && isFreeUser && index >= 3}
+                    />
+                  ))}
+                </AnimatePresence>
+              </div>
+
+              {/* Free-user Kids CTA */}
+              {tierLoaded && isFreeUser && (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col items-center text-center mt-12 py-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-200/30"
+                >
+                  <Baby className="w-8 h-8 text-indigo-500 mb-4" />
+                  <h3 className="text-xl font-serif text-aubergine-dark mb-2">
+                    1.500 recetas para toda la familia
+                  </h3>
+                  <p className="text-sm text-aubergine-dark/50 font-light max-w-md mb-6">
+                    Snacks, desayunos y comidas diseñadas para el bienestar de tus hijos. Adaptadas por edad y mood.
+                  </p>
+                  <Link href="/pricing" className="inline-flex items-center gap-2 px-8 py-3.5 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-xl shadow-lg hover:shadow-xl transition-all">
+                    <Crown className="w-4 h-4" /> Premium — 9€/mes
+                  </Link>
+                </motion.div>
+              )}
+
+              {/* Empty state */}
+              {kidsRecetas.length === 0 && !isKidsLoading && (
+                <div className="flex flex-col items-center py-16 text-center">
+                  <div className="text-4xl mb-4">🍽</div>
+                  <p className="text-aubergine-dark/50 font-light">No hay recetas para este grupo de edad.</p>
+                </div>
               )}
             </>
           )}
