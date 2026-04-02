@@ -174,8 +174,8 @@ export default function Home() {
       <section className="py-32 md:py-48 overflow-hidden bg-[var(--background)]">
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-cream/50 mb-6">El Mapa Emocional</h2>
-            <h3 className="text-4xl md:text-6xl font-serif text-cream">Los 6 Estados Food·Mood</h3>
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Mapa Emocional</h2>
+            <h3 className="text-4xl md:text-6xl font-serif text-aubergine-dark">Los 6 Estados Food·Mood</h3>
           </motion.div>
         </div>
 
@@ -195,9 +195,9 @@ export default function Home() {
                 </div>
                 <h4 className="font-serif text-2xl font-semibold mb-4 text-aubergine-dark">{mood.nombre}</h4>
                 <p className="text-aubergine-dark/60 text-sm leading-[1.8] mb-8 font-light">{mood.descripcion_corta}</p>
-                <div className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/40 group-hover:text-aubergine-dark/80 transition-colors">
-                  Descubrir &rarr;
-                </div>
+                <Link href="/test" className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/40 group-hover:text-aubergine-dark/80 transition-colors">
+                  Hacer el test &rarr;
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -423,6 +423,91 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 7. REFERENCIAS CIENTÍFICAS */}
+      <section id="referencias" className="py-24 md:py-32 bg-cream border-t border-aubergine-dark/10">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+          >
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Evidencia</h2>
+            <h3 className="text-3xl md:text-4xl font-serif text-aubergine-dark mb-12">Referencias científicas</h3>
+
+            <ol className="space-y-6">
+              {[
+                {
+                  num: 1,
+                  authors: "Mörkl S. et al.",
+                  year: "2020",
+                  title: "Probiotics and the Microbiome-Gut-Brain Axis: Focus on Psychiatry.",
+                  journal: "Current Nutrition Reports.",
+                  url: "https://pubmed.ncbi.nlm.nih.gov/32002813/"
+                },
+                {
+                  num: 2,
+                  authors: "Cryan J.F. et al.",
+                  year: "2019",
+                  title: "The Microbiota-Gut-Brain Axis.",
+                  journal: "Physiological Reviews, 99(4), 1877–2013.",
+                  url: "https://pubmed.ncbi.nlm.nih.gov/31460832/"
+                },
+                {
+                  num: 3,
+                  authors: "Marx W. et al.",
+                  year: "2025",
+                  title: "Food and Mood: Current Evidence on Mental Health and the Microbiota-Gut-Brain Axis.",
+                  journal: "Current Psychiatry Reports, 27(11), 632–641.",
+                  url: "https://mdanderson.elsevierpure.com/en/publications/food-and-mood-current-evidence-on-mental-health-and-the-microbiot/"
+                },
+                {
+                  num: 4,
+                  authors: "Badal V.D. et al.",
+                  year: "2020",
+                  title: "The Gut Microbiome, Aging, and Longevity: A Systematic Review.",
+                  journal: "Nutrients, 12(12), 3759.",
+                  url: "https://pubmed.ncbi.nlm.nih.gov/33297486/"
+                },
+                {
+                  num: 5,
+                  authors: "Pan S. et al.",
+                  year: "2025",
+                  title: "Healthy Ageing and Gut Microbiota: A Study on Longevity in Adults.",
+                  journal: "PMC.",
+                  url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12298205/"
+                },
+                {
+                  num: 6,
+                  authors: "Huang C. et al.",
+                  year: "2026",
+                  title: "Aging and the microbiome: implications for health and disease.",
+                  journal: "PMC.",
+                  url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12867172/"
+                }
+              ].map((ref) => (
+                <li key={ref.num} className="text-sm leading-[1.8]">
+                  <span className="text-aubergine-dark/40 font-medium">[{ref.num}]</span>{' '}
+                  <span className="text-aubergine-dark font-semibold">{ref.authors}</span>{' '}
+                  <span className="text-aubergine-dark/50">({ref.year}).</span>{' '}
+                  <span className="text-aubergine-dark/70 italic">&ldquo;{ref.title}&rdquo;</span>{' '}
+                  <span className="text-aubergine-dark/50">{ref.journal}</span>{' '}
+                  <a
+                    href={ref.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-aubergine-dark/60 hover:text-aubergine-dark font-medium transition-colors inline-flex items-center gap-1"
+                  >
+                    → Ver estudio
+                  </a>
+                </li>
+              ))}
+            </ol>
+
+            <p className="mt-12 text-xs text-aubergine-dark/35 font-light leading-[1.8] border-t border-aubergine-dark/10 pt-8">
+              Las referencias científicas se incluyen con fines informativos. Food·Mood no es un servicio médico ni sustituye el consejo de un profesional de la salud.
+            </p>
           </motion.div>
         </div>
       </section>
