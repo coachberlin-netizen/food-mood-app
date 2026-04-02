@@ -138,8 +138,8 @@ export default function DashboardPage() {
             Food<span className="text-[#C9A84C]">·</span>Mood
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-aubergine-dark leading-[1.15]">
-            {isAuthenticated && user?.name
-              ? <>Hola, {user.name.split(' ')[0]}. ¿Qué te apetece hoy?</>
+            {isAuthenticated && user?.name && user.name.trim().length > 2
+              ? <>Hola, {user.name.trim().split(' ')[0]}. ¿Qué te apetece hoy?</>
               : <>Hola. ¿Qué te apetece hoy?</>}
           </h1>
           <div className="flex items-center gap-4 mt-6">

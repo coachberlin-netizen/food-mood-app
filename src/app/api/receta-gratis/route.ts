@@ -19,24 +19,25 @@ export async function GET(req: NextRequest) {
 
     const supabase = createClient(RECETAS_SUPABASE_URL, RECETAS_SUPABASE_KEY)
 
-    // Map short mood id to full mood_es name for DB query
-    const MOOD_MAP: Record<string, string> = {
-      activacion: 'Activación & Energía',
-      calma: 'Calma & Equilibrio',
-      focus: 'Focus & Claridad Mental',
-      social: 'Social & Placer Compartido',
-      reset: 'Reset & Ligereza',
-      confort: 'Confort & Calidez',
+    // Map short mood id to search keyword
+    const MOOD_KEYWORD: Record<string, string> = {
+      activacion: 'Activaci',
+      calma: 'Calma',
+      focus: 'Focus',
+      social: 'Social',
+      reset: 'Reset',
+      confort: 'Confort',
     }
 
-    const moodEs = MOOD_MAP[mood] || mood
+    const keyword = MOOD_KEYWORD[mood] || mood
 
-    // Get total count of matching free recipes
+    // Get total count of matching free recipes (premium_level = 0, adulto segment)
     const { count } = await supabase
       .from('recetas')
       .select('*', { count: 'exact', head: true })
-      .ilike('mood_es', `%${moodEs.split(' ')[0]}%`)
-      .or('premium_level.is.null,premium_level.eq.0')
+      .ilike('mood_es', `%${keyword}%`)
+      .eq('premium_level', 0)
+      .eq('segmento', 'adulto')
 
     if (!count || count === 0) {
       return NextResponse.json({ error: 'No recipes found for this mood' }, { status: 404 })
@@ -48,8 +49,9 @@ export async function GET(req: NextRequest) {
     const { data: receta, error } = await supabase
       .from('recetas')
       .select('*')
-      .ilike('mood_es', `%${moodEs.split(' ')[0]}%`)
-      .or('premium_level.is.null,premium_level.eq.0')
+      .ilike('mood_es', `%${keyword}%`)
+      .eq('premium_level', 0)
+      .eq('segmento', 'adulto')
       .range(offset, offset)
       .single()
 

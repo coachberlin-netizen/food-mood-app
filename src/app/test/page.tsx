@@ -27,7 +27,9 @@ export default function TestPage() {
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+    // Always start fresh when entering the test page
+    resetQuiz()
+  }, [resetQuiz])
 
   useEffect(() => {
     if (currentStep >= quizData.length && !isFinished) {
