@@ -7,10 +7,10 @@ import { NextRequest, NextResponse } from 'next/server'
  */
 export async function GET(req: NextRequest) {
   try {
-    const RECETAS_SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
-    const RECETAS_SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-    if (!RECETAS_SUPABASE_URL || !RECETAS_SUPABASE_KEY) {
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
     }
 
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Missing mood parameter' }, { status: 400 })
     }
 
-    const supabase = createClient(RECETAS_SUPABASE_URL, RECETAS_SUPABASE_KEY)
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
     // Map short mood id to search keyword
     const MOOD_KEYWORD: Record<string, string> = {

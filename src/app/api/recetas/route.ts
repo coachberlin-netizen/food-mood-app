@@ -3,11 +3,11 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
   try {
-    const RECETAS_SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
-    const RECETAS_SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-    if (!RECETAS_SUPABASE_URL || !RECETAS_SUPABASE_KEY) {
-      console.error('[recetas-api] Missing Supabase env vars:', { url: !!RECETAS_SUPABASE_URL, key: !!RECETAS_SUPABASE_KEY })
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      console.error('[recetas-api] Missing Supabase env vars:', { url: !!SUPABASE_URL, key: !!SUPABASE_KEY })
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
     }
 
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '24', 10)))
 
     // ── Build Supabase query ──────────────────────────────────
-    const supabase = createClient(RECETAS_SUPABASE_URL, RECETAS_SUPABASE_KEY)
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
     let query = supabase
       .from('recetas')
