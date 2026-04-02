@@ -251,32 +251,32 @@ export default function Home() {
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
             className="text-center mb-16"
           >
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-cream/50 mb-6">Lo Dicen Ellos</h2>
-            <h3 className="text-3xl md:text-5xl font-serif text-cream">Historias reales</h3>
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Lo Dicen Ellos</h2>
+            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark">Historias reales</h3>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-16">
             {[
               {
-                quote: "Llevaba meses con bajones de energía a media tarde. Dos semanas siguiendo las recetas de Reset y he dejado el café de las 5.",
+                quote: "Llevaba meses con bajones de energ\u00eda a media tarde. Dos semanas siguiendo las recetas de Reset y he dejado el caf\u00e9 de las 5.",
                 name: "Laura M.",
                 city: "Madrid",
                 mood: "Reset"
               },
               {
-                quote: "Nunca había conectado mis antojos con el nervio vago. Ahora tiene todo el sentido.",
+                quote: "Nunca hab\u00eda conectado mis antojos con el nervio vago. Ahora tiene todo el sentido.",
                 name: "Ana P.",
                 city: "Barcelona",
                 mood: "Calma"
               },
               {
-                quote: "Las recetas de Focus me salvaron la semana de exámenes. Simple, rico y funcional.",
+                quote: "Las recetas de Focus me salvaron la semana de ex\u00e1menes. Simple, rico y funcional.",
                 name: "Daniel R.",
                 city: "Valencia",
                 mood: "Focus"
               },
               {
-                quote: "Mi hija de 10 años adora los snacks de la sección kids. Y yo como tranquila sabiendo que le hace bien.",
+                quote: "Mi hija de 10 a\u00f1os adora los snacks de la secci\u00f3n kids. Y yo como tranquila sabiendo que le hace bien.",
                 name: "Marta G.",
                 city: "Sevilla",
                 mood: "Confort"
@@ -286,18 +286,23 @@ export default function Home() {
                 key={i}
                 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
                 transition={{ delay: i * 0.1 }}
-                className="bg-cream/5 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-cream/10 relative"
+                className="bg-cream rounded-2xl p-8 md:p-10 border border-aubergine-dark/10 shadow-luxury relative"
               >
-                <div className="text-4xl text-[#C9A84C]/30 font-serif leading-none mb-4">&ldquo;</div>
-                <p className="text-cream/80 text-base leading-[1.8] font-light italic mb-6">
+                {/* Badge */}
+                <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-medium uppercase tracking-wider mb-5">
+                  {t.mood}
+                </span>
+
+                {/* Quote */}
+                <div className="text-3xl text-[#C9A84C]/25 font-serif leading-none mb-3">&ldquo;</div>
+                <p className="text-aubergine-dark/70 text-base leading-[1.8] font-light italic mb-6">
                   {t.quote}
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-cream/50 font-medium">— {t.name}, {t.city}</span>
-                  <span className="text-[10px] px-2.5 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-medium uppercase tracking-wider">
-                    {t.mood}
-                  </span>
-                </div>
+
+                {/* Author */}
+                <p className="text-sm text-aubergine-dark/40 font-medium">
+                  &mdash; {t.name}, {t.city}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -307,8 +312,8 @@ export default function Home() {
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
             className="text-center"
           >
-            <p className="text-2xl md:text-3xl font-serif text-cream/90 mb-2">+2.400 tests realizados</p>
-            <p className="text-sm text-cream/40 font-light">y subiendo cada semana</p>
+            <p className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-2">+2.400 tests realizados</p>
+            <p className="text-sm text-aubergine-dark/40 font-light">y subiendo cada semana</p>
           </motion.div>
         </div>
       </section>
@@ -405,26 +410,6 @@ export default function Home() {
             </Link>
           </div>
         </motion.div>
-      </section>
-
-      {/* 6. SUSANA & WAITLIST */}
-      <section className="py-32 bg-aubergine-dark text-cream">
-        <div className="max-w-3xl mx-auto px-6 flex flex-col items-center text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="space-y-8 flex flex-col items-center">
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-cream/50">Tu Viaje</h2>
-            <h3 className="text-4xl md:text-5xl font-serif leading-[1.2]">Empieza a escucharte.</h3>
-            <p className="text-cream/60 text-lg md:text-xl leading-[1.8] font-light max-w-xl">
-              Descubre qué necesita tu cuerpo hoy con nuestro test basado en neurociencia nutricional y recupera tu equilibrio.
-            </p>
-            <div className="pt-8">
-              <Link href="/test">
-                <Button variant="outline" className="bg-cream text-aubergine-dark hover:bg-cream/90 border-0 px-12 py-6 text-base font-medium rounded-full transition-all hover:scale-105">
-                  Empieza el quiz
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
       </section>
 
       {/* 7. REFERENCIAS CIENTÍFICAS */}
