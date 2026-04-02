@@ -193,11 +193,8 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-full bg-aubergine/10 flex items-center justify-center text-3xl font-serif text-aubergine-dark mb-8 group-hover:bg-aubergine-dark group-hover:text-cream transition-colors duration-500 origin-left">
                   {mood.emoji}
                 </div>
-                <h4 className="font-serif text-2xl font-semibold mb-4 text-aubergine-dark">{mood.nombre}</h4>
-                <p className="text-aubergine-dark/60 text-sm leading-[1.8] mb-8 font-light">{mood.descripcion_corta}</p>
-                <Link href="/test" className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/40 group-hover:text-aubergine-dark/80 transition-colors">
-                  Hacer el test &rarr;
-                </Link>
+                <h4 className="font-serif text-xl md:text-2xl font-semibold mb-4 text-aubergine-dark break-words">{mood.nombre}</h4>
+                <p className="text-aubergine-dark/60 text-sm leading-[1.8] font-light">{mood.descripcion_corta}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -319,7 +316,7 @@ export default function Home() {
       </section>
 
       {/* 4.75 QUIÉNES SOMOS */}
-      <section className="py-32 md:py-48 bg-cream border-t border-aubergine-dark/10">
+      <section id="quienes-somos" className="py-32 md:py-48 bg-cream border-t border-aubergine-dark/10">
         <div className="max-w-5xl mx-auto px-6">
           {/* Header — left aligned */}
           <motion.div
@@ -390,26 +387,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. CTA FINAL */}
-      <section className="py-32 md:py-48 px-6 bg-[var(--background)]">
-        <motion.div 
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-          className="max-w-4xl mx-auto bg-cream rounded-2xl border border-aubergine-dark/20 shadow-luxury p-16 md:p-32 text-center"
-        >
-          <div className="space-y-12 flex flex-col items-center">
-            <h2 className="text-4xl md:text-6xl font-serif font-semibold text-aubergine-dark leading-[1.2]">
-              ¿Cuál es tu estado<br/><em className="font-light">hoy?</em>
-            </h2>
-            <p className="text-lg text-aubergine-dark/60 max-w-md font-light leading-[1.8]">
-              Descubre tu estado y una receta diseñada para equilibrarte en menos de 2 minutos.
-            </p>
-            <Link href="/test">
-              <Button variant="primary" size="lg" className="px-14 py-4 text-base rounded-[8px] mt-4">
-                Comenzar Test
-              </Button>
-            </Link>
+      {/* 5. PRICING SUMMARY */}
+      <section className="py-24 md:py-32 px-6 bg-[var(--background)] border-t border-aubergine-dark/10">
+        <div className="max-w-5xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-16">
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Planes</h2>
+            <h3 className="text-3xl md:text-5xl font-serif italic text-aubergine-dark">Empieza gratis. <span className="not-italic font-semibold">Profundiza cuando quieras.</span></h3>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {/* Free */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+              className="bg-cream rounded-2xl border border-aubergine-dark/10 p-8 flex flex-col items-start"
+            >
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Gratuito</span>
+              <span className="text-4xl font-serif text-aubergine-dark mb-3">0€</span>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test + 1 receta por estado</p>
+              <Link href="/test" className="mt-auto w-full py-3 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium text-center hover:bg-aubergine-dark/5 transition-colors">
+                Empezar gratis →
+              </Link>
+            </motion.div>
+
+            {/* Monthly */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} transition={{ delay: 0.1 }}
+              className="bg-cream rounded-2xl border border-aubergine-dark/10 p-8 flex flex-col items-start"
+            >
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Mensual</span>
+              <span className="text-4xl font-serif text-aubergine-dark mb-3">9€<span className="text-base font-light text-aubergine-dark/40">/mes</span></span>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso completo a todas las recetas</p>
+              <Link href="/pricing" className="mt-auto w-full py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium text-center hover:bg-aubergine-dark/90 transition-colors">
+                Suscribirme →
+              </Link>
+            </motion.div>
+
+            {/* Quarterly — highlighted */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} transition={{ delay: 0.2 }}
+              className="relative bg-cream rounded-2xl border-2 border-[#C9A84C]/40 p-8 flex flex-col items-start shadow-luxury"
+            >
+              <div className="absolute -top-3 right-6">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#C9A84C] text-white text-[10px] font-bold uppercase tracking-wider shadow-md">Más popular</span>
+              </div>
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2">Trimestral</span>
+              <span className="text-4xl font-serif text-aubergine-dark mb-1">15€<span className="text-base font-light text-aubergine-dark/40">/ 3 meses</span></span>
+              <p className="text-sm text-[#C9A84C] font-semibold mb-1">Solo 5€/mes</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Todo lo del mensual, ahorrando un 44%</p>
+              <Link href="/pricing" className="mt-auto w-full py-3.5 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold text-center shadow-lg hover:shadow-xl transition-all">
+                7 días gratis →
+              </Link>
+            </motion.div>
           </div>
-        </motion.div>
+
+          <p className="text-center text-xs text-aubergine-dark/35 font-light">
+            Sin permanencia · Cancela cuando quieras · Pago seguro
+          </p>
+        </div>
       </section>
 
       {/* 7. REFERENCIAS CIENTÍFICAS */}

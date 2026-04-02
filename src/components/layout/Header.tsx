@@ -16,6 +16,12 @@ export function Header() {
             <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
               Recetas
             </Link>
+            <Link href="/#quienes-somos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+              Quiénes somos
+            </Link>
+            <Link href="/pricing" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+              Planes
+            </Link>
           </nav>
         </div>
 

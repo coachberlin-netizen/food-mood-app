@@ -51,6 +51,12 @@ export function MobileNav() {
                 <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                   Recetas
                 </Link>
+                <Link href="/#quienes-somos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                  Quiénes somos
+                </Link>
+                <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                  Planes
+                </Link>
                 <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                   Perfil
                 </Link>
