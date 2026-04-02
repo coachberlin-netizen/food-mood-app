@@ -104,10 +104,10 @@ export async function GET(req: NextRequest) {
       totalPages,
     })
 
-  } catch (err) {
+  } catch (err: any) {
     console.error('API /api/recetas error:', err)
     return NextResponse.json(
-      { error: 'Error interno del servidor' },
+      { error: 'Error interno del servidor', details: err?.message || String(err) },
       { status: 500 }
     )
   }
