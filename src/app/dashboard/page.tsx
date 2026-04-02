@@ -19,6 +19,8 @@ export default function DashboardPage() {
   const [todayRecipe, setTodayRecipe] = useState<any>(null);
   const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
   const [todayFormatted, setTodayFormatted] = useState("");
+  const [isPremium, setIsPremium] = useState(false);
+  const [weeklyMoods, setWeeklyMoods] = useState<Record<number, string>>({}); // dayOfWeek (1=Mon) -> moodId
   const searchParams = useSearchParams();
   const showSuccess = searchParams.get('success') === 'true';
 
@@ -37,9 +39,55 @@ export default function DashboardPage() {
     setTodayFormatted(today.charAt(0).toUpperCase() + today.slice(1));
   }, []);
 
+  // Single useEffect: fetch premium status + weekly quiz history
   useEffect(() => {
     setMounted(true);
     syncFromSupabase();
+
+    async function fetchUserData() {
+      const supabase = createClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) return;
+
+      // 1. Fetch premium status
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('is_premium')
+        .eq('id', session.user.id)
+        .single();
+      if (profile) setIsPremium(!!profile.is_premium);
+
+      // 2. Fetch quiz_results for this week (Monday-Sunday)
+      const now = new Date();
+      const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon...
+      const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+      const monday = new Date(now);
+      monday.setDate(now.getDate() + mondayOffset);
+      monday.setHours(0, 0, 0, 0);
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      sunday.setHours(23, 59, 59, 999);
+
+      const { data: quizResults } = await supabase
+        .from('quiz_results')
+        .select('result_mood, created_at')
+        .eq('user_id', session.user.id)
+        .gte('created_at', monday.toISOString())
+        .lte('created_at', sunday.toISOString())
+        .order('created_at', { ascending: true });
+
+      if (quizResults && quizResults.length > 0) {
+        const moodsByDay: Record<number, string> = {};
+        for (const qr of quizResults) {
+          const d = new Date(qr.created_at);
+          const dow = d.getDay() === 0 ? 7 : d.getDay(); // 1=Mon...7=Sun
+          moodsByDay[dow] = qr.result_mood; // latest wins if multiple per day
+        }
+        setWeeklyMoods(moodsByDay);
+      }
+    }
+
+    fetchUserData();
   }, [syncFromSupabase]);
 
   // "Receta del día" — random recipe matching user's mood (direct Supabase query)
@@ -148,16 +196,18 @@ export default function DashboardPage() {
     confort: "Mantita, calor y mucho placer reconfortante."
   };
 
-  // Mock History Data (últimos 7 días)
-  const historyDays = [
-    { label: "Lu", color: "#e67e5a", hasData: true }, // Activacion
-    { label: "Ma", color: "#e5e7eb", hasData: false }, // Empty
-    { label: "Mi", color: "#6b8e9b", hasData: true }, // Focus
-    { label: "Ju", color: "#e5e7eb", hasData: false }, // Empty
-    { label: "Vi", color: "#6b8e9b", hasData: true }, // Focus
-    { label: "Sá", color: "#c9a84c", hasData: true }, // Social
-    { label: "Do", color: currentMood.color, hasData: true }, // Today
-  ];
+  // Weekly balance — build from real data
+  const DAY_LABELS = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sá", "Do"];
+  const moodColors: Record<string, string> = {};
+  moods.forEach(m => { moodColors[m.id] = m.color; });
+
+  const historyDays = DAY_LABELS.map((label, i) => {
+    const dayNum = i + 1; // 1=Mon...7=Sun
+    const moodId = weeklyMoods[dayNum];
+    const hasData = !!moodId;
+    const color = hasData ? (moodColors[moodId] || "#C9A84C") : "#d1d5db";
+    return { label, color, hasData };
+  });
 
   
   return (
@@ -243,65 +293,86 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* 2.5 SUBSCRIPTION BENEFITS */}
-        <section className="flex flex-col gap-8">
-          <div className="flex items-center gap-4">
-            <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
-              Tu plan Food·Mood
-            </h2>
-            <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
-          </div>
-
-          <div className="bg-gradient-to-br from-aubergine-dark via-aubergine to-aubergine-dark rounded-[1.5rem] p-10 md:p-14 relative overflow-hidden">
-            {/* Decorative glows */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A84C]/8 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-40 h-40 bg-cream/3 rounded-full blur-3xl" />
-
-            <div className="relative flex flex-col gap-8">
-              <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20 mb-4">
-                  <Sparkles className="w-3 h-3" /> Premium
-                </span>
-                <h3 className="text-2xl md:text-3xl font-serif font-bold text-cream/90 leading-snug mb-2">
-                  Un plan adecuado y variado para ti
-                </h3>
-                <p className="text-cream/40 font-light text-sm max-w-lg">
-                  Cada día una combinación nueva. Sin repeticiones, siempre adaptada a lo que tu cuerpo necesita.
+        {/* 2.5 SUBSCRIPTION / CTA */}
+        {!isAuthenticated ? (
+          /* Not logged in → simple CTA to take test */
+          <section className="flex flex-col gap-8">
+            <div className="bg-gradient-to-br from-aubergine-dark via-aubergine to-aubergine-dark rounded-[1.5rem] p-10 md:p-12 relative overflow-hidden text-center">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A84C]/8 rounded-full blur-3xl" />
+              <div className="relative flex flex-col items-center gap-6">
+                <h3 className="text-2xl font-serif font-bold text-cream/90">Descubre tu Food·Mood</h3>
+                <p className="text-cream/45 font-light text-sm max-w-md">
+                  Un test de 2 minutos basado en neurociencia nutricional. Sin dietas, sin restricciones.
                 </p>
-              </div>
-
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  { icon: "🍽", text: "10.000 recetas sin repetirse", detail: "Variedad real para tu microbiota" },
-                  { icon: "⭐", text: "200 recetas Michelin-inspired", detail: "Alta cocina funcional exclusiva" },
-                  { icon: "🔬", text: "Filtros por mood, edad y sexo", detail: "Ciencia personalizada" },
-                  { icon: "❤️", text: "Favoritos ilimitados", detail: "Guarda las que más te gusten" },
-                ].map((benefit, i) => (
-                  <li key={i} className="flex items-start gap-3.5 bg-cream/5 rounded-xl p-4 border border-cream/8">
-                    <span className="text-lg shrink-0 mt-0.5">{benefit.icon}</span>
-                    <div>
-                      <p className="text-sm font-medium text-cream/80">{benefit.text}</p>
-                      <p className="text-[11px] text-cream/35 font-light mt-0.5">{benefit.detail}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="flex flex-col items-start gap-3">
                 <Link
-                  href="/pricing"
-                  className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9A84C] hover:bg-[#b8953e] text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"
+                  href="/test"
+                  className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-[#C9A84C] hover:bg-[#b8953e] text-white font-semibold text-sm tracking-wide shadow-lg transition-all"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  Suscríbete — 9€/mes
+                  Empieza tu prueba gratis
                 </Link>
-                <p className="text-[11px] text-cream/25 font-light">
-                  Cancela cuando quieras · Sin permanencia
-                </p>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : !isPremium ? (
+          /* Authenticated + free → show premium upsell */
+          <section className="flex flex-col gap-8">
+            <div className="flex items-center gap-4">
+              <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
+                Tu plan Food·Mood
+              </h2>
+              <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
+            </div>
+
+            <div className="bg-gradient-to-br from-aubergine-dark via-aubergine to-aubergine-dark rounded-[1.5rem] p-10 md:p-14 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A84C]/8 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-cream/3 rounded-full blur-3xl" />
+
+              <div className="relative flex flex-col gap-8">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20 mb-4">
+                    <Sparkles className="w-3 h-3" /> Premium
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-cream/90 leading-snug mb-2">
+                    Un plan adecuado y variado para ti
+                  </h3>
+                  <p className="text-cream/40 font-light text-sm max-w-lg">
+                    Cada día una combinación nueva. Sin repeticiones, siempre adaptada a lo que tu cuerpo necesita.
+                  </p>
+                </div>
+
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { icon: "🍽", text: "10.000 recetas sin repetirse", detail: "Variedad real para tu microbiota" },
+                    { icon: "⭐", text: "200 recetas Michelin-inspired", detail: "Alta cocina funcional exclusiva" },
+                    { icon: "🔬", text: "Filtros por mood, edad y sexo", detail: "Ciencia personalizada" },
+                    { icon: "❤️", text: "Favoritos ilimitados", detail: "Guarda las que más te gusten" },
+                  ].map((benefit, i) => (
+                    <li key={i} className="flex items-start gap-3.5 bg-cream/5 rounded-xl p-4 border border-cream/8">
+                      <span className="text-lg shrink-0 mt-0.5">{benefit.icon}</span>
+                      <div>
+                        <p className="text-sm font-medium text-cream/80">{benefit.text}</p>
+                        <p className="text-[11px] text-cream/35 font-light mt-0.5">{benefit.detail}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-col items-start gap-3">
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9A84C] hover:bg-[#b8953e] text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    Suscríbete — 9€/mes
+                  </Link>
+                  <p className="text-[11px] text-cream/25 font-light">
+                    Cancela cuando quieras · Sin permanencia
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null /* Premium user → hide block entirely */}
 
         {/* 3. RECETA DEL DÍA */}
         <section id="receta-del-dia" className="flex flex-col gap-8 scroll-mt-8">
