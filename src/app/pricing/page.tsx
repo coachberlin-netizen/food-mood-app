@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  Check, X, Crown, Sparkles, ArrowRight, Zap, BookOpen, Loader2,
+  Check, X, Crown, Sparkles, ArrowRight, Zap, BookOpen,
   ShieldCheck, RefreshCcw, Lock,
 } from "lucide-react";
 import Link from "next/link";
@@ -28,7 +28,6 @@ const PREMIUM_FEATURES = [
 ];
 
 export default function PricingPage() {
-  const [isLoading, setIsLoading] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -37,16 +36,15 @@ export default function PricingPage() {
     setMounted(true);
     const checkUser = async () => {
       const supabase = createClient();
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
         setIsAuthenticated(true);
-        // Check subscription status
         const { data: profile } = await supabase
           .from("profiles")
-          .select("is_premium, tier")
-          .eq("id", session.user.id)
+          .select("is_premium")
+          .eq("id", user.id)
           .single();
-        if (profile?.is_premium || profile?.tier === "premium") {
+        if (profile?.is_premium === true) {
           setIsPremium(true);
         }
       }
@@ -56,27 +54,11 @@ export default function PricingPage() {
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
     if (!isAuthenticated) {
-      window.location.href = `/auth/login?redirect=/pricing&plan=${plan}`;
+      window.location.href = `/login?redirect=/pricing`;
       return;
     }
-    setIsLoading(plan);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan }),
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert("Error al iniciar el pago. Inténtalo de nuevo.");
-        setIsLoading(null);
-      }
-    } catch {
-      alert("Error de conexión. Inténtalo de nuevo.");
-      setIsLoading(null);
-    }
+    // Authenticated free user → go to checkout
+    window.location.href = `/checkout?plan=${plan}`;
   };
 
   if (!mounted) return null;
@@ -189,14 +171,9 @@ export default function PricingPage() {
             ) : (
               <button
                 onClick={() => handleCheckout("monthly")}
-                disabled={isLoading === "monthly"}
-                className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 disabled:opacity-70 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2"
               >
-                {isLoading === "monthly" ? (
-                  <><Loader2 className="w-4 h-4 animate-spin" /> Redirigiendo…</>
-                ) : (
-                  <>Suscribirme por 9 €/mes</>
-                )}
+                Suscribirme por 9 €/mes
               </button>
             )}
           </motion.div>
@@ -252,17 +229,10 @@ export default function PricingPage() {
               <>
                 <button
                   onClick={() => handleCheckout("quarterly")}
-                  disabled={isLoading === "quarterly"}
-                  className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] disabled:opacity-70 text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
-                  {isLoading === "quarterly" ? (
-                    <><Loader2 className="w-4 h-4 animate-spin" /> Redirigiendo…</>
-                  ) : (
-                    <>
-                      Empezar 7 días gratis
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
+                  Empezar 7 días gratis
+                  <ArrowRight className="w-4 h-4" />
                 </button>
                 <p className="text-center text-[10px] text-aubergine-dark/30 mt-3 font-light">
                   Después 15 € / 3 meses · Cancela cuando quieras
