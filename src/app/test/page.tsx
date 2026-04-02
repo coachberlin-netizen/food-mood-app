@@ -11,7 +11,7 @@ import { QuizResult } from "@/components/quiz/QuizResult"
 import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/useAuthStore"
 import Link from "next/link"
-import { ArrowRight, RefreshCw, Sparkles, Mail, Shield } from "lucide-react"
+import { ArrowRight, RefreshCw, Sparkles } from "lucide-react"
 
 export default function TestPage() {
   const { currentStep, isFinished, leadingMood, calculateResult, resultMood, resetQuiz, quizCount } = useQuizStore()
@@ -31,9 +31,9 @@ export default function TestPage() {
 
   useEffect(() => {
     if (currentStep >= quizData.length && !isFinished) {
-      // Instead of immediately showing result, show email gate
-      const emailCaptured = localStorage.getItem('food-mood-email-captured')
-      if (emailCaptured) {
+      // Show email gate only once
+      const leadCaptured = localStorage.getItem('fm_lead_captured')
+      if (leadCaptured) {
         calculateResult()
       } else {
         setShowEmailGate(true)
@@ -44,7 +44,8 @@ export default function TestPage() {
   // Email submission handler
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email || !email.includes('@')) {
+    const trimmed = email.trim().toLowerCase()
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
       setEmailError('Introduce un email válido')
       return
     }
@@ -52,26 +53,32 @@ export default function TestPage() {
     setEmailError('')
 
     try {
-      // Save to Supabase via API
-      await fetch('/api/leads', {
+      const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'quiz_completion' }),
+        body: JSON.stringify({ email: trimmed, source: 'quiz' }),
       })
+      const data = await res.json()
+      // 23505 = unique violation (email already exists) → treat as success
+      if (!res.ok && data?.code !== '23505') {
+        setEmailError('Algo ha ido mal. Inténtalo de nuevo.')
+        setEmailSubmitting(false)
+        return
+      }
     } catch {
-      // Continue even if save fails
+      setEmailError('Algo ha ido mal. Inténtalo de nuevo.')
+      setEmailSubmitting(false)
+      return
     }
 
-    localStorage.setItem('food-mood-email-captured', 'true')
-    localStorage.setItem('food-mood-email', email)
+    localStorage.setItem('fm_lead_captured', 'true')
     setShowEmailGate(false)
     setEmailSubmitting(false)
     calculateResult()
   }
 
-  // Skip email (but still allow quiz result)
+  // Skip email
   const handleSkipEmail = () => {
-    localStorage.setItem('food-mood-email-captured', 'skipped')
     setShowEmailGate(false)
     calculateResult()
   }
@@ -88,37 +95,33 @@ export default function TestPage() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-md w-full flex flex-col items-center text-center"
         >
-          {/* Animated pulse icon */}
-          <motion.div
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="w-20 h-20 rounded-full bg-gradient-to-br from-[#C9A84C]/20 to-[#C9A84C]/5 flex items-center justify-center mb-8"
-          >
-            <Sparkles className="w-8 h-8 text-[#C9A84C]" />
-          </motion.div>
+          {/* Eyebrow */}
+          <span className="text-[11px] font-sans tracking-[0.2em] uppercase text-[#C9A84C] font-semibold mb-6">
+            Tu estado Food·Mood está listo
+          </span>
 
-          <h1 className="text-3xl md:text-4xl font-serif text-aubergine-dark mb-3 leading-snug">
-            Tu estado Food·Mood<br />está listo.
-          </h1>
-          <p className="text-base text-aubergine-dark/50 font-light mb-8">
-            Antes de revelártelo: ¿dónde te lo enviamos?
+          <h2 className="text-3xl md:text-4xl font-serif italic text-aubergine-dark mb-4 leading-snug">
+            ¿Dónde te lo enviamos?
+          </h2>
+          <p className="text-base text-aubergine-dark/50 font-light mb-8 leading-relaxed max-w-sm">
+            Accede a tu resultado ahora y recibe cada semana una receta funcional personalizada para tu estado de ánimo.
           </p>
 
           <form onSubmit={handleEmailSubmit} className="w-full max-w-sm space-y-4">
-            <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-aubergine-dark/30" />
+            <div>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setEmailError('') }}
-                placeholder="Tu email"
-                className="w-full pl-11 pr-4 py-4 rounded-xl border border-aubergine-dark/15 bg-cream text-aubergine-dark text-sm placeholder:text-aubergine-dark/30 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/30 focus:border-[#C9A84C]/50 transition-all"
+                placeholder="tu@email.com"
+                required
+                className="w-full px-4 py-4 rounded-xl border border-aubergine-dark/15 bg-cream text-aubergine-dark text-sm placeholder:text-aubergine-dark/30 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/30 focus:border-[#C9A84C]/50 transition-all"
                 autoFocus
               />
+              {emailError && (
+                <p className="text-xs text-red-500 text-left mt-2">{emailError}</p>
+              )}
             </div>
-            {emailError && (
-              <p className="text-xs text-red-500 text-left">{emailError}</p>
-            )}
             <button
               type="submit"
               disabled={emailSubmitting}
@@ -135,16 +138,15 @@ export default function TestPage() {
             </button>
           </form>
 
-          <div className="flex items-center gap-2 mt-6 text-[11px] text-aubergine-dark/30 font-light">
-            <Shield className="w-3 h-3" />
-            Acceso inmediato. Sin spam. Cancela cuando quieras.
-          </div>
+          <p className="mt-6 text-[11px] text-aubergine-dark/30 font-light">
+            Sin spam. Cancela cuando quieras.
+          </p>
 
           <button
             onClick={handleSkipEmail}
-            className="mt-4 text-[11px] text-aubergine-dark/25 hover:text-aubergine-dark/40 transition-colors underline"
+            className="mt-4 text-[11px] text-aubergine-dark/25 hover:text-aubergine-dark/40 transition-colors cursor-pointer"
           >
-            Continuar sin email
+            Prefiero no dejar mi email →
           </button>
         </motion.div>
       </div>
