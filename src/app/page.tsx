@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button"
 
 
 import { moods } from "@/data/moods"
-import { ArrowRight, BookOpen, Mail, Send } from "lucide-react"
+import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical } from "lucide-react"
 import { useRef, useState } from "react"
 
 export default function Home() {
@@ -309,6 +309,78 @@ export default function Home() {
           >
             <p className="text-2xl md:text-3xl font-serif text-cream/90 mb-2">+2.400 tests realizados</p>
             <p className="text-sm text-cream/40 font-light">y subiendo cada semana</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 4.75 QUIÉNES SOMOS */}
+      <section className="py-32 md:py-48 bg-cream border-t border-aubergine-dark/10">
+        <div className="max-w-5xl mx-auto px-6">
+          {/* Header — left aligned */}
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="mb-20"
+          >
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Quiénes Somos</h2>
+            <h3 className="text-4xl md:text-6xl font-serif italic text-aubergine-dark mb-8 leading-[1.2]">Ciencia con propósito</h3>
+            <p className="text-base md:text-lg text-aubergine-dark/60 font-light leading-[1.8] max-w-3xl">
+              Somos un equipo de psicólogos, tecnólogos alimentarios y especialistas en longevidad y envejecimiento saludable, con más de 10 años de experiencia clínica e investigadora en el eje intestino-cerebro.
+            </p>
+          </motion.div>
+
+          {/* 3 Pillar Cards */}
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            {[
+              {
+                icon: Brain,
+                title: "Psicología y neurociencia",
+                text: "Especialistas en conducta alimentaria, psicobióticos y el impacto del estrés en el eje intestino-cerebro."
+              },
+              {
+                icon: Leaf,
+                title: "Tecnología alimentaria",
+                text: "Formulación funcional, microbiota y diseño de recetas con ingredientes de eficacia demostrada."
+              },
+              {
+                icon: Hourglass,
+                title: "Longevidad y envejecimiento saludable",
+                text: "Nutrición antienvejecimiento y gerontología nutricional basada en evidencia científica publicada."
+              }
+            ].map((pillar, i) => (
+              <motion.div
+                key={i}
+                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+                transition={{ delay: i * 0.12 }}
+                className="bg-cream rounded-xl shadow-luxury hover:shadow-luxury-hover border border-aubergine-dark/8 p-10 md:p-12 transition-all duration-300 group"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-aubergine-dark/5 flex items-center justify-center mb-8 group-hover:bg-aubergine-dark/10 transition-colors duration-300">
+                  <pillar.icon className="w-6 h-6 text-aubergine-dark/60" />
+                </div>
+                <h4 className="font-serif text-xl font-semibold text-aubergine-dark mb-4 leading-snug">{pillar.title}</h4>
+                <p className="text-aubergine-dark/55 text-sm leading-[1.8] font-light">{pillar.text}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Evidence block */}
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="rounded-xl bg-aubergine-dark/[0.03] border border-aubergine-dark/10 p-10 md:p-12 flex gap-6 items-start"
+          >
+            <div className="w-12 h-12 rounded-xl bg-aubergine-dark/5 flex items-center justify-center shrink-0">
+              <FlaskConical className="w-5 h-5 text-aubergine-dark/50" />
+            </div>
+            <div>
+              <h4 className="font-serif text-lg font-semibold text-aubergine-dark mb-2">
+                Todo está basado en evidencia científica publicada
+              </h4>
+              <p className="text-aubergine-dark/55 text-sm leading-[1.8] font-light mb-3">
+                No tendencias. No creencias. Cada recomendación de Food·Mood se apoya en investigación revisada por pares sobre neurociencia nutricional, microbiota y longevidad.
+              </p>
+              <a href="#referencias" className="text-sm font-medium text-aubergine-dark/70 hover:text-aubergine-dark transition-colors inline-flex items-center gap-1.5">
+                Ver referencias científicas <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
