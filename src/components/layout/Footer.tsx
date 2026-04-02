@@ -22,6 +22,9 @@ export function Footer() {
             <Link href="/privacidad" className="hover:text-white transition-colors duration-300">
               Privacidad
             </Link>
+            <Link href="/pricing" className="hover:text-white transition-colors duration-300">
+              Planes
+            </Link>
           </div>
         </div>
       </div>
