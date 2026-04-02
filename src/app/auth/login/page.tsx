@@ -1,18 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Leaf, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuthStore } from "@/store/useAuthStore";
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
   const setAuthStoreLogin = useAuthStore(state => state.login);
 
@@ -39,14 +40,9 @@ export default function LoginPage() {
         name: data.user?.user_metadata?.name || email.split("@")[0], 
       });
 
-      const { useQuizStore } = await import("@/store/useQuizStore");
-      const isFinished = useQuizStore.getState().isFinished;
-      
-      if (isFinished) {
-        router.push("/test");
-      } else {
-        router.push("/dashboard");
-      }
+      // Read redirect parameter from URL, default to /dashboard
+      const redirectTo = searchParams.get('redirect') || '/dashboard';
+      router.push(redirectTo);
       router.refresh();
     } else {
       setLoading(false);
@@ -129,3 +125,10 @@ export default function LoginPage() {
   );
 }
 
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-aubergine-dark" />}>
+      <LoginForm />
+    </Suspense>
+  );
+}
