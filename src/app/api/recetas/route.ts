@@ -1,13 +1,16 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 
-// Direct client for the recetas database
-// Uses the new Supabase project where the 10k recipes live
-const RECETAS_SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL!
-const RECETAS_SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
 export async function GET(req: NextRequest) {
   try {
+    const RECETAS_SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+    const RECETAS_SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    if (!RECETAS_SUPABASE_URL || !RECETAS_SUPABASE_KEY) {
+      console.error('[recetas-api] Missing Supabase env vars:', { url: !!RECETAS_SUPABASE_URL, key: !!RECETAS_SUPABASE_KEY })
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
+    }
+
     const { searchParams } = req.nextUrl
 
     // ── Parse query params ────────────────────────────────────
