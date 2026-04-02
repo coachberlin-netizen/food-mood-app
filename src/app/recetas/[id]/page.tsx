@@ -96,6 +96,8 @@ function Toast({ show, message }: { show: boolean; message: string }) {
   );
 }
 
+import { createRecetasClient } from "@/lib/supabase/recetas";
+
 /* ── Main Page ───────────────────────────────────────────────── */
 export default function RecetaDetailPage() {
   const params = useParams();
@@ -109,16 +111,30 @@ export default function RecetaDetailPage() {
   const [showCiencia, setShowCiencia] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  // Fetch recipe
+  // Fetch recipe directly from Supabase
   useEffect(() => {
     async function load() {
       setIsLoading(true);
       try {
-        const res = await fetch(`/api/recetas/${id}`);
-        if (!res.ok) { setNotFound(true); return; }
-        const data = await res.json();
-        setReceta(data.receta);
-        setRelacionadas(data.relacionadas || []);
+        const supabase = createRecetasClient();
+        const { data: recetaData, error } = await supabase
+          .from('recetas')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (error || !recetaData) { setNotFound(true); return; }
+        setReceta(recetaData);
+
+        // Fetch related recipes
+        const { data: related } = await supabase
+          .from('recetas')
+          .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada')
+          .eq('mood_es', recetaData.mood_es)
+          .eq('grupo_edad', recetaData.grupo_edad)
+          .neq('id', recetaData.id)
+          .limit(3);
+        setRelacionadas(related || []);
       } catch {
         setNotFound(true);
       } finally {
