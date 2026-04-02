@@ -345,15 +345,30 @@ function RecetasContent() {
   const [tierLoaded, setTierLoaded] = useState(false);
   const LIMIT = 24;
 
-  // ── Fetch user tier ─────────────────────────────────────────
+  // ── Fetch user tier (direct Supabase — bypasses broken server route) ──
   useEffect(() => {
-    fetch('/api/mi-tier')
-      .then(r => r.json())
-      .then(data => {
-        setIsPremium(data.tier === 'premium');
+    async function checkPremium() {
+      try {
+        const { createClient } = await import('@/lib/supabase/client');
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) {
+          setTierLoaded(true);
+          return;
+        }
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('is_premium')
+          .eq('id', session.user.id)
+          .single();
+        setIsPremium(!!profile?.is_premium);
+      } catch {
+        // default free
+      } finally {
         setTierLoaded(true);
-      })
-      .catch(() => setTierLoaded(true));
+      }
+    }
+    checkPremium();
   }, []);
 
   // ── Build query params & fetch ──────────────────────────────

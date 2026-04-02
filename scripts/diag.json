@@ -1,0 +1,218 @@
+{
+  "total": 200,
+  "duplicateNames": 30,
+  "dupes": [
+    [
+      "Emulsión Espuma del maestro",
+      3
+    ],
+    [
+      "Crudo de lubina con Aire",
+      3
+    ],
+    [
+      "Gelée de kombucha contemporánea",
+      16
+    ],
+    [
+      "Air de flor premiada",
+      15
+    ],
+    [
+      "Emulsión Emulsión del maestro",
+      29
+    ],
+    [
+      "Emulsión Aceite del maestro",
+      3
+    ],
+    [
+      "Gelée de trufa contemporánea",
+      12
+    ],
+    [
+      "Air de raíz premiada",
+      13
+    ],
+    [
+      "Ensalada Emulsión del Arte Italiano",
+      4
+    ],
+    [
+      "Crudo de lubina con Emulsión",
+      13
+    ],
+    [
+      "Gelée de remolacha contemporánea",
+      8
+    ],
+    [
+      "Emulsión Dashi del maestro",
+      2
+    ],
+    [
+      "Air de seta premiada",
+      12
+    ],
+    [
+      "Crudo de champiñón con Gelée",
+      3
+    ],
+    [
+      "Emulsión Gelée del maestro",
+      4
+    ],
+    [
+      "Ensalada Emulsión de la Tradición Creativa",
+      7
+    ],
+    [
+      "Crudo de trucha con Aire",
+      2
+    ],
+    [
+      "Ensalada Gel de la Vanguardia Natural",
+      3
+    ],
+    [
+      "Ensalada Emulsión del Grand Chef",
+      2
+    ],
+    [
+      "Crudo de champiñón con Emulsión",
+      5
+    ],
+    [
+      "Ensalada Emulsión de Anne-Sophie Pic",
+      2
+    ],
+    [
+      "Crudo de trucha con Emulsión",
+      5
+    ],
+    [
+      "Ensalada Emulsión de Virgilio Martínez",
+      2
+    ],
+    [
+      "Emulsión Aire del maestro",
+      4
+    ],
+    [
+      "Crudo de trucha con Gelée",
+      2
+    ],
+    [
+      "Ensalada Aire de Diego Guerrero",
+      5
+    ],
+    [
+      "Ensalada Gelée de la Vanguardia",
+      3
+    ],
+    [
+      "Ensalada Consomé del Grand Chef",
+      2
+    ],
+    [
+      "Ensalada Gelée de la Vanguardia Dulce",
+      3
+    ],
+    [
+      "Ensalada Emulsión del Genio Irreverente",
+      3
+    ]
+  ],
+  "moodDistribution": {
+    "Focus & Claridad Mental": 23,
+    "Social & Placer Compartido": 31,
+    "Calma & Equilibrio": 35,
+    "Reset & Ligereza": 32,
+    "Activación & Energía": 45,
+    "Confort & Calidez": 34
+  },
+  "chefValues": {
+    "Ferran Adrià": 10,
+    "René Redzepi": 10,
+    "Massimo Bottura": 10,
+    "Nobu Matsuhisa": 10,
+    "Heston Blumenthal": 10,
+    "Joan Roca": 10,
+    "Andoni Aduriz": 10,
+    "Alain Ducasse": 10,
+    "Joël Robuchon": 10,
+    "Anne-Sophie Pic": 10,
+    "Yoshihiro Narisawa": 10,
+    "Virgilio Martínez": 10,
+    "Ana Ros": 10,
+    "Clare Smyth": 10,
+    "Dominique Crenn": 10,
+    "Albert Adrià": 10,
+    "Quique Dacosta": 10,
+    "Elena Arzak": 10,
+    "Diego Guerrero": 10,
+    "Dabiz Muñoz": 10
+  },
+  "first5": [
+    {
+      "id": "FM-MICH-FA-001",
+      "nombre_es": "Emulsión Espuma del maestro",
+      "mood_es": "Focus & Claridad Mental",
+      "chef_inspiracion": "Ferran Adrià",
+      "dificultad": "media",
+      "tiempo_preparacion_min": 48,
+      "tipo_plato": "crudo de trucha",
+      "temporada": "otoño-invierno",
+      "grupo_edad": "todos",
+      "sexo": "todos"
+    },
+    {
+      "id": "FM-MICH-FA-002",
+      "nombre_es": "Crudo de lubina con Aire",
+      "mood_es": "Social & Placer Compartido",
+      "chef_inspiracion": "Ferran Adrià",
+      "dificultad": "difícil",
+      "tiempo_preparacion_min": 41,
+      "tipo_plato": "emulsión de raíz",
+      "temporada": "otoño-invierno",
+      "grupo_edad": "todos",
+      "sexo": "todos"
+    },
+    {
+      "id": "FM-MICH-FA-003",
+      "nombre_es": "Gelée de kombucha contemporánea",
+      "mood_es": "Calma & Equilibrio",
+      "chef_inspiracion": "Ferran Adrià",
+      "dificultad": "difícil",
+      "tiempo_preparacion_min": 53,
+      "tipo_plato": "aire de flor",
+      "temporada": "todo el año",
+      "grupo_edad": "todos",
+      "sexo": "todos"
+    },
+    {
+      "id": "FM-MICH-FA-004",
+      "nombre_es": "Emulsión Espuma del maestro",
+      "mood_es": "Calma & Equilibrio",
+      "chef_inspiracion": "Ferran Adrià",
+      "dificultad": "media",
+      "tiempo_preparacion_min": 59,
+      "tipo_plato": "emulsión de raíz",
+      "temporada": "todo el año",
+      "grupo_edad": "todos",
+      "sexo": "todos"
+    },
+    {
+      "id": "FM-MICH-FA-005",
+      "nombre_es": "Air de flor premiada",
+      "mood_es": "Reset & Ligereza",
+      "chef_inspiracion": "Ferran Adrià",
+      "dificultad": "media",
+      "tiempo_preparacion_min": 50,
+      "tipo_plato": "crudo de trucha",
+      "temporada": "todo el año",
+      "grupo_edad": "todos",
+      "sexo": "todos"
+    }
+  ]
+}
