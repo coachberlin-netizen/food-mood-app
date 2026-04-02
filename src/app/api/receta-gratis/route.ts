@@ -1,15 +1,19 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 
-const RECETAS_SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL!
-const RECETAS_SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
 /**
  * GET /api/receta-gratis?mood=activacion
- * Returns 1 random free recipe (premium_level IS NULL or 0) matching the mood.
+ * Returns 1 random free recipe (premium_level = 0) matching the mood.
  */
 export async function GET(req: NextRequest) {
   try {
+    const RECETAS_SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+    const RECETAS_SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    if (!RECETAS_SUPABASE_URL || !RECETAS_SUPABASE_KEY) {
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
+    }
+
     const { searchParams } = new URL(req.url)
     const mood = searchParams.get('mood')
 
