@@ -1,0 +1,155 @@
+{
+  "total": null,
+  "recetas": [
+    {
+      "id": "FM-MICH-FA-007",
+      "nombre_es": "Ensalada Espuma de Ferran Adrià",
+      "nombre_en": "Ensalada Espuma de Ferran Adrià Style"
+    },
+    {
+      "id": "FM-MICH-FA-008",
+      "nombre_es": "Ensalada Aire de Ferran Adrià",
+      "nombre_en": "Ensalada Aire de Ferran Adrià Style"
+    },
+    {
+      "id": "FM-MICH-RR-002",
+      "nombre_es": "Ensalada Aceite de René Redzepi",
+      "nombre_en": "Ensalada Aceite de René Redzepi Style"
+    },
+    {
+      "id": "FM-MICH-MB-002",
+      "nombre_es": "Ensalada Emulsión de Massimo Bottura",
+      "nombre_en": "Ensalada Emulsión de Massimo Bottura Style"
+    },
+    {
+      "id": "FM-MICH-MB-003",
+      "nombre_es": "Ensalada Emulsión de Massimo Bottura",
+      "nombre_en": "Ensalada Emulsión de Massimo Bottura Style"
+    },
+    {
+      "id": "FM-MICH-MB-004",
+      "nombre_es": "Ensalada Emulsión de Massimo Bottura",
+      "nombre_en": "Ensalada Emulsión de Massimo Bottura Style"
+    },
+    {
+      "id": "FM-MICH-MB-009",
+      "nombre_es": "Ensalada Emulsión de Massimo Bottura",
+      "nombre_en": "Ensalada Emulsión de Massimo Bottura Style"
+    },
+    {
+      "id": "FM-MICH-HB-002",
+      "nombre_es": "Ensalada Gelée de Heston Blumenthal",
+      "nombre_en": "Ensalada Gelée de Heston Blumenthal Style"
+    },
+    {
+      "id": "FM-MICH-HB-005",
+      "nombre_es": "Ensalada Gelée de Heston Blumenthal",
+      "nombre_en": "Ensalada Gelée de Heston Blumenthal Style"
+    },
+    {
+      "id": "FM-MICH-HB-010",
+      "nombre_es": "Ensalada Gelée de Heston Blumenthal",
+      "nombre_en": "Ensalada Gelée de Heston Blumenthal Style"
+    },
+    {
+      "id": "FM-MICH-JR-001",
+      "nombre_es": "Ensalada Emulsión de Joan Roca",
+      "nombre_en": "Ensalada Emulsión de Joan Roca Style"
+    },
+    {
+      "id": "FM-MICH-JR-004",
+      "nombre_es": "Ensalada Emulsión de Joan Roca",
+      "nombre_en": "Ensalada Emulsión de Joan Roca Style"
+    },
+    {
+      "id": "FM-MICH-JR-007",
+      "nombre_es": "Ensalada Emulsión de Joan Roca",
+      "nombre_en": "Ensalada Emulsión de Joan Roca Style"
+    },
+    {
+      "id": "FM-MICH-AA-002",
+      "nombre_es": "Ensalada Gel de Andoni Aduriz",
+      "nombre_en": "Ensalada Gel de Andoni Aduriz Style"
+    },
+    {
+      "id": "FM-MICH-AA-005",
+      "nombre_es": "Ensalada Gel de Andoni Aduriz",
+      "nombre_en": "Ensalada Gel de Andoni Aduriz Style"
+    },
+    {
+      "id": "FM-MICH-AA-006",
+      "nombre_es": "Ensalada Gel de Andoni Aduriz",
+      "nombre_en": "Ensalada Gel de Andoni Aduriz Style"
+    },
+    {
+      "id": "FM-MICH-AD-003",
+      "nombre_es": "Ensalada Consomé de Alain Ducasse",
+      "nombre_en": "Ensalada Consomé de Alain Ducasse Style"
+    },
+    {
+      "id": "FM-MICH-AD-009",
+      "nombre_es": "Ensalada Consomé de Alain Ducasse",
+      "nombre_en": "Ensalada Consomé de Alain Ducasse Style"
+    },
+    {
+      "id": "FM-MICH-JOB-002",
+      "nombre_es": "Ensalada Emulsión de Joël Robuchon",
+      "nombre_en": "Ensalada Emulsión de Joël Robuchon Style"
+    },
+    {
+      "id": "FM-MICH-JOB-003",
+      "nombre_es": "Ensalada Emulsión de Joël Robuchon",
+      "nombre_en": "Ensalada Emulsión de Joël Robuchon Style"
+    },
+    {
+      "id": "FM-MICH-ALA-002",
+      "nombre_es": "Ensalada Gelée de Albert Adrià",
+      "nombre_en": "Ensalada Gelée de Albert Adrià Style"
+    },
+    {
+      "id": "FM-MICH-ALA-006",
+      "nombre_es": "Ensalada Gelée de Albert Adrià",
+      "nombre_en": "Ensalada Gelée de Albert Adrià Style"
+    },
+    {
+      "id": "FM-MICH-ALA-009",
+      "nombre_es": "Ensalada Gelée de Albert Adrià",
+      "nombre_en": "Ensalada Gelée de Albert Adrià Style"
+    },
+    {
+      "id": "FM-MICH-EA-005",
+      "nombre_es": "Ensalada Emulsión de Elena Arzak",
+      "nombre_en": "Ensalada Emulsión de Elena Arzak Style"
+    },
+    {
+      "id": "FM-MICH-EA-006",
+      "nombre_es": "Ensalada Emulsión de Elena Arzak",
+      "nombre_en": "Ensalada Emulsión de Elena Arzak Style"
+    },
+    {
+      "id": "FM-MICH-EA-008",
+      "nombre_es": "Ensalada Emulsión de Elena Arzak",
+      "nombre_en": "Ensalada Emulsión de Elena Arzak Style"
+    },
+    {
+      "id": "FM-MICH-EA-009",
+      "nombre_es": "Ensalada Emulsión de Elena Arzak",
+      "nombre_en": "Ensalada Emulsión de Elena Arzak Style"
+    },
+    {
+      "id": "FM-MICH-DABIZ-002",
+      "nombre_es": "Ensalada Emulsión de Dabiz Muñoz",
+      "nombre_en": "Ensalada Emulsión de Dabiz Muñoz Style"
+    },
+    {
+      "id": "FM-MICH-DABIZ-003",
+      "nombre_es": "Ensalada Emulsión de Dabiz Muñoz",
+      "nombre_en": "Ensalada Emulsión de Dabiz Muñoz Style"
+    },
+    {
+      "id": "FM-MICH-DABIZ-004",
+      "nombre_es": "Ensalada Emulsión de Dabiz Muñoz",
+      "nombre_en": "Ensalada Emulsión de Dabiz Muñoz Style"
+    }
+  ]
+}

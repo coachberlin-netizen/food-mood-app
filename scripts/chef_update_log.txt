@@ -1,0 +1,45 @@
+﻿[SKIP] Ferran Adri├á: 0 recetas
+[SKIP] Albert Adri├á: 0 recetas
+[SKIP] Elena Arzak: 0 recetas
+[SKIP] Andoni Aduriz: 0 recetas
+[SKIP] Dabiz Mu├▒oz: 0 recetas
+[SKIP] Joan Roca: 0 recetas
+[SKIP] Alain Ducasse: 0 recetas
+[SKIP] Jo├½l Robuchon: 0 recetas
+[SKIP] Heston Blumenthal: 0 recetas
+[SKIP] Ren├® Redzepi: 0 recetas
+[SKIP] Massimo Bottura: 0 recetas
+
+=== TOTAL UPDATED: 0 ===
+
+=== VERIFICATION: 30 recipes still with chef names ===
+  ÔÜá´©Å  FM-MICH-FA-007: Ensalada Espuma de Ferran Adri├á
+  ÔÜá´©Å  FM-MICH-FA-008: Ensalada Aire de Ferran Adri├á
+  ÔÜá´©Å  FM-MICH-RR-002: Ensalada Aceite de Ren├® Redzepi
+  ÔÜá´©Å  FM-MICH-MB-002: Ensalada Emulsi├│n de Massimo Bottura
+  ÔÜá´©Å  FM-MICH-MB-003: Ensalada Emulsi├│n de Massimo Bottura
+  ÔÜá´©Å  FM-MICH-MB-004: Ensalada Emulsi├│n de Massimo Bottura
+  ÔÜá´©Å  FM-MICH-MB-009: Ensalada Emulsi├│n de Massimo Bottura
+  ÔÜá´©Å  FM-MICH-HB-002: Ensalada Gel├®e de Heston Blumenthal
+  ÔÜá´©Å  FM-MICH-HB-005: Ensalada Gel├®e de Heston Blumenthal
+  ÔÜá´©Å  FM-MICH-HB-010: Ensalada Gel├®e de Heston Blumenthal
+  ÔÜá´©Å  FM-MICH-JR-001: Ensalada Emulsi├│n de Joan Roca
+  ÔÜá´©Å  FM-MICH-JR-004: Ensalada Emulsi├│n de Joan Roca
+  ÔÜá´©Å  FM-MICH-JR-007: Ensalada Emulsi├│n de Joan Roca
+  ÔÜá´©Å  FM-MICH-AA-002: Ensalada Gel de Andoni Aduriz
+  ÔÜá´©Å  FM-MICH-AA-005: Ensalada Gel de Andoni Aduriz
+  ÔÜá´©Å  FM-MICH-AA-006: Ensalada Gel de Andoni Aduriz
+  ÔÜá´©Å  FM-MICH-AD-003: Ensalada Consom├® de Alain Ducasse
+  ÔÜá´©Å  FM-MICH-AD-009: Ensalada Consom├® de Alain Ducasse
+  ÔÜá´©Å  FM-MICH-JOB-002: Ensalada Emulsi├│n de Jo├½l Robuchon
+  ÔÜá´©Å  FM-MICH-JOB-003: Ensalada Emulsi├│n de Jo├½l Robuchon
+  ÔÜá´©Å  FM-MICH-ALA-002: Ensalada Gel├®e de Albert Adri├á
+  ÔÜá´©Å  FM-MICH-ALA-006: Ensalada Gel├®e de Albert Adri├á
+  ÔÜá´©Å  FM-MICH-ALA-009: Ensalada Gel├®e de Albert Adri├á
+  ÔÜá´©Å  FM-MICH-EA-005: Ensalada Emulsi├│n de Elena Arzak
+  ÔÜá´©Å  FM-MICH-EA-006: Ensalada Emulsi├│n de Elena Arzak
+  ÔÜá´©Å  FM-MICH-EA-008: Ensalada Emulsi├│n de Elena Arzak
+  ÔÜá´©Å  FM-MICH-EA-009: Ensalada Emulsi├│n de Elena Arzak
+  ÔÜá´©Å  FM-MICH-DABIZ-002: Ensalada Emulsi├│n de Dabiz Mu├▒oz
+  ÔÜá´©Å  FM-MICH-DABIZ-003: Ensalada Emulsi├│n de Dabiz Mu├▒oz
+  ÔÜá´©Å  FM-MICH-DABIZ-004: Ensalada Emulsi├│n de Dabiz Mu├▒oz
