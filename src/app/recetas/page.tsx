@@ -372,10 +372,8 @@ function RecetasContent() {
         }
       }
 
-      // Segmento filter — only filter explicitly for kids
-      if (segmento === "kids") {
-        params.set("segmento", "kids");
-      }
+      // Segmento filter
+      params.set("segmento", segmento);
 
       // Profile/age filter
       if (segmento === "adulto") {
