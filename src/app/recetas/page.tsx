@@ -121,7 +121,7 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
       whileHover={locked ? {} : { y: -4, boxShadow: "0 8px 24px rgba(63,26,34,0.08)" }}
       transition={{ duration: 0.2 }}
       className={`relative bg-cream rounded-2xl border border-aubergine-dark/10 p-6 md:p-7 transition-all duration-200 h-full flex flex-col group overflow-hidden ${
-        locked ? '' : 'cursor-pointer'
+        'cursor-pointer'
       }`}
     >
       <div className="flex items-center justify-between mb-4">
@@ -163,7 +163,7 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
     </motion.div>
   );
 
-  if (locked) return card;
+  if (locked) return <Link href="/pricing">{card}</Link>;
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
@@ -178,7 +178,7 @@ function MichelinCard({ receta, locked = false }: { receta: Receta; locked?: boo
       whileHover={locked ? {} : { y: -4, boxShadow: "0 12px 32px rgba(201,168,76,0.15)" }}
       transition={{ duration: 0.25 }}
       className={`relative bg-gradient-to-br from-[#1a1118] to-[#2a1825] rounded-2xl border border-[#C9A84C]/20 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
-        locked ? '' : 'cursor-pointer'
+        'cursor-pointer'
       }`}
     >
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
@@ -228,7 +228,7 @@ function MichelinCard({ receta, locked = false }: { receta: Receta; locked?: boo
     </motion.div>
   );
 
-  if (locked) return card;
+  if (locked) return <Link href="/pricing">{card}</Link>;
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
@@ -244,7 +244,7 @@ function KidsCard({ receta, locked = false }: { receta: Receta; locked?: boolean
       whileHover={locked ? {} : { y: -4, boxShadow: "0 12px 32px rgba(99,102,241,0.12)" }}
       transition={{ duration: 0.25 }}
       className={`relative bg-gradient-to-br from-[#f0f4ff] to-[#fdf2f8] rounded-2xl border border-indigo-200/40 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
-        locked ? '' : 'cursor-pointer'
+        'cursor-pointer'
       }`}
     >
       <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-violet-200/30 to-transparent rounded-full blur-2xl" />
@@ -287,7 +287,7 @@ function KidsCard({ receta, locked = false }: { receta: Receta; locked?: boolean
     </motion.div>
   );
 
-  if (locked) return card;
+  if (locked) return <Link href="/pricing">{card}</Link>;
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 

@@ -304,7 +304,7 @@ export default function PricingPage() {
               },
               {
                 q: "¿Qué son las recetas Michelin-inspired?",
-                a: "200 recetas diseñadas con técnicas de 20 chefs con estrella Michelin. El mismo rigor científico Food·Mood, con técnicas de alta cocina.",
+                a: "200 recetas de alta cocina mediterránea diseñadas con técnicas de vanguardia. El mismo rigor científico Food·Mood, con ingredientes accesibles y sofisticados.",
               },
               {
                 q: "¿Es seguro el pago?",
