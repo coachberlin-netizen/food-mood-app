@@ -41,23 +41,46 @@ export default function DashboardPage() {
     syncFromSupabase();
   }, [syncFromSupabase]);
 
-  // "Receta del día" — random recipe matching user's mood
+  // "Receta del día" — random recipe matching user's mood (direct Supabase query)
   const handleRecetaDelDia = async () => {
     setIsLoadingRecipe(true);
     try {
+      const supabase = createClient();
       const moodId = resultMood || 'social';
       const keyword = MOOD_KEYWORD[moodId] || 'Social';
-      // Fetch a small random page to get a random recipe
-      const randomPage = Math.floor(Math.random() * 20) + 1;
-      const res = await fetch(`/api/recetas?mood=${keyword}&segmento=adulto&premium_level=0&limit=1&page=${randomPage}`);
-      const data = await res.json();
-      if (data.recetas?.length > 0) {
-        setTodayRecipe(data.recetas[0]);
+
+      // First try: mood-matching free recipe
+      let { data, count } = await supabase
+        .from('recetas')
+        .select('*', { count: 'exact' })
+        .ilike('mood_es', `%${keyword}%`)
+        .eq('segmento', 'adulto')
+        .eq('premium_level', 0)
+        .limit(1);
+
+      // Pick random offset if there are results
+      if (count && count > 1) {
+        const randomOffset = Math.floor(Math.random() * Math.min(count, 200));
+        const { data: randomData } = await supabase
+          .from('recetas')
+          .select('*')
+          .ilike('mood_es', `%${keyword}%`)
+          .eq('segmento', 'adulto')
+          .eq('premium_level', 0)
+          .range(randomOffset, randomOffset);
+        if (randomData?.length) data = randomData;
+      }
+
+      if (data?.length) {
+        setTodayRecipe(data[0]);
       } else {
-        // Fallback: any recipe
-        const res2 = await fetch(`/api/recetas?segmento=adulto&premium_level=0&limit=1&page=${Math.floor(Math.random() * 50) + 1}`);
-        const data2 = await res2.json();
-        if (data2.recetas?.length > 0) setTodayRecipe(data2.recetas[0]);
+        // Fallback: any free recipe
+        const { data: fallback } = await supabase
+          .from('recetas')
+          .select('*')
+          .eq('premium_level', 0)
+          .limit(1);
+        if (fallback?.length) setTodayRecipe(fallback[0]);
       }
     } catch (err) {
       console.error('Error fetching receta del día:', err);
@@ -70,17 +93,37 @@ export default function DashboardPage() {
   const handleHacerMagia = async () => {
     setIsLoadingRecipe(true);
     try {
-      const randomPage = Math.floor(Math.random() * 10) + 1;
-      const res = await fetch(`/api/recetas?premium_level=2&limit=1&page=${randomPage}`);
-      const data = await res.json();
-      if (data.recetas?.length > 0) {
-        setTodayRecipe(data.recetas[0]);
-      } else {
-        // Fallback: any recipe
-        const res2 = await fetch(`/api/recetas?limit=1&page=${Math.floor(Math.random() * 100) + 1}`);
-        const data2 = await res2.json();
-        if (data2.recetas?.length > 0) setTodayRecipe(data2.recetas[0]);
+      const supabase = createClient();
+
+      // Try Michelin first
+      const { count } = await supabase
+        .from('recetas')
+        .select('id', { count: 'exact', head: true })
+        .eq('premium_level', 2);
+
+      if (count && count > 0) {
+        const randomOffset = Math.floor(Math.random() * Math.min(count, 100));
+        const { data } = await supabase
+          .from('recetas')
+          .select('*')
+          .eq('premium_level', 2)
+          .range(randomOffset, randomOffset);
+        if (data?.length) {
+          setTodayRecipe(data[0]);
+          return;
+        }
       }
+
+      // Fallback: any recipe
+      const { count: totalCount } = await supabase
+        .from('recetas')
+        .select('id', { count: 'exact', head: true });
+      const offset = Math.floor(Math.random() * Math.min(totalCount || 100, 500));
+      const { data: fallback } = await supabase
+        .from('recetas')
+        .select('*')
+        .range(offset, offset);
+      if (fallback?.length) setTodayRecipe(fallback[0]);
     } catch (err) {
       console.error('Error fetching magia recipe:', err);
     } finally {
