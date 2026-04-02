@@ -3,6 +3,7 @@
 import { useQuizStore } from "@/store/useQuizStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { createClient } from "@/lib/supabase/client";
+import { createRecetasClient } from "@/lib/supabase/recetas";
 import { moods } from "@/data/moods";
 // recipesData import removed — using Supabase API directly
 import Link from "next/link";
@@ -45,7 +46,7 @@ export default function DashboardPage() {
   const handleRecetaDelDia = async () => {
     setIsLoadingRecipe(true);
     try {
-      const supabase = createClient();
+      const supabase = createRecetasClient();
       const moodId = resultMood || 'social';
       const keyword = MOOD_KEYWORD[moodId] || 'Social';
 
@@ -93,7 +94,7 @@ export default function DashboardPage() {
   const handleHacerMagia = async () => {
     setIsLoadingRecipe(true);
     try {
-      const supabase = createClient();
+      const supabase = createRecetasClient();
 
       // Try Michelin first
       const { count } = await supabase
