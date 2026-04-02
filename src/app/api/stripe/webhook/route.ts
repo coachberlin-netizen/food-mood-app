@@ -3,17 +3,22 @@ import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-// Use service role key to bypass RLS for subscription writes
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
-
 /**
  * POST /api/stripe/webhook
  * Handles Stripe webhook events for subscription lifecycle.
+ * Updates profiles.is_premium in Supabase.
  */
 export async function POST(req: NextRequest) {
+  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+    console.error('[webhook] Missing Supabase env vars')
+    return NextResponse.json({ error: 'Server config error' }, { status: 500 })
+  }
+
+  const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+
   const body = await req.text()
   const sig = req.headers.get('stripe-signature')!
 
@@ -35,78 +40,80 @@ export async function POST(req: NextRequest) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
         const userId = session.metadata?.supabase_user_id
-        const customerId = session.customer as string
-        const subscriptionId = session.subscription as string
+        const customerEmail = session.customer_details?.email || session.customer_email
+        const plan = session.metadata?.plan || 'monthly'
+
+        console.log(`[webhook] checkout.session.completed — userId: ${userId}, email: ${customerEmail}, plan: ${plan}`)
 
         if (userId) {
-          await supabaseAdmin.from('subscriptions').upsert(
-            {
-              user_id: userId,
-              stripe_customer_id: customerId,
-              stripe_subscription_id: subscriptionId,
-              tier: 'premium',
-              status: 'active',
-              updated_at: new Date().toISOString(),
-            },
-            { onConflict: 'user_id' }
-          )
+          // Update profiles table: is_premium = true
+          const { error: profileError } = await supabaseAdmin
+            .from('profiles')
+            .update({ is_premium: true })
+            .eq('id', userId)
 
-          // Also update user_profiles tier
-          await supabaseAdmin
-            .from('user_profiles')
-            .update({ tier: 'premium' })
-            .eq('user_id', userId)
+          if (profileError) {
+            console.error('[webhook] Error updating profiles:', profileError)
+          } else {
+            console.log(`✅ profiles.is_premium = true for user ${userId}`)
+          }
+        } else if (customerEmail) {
+          // Fallback: find user by email
+          const { data: profile } = await supabaseAdmin
+            .from('profiles')
+            .select('id')
+            .eq('email', customerEmail)
+            .single()
+
+          if (profile?.id) {
+            await supabaseAdmin
+              .from('profiles')
+              .update({ is_premium: true })
+              .eq('id', profile.id)
+            console.log(`✅ profiles.is_premium = true for user ${profile.id} (found by email)`)
+          } else {
+            console.error(`[webhook] No profile found for email: ${customerEmail}`)
+          }
         }
 
-        console.log(`✅ Subscription activated for user ${userId}`)
         break
       }
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription
-        const customerId = subscription.customer as string
+        const customerEmail = subscription.metadata?.customer_email
 
-        // Find user by stripe_customer_id and downgrade
-        const { data: sub } = await supabaseAdmin
-          .from('subscriptions')
-          .select('user_id')
-          .eq('stripe_customer_id', customerId)
-          .single()
+        console.log(`[webhook] subscription.deleted — customerId: ${subscription.customer}`)
 
-        if (sub?.user_id) {
+        // Try to find user by Stripe customer ID or email and downgrade
+        if (customerEmail) {
           await supabaseAdmin
-            .from('subscriptions')
-            .update({
-              tier: 'free',
-              status: 'canceled',
-              updated_at: new Date().toISOString(),
-            })
-            .eq('user_id', sub.user_id)
-
-          await supabaseAdmin
-            .from('user_profiles')
-            .update({ tier: 'free' })
-            .eq('user_id', sub.user_id)
-
-          console.log(`❌ Subscription canceled for user ${sub.user_id}`)
+            .from('profiles')
+            .update({ is_premium: false })
+            .eq('email', customerEmail)
+          console.log(`❌ profiles.is_premium = false for ${customerEmail}`)
         }
+
         break
       }
 
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription
-        const customerId = subscription.customer as string
         const status = subscription.status
 
-        await supabaseAdmin
-          .from('subscriptions')
-          .update({
-            status,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('stripe_customer_id', customerId)
+        console.log(`🔄 Subscription updated: ${status} for customer ${subscription.customer}`)
 
-        console.log(`🔄 Subscription updated: ${status} for customer ${customerId}`)
+        // If subscription becomes inactive, downgrade
+        if (status === 'canceled' || status === 'unpaid' || status === 'past_due') {
+          const userId = subscription.metadata?.supabase_user_id
+          if (userId) {
+            await supabaseAdmin
+              .from('profiles')
+              .update({ is_premium: false })
+              .eq('id', userId)
+            console.log(`❌ profiles.is_premium = false for user ${userId}`)
+          }
+        }
         break
       }
 

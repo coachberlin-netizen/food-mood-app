@@ -4,21 +4,28 @@ import { useQuizStore } from "@/store/useQuizStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { createClient } from "@/lib/supabase/client";
 import { moods } from "@/data/moods";
-import { recipesData } from "@/data/recipes";
+// recipesData import removed — using Supabase API directly
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Loader2, Sparkles, Heart } from "lucide-react";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { Loader2, Sparkles, CheckCircle } from "lucide-react";
 
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
   const { user, isAuthenticated } = useAuthStore();
   
   const [mounted, setMounted] = useState(false);
-  const [monthlyRecipe, setMonthlyRecipe] = useState<any>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isLoadingHistory, setIsLoadingHistory] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [todayRecipe, setTodayRecipe] = useState<any>(null);
+  const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
   const [todayFormatted, setTodayFormatted] = useState("");
+  const searchParams = useSearchParams();
+  const showSuccess = searchParams.get('success') === 'true';
+
+  // Mood keyword map for Supabase ilike query
+  const MOOD_KEYWORD: Record<string, string> = {
+    activacion: 'Activaci', calma: 'Calma', focus: 'Focus',
+    social: 'Social', reset: 'Reset', confort: 'Confort',
+  };
 
   useEffect(() => {
     const today = new Date().toLocaleDateString("es-ES", {
@@ -32,72 +39,53 @@ export default function DashboardPage() {
   useEffect(() => {
     setMounted(true);
     syncFromSupabase();
-    
-    // Fetch last recipe generated this month
-    async function fetchMonthlyRecipe() {
-      if (!user?.email) {
-        setIsLoadingHistory(false);
-        return;
-      }
-      
-      const supabase = createClient();
-      const now = new Date();
-      const monthYear = `${now.getMonth() + 1}-${now.getFullYear()}`;
-      
-      const { data } = await supabase
-        .from('recipe_history')
-        .select('*')
-        .eq('user_email', user.email)
-        .eq('month_year', monthYear)
-        .order('generated_date', { ascending: false })
-        .limit(1);
-        
-      if (data && data.length > 0) {
-        setMonthlyRecipe(data[0].recipe_content);
-        setIsFavorite(data[0].is_favorite);
-      }
-      setIsLoadingHistory(false);
-    }
-    
-    fetchMonthlyRecipe();
-  }, [syncFromSupabase, user]);
+  }, [syncFromSupabase]);
 
-  const handleGenerateTodayRecipe = async () => {
-    if (!isAuthenticated || !user?.email) return;
-    
+  // "Receta del día" — random recipe matching user's mood
+  const handleRecetaDelDia = async () => {
+    setIsLoadingRecipe(true);
     try {
-      setIsGenerating(true);
-      const moodId = resultMood || "social";
-      const moodName = moods.find(m => m.id === moodId)?.nombre || "Social";
-      
-      const res = await fetch('/api/recipe/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ moodId, moodName, userEmail: user.email })
-      });
-      
+      const moodId = resultMood || 'social';
+      const keyword = MOOD_KEYWORD[moodId] || 'Social';
+      // Fetch a small random page to get a random recipe
+      const randomPage = Math.floor(Math.random() * 20) + 1;
+      const res = await fetch(`/api/recetas?mood=${keyword}&segmento=adulto&premium_level=0&limit=1&page=${randomPage}`);
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      
-      setMonthlyRecipe(data);
-      setIsFavorite(false);
+      if (data.recetas?.length > 0) {
+        setTodayRecipe(data.recetas[0]);
+      } else {
+        // Fallback: any recipe
+        const res2 = await fetch(`/api/recetas?segmento=adulto&premium_level=0&limit=1&page=${Math.floor(Math.random() * 50) + 1}`);
+        const data2 = await res2.json();
+        if (data2.recetas?.length > 0) setTodayRecipe(data2.recetas[0]);
+      }
     } catch (err) {
-      alert("Error conectando con la IA de Food·Mood.");
-      console.error(err);
+      console.error('Error fetching receta del día:', err);
     } finally {
-      setIsGenerating(false);
+      setIsLoadingRecipe(false);
     }
   };
 
-  const handleToggleFavorite = async () => {
-    if (!monthlyRecipe || !user?.email) return;
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recipe_history')
-      .update({ is_favorite: !isFavorite })
-      .eq('recipe_id', monthlyRecipe.id);
-      
-    if (!error) setIsFavorite(!isFavorite);
+  // "Hacer magia" — random Michelin recipe (premium_level=2), fallback to any
+  const handleHacerMagia = async () => {
+    setIsLoadingRecipe(true);
+    try {
+      const randomPage = Math.floor(Math.random() * 10) + 1;
+      const res = await fetch(`/api/recetas?premium_level=2&limit=1&page=${randomPage}`);
+      const data = await res.json();
+      if (data.recetas?.length > 0) {
+        setTodayRecipe(data.recetas[0]);
+      } else {
+        // Fallback: any recipe
+        const res2 = await fetch(`/api/recetas?limit=1&page=${Math.floor(Math.random() * 100) + 1}`);
+        const data2 = await res2.json();
+        if (data2.recetas?.length > 0) setTodayRecipe(data2.recetas[0]);
+      }
+    } catch (err) {
+      console.error('Error fetching magia recipe:', err);
+    } finally {
+      setIsLoadingRecipe(false);
+    }
   };
 
   if (!mounted) return null;
@@ -132,6 +120,16 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-transparent">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
         
+        {/* SUCCESS BANNER after payment */}
+        {showSuccess && (
+          <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-emerald-800 animate-in fade-in">
+            <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
+            <p className="text-sm font-medium">
+              ¡Bienvenida a Food·Mood Premium! Ya tienes acceso a todas las recetas.
+            </p>
+          </div>
+        )}
+
         {/* 1. HEADER */}
         <header className="flex flex-col gap-4">
           <p className="font-serif text-2xl font-bold text-aubergine">
@@ -174,17 +172,17 @@ export default function DashboardPage() {
               <div className="flex flex-col gap-3 shrink-0">
                 <button
                   onClick={() => {
-                    if (monthlyRecipe) {
+                    if (todayRecipe) {
                       document.getElementById('receta-del-dia')?.scrollIntoView({ behavior: 'smooth' });
                     } else {
-                      handleGenerateTodayRecipe();
+                      handleRecetaDelDia();
                     }
                   }}
-                  disabled={isGenerating || !isAuthenticated}
+                  disabled={isLoadingRecipe}
                   className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-aubergine-dark text-white font-medium text-sm tracking-wide shadow-luxury hover:bg-aubergine transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isGenerating ? (
-                    <><Loader2 className="w-4 h-4 animate-spin" /> Creando...</>
+                  {isLoadingRecipe ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Buscando...</>
                   ) : (
                     <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Receta del día</>
                   )}
@@ -261,7 +259,7 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* 3. RECETA DEL DÍA / IA */}
+        {/* 3. RECETA DEL DÍA */}
         <section id="receta-del-dia" className="flex flex-col gap-8 scroll-mt-8">
           <div className="flex items-center gap-4">
             <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
@@ -271,97 +269,77 @@ export default function DashboardPage() {
           </div>
           
           <div className="bg-cream rounded-[1.5rem] p-10 border border-aubergine-dark/20 shadow-sm flex flex-col justify-center min-h-[200px]">
-            {isLoadingHistory ? (
-              <div className="flex justify-center items-center h-full text-aubergine-dark/50">
-                <Loader2 className="w-8 h-8 animate-spin" />
-              </div>
-            ) : monthlyRecipe ? (
-              <div className="flex flex-col gap-8">
+            {todayRecipe ? (
+              <div className="flex flex-col gap-6">
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                   <div className="flex flex-col gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3" /> Generada por tu IA Food·Mood
-                    </span>
-                    <h3 className="text-3xl md:text-4xl font-serif font-black text-gray-900">
-                      {monthlyRecipe.title}
-                    </h3>
-                    {monthlyRecipe.tagline && (
-                      <p className="text-aubergine-dark/60 italic font-light text-base">&quot;{monthlyRecipe.tagline}&quot;</p>
-                    )}
-                    <div className="flex items-center gap-6 text-sm text-gray-700 font-light mt-2 uppercase tracking-wider">
-                      <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
-                        {monthlyRecipe.prepTime} min
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
+                        {todayRecipe.mood_es}
                       </span>
-                      <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
-                        {monthlyRecipe.difficulty}
-                      </span>
-                      {monthlyRecipe.servings && (
-                        <span className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
-                          {monthlyRecipe.servings} px
+                      {(todayRecipe.premium_level ?? 0) === 2 && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[9px] font-bold uppercase tracking-wider border border-[#C9A84C]/20">
+                          ✦ Michelin
                         </span>
                       )}
                     </div>
+                    <h3 className="text-2xl md:text-3xl font-serif font-black text-aubergine-dark">
+                      {todayRecipe.nombre_es}
+                    </h3>
+                    {todayRecipe.contexto_es && (
+                      <p className="text-aubergine-dark/55 font-light text-sm leading-relaxed max-w-lg">{todayRecipe.contexto_es}</p>
+                    )}
+                    <div className="flex items-center gap-5 text-xs text-aubergine-dark/45 font-light mt-2 uppercase tracking-wider">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
+                        {todayRecipe.tiempo_preparacion_min} min
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
+                        {todayRecipe.dificultad}
+                      </span>
+                      <span className="flex items-center gap-1.5 capitalize">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>
+                        {todayRecipe.tipo_plato}
+                      </span>
+                    </div>
                   </div>
-                  <button
-                    onClick={handleToggleFavorite}
-                    className={`inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-sans font-medium transition-colors shrink-0 ${isFavorite ? 'text-red-500' : 'text-aubergine-dark/50 hover:text-aubergine-dark'}`}
+                  <Link
+                    href={`/recetas/${todayRecipe.id}`}
+                    className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
                   >
-                    <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
-                    {isFavorite ? 'Favorita' : 'Guardar'}
-                  </button>
+                    Ver receta completa →
+                  </Link>
                 </div>
 
-                {/* Ingredientes + Pasos */}
-                {(monthlyRecipe.ingredients || monthlyRecipe.steps) && (
-                  <div className="grid md:grid-cols-2 gap-8 pt-6 border-t border-aubergine-dark/10">
-                    {monthlyRecipe.ingredients && (
-                      <div>
-                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/50 mb-4">Ingredientes</h4>
-                        <ul className="space-y-2">
-                          {monthlyRecipe.ingredients.map((ing: any, i: number) => (
-                            <li key={i} className="flex justify-between border-b border-aubergine-dark/10 pb-2 text-sm font-light text-aubergine-dark/80">
-                              <span>{ing.name}</span>
-                              <span className="font-medium text-aubergine-dark">{ing.quantity}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {monthlyRecipe.steps && (
-                      <div>
-                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/50 mb-4">Preparación</h4>
-                        <ol className="space-y-3 list-decimal list-outside pl-4">
-                          {monthlyRecipe.steps.map((step: string, i: number) => (
-                            <li key={i} className="text-sm font-light text-aubergine-dark/80 leading-relaxed pl-1">{step}</li>
-                          ))}
-                        </ol>
-                      </div>
-                    )}
+                {/* Nota Food·Mood */}
+                {todayRecipe.nota_food_mood_es && (
+                  <div className="bg-[#C9A84C]/5 p-5 rounded-xl border-l-2 border-[#C9A84C] text-sm font-light text-aubergine-dark/80 italic">
+                    🧬 {todayRecipe.nota_food_mood_es}
                   </div>
                 )}
 
-                {/* Food·Mood Note */}
-                {monthlyRecipe.foodMoodNote && (
-                  <div className="bg-[#C9A84C]/5 p-5 rounded-xl border-l-2 border-[#C9A84C] text-sm font-light text-aubergine-dark/80 italic">
-                    🧠 {monthlyRecipe.foodMoodNote}
-                  </div>
-                )}
+                {/* Refresh button */}
+                <button
+                  onClick={handleRecetaDelDia}
+                  disabled={isLoadingRecipe}
+                  className="self-center text-[11px] text-aubergine-dark/35 hover:text-aubergine-dark/60 transition-colors cursor-pointer"
+                >
+                  Otra receta →
+                </button>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center text-center gap-6">
                 <p className="font-serif text-xl md:text-2xl text-aubergine-dark/80 max-w-lg font-light leading-[1.6]">
                   Aún no le has dado un capricho a tus sentidos hoy.<br/>¿Preparamos algo especial?
                 </p>
-                <div className="flex flex-col items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
                   <button
-                    onClick={handleGenerateTodayRecipe}
-                    disabled={!isAuthenticated || isGenerating}
+                    onClick={handleHacerMagia}
+                    disabled={isLoadingRecipe}
                     className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-aubergine-dark text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-aubergine transition-colors tracking-wide"
                   >
-                    {isGenerating ? (
+                    {isLoadingRecipe ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
                     ) : (
                       <>
@@ -370,9 +348,9 @@ export default function DashboardPage() {
                       </>
                     )}
                   </button>
-                  {!isAuthenticated && (
-                    <Link href="/auth/register" className="text-xs text-aubergine-dark/50 hover:text-aubergine-dark font-sans tracking-wide mt-2">
-                      Crea cuenta para no perderte ni una receta →
+                  {!resultMood && (
+                    <Link href="/test" className="text-xs text-aubergine-dark/50 hover:text-aubergine-dark font-sans tracking-wide">
+                      Haz el test para recetas personalizadas →
                     </Link>
                   )}
                 </div>
