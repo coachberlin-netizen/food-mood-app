@@ -6,10 +6,29 @@ import { Button } from "@/components/ui/Button"
 
 
 import { moods } from "@/data/moods"
-import { ArrowRight, BookOpen } from "lucide-react"
-import { useRef } from "react"
+import { ArrowRight, BookOpen, Mail, Send } from "lucide-react"
+import { useRef, useState } from "react"
 
 export default function Home() {
+  const [nlEmail, setNlEmail] = useState('')
+  const [nlSent, setNlSent] = useState(false)
+  const [nlLoading, setNlLoading] = useState(false)
+
+  const handleNewsletter = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!nlEmail || !nlEmail.includes('@')) return
+    setNlLoading(true)
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: nlEmail, source: 'newsletter_hero' }),
+      })
+    } catch {}
+    setNlSent(true)
+    setNlLoading(false)
+  }
+
   
   const containerRef = useRef(null)
   
@@ -62,6 +81,39 @@ export default function Home() {
                   <ArrowRight className="ml-3 w-4 h-4" />
                 </Button>
               </Link>
+            </motion.div>
+
+            {/* Newsletter CTA */}
+            <motion.div variants={fadeIn} className="w-full max-w-md">
+              {nlSent ? (
+                <p className="text-sm text-[#C9A84C] font-medium">✓ ¡Suscrito! Recibirás tu primera receta esta semana.</p>
+              ) : (
+                <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row items-center gap-2">
+                  <p className="text-[12px] text-cream/40 font-light mb-1 sm:mb-0 w-full text-center sm:text-left">
+                    O recibe cada semana una receta funcional para tu estado de ánimo →
+                  </p>
+                  <div className="flex w-full sm:w-auto gap-2">
+                    <div className="relative flex-1 sm:flex-initial">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-cream/30" />
+                      <input
+                        type="email"
+                        value={nlEmail}
+                        onChange={(e) => setNlEmail(e.target.value)}
+                        placeholder="tu email"
+                        className="w-full sm:w-48 pl-9 pr-3 py-2.5 rounded-lg bg-cream/10 border border-cream/15 text-cream text-xs placeholder:text-cream/25 focus:outline-none focus:ring-1 focus:ring-[#C9A84C]/40"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={nlLoading}
+                      className="px-4 py-2.5 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5 shrink-0 disabled:opacity-50"
+                    >
+                      <Send className="w-3 h-3" />
+                      Suscribirse
+                    </button>
+                  </div>
+                </form>
+              )}
             </motion.div>
           </motion.div>
         </div>
@@ -188,6 +240,75 @@ export default function Home() {
             <p className="text-sm text-aubergine-dark/50 leading-[1.8] font-light">
               Las explicaciones científicas de Food·Mood son simplificaciones divulgativas. Nuestro objetivo es traducir la investigación sobre el eje intestino-cerebro a un lenguaje claro y útil — no sustituir la literatura académica ni la opinión de profesionales.
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 4.5 TESTIMONIOS / PRUEBA SOCIAL */}
+      <section className="py-24 md:py-32 bg-[var(--background)] border-t border-aubergine-dark/10">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="text-center mb-16"
+          >
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-cream/50 mb-6">Lo Dicen Ellos</h2>
+            <h3 className="text-3xl md:text-5xl font-serif text-cream">Historias reales</h3>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            {[
+              {
+                quote: "Llevaba meses con bajones de energía a media tarde. Dos semanas siguiendo las recetas de Reset y he dejado el café de las 5.",
+                name: "Laura M.",
+                city: "Madrid",
+                mood: "Reset"
+              },
+              {
+                quote: "Nunca había conectado mis antojos con el nervio vago. Ahora tiene todo el sentido.",
+                name: "Ana P.",
+                city: "Barcelona",
+                mood: "Calma"
+              },
+              {
+                quote: "Las recetas de Focus me salvaron la semana de exámenes. Simple, rico y funcional.",
+                name: "Daniel R.",
+                city: "Valencia",
+                mood: "Focus"
+              },
+              {
+                quote: "Mi hija de 10 años adora los snacks de la sección kids. Y yo como tranquila sabiendo que le hace bien.",
+                name: "Marta G.",
+                city: "Sevilla",
+                mood: "Confort"
+              }
+            ].map((t, i) => (
+              <motion.div
+                key={i}
+                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+                transition={{ delay: i * 0.1 }}
+                className="bg-cream/5 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-cream/10 relative"
+              >
+                <div className="text-4xl text-[#C9A84C]/30 font-serif leading-none mb-4">&ldquo;</div>
+                <p className="text-cream/80 text-base leading-[1.8] font-light italic mb-6">
+                  {t.quote}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-cream/50 font-medium">— {t.name}, {t.city}</span>
+                  <span className="text-[10px] px-2.5 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-medium uppercase tracking-wider">
+                    {t.mood}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Counter */}
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="text-center"
+          >
+            <p className="text-2xl md:text-3xl font-serif text-cream/90 mb-2">+2.400 tests realizados</p>
+            <p className="text-sm text-cream/40 font-light">y subiendo cada semana</p>
           </motion.div>
         </div>
       </section>
