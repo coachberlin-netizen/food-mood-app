@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-aubergine">
+    <div className="min-h-screen bg-[var(--background)]">
       <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">
         
         {/* HEADER */}

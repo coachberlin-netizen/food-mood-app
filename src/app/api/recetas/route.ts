@@ -78,6 +78,7 @@ export async function GET(req: NextRequest) {
       .range(from, to)
 
     // ── Execute ───────────────────────────────────────────────
+    console.log('[recetas-api] filters:', { sexo, edad, mood, tiempo, temporada, q, segmento, premiumLevel, page, limit })
     const { data, error, count } = await query
 
     if (error) {
@@ -87,6 +88,8 @@ export async function GET(req: NextRequest) {
         { status: 500 }
       )
     }
+
+    console.log(`[recetas-api] results: ${count} total, ${data?.length || 0} returned`)
 
     const total = count ?? 0
     const totalPages = Math.ceil(total / limit)
