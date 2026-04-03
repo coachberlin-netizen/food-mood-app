@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint", "seed-recetas": "ts-node scripts/seed-recetas.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
