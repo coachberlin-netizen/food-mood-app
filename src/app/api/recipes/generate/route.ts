@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 
     // 4. Call Anthropic Claude API
     const response = await anthropic.messages.create({
-      model: "claude-3-7-sonnet-latest", // Reverting to claude-3-7-sonnet-latest as the canonical current model
+      model: "claude-sonnet-4-6", // Current Sonnet model (April 2026)
       max_tokens: 1500,
       temperature: 0.7,
       system: RECIPE_SYSTEM_PROMPT,
