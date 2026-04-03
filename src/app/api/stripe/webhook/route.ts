@@ -39,23 +39,32 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
-        const userId = session.metadata?.supabase_user_id
+        // Primary: client_reference_id set during checkout creation
+        // Fallback: metadata.supabase_user_id
+        const userId = session.client_reference_id || session.metadata?.supabase_user_id
         const customerEmail = session.customer_details?.email || session.customer_email
         const plan = session.metadata?.plan || 'monthly'
+        const stripeCustomerId = typeof session.customer === 'string' ? session.customer : undefined
 
-        console.log(`[webhook] checkout.session.completed — userId: ${userId}, email: ${customerEmail}, plan: ${plan}`)
+        console.log(`[webhook] checkout.session.completed — userId: ${userId}, email: ${customerEmail}, plan: ${plan}, customer: ${stripeCustomerId}`)
+
+        const updatePayload = {
+          is_premium: true,
+          tier: plan,
+          subscription_status: 'active',
+          ...(stripeCustomerId && { stripe_customer_id: stripeCustomerId }),
+        }
 
         if (userId) {
-          // Update profiles table: is_premium = true
           const { error: profileError } = await supabaseAdmin
             .from('profiles')
-            .update({ is_premium: true })
+            .update(updatePayload)
             .eq('id', userId)
 
           if (profileError) {
             console.error('[webhook] Error updating profiles:', profileError)
           } else {
-            console.log(`✅ profiles.is_premium = true for user ${userId}`)
+            console.log(`✅ profiles updated for user ${userId}:`, updatePayload)
           }
         } else if (customerEmail) {
           // Fallback: find user by email
@@ -68,9 +77,9 @@ export async function POST(req: NextRequest) {
           if (profile?.id) {
             await supabaseAdmin
               .from('profiles')
-              .update({ is_premium: true })
+              .update(updatePayload)
               .eq('id', profile.id)
-            console.log(`✅ profiles.is_premium = true for user ${profile.id} (found by email)`)
+            console.log(`✅ profiles updated for user ${profile.id} (found by email):`, updatePayload)
           } else {
             console.error(`[webhook] No profile found for email: ${customerEmail}`)
           }
