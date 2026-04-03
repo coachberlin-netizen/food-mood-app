@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
 
     // Call Claude Haiku
     const response = await anthropic.messages.create({
-      model: 'claude-3-haiku-20240307',
+      model: 'claude-3-5-haiku-20241022',
       max_tokens: 300,
       system: SYSTEM_PROMPT,
       messages: messages.map((m: { role: string; content: string }) => ({
@@ -129,11 +129,14 @@ export async function POST(req: NextRequest) {
       confidence: confidence || undefined,
       recetas: recetas || undefined,
     })
-  } catch (err) {
-    console.error('[chat/mood] Error:', err)
+  } catch (err: unknown) {
+    const error = err as { message?: string; status?: number; error?: { message?: string } }
+    const msg = error?.message || error?.error?.message || 'Unknown error'
+    const status = error?.status || 500
+    console.error('[chat/mood] Error:', msg, 'Status:', status, 'Full:', JSON.stringify(err))
     return NextResponse.json(
-      { error: 'Error processing chat' },
-      { status: 500 }
+      { error: msg },
+      { status }
     )
   }
 }
