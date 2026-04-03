@@ -53,30 +53,46 @@ export default function PricingPage() {
   }, []);
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Store userId when checking auth
+  useEffect(() => {
+    const getUserId = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) setUserId(user.id);
+    };
+    getUserId();
+  }, [isAuthenticated]);
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
-    if (!isAuthenticated) {
-      window.location.href = `/login?redirect=/pricing`;
+    if (!isAuthenticated || !userId) {
+      window.location.href = `/auth/login?redirect=/pricing`;
       return;
     }
-    // Authenticated user → create Stripe Checkout Session
+
+    const priceId = plan === "quarterly"
+      ? process.env.NEXT_PUBLIC_STRIPE_PRICE_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
+      : process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY || "price_1THUGfKAfsMmyDlfym8JQTiC";
+
     setIsCheckingOut(true);
     try {
-      const res = await fetch('/api/checkout', {
+      const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan }),
+        body: JSON.stringify({ priceId, userId }),
       });
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert('Error al conectar con el pasarela de pago.');
+        console.error('Checkout response:', data);
+        alert('Error al conectar con la pasarela de pago.');
         setIsCheckingOut(false);
       }
     } catch (err) {
       console.error('Checkout error:', err);
-      alert('Error al conectar con el pasarela de pago.');
+      alert('Error al conectar con la pasarela de pago.');
       setIsCheckingOut(false);
     }
   };
