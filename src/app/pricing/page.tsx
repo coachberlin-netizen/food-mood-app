@@ -7,6 +7,7 @@ import {
   ShieldCheck, RefreshCcw, Lock,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 /* ── Feature lists ───────────────────────────────────────── */
@@ -54,7 +55,7 @@ export default function PricingPage() {
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
-
+  const router = useRouter();
   // Store userId when checking auth
   useEffect(() => {
     const getUserId = async () => {
@@ -67,7 +68,7 @@ export default function PricingPage() {
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
     if (!isAuthenticated || !userId) {
-      window.location.href = `/auth/login?redirect=/pricing`;
+      router.push(`/auth/login?redirect=/pricing`);
       return;
     }
 
@@ -152,9 +153,8 @@ export default function PricingPage() {
                   ) : (
                     <X className="w-4 h-4 text-aubergine-dark/15 shrink-0 mt-0.5" />
                   )}
-                  <span className={`text-sm font-light ${
-                    f.included ? "text-aubergine-dark/50" : "text-aubergine-dark/25 line-through"
-                  }`}>
+                  <span className={`text-sm font-light ${f.included ? "text-aubergine-dark/50" : "text-aubergine-dark/25 line-through"
+                    }`}>
                     {f.text}
                   </span>
                 </li>
