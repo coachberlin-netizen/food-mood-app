@@ -7,9 +7,10 @@ import { createRecetasClient } from "@/lib/supabase/recetas";
 import { moods } from "@/data/moods";
 // recipesData import removed — using Supabase API directly
 import Link from "next/link";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Loader2, Sparkles, CheckCircle } from "lucide-react";
+import { getDailyInspiration, UserContext } from "@/lib/daily-inspiration";
 
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
@@ -55,7 +56,25 @@ export default function DashboardPage() {
         .select('is_premium')
         .eq('id', session.user.id)
         .single();
-      if (profile) setIsPremium(!!profile.is_premium);
+        
+      const isPrem = !!profile?.is_premium;
+      setIsPremium(isPrem);
+
+      const userContext: UserContext = {
+        id: session.user.id,
+        tier: isPrem ? 'premium' : 'registrado free'
+      };
+
+      // 1.5 Fetch Daily Inspiration Automatically
+      try {
+        const recetasClient = createRecetasClient();
+        const inspiration = await getDailyInspiration(supabase, recetasClient, userContext);
+        if (inspiration) {
+          setTodayRecipe(inspiration);
+        }
+      } catch (err) {
+        console.error('Error auto-fetching daily inspiration:', err);
+      }
 
       // 2. Fetch quiz_results for this week (Monday-Sunday)
       const now = new Date();
@@ -419,13 +438,22 @@ export default function DashboardPage() {
                       </span>
                     </div>
                   </div>
-                  <Link
-                    href={`/recetas/${todayRecipe.id}`}
-                    className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
-                  >
-                    Ver receta completa →
-                  </Link>
-                </div>
+                    {!todayRecipe.isRestricted ? (
+                      <Link
+                        href={`/recetas/${todayRecipe.id}`}
+                        className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
+                      >
+                        Ver receta completa →
+                      </Link>
+                    ) : (
+                      <Link
+                        href="/pricing"
+                        className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
+                      >
+                        Desbloquear receta →
+                      </Link>
+                    )}
+                  </div>
 
                 {/* Nota Food·Mood */}
                 {todayRecipe.nota_food_mood_es && (

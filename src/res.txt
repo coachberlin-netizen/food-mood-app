@@ -1,0 +1,1 @@
+C:\Users\coach\.gemini\antigravity\scratch\food-mood\src\components\chat\ChatWidget_fixed.tsx
