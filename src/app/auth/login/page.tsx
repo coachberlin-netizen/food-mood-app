@@ -35,14 +35,15 @@ function LoginForm() {
       }
 
       // Update the legacy store as well for components still relying on it
-      setAuthStoreLogin({ 
-        email, 
-        name: data.user?.user_metadata?.name || email.split("@")[0], 
+      setAuthStoreLogin({
+        email,
+        name: data.user?.user_metadata?.name || email.split("@")[0],
       });
 
       // Read redirect parameter from URL, default to /dashboard
       const redirectTo = searchParams.get('redirect') || '/dashboard';
-      router.push(redirectTo);
+      await new Promise(resolve => setTimeout(resolve, 100));
+      router.replace(redirectTo);
       router.refresh();
     } else {
       setLoading(false);
@@ -55,7 +56,7 @@ function LoginForm() {
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cream/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-cream/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-      
+
       <div className="w-full max-w-md z-10">
         <div className="text-center mb-10">
           <Link href="/" className="inline-flex items-center justify-center text-white">
@@ -76,8 +77,8 @@ function LoginForm() {
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-2">Email</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -85,7 +86,7 @@ function LoginForm() {
                 placeholder="tu@email.com"
               />
             </div>
-            
+
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50">Contraseña</label>
@@ -93,8 +94,8 @@ function LoginForm() {
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -103,7 +104,7 @@ function LoginForm() {
               />
             </div>
 
-            <button 
+            <button
               type="submit"
               disabled={loading}
               className="w-full bg-aubergine-dark text-white hover:bg-aubergine-dark/90 py-4 rounded-xl font-bold shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2 mt-4 disabled:opacity-70"
