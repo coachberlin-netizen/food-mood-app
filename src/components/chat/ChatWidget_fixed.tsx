@@ -16,6 +16,7 @@ interface RecetaCard {
   nombre_es: string;
   mood_es: string;
   imagen_url: string | null;
+  isRestricted?: boolean;
 }
 
 interface ChatState {
@@ -116,7 +117,7 @@ export function ChatWidget() {
         ...s,
         isOpen: opening,
         messages: opening && s.messages.length === 0
-          ? [{ role: "assistant" as const, content: "¡Hola! 👋 Soy tu asistente Food·Mood. ¿Cómo te sientes hoy?" }]
+          ? [{ role: "assistant" as const, content: "Hola 🌿 Soy tu guía de Food·Mood. ¿Cómo te sientes hoy? Cuéntame un poco y te ayudo a traducirlo en una inspiración, un ritual o una receta que tenga sentido para ti." }]
           : s.messages,
       };
     });
@@ -288,10 +289,13 @@ export function ChatWidget() {
                   {state.recetas.map((r) => (
                     <Link
                       key={r.id}
-                      href={`/recetas/${r.id}`}
+                      href={r.isRestricted ? "/pricing" : `/recetas/${r.id}`}
                       className="block bg-white border border-aubergine-dark/10 rounded-xl p-3 hover:border-aubergine-dark/30 transition-colors"
                     >
-                      <p className="text-xs font-semibold text-aubergine-dark">{r.nombre_es}</p>
+                      <p className="text-xs font-semibold text-aubergine-dark">
+                        {r.isRestricted && <span className="font-bold text-aubergine-dark/60 mr-1">💡 Inspiración:</span>}
+                        {r.nombre_es}
+                      </p>
                       <p className="text-xs text-aubergine-dark/50 mt-0.5">{moodEmoji} {r.mood_es}</p>
                     </Link>
                   ))}

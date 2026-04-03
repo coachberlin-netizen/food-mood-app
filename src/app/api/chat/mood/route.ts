@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
+import { createClient } from '@supabase/supabase-js'
+import { getRecipeRecommendationByMood, buildPremiumUpsellMessage, UserContext } from '../../../../lib/daily-inspiration'
 
 const MOOD_MAP: Record<string, string> = {
   'activacion':  'Activación & Energía',
@@ -23,12 +25,47 @@ const MOOD_MAP: Record<string, string> = {
   'calidez':     'Confort & Calidez',
 }
 
-const SYSTEM_PROMPT = `Eres el asistente empático de Food·Mood. Tu objetivo es detectar cómo se siente el usuario emocionalmente en máximo 3 intercambios.
-Los únicos moods válidos son: Activación, Calma, Focus, Social, Reset, Confort.
-Responde siempre en español, con calidez y brevedad (máx 2 frases).
-Cuando tengas suficiente contexto emocional, añade al final de tu respuesta este JSON en una línea separada: {"mood":"focus","confidence":0.85}
-El valor de "mood" debe ser uno de: activacion, calma, focus, social, reset, confort (en minúsculas, sin tildes).
-No fuerces la detección si no tienes datos suficientes. Si el usuario solo saluda, pregunta cómo se siente.`
+function getSystemPrompt(tier: string) {
+  return `Eres el asistente oficial de Food·Mood.
+
+Food·Mood es una app de psiconutrición, tecnologia de los alimentos y longevidad. La app ayuda a las personas a traducir cómo se sienten en decisiones culinarias con más placer, más variedad y más sentido.
+
+Tu voz debe ser claramente Food·Mood: cálida, refinada, hedonista, clara, humana, inteligente.
+Nunca robótica, nunca clínica, nunca agresivamente comercial.
+
+La filosofía central de Food·Mood es:
+- El cuerpo no está fallando; está hablando.
+- La comida no es castigo ni control, sino traducción.
+- Placer primero, ciencia como soporte.
+- La variedad alimentaria importa. Comer con más variedad mejora el microbioma.
+- Food·Mood no da consejos fríos; traduce señales del cuerpo en recetas bellas, funcionales y repetibles.
+
+TU MISIÓN
+1. Preguntar cómo se siente hoy la persona (si aún no lo ha dicho).
+2. Detectar su mood dominante usando lenguaje natural.
+3. Ofrecer una orientación útil y breve.
+4. Recomendar una receta o inspiración cuando proceda.
+5. Convertir con suavidad hacia premium cuando corresponda.
+
+REGLA CRÍTICA DE NEGOCIO Y ESTADO DEL USUARIO
+ESTADO ACTUAL DEL USUARIO CON EL QUE HABLAS: \${tier.toUpperCase()}
+
+- Visitantes o Free ("VISITANTE" o "REGISTRADO FREE"): NUNCA muestres la receta completa (ingredientes/preparación). Da una inspiración o menciona el nombre sugerente de la receta.
+- Premium ("PREMIUM"): Muestra la orientación plena y menciona de forma atractiva la receta escogida de su laboratorio hedonista. Prioriza variedad, nunca repitas sugerencias.
+
+ESTRUCTURA DE RESPUESTA
+1. Reflejo emocional breve.
+2. Traducción a un mood Food·Mood.
+3. CONSEJO, TIP O INSPIRACIÓN INMEDIATA. ¡No te quedes en frases vacías como "necesitas calma"! Entrega aquí mismo una mini-rutina, tip funcional o frase inspiradora útil que puedan aplicar hoy.
+4. No incluyas llamadas a la acción genéricas.
+
+INSTRUCCIÓN TÉCNICA OBLIGATORIA (MUY IMPORTANTE):
+En el mismo mensaje en el que detectas cómo se sienten (cansancio -> activacion, estrés -> calma, niebla -> focus, evento -> social, pesadez -> reset, tristeza -> confort), DEBES incluir al final EXACTAMENTE este formato de JSON y NO ESPERAR A OTRO MENSAJE para recomendar. NUNCA respondas a medias dejando al usuario sin valor útil.
+Ejemplo:
+{"mood":"calma","confidence":0.85}
+
+Los valores de "mood" permitidos son SÓLO: activacion, calma, focus, social, reset, confort. ¡Sé proactivo, emite el tip útil en el texto y siempre acompáñalo del JSON final!`
+}
 
 function extractMoodJSON(text: string): { mood?: string; confidence?: number; cleanText: string } {
   // Try to find JSON at end of response
@@ -45,7 +82,7 @@ function extractMoodJSON(text: string): { mood?: string; confidence?: number; cl
         cleanText,
       }
     } catch {
-      // JSON parse failed, continue without mood
+      // JSON parse failed
     }
   }
   
@@ -65,59 +102,75 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
     }
 
+    const mainSupabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+    )
+
+    let userTier: UserContext['tier'] = 'visitante'
+    if (userId) {
+      const { data } = await mainSupabase
+        .from('profiles')
+        .select('is_premium')
+        .eq('id', userId)
+        .single()
+      
+      if (data?.is_premium === true) {
+        userTier = 'premium'
+      } else {
+        userTier = 'registrado free'
+      }
+    }
+
+    const userContext: UserContext = { id: userId, tier: userTier }
+
     const anthropic = new Anthropic({ apiKey })
 
-    // Call Claude Haiku
     const response = await anthropic.messages.create({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 300,
-      system: SYSTEM_PROMPT,
+      max_tokens: 600,
+      system: getSystemPrompt(userTier),
       messages: messages.map((m: { role: string; content: string }) => ({
         role: m.role as 'user' | 'assistant',
         content: m.content,
       })),
     })
 
-    const rawReply = response.content[0].type === 'text' ? response.content[0].text : ''
-    const { mood: rawMood, confidence, cleanText } = extractMoodJSON(rawReply)
+    let rawReply = response.content[0].type === 'text' ? response.content[0].text : ''
+    let { mood: rawMood, confidence, cleanText } = extractMoodJSON(rawReply)
 
     let detectedMood: string | undefined
-    let recetas: Array<{ id: string; nombre_es: string; mood_es: string; imagen_url: string | null }> | undefined
+    let recetas: Array<any> | undefined
 
-    // Resolve mood if confidence is high enough
     if (rawMood && confidence && confidence > 0.7) {
       detectedMood = MOOD_MAP[rawMood] || MOOD_MAP[rawMood.toLowerCase()]
 
       if (detectedMood) {
-        // Fetch 2 free recipes for this mood from the recetas DB
-        const { createClient } = await import('@supabase/supabase-js')
         const recetasSupabase = createClient(
           process.env.NEXT_PUBLIC_RECETAS_SUPABASE_URL || process.env.RECETAS_SUPABASE_URL || '',
           process.env.NEXT_PUBLIC_RECETAS_SUPABASE_ANON_KEY || process.env.RECETAS_SUPABASE_KEY || ''
         )
 
-        const { data: recipes } = await recetasSupabase
-          .from('recetas')
-          .select('id, nombre_es, mood_es, imagen_url')
-          .ilike('mood_es', `%${detectedMood.split(' ')[0]}%`)
-          .eq('premium_level', 0)
-          .eq('segmento', 'adulto')
-          .limit(2)
+        // Trae UNA sugerencia optimizada usando nuestras nuevas reglas de negocio
+        const recommendedRecipe = await getRecipeRecommendationByMood(
+          mainSupabase, recetasSupabase, userContext, detectedMood, 'chat_recommendation'
+        );
 
-        recetas = recipes || []
+        if (recommendedRecipe) {
+          recetas = [recommendedRecipe];
+          // Añade dinámicamente el mensaje Upsell según el tier si recomendaron una receta
+          cleanText += buildPremiumUpsellMessage(userTier);
+        }
 
-        // Update user's last mood if authenticated
+        // Guardo el estado emocional (mood) más reciente para analítica rápida
         if (userId) {
-          const mainSupabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-          )
-          await mainSupabase
+          mainSupabase
             .from('profiles')
             .update({
               last_mood: detectedMood,
               last_mood_date: new Date().toISOString(),
             })
+            .eq('id', userId)
             .eq('id', userId)
         }
       }

@@ -18,19 +18,31 @@ const MOOD_COLORS: Record<string, { color: string; bg: string; emoji: string }> 
   confort:    { color: "#C2714F", bg: "rgba(194,113,79,0.10)", emoji: "🫶" },
 };
 
+const MOOD_LEGACY_MAP: Record<string, string> = {
+  "Activación & Energía": "activacion",
+  "Calma & Equilibrio": "calma",
+  "Focus & Claridad Mental": "focus",
+  "Social & Placer Compartido": "social",
+  "Social & Confianza": "social",
+  "Reset & Ligereza": "reset",
+  "Confort & Calidez": "confort",
+  "Confort & Placer": "confort"
+};
+
 interface Receta {
   id: string;
   nombre_es: string;
   mood_es: string;
-  base_acida: string;
-  ingredientes_es: string[];
-  preparacion_es: string[];
-  nota_food_mood_es: string;
-  variantes_es: string[];
-  tiempo_preparacion_min: number;
-  dificultad: string;
-  tipo_plato: string;
-  temporada: string;
+  base_acida?: string;
+  ingredientes_es?: string[];
+  preparacion_es?: string[];
+  nota_food_mood_es?: string;
+  variantes_es?: string[];
+  tiempo_preparacion_min?: number;
+  dificultad?: string;
+  tipo_plato?: string;
+  temporada?: string;
+  isRestricted?: boolean;
 }
 
 /* ── Content (needs Suspense for useSearchParams) ────────────── */
@@ -38,7 +50,9 @@ function ResultadoContent() {
   const searchParams = useSearchParams();
   const urlMood = searchParams.get("mood");
   const storeMood = useQuizStore((s) => s.resultMood);
-  const moodId = urlMood || storeMood || "activacion";
+  const moodIdSource = urlMood || storeMood || "activacion";
+  // Convert full names to slug if necessary
+  const moodId = MOOD_LEGACY_MAP[moodIdSource as string] || moodIdSource;
 
   const [receta, setReceta] = useState<Receta | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -135,58 +149,80 @@ function ResultadoContent() {
               </p>
 
               {/* Base ácida */}
-              <div className="bg-gradient-to-br from-[#C9A84C]/10 via-cream to-[#C9A84C]/5 rounded-xl p-5 mb-8 border border-[#C9A84C]/20 relative overflow-hidden">
-                <Droplets className="absolute top-3 right-3 w-10 h-10 text-[#C9A84C] opacity-15" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-1.5 block">
-                  Ingrediente firma
-                </span>
-                <p className="text-base font-serif text-aubergine-dark font-semibold">{receta.base_acida}</p>
-              </div>
+              {receta.base_acida && (
+                <div className="bg-gradient-to-br from-[#C9A84C]/10 via-cream to-[#C9A84C]/5 rounded-xl p-5 mb-8 border border-[#C9A84C]/20 relative overflow-hidden">
+                  <Droplets className="absolute top-3 right-3 w-10 h-10 text-[#C9A84C] opacity-15" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-1.5 block">
+                    Ingrediente firma
+                  </span>
+                  <p className="text-base font-serif text-aubergine-dark font-semibold">{receta.base_acida}</p>
+                </div>
+              )}
 
               {/* Ingredientes */}
-              <div className="mb-8">
-                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-aubergine-dark/40 mb-4 flex items-center gap-2">
-                  <Leaf className="w-3.5 h-3.5" /> Ingredientes
-                </h3>
-                <ol className="space-y-2">
-                  {receta.ingredientes_es.map((ing, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="shrink-0 w-5 h-5 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
-                        {i + 1}
-                      </span>
-                      <span className="text-aubergine-dark/75 font-light text-sm">{ing}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              {receta.ingredientes_es && receta.ingredientes_es.length > 0 && (
+                <div className="mb-8">
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-aubergine-dark/40 mb-4 flex items-center gap-2">
+                    <Leaf className="w-3.5 h-3.5" /> Ingredientes
+                  </h3>
+                  <ol className="space-y-2">
+                    {receta.ingredientes_es.map((ing, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="shrink-0 w-5 h-5 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
+                          {i + 1}
+                        </span>
+                        <span className="text-aubergine-dark/75 font-light text-sm">{ing}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
 
               {/* Preparación */}
-              <div className="mb-8">
-                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-aubergine-dark/40 mb-4">
-                  Preparación
-                </h3>
-                <ol className="space-y-3">
-                  {receta.preparacion_es.map((paso, i) => (
-                    <li key={i} className="flex items-start gap-3 bg-[var(--background)] rounded-lg p-3 border border-aubergine-dark/5">
-                      <span className="shrink-0 w-7 h-7 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
-                        {i + 1}
-                      </span>
-                      <p className="text-aubergine-dark/70 font-light text-sm leading-relaxed pt-0.5">{paso}</p>
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              {receta.preparacion_es && receta.preparacion_es.length > 0 && (
+                <div className="mb-8">
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-aubergine-dark/40 mb-4">
+                    Preparación
+                  </h3>
+                  <ol className="space-y-3">
+                    {receta.preparacion_es.map((paso, i) => (
+                      <li key={i} className="flex items-start gap-3 bg-[var(--background)] rounded-lg p-3 border border-aubergine-dark/5">
+                        <span className="shrink-0 w-7 h-7 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
+                          {i + 1}
+                        </span>
+                        <p className="text-aubergine-dark/70 font-light text-sm leading-relaxed pt-0.5">{paso}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+
+              {/* Si está restringida */}
+              {receta.isRestricted && (
+                <div className="mb-8 bg-gradient-to-br from-aubergine-dark to-aubergine rounded-xl p-8 text-center shadow-lg relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+                  <h3 className="text-xl font-serif text-cream mb-3 relative">Descubre esta receta</h3>
+                  <p className="text-sm font-light text-cream/70 mb-6 relative">
+                    Hazte premium para desbloquear los ingredientes, la preparación y todo el mapa Food·Mood.
+                  </p>
+                  <a href="/pricing" className="inline-flex relative items-center gap-2 px-8 py-3 bg-[#C9A84C] text-white rounded-full text-sm font-semibold hover:bg-[#b8953e] transition-colors">
+                    Ver plan Premium
+                  </a>
+                </div>
+              )}
 
               {/* Nota Food·Mood */}
-              <div className="bg-gradient-to-br from-aubergine-dark to-aubergine rounded-xl p-6 text-cream/90 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-3 block relative">
-                  🧬 Nota Food·Mood
-                </span>
-                <p className="text-sm font-light leading-[1.85] text-cream/80 relative">
-                  {receta.nota_food_mood_es}
-                </p>
-              </div>
+              {receta.nota_food_mood_es && (
+                <div className="bg-gradient-to-br from-aubergine-dark to-aubergine rounded-xl p-6 text-cream/90 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-3 block relative">
+                    🧬 Nota Food·Mood
+                  </span>
+                  <p className="text-sm font-light leading-[1.85] text-cream/80 relative">
+                    {receta.nota_food_mood_es}
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center py-12 text-aubergine-dark/40">
