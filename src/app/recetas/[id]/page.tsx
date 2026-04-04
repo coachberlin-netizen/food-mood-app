@@ -149,31 +149,21 @@ export default function RecetaDetailPage() {
           recetaData = result.data as Receta | null;
           fetchError = result.error;
         } else {
-          // Try search by slug column first
-          const slugResult = await supabase
+          // Optimized name search (skip 'slug' column which fails 400)
+          const possibleName = rawId.replace(/-/g, ' ');
+          // We use only the first 2 words to be more flexible with punctuation
+          const searchName = possibleName.split(' ').slice(0, 2).join(' '); 
+          
+          const { data: fallbackList, error: fallbackError } = await supabase
             .from('recetas')
             .select('*')
-            .eq('slug', rawId)
-            .single();
-          
-          if (slugResult.data) {
-            recetaData = slugResult.data as Receta;
-          } else {
-            // Fallback: search by name with ilike
-            const possibleName = rawId.replace(/-/g, ' ');
-            const searchName = possibleName.split(' ').slice(0, 3).join(' '); 
-            
-            const { data: fallbackList, error: fallbackError } = await supabase
-              .from('recetas')
-              .select('*')
-              .ilike('nombre_es', `%${searchName}%`)
-              .limit(1);
+            .ilike('nombre_es', `%${searchName}%`)
+            .limit(1);
 
-            if (fallbackError) {
-              fetchError = fallbackError;
-            } else if (fallbackList && fallbackList.length > 0) {
-              recetaData = fallbackList[0] as Receta;
-            }
+          if (fallbackError) {
+            fetchError = fallbackError;
+          } else if (fallbackList && fallbackList.length > 0) {
+            recetaData = fallbackList[0] as Receta;
           }
         }
 
@@ -336,14 +326,17 @@ export default function RecetaDetailPage() {
               Ingredientes
             </h2>
             <ol className="space-y-2.5">
-              {receta?.ingredientes_es?.map((ing, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
-                    {i + 1}
-                  </span>
-                  <span className="text-aubergine-dark/80 font-light text-[15px] leading-relaxed">{ing}</span>
-                </li>
-              ))}
+              {receta?.ingredientes_es?.map((ingRaw, i) => {
+                const ing = typeof ingRaw === 'string' ? ingRaw : (ingRaw as any).ingrediente || (ingRaw as any).nombre || JSON.stringify(ingRaw);
+                return (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="shrink-0 w-6 h-6 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
+                      {i + 1}
+                    </span>
+                    <span className="text-aubergine-dark/80 font-light text-[15px] leading-relaxed">{ing}</span>
+                  </li>
+                );
+              })}
             </ol>
           </motion.section>
 
@@ -358,14 +351,17 @@ export default function RecetaDetailPage() {
               Preparación
             </h2>
             <ol className="space-y-4">
-              {receta?.preparacion_es?.map((paso, i) => (
-                <li key={i} className="flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5">
-                  <span className="shrink-0 w-8 h-8 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
-                    {i + 1}
-                  </span>
-                  <p className="text-aubergine-dark/75 font-light text-[15px] leading-relaxed pt-1">{paso}</p>
-                </li>
-              ))}
+              {receta?.preparacion_es?.map((pasoRaw, i) => {
+                const paso = typeof pasoRaw === 'string' ? pasoRaw : (pasoRaw as any).paso || (pasoRaw as any).texto || JSON.stringify(pasoRaw);
+                return (
+                  <li key={i} className="flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5">
+                    <span className="shrink-0 w-8 h-8 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
+                      {i + 1}
+                    </span>
+                    <p className="text-aubergine-dark/75 font-light text-[15px] leading-relaxed pt-1">{paso}</p>
+                  </li>
+                );
+              })}
             </ol>
           </motion.section>
 

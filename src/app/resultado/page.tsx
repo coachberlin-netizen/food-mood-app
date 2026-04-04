@@ -175,14 +175,17 @@ function ResultadoContent() {
                     <Leaf className="w-3.5 h-3.5" /> Ingredientes
                   </h3>
                   <ol className="space-y-2">
-                    {receta?.ingredientes_es?.map((ing, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <span className="shrink-0 w-5 h-5 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
-                          {i + 1}
-                        </span>
-                        <span className="text-aubergine-dark/75 font-light text-sm">{ing}</span>
-                      </li>
-                    ))}
+                    {receta?.ingredientes_es?.map((ingRaw, i) => {
+                      const ing = typeof ingRaw === 'string' ? ingRaw : (ingRaw as any).ingrediente || (ingRaw as any).nombre || JSON.stringify(ingRaw);
+                      return (
+                        <li key={i} className="flex items-start gap-3">
+                          <span className="shrink-0 w-5 h-5 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
+                            {i + 1}
+                          </span>
+                          <span className="text-aubergine-dark/75 font-light text-sm">{ing}</span>
+                        </li>
+                      );
+                    })}
                   </ol>
                 </div>
               )}
@@ -194,14 +197,17 @@ function ResultadoContent() {
                     Preparación
                   </h3>
                   <ol className="space-y-3">
-                    {receta?.preparacion_es?.map((paso, i) => (
-                      <li key={i} className="flex items-start gap-3 bg-[var(--background)] rounded-lg p-3 border border-aubergine-dark/5">
-                        <span className="shrink-0 w-7 h-7 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
-                          {i + 1}
-                        </span>
-                        <p className="text-aubergine-dark/70 font-light text-sm leading-relaxed pt-0.5">{paso}</p>
-                      </li>
-                    ))}
+                    {receta?.preparacion_es?.map((pasoRaw, i) => {
+                      const paso = typeof pasoRaw === 'string' ? pasoRaw : (pasoRaw as any).paso || (pasoRaw as any).texto || JSON.stringify(pasoRaw);
+                      return (
+                        <li key={i} className="flex items-start gap-3 bg-[var(--background)] rounded-lg p-3 border border-aubergine-dark/5">
+                          <span className="shrink-0 w-7 h-7 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
+                            {i + 1}
+                          </span>
+                          <p className="text-aubergine-dark/70 font-light text-sm leading-relaxed pt-0.5">{paso}</p>
+                        </li>
+                      );
+                    })}
                   </ol>
                 </div>
               )}
