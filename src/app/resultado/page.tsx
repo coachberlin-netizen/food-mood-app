@@ -18,6 +18,15 @@ const MOOD_COLORS: Record<string, { color: string; bg: string; emoji: string }> 
   confort:    { color: "#C2714F", bg: "rgba(194,113,79,0.10)", emoji: "🫶" },
 };
 
+const MOOD_MAP: Record<string, string> = {
+  activacion: "Activación & Energía",
+  calma: "Calma & Equilibrio",
+  focus: "Focus & Claridad Mental",
+  social: "Social & Placer Compartido",
+  reset: "Reset & Ligereza",
+  confort: "Confort & Calidez",
+};
+
 const MOOD_LEGACY_MAP: Record<string, string> = {
   "Activación & Energía": "activacion",
   "Calma & Equilibrio": "calma",
@@ -93,7 +102,7 @@ function ResultadoContent() {
             Tu estado actual
           </p>
           <h1 className="text-4xl md:text-5xl font-serif mb-3" style={{ color: moodStyle.color }}>
-            Eres {moodData?.nombre || moodId}
+            Eres {moodData?.nombre || MOOD_MAP[moodId] || moodId}
           </h1>
           <p className="text-aubergine-dark/55 font-light max-w-md mx-auto">
             {moodData?.descripcion_corta}
@@ -166,7 +175,7 @@ function ResultadoContent() {
                     <Leaf className="w-3.5 h-3.5" /> Ingredientes
                   </h3>
                   <ol className="space-y-2">
-                    {receta.ingredientes_es.map((ing, i) => (
+                    {receta?.ingredientes_es?.map((ing, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="shrink-0 w-5 h-5 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
                           {i + 1}
@@ -185,7 +194,7 @@ function ResultadoContent() {
                     Preparación
                   </h3>
                   <ol className="space-y-3">
-                    {receta.preparacion_es.map((paso, i) => (
+                    {receta?.preparacion_es?.map((paso, i) => (
                       <li key={i} className="flex items-start gap-3 bg-[var(--background)] rounded-lg p-3 border border-aubergine-dark/5">
                         <span className="shrink-0 w-7 h-7 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
                           {i + 1}

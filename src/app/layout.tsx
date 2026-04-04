@@ -6,7 +6,7 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ServiceWorkerRegistration } from "@/components/ui/ServiceWorkerRegistration";
-import { ChatWidget } from "@/components/chat/ChatWidget";
+// import { ChatWidget } from "@/components/chat/ChatWidget";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -112,7 +112,7 @@ export default function RootLayout({
           </div>
         </PageTransition>
         <InstallBanner />
-        <ChatWidget />
+        {/* <ChatWidget /> */}
         <Footer />
       </body>
     </html>
