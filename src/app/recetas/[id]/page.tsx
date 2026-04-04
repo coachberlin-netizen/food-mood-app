@@ -24,6 +24,13 @@ function getMood(moodEs: string) {
   return key ? { id: key, ...MOODS[key] } : { id: "activacion", ...MOODS.activacion };
 }
 
+/* ── UUID Helper ────────────────────────────────────────────── */
+function isValidUUID(str: string): boolean {
+  if (!str) return false;
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(str);
+}
+
 /* ── Types ───────────────────────────────────────────────────── */
 interface Receta {
   id: string;
@@ -102,7 +109,8 @@ import { createRecetasClient } from "@/lib/supabase/recetas";
 export default function RecetaDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const id = params.id as string;
+  const rawId = params.id as string;
+  const isUUID = isValidUUID(rawId);
 
   const [receta, setReceta] = useState<Receta | null>(null);
   const [relacionadas, setRelacionadas] = useState<RelatedReceta[]>([]);
@@ -114,43 +122,64 @@ export default function RecetaDetailPage() {
   // Fetch recipe directly from Supabase
   useEffect(() => {
     async function load() {
+      if (!rawId) {
+        console.error("No recipe ID provided");
+        setNotFound(true);
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
+      setNotFound(false);
+      
       try {
         const supabase = createRecetasClient();
-        const { data: recetaData, error } = await supabase
-          .from('recetas')
-          .select('*')
-          .eq('id', id)
-          .single();
+        let recetaData: Receta | null = null;
+        let fetchError: any = null;
 
-        if (error || !recetaData) {
-          // Fallback para slugs antiguos: buscar por texto
-          const possibleName = id.replace(/-/g, ' ');
-          const searchName = possibleName.split(' ').slice(0, 2).join(' '); 
-          
-          const { data: fallbackList } = await supabase
+        /* ── UUID vs Slug/Name lookup logic ─────────────────── */
+        if (isUUID) {
+          const result = await supabase
             .from('recetas')
             .select('*')
-            .ilike('nombre_es', `%${searchName}%`)
-            .limit(1);
-
-          if (fallbackList && fallbackList.length > 0) {
-            setReceta(fallbackList[0]);
-            
-            // Cargar relacionadas del fallback
-            const { data: related } = await supabase
-              .from('recetas')
-              .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada')
-              .eq('mood_es', fallbackList[0].mood_es)
-              .neq('id', fallbackList[0].id)
-              .limit(3);
-            setRelacionadas(related || []);
-            return;
+            .eq('id', rawId)
+            .single();
+          
+          recetaData = result.data as Receta | null;
+          fetchError = result.error;
+        } else {
+          // Try search by slug column first
+          const slugResult = await supabase
+            .from('recetas')
+            .select('*')
+            .eq('slug', rawId)
+            .single();
+          
+          if (slugResult.data) {
+            recetaData = slugResult.data as Receta;
           } else {
-             // Fallback general a inspiracion
-             router.replace('/recetas');
-             return;
+            // Fallback: search by name with ilike
+            const possibleName = rawId.replace(/-/g, ' ');
+            const searchName = possibleName.split(' ').slice(0, 3).join(' '); 
+            
+            const { data: fallbackList, error: fallbackError } = await supabase
+              .from('recetas')
+              .select('*')
+              .ilike('nombre_es', `%${searchName}%`)
+              .limit(1);
+
+            if (fallbackError) {
+              fetchError = fallbackError;
+            } else if (fallbackList && fallbackList.length > 0) {
+              recetaData = fallbackList[0] as Receta;
+            }
           }
+        }
+
+        if (!recetaData) {
+          console.log("Recipe not found, redirecting to /recetas");
+          router.push('/recetas');
+          return;
         }
         setReceta(recetaData);
 
@@ -159,7 +188,6 @@ export default function RecetaDetailPage() {
           .from('recetas')
           .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada')
           .eq('mood_es', recetaData.mood_es)
-          .eq('grupo_edad', recetaData.grupo_edad) // using original query
           .neq('id', recetaData.id)
           .limit(3);
         setRelacionadas(related || []);
@@ -169,8 +197,8 @@ export default function RecetaDetailPage() {
         setIsLoading(false);
       }
     }
-    if (id) load();
-  }, [id]);
+    load();
+  }, [rawId, isUUID, router]);
 
   // Share
   const handleShare = useCallback(async () => {
@@ -307,7 +335,7 @@ export default function RecetaDetailPage() {
               Ingredientes
             </h2>
             <ol className="space-y-2.5">
-              {receta.ingredientes_es.map((ing, i) => (
+              {receta?.ingredientes_es?.map((ing, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="shrink-0 w-6 h-6 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
                     {i + 1}
@@ -329,7 +357,7 @@ export default function RecetaDetailPage() {
               Preparación
             </h2>
             <ol className="space-y-4">
-              {receta.preparacion_es.map((paso, i) => (
+              {receta?.preparacion_es?.map((paso, i) => (
                 <li key={i} className="flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5">
                   <span className="shrink-0 w-8 h-8 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
                     {i + 1}
