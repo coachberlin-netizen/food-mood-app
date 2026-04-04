@@ -7,14 +7,14 @@ import { Check, X, Crown, ArrowRight, Sparkles } from "lucide-react";
 const FREE_FEATURES = [
   { text: "Orientación e inspiración por test", included: true },
   { text: "Sin acceso al paso-a-paso completo", included: false },
-  { text: "Sin recetas Michelin-inspired ni Familia", included: false },
+  { text: "Sin recetas de alta cocina ni Familia", included: false },
   { text: "Sin historial evolutivo guardado", included: false },
 ];
 
 const PREMIUM_FEATURES = [
   { text: "Recetas preparadas paso-a-paso organizadas por mood" },
   { text: "Variantes y biblioteca para toda la Familia" },
-  { text: "200 recetas Michelin-inspired exclusivas" },
+  { text: "Recetas de alta cocina exclusivas" },
   { text: "Historial de mood y favoritos ilimitados" },
   { text: "Soporte nutricional avanzado" },
 ];

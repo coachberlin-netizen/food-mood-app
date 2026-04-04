@@ -51,15 +51,10 @@ const ADULT_PROFILES = [
   { label: "Hombres 31-44", sexo: "hombre", edad: "31-44", premiumLevel: "" },
   { label: "Hombres 45-60", sexo: "hombre", edad: "45-60", premiumLevel: "" },
   { label: "Hombres 60+",   sexo: "hombre", edad: "60+",   premiumLevel: "" },
-  { label: "Chef / Michelin", sexo: "", edad: "", premiumLevel: "2" },
+  { label: "Chef / Exclusivo", sexo: "", edad: "", premiumLevel: "2" },
 ] as const;
 
-const KIDS_AGES = [
-  { label: "Todos", edad: "" },
-  { label: "3-7 años", edad: "3-7" },
-  { label: "8-12 años", edad: "8-12" },
-  { label: "13-17 años", edad: "13-17" },
-] as const;
+const FAMILIA_AGES = ["Todos", "3-7", "8-12", "13-17"] as const;
 
 /* ── Types ───────────────────────────────────────────────────── */
 interface Receta {
@@ -168,7 +163,7 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
 }
 
 /* ── Michelin Card ────────────────────────────────────────────── */
-function MichelinCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
+function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
   const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS[0];
 
   const card = (
@@ -185,7 +180,7 @@ function MichelinCard({ receta, locked = false }: { receta: Receta; locked?: boo
 
       <div className="flex items-center justify-between mb-4 relative">
         <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] border border-[#C9A84C]/20">
-          <Star className="w-3 h-3" /> Michelin
+          <Star className="w-3 h-3" /> Exclusiva
         </span>
         <span className="flex items-center gap-1 text-[11px] text-cream/40 font-medium">
           <Clock className="w-3 h-3" />
@@ -232,8 +227,8 @@ function MichelinCard({ receta, locked = false }: { receta: Receta; locked?: boo
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
-/* ── Kids Card ────────────────────────────────────────────────── */
-function KidsCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
+/* ── Familia Card ────────────────────────────────────────────────── */
+function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
   const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS[0];
   const ageEmoji = receta.grupo_edad === '3-7' ? '🧒' : receta.grupo_edad === '8-12' ? '👦' : '🧑';
 
@@ -296,10 +291,10 @@ function SmartCard({ receta, isPremium }: { receta: Receta; isPremium: boolean }
   const locked = !isPremium && (receta.premium_level ?? 0) > 0;
 
   if ((receta.premium_level ?? 0) === 2) {
-    return <MichelinCard receta={receta} locked={locked} />;
+    return <ExclusivaCard receta={receta} locked={locked} />;
   }
   if (receta.segmento === 'familia') {
-    return <KidsCard receta={receta} locked={locked} />;
+    return <FamiliaCard receta={receta} locked={locked} />;
   }
   return <RecipeCard receta={receta} locked={locked} />;
 }
@@ -330,7 +325,7 @@ function RecetasContent() {
   const [moodFilter, setMoodFilter] = useState<string>("");
   const [segmento, setSegmento] = useState<string>("adulto");
   const [profileIdx, setProfileIdx] = useState<number>(0);
-  const [kidsAgeIdx, setKidsAgeIdx] = useState<number>(0);
+  const [familiaAgeIdx, setFamiliaAgeIdx] = useState<number>(0);
   const [q, setQ] = useState<string>(searchParams.get("q") || "");
   const [page, setPage] = useState<number>(1);
 
@@ -397,8 +392,8 @@ function RecetasContent() {
         if (profile.edad) params.set("edad", profile.edad);
         if (profile.premiumLevel) params.set("premium_level", profile.premiumLevel);
       } else {
-        const kidsAge = KIDS_AGES[kidsAgeIdx];
-        if (kidsAge.edad) params.set("edad", kidsAge.edad);
+        const age = FAMILIA_AGES[familiaAgeIdx];
+        if (age !== "Todos") params.set("edad", age);
       }
 
       // Text search
@@ -422,7 +417,7 @@ function RecetasContent() {
     } finally {
       setIsLoading(false);
     }
-  }, [moodFilter, segmento, profileIdx, kidsAgeIdx, q, page]);
+  }, [moodFilter, segmento, profileIdx, familiaAgeIdx, q, page]);
 
   useEffect(() => { fetchRecetas(); }, [fetchRecetas]);
 
@@ -435,16 +430,16 @@ function RecetasContent() {
   const changeSegmento = (seg: string) => {
     setSegmento(seg);
     setProfileIdx(0);
-    setKidsAgeIdx(0);
+    setFamiliaAgeIdx(0);
     setPage(1);
   };
 
-  const hasFilters = moodFilter || profileIdx > 0 || kidsAgeIdx > 0 || q;
+  const hasFilters = moodFilter || profileIdx > 0 || familiaAgeIdx > 0 || q;
 
   const resetFilters = () => {
     setMoodFilter("");
     setProfileIdx(0);
-    setKidsAgeIdx(0);
+    setFamiliaAgeIdx(0);
     setQ("");
     setPage(1);
   };
@@ -552,7 +547,7 @@ function RecetasContent() {
                   onClick={() => { setQ(""); setPage(1); }}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark transition-colors"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-3 h-3" />
                 </button>
               )}
             </div>
@@ -576,9 +571,9 @@ function RecetasContent() {
                     </Pill>
                   ))
                 ) : (
-                  KIDS_AGES.map((a, i) => (
-                    <Pill key={i} active={kidsAgeIdx === i} onClick={() => { setKidsAgeIdx(i); setPage(1); }}>
-                      {a.label}
+                  FAMILIA_AGES.map((age, i) => (
+                    <Pill key={i} active={familiaAgeIdx === i} onClick={() => { setFamiliaAgeIdx(i); setPage(1); }}>
+                      {age === "Todos" ? "Todos" : `${age} años`}
                     </Pill>
                   ))
                 )}
@@ -629,13 +624,13 @@ function RecetasContent() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-3xl" />
                 <div className="relative z-10 flex flex-col items-center">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20 mb-6">
-                    <Lock className="w-3 h-3" /> Bóveda Premium
+                    <Sparkles className="w-3 h-3" /> PRÓXIMAMENTE
                   </div>
                   <h2 className="text-2xl md:text-3xl font-serif text-cream mb-4 leading-snug">
-                    Tus filtros son muy específicos.
+                    Aún no tenemos esa combinación.
                   </h2>
                   <p className="text-cream/60 font-light max-w-lg mb-10">
-                    Es posible que tu combinación ideal esté cubierta en nuestra biblioteca ampliada de 10,000 recetas o en la sección exclusiva Michelin. Desbloquea todo el contenido.
+                    Prueba con otro estado de ánimo o amplía los filtros. Cada semana añadimos recetas nuevas.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">

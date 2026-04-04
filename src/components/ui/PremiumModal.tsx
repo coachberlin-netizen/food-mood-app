@@ -52,7 +52,7 @@ export function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
 
               <div className="w-full space-y-4 text-left bg-white/50 p-6 rounded-2xl border border-aubergine-dark/5">
                 {[
-                  "Acceso al catálogo Michelin completo",
+                  "Acceso al catálogo exclusivo completo",
                   "Nueva receta con IA cada 24 horas",
                   "Historial ilimitado de recetas guardadas",
                   "Soporte premium personalizado"
