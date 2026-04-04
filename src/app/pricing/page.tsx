@@ -12,20 +12,20 @@ import { createClient } from "@/lib/supabase/client";
 
 /* ── Feature lists ───────────────────────────────────────── */
 const FREE_FEATURES = [
-  { text: "Test de estado emocional", included: true },
-  { text: "1 receta por estado", included: true },
+  { text: "Test de estado emocional ilimitado", included: true },
+  { text: "Inspiraciones recomendadas diarias", included: true },
   { text: "Historial de estados", included: false },
-  { text: "Recetas completas", included: false },
+  { text: "Recetas completas paso a paso", included: false },
   { text: "Guías de ingredientes funcionales", included: false },
-  { text: "Acceso anticipado a contenidos", included: false },
+  { text: "Biblioteca integral de la Familia", included: false },
 ];
 
 const PREMIUM_FEATURES = [
-  { text: "Todo lo gratuito", included: true },
-  { text: "Recetas completas por estado", included: true },
-  { text: "Historial de estados", included: true },
-  { text: "Guías de ingredientes funcionales", included: true },
-  { text: "Acceso anticipado a nuevos contenidos", included: true },
+  { text: "Todo lo gratuito, más:", included: true },
+  { text: "Recetas completas con preparaciones", included: true },
+  { text: "Historial y analítica de estados", included: true },
+  { text: "Variantes completas para la Familia", included: true },
+  { text: "Guías clínicas de ingredientes", included: true },
 ];
 
 export default function PricingPage() {
@@ -141,7 +141,7 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/siempre</span>
               </div>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Prueba lo que Food·Mood puede hacer por ti.
+                Descubre tu mapa emocional sin compromiso.
               </p>
             </div>
 
@@ -162,8 +162,8 @@ export default function PricingPage() {
             </ul>
 
             <Link href="/test">
-              <button className="w-full py-3.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium hover:bg-aubergine-dark/5 transition-colors">
-                Empezar gratis
+              <button className="w-full py-3.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-semibold hover:bg-aubergine-dark/5 transition-colors">
+                Hacer mi test gratis
               </button>
             </Link>
           </motion.div>
@@ -187,7 +187,7 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/mes</span>
               </div>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Acceso completo al ecosistema Food·Mood.
+                Acceso íntrego al recetario para reescribir tu biología.
               </p>
             </div>
 
@@ -244,7 +244,7 @@ export default function PricingPage() {
                 Solo 5 €/mes
               </p>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Todo lo del mensual, ahorrando un 44%.
+                La biblioteca Premium para ti y toda tu Familia (44% off).
               </p>
             </div>
 
@@ -311,20 +311,20 @@ export default function PricingPage() {
           <div className="space-y-6">
             {[
               {
-                q: "¿Puedo cancelar cuando quiera?",
-                a: "Sí, sin permanencia. Cancela desde tu perfil en cualquier momento y seguirás teniendo acceso hasta el final del periodo pagado.",
+                q: "¿El test es totalmente gratis?",
+                a: "Sí. Puedes usar el Test visual o charlar libremente con nuestra IA sin coste alguno. Como perfil Free recibirás orientaciones de conducta y una 'Inspiración Botánica', pero no tendrás acceso a nuestras Recetas de preparación completas.",
               },
               {
-                q: "¿Las recetas son realmente diferentes?",
-                a: "Cada receta está diseñada para un cruce específico de mood, sexo y grupo de edad. Con 10,000 combinaciones, nunca te faltará variedad.",
+                q: "¿Qué incluye exactamente mi Premium?",
+                a: "Desbloquea instantáneamente el mapa Food·Mood al 100%: tendrás línea directa a todas las Recetas Completas (gramajes, instrucciones dietéticas precisas), la biblioteca adaptada a la Familia, e Historial evolutivo de tu estado.",
               },
               {
-                q: "¿Qué son las recetas Michelin-inspired?",
-                a: "200 recetas de alta cocina mediterránea diseñadas con técnicas de vanguardia. El mismo rigor científico Food·Mood, con ingredientes accesibles y sofisticados.",
+                q: "¿Tenéis recetas para toda la Familia?",
+                a: "Totalmente. Hemos estructurado la arquitectura Premium para que funcione con variantes aptas para toda tu casa, resolviendo lo que deben comer niños y jóvenes sin que pierdas jamás tu foco terapéutico.",
               },
               {
-                q: "¿Es seguro el pago?",
-                a: "Utilizamos Stripe, el procesador de pagos líder mundial. Tus datos financieros nunca pasan por nuestros servidores.",
+                q: "¿Es seguro el pago y cancelable?",
+                a: "Operamos con pasarela encriptada Stripe y puedes cancelar en 1 solo clic desde tu perfil. Sin permanencia ni excusas. Te mantendremos el acceso activo hasta acabar el tiempo que pagaste.",
               },
             ].map((faq, i) => (
               <div key={i} className="border-b border-aubergine-dark/8 pb-6">

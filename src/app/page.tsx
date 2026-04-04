@@ -61,26 +61,30 @@ export default function Home() {
             
             <div className="space-y-6">
               <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream leading-[1.2] md:leading-[1.1] tracking-tight">
-                Recetas que te cambian el humor.<br/>
-                <span className="italic font-light text-cream/80">Cada una tiene un porqué.</span>
+                Dime cómo te sientes.<br/>
+                <span className="italic font-light text-cream/80">Te devolveré el equilibrio.</span>
               </motion.h1>
               
               <motion.p variants={fadeIn} className="text-2xl md:text-3xl text-[#F5F0E8] text-center font-serif">
-                Y está increíblemente buena.
+                Descubre qué comer según tu mood.
               </motion.p>
             </div>
             
             <motion.p variants={fadeIn} className="text-base text-cream/70 max-w-md mx-auto text-center leading-[1.8] font-sans">
-              Descubre qué necesita tu cuerpo ahora mismo y recibe recetas diseñadas para equilibrarte. Puro placer. Cero restricciones.
+              Food·Mood es tu guía de nutrición emocional. Haz nuestro test visual — o conversa libremente con nuestra IA — para recibir orientaciones funcionales, rituales e inspiración culinaria basada en la ciencia.
             </motion.p>
             
-            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-6 items-center pt-8 w-full justify-center">
+            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 items-center pt-8 w-full justify-center">
               <Link href="/test" className="w-full sm:w-auto">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-14 py-4 rounded-[8px]">
-                  Haz el test
+                <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
+                  Hacer mi test gratis
                   <ArrowRight className="ml-3 w-4 h-4" />
                 </Button>
               </Link>
+              <div className="text-cream/50 text-sm italic font-light px-2 hidden sm:block">o prefiere charlar</div>
+              <button onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})} className="w-full sm:w-auto text-cream/70 hover:text-cream text-sm font-medium transition-colors border border-transparent hover:border-cream/20 bg-cream/5 px-6 py-4 rounded-[8px] flex items-center justify-center gap-2">
+                Abrir chat IA
+              </button>
             </motion.div>
 
             {/* Newsletter CTA */}
@@ -90,7 +94,7 @@ export default function Home() {
               ) : (
                 <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row items-center gap-2">
                   <p className="text-[12px] text-cream/40 font-light mb-1 sm:mb-0 w-full text-center sm:text-left">
-                    O recibe cada semana una receta funcional para tu estado de ánimo →
+                    O únete al Newsletter para un consejo semanal →
                   </p>
                   <div className="flex w-full sm:w-auto gap-2">
                     <div className="relative flex-1 sm:flex-initial">
@@ -214,9 +218,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-16 text-left">
             {[
-              { num: "01", title: "Dinos qué sientes", text: "Un check-in rápido y sensorial para entender a tu cuerpo." },
-              { num: "02", title: "Traducimos", text: "Nuestra IA analiza tus anhelos para encontrar tu estado." },
-              { num: "03", title: "Tu ritual", text: "Recibes una receta con propósito diseñada para ese momento exacto." }
+              { num: "01", title: "El Check-in", text: "Cuéntanos cómo te sientes. Responde nuestro test visual o habla libremente con el Chat." },
+              { num: "02", title: "Tu Mapa", text: "Nuestra tecnología mapea por ti tu estado digestivo y mental real." },
+              { num: "03", title: "La Inspiración", text: "Obtienes una poderosa recomendación funcional (y si eres Premium, desbloqueas su receta íntegra)." }
             ].map((step, i) => (
               <motion.div 
                 key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} transition={{ delay: i * 0.15 }}
@@ -273,7 +277,7 @@ export default function Home() {
                 mood: "Focus"
               },
               {
-                quote: "Mi hija de 10 a\u00f1os adora los snacks de la secci\u00f3n kids. Y yo como tranquila sabiendo que le hace bien.",
+                quote: "A todos nos encantan los snacks nutritivos de la sección Familia. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
                 name: "Marta G.",
                 city: "Sevilla",
                 mood: "Confort"
@@ -402,9 +406,9 @@ export default function Home() {
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Gratuito</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-3">0€</span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test + 1 receta por estado</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test ilimitado + Orientación e Inspiraciones</p>
               <Link href="/test" className="mt-auto w-full py-3 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium text-center hover:bg-aubergine-dark/5 transition-colors">
-                Empezar gratis →
+                Hacer mi test →
               </Link>
             </motion.div>
 
@@ -414,7 +418,7 @@ export default function Home() {
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Mensual</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-3">9€<span className="text-base font-light text-aubergine-dark/40">/mes</span></span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso completo a todas las recetas</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso íntegro a todas las Recetas Completas e ingredientes funcionales.</p>
               <Link href="/pricing" className="mt-auto w-full py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium text-center hover:bg-aubergine-dark/90 transition-colors">
                 Suscribirme →
               </Link>
@@ -430,7 +434,7 @@ export default function Home() {
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2">Trimestral</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-1">15€<span className="text-base font-light text-aubergine-dark/40">/ 3 meses</span></span>
               <p className="text-sm text-[#C9A84C] font-semibold mb-1">Solo 5€/mes</p>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Todo lo del mensual, ahorrando un 44%</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">El mapa Premium para ti y tu Familia, ahorrando 44%</p>
               <Link href="/pricing" className="mt-auto w-full py-3.5 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold text-center shadow-lg hover:shadow-xl transition-all">
                 7 días gratis →
               </Link>
