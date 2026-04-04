@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Loader2, Sparkles, CheckCircle } from "lucide-react";
 import { getDailyInspiration, UserContext } from "@/lib/daily-inspiration";
+import { MoodDiary } from "@/components/dashboard/MoodDiary";
 
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
@@ -311,6 +312,9 @@ export default function DashboardPage() {
             </div>
           </div>
         </section>
+
+        {/* 2.2 DIARIO DE MOOD (BLOQUE 4) */}
+        <MoodDiary />
 
         {/* 2.5 SUBSCRIPTION / CTA */}
         {!isAuthenticated ? (
