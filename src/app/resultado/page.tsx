@@ -73,7 +73,7 @@ function ResultadoContent() {
     async function fetchReceta() {
       setIsLoading(true);
       try {
-        const res = await fetch(`/api/receta-gratis?mood=${moodId}`);
+        const res = await fetch(`/api/receta-gratis?mood=${encodeURIComponent(moodId)}`);
         const data = await res.json();
         if (data.receta) setReceta(data.receta);
       } catch (err) {

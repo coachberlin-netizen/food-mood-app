@@ -20,7 +20,8 @@ const MOODS: Record<string, { emoji: string; color: string; bg: string }> = {
 };
 
 function getMood(moodEs: string) {
-  const key = Object.keys(MOODS).find(k => moodEs?.toLowerCase().includes(k));
+  const normalizedMood = moodEs?.toLowerCase() || "";
+  const key = Object.keys(MOODS).find(k => normalizedMood.includes(k));
   return key ? { id: key, ...MOODS[key] } : { id: "activacion", ...MOODS.activacion };
 }
 
