@@ -123,7 +123,35 @@ export default function RecetaDetailPage() {
           .eq('id', id)
           .single();
 
-        if (error || !recetaData) { setNotFound(true); return; }
+        if (error || !recetaData) {
+          // Fallback para slugs antiguos: buscar por texto
+          const possibleName = id.replace(/-/g, ' ');
+          const searchName = possibleName.split(' ').slice(0, 2).join(' '); 
+          
+          const { data: fallbackList } = await supabase
+            .from('recetas')
+            .select('*')
+            .ilike('nombre_es', `%${searchName}%`)
+            .limit(1);
+
+          if (fallbackList && fallbackList.length > 0) {
+            setReceta(fallbackList[0]);
+            
+            // Cargar relacionadas del fallback
+            const { data: related } = await supabase
+              .from('recetas')
+              .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada')
+              .eq('mood_es', fallbackList[0].mood_es)
+              .neq('id', fallbackList[0].id)
+              .limit(3);
+            setRelacionadas(related || []);
+            return;
+          } else {
+             // Fallback general a inspiracion
+             router.replace('/recetas');
+             return;
+          }
+        }
         setReceta(recetaData);
 
         // Fetch related recipes
@@ -131,7 +159,7 @@ export default function RecetaDetailPage() {
           .from('recetas')
           .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada')
           .eq('mood_es', recetaData.mood_es)
-          .eq('grupo_edad', recetaData.grupo_edad)
+          .eq('grupo_edad', recetaData.grupo_edad) // using original query
           .neq('id', recetaData.id)
           .limit(3);
         setRelacionadas(related || []);

@@ -187,7 +187,7 @@ export default function TestPage() {
               className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-aubergine-dark text-cream text-sm font-semibold rounded-xl shadow-luxury hover:shadow-luxury-hover transition-all"
             >
               <Sparkles className="w-4 h-4" />
-              Ver mi resultado y receta
+              Ver mi resultado e inspiración
               <ArrowRight className="w-4 h-4" />
             </Link>
             <button

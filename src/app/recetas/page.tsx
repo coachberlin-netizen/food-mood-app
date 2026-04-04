@@ -618,23 +618,55 @@ function RecetasContent() {
             ))}
           </div>
         ) : recetas.length === 0 ? (
-          /* ── Empty state ──────────────────────────────────── */
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center justify-center py-24 text-center"
-          >
-            <div className="w-20 h-20 rounded-full bg-aubergine-dark/5 flex items-center justify-center mb-6">
-              <SearchX className="w-8 h-8 text-aubergine-dark/30" />
-            </div>
-            <h2 className="text-2xl font-serif text-aubergine-dark mb-3">Sin resultados</h2>
-            <p className="text-aubergine-dark/50 font-light max-w-md mb-8">
-              Todavía no tenemos recetas para esta combinación. Pronto añadiremos más.
-            </p>
-            <button onClick={resetFilters} className="px-8 py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors">
-              Limpiar filtros
-            </button>
-          </motion.div>
+          /* ── Empty state (or Upsell if free + filtered) ──────────────────────────────────── */
+          (!isPremium && hasFilters) ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center py-16"
+            >
+              <div className="bg-gradient-to-br from-aubergine-dark to-aubergine rounded-2xl p-8 md:p-12 max-w-3xl w-full text-center relative overflow-hidden border border-[#C9A84C]/20 shadow-xl">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-3xl" />
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20 mb-6">
+                    <Lock className="w-3 h-3" /> Bóveda Premium
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-serif text-cream mb-4 leading-snug">
+                    Tus filtros son muy específicos.
+                  </h2>
+                  <p className="text-cream/60 font-light max-w-lg mb-10">
+                    Es posible que tu combinación ideal esté cubierta en nuestra biblioteca ampliada de 10,000 recetas o en la sección exclusiva Michelin. Desbloquea todo el contenido.
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <Link href="/pricing" className="px-8 py-3.5 rounded-xl bg-[#C9A84C] text-white text-sm font-semibold hover:bg-[#b8953e] transition-colors shadow-lg">
+                      Ver planes
+                    </Link>
+                    <button onClick={resetFilters} className="px-8 py-3.5 rounded-xl border border-cream/20 text-cream/70 text-sm font-medium hover:bg-cream/5 transition-colors">
+                      Limpiar filtros
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center justify-center py-24 text-center"
+            >
+              <div className="w-20 h-20 rounded-full bg-aubergine-dark/5 flex items-center justify-center mb-6">
+                <SearchX className="w-8 h-8 text-aubergine-dark/30" />
+              </div>
+              <h2 className="text-2xl font-serif text-aubergine-dark mb-3">Sin resultados</h2>
+              <p className="text-aubergine-dark/50 font-light max-w-md mb-8">
+                Todavía no tenemos recetas para esta combinación. Pronto añadiremos más.
+              </p>
+              <button onClick={resetFilters} className="px-8 py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors">
+                Limpiar filtros
+              </button>
+            </motion.div>
+          )
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

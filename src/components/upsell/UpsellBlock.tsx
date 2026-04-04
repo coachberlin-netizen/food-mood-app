@@ -5,18 +5,18 @@ import Link from "next/link";
 import { Check, X, Crown, ArrowRight, Sparkles } from "lucide-react";
 
 const FREE_FEATURES = [
-  { text: "1 receta personalizada por test", included: true },
-  { text: "Sin acceso al buscador completo", included: false },
-  { text: "Sin recetas Michelin-inspired", included: false },
-  { text: "Sin favoritos", included: false },
+  { text: "Orientación e inspiración por test", included: true },
+  { text: "Sin acceso al paso-a-paso completo", included: false },
+  { text: "Sin recetas Michelin-inspired ni Familia", included: false },
+  { text: "Sin historial evolutivo guardado", included: false },
 ];
 
 const PREMIUM_FEATURES = [
-  { text: "10,000 recetas organizadas por mood, edad y sexo" },
-  { text: "Buscador completo con filtros" },
+  { text: "Recetas preparadas paso-a-paso organizadas por mood" },
+  { text: "Variantes y biblioteca para toda la Familia" },
   { text: "200 recetas Michelin-inspired exclusivas" },
-  { text: "Guarda tus favoritos" },
-  { text: "Nueva receta personalizada cada semana" },
+  { text: "Historial de mood y favoritos ilimitados" },
+  { text: "Soporte nutricional avanzado" },
 ];
 
 export function UpsellBlock() {
