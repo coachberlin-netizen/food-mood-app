@@ -458,7 +458,7 @@ function RecetasContent() {
             <div className="flex items-center gap-3">
               <Crown className="w-4 h-4 text-[#C9A84C] shrink-0" />
               <p className="text-sm font-light">
-                Estás viendo una muestra. <span className="font-medium">Suscríbete</span> para acceder a las 10,000 recetas.
+                Estás viendo una muestra. <span className="font-medium">Suscríbete</span> para acceder a todas las recetas.
               </p>
             </div>
             <Link href="/pricing" className="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-xs font-medium rounded-lg transition-colors">
@@ -477,7 +477,7 @@ function RecetasContent() {
               Recetas con superpoderes
             </h1>
             <p className="text-lg md:text-xl text-aubergine-dark/60 font-light max-w-2xl">
-              10.000 combinaciones diseñadas para lo que sientes. Filtra, explora, disfruta.
+              Recetas diseñadas para lo que sientes. Filtra, explora, disfruta.
             </p>
           </motion.div>
         </div>
