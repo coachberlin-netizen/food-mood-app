@@ -158,13 +158,13 @@ export default function DashboardPage() {
     }
   };
 
-  // "Hacer magia" — random Michelin recipe (premium_level=2), fallback to any
+  // "Hacer magia" — random high-end recipe (premium_level=2), fallback to any
   const handleHacerMagia = async () => {
     setIsLoadingRecipe(true);
     try {
       const supabase = createRecetasClient();
 
-      // Try Michelin first
+      // Try alta cocina first
       const { count } = await supabase
         .from('recetas')
         .select('id', { count: 'exact', head: true })
@@ -365,8 +365,8 @@ export default function DashboardPage() {
 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
-                    { icon: "🍽", text: "10.000 recetas sin repetirse", detail: "Variedad real para tu microbiota" },
-                    { icon: "⭐", text: "200 recetas Michelin-inspired", detail: "Alta cocina funcional exclusiva" },
+                    { icon: "🍽", text: "Recetas sin repetirse", detail: "Variedad real para tu microbiota" },
+                    { icon: "⭐", text: "Recetas de alta cocina funcional", detail: "Platos exclusivos para ti" },
                     { icon: "🔬", text: "Filtros por mood, edad y sexo", detail: "Ciencia personalizada" },
                     { icon: "❤️", text: "Favoritos ilimitados", detail: "Guarda las que más te gusten" },
                   ].map((benefit, i) => (
@@ -417,7 +417,7 @@ export default function DashboardPage() {
                       </span>
                       {(todayRecipe.premium_level ?? 0) === 2 && (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[9px] font-bold uppercase tracking-wider border border-[#C9A84C]/20">
-                          ✦ Michelin
+                          ✦ Exclusiva
                         </span>
                       )}
                     </div>

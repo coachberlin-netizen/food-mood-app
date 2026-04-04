@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
       query = query.eq('segmento', segmento)
     }
 
-    // Filter by premium_level (0=free, 1=kids, 2=michelin)
+    // Filter by premium_level (0=free, 1=familia, 2=exclusiva)
     const premiumLevel = searchParams.get('premium_level')
     if (premiumLevel !== null) {
       query = query.eq('premium_level', parseInt(premiumLevel, 10))
