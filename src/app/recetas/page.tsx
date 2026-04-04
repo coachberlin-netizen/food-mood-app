@@ -653,13 +653,18 @@ function RecetasContent() {
               <div className="w-20 h-20 rounded-full bg-aubergine-dark/5 flex items-center justify-center mb-6">
                 <SearchX className="w-8 h-8 text-aubergine-dark/30" />
               </div>
-              <h2 className="text-2xl font-serif text-aubergine-dark mb-3">Sin resultados</h2>
+              <h2 className="text-2xl font-serif text-aubergine-dark mb-3">Aún no tenemos esa combinación.</h2>
               <p className="text-aubergine-dark/50 font-light max-w-md mb-8">
                 Todavía no tenemos recetas para esta combinación. Pronto añadiremos más.
               </p>
-              <button onClick={resetFilters} className="px-8 py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors">
-                Limpiar filtros
-              </button>
+              <div className="flex items-center gap-4">
+                <button onClick={resetFilters} className="px-8 py-3 rounded-xl border border-aubergine-dark/10 text-aubergine-dark/70 text-sm font-medium hover:bg-aubergine-dark/5 transition-colors">
+                  Limpiar filtros
+                </button>
+                <Link href="/pricing" className="px-8 py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors">
+                  Ver planes
+                </Link>
+              </div>
             </motion.div>
           )
         ) : (
