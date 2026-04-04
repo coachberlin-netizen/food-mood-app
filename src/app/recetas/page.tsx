@@ -298,7 +298,7 @@ function SmartCard({ receta, isPremium }: { receta: Receta; isPremium: boolean }
   if ((receta.premium_level ?? 0) === 2) {
     return <MichelinCard receta={receta} locked={locked} />;
   }
-  if (receta.segmento === 'kids') {
+  if (receta.segmento === 'familia') {
     return <KidsCard receta={receta} locked={locked} />;
   }
   return <RecipeCard receta={receta} locked={locked} />;
@@ -524,14 +524,14 @@ function RecetasContent() {
                 Adultos
               </button>
               <button
-                onClick={() => changeSegmento("kids")}
+                onClick={() => changeSegmento("familia")}
                 className={`px-4 py-2 text-xs font-medium tracking-widest transition-all duration-200 flex items-center gap-1.5 ${
-                  segmento === "kids"
+                  segmento === "familia"
                     ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white"
                     : "bg-cream text-aubergine-dark/60 hover:text-indigo-500/70"
                 }`}
               >
-                <Baby className="w-3 h-3" /> Kids
+                <Baby className="w-3 h-3" /> Familia
               </button>
             </div>
 
