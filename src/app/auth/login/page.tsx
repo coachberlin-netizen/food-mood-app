@@ -29,6 +29,14 @@ function LoginForm() {
       });
 
       if (signInError) {
+        if (signInError.message.includes("Email not confirmed")) {
+          setError(
+            "Revisa tu email para confirmar tu cuenta. ¿No lo recibiste? "
+          );
+          // Special case handled in the UI with a resend button
+          setLoading(false);
+          return;
+        }
         setError(signInError.message);
         setLoading(false);
         return;
@@ -43,14 +51,26 @@ function LoginForm() {
       // Read redirect parameter from URL, default to /dashboard
       const redirectTo = searchParams.get('redirect') || '/dashboard';
       
-      // Step 4: check for pendingPlan in sessionStorage
+      // Step 2: Post-login redirect to Stripe if pendingPlan exists
       if (typeof window !== 'undefined') {
         const pendingPlan = sessionStorage.getItem('pendingPlan');
         if (pendingPlan) {
-          sessionStorage.removeItem('pendingPlan');
-          // Redirect to checkout API which now supports GET and handles the redirect to Stripe
-          window.location.href = `/api/checkout?plan=${pendingPlan}`;
-          return;
+          try {
+            const res = await fetch('/api/checkout', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ plan: pendingPlan }),
+            });
+            const { url } = await res.json();
+            sessionStorage.removeItem('pendingPlan');
+            if (url) {
+              window.location.href = url;
+              return;
+            }
+          } catch (err) {
+            console.error("Error creating checkout session after login:", err);
+            // Fallback to normal redirect if checkout fails
+          }
         }
       }
 
@@ -61,6 +81,26 @@ function LoginForm() {
       setLoading(false);
       setError("Por favor, ingresa tu email y contraseña.");
     }
+  };
+
+  const handleResendEmail = async () => {
+    if (!email) {
+      setError("Por favor, ingresa tu email para reenviar el enlace.");
+      return;
+    }
+    
+    setLoading(true);
+    const { error: resendError } = await supabase.auth.resend({
+      type: 'signup',
+      email: email,
+    });
+    
+    if (resendError) {
+      setError(resendError.message);
+    } else {
+      setError("Email de confirmación reenviado. Revisa tu bandeja de entrada.");
+    }
+    setLoading(false);
   };
 
   return (
@@ -81,8 +121,20 @@ function LoginForm() {
           <p className="text-aubergine-dark/60 text-center text-sm mb-6">Conecta con tu estado interior hoy.</p>
 
           {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4 text-center">
+            <div className={`p-4 rounded-xl text-sm mb-6 text-center ${
+              error.includes("reenviado") 
+                ? "bg-green-50 text-green-700 border border-green-100" 
+                : "bg-red-50 text-red-600 border border-red-100"
+            }`}>
               {error}
+              {error.includes("confirmar tu cuenta") && (
+                <button
+                  onClick={handleResendEmail}
+                  className="block w-full mt-2 font-bold underline hover:no-underline transition-all"
+                >
+                  ¿No lo recibiste? Reenviar email →
+                </button>
+              )}
             </div>
           )}
 
