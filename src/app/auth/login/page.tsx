@@ -96,7 +96,11 @@ function LoginForm() {
     });
     
     if (resendError) {
-      setError(resendError.message);
+      if (resendError.message.toLowerCase().includes("rate limit")) {
+        setError("Has solicitado demasiados emails en poco tiempo. Espera unos minutos antes de intentarlo de nuevo.");
+      } else {
+        setError(resendError.message);
+      }
     } else {
       setError("Email de confirmación reenviado. Revisa tu bandeja de entrada.");
     }
@@ -130,9 +134,10 @@ function LoginForm() {
               {error.includes("confirmar tu cuenta") && (
                 <button
                   onClick={handleResendEmail}
-                  className="block w-full mt-2 font-bold underline hover:no-underline transition-all"
+                  disabled={loading}
+                  className="block w-full mt-2 font-bold underline hover:no-underline transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  ¿No lo recibiste? Reenviar email →
+                  {loading ? "Enviando..." : "¿No lo recibiste? Reenviar email →"}
                 </button>
               )}
             </div>
