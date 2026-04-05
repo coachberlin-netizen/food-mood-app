@@ -68,16 +68,17 @@ export default function PricingPage() {
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
     if (!isAuthenticated || !userId) {
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("pendingPlan", plan);
-      }
       router.push(`/auth/login?redirect=/pricing`);
       return;
     }
 
+    const priceId = plan === "quarterly"
+      ? process.env.NEXT_PUBLIC_STRIPE_PRICE_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
+      : process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY || "price_1THUGfKAfsMmyDlfym8JQTiC";
+
     setIsCheckingOut(true);
     try {
-      const res = await fetch('/api/checkout', {
+      const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan, userId }),
@@ -206,10 +207,9 @@ export default function PricingPage() {
             ) : (
               <button
                 onClick={() => handleCheckout("monthly")}
-                disabled={isCheckingOut}
                 className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2"
               >
-                {isAuthenticated ? "Suscribirme ahora" : "Suscribirme por 9€/mes"}
+                Suscribirme por 9€/mes
               </button>
             )}
           </motion.div>
@@ -265,10 +265,9 @@ export default function PricingPage() {
               <>
                 <button
                   onClick={() => handleCheckout("quarterly")}
-                  disabled={isCheckingOut}
                   className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
-                  {isAuthenticated ? "Suscribirme ahora" : "Empezar 7 días gratis"}
+                  Empezar 7 días gratis
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <p className="text-center text-[10px] text-aubergine-dark/30 mt-3 font-light">
