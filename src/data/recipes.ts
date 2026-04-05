@@ -25,6 +25,8 @@ export interface Recipe {
   imagePrompt: string;
   image?: string;
   season: string[];
+  nombre_es?: string;
+  contexto_es?: string;
 }
 
 export const recipesData: Recipe[] = [

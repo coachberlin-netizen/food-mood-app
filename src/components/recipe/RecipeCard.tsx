@@ -31,7 +31,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           {/* Using img native specifically mapped as requested by the user */}
           <img 
             src={recipe.image || previewPlaceholderUrl} 
-            alt={recipe.title}
+            alt={recipe.nombre_es || recipe.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>
@@ -52,9 +52,9 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
             </div>
             
             <h3 className="text-2xl font-serif text-aubergine-dark mb-3 leading-[1.3] group-hover:text-gold transition-colors">
-              {recipe.title}
+              {recipe.nombre_es || recipe.title}
             </h3>
-            <p className="text-sm text-aubergine-dark/50 italic font-light mb-5">&quot;{recipe.tagline}&quot;</p>
+            <p className="text-sm text-aubergine-dark/50 italic font-light mb-5">&quot;{recipe.tagline || recipe.contexto_es}&quot;</p>
             <p className="text-sm text-aubergine-dark/70 line-clamp-3 mb-8 leading-[1.8] font-light">
               {recipe.description}
             </p>
