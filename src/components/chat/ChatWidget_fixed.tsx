@@ -39,7 +39,7 @@ const MOOD_EMOJI: Record<string, string> = {
   "Focus & Claridad Mental": "🧠",
   "Social & Placer Compartido": "🥂",
   "Reset & Ligereza": "🍋",
-  "Confort & Calidez": "🫶",
+  "familia & Calidez": "🫶",
 };
 
 const MOOD_COLOR: Record<string, string> = {
@@ -48,7 +48,7 @@ const MOOD_COLOR: Record<string, string> = {
   "Focus & Claridad Mental": "#0D9488",
   "Social & Placer Compartido": "#BE185D",
   "Reset & Ligereza": "#65A30D",
-  "Confort & Calidez": "#C2714F",
+  "familia & Calidez": "#C2714F",
 };
 
 export function ChatWidget() {

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Check, X, Crown, Sparkles, ArrowRight, Zap, BookOpen,
   ShieldCheck, RefreshCcw, Lock,
 } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 /* ── Feature lists ───────────────────────────────────────── */
@@ -81,7 +81,7 @@ export default function PricingPage() {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId, userId }),
+        body: JSON.stringify({ plan, userId }),
       });
       const data = await res.json();
       if (data.url) {
@@ -187,7 +187,7 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/mes</span>
               </div>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Acceso íntrego al recetario para reescribir tu biología.
+                Acceso íntegro al recetario para reescribir tu biología.
               </p>
             </div>
 
@@ -209,7 +209,7 @@ export default function PricingPage() {
                 onClick={() => handleCheckout("monthly")}
                 className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2"
               >
-                Suscribirme por 9 €/mes
+                Suscribirme por 9€/mes
               </button>
             )}
           </motion.div>
@@ -241,10 +241,10 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/ 3 meses</span>
               </div>
               <p className="text-sm text-[#C9A84C] font-semibold mb-1">
-                Solo 5 €/mes
+                La opción inteligente para comprometerte de verdad
               </p>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                La biblioteca Premium para ti y toda tu Familia (44% off).
+                Solo 5€/mes (facturado trimestralmente)
               </p>
             </div>
 

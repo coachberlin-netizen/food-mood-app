@@ -60,14 +60,14 @@ export const moods: MoodState[] = [
     momento: "Despues de excesos / cambio de estacion",
   },
   {
-    id: "confort",
-    nombre: "Confort",
-    emoji: "6",
+    id: "familia",
+    nombre: "Familia",
+    emoji: "🏠",
     color: "#b89a52",
     fondo: "#f5efd8",
-    descripcion_corta: "Calienta el intestino, calma el mundo.",
+    descripcion_corta: "El sabor que une. Calidez para todos.",
     ingredientes: ["Fermentos calidos", "Marinadas lentas", "Raices asadas", "Sopas miso", "Pan de masa madre"],
-    mecanismo: "Los alimentos calidos y fermentados aumentan la diversidad microbiana intestinal. Las fibras solubles alimentan Lactobacillus y Bifidobacterium.",
-    momento: "Dias frios / necesidad de refugio",
+    mecanismo: "Los alimentos calidos y fermentados aumentan la diversidad microbiana intestinal. Las fibras solubles alimentan Lactobacillus y Bifidobacterium, promoviendo bienestar compartido.",
+    momento: "Comidas familiares / cenas tranquilas",
   }
 ];

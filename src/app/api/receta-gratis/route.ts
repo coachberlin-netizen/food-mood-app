@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
       focus: 'Focus',
       social: 'Social',
       reset: 'Reset',
-      confort: 'Confort',
+      familia: 'familia',
     }
 
     const keyword = MOOD_KEYWORD[mood] || mood

@@ -40,7 +40,7 @@ interface QuizState {
 
 const getLeadingMood = (selections: OptionPoint[][]): MoodId | null => {
   const scores: Record<MoodId, number> = {
-    activacion: 0, focus: 0, social: 0, reset: 0, calma: 0, confort: 0,
+    activacion: 0, focus: 0, social: 0, reset: 0, calma: 0, familia: 0,
   };
   
   let hasPoints = false;
@@ -53,7 +53,7 @@ const getLeadingMood = (selections: OptionPoint[][]): MoodId | null => {
 
   if (!hasPoints) return null;
 
-  const priority: MoodId[] = ["activacion", "focus", "social", "reset", "calma", "confort"];
+  const priority: MoodId[] = ["activacion", "focus", "social", "reset", "calma", "familia"];
   let winner: MoodId = "activacion";
   let maxScore = -1;
 

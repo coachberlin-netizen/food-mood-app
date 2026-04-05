@@ -513,10 +513,10 @@ export const recipesData: Recipe[] = [
     season: ["Invierno", "Otoño"]
   },
 
-  // CONFORT
+  // familia
   {
     id: "r16",
-    moodId: "confort",
+    moodId: "familia",
     title: "Sopa Miso con Verduras de Raíz",
     title_en: "Miso Soup with Root Vegetables",
     tagline: "Calor desde dentro",
@@ -538,7 +538,7 @@ export const recipesData: Recipe[] = [
       "Disuelve el espeso, añejo e invernal miso rojo para darle color a tierra arcillo, revuelve.",
       "Opcionalmente añade gotitas de aceite de sésamo."
     ],
-    foodMoodNote: "Abraza el estómago con temperatura y viscosidad espesa reconfortante. El miso de larga fermentación genera un abrazo bioquímico denso que asienta emocionalmente la fragilidad de un estado nervioso hiper-estimulado que ansía refugio.",
+    foodMoodNote: "Abraza el estómago con temperatura y viscosidad espesa reFamiliaante. El miso de larga fermentación genera un abrazo bioquímico denso que asienta emocionalmente la fragilidad de un estado nervioso hiper-estimulado que ansía refugio.",
     scienceQR: "Fermentos tipo Aka-miso concentran melanoidinas protectoras potentes que desinflaman tejidos de forma calmante y lenta.",
     tags: ["Abrazo cálido", "Invierno denso", "Mediodía o Cena"],
     imagePrompt: "En un tazón rústico de cerámica marrón tierra moteada, un denso, oscuro líquido rojo opaco de miso enmarca pedazos irregulares supertiernos de moniato color naranja quemado hundidos. Un hilo minúsculo de de sésamo dorado brilla. Fotografía hogareña y de cerca que huele cálido y acogedor.",
@@ -547,7 +547,7 @@ export const recipesData: Recipe[] = [
   },
   {
     id: "r17",
-    moodId: "confort",
+    moodId: "familia",
     title: "Pan de Masa Madre con Mantequilla Fermentada",
     title_en: "Sourdough Toast with Cultured Butter",
     tagline: "La memoria del hogar",
@@ -576,7 +576,7 @@ export const recipesData: Recipe[] = [
   },
   {
     id: "r18",
-    moodId: "confort",
+    moodId: "familia",
     title: "Raíces Asadas con Marinada de Kombucha",
     title_en: "Roasted Roots & Kombucha Glaze",
     tagline: "Lento, profundo, bueno",

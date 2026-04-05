@@ -4,15 +4,25 @@ import { NextRequest, NextResponse } from 'next/server'
 /**
  * POST /api/stripe/checkout
  * Creates a Stripe Checkout Session for subscription.
- * Body: { priceId: string, userId: string }
+ * Body: { plan: string, userId: string }
  */
 export async function POST(req: NextRequest) {
   try {
-    const { priceId, userId } = await req.json()
+    const { plan, userId } = await req.json()
 
-    if (!priceId || !userId) {
+    // Select Price ID based on plan from env
+    const priceId = plan === 'quarterly'
+      ? process.env.STRIPE_PRICE_ID_QUARTERLY
+      : process.env.STRIPE_PRICE_ID_MONTHLY || process.env.STRIPE_PRICE_ID
+
+    if (!priceId) {
+      console.error('[checkout] Missing Stripe Price ID for plan:', plan)
+      return NextResponse.json({ error: 'Plan no configurado' }, { status: 500 })
+    }
+
+    if (!userId) {
       return NextResponse.json(
-        { error: 'Missing priceId or userId' },
+        { error: 'Missing userId' },
         { status: 400 }
       )
     }

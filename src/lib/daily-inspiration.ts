@@ -6,7 +6,7 @@ export const MOODS = [
   'Focus & Claridad Mental',
   'Social & Placer Compartido',
   'Reset & Ligereza',
-  'Confort & Calidez'
+  'familia & Calidez'
 ];
 
 export interface UserContext {

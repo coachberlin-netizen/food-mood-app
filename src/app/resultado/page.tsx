@@ -5,8 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { moods } from "@/data/moods";
 import { useQuizStore } from "@/store/useQuizStore";
-import { Clock, Leaf, Droplets, BookOpen } from "lucide-react";
-import { UpsellBlock } from "@/components/upsell/UpsellBlock";
+import { Clock, Leaf, Droplets, BookOpen, Lock } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
 
 /* ── Mood colors for badges ──────────────────────────────────── */
 const MOOD_COLORS: Record<string, { color: string; bg: string; emoji: string }> = {
@@ -15,7 +16,7 @@ const MOOD_COLORS: Record<string, { color: string; bg: string; emoji: string }> 
   focus:      { color: "#0D9488", bg: "rgba(13,148,136,0.10)", emoji: "🧠" },
   social:     { color: "#BE185D", bg: "rgba(190,24,93,0.10)", emoji: "🥂" },
   reset:      { color: "#65A30D", bg: "rgba(101,163,13,0.10)", emoji: "🍋" },
-  confort:    { color: "#C2714F", bg: "rgba(194,113,79,0.10)", emoji: "🫶" },
+  familia:    { color: "#C2714F", bg: "rgba(194,113,79,0.10)", emoji: "🏠" },
 };
 
 const MOOD_MAP: Record<string, string> = {
@@ -24,7 +25,7 @@ const MOOD_MAP: Record<string, string> = {
   focus: "Focus & Claridad Mental",
   social: "Social & Placer Compartido",
   reset: "Reset & Ligereza",
-  confort: "Confort & Calidez",
+  familia: "Familia & Bienestar",
 };
 
 const MOOD_LEGACY_MAP: Record<string, string> = {
@@ -34,8 +35,9 @@ const MOOD_LEGACY_MAP: Record<string, string> = {
   "Social & Placer Compartido": "social",
   "Social & Confianza": "social",
   "Reset & Ligereza": "reset",
-  "Confort & Calidez": "confort",
-  "Confort & Placer": "confort"
+  "Familia & Bienestar": "familia",
+  "familia & Calidez": "familia",
+  "familia & Placer": "familia"
 };
 
 interface Receta {
@@ -60,14 +62,41 @@ function ResultadoContent() {
   const urlMood = searchParams.get("mood");
   const storeMood = useQuizStore((s) => s.resultMood);
   const moodIdSource = urlMood || storeMood || "activacion";
+  
+  const [isPremium, setIsPremium] = useState(false);
+  
+  useEffect(() => {
+    const checkPremium = async () => {
+      const { createClient } = await import("@/lib/supabase/client");
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("is_premium")
+          .eq("id", user.id)
+          .single();
+        if (profile?.is_premium) setIsPremium(true);
+      }
+    };
+    checkPremium();
+  }, []);
   // Convert full names to slug if necessary
   const moodId = MOOD_LEGACY_MAP[moodIdSource as string] || moodIdSource;
 
   const [receta, setReceta] = useState<Receta | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSkipped, setIsSkipped] = useState(false);
+
+  const showResults = isSubmitted || isSkipped;
 
   const moodData = moods.find(m => m.id === moodId);
   const moodStyle = MOOD_COLORS[moodId] || MOOD_COLORS.activacion;
+  
+  // Get 3 variety moods (excluding current)
+  const varietyMoods = moods.filter(m => m.id !== moodId).slice(0, 3);
 
   useEffect(() => {
     async function fetchReceta() {
@@ -85,28 +114,74 @@ function ResultadoContent() {
     fetchReceta();
   }, [moodId]);
 
+  if (!showResults) {
+    return (
+      <div className="min-h-screen bg-[var(--background)] flex items-center justify-center px-6">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-cream p-8 md:p-12 rounded-[2.5rem] shadow-luxury border border-aubergine-dark/5 max-w-md w-full text-center"
+        >
+          <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 flex items-center justify-center text-[#C9A84C] mx-auto mb-8">
+            <Droplets className="w-8 h-8" />
+          </div>
+          <h2 className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-4 leading-tight">
+            ¿Dónde enviamos tu receta semanal personalizada?
+          </h2>
+          <p className="text-aubergine-dark/50 font-light mb-8 text-sm leading-relaxed">
+            Guarda tu resultado y recibe cada domingo una nueva inspiración basada en tu microbioma.
+          </p>
+          
+          <div className="space-y-4">
+            <input
+              type="email"
+              placeholder="tu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-6 py-4 rounded-xl bg-white border border-aubergine-dark/10 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 text-aubergine-dark font-light"
+            />
+            <button
+              onClick={() => setIsSubmitted(true)}
+              className="w-full py-4 rounded-xl bg-aubergine-dark text-white font-medium hover:bg-aubergine transition-all shadow-lg text-sm"
+            >
+              Ver mi resultado
+            </button>
+            <button
+              onClick={() => setIsSkipped(true)}
+              className="text-xs text-aubergine-dark/30 hover:text-aubergine-dark/50 transition-colors font-light uppercase tracking-widest"
+            >
+              Continuar sin guardar
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-20 md:px-12">
 
-        {/* ── Mood result header ─────────────────────────────── */}
+        {/* ── Microbiome Profile Header ─────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <div className="w-20 h-20 rounded-full bg-aubergine/10 flex items-center justify-center text-4xl mx-auto mb-6 border border-aubergine-dark/10">
+          <div className="w-20 h-20 rounded-full bg-white shadow-sm flex items-center justify-center text-4xl mx-auto mb-8 border border-aubergine-dark/5">
             {moodData?.emoji || moodStyle.emoji}
           </div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/40 mb-3">
-            Tu estado actual
-          </p>
-          <h1 className="text-4xl md:text-5xl font-serif mb-3" style={{ color: moodStyle.color }}>
-            Eres {moodData?.nombre || MOOD_MAP[moodId] || moodId}
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-4 block">
+            Perfil de Microbioma
+          </span>
+          <h1 className="text-4xl md:text-5xl font-serif text-aubergine-dark mb-6">
+            Eres una persona de <span style={{ color: moodStyle.color }}>{moodData?.nombre || MOOD_MAP[moodId] || moodId}</span>
           </h1>
-          <p className="text-aubergine-dark/55 font-light max-w-md mx-auto">
-            {moodData?.descripcion_corta}
-          </p>
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-aubergine-dark/5 max-w-xl mx-auto">
+            <p className="text-aubergine-dark/60 text-sm font-light leading-relaxed italic">
+              "{moodData?.mecanismo}"
+            </p>
+          </div>
         </motion.div>
 
         {/* ── Free recipe section ────────────────────────────── */}
@@ -175,7 +250,7 @@ function ResultadoContent() {
                     <Leaf className="w-3.5 h-3.5" /> Ingredientes
                   </h3>
                   <ol className="space-y-2">
-                    {receta?.ingredientes_es?.map((ingRaw, i) => {
+                    {receta.ingredientes_es.map((ingRaw, i) => {
                       const ing = typeof ingRaw === 'string' ? ingRaw : (ingRaw as any).ingrediente || (ingRaw as any).nombre || JSON.stringify(ingRaw);
                       return (
                         <li key={i} className="flex items-start gap-3">
@@ -196,18 +271,26 @@ function ResultadoContent() {
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-aubergine-dark/40 mb-4">
                     Preparación
                   </h3>
-                  <ol className="space-y-3">
+                  <ol className="space-y-4 relative">
                     {receta?.preparacion_es?.map((pasoRaw, i) => {
                       const paso = typeof pasoRaw === 'string' ? pasoRaw : (pasoRaw as any).paso || (pasoRaw as any).texto || JSON.stringify(pasoRaw);
                       return (
-                        <li key={i} className="flex items-start gap-3 bg-[var(--background)] rounded-lg p-3 border border-aubergine-dark/5">
-                          <span className="shrink-0 w-7 h-7 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
+                        <li key={i} className={`flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5 transition-all ${!isPremium ? 'blur-sm opacity-50 select-none' : ''}`}>
+                          <span className="shrink-0 w-8 h-8 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
                             {i + 1}
                           </span>
-                          <p className="text-aubergine-dark/70 font-light text-sm leading-relaxed pt-0.5">{paso}</p>
+                          <p className="text-aubergine-dark/75 font-light text-[15px] leading-relaxed pt-1">{paso}</p>
                         </li>
                       );
                     })}
+                    {!isPremium && (
+                      <div className="absolute inset-0 flex items-center justify-center z-10">
+                        <Link href="/pricing" className="bg-aubergine-dark hover:bg-aubergine text-cream px-6 py-3 rounded-xl shadow-xl flex items-center gap-2 text-sm font-semibold transition-all hover:scale-105">
+                          <Lock className="w-4 h-4 text-[#C9A84C]" />
+                          Desbloquea la receta completa → Hazte Premium
+                        </Link>
+                      </div>
+                    )}
                   </ol>
                 </div>
               )}
@@ -246,8 +329,82 @@ function ResultadoContent() {
           )}
         </motion.div>
 
-        {/* ── Upsell Block ───────────────────────────────────── */}
-        <UpsellBlock />
+        {/* ── Variety Block (Locked) ─────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mt-20 mb-20"
+        >
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-4 px-4">
+              Tu sistema inmune y tu microbioma necesitan variedad
+            </h2>
+            <p className="text-aubergine-dark/50 font-light text-sm max-w-md mx-auto px-4 leading-relaxed">
+              Cada receta activa un camino diferente en tu eje intestino-cerebro. Una sola no es suficiente para la transformación real.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {varietyMoods.map((m, i) => (
+              <div key={i} className="relative group rounded-2xl overflow-hidden aspect-[4/5] border border-aubergine-dark/5 bg-cream">
+                <div className="absolute inset-0 bg-gradient-to-t from-aubergine-dark/80 to-transparent z-10" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-20 backdrop-blur-[2px]">
+                  <Lock className="w-6 h-6 text-cream/30 mb-3" />
+                  <span className="text-[10px] font-bold text-cream/40 uppercase tracking-widest mb-1">
+                    Mood {m.nombre}
+                  </span>
+                  <div className="h-px w-8 bg-cream/20 mb-3" />
+                  <p className="text-xs text-cream/60 font-light italic">
+                    "{m.descripcion_corta}"
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Enhanced Upsell ─────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6 }}
+          className="bg-gradient-to-br from-aubergine-dark to-aubergine rounded-[2.5rem] p-10 md:p-14 text-center shadow-luxury relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-3xl opacity-30" />
+          <div className="relative z-10">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-4 block">
+              Acceso Premium
+            </span>
+            <h2 className="text-3xl md:text-4xl font-serif text-cream mb-6">
+              Tu perfil completo te espera
+            </h2>
+            <p className="text-cream/60 font-light max-w-lg mx-auto mb-10 leading-relaxed">
+              Desbloquea instantáneamente las recetas de los 6 estados de ánimo, el paso a paso detallado y el diario evolutivo de tu microbiota.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch w-full max-w-md mx-auto">
+              <a 
+                href="/pricing?plan=quarterly" 
+                className="flex-1 px-8 py-4.5 bg-[#C9A84C] text-white rounded-2xl text-sm font-semibold hover:bg-[#b8953e] transition-all shadow-lg flex flex-col gap-0.5 items-center justify-center group"
+              >
+                <span>Plan Trimestral</span>
+                <span className="text-[10px] opacity-80 group-hover:opacity-100 uppercase tracking-wider">Sólo 5€/mes</span>
+              </a>
+              <a 
+                href="/pricing?plan=monthly" 
+                className="flex-1 px-8 py-4.5 bg-white/10 hover:bg-white/20 text-cream rounded-2xl text-sm font-semibold transition-all border border-white/10 flex flex-col gap-0.5 items-center justify-center"
+              >
+                <span>Plan Mensual</span>
+                <span className="text-[10px] opacity-60 uppercase tracking-wider">9€/mes</span>
+              </a>
+            </div>
+            
+            <p className="text-[11px] text-cream/30 mt-6 font-light italic">
+              Compromiso total con tu salud o acceso flexible mes a mes.
+            </p>
+          </div>
+        </motion.div>
 
         {/* ── Scientific disclaimer ──────────────────────────── */}
         <motion.div

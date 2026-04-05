@@ -13,7 +13,7 @@ Los 6 estados Food·Mood:
 3. Focus — te verde matcha, semillas, hojas amargas, cacao puro, nueces
 4. Social — shrubs, pickles, aperitivos fermentados, hummus, aceitunas
 5. Reset — fermentos citricos, raices amargas, caldo ligero, curcuma
-6. Confort — fermentos calidos, marinadas lentas, raices asadas, sopas miso, masa madre
+6. familia — fermentos calidos, marinadas lentas, raices asadas, sopas miso, masa madre
 
 Ingrediente estrella: vinagre de kombucha / Kombuv+H (acido vivo de kombucha artesanal)
 
