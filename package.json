@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint", "seed-recetas": "ts-node scripts/seed-recetas.ts"
+    "lint": "next lint",
+    "seed-recetas": "ts-node scripts/seed-recetas.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
@@ -26,12 +27,14 @@
     "sharp": "^0.34.5",
     "stripe": "^21.0.1",
     "tailwind-merge": "^3.5.0",
+    "web-push": "^3.6.7",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/web-push": "^3.6.4",
     "dotenv": "^17.3.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",

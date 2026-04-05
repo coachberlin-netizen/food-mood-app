@@ -54,6 +54,7 @@ interface Receta {
   dificultad: string;
   temporada: string;
   tipo_plato: string;
+  ingrediente_firma?: string; // Tarea 1: added
 }
 
 interface RelatedReceta {
@@ -297,22 +298,24 @@ export default function RecetaDetailPage() {
           </motion.p>
 
           {/* ── Base ácida (hero ingredient) ──────────────────── */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="relative bg-gradient-to-br from-[#C9A84C]/10 via-cream to-[#C9A84C]/5 rounded-2xl p-6 md:p-8 mb-10 border border-[#C9A84C]/20 overflow-hidden"
-          >
-            <div className="absolute top-4 right-4 opacity-15">
-              <Droplets className="w-16 h-16 text-[#C9A84C]" />
-            </div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2 block">
-              Ingrediente firma
-            </span>
-            <p className="text-lg md:text-xl font-serif text-aubergine-dark font-semibold leading-snug">
-              {receta.base_acida}
-            </p>
-          </motion.div>
+          {(receta.ingrediente_firma || receta.base_acida) && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="relative bg-gradient-to-br from-[#C9A84C]/10 via-cream to-[#C9A84C]/5 rounded-2xl p-6 md:p-8 mb-10 border border-[#C9A84C]/20 overflow-hidden"
+            >
+              <div className="absolute top-4 right-4 opacity-15">
+                <Droplets className="w-16 h-16 text-[#C9A84C]" />
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2 block">
+                Ingrediente firma
+              </span>
+              <p className="text-lg md:text-xl font-serif text-aubergine-dark font-semibold leading-snug">
+                {receta.ingrediente_firma || receta.base_acida}
+              </p>
+            </motion.div>
+          )}
 
           {/* ── Ingredientes ─────────────────────────────────── */}
           <motion.section

@@ -1,48 +1,51 @@
 import { stripe } from '@/lib/stripe'
+import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * POST /api/stripe/checkout
  * Creates a Stripe Checkout Session for subscription.
- * Body: { plan: string, userId: string }
+ * Body: { priceId: string, planType: string }
  */
 export async function POST(req: NextRequest) {
   try {
-    const { plan, userId } = await req.json()
-
-    // Select Price ID based on plan from env
-    const priceId = plan === 'quarterly'
-      ? process.env.STRIPE_PRICE_ID_QUARTERLY
-      : process.env.STRIPE_PRICE_ID_MONTHLY || process.env.STRIPE_PRICE_ID
+    const { priceId, planType } = await req.json()
 
     if (!priceId) {
-      console.error('[checkout] Missing Stripe Price ID for plan:', plan)
-      return NextResponse.json({ error: 'Plan no configurado' }, { status: 500 })
+      return NextResponse.json({ error: 'Missing priceId' }, { status: 400 })
     }
 
-    if (!userId) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
       return NextResponse.json(
-        { error: 'Missing userId' },
-        { status: 400 }
+        { error: 'unauthenticated', redirect: '/auth/login?redirect=/pricing' },
+        { status: 401 }
       )
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.food-mood.app'
+    const protocol = req.headers.get('x-forwarded-proto') || 'http'
+    const host = req.headers.get('host') || 'localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${baseUrl}/dashboard?success=true`,
+      success_url: `${baseUrl}/dashboard?subscribed=true`,
       cancel_url: `${baseUrl}/pricing`,
-      client_reference_id: userId,
+      client_reference_id: user.id,
       allow_promotion_codes: true,
       billing_address_collection: 'auto',
+      customer_email: user.email,
       metadata: {
-        supabase_user_id: userId,
+        supabase_user_id: user.id,
+        plan_type: planType || 'monthly',
       },
       subscription_data: {
         metadata: {
-          supabase_user_id: userId,
+          supabase_user_id: user.id,
+          plan_type: planType || 'monthly',
         },
       },
     })
@@ -50,8 +53,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: session.url })
   } catch (err) {
     console.error('[stripe/checkout] Error:', err)
+    const message = err instanceof Error ? err.message : 'Error al crear la sesión de pago'
     return NextResponse.json(
-      { error: 'Error al crear la sesión de pago' },
+      { error: message },
       { status: 500 }
     )
   }

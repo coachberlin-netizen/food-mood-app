@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Check, X, Crown, Sparkles, ArrowRight, Zap, BookOpen,
-  ShieldCheck, RefreshCcw, Lock,
+  ShieldCheck, RefreshCcw, Lock, Loader2,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -75,6 +75,7 @@ export default function PricingPage() {
       return;
     }
 
+    // Use Price IDs from environment or fallbacks
     const priceId = plan === "quarterly"
       ? process.env.NEXT_PUBLIC_STRIPE_PRICE_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
       : process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY || "price_1THUGfKAfsMmyDlfym8JQTiC";
@@ -84,19 +85,20 @@ export default function PricingPage() {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, userId }),
+        body: JSON.stringify({ priceId, planType: plan }),
       });
       const data = await res.json();
+      
       if (data.url) {
         window.location.href = data.url;
       } else {
         console.error('Checkout response:', data);
-        alert('Error al conectar con la pasarela de pago.');
+        alert(`Error al conectar con la pasarela de pago: ${data.error || 'Int\u00e9ntelo de nuevo m\u00e1s tarde'}`);
         setIsCheckingOut(false);
       }
     } catch (err) {
       console.error('Checkout error:', err);
-      alert('Error al conectar con la pasarela de pago.');
+      alert('Error de red al conectar con Stripe. Compruebe su conexi\u00f3n.');
       setIsCheckingOut(false);
     }
   };
@@ -211,9 +213,13 @@ export default function PricingPage() {
               <button
                 onClick={() => handleCheckout("monthly")}
                 disabled={isCheckingOut}
-                className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
-                {isAuthenticated ? "Suscribirme ahora" : "Suscribirme por 9€/mes"}
+                {isCheckingOut ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  isAuthenticated ? "Suscribirme ahora" : "Suscribirme por 9\u20ac/mes"
+                )}
               </button>
             )}
           </motion.div>
@@ -270,10 +276,16 @@ export default function PricingPage() {
                 <button
                   onClick={() => handleCheckout("quarterly")}
                   disabled={isCheckingOut}
-                  className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50"
                 >
-                  {isAuthenticated ? "Suscribirme ahora" : "Empezar 7 días gratis"}
-                  <ArrowRight className="w-4 h-4" />
+                  {isCheckingOut ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <>
+                      {isAuthenticated ? "Suscribirme ahora" : "Empezar 7 d\u00edas gratis"}
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
                 </button>
                 <p className="text-center text-[10px] text-aubergine-dark/30 mt-3 font-light">
                   Después 15 € / 3 meses · Cancela cuando quieras

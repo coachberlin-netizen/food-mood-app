@@ -1,10 +1,12 @@
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle2, Lock, Sparkles, Zap } from "lucide-react"
+import { ArrowLeft, CheckCircle, Lock, Sparkles, Zap } from "lucide-react"
+
+export const dynamic = 'force-dynamic'
 
 const datos: Record<string, any> = {
-  'cansancio': { emoji:'😴', titulo: 'Cansancio', subtitulo:'Hierro, B12 y adaptógenos para despertar tu energía celular', explicacion:'El cansancio crónico empieza en el intestino: mala absorción de hierro y vitamina B12, inflamación de bajo grado y microbiota poco diversa. Los adaptógenos como ashwagandha y shiitake activan el eje intestino-cerebro para restaurar tu vitalidad.', mood:'Activacion' },
+  'cansancio': { emoji:'😴', titulo: 'Cansancio', subtitulo:'Hierro, B12 y adaptógenos para despertar tu energía celular', explicacion:'El cansancio crónico empieza en el intestino: mala absorción de hierro y vitamina B12, inflamación de bajo grado y microbiota poco diversa. Los adaptógenos como ashwagandha y shiitake activan el eje intestino-cerebro para restaurar tu vitalidad.', mood:'Activación' },
   'ansiedad': { emoji:'😰', titulo: 'Ansiedad', subtitulo:'Triptófano, magnesio y fermentados para calmar tu sistema nervioso', explicacion:'El 95% de la serotonina se produce en el intestino. Cuando tu microbiota está desequilibrada, el sistema nervioso entra en alerta. El triptófano, el magnesio y los fermentados reconectan ese eje y reducen la respuesta ansiosa.', mood:'Calma & Equilibrio' },
   'insomnio': { emoji:'🌙', titulo: 'Insomnio', subtitulo:'GABA, melatonina precursora y digestión calmada para recuperar el sueño', explicacion:'El sueño se regula desde el intestino: el GABA y la melatonina se sintetizan con ayuda de tu microbiota. Una cena inflamatoria o un intestino permeable interrumpen ese proceso. Esta sección prioriza triptófano nocturno y alimentos calmantes.', mood:'Calma & Equilibrio' },
   'hambre-constante': { emoji:'🍽️', titulo: 'Hambre constante', subtitulo:'Fibra, grasas buenas y microbiota saciante para romper el ciclo', explicacion:'El hambre constante no es siempre psicológica. Cuando tu microbiota carece de diversidad, produce menos ácidos grasos de cadena corta que regulan leptina y grelina. Más fibra prebiótica y proteína de calidad reeducan esas señales.', mood:'Reset' },
@@ -99,7 +101,7 @@ export default async function SymptomDetailPage({ params }: { params: { slug: st
                 <div className="grid md:grid-cols-2 gap-16">
                   <div>
                     <h4 className="text-lg font-serif font-bold text-aubergine-dark mb-6 flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-gold" /> Ingredientes clave
+                      <CheckCircle className="w-5 h-5 text-gold" /> Ingredientes clave
                     </h4>
                     <ul className="space-y-4">
                       {Array.isArray(freeRecipe.ingredientes_es) ? freeRecipe.ingredientes_es.map((ing: string, i: number) => (

@@ -54,6 +54,7 @@ interface Receta {
   tipo_plato?: string;
   temporada?: string;
   isRestricted?: boolean;
+  ingrediente_firma?: string;
 }
 
 /* ── Content (needs Suspense for useSearchParams) ────────────── */
@@ -238,13 +239,15 @@ function ResultadoContent() {
               </p>
 
               {/* Base ácida */}
-              {receta.base_acida && (
+              {(receta.ingrediente_firma || receta.base_acida) && (
                 <div className="bg-gradient-to-br from-[#C9A84C]/10 via-cream to-[#C9A84C]/5 rounded-xl p-5 mb-8 border border-[#C9A84C]/20 relative overflow-hidden">
                   <Droplets className="absolute top-3 right-3 w-10 h-10 text-[#C9A84C] opacity-15" />
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-1.5 block">
                     Ingrediente firma
                   </span>
-                  <p className="text-base font-serif text-aubergine-dark font-semibold">{receta.base_acida}</p>
+                  <p className="text-base font-serif text-aubergine-dark font-semibold">
+                    {receta.ingrediente_firma || receta.base_acida}
+                  </p>
                 </div>
               )}
 
