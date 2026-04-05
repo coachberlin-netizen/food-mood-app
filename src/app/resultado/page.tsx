@@ -65,12 +65,17 @@ function ResultadoContent() {
   
   const [isPremium, setIsPremium] = useState(false);
   
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
   useEffect(() => {
-    const checkPremium = async () => {
+    const checkState = async () => {
       const { createClient } = await import("@/lib/supabase/client");
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
+        setIsAuthenticated(true);
+        setUserId(user.id);
         const { data: profile } = await supabase
           .from("profiles")
           .select("is_premium")
@@ -79,7 +84,7 @@ function ResultadoContent() {
         if (profile?.is_premium) setIsPremium(true);
       }
     };
-    checkPremium();
+    checkState();
   }, []);
   // Convert full names to slug if necessary
   const moodId = MOOD_LEGACY_MAP[moodIdSource as string] || moodIdSource;
@@ -384,20 +389,34 @@ function ResultadoContent() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch w-full max-w-md mx-auto">
-              <a 
-                href="/pricing?plan=quarterly" 
+              <button 
+                onClick={() => {
+                  if (isAuthenticated) {
+                    window.location.href = `/api/checkout?plan=quarterly&userId=${userId}`;
+                  } else {
+                    sessionStorage.setItem("pendingPlan", "quarterly");
+                    window.location.href = "/auth/login?redirect=/pricing";
+                  }
+                }}
                 className="flex-1 px-8 py-4.5 bg-[#C9A84C] text-white rounded-2xl text-sm font-semibold hover:bg-[#b8953e] transition-all shadow-lg flex flex-col gap-0.5 items-center justify-center group"
               >
-                <span>Plan Trimestral</span>
+                <span>{isAuthenticated ? "Suscribirme ahora" : "Plan Trimestral"}</span>
                 <span className="text-[10px] opacity-80 group-hover:opacity-100 uppercase tracking-wider">Sólo 5€/mes</span>
-              </a>
-              <a 
-                href="/pricing?plan=monthly" 
+              </button>
+              <button 
+                onClick={() => {
+                  if (isAuthenticated) {
+                    window.location.href = `/api/checkout?plan=monthly&userId=${userId}`;
+                  } else {
+                    sessionStorage.setItem("pendingPlan", "monthly");
+                    window.location.href = "/auth/login?redirect=/pricing";
+                  }
+                }}
                 className="flex-1 px-8 py-4.5 bg-white/10 hover:bg-white/20 text-cream rounded-2xl text-sm font-semibold transition-all border border-white/10 flex flex-col gap-0.5 items-center justify-center"
               >
-                <span>Plan Mensual</span>
+                <span>{isAuthenticated ? "Suscribirme ahora" : "Plan Mensual"}</span>
                 <span className="text-[10px] opacity-60 uppercase tracking-wider">9€/mes</span>
-              </a>
+              </button>
             </div>
             
             <p className="text-[11px] text-cream/30 mt-6 font-light italic">

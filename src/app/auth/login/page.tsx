@@ -42,6 +42,18 @@ function LoginForm() {
 
       // Read redirect parameter from URL, default to /dashboard
       const redirectTo = searchParams.get('redirect') || '/dashboard';
+      
+      // Step 4: check for pendingPlan in sessionStorage
+      if (typeof window !== 'undefined') {
+        const pendingPlan = sessionStorage.getItem('pendingPlan');
+        if (pendingPlan) {
+          sessionStorage.removeItem('pendingPlan');
+          // Redirect to checkout API which now supports GET and handles the redirect to Stripe
+          window.location.href = `/api/checkout?plan=${pendingPlan}`;
+          return;
+        }
+      }
+
       await new Promise(resolve => setTimeout(resolve, 100));
       router.replace(redirectTo);
       router.refresh();
