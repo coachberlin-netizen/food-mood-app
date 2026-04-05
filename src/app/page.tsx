@@ -132,7 +132,7 @@ export default function Home() {
       <section className="py-32 md:py-48 bg-cream relative border-t border-aubergine-dark/20">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn}
+            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-20px" }} variants={fadeIn}
             className="text-center mb-24"
           >
             <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Origen</h2>
@@ -190,7 +190,7 @@ export default function Home() {
 
         <div className="max-w-[1400px] mx-auto px-6 overflow-hidden">
           <motion.div 
-            variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-20px" }}
             className="flex gap-8 overflow-x-auto pb-16 pt-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 lg:grid-cols-6"
           >
             {moods.map((mood) => (
@@ -513,16 +513,16 @@ export default function Home() {
                 }
               ].map((ref) => (
                 <li key={ref.num} className="text-sm leading-[1.8]">
-                  <span className="text-aubergine-dark/40 font-medium">[{ref.num}]</span>{' '}
+                  <span className="text-aubergine-dark/60 font-medium">[{ref.num}]</span>{' '}
                   <span className="text-aubergine-dark font-semibold">{ref.authors}</span>{' '}
-                  <span className="text-aubergine-dark/50">({ref.year}).</span>{' '}
-                  <span className="text-aubergine-dark/70 italic">&ldquo;{ref.title}&rdquo;</span>{' '}
-                  <span className="text-aubergine-dark/50">{ref.journal}</span>{' '}
+                  <span className="text-aubergine-dark/70">({ref.year}).</span>{' '}
+                  <span className="text-aubergine-dark/90 italic">&ldquo;{ref.title}&rdquo;</span>{' '}
+                  <span className="text-aubergine-dark/70">{ref.journal}</span>{' '}
                   <a
                     href={ref.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-aubergine-dark/60 hover:text-aubergine-dark font-medium transition-colors inline-flex items-center gap-1"
+                    className="text-aubergine-dark/80 hover:text-aubergine-dark font-medium transition-colors inline-flex items-center gap-1"
                   >
                     → Ver estudio
                   </a>

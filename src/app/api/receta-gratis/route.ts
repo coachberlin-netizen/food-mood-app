@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from 'next/server'
  * GET /api/receta-gratis?mood=activacion
  * Returns 1 random free recipe (premium_level = 0) matching the mood.
  */
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   try {
     const SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL

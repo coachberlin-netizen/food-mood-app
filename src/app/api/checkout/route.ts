@@ -56,7 +56,9 @@ async function handleCheckout(req: NextRequest) {
       )
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.food-mood.app'
+    const protocol = req.headers.get('x-forwarded-proto') || 'http'
+    const host = req.headers.get('host') || 'localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`
 
     // Build Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -76,8 +78,9 @@ async function handleCheckout(req: NextRequest) {
     return NextResponse.json({ url: session.url })
   } catch (err) {
     console.error('Stripe checkout error:', err)
+    const message = err instanceof Error ? err.message : 'Error al crear la sesión de pago'
     return NextResponse.json(
-      { error: 'Error al crear la sesión de pago' },
+      { error: message },
       { status: 500 }
     )
   }

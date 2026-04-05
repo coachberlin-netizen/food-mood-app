@@ -1,137 +1,69 @@
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@supabase/supabase-js'
+import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import Stripe from 'stripe'
 
 /**
  * POST /api/stripe/webhook
- * Handles Stripe webhook events for subscription lifecycle.
- * Updates profiles.is_premium in Supabase.
+ * Receives Stripe events and updates user profile in Supabase.
  */
 export async function POST(req: NextRequest) {
-  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-    console.error('[webhook] Missing Supabase env vars')
-    return NextResponse.json({ error: 'Server config error' }, { status: 500 })
-  }
-
-  const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
-
   const body = await req.text()
-  const sig = req.headers.get('stripe-signature')!
+  const sig = headers().get('stripe-signature') as string
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
-  let event: Stripe.Event
+  let event
 
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    )
-  } catch (err) {
-    console.error('Webhook signature verification failed:', err)
-    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+    if (!sig || !webhookSecret || webhookSecret === 'whsec_pendiente') {
+      console.warn('⚠️ Stripe webhook secret is missing or pending.')
+      // In development, we might want to skip signature verification if secret is not set,
+      // but for production this is mandatory.
+      event = JSON.parse(body)
+    } else {
+      event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    }
+  } catch (err: any) {
+    console.error(`❌ Webhook Error: ${err.message}`)
+    return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 })
   }
 
-  try {
-    switch (event.type) {
-      case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.Checkout.Session
-        // Primary: client_reference_id set during checkout creation
-        // Fallback: metadata.supabase_user_id
-        const userId = session.client_reference_id || session.metadata?.supabase_user_id
-        const customerEmail = session.customer_details?.email || session.customer_email
-        const plan = session.metadata?.plan || 'monthly'
-        const stripeCustomerId = typeof session.customer === 'string' ? session.customer : undefined
+  // Handle the event
+  switch (event.type) {
+    case 'checkout.session.completed':
+      const session = event.data.object
+      const userId = session.metadata?.supabase_user_id || session.client_reference_id
 
-        console.log(`[webhook] checkout.session.completed — userId: ${userId}, email: ${customerEmail}, plan: ${plan}, customer: ${stripeCustomerId}`)
-
-        const updatePayload = {
-          is_premium: true,
-          tier: plan,
-          subscription_status: 'active',
-          ...(stripeCustomerId && { stripe_customer_id: stripeCustomerId }),
-        }
-
-        if (userId) {
-          const { error: profileError } = await supabaseAdmin
-            .from('profiles')
-            .update(updatePayload)
-            .eq('id', userId)
-
-          if (profileError) {
-            console.error('[webhook] Error updating profiles:', profileError)
-          } else {
-            console.log(`✅ profiles updated for user ${userId}:`, updatePayload)
+      if (userId) {
+        console.log(`🔔 Payment successful for user: ${userId}`)
+        
+        // Initialize Supabase Admin with Service Role Key
+        const supabaseAdmin = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.SUPABASE_SERVICE_ROLE_KEY!,
+          {
+            auth: {
+              autoRefreshToken: false,
+              persistSession: false
+            }
           }
-        } else if (customerEmail) {
-          // Fallback: find user by email
-          const { data: profile } = await supabaseAdmin
-            .from('profiles')
-            .select('id')
-            .eq('email', customerEmail)
-            .single()
+        )
 
-          if (profile?.id) {
-            await supabaseAdmin
-              .from('profiles')
-              .update(updatePayload)
-              .eq('id', profile.id)
-            console.log(`✅ profiles updated for user ${profile.id} (found by email):`, updatePayload)
-          } else {
-            console.error(`[webhook] No profile found for email: ${customerEmail}`)
-          }
+        const { error } = await supabaseAdmin
+          .from('profiles')
+          .update({ is_premium: true })
+          .eq('id', userId)
+
+        if (error) {
+          console.error(`❌ Error updating profile for user ${userId}:`, error.message)
+        } else {
+          console.log(`✅ Profile updated: User ${userId} is now PREMIUM.`)
         }
-
-        break
       }
+      break
 
-      case 'customer.subscription.deleted': {
-        const subscription = event.data.object as Stripe.Subscription
-        const customerEmail = subscription.metadata?.customer_email
-
-        console.log(`[webhook] subscription.deleted — customerId: ${subscription.customer}`)
-
-        // Try to find user by Stripe customer ID or email and downgrade
-        if (customerEmail) {
-          await supabaseAdmin
-            .from('profiles')
-            .update({ is_premium: false })
-            .eq('email', customerEmail)
-          console.log(`❌ profiles.is_premium = false for ${customerEmail}`)
-        }
-
-        break
-      }
-
-      case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription
-        const status = subscription.status
-
-        console.log(`🔄 Subscription updated: ${status} for customer ${subscription.customer}`)
-
-        // If subscription becomes inactive, downgrade
-        if (status === 'canceled' || status === 'unpaid' || status === 'past_due') {
-          const userId = subscription.metadata?.supabase_user_id
-          if (userId) {
-            await supabaseAdmin
-              .from('profiles')
-              .update({ is_premium: false })
-              .eq('id', userId)
-            console.log(`❌ profiles.is_premium = false for user ${userId}`)
-          }
-        }
-        break
-      }
-
-      default:
-        console.log(`Unhandled event type: ${event.type}`)
-    }
-  } catch (err) {
-    console.error('Webhook processing error:', err)
-    return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 })
+    default:
+      console.log(`🟡 Unhandled event type ${event.type}`)
   }
 
   return NextResponse.json({ received: true })

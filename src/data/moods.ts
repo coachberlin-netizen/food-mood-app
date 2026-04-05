@@ -3,17 +3,17 @@ import { MoodState } from "@/lib/types";
 export const moods: MoodState[] = [
   {
     id: "activacion",
-    nombre: "Activacion",
+    nombre: "Activaci\u00f3n",
     nombre_en: "Activation",
     emoji: "1",
     color: "#d4856e",
     fondo: "#fdf0ec",
     descripcion_corta: "El primer sorbo que lo cambia todo",
-    descripcion: "Cuando necesitas despertar cuerpo y mente. No con cafeina agresiva, sino con acidez viva, calor y citricos que activan el nervio vago.",
-    ingredientes: ["Citricos", "Jengibre", "Miel cruda", "Vinagre de kombucha", "Pimienta cayena"],
-    mecanismo: "Los acidos citricos y el jengibre estimulan receptores del nervio vago, activando el sistema nervioso parasimpatico. La acidez viva promueve la motilidad gastrica.",
-    momento: "Manana / inicio de jornada",
-    ritualSugerido: "Un shot de jengibre-limon-kombucha antes del cafe",
+    descripcion: "Cuando necesitas despertar cuerpo y mente. No con cafe\u00edna agresiva, sino con acidez viva, calor y c\u00edtricos que activan el nervio vago.",
+    ingredientes: ["C\u00edtricos", "Jengibre", "Miel cruda", "Vinagre de kombucha", "Pimienta cayena"],
+    mecanismo: "Los \u00e1cidos c\u00edtricos y el jengibre estimulan receptores del nervio vago, activando el sistema nervioso parasimp\u00e1tico. La acidez viva promueve la motilidad g\u00e1strica.",
+    momento: "Ma\u00f1ana / inicio de jornada",
+    ritualSugerido: "Un shot de jengibre-lim\u00f3n-kombucha antes del caf\u00e9",
   },
   {
     id: "calma",
@@ -23,7 +23,7 @@ export const moods: MoodState[] = [
     fondo: "#f3f0f8",
     descripcion_corta: "Escucha el gong. Respira hondo.",
     ingredientes: ["Lavanda", "Manzanilla", "Miso", "Ghee", "Caldo dashi"],
-    mecanismo: "El L-teanina del te, los probioticos del miso y los acidos grasos del ghee modulan la respuesta al estres via eje HPA.",
+    mecanismo: "El L-teanina del t\u00e9, los probi\u00f3ticos del miso y los \u00e1cidos grasos del ghee modulan la respuesta al estr\u00e9s v\u00eda eje HPA.",
     momento: "Tarde / antes de dormir",
   },
   {
@@ -56,7 +56,7 @@ export const moods: MoodState[] = [
     fondo: "#e6f5f4",
     descripcion_corta: "El cuerpo sabe como volver.",
     ingredientes: ["Fermentos citricos", "Raices amargas", "Caldo ligero", "Limon", "Curcuma"],
-    mecanismo: "Los amargos activan enzimas hepaticas de fase II (glutathione S-transferase). Los citricos promueven la alcalinizacion metabolica.",
+    mecanismo: "Los amargos activan enzimas hep\u00e1ticas de fase II (glutathione S-transferase). Los c\u00edtricos promueven la alcalinizaci\u00f3n metab\u00f3lica.",
     momento: "Despues de excesos / cambio de estacion",
   },
   {

@@ -8,10 +8,11 @@ import { moods } from "@/data/moods";
 // recipesData import removed — using Supabase API directly
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Loader2, Sparkles, CheckCircle } from "lucide-react";
-import { getDailyInspiration, UserContext } from "@/lib/daily-inspiration";
 import { MoodDiary } from "@/components/dashboard/MoodDiary";
+import { InspirationSection } from "@/components/dashboard/InspirationSection";
+import { PushNotificationBanner } from "@/components/dashboard/PushNotificationBanner";
 
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
@@ -61,23 +62,12 @@ export default function DashboardPage() {
       const isPrem = !!profile?.is_premium;
       setIsPremium(isPrem);
 
-      const userContext: UserContext = {
+      const userContext = {
         id: session.user.id,
         tier: isPrem ? 'premium' : 'registrado free'
       };
 
-      // 1.5 Fetch Daily Inspiration Automatically
-      try {
-        const recetasClient = createRecetasClient();
-        const inspiration = await getDailyInspiration(supabase, recetasClient, userContext);
-        if (inspiration) {
-          setTodayRecipe(inspiration);
-        }
-      } catch (err) {
-        console.error('Error auto-fetching daily inspiration:', err);
-      }
-
-      // 2. Fetch quiz_results for this week (Monday-Sunday)
+      // 2. Fetch mood_diary for this week (Monday-Sunday)
       const now = new Date();
       const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon...
       const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -88,20 +78,20 @@ export default function DashboardPage() {
       sunday.setDate(monday.getDate() + 6);
       sunday.setHours(23, 59, 59, 999);
 
-      const { data: quizResults } = await supabase
-        .from('quiz_results')
-        .select('result_mood, created_at')
+      const { data: diaryResults } = await supabase
+        .from('mood_diary')
+        .select('mood, created_at')
         .eq('user_id', session.user.id)
         .gte('created_at', monday.toISOString())
         .lte('created_at', sunday.toISOString())
         .order('created_at', { ascending: true });
 
-      if (quizResults && quizResults.length > 0) {
+      if (diaryResults && diaryResults.length > 0) {
         const moodsByDay: Record<number, string> = {};
-        for (const qr of quizResults) {
-          const d = new Date(qr.created_at);
+        for (const dr of diaryResults) {
+          const d = new Date(dr.created_at);
           const dow = d.getDay() === 0 ? 7 : d.getDay(); // 1=Mon...7=Sun
-          moodsByDay[dow] = qr.result_mood; // latest wins if multiple per day
+          moodsByDay[dow] = dr.mood; // latest wins if multiple per day
         }
         setWeeklyMoods(moodsByDay);
       }
@@ -109,6 +99,8 @@ export default function DashboardPage() {
 
     fetchUserData();
   }, [syncFromSupabase]);
+
+  const router = useRouter();
 
   // "Receta del día" — random recipe matching user's mood (direct Supabase query)
   const handleRecetaDelDia = async () => {
@@ -121,38 +113,34 @@ export default function DashboardPage() {
       // First try: mood-matching free recipe
       let { data, count } = await supabase
         .from('recetas')
-        .select('*', { count: 'exact' })
+        .select('id', { count: 'exact' })
         .ilike('mood_es', `%${keyword}%`)
         .eq('segmento', 'adulto')
         .eq('premium_level', 0)
         .limit(1);
 
       // Pick random offset if there are results
-      if (count && count > 1) {
-        const randomOffset = Math.floor(Math.random() * Math.min(count, 200));
+      if (count && count > 0) {
+        const randomOffset = Math.floor(Math.random() * count);
         const { data: randomData } = await supabase
           .from('recetas')
-          .select('*')
+          .select('id')
           .ilike('mood_es', `%${keyword}%`)
           .eq('segmento', 'adulto')
           .eq('premium_level', 0)
           .range(randomOffset, randomOffset);
-        if (randomData?.length) data = randomData;
+        
+        if (randomData?.length) {
+          router.push(`/recetas/${randomData[0].id}`);
+          return;
+        }
       }
 
-      if (data?.length) {
-        setTodayRecipe(data[0]);
-      } else {
-        // Fallback: any free recipe
-        const { data: fallback } = await supabase
-          .from('recetas')
-          .select('*')
-          .eq('premium_level', 0)
-          .limit(1);
-        if (fallback?.length) setTodayRecipe(fallback[0]);
-      }
+      // If no matching recipe found, navigate to general directory
+      router.push('/recetas');
     } catch (err) {
-      console.error('Error fetching receta del día:', err);
+      console.error('Error navigating to receta del día:', err);
+      router.push('/recetas');
     } finally {
       setIsLoadingRecipe(false);
     }
@@ -285,20 +273,14 @@ export default function DashboardPage() {
               </div>
               <div className="flex flex-col gap-3 shrink-0">
                 <button
-                  onClick={() => {
-                    if (todayRecipe) {
-                      document.getElementById('receta-del-dia')?.scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                      handleRecetaDelDia();
-                    }
-                  }}
+                  onClick={handleRecetaDelDia}
                   disabled={isLoadingRecipe}
                   className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-aubergine-dark text-white font-medium text-sm tracking-wide shadow-luxury hover:bg-aubergine transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoadingRecipe ? (
                     <><Loader2 className="w-4 h-4 animate-spin" /> Buscando...</>
                   ) : (
-                    <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Receta del día</>
+                    <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Receta del h\u00e1bito</>
                   )}
                 </button>
                 <Link
@@ -312,6 +294,9 @@ export default function DashboardPage() {
             </div>
           </div>
         </section>
+
+        {/* 2.1 INSPIRACIÓN DE HOY */}
+        <InspirationSection currentMoodId={currentMoodId} />
 
         {/* 2.2 DIARIO DE MOOD (BLOQUE 4) */}
         <MoodDiary />
@@ -507,29 +492,6 @@ export default function DashboardPage() {
         </section>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-12">
-          {/* 4. HISTORIAL */}
-          <section className="flex flex-col gap-8">
-            <div className="flex items-center gap-4">
-              <h2 className="text-xs font-semibold text-aubergine-dark/40 uppercase tracking-[0.2em]">
-                Balance Semanal
-              </h2>
-            </div>
-            <div className="bg-cream rounded-[1.5rem] p-10 border border-aubergine-dark/20 shadow-sm flex flex-col justify-center h-full gap-10">
-              <div className="flex justify-between items-center w-full px-2">
-                {historyDays.map((day, i) => (
-                  <div key={i} className="flex flex-col items-center gap-5">
-                    <div 
-                      className={`w-3 h-12 rounded-full transition-all ${!day.hasData ? "opacity-20" : "shadow-inner border border-black/5"}`}
-                      style={{ backgroundColor: day.hasData ? day.color : "#d1d5db" }}
-                    />
-                    <span className="text-[10px] text-aubergine-dark/40 font-medium uppercase tracking-widest">
-                      {day.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
 
           {/* 5. ESTADÍSTICAS */}
           <section className="flex flex-col gap-8">
@@ -559,6 +521,9 @@ export default function DashboardPage() {
             </p>
           </div>
         </section>
+
+        {/* 6. PUSH BANNER */}
+        <PushNotificationBanner />
 
       </div>
     </div>
