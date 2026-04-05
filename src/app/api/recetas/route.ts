@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     // ── Parse query params ────────────────────────────────────
     const sexo = searchParams.get('sexo')          // "mujer" | "hombre"
     const edad = searchParams.get('edad')           // "18-30" | "31-44" | "45-60" | "60+"
-    const mood = searchParams.get('mood')           // mood name string
+    const mood = searchParams.get('mood')           // Use the short name for ilike matching (works for both adult and familia)
     const tiempo = searchParams.get('tiempo')       // max prep minutes
     const temporada = searchParams.get('temporada') // season string
     const q = searchParams.get('q')                 // free text search
@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
       )
     }
 
-    // Filter by segmento (adulto / kids)
+    // Filter by segmento (adulto / familia)
     const segmento = searchParams.get('segmento')
     if (segmento) {
       query = query.eq('segmento', segmento)

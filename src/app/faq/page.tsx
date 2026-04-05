@@ -12,7 +12,7 @@ export default function FAQPage() {
     },
     {
       q: "¿Qué son los 6 estados?",
-      a: "Son perfiles emocionales y físicos (Activación, Calma, Focus, Social, Reset y Confort). Cada uno tiene un grupo único de ingredientes recomendados para potenciar su estado ideal."
+      a: "En base a este test visual, el algoritmo ubica tu necesidad en uno de nuestros 6 estados Food·Mood: Activación, Calma, Focus, Reset, Social o Familia. Cada uno tiene un grupo único de ingredientes recomendados para potenciar su estado ideal."
     },
     {
       q: "¿Es una dieta?",
@@ -44,7 +44,7 @@ export default function FAQPage() {
     },
     {
       q: "¿Cuándo tengo recetas nuevas?",
-      a: "El sistema cuenta con un abanico de recetas curadas para cada mood. Cada vez que tomes el quiz experimentarás con la rotación aleatoria de nuestro repertorio estacional."
+      a: "Añadimos recetas nuevas cada semana. Cada vez que entres encontrarás combinaciones adaptadas a tu mood del día."
     },
     {
       q: "¿Cómo contactar con nuestro equipo?",

@@ -13,7 +13,7 @@ const MOODS = [
   { id: "focus",       label: "Focus & Claridad Mental",   emoji: "🧠", color: "#0D9488", bg: "rgba(13,148,136,0.12)"  },
   { id: "social",      label: "Social & Placer Compartido", emoji: "🥂", color: "#BE185D", bg: "rgba(190,24,93,0.12)"  },
   { id: "reset",       label: "Reset & Ligereza",          emoji: "🍋", color: "#65A30D", bg: "rgba(101,163,13,0.12)"  },
-  { id: "confort",     label: "Confort & Calidez",         emoji: "🫶", color: "#C2714F", bg: "rgba(194,113,79,0.12)"  },
+  { id: "familia",     label: "Familia & Niños",         emoji: "🧒", color: "#C2714F", bg: "rgba(194,113,79,0.12)"  },
 ] as const;
 
 /* ── Chef → anonymous style map ── */

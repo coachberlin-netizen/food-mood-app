@@ -29,7 +29,7 @@ export default function DashboardPage() {
   // Mood keyword map for Supabase ilike query
   const MOOD_KEYWORD: Record<string, string> = {
     activacion: 'Activaci', calma: 'Calma', focus: 'Focus',
-    social: 'Social', reset: 'Reset', confort: 'Confort',
+    social: 'Social', reset: 'Reset', familia: 'familia',
   };
 
   useEffect(() => {
@@ -213,7 +213,7 @@ export default function DashboardPage() {
     focus: "Afila la mente, no la ansiedad.",
     social: "Todo sabe mejor con alguien enfrente.",
     reset: "Dale al botón de reinicio y empecemos de cero.",
-    confort: "Mantita, calor y mucho placer reconfortante."
+    familia: "Mantita, calor y mucho placer reFamiliaante."
   };
 
   // Weekly balance — build from real data

@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform, Variants } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
-
+import { createClient } from "@/lib/supabase/client"
 
 import { moods } from "@/data/moods"
 import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical } from "lucide-react"
@@ -280,7 +280,7 @@ export default function Home() {
                 quote: "A todos nos encantan los snacks nutritivos de la sección Familia. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
                 name: "Marta G.",
                 city: "Sevilla",
-                mood: "Confort"
+                mood: "Familia"
               }
             ].map((t, i) => (
               <motion.div

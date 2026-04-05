@@ -20,9 +20,9 @@ const MOOD_MAP: Record<string, string> = {
   'reset':       'Reset & Ligereza',
   'reset & ligereza': 'Reset & Ligereza',
   'relax':       'Calma & Equilibrio',
-  'confort':     'Confort & Calidez',
-  'confort & calidez': 'Confort & Calidez',
-  'calidez':     'Confort & Calidez',
+  'familia':     'familia & Calidez',
+  'familia & calidez': 'familia & Calidez',
+  'calidez':     'familia & Calidez',
 }
 
 function getSystemPrompt(tier: string) {
@@ -60,11 +60,11 @@ ESTRUCTURA DE RESPUESTA
 4. No incluyas llamadas a la acción genéricas.
 
 INSTRUCCIÓN TÉCNICA OBLIGATORIA (MUY IMPORTANTE):
-En el mismo mensaje en el que detectas cómo se sienten (cansancio -> activacion, estrés -> calma, niebla -> focus, evento -> social, pesadez -> reset, tristeza -> confort), DEBES incluir al final EXACTAMENTE este formato de JSON y NO ESPERAR A OTRO MENSAJE para recomendar. NUNCA respondas a medias dejando al usuario sin valor útil.
+En el mismo mensaje en el que detectas cómo se sienten (cansancio -> activacion, estrés -> calma, niebla -> focus, evento -> social, pesadez -> reset, tristeza -> familia), DEBES incluir al final EXACTAMENTE este formato de JSON y NO ESPERAR A OTRO MENSAJE para recomendar. NUNCA respondas a medias dejando al usuario sin valor útil.
 Ejemplo:
 {"mood":"calma","confidence":0.85}
 
-Los valores de "mood" permitidos son SÓLO: activacion, calma, focus, social, reset, confort. ¡Sé proactivo, emite el tip útil en el texto y siempre acompáñalo del JSON final!`
+Los valores de "mood" permitidos son SÓLO: activacion, calma, focus, social, reset, familia. ¡Sé proactivo, emite el tip útil en el texto y siempre acompáñalo del JSON final!`
 }
 
 function extractMoodJSON(text: string): { mood?: string; confidence?: number; cleanText: string } {

@@ -6,7 +6,7 @@ const MOOD_STYLING: Record<string, string> = {
   focus: 'clean composition, green tones, sharp focus on center',
   social: 'multiple plates, convivial setting, warm golden hour light',
   reset: 'bright and clean, white and turquoise tones, fresh ingredients visible',
-  confort: 'warm candlelight, amber tones, steam rising, cozy setting',
+  familia: 'warm candlelight, amber tones, steam rising, cozy setting',
 };
 
 export async function generateRecipeImage(
