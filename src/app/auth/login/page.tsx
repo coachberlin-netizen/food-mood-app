@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Leaf, Loader2 } from "lucide-react";
@@ -16,6 +16,18 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const supabase = createClient();
   const setAuthStoreLogin = useAuthStore(state => state.login);
+
+  // Auto-redirect if session already exists
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const redirectTo = searchParams.get('redirect') || '/dashboard';
+        router.replace(redirectTo);
+      }
+    };
+    checkSession();
+  }, [supabase, router, searchParams]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
