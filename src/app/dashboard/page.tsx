@@ -280,7 +280,7 @@ export default function DashboardPage() {
                   {isLoadingRecipe ? (
                     <><Loader2 className="w-4 h-4 animate-spin" /> Buscando...</>
                   ) : (
-                    <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Receta del h\u00e1bito</>
+                    <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Receta del hábito</>
                   )}
                 </button>
                 <Link

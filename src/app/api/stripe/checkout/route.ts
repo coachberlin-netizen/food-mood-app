@@ -11,8 +11,20 @@ export async function POST(req: NextRequest) {
   try {
     const { priceId, planType } = await req.json()
 
+    if (!process.env.STRIPE_SECRET_KEY) {
+      console.error('❌ STRIPE_SECRET_KEY is missing from environment variables.')
+      return NextResponse.json(
+        { error: 'STRIPE_SECRET_KEY_NOT_CONFIGURED. Please check Vercel/Env settings.' },
+        { status: 500 }
+      )
+    }
+
     if (!priceId) {
-      return NextResponse.json({ error: 'Missing priceId' }, { status: 400 })
+      console.error('❌ Received checkout request without priceId.')
+      return NextResponse.json(
+        { error: 'Missing priceId. Ensure NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY/QUARTERLY is set.' },
+        { status: 400 }
+      )
     }
 
     const supabase = await createClient()

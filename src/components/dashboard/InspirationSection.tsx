@@ -14,55 +14,55 @@ interface InspirationData {
 const INSPIRATION_MAP: Record<string, InspirationData[]> = {
   activacion: [
     {
-      phrase: "Despierta a tu ritmo y c\u00f3mete el d\u00eda.",
+      phrase: "Despierta a tu ritmo y cómete el día.",
       ingredient: "Jengibre",
-      benefit: "Activa tu nervio vago y despierta tu visi\u00f3n.",
+      benefit: "Activa tu nervio vago y despierta tu visión.",
       ritual: "Respira 3 veces con la mano en el abdomen antes de comer."
     },
     {
-      phrase: "Tu energ\u00eda es tu mayor activo.",
-      ingredient: "Lim\u00f3n",
-      benefit: "Estimula la motilidad g\u00e1strica al instante.",
+      phrase: "Tu energía es tu mayor activo.",
+      ingredient: "Limón",
+      benefit: "Estimula la motilidad gástrica al instante.",
       ritual: "Estira los brazos hacia el cielo al terminar tu primer vaso de agua."
     }
   ],
   calma: [
     {
-      phrase: "Baja las revoluciones y ponte muy c\u00f3modo.",
+      phrase: "Baja las revoluciones y ponte muy cómodo.",
       ingredient: "Lavanda",
       benefit: "Calma el eje HPA y reduce el cortisol.",
-      ritual: "Deja el m\u00f3vil 5 minutos antes de sentarte a la mesa."
+      ritual: "Deja el móvil 5 minutos antes de sentarte a la mesa."
     }
   ],
   focus: [
     {
       phrase: "Afila la mente, no la ansiedad.",
-      ingredient: "T\u00e9 Matcha",
-      benefit: "L-teanina para una concentraci\u00f3n sin picos.",
-      ritual: "Cierra los ojos 10 segundos y visualiza tu tarea m\u00e1s importante."
+      ingredient: "Té Matcha",
+      benefit: "L-teanina para una concentración sin picos.",
+      ritual: "Cierra los ojos 10 segundos y visualiza tu tarea más importante."
     }
   ],
   social: [
     {
       phrase: "Todo sabe mejor con alguien enfrente.",
       ingredient: "Fermentos",
-      benefit: "Mejoran tu humor v\u00eda producci\u00f3n de serotonina.",
-      ritual: "Sonr\u00ede internamente al primer bocado que compartas."
+      benefit: "Mejoran tu humor vía producción de serotonina.",
+      ritual: "Sonríe internamente al primer bocado que compartas."
     }
   ],
   reset: [
     {
-      phrase: "El cuerpo sabe c\u00f3mo volver.",
-      ingredient: "C\u00farcuma",
-      benefit: "Apoya la detoxificaci\u00f3n hep\u00e1tica natural.",
-      ritual: "Bebe un vaso de agua tibia con lim\u00f3n en ayunas."
+      phrase: "El cuerpo sabe cómo volver.",
+      ingredient: "Cúrcuma",
+      benefit: "Apoya la detoxificación hepática natural.",
+      ritual: "Bebe un vaso de agua tibia con limón en ayunas."
     }
   ],
   familia: [
     {
       phrase: "Sabor que une. Calidez para todos.",
       ingredient: "Caldo de huesos",
-      benefit: "Col\u00e1geno para reconstruir tu barrera intestinal.",
+      benefit: "Colágeno para reconstruir tu barrera intestinal.",
       ritual: "Agradece el alimento en silencio antes de empezar."
     }
   ]
@@ -80,7 +80,7 @@ export function InspirationSection({ currentMoodId }: { currentMoodId: string })
     <section className="flex flex-col gap-6">
       <div className="flex items-center gap-4">
         <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
-          Inspiraci\u00f3n de hoy
+          Inspiración de hoy
         </h2>
         <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
       </div>

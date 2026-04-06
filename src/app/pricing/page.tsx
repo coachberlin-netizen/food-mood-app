@@ -77,8 +77,8 @@ export default function PricingPage() {
 
     // Use Price IDs from environment or fallbacks
     const priceId = plan === "quarterly"
-      ? process.env.NEXT_PUBLIC_STRIPE_PRICE_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
-      : process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY || "price_1THUGfKAfsMmyDlfym8JQTiC";
+      ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
+      : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY || "price_1THUGfKAfsMmyDlfym8JQTiC";
 
     setIsCheckingOut(true);
     try {
@@ -93,12 +93,12 @@ export default function PricingPage() {
         window.location.href = data.url;
       } else {
         console.error('Checkout response:', data);
-        alert(`Error al conectar con la pasarela de pago: ${data.error || 'Int\u00e9ntelo de nuevo m\u00e1s tarde'}`);
+        alert(`Error al conectar con la pasarela de pago: ${data.error || 'Intêntelo de nuevo más tarde'}`);
         setIsCheckingOut(false);
       }
     } catch (err) {
       console.error('Checkout error:', err);
-      alert('Error de red al conectar con Stripe. Compruebe su conexi\u00f3n.');
+      alert('Error de red al conectar con Stripe. Compruebe su conexión.');
       setIsCheckingOut(false);
     }
   };
@@ -218,7 +218,7 @@ export default function PricingPage() {
                 {isCheckingOut ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  isAuthenticated ? "Suscribirme ahora" : "Suscribirme por 9\u20ac/mes"
+                  isAuthenticated ? "Suscribirme ahora" : "Suscribirme por 9€/mes"
                 )}
               </button>
             )}
@@ -282,7 +282,7 @@ export default function PricingPage() {
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <>
-                      {isAuthenticated ? "Suscribirme ahora" : "Empezar 7 d\u00edas gratis"}
+                      {isAuthenticated ? "Suscribirme ahora" : "Empezar 7 días gratis"}
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
