@@ -335,7 +335,7 @@ export default function DiarioPage() {
                     </div>
                     {log.notes && (
                       <div className="hidden sm:block text-[11px] text-[#5C1A1A]/50 italic max-w-[200px] truncate">
-                        "{log.notes}"
+                        &quot;{log.notes}&quot;
                       </div>
                     )}
                   </div>
