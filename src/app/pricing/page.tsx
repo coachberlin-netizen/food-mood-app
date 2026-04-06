@@ -12,20 +12,19 @@ import { createClient } from "@/lib/supabase/client";
 
 /* ── Feature lists ───────────────────────────────────────── */
 const FREE_FEATURES = [
-  { text: "Test de estado emocional ilimitado", included: true },
-  { text: "Inspiraciones recomendadas diarias", included: true },
-  { text: "Historial de estados", included: false },
-  { text: "Recetas completas paso a paso", included: false },
-  { text: "Guías de ingredientes funcionales", included: false },
-  { text: "Biblioteca integral de la Familia", included: false },
+  { text: "Test de estado emocional ilimitado", included: true, premium: false },
+  { text: "Inspiraciones recomendadas diarias", included: true, premium: false },
+  { text: "Recetas completas paso a paso", included: false, premium: true },
+  { text: "Guías de ingredientes funcionales", included: false, premium: true },
+  { text: "Biblioteca integral de la Familia", included: false, premium: true },
 ];
 
 const PREMIUM_FEATURES = [
-  { text: "Todo lo gratuito, más:", included: true },
-  { text: "Recetas completas con preparaciones", included: true },
-  { text: "Historial y analítica de estados", included: true },
-  { text: "Variantes completas para la Familia", included: true },
-  { text: "Guías clínicas de ingredientes", included: true },
+  { text: "Todo lo gratuito, más:", included: true, premium: true },
+  { text: "Recetas completas con preparaciones", included: true, premium: true },
+  { text: "Historial y analítica de estados", included: true, premium: true },
+  { text: "Variantes completas para la Familia", included: true, premium: true },
+  { text: "Guías clínicas de ingredientes", included: true, premium: true },
 ];
 
 export default function PricingPage() {
@@ -154,12 +153,20 @@ export default function PricingPage() {
                 <li key={i} className="flex items-start gap-3">
                   {f.included ? (
                     <Check className="w-4 h-4 text-aubergine-dark/30 shrink-0 mt-0.5" />
+                  ) : f.premium ? (
+                    <Lock className="w-4 h-4 text-[#C9A84C]/50 shrink-0 mt-0.5" />
                   ) : (
                     <X className="w-4 h-4 text-aubergine-dark/15 shrink-0 mt-0.5" />
                   )}
-                  <span className={`text-sm font-light ${f.included ? "text-aubergine-dark/50" : "text-aubergine-dark/25 line-through"
-                    }`}>
+                  <span className={`text-sm font-light ${
+                    f.included ? "text-aubergine-dark/50" : "text-aubergine-dark/25"
+                  }`}>
                     {f.text}
+                    {f.premium && !f.included && (
+                      <span className="ml-2 text-[9px] font-bold uppercase text-[#C9A84C]/60 tracking-wider">
+                        Premium
+                      </span>
+                    )}
                   </span>
                 </li>
               ))}

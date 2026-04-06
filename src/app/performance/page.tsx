@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowLeft, ArrowRight, Zap, Flame, Battery, RefreshCw, 
-  Brain, Leaf, Dumbbell, Microscope, Heart, Users 
+  Brain, Leaf, Dumbbell, Microscope, Heart, Users, Hourglass
 } from "lucide-react";
 
 /* ── Hardcoded Data ───────────────────────────────────────── */
