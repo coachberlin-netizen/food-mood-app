@@ -35,11 +35,17 @@ export default function PricingPage() {
   const [mounted, setMounted] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     setMounted(true);
     const checkUser = async () => {
       const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      // Use getSession for immediate client-side session identification
+      const { data: { session } } = await supabase.auth.getSession();
+      const user = session?.user || null;
+
       if (user) {
         setIsAuthenticated(true);
         setUserId(user.id);
@@ -55,10 +61,7 @@ export default function PricingPage() {
       setIsCheckingAuth(false);
     };
     checkUser();
-  }, []);
-
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const router = useRouter();
+  }, [router]);
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
     if (isCheckingAuth) return;
