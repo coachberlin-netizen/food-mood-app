@@ -13,18 +13,17 @@ import { createClient } from "@/lib/supabase/client";
 /* ── Feature lists ───────────────────────────────────────── */
 const FREE_FEATURES = [
   { text: "Test de estado emocional ilimitado", included: true, premium: false },
-  { text: "Inspiraciones recomendadas diarias", included: true, premium: false },
-  { text: "Recetas completas paso a paso", included: false, premium: true },
-  { text: "Guías de ingredientes funcionales", included: false, premium: true },
-  { text: "Biblioteca integral de la Familia", included: false, premium: true },
+  { text: "Orientaciones de conducta funcional", included: true, premium: false },
+  { text: "Inspiración Botánica diaria", included: true, premium: false },
 ];
 
 const PREMIUM_FEATURES = [
   { text: "Todo lo gratuito, más:", included: true, premium: true },
-  { text: "Recetas completas con preparaciones", included: true, premium: true },
+  { text: "Acceso ilimitado a Recetas Completas", included: true, premium: true },
+  { text: "Gramajes e instrucciones precisas", included: true, premium: true },
+  { text: "Biblioteca integral de la Familia", included: true, premium: true },
+  { text: "Guías terapéuticas de ingredientes", included: true, premium: true },
   { text: "Historial y analítica de estados", included: true, premium: true },
-  { text: "Variantes completas para la Familia", included: true, premium: true },
-  { text: "Guías clínicas de ingredientes", included: true, premium: true },
 ];
 
 export default function PricingPage() {
