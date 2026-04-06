@@ -31,7 +31,9 @@ const PREMIUM_FEATURES = [
 export default function PricingPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -40,6 +42,7 @@ export default function PricingPage() {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         setIsAuthenticated(true);
+        setUserId(user.id);
         const { data: profile } = await supabase
           .from("profiles")
           .select("is_premium")
@@ -49,24 +52,17 @@ export default function PricingPage() {
           setIsPremium(true);
         }
       }
+      setIsCheckingAuth(false);
     };
     checkUser();
   }, []);
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
-  // Store userId when checking auth
-  useEffect(() => {
-    const getUserId = async () => {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) setUserId(user.id);
-    };
-    getUserId();
-  }, [isAuthenticated]);
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
+    if (isCheckingAuth) return;
+
     if (!isAuthenticated || !userId) {
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('pendingPlan', plan);
@@ -212,10 +208,10 @@ export default function PricingPage() {
             ) : (
               <button
                 onClick={() => handleCheckout("monthly")}
-                disabled={isCheckingOut}
+                disabled={isCheckingOut || isCheckingAuth}
                 className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
-                {isCheckingOut ? (
+                {isCheckingOut || isCheckingAuth ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
                   isAuthenticated ? "Suscribirme ahora" : "Suscribirme por 9€/mes"
@@ -275,10 +271,10 @@ export default function PricingPage() {
               <>
                 <button
                   onClick={() => handleCheckout("quarterly")}
-                  disabled={isCheckingOut}
+                  disabled={isCheckingOut || isCheckingAuth}
                   className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50"
                 >
-                  {isCheckingOut ? (
+                  {isCheckingOut || isCheckingAuth ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <>
