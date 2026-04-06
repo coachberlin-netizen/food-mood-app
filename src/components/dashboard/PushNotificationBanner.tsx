@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { Bell, X } from "lucide-react";
@@ -50,7 +50,7 @@ export function PushNotificationBanner() {
 
         setIsVisible(false);
         localStorage.setItem("push_banner_dismissed", "true");
-        alert("Â¡Notificaciones activadas! Te avisaremos cada maÃ±ana.");
+        alert("¡Notificaciones activadas! Te avisaremos cada mañana.");
       } else {
         handleDismiss();
       }
@@ -71,8 +71,8 @@ export function PushNotificationBanner() {
               <Bell className="w-5 h-5 text-[#C9A84C]" />
             </div>
             <div>
-              <p className="text-sm font-semibold">Â¿Quieres tu receta diaria?</p>
-              <p className="text-[11px] text-cream/50 font-light mt-0.5">Recibe un recordatorio cada maÃ±ana.</p>
+              <p className="text-sm font-semibold">¿Quieres tu receta diaria?</p>
+              <p className="text-[11px] text-cream/50 font-light mt-0.5">Recibe un recordatorio cada mañana.</p>
             </div>
           </div>
           <button onClick={handleDismiss} className="text-cream/30 hover:text-cream">
@@ -85,7 +85,7 @@ export function PushNotificationBanner() {
             onClick={handleSubscribe}
             className="flex-1 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
           >
-            S\u00ed, act\u00edvalo
+            Sí, actívalo
           </button>
           <button
             onClick={handleDismiss}
