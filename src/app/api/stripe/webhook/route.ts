@@ -16,12 +16,17 @@ export async function POST(req: NextRequest) {
 
   try {
     if (!sig || !webhookSecret || webhookSecret === 'whsec_pendiente') {
-      console.warn('⚠️ Stripe webhook secret is missing or pending.')
-      // In development, we might want to skip signature verification if secret is not set,
-      // but for production this is mandatory.
+      console.warn('⚠️ Stripe webhook secret is missing or pending. Verify manually in Vercel.')
+      // In development/test, we might skip signature verification ONLY if explicitly allowed, 
+      // but let's assume we WANT it verified even in test.
       event = JSON.parse(body)
     } else {
-      event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+      try {
+        event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+      } catch (err: any) {
+        console.error(`❌ Webhook Signature Verification Failed: ${err.message}`)
+        return NextResponse.json({ error: `Signature Verification Failed` }, { status: 400 })
+      }
     }
   } catch (err: any) {
     console.error(`❌ Webhook Error: ${err.message}`)

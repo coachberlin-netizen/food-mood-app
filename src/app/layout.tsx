@@ -81,9 +81,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              name: "Food\u00b7Mood",
+              name: "Food·Mood",
               url: "https://www.food-mood.app",
-              description: "Aplicaci\u00f3n de neurociencia nutricional que personaliza recetas seg\u00fan el estado emocional del usuario.",
+              description: "Aplicación de neurociencia nutricional que personaliza recetas según el estado emocional del usuario.",
               applicationCategory: "HealthApplication",
               operatingSystem: "Web",
               inLanguage: "es",
