@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Source_Serif_4 } from "next/font/google";
+import { DM_Sans, Source_Serif_4, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -17,6 +17,11 @@ const dmSans = DM_Sans({
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-source-serif-4",
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair-display",
 });
 
 export const viewport: Viewport = {
@@ -101,7 +106,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${dmSans.variable} ${sourceSerif4.variable} font-sans antialiased flex flex-col min-h-screen`}
+        className={`${dmSans.variable} ${sourceSerif4.variable} ${playfairDisplay.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
         <AnalyticsProvider />
         <ServiceWorkerRegistration />
