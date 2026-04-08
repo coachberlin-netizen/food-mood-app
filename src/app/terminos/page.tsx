@@ -46,6 +46,27 @@ export default function TermsPage() {
           <section className="flex flex-col gap-4">
             <h2 className="text-2xl font-serif text-aubergine-dark flex items-baseline gap-3">
               <span className="text-lg text-[#D4AF37]">III.</span>
+              Autoría y Tecnología
+            </h2>
+            <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
+              Food·Mood está creado por un equipo de psicólogos, tecnólogos alimentarios 
+              y especialistas en longevidad con más de una década de experiencia clínica 
+              e investigadora en el eje intestino-cerebro.
+              <br /><br />
+              Utilizamos Inteligencia Artificial como herramienta de formulación y 
+              personalización, entrenada específicamente en neurociencia nutricional, 
+              microbiota y nutrición funcional. Cada receta y recomendación generada 
+              por nuestra IA es revisada y validada por nuestro equipo antes de 
+              publicarse.
+              <br /><br />
+              La tecnología amplifica nuestra experiencia. Las decisiones científicas 
+              son siempre humanas.
+            </p>
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <h2 className="text-2xl font-serif text-aubergine-dark flex items-baseline gap-3">
+              <span className="text-lg text-[#D4AF37]">IV.</span>
               Cuidado y Privacidad de Datos
             </h2>
             <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
@@ -55,7 +76,7 @@ export default function TermsPage() {
 
           <section className="flex flex-col gap-4">
             <h2 className="text-2xl font-serif text-aubergine-dark flex items-baseline gap-3">
-              <span className="text-lg text-[#D4AF37]">IV.</span>
+              <span className="text-lg text-[#D4AF37]">V.</span>
               Modificación de Términos
             </h2>
             <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
@@ -65,7 +86,7 @@ export default function TermsPage() {
 
           <section className="flex flex-col gap-4">
             <h2 className="text-2xl font-serif text-aubergine-dark flex items-baseline gap-3">
-              <span className="text-lg text-[#D4AF37]">V.</span>
+              <span className="text-lg text-[#D4AF37]">VI.</span>
               Buzón Abierto
             </h2>
             <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
