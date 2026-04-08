@@ -1,0 +1,1178 @@
+[
+  {
+    "id": "bol-reseteador-kefir-avena-nueces-arandanos",
+    "nombre_es": "Bol Reseteador Kéfir Avena Nueces Arándanos",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:54.578444+00:00",
+    "tipo_plato": "desayuno/cena ligera"
+  },
+  {
+    "id": "curry-suave-garbanzos-espinacas-y-leche-coco-manta-caliente",
+    "nombre_es": "Curry Suave Garbanzos Espinacas y Leche Coco Manta Caliente",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:54.655514+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "ACT-01",
+    "nombre_es": "Shot Matinal «Despertar»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:54.737208+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "ACT-02",
+    "nombre_es": "Vinagreta «Wake-Up»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:54.816649+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "ACT-03",
+    "nombre_es": "Cebolla Encurtida «Despertar Lento»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:54.897136+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "ACT-04",
+    "nombre_es": "Dip «Acid Green»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:54.979207+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "sint-001",
+    "nombre_es": "Bol Despertar Salmon",
+    "mood_es": "Activación",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Desayuno"
+  },
+  {
+    "id": "ACT-05",
+    "nombre_es": "Shrub de Jengibre y Naranja «First Light»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.057859+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "ACT-06",
+    "nombre_es": "Marinada «Citrus Punk»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.139928+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "ACT-07",
+    "nombre_es": "Kombucha «Sunrise»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 2,
+    "created_at": "2026-04-03T19:34:55.216641+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "CAL-01",
+    "nombre_es": "Kombucha «Luna»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 2,
+    "created_at": "2026-04-03T19:34:55.296239+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "CAL-02",
+    "nombre_es": "Shot «Noche Adentro»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.37335+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "CAL-03",
+    "nombre_es": "Vinagreta «Campo en Julio»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.456421+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "CAL-04",
+    "nombre_es": "Marinada «Sombra de Higuera»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.546931+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "CAL-05",
+    "nombre_es": "Dip «Raíz Blanca»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.626333+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "CAL-06",
+    "nombre_es": "Encurtido Lento de Remolacha y Rosa",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.707456+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "FOC-01",
+    "nombre_es": "Shot «Línea Verde»",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.792006+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "FOC-02",
+    "nombre_es": "Vinagreta «Amargura Inteligente»",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.871633+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "FOC-03",
+    "nombre_es": "Encurtido Rápido de Pepino y Alga Wakame",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:55.953294+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "FOC-04",
+    "nombre_es": "Marinada «Piedra Verde»",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.035973+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "FOC-05",
+    "nombre_es": "Dip «Negro Mineral»",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.11996+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "FOC-06",
+    "nombre_es": "Kombucha «Mente Afilada»",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 2,
+    "created_at": "2026-04-03T19:34:56.199247+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "SOC-01",
+    "nombre_es": "Shrub «Social Glow»",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.278422+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "SOC-02",
+    "nombre_es": "Pickles «Table Drama»",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.356099+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "SOC-03",
+    "nombre_es": "Hummus Fermentado «Dos Mundos»",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.433152+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "SOC-04",
+    "nombre_es": "Ponzu Probiótico «Umami Libre»",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.513982+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "SOC-05",
+    "nombre_es": "Marinada «Fiesta Lenta»",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.598293+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "SOC-06",
+    "nombre_es": "Kombucha «Hibisco & Cardamomo»",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 2,
+    "created_at": "2026-04-03T19:34:56.677016+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "RES-01",
+    "nombre_es": "Elixir Cítrico Detox-Mood",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.771326+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "RES-02",
+    "nombre_es": "Vinagreta «Raíz Amarga»",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.85343+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "RES-03",
+    "nombre_es": "Encurtido de Raíz de Bardana y Zanahoria",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:56.935683+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "RES-04",
+    "nombre_es": "Marinada «Depurativa Suave»",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.023256+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "RES-05",
+    "nombre_es": "Caldo Largo «Vuelta a Casa»",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.102714+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "RES-06",
+    "nombre_es": "Shrub «Agua Viva»",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.185939+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "CON-01",
+    "nombre_es": "Caldo Dorado «Manta Interior»",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.266079+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "CON-02",
+    "nombre_es": "Marinada «Domingo Lento»",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.347011+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "CON-03",
+    "nombre_es": "Dip «Mantel de Invierno»",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.426941+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "CON-04",
+    "nombre_es": "Encurtido Tibio de Manzana y Cebolla",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.507196+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "CON-05",
+    "nombre_es": "Vinagreta «Fuego Lento»",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.588581+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "CON-06",
+    "nombre_es": "Kombucha «Fuego de Chimenea»",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 2,
+    "created_at": "2026-04-03T19:34:57.67232+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "EXT-I-01",
+    "nombre_es": "Bol «Cacao Poder»",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.753116+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "EXT-I-02",
+    "nombre_es": "Batido «Verde Sin Miedo»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.830426+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "EXT-I-03",
+    "nombre_es": "Crackers de Avena y Semillas",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:57.920048+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "EXT-I-04",
+    "nombre_es": "Shots de Fruta Fermentada",
+    "mood_es": "Introducción",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.000043+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "EXT-II-01",
+    "nombre_es": "Shot Pre-Entreno «Arrancador»",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.07813+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "EXT-II-02",
+    "nombre_es": "Isotónico Natural «Ola»",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.157072+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "EXT-II-03",
+    "nombre_es": "Bol de Recuperación «Cierre Muscular»",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.23678+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "EXT-II-04",
+    "nombre_es": "Golden Recovery «Noche de Campeón»",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.320173+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "EXT-III-01",
+    "nombre_es": "Shot Matinal «Equilibrio»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.404229+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "EXT-III-02",
+    "nombre_es": "Vinagreta «Estroboloma»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.485471+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "EXT-III-03",
+    "nombre_es": "Bol «Minerales de Noche»",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.567683+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "EXT-III-04",
+    "nombre_es": "Caldo de Confort «Vuelvo a Mí»",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.646521+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "C1-01",
+    "nombre_es": "Bol Despertar Salmón",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.731718+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "C1-02",
+    "nombre_es": "Sardinas Energía de Lata con remolacha y nueces",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.809638+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "C1-03",
+    "nombre_es": "Smoothie Hierro Verde",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.90726+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "C1-04",
+    "nombre_es": "Salmón con costra de nueces y espinacas salteadas",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:58.988361+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "C1-05",
+    "nombre_es": "Ensalada 7 Colores Antifatiga",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.083609+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "C1-06",
+    "nombre_es": "Bol de cacao, chía y plátano Reset Mineral",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.166844+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "C2-01",
+    "nombre_es": "Ensalada de caballa y wakame Mar Tranquilo",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.247791+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "C2-02",
+    "nombre_es": "Sopa de miso con alga nori y tofu sedoso Calma Líquida",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.324891+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "C2-03",
+    "nombre_es": "Snack Freno Dulce de almendras, chocolate y plátano",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.410963+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "C2-04",
+    "nombre_es": "Bowl Kéfir Color con frutos rojos y avena",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.490881+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "C3-01",
+    "nombre_es": "Tataki de atún Apagar el Día",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.570124+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "C3-02",
+    "nombre_es": "Caldo de huesos Manta Líquida",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.651144+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "C3-03",
+    "nombre_es": "Porridge nocturno de avena y cereza ácida Luna Roja",
+    "mood_es": "Confort & Calidez",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.728907+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "sardinas-energia-de-lata-con-remolacha-y-nueces",
+    "nombre_es": "Sardinas Energía de Lata con Remolacha y Nueces",
+    "mood_es": "Activación & Energía",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.172403+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "C4-01",
+    "nombre_es": "Huevos revueltos con sardinas y aguacate Tres Pilares",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.806639+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "C4-02",
+    "nombre_es": "Lentejas con verduras de 5 colores y vinagreta ácida Llena y Queda",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.886307+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "C4-03",
+    "nombre_es": "Shot Corta-Hambre de vinagre",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:59.969956+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "C5-01",
+    "nombre_es": "Tortilla de nori y semillas de calabaza Desbloqueo",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.053735+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "C5-02",
+    "nombre_es": "Bol Cerebro Azul de arándanos, nueces y caballa ahumada",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.136742+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "C6-01",
+    "nombre_es": "Salmón al horno con cúrcuma, jengibre y verduras crucíferas Apaga Fuegos",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.21937+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "C6-02",
+    "nombre_es": "Ensalada 7 Colores Antiinflamación con semillas de lino",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.314909+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "caldo-huesos-manta-liquida",
+    "nombre_es": "Caldo Huesos Manta Líquida",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:53.277647+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "AE-01",
+    "nombre_es": "Ritual de despertar: agua tibia con limón y respiración",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.401855+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "AE-02",
+    "nombre_es": "Desayuno Blindaje Matinal: porridge de avena con cacao, plátano y semillas de calabaza",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.487291+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "AE-03",
+    "nombre_es": "Snack Parada Técnica: almendras con chocolate negro y té verde matcha",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.567322+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "AE-04",
+    "nombre_es": "Almuerzo Bajada de Cortisol: salmón al vapor con arroz integral, aguacate, espinacas y aliño de miso",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.648453+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "AE-05",
+    "nombre_es": "Merienda La hora del chocolate: golden milk de cúrcuma con cacao y fruta",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.730546+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "AE-06",
+    "nombre_es": "Cena Soltar el Día: sopa de miso con shiitake, tofu y alga wakame + tostada de aguacate",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.809922+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "AE-07",
+    "nombre_es": "Ritual nocturno Apagar: caldo de huesos con cúrcuma + infusión de manzanilla",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.890251+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "smoothie-hierro-verde",
+    "nombre_es": "Smoothie Hierro Verde",
+    "mood_es": "Activación & Energía",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.288924+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "AS-01",
+    "nombre_es": "Ensalada Cortisol Down con salmón, aguacate y 6 colores",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:00.970359+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "AS-02",
+    "nombre_es": "Batido Calma Instantánea",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.050465+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "AS-03",
+    "nombre_es": "Pasta Domingo Tranquilo con pesto de espinacas y nueces",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.132428+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "AS-04",
+    "nombre_es": "Tortilla de espinacas, queso de cabra y semillas Magnesio Express",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.219129+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "AS-05",
+    "nombre_es": "Bol Reseteador de kéfir, avena, nueces y arándanos",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.3011+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "AS-06",
+    "nombre_es": "Curry suave de garbanzos con espinacas y leche de coco Manta Caliente",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.384232+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "AS-07",
+    "nombre_es": "Trufas de cacao, almendras y dátil Antiestrés Pocket",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.463849+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "AS-08",
+    "nombre_es": "Gazpacho verde de aguacate y pepino Baja Revoluciones",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.54331+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E1-01",
+    "nombre_es": "Tostada Superhéroe",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.630282+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "E1-02",
+    "nombre_es": "Pasta con pesto de nueces y espinacas Verde Secreto",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.711906+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E1-03",
+    "nombre_es": "Smoothie Choco-Brain",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.795352+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "E1-04",
+    "nombre_es": "Bol de arroz con salmón y edamame Poke Cerebro",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.878432+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E2-01",
+    "nombre_es": "Shot Pre-Entreno",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:01.96007+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "E2-02",
+    "nombre_es": "Bol Recuperación Omega",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.041502+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "shot-matinal-despertar",
+    "nombre_es": "Shot Matinal Despertar",
+    "mood_es": "Activación & Energía",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:51.909761+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "vinagreta-wake-up",
+    "nombre_es": "Vinagreta Wake‑Up",
+    "mood_es": "Activación & Energía",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.059878+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E2-03",
+    "nombre_es": "Batido Después del Entreno",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.123532+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "E2-04",
+    "nombre_es": "Ensalada Músculo y Color",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.208107+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E3-01",
+    "nombre_es": "Bol Estroboloma",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.293752+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E3-02",
+    "nombre_es": "Caldo nocturno Vuelvo a Mí",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.462808+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "E3-03",
+    "nombre_es": "Ensalada Mineraliza",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.546528+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E3-04",
+    "nombre_es": "Smoothie Equilibrio",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.628786+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "salmon-con-costra-de-nueces-y-espinacas-salteadas",
+    "nombre_es": "Salmón con Costra de Nueces y Espinacas Salteadas",
+    "mood_es": "Activación & Energía",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:52.414397+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "ensalada-7-colores-antifatiga",
+    "nombre_es": "Ensalada 7 Colores Antifatiga",
+    "mood_es": "Activación & Energía",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.527809+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "bol-cacao-chia-y-platano-reset-mineral",
+    "nombre_es": "Bol Cacao Chía y Plátano Reset Mineral",
+    "mood_es": "Activación & Energía",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.640903+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "ensalada-caballa-y-wakame-mar-tranquilo",
+    "nombre_es": "Ensalada Caballa y Wakame Mar Tranquilo",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.746986+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "sopa-miso-alga-nori-y-tofu-sedoso-calma-liquida",
+    "nombre_es": "Sopa Miso Alga Nori y Tofu Sedoso Calma Líquida",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.855461+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "snack-freno-dulce-almendras-chocolate-platano",
+    "nombre_es": "Snack Freno Dulce Almendras Chocolate Plátano",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:52.960063+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "bowl-kefir-color-con-frutos-rojos-y-avena",
+    "nombre_es": "Bowl Kéfir Color con Frutos Rojos y Avena",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:53.06775+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "tataki-atun-apagar-el-dia",
+    "nombre_es": "Tataki Atún Apagar el Día",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:53.172882+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "porridge-nocturno-avena-y-cereza-cida-luna-roja",
+    "nombre_es": "Porridge Nocturno Avena y Cereza Cida Luna Roja",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:53.383079+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "huevos-revueltos-sardinas-y-aguacate-tres-pilares",
+    "nombre_es": "Huevos Revueltos Sardinas y Aguacate Tres Pilares",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:53.488028+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "lentejas-con-verduras-5-colores-y-vinagreta-acida-llena-y-queda",
+    "nombre_es": "Lentejas con Verduras 5 Colores y Vinagreta Ácida Llena y Queda",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:53.594534+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "shot-corta-hambre-de-vinagre",
+    "nombre_es": "Shot Corta‑Hambre de Vinagre",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:53.702917+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "tortilla-nori-y-semillas-calabaza-desbloqueo",
+    "nombre_es": "Tortilla Nori y Semillas Calabaza Desbloqueo",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:53.796672+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "bol-cerebro-azul-arandanos-nueces-y-caballa-ahumada",
+    "nombre_es": "Bol Cerebro Azul Arándanos Nueces y Caballa Ahumada",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:53.899305+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "salmon-al-horno-con-curcuma-jengibre-y-brocoli-apaga-fuegos",
+    "nombre_es": "Salmón al Horno con Cúrcuma Jengibre y Brócoli Apaga Fuegos",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:53.991866+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "ensalada-7-colores-antiinflamacion-con-semillas-lino",
+    "nombre_es": "Ensalada 7 Colores Antiinflamación con Semillas Lino",
+    "mood_es": "Reset & Ligereza",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:54.081363+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "porridge-blindaje-matinal-cacao-platano-y-semillas-calabaza",
+    "nombre_es": "Porridge Blindaje Matinal Cacao Plátano y Semillas Calabaza",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:54.159028+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "bol-salmon-miso-arroz-integral-bajada-de-cortisol",
+    "nombre_es": "Bol Salmón Miso Arroz Integral Bajada de Cortisol",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:34:54.243318+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "batido-calma-instantanea",
+    "nombre_es": "Batido Calma Instantánea",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:54.326674+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "pasta-domingo-tranquilo-pesto-espinacas-nueces",
+    "nombre_es": "Pasta Domingo Tranquilo Pesto Espinacas Nueces",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:54.405823+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "tortilla-espinacas-queso-cabra-y-semillas-magnesio-express",
+    "nombre_es": "Tortilla Espinacas Queso Cabra y Semillas Magnesio Express",
+    "mood_es": "Calma & Equilibrio",
+    "premium_level": 0,
+    "created_at": "2026-04-03T19:34:54.489665+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "E4-01",
+    "nombre_es": "Melena de león salteada con ajo, limón y huevo Neuronas a la Plancha",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.716815+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "E4-02",
+    "nombre_es": "Caldo de reishi y shiitake Bosque Nocturno",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.794621+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "E4-03",
+    "nombre_es": "Risotto de shiitake y parmesano Umami Profundo",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.880656+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "E4-04",
+    "nombre_es": "Golden Latte de chaga y cúrcuma Sol de Invierno",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:02.964121+00:00",
+    "tipo_plato": "bebida"
+  },
+  {
+    "id": "E4-05",
+    "nombre_es": "Salteado de cordyceps, boniato y nueces Energía del Bosque",
+    "mood_es": "Focus & Claridad Mental",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:03.04303+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "E5-01",
+    "nombre_es": "Bol de pavo, boniato y semillas de calabaza Serotonina Completa",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:03.131741+00:00",
+    "tipo_plato": "cena"
+  },
+  {
+    "id": "E5-02",
+    "nombre_es": "Porridge Mañana Dorada de avena, plátano y chocolate",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:03.209094+00:00",
+    "tipo_plato": "desayuno"
+  },
+  {
+    "id": "E5-03",
+    "nombre_es": "Pasta con pesto de nueces y parmesano Doble Umami Feliz",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:03.295142+00:00",
+    "tipo_plato": "almuerzo"
+  },
+  {
+    "id": "E5-04",
+    "nombre_es": "Smoothie Fábrica de Felicidad",
+    "mood_es": "Social & Placer Compartido",
+    "premium_level": 1,
+    "created_at": "2026-04-03T19:35:03.374622+00:00",
+    "tipo_plato": "snack"
+  },
+  {
+    "id": "sint-013",
+    "nombre_es": "Salmon curcuma y brocoli",
+    "mood_es": "Reset",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Cena"
+  },
+  {
+    "id": "sint-014",
+    "nombre_es": "Ensalada 7 Colores Antiinflamacion",
+    "mood_es": "Reset",
+    "premium_level": 1,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Almuerzo"
+  },
+  {
+    "id": "sint-004",
+    "nombre_es": "Ensalada caballa y wakame",
+    "mood_es": "Calma",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Almuerzo"
+  },
+  {
+    "id": "sint-005",
+    "nombre_es": "Sopa miso con nori y tofu",
+    "mood_es": "Calma",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Cena"
+  },
+  {
+    "id": "sint-006",
+    "nombre_es": "Snack almendras chocolate platano",
+    "mood_es": "Calma",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Snack"
+  },
+  {
+    "id": "sint-007",
+    "nombre_es": "Porridge avena y cereza",
+    "mood_es": "Calma",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Cena"
+  },
+  {
+    "id": "sint-008",
+    "nombre_es": "Caldo huesos Manta Liquida",
+    "mood_es": "Calma",
+    "premium_level": 1,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Bebida"
+  },
+  {
+    "id": "sint-009",
+    "nombre_es": "Huevos sardinas y aguacate",
+    "mood_es": "Reset",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Desayuno"
+  },
+  {
+    "id": "sint-010",
+    "nombre_es": "Shot vinagre corta-hambre",
+    "mood_es": "Reset",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Snack"
+  },
+  {
+    "id": "sint-011",
+    "nombre_es": "Tortilla nori y semillas calabaza",
+    "mood_es": "Focus",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Desayuno"
+  },
+  {
+    "id": "sint-012",
+    "nombre_es": "Bol Cerebro Azul caballa arandanos",
+    "mood_es": "Focus",
+    "premium_level": 1,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Almuerzo"
+  },
+  {
+    "id": "sint-002",
+    "nombre_es": "Sardinas con remolacha y nueces",
+    "mood_es": "Activación",
+    "premium_level": 0,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Almuerzo"
+  },
+  {
+    "id": "sint-003",
+    "nombre_es": "Salmon costra de nueces",
+    "mood_es": "Activación",
+    "premium_level": 1,
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "tipo_plato": "Cena"
+  }
+]

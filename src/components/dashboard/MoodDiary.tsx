@@ -3,15 +3,14 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { Loader2, Zap, Circle, Target, MessageSquare, RotateCcw } from "lucide-react";
 
 const MOOD_OPTIONS = [
-  { id: "energia", label: "Energía", emoji: "⚡", color: "#D97706" },
-  { id: "calma",   label: "Calma",   emoji: "🌿", color: "#6B8E6B" },
-  { id: "focus",   label: "Focus",   emoji: "🎯", color: "#0D9488" },
-  { id: "social",  label: "Social",  emoji: "🤝", color: "#BE185D" },
-  { id: "reset",   label: "Reset",   emoji: "🔄", color: "#65A30D" },
-  { id: "familia", label: "Familia", emoji: "👨‍👩‍👧", color: "#6366F1" },
+  { id: "activacion",   label: "Activación",   icon: Zap, color: "#D97706" },
+  { id: "calma",        label: "Calma",        icon: Circle, color: "#6B8E6B" },
+  { id: "focus",        label: "Focus",        icon: Target, color: "#0D9488" },
+  { id: "social",       label: "Social",       icon: MessageSquare, color: "#BE185D" },
+  { id: "recuperacion", label: "Recuperación", icon: RotateCcw, color: "#65A30D" },
 ];
 
 const DAY_LABELS = ["L", "M", "X", "J", "V", "S", "D"];
@@ -163,7 +162,7 @@ export function MoodDiary() {
                     : "bg-white text-aubergine-dark/60 border-aubergine-dark/10 hover:border-aubergine-dark/25"
                 }`}
               >
-                <span className="text-sm">{mood.emoji}</span>
+                <mood.icon className="w-4 h-4" />
                 {mood.label}
               </button>
             ))}
@@ -185,7 +184,7 @@ export function MoodDiary() {
                     }`}
                     title={mood?.label || "Sin registro"}
                   >
-                    {mood ? mood.emoji : "•"}
+                    {mood ? <mood.icon className="w-3.5 h-3.5" /> : "•"}
                   </div>
                   <span className="text-[9px] font-bold text-aubergine-dark/30 uppercase">
                     {label}

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/useAuthStore"
 import Link from "next/link"
 import { ArrowRight, RefreshCw, Sparkles } from "lucide-react"
+import { SessionDebug } from "@/components/auth/SessionDebug"
 
 export default function TestPage() {
   const { currentStep, isFinished, leadingMood, calculateResult, resultMood, resetQuiz, quizCount } = useQuizStore()
@@ -229,6 +230,9 @@ export default function TestPage() {
         ) : (
           <QuizResult />
         )}
+        
+        {/* Session debug for verification */}
+        <SessionDebug />
       </div>
     </motion.div>
   )

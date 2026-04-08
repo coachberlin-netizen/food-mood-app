@@ -20,6 +20,10 @@ function LoginForm() {
   // Auto-redirect if session already exists
   useEffect(() => {
     const checkSession = async () => {
+      // Avoid auto-redirect if there is a pending subscription to handle
+      if (typeof window !== 'undefined' && sessionStorage.getItem('pendingPlan')) {
+        return;
+      }
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         const redirectTo = searchParams.get('redirect') || '/dashboard';
@@ -62,19 +66,25 @@ function LoginForm() {
 
       // Read redirect parameter from URL, default to /dashboard
       const redirectTo = searchParams.get('redirect') || '/dashboard';
-      
+
       // Step 2: Post-login redirect to Stripe if pendingPlan exists
       if (typeof window !== 'undefined') {
         const pendingPlan = sessionStorage.getItem('pendingPlan');
-        if (pendingPlan) {
+        const pendingPriceId = sessionStorage.getItem('pendingPriceId');
+
+        if (pendingPlan && pendingPriceId) {
           try {
-            const res = await fetch('/api/checkout', {
+            const res = await fetch('/api/stripe/checkout', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ plan: pendingPlan }),
+              body: JSON.stringify({ priceId: pendingPriceId, planType: pendingPlan }),
             });
             const { url } = await res.json();
+
+            // Cleanup sessionStorage before redirecting
             sessionStorage.removeItem('pendingPlan');
+            sessionStorage.removeItem('pendingPriceId');
+
             if (url) {
               window.location.href = url;
               return;
@@ -86,7 +96,10 @@ function LoginForm() {
         }
       }
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Ensure session is fully established in browser cookies
+      await supabase.auth.getSession();
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       router.replace(redirectTo);
       router.refresh();
     } else {
@@ -100,13 +113,13 @@ function LoginForm() {
       setError("Por favor, ingresa tu email para reenviar el enlace.");
       return;
     }
-    
+
     setLoading(true);
     const { error: resendError } = await supabase.auth.resend({
       type: 'signup',
       email: email,
     });
-    
+
     if (resendError) {
       if (resendError.message.toLowerCase().includes("rate limit")) {
         setError("Has solicitado demasiados emails en poco tiempo. Espera unos minutos antes de intentarlo de nuevo.");
@@ -137,11 +150,10 @@ function LoginForm() {
           <p className="text-aubergine-dark/60 text-center text-sm mb-6">Conecta con tu estado interior hoy.</p>
 
           {error && (
-            <div className={`p-4 rounded-xl text-sm mb-6 text-center ${
-              error.includes("reenviado") 
-                ? "bg-green-50 text-green-700 border border-green-100" 
-                : "bg-red-50 text-red-600 border border-red-100"
-            }`}>
+            <div className={`p-4 rounded-xl text-sm mb-6 text-center ${error.includes("reenviado")
+              ? "bg-green-50 text-green-700 border border-green-100"
+              : "bg-red-50 text-red-600 border border-red-100"
+              }`}>
               {error}
               {error.includes("confirmar tu cuenta") && (
                 <button
@@ -171,7 +183,7 @@ function LoginForm() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50">Contraseña</label>
-                <Link href="#" className="text-xs text-aubergine-dark/40 hover:text-aubergine-dark transition-colors font-semibold">
+                <Link href="/auth/forgot-password" className="text-xs text-aubergine-dark/40 hover:text-aubergine-dark transition-colors font-semibold">
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
@@ -199,7 +211,7 @@ function LoginForm() {
           </form>
 
           <p className="text-center text-aubergine-dark/60 text-sm mt-8 border-t border-aubergine-dark/5 pt-8">
-            ¿No tienes cuenta? <Link href="/auth/register" className="font-bold text-aubergine-dark hover:underline">Crear cuenta gratis</Link>
+            ¿No tienes cuenta? <Link href={`/auth/register${searchParams.get('redirect') ? `?redirect=${searchParams.get('redirect')}` : ''}`} className="font-bold text-aubergine-dark hover:underline">Crear cuenta gratis</Link>
           </p>
         </div>
       </div>

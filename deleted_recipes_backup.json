@@ -1,0 +1,878 @@
+[
+  {
+    "id": "ACT-01",
+    "sexo": "Unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Shot Matinal «Despertar»",
+    "nombre_en": null,
+    "mood_es": "Activación & Energía",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "En ayunas o justo después del café. Antes de una mañana intensa.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "20 ml de vinagre de kombucha / manzana"
+      },
+      {
+        "ingrediente": "10 ml de zumo de limón recién exprimido"
+      },
+      {
+        "ingrediente": "1 cm de jengibre fresco, rallado fino"
+      },
+      {
+        "ingrediente": "1 pizca de cúrcuma"
+      },
+      {
+        "ingrediente": "1 pizca de pimienta negra recién molida"
+      },
+      {
+        "ingrediente": "Opcional: 1 cucharadita de miel cruda"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Ralla el jengibre directamente sobre el vaso."
+      },
+      {
+        "paso": "Añade el zumo de limón, la cúrcuma y la pimienta."
+      },
+      {
+        "paso": "Vierte el vinagre de kombucha / manzana. Remueve."
+      },
+      {
+        "paso": "Si usas miel, añádela al final y disuelve."
+      },
+      {
+        "paso": "Bebe de un trago o en dos sorbos lentos."
+      }
+    ],
+    "variantes_es": [
+      {
+        "variante": "Con media cucharadita de vinagre de manzana crudo; Variante «Blue Mood» con espirulina azul."
+      }
+    ],
+    "nota_food_mood_es": "La piperina aumenta la biodisponibilidad de la cúrcuma hasta un 2.000%.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "activación",
+      "digestivo",
+      "mañana",
+      "jengibre",
+      "cúrcuma"
+    ],
+    "tiempo_preparacion_min": 5,
+    "dificultad": "fácil",
+    "temporada": "Todas",
+    "tipo_plato": "bebida",
+    "created_at": "2026-04-03T19:34:54.737208+00:00",
+    "fts": "'beb':4 'despert':3 'matinal':2 'shot':1",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "ACT-02",
+    "sexo": "Unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Vinagreta «Wake-Up»",
+    "nombre_en": null,
+    "mood_es": "Activación & Energía",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Para ensaladas de hoja verde, crudités o carpaccios antes de una reunión.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "60 ml de aceite de oliva virgen extra"
+      },
+      {
+        "ingrediente": "30 ml de vinagre de kombucha / manzana"
+      },
+      {
+        "ingrediente": "1 cucharadita de mostaza Dijon"
+      },
+      {
+        "ingrediente": "1 diente de ajo muy picado o rallado"
+      },
+      {
+        "ingrediente": "1 cucharadita de miel cruda o sirope de agave"
+      },
+      {
+        "ingrediente": "Ralladura de medio limón"
+      },
+      {
+        "ingrediente": "Sal marina y pimienta negra"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Pon todos los ingredientes en un bote de cristal con tapa."
+      },
+      {
+        "paso": "Agita con fuerza durante 30 segundos hasta emulsionar."
+      },
+      {
+        "paso": "Prueba y ajusta sal y acidez."
+      },
+      {
+        "paso": "Guarda en nevera hasta 5 días."
+      }
+    ],
+    "variantes_es": [
+      {
+        "variante": "Sin ajo para un perfil más delicado; con anchoa disuelta para versión umami."
+      }
+    ],
+    "nota_food_mood_es": "La acidez viva despierta los sentidos antes de que el cerebro lo procese.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "aliño",
+      "ensalada",
+      "mostaza",
+      "limón"
+    ],
+    "tiempo_preparacion_min": 5,
+    "dificultad": "fácil",
+    "temporada": "Todas",
+    "tipo_plato": "snack",
+    "created_at": "2026-04-03T19:34:54.816649+00:00",
+    "fts": "'snack':5 'up':4 'vinagret':1 'wak':3 'wake-up':2",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "sint-001",
+    "sexo": "Unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Bol Despertar Salmon",
+    "nombre_en": null,
+    "mood_es": "Activación",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": null,
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      "100g salmon ahumado",
+      "1 huevo",
+      "espinacas baby",
+      "chia",
+      "aguacate",
+      "aceite oliva",
+      "limon"
+    ],
+    "preparacion_es": [
+      "Cuece huevo 6 min",
+      "Monta espinacas",
+      "Anade salmon y aguacate",
+      "Coloca huevo y chia"
+    ],
+    "variantes_es": null,
+    "nota_food_mood_es": "Omega-3 del salmon para membranas. Colina del huevo para acetilcolina.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": null,
+    "tiempo_preparacion_min": 10,
+    "dificultad": "Facil",
+    "temporada": null,
+    "tipo_plato": "Desayuno",
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "fts": "'bol':1 'desayun':4 'despert':2 'salmon':3",
+    "premium_level": 0,
+    "chef_inspiracion": null,
+    "segmento": "Unisex, 31-50",
+    "sintoma_tag": "cansancio",
+    "ingrediente_firma": null
+  },
+  {
+    "id": "C1-02",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Sardinas Energía de Lata con remolacha y nueces",
+    "nombre_en": null,
+    "mood_es": "Activación & Energía",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Almuerzo rápido para fatiga de mediodía.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "sardinas en aceite de oliva"
+      },
+      {
+        "ingrediente": "remolacha cocida"
+      },
+      {
+        "ingrediente": "nueces"
+      },
+      {
+        "ingrediente": "hojas verdes"
+      },
+      {
+        "ingrediente": "vinagre de manzana"
+      },
+      {
+        "ingrediente": "aceite de oliva"
+      },
+      {
+        "ingrediente": "limón"
+      },
+      {
+        "ingrediente": "sal"
+      },
+      {
+        "ingrediente": "pimienta"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Montar una base de hojas verdes."
+      },
+      {
+        "paso": "Añadir remolacha y sardinas escurridas."
+      },
+      {
+        "paso": "Terminar con nueces y aliño ácido."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Aporta omega-3, B12, nitratos naturales y grasas saciantes.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "sardinas",
+      "remolacha",
+      "nueces",
+      "fatiga",
+      "almuerzo rápido"
+    ],
+    "tiempo_preparacion_min": 8,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "almuerzo",
+    "created_at": "2026-04-03T19:34:58.809638+00:00",
+    "fts": "'almuerz':9 'energ':2 'lat':4 'nuec':8 'remolach':6 'sardin':1",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "C1-03",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Smoothie Hierro Verde",
+    "nombre_en": null,
+    "mood_es": "Activación & Energía",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Bebida funcional para agotamiento persistente o bajón de la tarde.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "espinacas"
+      },
+      {
+        "ingrediente": "plátano congelado"
+      },
+      {
+        "ingrediente": "cacao crudo"
+      },
+      {
+        "ingrediente": "mantequilla de almendras"
+      },
+      {
+        "ingrediente": "bebida de avena o leche"
+      },
+      {
+        "ingrediente": "semillas de cáñamo"
+      },
+      {
+        "ingrediente": "dátil opcional"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Batir todos los ingredientes hasta textura cremosa."
+      },
+      {
+        "paso": "Servir con semillas por encima."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Busca reforzar hierro, magnesio y precursores de serotonina.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "smoothie",
+      "hierro",
+      "magnesio",
+      "espinacas",
+      "cacao"
+    ],
+    "tiempo_preparacion_min": 15,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "bebida",
+    "created_at": "2026-04-03T19:34:58.90726+00:00",
+    "fts": "'beb':4 'hierr':2 'smoothi':1 'verd':3",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "C1-04",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Salmón con costra de nueces y espinacas salteadas",
+    "nombre_en": null,
+    "mood_es": "Activación & Energía",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Cena reparadora para fatiga sostenida.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "filetes de salmón"
+      },
+      {
+        "ingrediente": "nueces"
+      },
+      {
+        "ingrediente": "mostaza Dijon"
+      },
+      {
+        "ingrediente": "miel"
+      },
+      {
+        "ingrediente": "espinacas"
+      },
+      {
+        "ingrediente": "ajo"
+      },
+      {
+        "ingrediente": "aceite de oliva"
+      },
+      {
+        "ingrediente": "limón"
+      },
+      {
+        "ingrediente": "sal"
+      },
+      {
+        "ingrediente": "pimienta"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Cubrir el salmón con mezcla de mostaza y miel."
+      },
+      {
+        "paso": "Añadir nueces picadas y hornear hasta dorar."
+      },
+      {
+        "paso": "Saltear espinacas con ajo."
+      },
+      {
+        "paso": "Servir con limón y sal en escamas."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Reúne DHA/EPA, ALA vegetal, hierro, compuestos sulfurados y estímulo sensorial.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "cena",
+      "salmón",
+      "nueces",
+      "espinacas",
+      "antifatiga"
+    ],
+    "tiempo_preparacion_min": 15,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "cena",
+    "created_at": "2026-04-03T19:34:58.988361+00:00",
+    "fts": "'cen':9 'costr':3 'espinac':7 'nuec':5 'salmon':1 'salt':8",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "C1-05",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Ensalada 7 Colores Antifatiga",
+    "nombre_en": null,
+    "mood_es": "Activación & Energía",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Plato emblemático para diversidad microbiana y energía estable.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "tomate"
+      },
+      {
+        "ingrediente": "zanahoria"
+      },
+      {
+        "ingrediente": "pimiento amarillo"
+      },
+      {
+        "ingrediente": "rúcula"
+      },
+      {
+        "ingrediente": "aguacate"
+      },
+      {
+        "ingrediente": "lombarda"
+      },
+      {
+        "ingrediente": "arándanos"
+      },
+      {
+        "ingrediente": "cebolla tierna"
+      },
+      {
+        "ingrediente": "sésamo"
+      },
+      {
+        "ingrediente": "nueces"
+      },
+      {
+        "ingrediente": "lino molido"
+      },
+      {
+        "ingrediente": "sardinas o huevos"
+      },
+      {
+        "ingrediente": "aceite de oliva"
+      },
+      {
+        "ingrediente": "vinagre de manzana"
+      },
+      {
+        "ingrediente": "mostaza"
+      },
+      {
+        "ingrediente": "miel"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Disponer los colores por secciones en el bol."
+      },
+      {
+        "paso": "Colocar la proteína en el centro."
+      },
+      {
+        "paso": "Emulsionar el aliño y añadir al final."
+      },
+      {
+        "paso": "Terminar con lino y sésamo."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Se plantea como manifiesto visual de diversidad vegetal, omega-3 y microbiota.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "7 colores",
+      "microbiota",
+      "omega-3",
+      "diversidad",
+      "bol completo"
+    ],
+    "tiempo_preparacion_min": 15,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "almuerzo",
+    "created_at": "2026-04-03T19:34:59.083609+00:00",
+    "fts": "'7':2 'almuerz':5 'antifatig':4 'color':3 'ensal':1",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "C2-04",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Bowl Kéfir Color con frutos rojos y avena",
+    "nombre_en": null,
+    "mood_es": "Calma & Equilibrio",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Desayuno probiótico para ansiedad matinal.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "kéfir natural"
+      },
+      {
+        "ingrediente": "copos de avena"
+      },
+      {
+        "ingrediente": "arándanos"
+      },
+      {
+        "ingrediente": "frambuesas"
+      },
+      {
+        "ingrediente": "chía"
+      },
+      {
+        "ingrediente": "miel o pasta de dátil"
+      },
+      {
+        "ingrediente": "nueces"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Mezclar la noche anterior kéfir, avena y chía."
+      },
+      {
+        "paso": "Refrigerar."
+      },
+      {
+        "paso": "Añadir frutos rojos, nueces y miel al servir."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Se centra en sinergia entre probióticos, beta-glucanos, omega-3 y antocianinas.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "kéfir",
+      "frutos rojos",
+      "avena",
+      "ansiedad matinal",
+      "microbiota"
+    ],
+    "tiempo_preparacion_min": 15,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "desayuno",
+    "created_at": "2026-04-03T19:34:59.490881+00:00",
+    "fts": "'aven':8 'bowl':1 'color':3 'desayun':9 'frut':5 'kef':2 'roj':6",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "C4-03",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Shot Corta-Hambre de vinagre",
+    "nombre_en": null,
+    "mood_es": "Reset & Ligereza",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Toma breve antes de las comidas principales para picos glucémicos.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "vinagre de manzana o de kombucha"
+      },
+      {
+        "ingrediente": "agua"
+      },
+      {
+        "ingrediente": "miel opcional"
+      },
+      {
+        "ingrediente": "canela"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Diluir el vinagre en agua."
+      },
+      {
+        "paso": "Añadir miel y canela si se desea."
+      },
+      {
+        "paso": "Tomar unos minutos antes de comer."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Se orienta a modular la respuesta glucémica y la sensación de hambre reactiva.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "vinagre",
+      "glucosa",
+      "pre-comida",
+      "hambre reactiva"
+    ],
+    "tiempo_preparacion_min": 15,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "bebida",
+    "created_at": "2026-04-03T19:34:59.969956+00:00",
+    "fts": "'beb':7 'cort':3 'corta-hambr':2 'hambr':4 'shot':1 'vinagr':6",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "C5-01",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Tortilla de nori y semillas de calabaza Desbloqueo",
+    "nombre_en": null,
+    "mood_es": "Focus & Claridad Mental",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Desayuno para niebla mental matinal.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "huevos"
+      },
+      {
+        "ingrediente": "alga nori"
+      },
+      {
+        "ingrediente": "semillas de calabaza"
+      },
+      {
+        "ingrediente": "aceite de sésamo"
+      },
+      {
+        "ingrediente": "sal"
+      },
+      {
+        "ingrediente": "pimienta"
+      },
+      {
+        "ingrediente": "cebolleta"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Batir huevos y cuajarlos en sartén."
+      },
+      {
+        "paso": "Añadir nori y semillas mientras cuaja."
+      },
+      {
+        "paso": "Doblar y terminar con cebolleta."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Se apoya en colina, tirosina, yodo y grasas aromáticas.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "niebla mental",
+      "colina",
+      "nori",
+      "semillas de calabaza"
+    ],
+    "tiempo_preparacion_min": 15,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "desayuno",
+    "created_at": "2026-04-03T19:35:00.053735+00:00",
+    "fts": "'calabaz':7 'desayun':9 'desbloque':8 'nori':3 'semill':5 'tortill':1",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "AS-02",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Batido Calma Instantánea",
+    "nombre_en": null,
+    "mood_es": "Calma & Equilibrio",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "Batido rápido para momentos de estrés agudo.",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "plátano congelado"
+      },
+      {
+        "ingrediente": "kéfir"
+      },
+      {
+        "ingrediente": "mantequilla de almendras"
+      },
+      {
+        "ingrediente": "cacao crudo"
+      },
+      {
+        "ingrediente": "dátil"
+      },
+      {
+        "ingrediente": "ashwagandha opcional"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Batir todo hasta crema espesa."
+      },
+      {
+        "paso": "Beber despacio."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Batido frío con probióticos, cacao y grasas suaves.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "batido",
+      "estrés agudo",
+      "kéfir",
+      "cacao"
+    ],
+    "tiempo_preparacion_min": 15,
+    "dificultad": "media",
+    "temporada": "Todas",
+    "tipo_plato": "snack",
+    "created_at": "2026-04-03T19:35:01.050465+00:00",
+    "fts": "'bat':1 'calm':2 'instantane':3 'snack':4",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "tortilla-nori-y-semillas-calabaza-desbloqueo",
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "nombre_es": "Tortilla Nori y Semillas Calabaza Desbloqueo",
+    "nombre_en": null,
+    "mood_es": "Focus & Claridad Mental",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": "",
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      {
+        "ingrediente": "3 huevos"
+      },
+      {
+        "ingrediente": "nori 1 hoja trozos"
+      },
+      {
+        "ingrediente": "semillas de calabaza 1 cda"
+      },
+      {
+        "ingrediente": "aceite de sésamo 1 cdta"
+      },
+      {
+        "ingrediente": "sal, pimienta"
+      },
+      {
+        "ingrediente": "cebolleta picada"
+      }
+    ],
+    "preparacion_es": [
+      {
+        "paso": "Batir los huevos y mezclar con nori y semillas."
+      },
+      {
+        "paso": "Cocinar en sartén con aceite de sésamo."
+      }
+    ],
+    "variantes_es": [],
+    "nota_food_mood_es": "Colina de huevos, tirosina de semillas calabaza, yodo de nori para metabolismo cerebral.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": [
+      "focus",
+      "claridad",
+      "desayuno"
+    ],
+    "tiempo_preparacion_min": 10,
+    "dificultad": "fácil",
+    "temporada": "",
+    "tipo_plato": "desayuno",
+    "created_at": "2026-04-03T19:34:53.796672+00:00",
+    "fts": "'calabaz':5 'desayun':7 'desbloque':6 'nori':2 'semill':4 'tortill':1",
+    "premium_level": 0,
+    "chef_inspiracion": null,
+    "segmento": "adulto",
+    "sintoma_tag": null,
+    "ingrediente_firma": null
+  },
+  {
+    "id": "sint-008",
+    "sexo": "Unisex",
+    "grupo_edad": "45-60",
+    "nombre_es": "Caldo huesos Manta Liquida",
+    "nombre_en": null,
+    "mood_es": "Calma",
+    "mood_en": null,
+    "capitulo": null,
+    "contexto_es": null,
+    "contexto_en": null,
+    "base_acida": null,
+    "ingredientes_es": [
+      "caldo de huesos",
+      "curcuma",
+      "pimienta",
+      "ghee",
+      "sal"
+    ],
+    "preparacion_es": [
+      "Calienta sin hervir",
+      "Anade curcuma y ghee",
+      "Sirve 90 min antes de dormir"
+    ],
+    "variantes_es": null,
+    "nota_food_mood_es": "3-5g glicina por taza. Reduce temperatura corporal. Ghee: acido butirico intestinal.",
+    "qr_es": null,
+    "qr_en": null,
+    "tags": null,
+    "tiempo_preparacion_min": 60,
+    "dificultad": "Medio",
+    "temporada": null,
+    "tipo_plato": "Bebida",
+    "created_at": "2026-04-05T14:58:29.358746+00:00",
+    "fts": "'beb':5 'cald':1 'hues':2 'liqu':4 'mant':3",
+    "premium_level": 1,
+    "chef_inspiracion": null,
+    "segmento": "Unisex, 45-60",
+    "sintoma_tag": "insomnio",
+    "ingrediente_firma": null
+  }
+]

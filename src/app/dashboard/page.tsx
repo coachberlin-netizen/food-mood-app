@@ -17,7 +17,7 @@ import { PushNotificationBanner } from "@/components/dashboard/PushNotificationB
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
   const { user, isAuthenticated } = useAuthStore();
-  
+
   const [mounted, setMounted] = useState(false);
   const [todayRecipe, setTodayRecipe] = useState<any>(null);
   const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
@@ -30,7 +30,7 @@ export default function DashboardPage() {
   // Mood keyword map for Supabase ilike query
   const MOOD_KEYWORD: Record<string, string> = {
     activacion: 'Activaci', calma: 'Calma', focus: 'Focus',
-    social: 'Social', reset: 'Reset', familia: 'familia',
+    social: 'Social', recuperacion: 'Recuperaci'
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function DashboardPage() {
         .select('is_premium')
         .eq('id', session.user.id)
         .single();
-        
+
       const isPrem = !!profile?.is_premium;
       setIsPremium(isPrem);
 
@@ -129,7 +129,7 @@ export default function DashboardPage() {
           .eq('segmento', 'adulto')
           .eq('premium_level', 0)
           .range(randomOffset, randomOffset);
-        
+
         if (randomData?.length) {
           router.push(`/recetas/${randomData[0].id}`);
           return;
@@ -200,8 +200,7 @@ export default function DashboardPage() {
     calma: "Baja las revoluciones y ponte muy cómodo.",
     focus: "Afila la mente, no la ansiedad.",
     social: "Todo sabe mejor con alguien enfrente.",
-    reset: "Dale al botón de reinicio y empecemos de cero.",
-    familia: "Mantita, calor y mucho placer reFamiliaante."
+    recuperacion: "Recupera tu balance y siente ligereza."
   };
 
   // Weekly balance — build from real data
@@ -217,11 +216,11 @@ export default function DashboardPage() {
     return { label, color, hasData };
   });
 
-  
+
   return (
     <div className="min-h-screen bg-transparent">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
-        
+
         {/* SUCCESS BANNER after payment */}
         {showSuccess && (
           <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-emerald-800 animate-in fade-in">
@@ -352,7 +351,7 @@ export default function DashboardPage() {
                   {[
                     { icon: "🍽", text: "Recetas sin repetirse", detail: "Variedad real para tu microbiota" },
                     { icon: "⭐", text: "Recetas de alta cocina funcional", detail: "Platos exclusivos para ti" },
-                    { icon: "🔬", text: "Filtros por mood, edad y sexo", detail: "Ciencia personalizada" },
+                    { icon: "🔬", text: "Filtros por mood y tipo de receta", detail: "Encuentra justo lo que necesitas" },
                     { icon: "❤️", text: "Favoritos ilimitados", detail: "Guarda las que más te gusten" },
                   ].map((benefit, i) => (
                     <li key={i} className="flex items-start gap-3.5 bg-cream/5 rounded-xl p-4 border border-cream/8">
@@ -390,7 +389,7 @@ export default function DashboardPage() {
             </h2>
             <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
           </div>
-          
+
           <div className="bg-cream rounded-[1.5rem] p-10 border border-aubergine-dark/20 shadow-sm flex flex-col justify-center min-h-[200px]">
             {todayRecipe ? (
               <div className="flex flex-col gap-6">
@@ -427,22 +426,22 @@ export default function DashboardPage() {
                       </span>
                     </div>
                   </div>
-                    {!todayRecipe.isRestricted ? (
-                      <Link
-                        href={`/recetas/${todayRecipe.id}`}
-                        className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
-                      >
-                        Ver receta completa →
-                      </Link>
-                    ) : (
-                      <Link
-                        href="/pricing"
-                        className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
-                      >
-                        Desbloquear receta →
-                      </Link>
-                    )}
-                  </div>
+                  {!todayRecipe.isRestricted ? (
+                    <Link
+                      href={`/recetas/${todayRecipe.id}`}
+                      className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
+                    >
+                      Ver receta completa →
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/pricing"
+                      className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors"
+                    >
+                      Desbloquear receta →
+                    </Link>
+                  )}
+                </div>
 
                 {/* Nota Food·Mood */}
                 {todayRecipe.nota_food_mood_es && (
@@ -463,7 +462,7 @@ export default function DashboardPage() {
             ) : (
               <div className="flex flex-col items-center justify-center text-center gap-6">
                 <p className="font-serif text-xl md:text-2xl text-aubergine-dark/80 max-w-lg font-light leading-[1.6]">
-                  Aún no le has dado un capricho a tus sentidos hoy.<br/>¿Preparamos algo especial?
+                  Aún no le has dado un capricho a tus sentidos hoy.<br />¿Preparamos algo especial?
                 </p>
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                   <button

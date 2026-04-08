@@ -50,20 +50,12 @@ const INSPIRATION_MAP: Record<string, InspirationData[]> = {
       ritual: "Sonríe internamente al primer bocado que compartas."
     }
   ],
-  reset: [
+  recuperacion: [
     {
-      phrase: "El cuerpo sabe cómo volver.",
-      ingredient: "Cúrcuma",
-      benefit: "Apoya la detoxificación hepática natural.",
-      ritual: "Bebe un vaso de agua tibia con limón en ayunas."
-    }
-  ],
-  familia: [
-    {
-      phrase: "Sabor que une. Calidez para todos.",
-      ingredient: "Caldo de huesos",
-      benefit: "Colágeno para reconstruir tu barrera intestinal.",
-      ritual: "Agradece el alimento en silencio antes de empezar."
+      phrase: "Vuelve a tu equilibrio natural.",
+      ingredient: "Infusión de Cúrcuma",
+      benefit: "Apoya la detoxificación natural y te aporta ligereza.",
+      ritual: "Respira profundo y suelta el peso del día en la exhalación."
     }
   ]
 };

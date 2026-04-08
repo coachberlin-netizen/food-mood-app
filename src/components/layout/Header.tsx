@@ -19,6 +19,9 @@ export function Header() {
             <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
               Síntomas
             </Link>
+            <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors border border-cream/10 bg-cream/5 px-3 py-1 rounded-full">
+              Glosario
+            </Link>
             <Link href="/#quienes-somos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
               Quiénes somos
             </Link>

@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
       if (userId) {
         console.log(`🔔 Payment successful for user: ${userId}`)
-        
+
         // Initialize Supabase Admin with Service Role Key
         const supabaseAdmin = createClient(
           process.env.NEXT_PUBLIC_SUPABASE_URL!,

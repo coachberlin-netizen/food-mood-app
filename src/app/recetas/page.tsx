@@ -1,60 +1,43 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense } from "react";
+import { useState, useEffect, useCallback, Suspense, useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Crown, Sparkles, Star, ChefHat, Baby, SearchX } from "lucide-react";
+import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Crown, Sparkles, Star, ChefHat, Baby, SearchX, Zap, Circle, Target, MessageSquare, RotateCcw, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 /* ── Mood config ─────────────────────────────────────────────── */
 const MOODS = [
-  { id: "activacion",  label: "Activación & Energía",      emoji: "⚡", color: "#D97706", bg: "rgba(217,119,6,0.12)"  },
-  { id: "calma",       label: "Calma & Equilibrio",        emoji: "🌿", color: "#6B8E6B", bg: "rgba(107,142,107,0.12)" },
-  { id: "focus",       label: "Focus & Claridad Mental",   emoji: "🧠", color: "#0D9488", bg: "rgba(13,148,136,0.12)"  },
-  { id: "social",      label: "Social & Placer Compartido", emoji: "🥂", color: "#BE185D", bg: "rgba(190,24,93,0.12)"  },
-  { id: "reset",       label: "Reset & Ligereza",          emoji: "🍋", color: "#65A30D", bg: "rgba(101,163,13,0.12)"  },
-  { id: "familia",     label: "Familia & Niños",         emoji: "🧒", color: "#C2714F", bg: "rgba(194,113,79,0.12)"  },
+  { id: "activacion", label: "Activación", icon: Zap, color: "#D97706", bg: "rgba(217,119,6,0.12)" },
+  { id: "calma", label: "Calma", icon: Circle, color: "#6B8E6B", bg: "rgba(107,142,107,0.12)" },
+  { id: "focus", label: "Focus", icon: Target, color: "#0D9488", bg: "rgba(13,148,136,0.12)" },
+  { id: "social", label: "Social", icon: MessageSquare, color: "#BE185D", bg: "rgba(190,24,93,0.12)" },
+  { id: "recuperacion", label: "Recuperación", icon: RotateCcw, color: "#65A30D", bg: "rgba(101,163,13,0.12)" },
 ] as const;
 
 /* ── Chef → anonymous style map ── */
 const CHEF_STYLE: Record<string, string> = {
-  "Ferran Adrià":          "Estilo mediterráneo · técnica esferificación",
-  "René Redzepi":          "Estilo nórdico · técnica fermentación",
-  "Massimo Bottura":       "Estilo italiano · técnica deconstrucción",
-  "Nobu Matsuhisa":        "Estilo japonés-peruano · técnica fusión",
-  "Heston Blumenthal":     "Estilo británico · técnica cocina molecular",
-  "Joan Roca":             "Estilo catalán · técnica destilación",
-  "Andoni Aduriz":         "Estilo vasco · técnica biotecnología",
-  "Alain Ducasse":         "Estilo francés · técnica alta cocina",
-  "Joël Robuchon":         "Estilo francés clásico · técnica purés",
-  "Anne-Sophie Pic":       "Estilo francés · técnica infusiones",
-  "Yoshihiro Narisawa":    "Estilo japonés · técnica bosque-mar",
-  "Virgilio Martínez":     "Estilo peruano · técnica altitudes",
-  "Ana Ros":               "Estilo esloveno · técnica foraging",
-  "Clare Smyth":           "Estilo británico · técnica producto local",
-  "Dominique Crenn":       "Estilo franco-californiano · técnica poética",
-  "Albert Adrià":          "Estilo mediterráneo · técnica pastelería",
-  "Quique Dacosta":        "Estilo mediterráneo · técnica vanguardia",
-  "Elena Arzak":           "Estilo vasco · técnica innovación",
-  "Diego Guerrero":        "Estilo español · técnica vegetales",
-  "Dabiz Muñoz":           "Estilo español · técnica street-haute",
+  "Ferran Adrià": "Estilo mediterráneo · técnica esferificación",
+  "René Redzepi": "Estilo nórdico · técnica fermentación",
+  "Massimo Bottura": "Estilo italiano · técnica deconstrucción",
+  "Nobu Matsuhisa": "Estilo japonés-peruano · técnica fusión",
+  "Heston Blumenthal": "Estilo británico · técnica cocina molecular",
+  "Joan Roca": "Estilo catalán · técnica destilación",
+  "Andoni Aduriz": "Estilo vasco · técnica biotecnología",
+  "Alain Ducasse": "Estilo francés · técnica alta cocina",
+  "Joël Robuchon": "Estilo francés clásico · técnica purés",
+  "Anne-Sophie Pic": "Estilo francés · técnica infusiones",
+  "Yoshihiro Narisawa": "Estilo japonés · técnica bosque-mar",
+  "Virgilio Martínez": "Estilo peruano · técnica altitudes",
+  "Ana Ros": "Estilo esloveno · técnica foraging",
+  "Clare Smyth": "Estilo británico · técnica producto local",
+  "Dominique Crenn": "Estilo franco-californiano · técnica poética",
+  "Albert Adrià": "Estilo mediterráneo · técnica pastelería",
+  "Quique Dacosta": "Estilo mediterráneo · técnica vanguardia",
+  "Elena Arzak": "Estilo vasco · técnica innovación",
+  "Diego Guerrero": "Estilo español · técnica vegetales",
+  "Dabiz Muñoz": "Estilo español · técnica street-haute",
 };
-
-/* ── Profile filter options ───────────────────────────────────── */
-const ADULT_PROFILES = [
-  { label: "Todos", sexo: "", edad: "", premiumLevel: "" },
-  { label: "Mujeres 18-30", sexo: "mujer", edad: "18-30", premiumLevel: "" },
-  { label: "Mujeres 31-44", sexo: "mujer", edad: "31-44", premiumLevel: "" },
-  { label: "Mujeres 45-60", sexo: "mujer", edad: "45-60", premiumLevel: "" },
-  { label: "Mujeres 60+",   sexo: "mujer", edad: "60+",   premiumLevel: "" },
-  { label: "Hombres 18-30", sexo: "hombre", edad: "18-30", premiumLevel: "" },
-  { label: "Hombres 31-44", sexo: "hombre", edad: "31-44", premiumLevel: "" },
-  { label: "Hombres 45-60", sexo: "hombre", edad: "45-60", premiumLevel: "" },
-  { label: "Hombres 60+",   sexo: "hombre", edad: "60+",   premiumLevel: "" },
-  { label: "Chef / Exclusivo", sexo: "", edad: "", premiumLevel: "2" },
-] as const;
-
-const FAMILIA_AGES = ["Todos", "3-7", "8-12", "13-17"] as const;
 
 /* ── Types ───────────────────────────────────────────────────── */
 interface Receta {
@@ -115,16 +98,15 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
       exit={{ opacity: 0, y: -8 }}
       whileHover={locked ? {} : { y: -4, boxShadow: "0 8px 24px rgba(63,26,34,0.08)" }}
       transition={{ duration: 0.2 }}
-      className={`relative bg-cream rounded-2xl border border-aubergine-dark/10 p-6 md:p-7 transition-all duration-200 h-full flex flex-col group overflow-hidden ${
-        'cursor-pointer'
-      }`}
+      className={`relative bg-cream rounded-2xl border border-aubergine-dark/10 p-6 md:p-7 transition-all duration-200 h-full flex flex-col group overflow-hidden ${'cursor-pointer'
+        }`}
     >
       <div className="flex items-center justify-between mb-4">
         <span
           className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
           style={{ color: mood.color, backgroundColor: mood.bg }}
         >
-          {mood.emoji} {mood.id}
+          <mood.icon className="w-3.5 h-3.5" /> {mood.id}
         </span>
         <span className="flex items-center gap-1 text-[11px] text-aubergine-dark/50 font-medium">
           <Clock className="w-3 h-3" />
@@ -172,9 +154,8 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
       animate={{ opacity: 1, y: 0 }}
       whileHover={locked ? {} : { y: -4, boxShadow: "0 12px 32px rgba(201,168,76,0.15)" }}
       transition={{ duration: 0.25 }}
-      className={`relative bg-gradient-to-br from-[#1a1118] to-[#2a1825] rounded-2xl border border-[#C9A84C]/20 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
-        'cursor-pointer'
-      }`}
+      className={`relative bg-gradient-to-br from-[#1a1118] to-[#2a1825] rounded-2xl border border-[#C9A84C]/20 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${'cursor-pointer'
+        }`}
     >
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
 
@@ -201,10 +182,10 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
 
       <div className="mt-auto pt-4 flex items-center gap-2">
         <span
-          className="text-[10px] font-medium px-2.5 py-1 rounded-lg border capitalize"
+          className="inline-flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-1 rounded-lg border capitalize"
           style={{ color: mood.color, backgroundColor: `${mood.color}15`, borderColor: `${mood.color}25` }}
         >
-          {mood.emoji} {mood.id}
+          <mood.icon className="w-3 h-3" /> {mood.id}
         </span>
         <span className="text-[10px] text-cream/30 px-2.5 py-1 rounded-lg capitalize">
           {receta.dificultad}
@@ -238,9 +219,8 @@ function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: bool
       animate={{ opacity: 1, y: 0 }}
       whileHover={locked ? {} : { y: -4, boxShadow: "0 12px 32px rgba(99,102,241,0.12)" }}
       transition={{ duration: 0.25 }}
-      className={`relative bg-gradient-to-br from-[#f0f4ff] to-[#fdf2f8] rounded-2xl border border-indigo-200/40 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
-        'cursor-pointer'
-      }`}
+      className={`relative bg-gradient-to-br from-[#f0f4ff] to-[#fdf2f8] rounded-2xl border border-indigo-200/40 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${'cursor-pointer'
+        }`}
     >
       <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-violet-200/30 to-transparent rounded-full blur-2xl" />
 
@@ -260,10 +240,10 @@ function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: bool
 
       <div className="mt-auto pt-4 flex items-center gap-2">
         <span
-          className="text-[10px] font-semibold px-2.5 py-1 rounded-lg capitalize"
+          className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-lg capitalize"
           style={{ color: mood.color, backgroundColor: mood.bg }}
         >
-          {mood.emoji} {mood.id}
+          <mood.icon className="w-3 h-3" /> {mood.id}
         </span>
         <span className="text-[10px] bg-aubergine-dark/5 text-aubergine-dark/40 px-2.5 py-1 rounded-lg capitalize">
           {receta.tipo_plato}
@@ -304,11 +284,10 @@ function Pill({ active, onClick, children }: { active: boolean; onClick: () => v
   return (
     <button
       onClick={onClick}
-      className={`shrink-0 px-4 py-2 rounded-xl text-xs font-medium transition-all duration-200 border whitespace-nowrap ${
-        active
-          ? "bg-aubergine-dark text-cream border-aubergine-dark"
-          : "bg-cream text-aubergine-dark/60 border-aubergine-dark/10 hover:border-aubergine-dark/25"
-      }`}
+      className={`shrink-0 px-4 py-2 rounded-xl text-xs font-medium transition-all duration-200 border whitespace-nowrap ${active
+        ? "bg-aubergine-dark text-cream border-aubergine-dark"
+        : "bg-cream text-aubergine-dark/60 border-aubergine-dark/10 hover:border-aubergine-dark/25"
+        }`}
     >
       {children}
     </button>
@@ -323,9 +302,6 @@ function RecetasContent() {
 
   // ── Filter state ──────────────────────────────────────────
   const [moodFilter, setMoodFilter] = useState<string>("");
-  const [segmento, setSegmento] = useState<string>("adulto");
-  const [profileIdx, setProfileIdx] = useState<number>(0);
-  const [familiaAgeIdx, setFamiliaAgeIdx] = useState<number>(0);
   const [q, setQ] = useState<string>(searchParams.get("q") || "");
   const [page, setPage] = useState<number>(1);
 
@@ -338,6 +314,68 @@ function RecetasContent() {
   // ── User premium status ─────────────────────────────────────
   const [isPremium, setIsPremium] = useState(false);
   const [tierLoaded, setTierLoaded] = useState(false);
+
+  // ── Normalize one free sample per mood ──────────────────────
+  const normalizedRecetas = useMemo(() => {
+    // Premium users bypass this and see everything naturally.
+    if (isPremium) return recetas;
+    
+    const activeSamples = new Set<string>();
+    const moodGroups: Record<string, Receta[]> = {};
+    
+    recetas.forEach(r => {
+      const mId = MOODS.find(m => r.mood_es?.toLowerCase().includes(m.id))?.id || 'activacion';
+      if (!moodGroups[mId]) moodGroups[mId] = [];
+      moodGroups[mId].push(r);
+    });
+
+    Object.values(moodGroups).forEach(group => {
+      // Deterministic stable sorting fallback pool
+      group.sort((a, b) => a.id.localeCompare(b.id)); 
+      const naturallyFree = group.filter(r => (r.premium_level ?? 0) === 0);
+      const chosen = naturallyFree.length > 0 ? naturallyFree[0] : null;
+      if (chosen) activeSamples.add(chosen.id);
+    });
+
+    return recetas.map(r => ({
+      ...r,
+      premium_level: activeSamples.has(r.id) ? 0 : Math.max(1, r.premium_level ?? 1)
+    }));
+  }, [recetas, isPremium]);
+
+  // ── Session Master Order ────────────────────────────────────
+  const [sessionOrder, setSessionOrder] = useState<string[]>([]);
+  const [orderLoaded, setOrderLoaded] = useState(false);
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem('foodmood_recipe_order');
+    if (saved) {
+      try { setSessionOrder(JSON.parse(saved)); } catch (e) { /* ignore */ }
+    }
+    setOrderLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!orderLoaded || normalizedRecetas.length === 0) return;
+    
+    const newIds = normalizedRecetas.map(r => r.id).filter(id => !sessionOrder.includes(id));
+    if (newIds.length > 0) {
+      const shuffledNew = [...newIds].sort(() => Math.random() - 0.5);
+      const combined = [...sessionOrder, ...shuffledNew];
+      setSessionOrder(combined);
+      sessionStorage.setItem('foodmood_recipe_order', JSON.stringify(combined));
+    }
+  }, [normalizedRecetas, orderLoaded, sessionOrder]);
+
+  const displayRecetas = [...normalizedRecetas].sort((a, b) => {
+    const idxA = sessionOrder.indexOf(a.id);
+    const idxB = sessionOrder.indexOf(b.id);
+    if (idxA === -1 && idxB === -1) return 0;
+    if (idxA === -1) return 1;
+    if (idxB === -1) return -1;
+    return idxA - idxB;
+  });
+
   const LIMIT = 24;
 
   // ── Fetch user tier (direct Supabase — bypasses broken server route) ──
@@ -376,24 +414,10 @@ function RecetasContent() {
       if (moodFilter) {
         const moodObj = MOODS.find(m => m.id === moodFilter);
         if (moodObj) {
-          // Use the short name for ilike matching (works for both adult and kids)
-          const moodShort = moodFilter.charAt(0).toUpperCase() + moodFilter.slice(1);
-          params.set("mood", moodShort);
+          // Send 'Reset' to the API since the DB still holds the legacy term
+          const apiMood = moodObj.id === 'recuperacion' ? 'Reset' : moodObj.label;
+          params.set("mood", apiMood);
         }
-      }
-
-      // Segmento filter
-      params.set("segmento", segmento);
-
-      // Profile/age filter
-      if (segmento === "adulto") {
-        const profile = ADULT_PROFILES[profileIdx];
-        if (profile.sexo) params.set("sexo", profile.sexo);
-        if (profile.edad) params.set("edad", profile.edad);
-        if (profile.premiumLevel) params.set("premium_level", profile.premiumLevel);
-      } else {
-        const age = FAMILIA_AGES[familiaAgeIdx];
-        if (age !== "Todos") params.set("edad", age);
       }
 
       // Text search
@@ -417,7 +441,7 @@ function RecetasContent() {
     } finally {
       setIsLoading(false);
     }
-  }, [moodFilter, segmento, profileIdx, familiaAgeIdx, q, page]);
+  }, [moodFilter, q, page]);
 
   useEffect(() => { fetchRecetas(); }, [fetchRecetas]);
 
@@ -427,19 +451,10 @@ function RecetasContent() {
     setPage(1);
   };
 
-  const changeSegmento = (seg: string) => {
-    setSegmento(seg);
-    setProfileIdx(0);
-    setFamiliaAgeIdx(0);
-    setPage(1);
-  };
-
-  const hasFilters = moodFilter || profileIdx > 0 || familiaAgeIdx > 0 || q;
+  const hasFilters = moodFilter || q;
 
   const resetFilters = () => {
     setMoodFilter("");
-    setProfileIdx(0);
-    setFamiliaAgeIdx(0);
     setQ("");
     setPage(1);
   };
@@ -469,14 +484,24 @@ function RecetasContent() {
         <div className="max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-4xl md:text-6xl font-serif text-aubergine-dark mb-4 leading-[1.15]">
-              Recetas con superpoderes
+              Es mucho más que recetas.
             </h1>
             <p className="text-lg md:text-xl text-aubergine-dark/60 font-light max-w-2xl">
-              Recetas diseñadas para lo que sientes. Filtra, explora, disfruta.
+              Cada plato está diseñado para cambiar cómo te sientes. Elige tu mood y descubre lo que tu cuerpo necesita.
             </p>
           </motion.div>
         </div>
       </section>
+
+      {/* ── Comida Real Banner ────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 pb-8">
+        <div className="inline-flex items-center gap-3 px-4 py-2.5 rounded-full bg-white/40 border border-aubergine-dark/10 shadow-[0_2px_10px_-4px_rgba(107,39,55,0.1)]">
+          <CheckCircle className="w-4 h-4 text-[#C9A84C] stroke-[2]" />
+          <span className="text-[13px] text-aubergine-dark/70 font-medium tracking-wide">
+            Solo comida real. Sin suplementos, sin ultraprocesados, sin fritos.
+          </span>
+        </div>
+      </div>
 
       {/* ── Sticky filters ────────────────────────────────── */}
       <div className="sticky top-20 z-30 bg-[var(--background)]/95 backdrop-blur-lg border-b border-aubergine-dark/10 shadow-sm">
@@ -491,95 +516,42 @@ function RecetasContent() {
               <button
                 key={m.id}
                 onClick={() => toggleMood(m.id)}
-                className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 border ${
-                  moodFilter === m.id
-                    ? "text-white shadow-sm"
-                    : "bg-cream text-aubergine-dark/70 border-aubergine-dark/10 hover:border-aubergine-dark/25"
-                }`}
+                className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 border ${moodFilter === m.id
+                  ? "text-white shadow-sm"
+                  : "bg-cream text-aubergine-dark/70 border-aubergine-dark/10 hover:border-aubergine-dark/25"
+                  }`}
                 style={moodFilter === m.id ? { backgroundColor: m.color, borderColor: m.color } : {}}
               >
-                <span className="text-sm">{m.emoji}</span>
+                <m.icon className="w-4 h-4" />
                 <span className="hidden sm:inline">{m.label}</span>
                 <span className="sm:hidden capitalize">{m.id}</span>
               </button>
             ))}
           </div>
 
-          {/* FILA 2 — Segmento + Search */}
-          <div className="flex items-center gap-3 flex-wrap">
-            <div className="flex rounded-xl overflow-hidden border border-aubergine-dark/15">
-              <button
-                onClick={() => changeSegmento("adulto")}
-                className={`px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all duration-200 ${
-                  segmento === "adulto"
-                    ? "bg-aubergine-dark text-cream"
-                    : "bg-cream text-aubergine-dark/60 hover:bg-aubergine-dark/5"
-                }`}
-              >
-                Adultos
-              </button>
-              <button
-                onClick={() => changeSegmento("familia")}
-                className={`px-4 py-2 text-xs font-medium tracking-widest transition-all duration-200 flex items-center gap-1.5 ${
-                  segmento === "familia"
-                    ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white"
-                    : "bg-cream text-aubergine-dark/60 hover:text-indigo-500/70"
-                }`}
-              >
-                <Baby className="w-3 h-3" /> Familia
-              </button>
-            </div>
-
-            <div className="h-6 w-px bg-aubergine-dark/10 hidden md:block" />
-
-            {/* Search */}
-            <div className="relative flex-1 min-w-[200px]">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-aubergine-dark/30" />
-              <input
-                type="text"
-                placeholder="Buscar por nombre o tipo de plato..."
-                value={q}
-                onChange={e => { setQ(e.target.value); setPage(1); }}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-cream border border-aubergine-dark/15 text-sm font-light text-aubergine-dark placeholder:text-aubergine-dark/35 focus:outline-none focus:border-[#C9A84C]/50 focus:shadow-luxury transition-all"
-              />
-              {q && (
-                <button
-                  onClick={() => { setQ(""); setPage(1); }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark transition-colors"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* FILA 3 — Profile pills (conditional) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={segmento}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.18 }}
-              className="overflow-hidden"
-            >
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
-                {segmento === "adulto" ? (
-                  ADULT_PROFILES.map((p, i) => (
-                    <Pill key={i} active={profileIdx === i} onClick={() => { setProfileIdx(i); setPage(1); }}>
-                      {p.label}
-                    </Pill>
-                  ))
-                ) : (
-                  FAMILIA_AGES.map((age, i) => (
-                    <Pill key={i} active={familiaAgeIdx === i} onClick={() => { setFamiliaAgeIdx(i); setPage(1); }}>
-                      {age === "Todos" ? "Todos" : `${age} años`}
-                    </Pill>
-                  ))
+          {/* FILA 2 — Search */}
+          {isPremium && (
+            <div className="flex items-center gap-3">
+              <div className="relative flex-1 min-w-[200px]">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-aubergine-dark/30" />
+                <input
+                  type="text"
+                  placeholder="Buscar por nombre o tipo de plato..."
+                  value={q}
+                  onChange={e => { setQ(e.target.value); setPage(1); }}
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-cream border border-aubergine-dark/15 text-sm font-light text-aubergine-dark placeholder:text-aubergine-dark/35 focus:outline-none focus:border-[#C9A84C]/50 focus:shadow-luxury transition-all"
+                />
+                {q && (
+                  <button
+                    onClick={() => { setQ(""); setPage(1); }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark transition-colors"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
                 )}
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          )}
 
           {/* Counter + Clear */}
           <div className="flex items-center gap-4 flex-wrap">
@@ -624,15 +596,15 @@ function RecetasContent() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-3xl" />
                 <div className="relative z-10 flex flex-col items-center">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20 mb-6">
-                    <Sparkles className="w-3 h-3" /> PRÓXIMAMENTE
+                    <Lock className="w-3 h-3" /> COLECCIÓN PREMIUM
                   </div>
                   <h2 className="text-2xl md:text-3xl font-serif text-cream mb-4 leading-snug">
-                    Aún no tenemos esa combinación.
+                    Reserva exclusiva para miembros.
                   </h2>
                   <p className="text-cream/60 font-light max-w-lg mb-10">
-                    Prueba con otro estado de ánimo o amplía los filtros. Cada semana añadimos recetas nuevas.
+                    Únete a la suscripción Premium para desbloquear la biblioteca completa y descubrir qué comer según este mood.
                   </p>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                     <Link href="/pricing" className="px-8 py-3.5 rounded-xl bg-[#C9A84C] text-white text-sm font-semibold hover:bg-[#b8953e] transition-colors shadow-lg">
                       Ver planes
@@ -653,9 +625,9 @@ function RecetasContent() {
               <div className="w-20 h-20 rounded-full bg-aubergine-dark/5 flex items-center justify-center mb-6">
                 <SearchX className="w-8 h-8 text-aubergine-dark/30" />
               </div>
-              <h2 className="text-2xl font-serif text-aubergine-dark mb-3">Aún no tenemos esa combinación.</h2>
+              <h2 className="text-2xl font-serif text-aubergine-dark mb-3">No hemos encontrado recetas exactas.</h2>
               <p className="text-aubergine-dark/50 font-light max-w-md mb-8">
-                Todavía no tenemos recetas para esta combinación. Pronto añadiremos más.
+                Prueba relajando los filtros o explora la colección completa sin límites con Premium.
               </p>
               <div className="flex items-center gap-4">
                 <button onClick={resetFilters} className="px-8 py-3 rounded-xl border border-aubergine-dark/10 text-aubergine-dark/70 text-sm font-medium hover:bg-aubergine-dark/5 transition-colors">
@@ -671,7 +643,10 @@ function RecetasContent() {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               <AnimatePresence mode="popLayout">
-                {recetas.map((receta) => (
+                {(!isPremium ? [
+                  ...displayRecetas.filter(r => (r.premium_level ?? 0) === 0),
+                  ...displayRecetas.filter(r => (r.premium_level ?? 0) > 0)
+                ] : displayRecetas).map((receta) => (
                   <SmartCard key={receta.id} receta={receta} isPremium={isPremium} />
                 ))}
               </AnimatePresence>

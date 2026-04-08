@@ -6,23 +6,45 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowLeft, Clock, Share2, ChevronDown, ChevronUp,
-  Beaker, Droplets, Leaf, Check
+  Beaker, Droplets, Leaf, Check, Zap, Circle, Target, MessageSquare, RotateCcw, Lock
 } from "lucide-react";
 
 /* ── Mood config ─────────────────────────────────────────────── */
-const MOODS: Record<string, { emoji: string; color: string; bg: string }> = {
-  activacion:  { emoji: "⚡", color: "#D97706", bg: "rgba(217,119,6,0.10)" },
-  calma:       { emoji: "🌿", color: "#6B8E6B", bg: "rgba(107,142,107,0.10)" },
-  focus:       { emoji: "🧠", color: "#0D9488", bg: "rgba(13,148,136,0.10)" },
-  social:      { emoji: "🥂", color: "#BE185D", bg: "rgba(190,24,93,0.10)" },
-  reset:       { emoji: "🍋", color: "#65A30D", bg: "rgba(101,163,13,0.10)" },
-  confort:     { emoji: "🫶", color: "#C2714F", bg: "rgba(194,113,79,0.10)" },
+const MOODS: Record<string, { label: string; icon: any; color: string; bg: string }> = {
+  activacion:  { label: "Activación", icon: Zap, color: "#D97706", bg: "rgba(217,119,6,0.10)" },
+  calma:       { label: "Calma", icon: Circle, color: "#6B8E6B", bg: "rgba(107,142,107,0.10)" },
+  focus:       { label: "Focus", icon: Target, color: "#0D9488", bg: "rgba(13,148,136,0.10)" },
+  social:      { label: "Social", icon: MessageSquare, color: "#BE185D", bg: "rgba(190,24,93,0.10)" },
+  recuperacion:{ label: "Recuperación", icon: RotateCcw, color: "#65A30D", bg: "rgba(101,163,13,0.10)" },
 };
 
 function getMood(moodEs: string) {
   const normalizedMood = moodEs?.toLowerCase() || "";
+  if (normalizedMood.includes("reset")) return { id: "recuperacion", ...MOODS.recuperacion };
   const key = Object.keys(MOODS).find(k => normalizedMood.includes(k));
   return key ? { id: key, ...MOODS[key] } : { id: "activacion", ...MOODS.activacion };
+}
+
+function getSafeFoodMoodNote(moodId: string, fallback: string) {
+  switch (moodId) {
+    case 'activacion':
+      return "Una combinación funcional pensada para favorecer una energía activa, claridad y vitalidad a lo largo del día.";
+    case 'calma':
+      return "Ingredientes suaves y equilibrados, asociados al confort digestivo y pensados para acompañar tu sensación de calma.";
+    case 'focus':
+      return "Nutrientes nobles y perfiles de sabor seleccionados cuidadosamente para acompañarte en momentos de atención y claridad mental.";
+    case 'social':
+      return "Una receta diseñada para fluir y compartir, combinando sabor y digestabilidad en buena compañía.";
+    case 'recuperacion':
+      return "Una preparación suave, orientada al descanso y a la ligereza de todo tu sistema digestivo.";
+    default:
+      return fallback;
+  }
+}
+
+function cleanRecipeTitle(title: string) {
+  if (!title) return "";
+  return title.replace(/Reset/gi, 'Recuperación');
 }
 
 /* ── UUID Helper ────────────────────────────────────────────── */
@@ -55,6 +77,8 @@ interface Receta {
   temporada: string;
   tipo_plato: string;
   ingrediente_firma?: string; // Tarea 1: added
+  premium_level?: number;
+  segmento?: string;
 }
 
 interface RelatedReceta {
@@ -65,6 +89,7 @@ interface RelatedReceta {
   tipo_plato: string;
   dificultad: string;
   temporada: string;
+  premium_level?: number;
 }
 
 /* ── Skeleton ────────────────────────────────────────────────── */
@@ -120,6 +145,7 @@ export default function RecetaDetailPage() {
   const [notFound, setNotFound] = useState(false);
   const [showCiencia, setShowCiencia] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
 
   // Fetch recipe directly from Supabase
   useEffect(() => {
@@ -139,32 +165,42 @@ export default function RecetaDetailPage() {
         let recetaData: Receta | null = null;
         let fetchError: any = null;
 
-        /* ── UUID vs Slug/Name lookup logic ─────────────────── */
-        if (isUUID) {
-          const result = await supabase
-            .from('recetas')
-            .select('*')
-            .eq('id', rawId)
-            .single();
-          
-          recetaData = result.data as Receta | null;
-          fetchError = result.error;
+        /* ── Improved ID vs Slug/Name lookup logic ─────────────────── */
+        console.log('Fetching recipe with rawId:', rawId, 'isUUID:', isUUID);
+        
+        // 1. Try direct ID lookup first (ilike is case-insensitive, maybeSingle avoids 0-row errors)
+        const { data: directData, error: directError } = await supabase
+          .from('recetas')
+          .select('*')
+          .ilike('id', rawId)
+          .maybeSingle();
+
+        if (directData) {
+          console.log('Recipe found via direct ID lookup');
+          recetaData = directData as Receta;
         } else {
-          // Optimized name search (skip 'slug' column which fails 400)
-          const possibleName = rawId.replace(/-/g, ' ');
-          // We use only the first 2 words to be more flexible with punctuation
-          const searchName = possibleName.split(' ').slice(0, 2).join(' '); 
+          console.log('Direct ID lookup failed or returned no data. Error:', directError?.message);
           
+          // 2. Fallback to name search - robustly split dashes and join with % wildcards
+          // Example: 'kombucha-sunrise' -> '%kombucha%sunrise%' mapping safely to 'Kombucha «Sunrise»'
+          const searchName = `%${rawId.split('-').slice(0, 2).join('%')}%`;
+          
+          console.log('Attempting fallback name search with:', searchName);
           const { data: fallbackList, error: fallbackError } = await supabase
             .from('recetas')
             .select('*')
-            .ilike('nombre_es', `%${searchName}%`)
+            .ilike('nombre_es', searchName)
             .limit(1);
 
           if (fallbackError) {
+            console.error('Fallback name search error:', fallbackError.message);
             fetchError = fallbackError;
           } else if (fallbackList && fallbackList.length > 0) {
+            console.log('Recipe found via fallback name search');
             recetaData = fallbackList[0] as Receta;
+          } else {
+            console.log('No recipe found. Preparing randomized callback path...');
+            // [TODO]: Safe recipe randomization if no direct or fallback match exists.
           }
         }
 
@@ -175,10 +211,23 @@ export default function RecetaDetailPage() {
         }
         setReceta(recetaData);
 
+        // Check Premium via auth client
+        const { createClient } = await import('@/lib/supabase/client');
+        const authSupabase = createClient();
+        const { data: { session } } = await authSupabase.auth.getSession();
+        if (session?.user) {
+          const { data: profile } = await authSupabase
+            .from('profiles')
+            .select('is_premium')
+            .eq('id', session.user.id)
+            .single();
+          setIsPremium(!!profile?.is_premium);
+        }
+
         // Fetch related recipes
         const { data: related } = await supabase
           .from('recetas')
-          .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada')
+          .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada, premium_level')
           .eq('mood_es', recetaData.mood_es)
           .neq('id', recetaData.id)
           .limit(3);
@@ -262,40 +311,31 @@ export default function RecetaDetailPage() {
 
           {/* ── Mood badge + meta ────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-            <div className="flex items-center gap-3 mb-5 flex-wrap">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <span
                 className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
                 style={{ color: mood.color, backgroundColor: mood.bg }}
               >
-                {mood.emoji} {receta.mood_es}
+                <mood.icon className="w-3.5 h-3.5" /> {mood.label}
               </span>
               <span className="flex items-center gap-1 text-[11px] text-aubergine-dark/45 font-medium">
                 <Clock className="w-3 h-3" />
                 {receta.tiempo_preparacion_min} min
               </span>
-              <span className="text-[11px] text-aubergine-dark/35 capitalize">{receta.dificultad}</span>
-              <span className="text-[11px] text-aubergine-dark/35 capitalize">{receta.temporada}</span>
+              <span className="text-[11px] text-aubergine-dark/35 capitalize border border-aubergine-dark/10 px-2 py-0.5 rounded-md">{receta.tipo_plato}</span>
+              <span className="text-[11px] text-aubergine-dark/35 capitalize bg-cream border border-aubergine-dark/5 px-2 py-0.5 rounded-md">{receta.dificultad}</span>
             </div>
           </motion.div>
 
-          {/* ── Title ────────────────────────────────────────── */}
+          {/* Title and Gender/Age removed */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-5xl font-serif font-bold text-aubergine-dark leading-[1.15] mb-3"
+            className="text-3xl md:text-5xl font-serif font-bold text-aubergine-dark leading-[1.15] mb-10"
           >
-            {receta.nombre_es}
+            {cleanRecipeTitle(receta.nombre_es)}
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.15 }}
-            className="text-sm text-aubergine-dark/40 font-light mb-10 capitalize"
-          >
-            {receta.tipo_plato} · {receta.sexo}, {receta.grupo_edad}
-          </motion.p>
 
           {/* ── Base ácida (hero ingredient) ──────────────────── */}
           {(receta.ingrediente_firma || receta.base_acida) && (
@@ -383,7 +423,7 @@ export default function RecetaDetailPage() {
                   🧬 Nota Food·Mood
                 </span>
                 <p className="text-[15px] md:text-base font-light leading-[1.85] text-cream/85">
-                  {receta.nota_food_mood_es}
+                  {getSafeFoodMoodNote(mood.id, receta.nota_food_mood_es)}
                 </p>
               </div>
             </div>
@@ -401,14 +441,17 @@ export default function RecetaDetailPage() {
                 Variantes
               </h2>
               <div className="flex flex-wrap gap-2">
-                {receta.variantes_es.map((v, i) => (
-                  <span
-                    key={i}
-                    className="text-[12px] font-light text-aubergine-dark/65 bg-cream border border-aubergine-dark/10 px-3.5 py-2 rounded-xl leading-snug"
-                  >
-                    {v}
-                  </span>
-                ))}
+                {receta.variantes_es.map((vRaw, i) => {
+                  const vText = typeof vRaw === 'string' ? vRaw : (vRaw as any).variante || (vRaw as any).texto || JSON.stringify(vRaw);
+                  return (
+                    <span
+                      key={i}
+                      className="text-[12px] font-light text-aubergine-dark/65 bg-cream border border-aubergine-dark/10 px-3.5 py-2 rounded-xl leading-snug"
+                    >
+                      {vText}
+                    </span>
+                  );
+                })}
               </div>
             </motion.section>
           )}
@@ -456,20 +499,19 @@ export default function RecetaDetailPage() {
           )}
 
           {/* ── Tags ──────────────────────────────────────────── */}
-          {receta.tags && receta.tags.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="flex flex-wrap gap-1.5 mb-14"
-            >
-              {receta.tags.map((tag, i) => (
-                <span key={i} className="text-[10px] text-aubergine-dark/30 bg-aubergine-dark/[0.03] px-2 py-1 rounded-md border border-aubergine-dark/5">
-                  #{tag}
-                </span>
-              ))}
-            </motion.div>
-          )}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-wrap gap-1.5 mb-14"
+          >
+            <span className="text-[10px] text-aubergine-dark/40 bg-aubergine-dark/[0.03] px-2.5 py-1 rounded-md border border-aubergine-dark/5 capitalize">
+              #{mood.id}
+            </span>
+            <span className="text-[10px] text-aubergine-dark/40 bg-aubergine-dark/[0.03] px-2.5 py-1 rounded-md border border-aubergine-dark/5 capitalize">
+              #{receta.tipo_plato}
+            </span>
+          </motion.div>
 
           {/* ── Recetas relacionadas ──────────────────────────── */}
           {relacionadas.length > 0 && (
@@ -484,22 +526,33 @@ export default function RecetaDetailPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {relacionadas.map((r) => {
                   const rMood = getMood(r.mood_es);
+                  const isLocked = !isPremium && (r.premium_level ?? 0) > 0;
+                  const targetHref = isLocked ? "/pricing" : `/recetas/${r.id}`;
+
                   return (
-                    <Link key={r.id} href={`/recetas/${r.id}`}>
-                      <div className="bg-cream rounded-xl border border-aubergine-dark/10 p-5 hover:shadow-luxury-hover hover:-translate-y-1 transition-all duration-200 cursor-pointer h-full flex flex-col">
+                    <Link key={r.id} href={targetHref}>
+                      <div className="relative bg-cream rounded-xl border border-aubergine-dark/10 p-5 hover:shadow-luxury-hover hover:-translate-y-1 transition-all duration-200 cursor-pointer h-full flex flex-col overflow-hidden">
+                        
+                        {isLocked && (
+                          <div className="absolute inset-0 z-10 bg-cream/70 backdrop-blur-[2px] flex flex-col items-center justify-center">
+                            <Lock className="w-5 h-5 text-[#C9A84C]/60 mb-2" />
+                            <span className="text-[11px] text-aubergine-dark/60 font-medium">Contenido Premium</span>
+                          </div>
+                        )}
+
                         <span
-                          className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full self-start mb-3"
+                          className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full self-start mb-3"
                           style={{ color: rMood.color, backgroundColor: rMood.bg }}
                         >
-                          {rMood.emoji} {rMood.id}
+                          <rMood.icon className="w-3.5 h-3.5" /> {rMood.label}
                         </span>
-                        <h3 className="text-sm font-serif font-semibold text-aubergine-dark leading-snug mb-auto line-clamp-2">
-                          {r.nombre_es}
+                        <h3 className="text-sm font-serif font-bold text-aubergine-dark leading-snug mb-auto line-clamp-2">
+                          {cleanRecipeTitle(r.nombre_es)}
                         </h3>
-                        <div className="flex items-center gap-2 mt-3 text-[10px] text-aubergine-dark/40">
+                        <div className="flex items-center gap-2 mt-4 text-[10px] text-aubergine-dark/40 font-medium">
                           <Clock className="w-3 h-3" />
                           {r.tiempo_preparacion_min} min
-                          <span className="capitalize">· {r.tipo_plato}</span>
+                          <span className="capitalize text-aubergine-dark/30 ml-auto border border-aubergine-dark/5 bg-aubergine-dark/5 px-2 py-0.5 rounded-md">{r.tipo_plato}</span>
                         </div>
                       </div>
                     </Link>

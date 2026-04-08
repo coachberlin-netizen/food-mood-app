@@ -1,0 +1,274 @@
+{
+  "duplicates": [
+    {
+      "normTitle": "shot matinal despertar",
+      "recipes": [
+        {
+          "id": "ACT-01",
+          "nombre_es": "Shot Matinal «Despertar»",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:54.737208+00:00",
+          "tipo_plato": "bebida"
+        },
+        {
+          "id": "shot-matinal-despertar",
+          "nombre_es": "Shot Matinal Despertar",
+          "mood_es": "Activación & Energía",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:51.909761+00:00",
+          "tipo_plato": "bebida"
+        }
+      ]
+    },
+    {
+      "normTitle": "vinagreta wake up",
+      "recipes": [
+        {
+          "id": "ACT-02",
+          "nombre_es": "Vinagreta «Wake-Up»",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:54.816649+00:00",
+          "tipo_plato": "snack"
+        },
+        {
+          "id": "vinagreta-wake-up",
+          "nombre_es": "Vinagreta Wake‑Up",
+          "mood_es": "Activación & Energía",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:52.059878+00:00",
+          "tipo_plato": "almuerzo"
+        }
+      ]
+    },
+    {
+      "normTitle": "bol despertar salmon",
+      "recipes": [
+        {
+          "id": "sint-001",
+          "nombre_es": "Bol Despertar Salmon",
+          "mood_es": "Activación",
+          "premium_level": 0,
+          "created_at": "2026-04-05T14:58:29.358746+00:00",
+          "tipo_plato": "Desayuno"
+        },
+        {
+          "id": "C1-01",
+          "nombre_es": "Bol Despertar Salmón",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:58.731718+00:00",
+          "tipo_plato": "desayuno"
+        }
+      ]
+    },
+    {
+      "normTitle": "sardinas energia de lata con remolacha y nueces",
+      "recipes": [
+        {
+          "id": "C1-02",
+          "nombre_es": "Sardinas Energía de Lata con remolacha y nueces",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:58.809638+00:00",
+          "tipo_plato": "almuerzo"
+        },
+        {
+          "id": "sardinas-energia-de-lata-con-remolacha-y-nueces",
+          "nombre_es": "Sardinas Energía de Lata con Remolacha y Nueces",
+          "mood_es": "Activación & Energía",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:52.172403+00:00",
+          "tipo_plato": "almuerzo"
+        }
+      ]
+    },
+    {
+      "normTitle": "smoothie hierro verde",
+      "recipes": [
+        {
+          "id": "C1-03",
+          "nombre_es": "Smoothie Hierro Verde",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:58.90726+00:00",
+          "tipo_plato": "bebida"
+        },
+        {
+          "id": "smoothie-hierro-verde",
+          "nombre_es": "Smoothie Hierro Verde",
+          "mood_es": "Activación & Energía",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:52.288924+00:00",
+          "tipo_plato": "bebida"
+        }
+      ]
+    },
+    {
+      "normTitle": "salmon con costra de nueces y espinacas salteadas",
+      "recipes": [
+        {
+          "id": "C1-04",
+          "nombre_es": "Salmón con costra de nueces y espinacas salteadas",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:58.988361+00:00",
+          "tipo_plato": "cena"
+        },
+        {
+          "id": "salmon-con-costra-de-nueces-y-espinacas-salteadas",
+          "nombre_es": "Salmón con Costra de Nueces y Espinacas Salteadas",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:52.414397+00:00",
+          "tipo_plato": "cena"
+        }
+      ]
+    },
+    {
+      "normTitle": "ensalada 7 colores antifatiga",
+      "recipes": [
+        {
+          "id": "C1-05",
+          "nombre_es": "Ensalada 7 Colores Antifatiga",
+          "mood_es": "Activación & Energía",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:59.083609+00:00",
+          "tipo_plato": "almuerzo"
+        },
+        {
+          "id": "ensalada-7-colores-antifatiga",
+          "nombre_es": "Ensalada 7 Colores Antifatiga",
+          "mood_es": "Activación & Energía",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:52.527809+00:00",
+          "tipo_plato": "almuerzo"
+        }
+      ]
+    },
+    {
+      "normTitle": "bowl kefir color con frutos rojos y avena",
+      "recipes": [
+        {
+          "id": "C2-04",
+          "nombre_es": "Bowl Kéfir Color con frutos rojos y avena",
+          "mood_es": "Calma & Equilibrio",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:59.490881+00:00",
+          "tipo_plato": "desayuno"
+        },
+        {
+          "id": "bowl-kefir-color-con-frutos-rojos-y-avena",
+          "nombre_es": "Bowl Kéfir Color con Frutos Rojos y Avena",
+          "mood_es": "Calma & Equilibrio",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:53.06775+00:00",
+          "tipo_plato": "desayuno"
+        }
+      ]
+    },
+    {
+      "normTitle": "shot corta hambre de vinagre",
+      "recipes": [
+        {
+          "id": "C4-03",
+          "nombre_es": "Shot Corta-Hambre de vinagre",
+          "mood_es": "Reset & Ligereza",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:34:59.969956+00:00",
+          "tipo_plato": "bebida"
+        },
+        {
+          "id": "shot-corta-hambre-de-vinagre",
+          "nombre_es": "Shot Corta‑Hambre de Vinagre",
+          "mood_es": "Reset & Ligereza",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:53.702917+00:00",
+          "tipo_plato": "bebida"
+        }
+      ]
+    },
+    {
+      "normTitle": "caldo huesos manta liquida",
+      "recipes": [
+        {
+          "id": "caldo-huesos-manta-liquida",
+          "nombre_es": "Caldo Huesos Manta Líquida",
+          "mood_es": "Calma & Equilibrio",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:53.277647+00:00",
+          "tipo_plato": "bebida"
+        },
+        {
+          "id": "sint-008",
+          "nombre_es": "Caldo huesos Manta Liquida",
+          "mood_es": "Calma",
+          "premium_level": 1,
+          "created_at": "2026-04-05T14:58:29.358746+00:00",
+          "tipo_plato": "Bebida"
+        }
+      ]
+    },
+    {
+      "normTitle": "batido calma instantanea",
+      "recipes": [
+        {
+          "id": "AS-02",
+          "nombre_es": "Batido Calma Instantánea",
+          "mood_es": "Calma & Equilibrio",
+          "premium_level": 1,
+          "created_at": "2026-04-03T19:35:01.050465+00:00",
+          "tipo_plato": "snack"
+        },
+        {
+          "id": "batido-calma-instantanea",
+          "nombre_es": "Batido Calma Instantánea",
+          "mood_es": "Calma & Equilibrio",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:54.326674+00:00",
+          "tipo_plato": "bebida"
+        }
+      ]
+    },
+    {
+      "normTitle": "tortilla nori y semillas calabaza",
+      "recipes": [
+        {
+          "id": "tortilla-nori-y-semillas-calabaza-desbloqueo",
+          "nombre_es": "Tortilla Nori y Semillas Calabaza Desbloqueo",
+          "mood_es": "Focus & Claridad Mental",
+          "premium_level": 0,
+          "created_at": "2026-04-03T19:34:53.796672+00:00",
+          "tipo_plato": "desayuno"
+        },
+        {
+          "id": "sint-011",
+          "nombre_es": "Tortilla nori y semillas calabaza",
+          "mood_es": "Focus",
+          "premium_level": 0,
+          "created_at": "2026-04-05T14:58:29.358746+00:00",
+          "tipo_plato": "Desayuno"
+        }
+      ]
+    }
+  ],
+  "withUnwantedText": [
+    {
+      "id": "C5-01",
+      "nombre_es": "Tortilla de nori y semillas de calabaza Desbloqueo",
+      "mood_es": "Focus & Claridad Mental",
+      "premium_level": 1,
+      "created_at": "2026-04-03T19:35:00.053735+00:00",
+      "tipo_plato": "desayuno"
+    },
+    {
+      "id": "tortilla-nori-y-semillas-calabaza-desbloqueo",
+      "nombre_es": "Tortilla Nori y Semillas Calabaza Desbloqueo",
+      "mood_es": "Focus & Claridad Mental",
+      "premium_level": 0,
+      "created_at": "2026-04-03T19:34:53.796672+00:00",
+      "tipo_plato": "desayuno"
+    }
+  ]
+}

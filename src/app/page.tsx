@@ -6,8 +6,16 @@ import { Button } from "@/components/ui/Button"
 import { createClient } from "@/lib/supabase/client"
 
 import { moods } from "@/data/moods"
-import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical } from "lucide-react"
+import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical, Zap, Circle, Target, MessageSquare, RotateCcw, CheckCircle } from "lucide-react"
 import { useRef, useState } from "react"
+
+const iconMap: Record<string, React.ElementType> = {
+  activacion: Zap,
+  calma: Circle,
+  focus: Target,
+  social: MessageSquare,
+  recuperacion: RotateCcw,
+};
 
 export default function Home() {
   const [nlEmail, setNlEmail] = useState('')
@@ -66,7 +74,7 @@ export default function Home() {
               </motion.h1>
               
               <motion.h2 variants={fadeIn} className="text-2xl md:text-3xl text-[#F5F0E8] text-center font-serif">
-                Descubre qué comer según tu mood.
+                Descubre qué comer según cómo te sientes.
               </motion.h2>
             </div>
             
@@ -75,21 +83,17 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 items-center pt-8 w-full justify-center">
+              <Link href="/recetas" className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold border-cream/20 text-cream hover:bg-cream/5 transition-colors">
+                  Explorar recetas
+                </Button>
+              </Link>
               <Link href="/test" className="w-full sm:w-auto">
                 <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
-                  Hacer mi test gratis
+                  Hacer test gratuito
                   <ArrowRight className="ml-3 w-4 h-4" />
                 </Button>
               </Link>
-
-              <div className="flex flex-col items-center">
-                <Link href="/sintomas" style={{color:'#C9A84C',fontSize:'0.9rem'}}>¿Tienes un síntoma concreto? → Encuentra recetas para tu cuerpo</Link>
-              </div>
-
-              <div className="text-cream/50 text-sm italic font-light px-2 hidden sm:block">o prefiere charlar</div>
-              <button onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})} className="w-full sm:w-auto text-cream/70 hover:text-cream text-sm font-medium transition-colors border border-transparent hover:border-cream/20 bg-cream/5 px-6 py-4 rounded-[8px] flex items-center justify-center gap-2">
-                Abrir chat IA
-              </button>
             </motion.div>
 
             {/* Newsletter CTA */}
@@ -128,7 +132,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. SECCIÓN PROBLEMA */}
+      {/* 2. NUEVA SECCIÓN DE POSICIONAMIENTO */}
+      <section className="py-24 md:py-32 bg-[var(--background)] border-t border-aubergine-dark/10">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-20px" }} variants={fadeIn}>
+            <h2 className="text-3xl md:text-5xl font-serif text-aubergine-dark mb-8 leading-[1.2]">
+              Es mucho más que recetas.<br/>
+              <span className="italic font-light">Cada plato está diseñado para cambiar cómo te sientes.</span>
+            </h2>
+            <div className="space-y-4 text-base md:text-lg text-aubergine-dark/70 font-light leading-[1.8]">
+              <p>Food Mood une emoción, cuerpo y nutrición funcional para ayudarte a restaurar el equilibrio desde el intestino.</p>
+              <p>No se trata de contar calorías. Ni de suplementos sin contexto.<br/>Se trata de entender qué necesitas hoy y responder con comida real, deliciosa y con propósito.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* MANIFIESTO COMIDA REAL */}
+      <section className="py-24 bg-aubergine-dark text-cream relative border-t border-cream/10">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-[#C9A84C] mb-6">Nuestro compromiso</h2>
+            <h3 className="text-4xl md:text-6xl font-serif text-cream">Solo comida real. Nada más.</h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {[
+              "100% ingredientes reales",
+              "Sin suplementos",
+              "Sin ultraprocesados",
+              "Sin fritos"
+            ].map((item, idx) => (
+              <div key={idx} className="flex flex-col items-center justify-center p-8 border border-white/10 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
+                <CheckCircle className="w-6 h-6 text-[#C9A84C] mb-4 stroke-[1.5]" />
+                <span className="font-serif text-lg tracking-wide">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-cream/70 font-light italic leading-relaxed">
+              "Cada receta usa ingredientes que encuentras en cualquier mercado. Variados, estacionales y deliciosos."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. SECCIÓN PROBLEMA */}
       <section className="py-32 md:py-48 bg-cream relative border-t border-aubergine-dark/20">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div 
@@ -160,22 +210,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Banner Oscuro */}
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-            className="bg-aubergine-dark rounded-2xl p-12 md:p-32 text-center text-white relative overflow-hidden"
-          >
-            <div className="relative z-10 max-w-3xl mx-auto space-y-12">
-              <div className="text-[11px] font-sans tracking-[0.2em] uppercase text-cream/70">Tu cuerpo sabe</div>
-              <h3 className="text-4xl md:text-6xl font-serif text-cream leading-[1.2]">
-                Hay recetas con superpoderes.<br/>
-                <span className="italic font-light text-cream/80">Y están buenísimas.</span>
-              </h3>
-              <p className="text-white/60 text-lg leading-[1.8] font-light">
-                Nosotros te damos el mejor sabor para romper el ciclo de inflamación y sentirte genial de verdad, usando ingredientes que hablan directamente con tu nervio vago.
-              </p>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -184,28 +218,30 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
             <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Mapa Emocional</h2>
-            <h3 className="text-4xl md:text-6xl font-serif text-aubergine-dark">Los 6 Estados Food·Mood</h3>
+            <h3 className="text-4xl md:text-6xl font-serif text-aubergine-dark">Los 5 Estados Food·Mood</h3>
           </motion.div>
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 overflow-hidden">
           <motion.div 
             variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-20px" }}
-            className="flex gap-8 overflow-x-auto pb-16 pt-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 lg:grid-cols-6"
+            className="flex gap-8 overflow-x-auto pb-16 pt-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-5"
           >
-            {moods.map((mood) => (
+            {moods.map((mood) => {
+              const Icon = iconMap[mood.id] || Circle;
+              return (
               <motion.div 
                 key={mood.id} variants={fadeIn}
-                className="min-w-[300px] md:min-w-0 flex-1 bg-cream p-10 rounded-xl shadow-luxury border border-aubergine-dark/20 snap-center group hover:shadow-luxury-hover transition-all duration-300 relative overflow-hidden"
+                className="relative min-w-[280px] md:min-w-0 flex-1 bg-gradient-to-b from-[#F9F6F0] to-[#F2EBE3] p-10 rounded-2xl border border-aubergine-dark/[0.05] snap-center group hover:border-aubergine-dark/[0.12] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 flex flex-col h-full"
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ backgroundColor: mood.color }} />
-                <div className="w-16 h-16 rounded-full bg-aubergine/10 flex items-center justify-center text-3xl font-serif text-aubergine-dark mb-8 group-hover:bg-aubergine-dark group-hover:text-cream transition-colors duration-500 origin-left">
-                  {mood.emoji}
+                <div className="mb-8 text-aubergine-dark/30 group-hover:text-aubergine-dark/70 transition-colors duration-500">
+                  <Icon className="w-5 h-5 stroke-[1.5]" />
                 </div>
-                <h4 className="font-serif text-xl md:text-2xl font-semibold mb-4 text-aubergine-dark break-words">{mood.nombre}</h4>
+                <h4 className="font-serif text-xl md:text-2xl font-medium mb-3 text-aubergine-dark tracking-tight break-words">{mood.nombre}</h4>
                 <p className="text-aubergine-dark/60 text-sm leading-[1.8] font-light">{mood.descripcion_corta}</p>
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>
@@ -250,81 +286,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4.5 TESTIMONIOS / PRUEBA SOCIAL */}
-      <section className="py-24 md:py-32 bg-[var(--background)] border-t border-aubergine-dark/10">
+      {/* 4.5. RECETAS CON SUPERPODERES */}
+      <section className="py-24 bg-[var(--background)] relative">
         <div className="max-w-5xl mx-auto px-6">
-          <motion.div
+          <motion.div 
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-            className="text-center mb-16"
+            className="bg-aubergine-dark rounded-2xl p-12 md:p-32 text-center text-white relative overflow-hidden"
           >
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Lo Dicen Ellos</h2>
-            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark">Historias reales</h3>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {[
-              {
-                quote: "Llevaba meses con bajones de energía a media tarde. Dos semanas siguiendo las recetas de Reset y he dejado el café de las 5.",
-                name: "Laura M.",
-                city: "Madrid",
-                mood: "Reset"
-              },
-              {
-                quote: "Nunca había conectado mis antojos con el nervio vago. Ahora tiene todo el sentido.",
-                name: "Ana P.",
-                city: "Barcelona",
-                mood: "Calma"
-              },
-              {
-                quote: "Las recetas de Focus me salvaron la semana de exámenes. Simple, rico y funcional.",
-                name: "Daniel R.",
-                city: "Valencia",
-                mood: "Focus"
-              },
-              {
-                quote: "A todos nos encantan los snacks nutritivos de la sección Familia. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
-                name: "Marta G.",
-                city: "Sevilla",
-                mood: "Familia"
-              }
-            ].map((t, i) => (
-              <motion.div
-                key={i}
-                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-                transition={{ delay: i * 0.1 }}
-                className="bg-cream rounded-2xl p-8 md:p-10 border border-aubergine-dark/10 shadow-luxury relative"
-              >
-                {/* Badge */}
-                <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-medium uppercase tracking-wider mb-5">
-                  {t.mood}
-                </span>
-
-                {/* Quote */}
-                <div className="text-3xl text-[#C9A84C]/25 font-serif leading-none mb-3">&ldquo;</div>
-                <p className="text-aubergine-dark/70 text-base leading-[1.8] font-light italic mb-6">
-                  {t.quote}
-                </p>
-
-                {/* Author */}
-                <p className="text-sm text-aubergine-dark/40 font-medium">
-                  &mdash; {t.name}, {t.city}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Counter */}
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-            className="text-center"
-          >
-            <p className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-2">+2.400 tests realizados</p>
-            <p className="text-sm text-aubergine-dark/40 font-light">y subiendo cada semana</p>
+            <div className="relative z-10 max-w-3xl mx-auto space-y-12">
+              <div className="text-[11px] font-sans tracking-[0.2em] uppercase text-cream/70">Tu cuerpo sabe</div>
+              <h3 className="text-4xl md:text-6xl font-serif text-cream leading-[1.2]">
+                Hay recetas con superpoderes.<br/>
+                <span className="italic font-light text-cream/80">Y están buenísimas.</span>
+              </h3>
+              <p className="text-white/60 text-lg leading-[1.8] font-light">
+                Nosotros te damos el mejor sabor para romper el ciclo de inflamación y sentirte genial de verdad, usando ingredientes que hablan directamente con tu nervio vago.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* 4.75 QUIÉNES SOMOS */}
+      {/* 4.5 QUIÉNES SOMOS (Ciencia con propósito) */}
       <section id="quienes-somos" className="py-32 md:py-48 bg-cream border-t border-aubergine-dark/10">
         <div className="max-w-5xl mx-auto px-6">
           {/* Header — left aligned */}
@@ -396,6 +379,81 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 4.75 TESTIMONIOS / PRUEBA SOCIAL */}
+      <section className="py-24 md:py-32 bg-[var(--background)] border-t border-aubergine-dark/10">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="text-center mb-16"
+          >
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Lo Dicen Ellos</h2>
+            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark">Historias reales</h3>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            {[
+              {
+                quote: "Llevaba meses con bajones de energía a media tarde. Dos semanas siguiendo las recetas de Reset y he dejado el café de las 5.",
+                name: "Laura M.",
+                city: "Madrid",
+                mood: "Reset"
+              },
+              {
+                quote: "Nunca había conectado mis antojos con el nervio vago. Ahora tiene todo el sentido.",
+                name: "Ana P.",
+                city: "Barcelona",
+                mood: "Calma"
+              },
+              {
+                quote: "Las recetas de Focus me salvaron la semana de exámenes. Simple, rico y funcional.",
+                name: "Daniel R.",
+                city: "Valencia",
+                mood: "Focus"
+              },
+              {
+                quote: "A todos nos encantan los snacks nutritivos de la sección Familia. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
+                name: "Marta G.",
+                city: "Sevilla",
+                mood: "Familia"
+              }
+            ].map((t, i) => (
+              <motion.div
+                key={i}
+                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+                transition={{ delay: i * 0.1 }}
+                className="bg-cream rounded-2xl p-8 md:p-10 border border-aubergine-dark/10 shadow-luxury relative"
+              >
+                {/* Badge */}
+                <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-medium uppercase tracking-wider mb-5">
+                  {t.mood}
+                </span>
+
+                {/* Quote */}
+                <div className="text-3xl text-[#C9A84C]/25 font-serif leading-none mb-3">&ldquo;</div>
+                <p className="text-aubergine-dark/70 text-base leading-[1.8] font-light italic mb-6">
+                  {t.quote}
+                </p>
+
+                {/* Author */}
+                <p className="text-sm text-aubergine-dark/40 font-medium">
+                  &mdash; {t.name}, {t.city}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Subtle Counter */}
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="text-center border-t border-aubergine-dark/[0.05] pt-12 mt-4"
+          >
+            <p className="text-sm md:text-base text-aubergine-dark/50 font-serif italic tracking-wide">
+              Más de 2.400 tests realizados <span className="font-sans not-italic mx-3 opacity-30">•</span> y sumando cada semana
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* 5. PRICING SUMMARY */}
       <section className="py-24 md:py-32 px-6 bg-[var(--background)] border-t border-aubergine-dark/10">
         <div className="max-w-5xl mx-auto">
@@ -411,9 +469,9 @@ export default function Home() {
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Gratuito</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-3">0€</span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test ilimitado, Orientaciones e Inspiración Botánica.</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test ilimitado, orientaciones emocionales y muestra de recetas.</p>
               <Link href="/test" className="mt-auto w-full py-3 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium text-center hover:bg-aubergine-dark/5 transition-colors">
-                Hacer mi test →
+                Haz tu test gratuito →
               </Link>
             </motion.div>
 
@@ -423,9 +481,9 @@ export default function Home() {
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Mensual</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-3">9€<span className="text-base font-light text-aubergine-dark/40">/mes</span></span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso íntegro a Recetas Completas, Gramajes y Biblioteca Familiar.</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso íntegro a todas las recetas funcionales, gramajes e indicaciones precisas.</p>
               <Link href="/pricing" className="mt-auto w-full py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium text-center hover:bg-aubergine-dark/90 transition-colors">
-                Suscribirme →
+                Ver plan mensual →
               </Link>
             </motion.div>
 
@@ -439,9 +497,9 @@ export default function Home() {
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2">Trimestral</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-1">15€<span className="text-base font-light text-aubergine-dark/40">/ 3 meses</span></span>
               <p className="text-sm text-[#C9A84C] font-semibold mb-1">Solo 5€/mes</p>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">El mapa Premium completo para ti y tu Familia, con ahorro del 44%</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">El mapa premium completo de nutrición emocional, con un ahorro del 44%.</p>
               <Link href="/pricing" className="mt-auto w-full py-3.5 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold text-center shadow-lg hover:shadow-xl transition-all">
-                7 días gratis →
+                Ver plan trimestral →
               </Link>
             </motion.div>
           </div>

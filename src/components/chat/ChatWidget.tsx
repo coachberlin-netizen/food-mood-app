@@ -28,10 +28,10 @@ export function ChatWidget() {
   useEffect(() => {
     if (messages.length === 0 && (isOpen || true)) {
       const moodLabel = resultMood ? resultMood.toUpperCase() : null;
-      const greeting = moodLabel 
+      const greeting = moodLabel
         ? `Veo que hoy estás en modo ${moodLabel}. ¿Quieres que te recomiende algo especial?`
         : "Hola, soy tu asistente de Food·Mood. ¿Cómo te sientes hoy?";
-      
+
       setMessages([{ role: "assistant", content: greeting }]);
     }
   }, [resultMood, isOpen]);
@@ -98,15 +98,15 @@ export function ChatWidget() {
           responseContent = `Te sugiero preparar el "${recipe.nombre_es}". Es una opción fantástica para hoy.`;
         }
 
-        setMessages(prev => [...prev, { 
-          role: "assistant", 
+        setMessages(prev => [...prev, {
+          role: "assistant",
           content: responseContent,
-          recipe: recipe 
+          recipe: recipe
         }]);
       } else {
-        setMessages(prev => [...prev, { 
-          role: "assistant", 
-          content: "No he encontrado una receta exacta ahora mismo, pero puedes probar explorando el catálogo completo." 
+        setMessages(prev => [...prev, {
+          role: "assistant",
+          content: "No he encontrado una receta exacta ahora mismo, pero puedes probar explorando el catálogo completo."
         }]);
       }
     } catch (err) {
@@ -158,33 +158,32 @@ export function ChatWidget() {
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 flex flex-col gap-4 scrollbar-hide">
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[85%] rounded-2xl p-4 text-sm font-light leading-relaxed ${
-                    msg.role === "user" 
-                      ? "bg-aubergine text-white rounded-tr-none" 
+                  <div className={`max-w-[85%] rounded-2xl p-4 text-sm font-light leading-relaxed ${msg.role === "user"
+                      ? "bg-aubergine text-white rounded-tr-none"
                       : "bg-white border border-aubergine-dark/10 text-aubergine-dark/80 rounded-tl-none shadow-sm"
-                  }`}>
+                    }`}>
                     {msg.content}
 
                     {msg.recipe && (
                       <div className="mt-4 pt-4 border-t border-aubergine-dark/5 space-y-3">
                         <h4 className="font-serif font-black text-aubergine-dark">{msg.recipe.nombre_es}</h4>
                         <p className="text-[11px] text-aubergine-dark/60 line-clamp-3">{msg.recipe.nota_food_mood_es}</p>
-                        
+
                         {isPremium ? (
                           <div className="space-y-4 pt-2">
-                             <div className="bg-aubergine-dark/[0.03] p-3 rounded-lg border border-aubergine-dark/5">
-                                <p className="text-[10px] font-bold uppercase tracking-wider mb-2 text-[#C9A84C]">Ingredientes</p>
-                                <ul className="text-[10px] space-y-1">
-                                  {msg.recipe.ingredientes_es?.slice(0, 5).map((ing: any, idx: number) => {
-                                    const text = typeof ing === 'string' ? ing : ing.ingrediente || ing.nombre || "Ingrediente";
-                                    return <li key={idx}>• {text}</li>;
-                                  })}
-                                  {msg.recipe.ingredientes_es?.length > 5 && <li className="opacity-40 italic">Y más...</li>}
-                                </ul>
-                             </div>
-                             <Link href={`/recetas/${msg.recipe.id}`} className="block w-full py-2 bg-aubergine-dark text-white rounded-xl text-center text-xs font-medium">
-                                Ver pasos completos
-                             </Link>
+                            <div className="bg-aubergine-dark/[0.03] p-3 rounded-lg border border-aubergine-dark/5">
+                              <p className="text-[10px] font-bold uppercase tracking-wider mb-2 text-[#C9A84C]">Ingredientes</p>
+                              <ul className="text-[10px] space-y-1">
+                                {msg.recipe.ingredientes_es?.slice(0, 5).map((ing: any, idx: number) => {
+                                  const text = typeof ing === 'string' ? ing : ing.ingrediente || ing.nombre || "Ingrediente";
+                                  return <li key={idx}>• {text}</li>;
+                                })}
+                                {msg.recipe.ingredientes_es?.length > 5 && <li className="opacity-40 italic">Y más...</li>}
+                              </ul>
+                            </div>
+                            <Link href={`/recetas/${msg.recipe.id}`} className="block w-full py-2 bg-aubergine-dark text-white rounded-xl text-center text-xs font-medium">
+                              Ver pasos completos
+                            </Link>
                           </div>
                         ) : (
                           <div className="mt-2 text-center bg-[#C9A84C]/5 p-3 rounded-xl border border-[#C9A84C]/20">

@@ -32,51 +32,65 @@ export default function PricingPage() {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
-
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
     const checkUser = async () => {
-      const supabase = createClient();
-      // Use getSession for immediate client-side session identification
-      const { data: { session } } = await supabase.auth.getSession();
-      const user = session?.user || null;
+      try {
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        const user = session?.user || null;
 
-      if (user) {
-        setIsAuthenticated(true);
-        setUserId(user.id);
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("is_premium")
-          .eq("id", user.id)
-          .single();
-        if (profile?.is_premium === true) {
-          setIsPremium(true);
+        if (user) {
+          setIsAuthenticated(true);
+          setUserId(user.id);
+
+          // Attempt to fetch profile for premium status, but fail gracefully if table is missing/broken
+          const { data: profile, error: profileError } = await supabase
+            .from("user_profiles")
+            .select("is_premium, tier")
+            .eq("user_id", user.id)
+            .single();
+
+          if (!profileError && (profile?.is_premium === true || profile?.tier === 'premium')) {
+            setIsPremium(true);
+          }
         }
+      } catch (err) {
+        console.error("Error checking session:", err);
+      } finally {
+        setIsCheckingAuth(false);
       }
-      setIsCheckingAuth(false);
     };
     checkUser();
   }, [router]);
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
-    if (isCheckingAuth) return;
+    const supabase = createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-    if (!isAuthenticated || !userId) {
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('pendingPlan', plan);
-      }
-      router.push(`/auth/login?redirect=/pricing`);
-      return;
-    }
+    console.log("CLICK user exists:", !!user);
+    if (user) console.log("CLICK user id:", user.id);
+    if (authError) console.log("CLICK auth error:", authError.message);
 
     // Use Price IDs from environment or fallbacks
     const priceId = plan === "quarterly"
       ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
       : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY || "price_1THUGfKAfsMmyDlfym8JQTiC";
 
+    if (!user) {
+      console.log("CLICK redirecting to login");
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('pendingPlan', plan);
+        sessionStorage.setItem('pendingPriceId', priceId);
+      }
+      router.push(`/auth/login?redirect=/pricing`);
+      return;
+    }
+
+    console.log("CLICK starting checkout");
     setIsCheckingOut(true);
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -85,7 +99,7 @@ export default function PricingPage() {
         body: JSON.stringify({ priceId, planType: plan }),
       });
       const data = await res.json();
-      
+
       if (data.url) {
         window.location.href = data.url;
       } else {
@@ -157,9 +171,8 @@ export default function PricingPage() {
                   ) : (
                     <X className="w-4 h-4 text-aubergine-dark/15 shrink-0 mt-0.5" />
                   )}
-                  <span className={`text-sm font-light ${
-                    f.included ? "text-aubergine-dark/50" : "text-aubergine-dark/25"
-                  }`}>
+                  <span className={`text-sm font-light ${f.included ? "text-aubergine-dark/50" : "text-aubergine-dark/25"
+                    }`}>
                     {f.text}
                     {f.premium && !f.included && (
                       <span className="ml-2 text-[9px] font-bold uppercase text-[#C9A84C]/60 tracking-wider">
@@ -216,7 +229,8 @@ export default function PricingPage() {
               </div>
             ) : (
               <button
-                onClick={() => handleCheckout("monthly")}
+                type="button"
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleCheckout("monthly"); }}
                 disabled={isCheckingOut || isCheckingAuth}
                 className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
@@ -279,7 +293,8 @@ export default function PricingPage() {
             ) : (
               <>
                 <button
-                  onClick={() => handleCheckout("quarterly")}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleCheckout("quarterly"); }}
                   disabled={isCheckingOut || isCheckingAuth}
                   className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50"
                 >

@@ -1,10 +1,9 @@
-export type MoodId = 
+export type MoodId =
   | "activacion"
   | "calma"
   | "focus"
   | "social"
-  | "reset"
-  | "familia";
+  | "recuperacion";
 
 export interface MoodState {
   id: MoodId;
