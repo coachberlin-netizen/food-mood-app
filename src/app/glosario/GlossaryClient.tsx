@@ -36,9 +36,9 @@ const MOODS = [
   { id: "calma", label: "Calma" },
   { id: "focus", label: "Focus" },
   { id: "social", label: "Social" },
+  { id: "confort", label: "Confort" },
   { id: "recuperacion", label: "Recuperación" },
-  { id: "reset", label: "Reset" },
-  { id: "confort", label: "Confort" }
+  { id: "reset", label: "Reset" }
 ];
 
 export default function GlossaryClient({ initialData }: { initialData: GlossaryItem[] }) {
@@ -58,6 +58,22 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
       return matchSearch && matchCat && matchMood;
     })
   }, [initialData, search, filterCategory, filterMood])
+
+  const categoryLabels: Record<string, string> = {
+    aceite: "Aceites",
+    fruto_seco: "Frutos secos",
+    proteina: "Proteínas",
+    bebida: "Bebidas",
+    otro: "Otros",
+    especia: "Especias",
+    fruta: "Frutas",
+    verdura: "Verduras",
+    semilla: "Semillas",
+    cereal: "Cereales",
+    legumbre: "Legumbres",
+    fermentado: "Fermentados",
+    hongo: "Hongos",
+  };
 
   return (
     <div className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
@@ -147,7 +163,7 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
                 <div className="h-full bg-transparent border border-[#6B2737]/10 p-8 rounded-[2rem] hover:border-[#6B2737]/30 hover:bg-[#6B2737]/[0.02] transition-all duration-500 shadow-sm hover:shadow-xl relative overflow-hidden flex flex-col">
                   {item.category && (
                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-[10px] uppercase tracking-widest font-bold self-start mb-4">
-                       {CATEGORIES.find(c => c.id.toLowerCase() === item.category.toLowerCase().trim())?.label || item.category}
+                       {categoryLabels[item.category] || item.category}
                      </span>
                   )}
                   <h3 className="text-3xl font-serif text-aubergine-dark group-hover:text-[#6B2737] transition-colors mb-4">{item.name}</h3>
