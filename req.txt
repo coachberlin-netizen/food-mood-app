@@ -1,0 +1,17 @@
+[
+  {
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "segmento": "adulto"
+  },
+  {
+    "sexo": "unisex",
+    "grupo_edad": "31-50",
+    "segmento": "adulto"
+  },
+  {
+    "sexo": "Unisex",
+    "grupo_edad": "31-50",
+    "segmento": "adulto"
+  }
+]
