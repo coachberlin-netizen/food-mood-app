@@ -189,10 +189,10 @@ export default async function GlossaryDetailPage({ params }: { params: { slug: s
                   <h3 className="text-3xl font-serif text-aubergine-dark">Recetas Food·Mood</h3>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {item.food_mood_recipes.map((recipeSlug: string, i: number) => (
-                    <Link key={i} href={`/recetas/${recipeSlug}`} className="bg-cream border border-[#C9A84C]/20 p-6 rounded-2xl hover:bg-[#C9A84C]/5 transition-colors group flex items-center justify-between">
+                  {item.food_mood_recipes.map((recipe: { id: string; nombre: string }, i: number) => (
+                    <Link key={i} href={`/recetas/${recipe.id}`} className="bg-cream border border-[#C9A84C]/20 p-6 rounded-2xl hover:bg-[#C9A84C]/5 transition-colors group flex items-center justify-between">
                       <span className="text-lg font-serif italic text-aubergine-dark group-hover:text-[#6B2737] transition-colors capitalize">
-                        {recipeSlug.replace(/-/g, ' ')}
+                        {recipe.nombre}
                       </span>
                       <span className="text-[#C9A84C] font-mono text-xl group-hover:translate-x-1 transition-transform">→</span>
                     </Link>
