@@ -22,6 +22,20 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/legal',
+        destination: '/terminos',
+        permanent: true,
+      },
+      {
+        source: '/cookies',
+        destination: '/privacidad',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 export default withPWA(nextConfig);

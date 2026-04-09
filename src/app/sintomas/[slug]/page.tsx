@@ -126,7 +126,6 @@ export default async function SymptomDetailPage({ params }: { params: { slug: st
 
         {/* Upsell Section */}
         <section className={`py-20 px-8 ${isPremium ? 'bg-aubergine-dark/5' : 'bg-aubergine-dark'} rounded-3xl text-center relative overflow-hidden transition-all duration-700`}>
-          {!isPremium && <div className="absolute inset-0 bg-[url('/images/texture-noise.png')] opacity-20 pointer-events-none" />}
           
           <div className="relative z-10 max-w-2xl mx-auto space-y-8">
             <h2 className={`text-3xl md:text-5xl font-serif ${isPremium ? 'text-aubergine-dark' : 'text-cream'}`}>

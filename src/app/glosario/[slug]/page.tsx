@@ -68,7 +68,6 @@ export default async function GlossaryDetailPage({ params }: { params: { slug: s
         {/* Locked State OR Full Content */}
         {isLocked ? (
           <section className="py-24 px-8 md:px-12 bg-[#6B2737] rounded-[2.5rem] text-center relative overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-[url('/images/texture-noise.png')] opacity-20 pointer-events-none mix-blend-overlay" />
             <div className="relative z-10 max-w-2xl mx-auto space-y-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white/90 text-[10px] font-bold uppercase tracking-widest border border-white/20">
                 <Lock className="w-3 h-3" /> Contenido Premium
