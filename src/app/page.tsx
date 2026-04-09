@@ -184,10 +184,16 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
             <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Mapa Emocional</h2>
-            <h3 className="text-4xl md:text-6xl font-serif text-aubergine-dark">Los 6 Estados Food·Mood</h3>
+            <h3 className="text-4xl md:text-6xl font-serif text-aubergine-dark mb-8">Los 6 Estados Food·Mood</h3>
+            
+            {/* Legend / Horizontal Row of dots */}
+            <div className="flex justify-center gap-3">
+              {moods.map((m) => (
+                <div key={m.id} className="w-2.5 h-2.5 rounded-full opacity-60" style={{ backgroundColor: m.color }} />
+              ))}
+            </div>
           </motion.div>
         </div>
-
         <div className="max-w-[1400px] mx-auto px-6 overflow-hidden">
           <motion.div 
             variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-20px" }}
@@ -196,14 +202,26 @@ export default function Home() {
             {moods.map((mood) => (
               <motion.div 
                 key={mood.id} variants={fadeIn}
-                className="min-w-[300px] md:min-w-0 flex-1 bg-cream p-10 rounded-xl shadow-luxury border border-aubergine-dark/20 snap-center group hover:shadow-luxury-hover transition-all duration-300 relative overflow-hidden"
+                className="min-w-[300px] md:min-w-0 flex-1 bg-cream p-10 rounded-xl shadow-luxury border border-aubergine-dark/10 border-l-[3px] snap-center group hover:shadow-luxury-hover hover:border-l-[5px] transition-all duration-300 relative overflow-hidden"
+                style={{ borderLeftColor: mood.color }}
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ backgroundColor: mood.color }} />
-                <div className="w-16 h-16 rounded-full bg-aubergine/10 flex items-center justify-center text-3xl font-serif text-aubergine-dark mb-8 group-hover:bg-aubergine-dark group-hover:text-cream transition-colors duration-500 origin-left">
-                  {mood.emoji}
+                {/* Background glow on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500" style={{ backgroundColor: mood.color }} />
+                
+                {/* Mood Header: Dot + Name */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div 
+                    className="w-4 h-4 rounded-full transition-transform duration-300 group-hover:scale-[1.3] shrink-0" 
+                    style={{ backgroundColor: mood.color }}
+                  />
+                  <h4 className="font-serif text-xl md:text-2xl font-semibold text-aubergine-dark break-words">
+                    {mood.nombre}
+                  </h4>
                 </div>
-                <h4 className="font-serif text-xl md:text-2xl font-semibold mb-4 text-aubergine-dark break-words">{mood.nombre}</h4>
-                <p className="text-aubergine-dark/60 text-sm leading-[1.8] font-light">{mood.descripcion_corta}</p>
+                
+                <p className="text-aubergine-dark/60 text-sm leading-[1.8] font-light italic">
+                  &ldquo;{mood.descripcion_corta}&rdquo;
+                </p>
               </motion.div>
             ))}
           </motion.div>
