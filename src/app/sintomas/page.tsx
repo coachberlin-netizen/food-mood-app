@@ -5,12 +5,77 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 const sintomas = [
-  { emoji: "😴", titulo: "Cansancio", subtexto: "Sin energía aunque duermas. Tu microbiota pide hierro, B12 y adaptógenos.", slug: "cansancio" },
-  { emoji: "😰", titulo: "Ansiedad", subtexto: "Sistema nervioso en alerta. Triptófano, magnesio y fermentados al rescate.", slug: "ansiedad" },
-  { emoji: "🌙", titulo: "Insomnio", subtexto: "El sueño empieza en el intestino. GABA, melatonina precursora y calma digestiva.", slug: "insomnio" },
-  { emoji: "🍽️", titulo: "Hambre constante", subtexto: "No es falta de voluntad. Es tu microbiota pidiendo fibra y grasas buenas.", slug: "hambre-constante" },
-  { emoji: "🧠", titulo: "Niebla mental", subtexto: "El cerebro necesita ácidos grasos omega-3 y un intestino que no inflame.", slug: "niebla-mental" },
-  { emoji: "🔥", titulo: "Inflamación silenciosa", subtexto: "La raíz de casi todo. Polifenoles, cúrcuma y el poder del color en el plato.", slug: "inflamacion-silenciosa" }
+  { 
+    icon: (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="8" y="16" width="28" height="16" rx="2" />
+        <path d="M36 21V27" />
+        <rect x="12" y="20" width="6" height="8" rx="1" className="fill-[#6B2737]/20 group-hover:fill-[#C9A84C]/20 transition-colors" />
+        <path d="M10 38 Q 24 32 38 38" />
+      </svg>
+    ), 
+    titulo: "Cansancio", 
+    subtexto: "Sin energía aunque duermas. Tu microbiota pide hierro, B12 y adaptógenos.", 
+    slug: "cansancio" 
+  },
+  { 
+    icon: (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M24 24c0-4.418-3.582-8-8-8s-8 3.582-8 8 3.582 8 8 8c8.837 0 16-7.163 16-16s-7.163-16-16-16" />
+        <path d="M32 32c0 4.418 3.582 8 8 8" />
+      </svg>
+    ), 
+    titulo: "Ansiedad", 
+    subtexto: "Sistema nervioso en alerta. Triptófano, magnesio y fermentados al rescate.", 
+    slug: "ansiedad" 
+  },
+  { 
+    icon: (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 16C14 24.8366 21.1634 32 30 32C31.3915 32 32.7381 31.8227 34.0202 31.487C31.5478 35.4857 27.086 38.1667 22 38.1667C14.268 38.1667 8 31.8987 8 24.1667C8 17.6534 12.4277 12.1729 18.4357 10.5337C15.5901 11.9674 14 14.3039 14 16Z" />
+        <path d="M38 10L38 14M36 12L40 12" />
+        <path strokeDasharray="3 3" d="M30 6 L 31 8" />
+      </svg>
+    ), 
+    titulo: "Insomnio", 
+    subtexto: "El sueño empieza en el intestino. GABA, melatonina precursora y calma digestiva.", 
+    slug: "insomnio" 
+  },
+  { 
+    icon: (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="24" cy="24" r="18" />
+        <path d="M24 24c2.209 0 4-1.791 4-4s-1.791-4-4-4-4 1.791-4 4 1.791 4 4 4zm0 0c-4.418 0-8 3.582-8 8" />
+      </svg>
+    ), 
+    titulo: "Hambre constante", 
+    subtexto: "No es falta de voluntad. Es tu microbiota pidiendo fibra y grasas buenas.", 
+    slug: "hambre-constante" 
+  },
+  { 
+    icon: (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 32C8.68629 32 6 29.3137 6 26C6 23.1113 8.0416 20.7001 10.748 20.1416C11.5204 14.4344 16.4526 10 22.4 10C27.4227 10 31.7109 13.1251 33.3917 17.5304C34.2052 17.1852 35.0805 17 36 17C40.4183 17 44 20.5817 44 25C44 29.4183 40.4183 33 36 33" />
+        <path strokeDasharray="3 5" d="M14 26H34" />
+        <path strokeDasharray="3 5" d="M18 30H30" />
+      </svg>
+    ), 
+    titulo: "Niebla mental", 
+    subtexto: "El cerebro necesita ácidos grasos omega-3 y un intestino que no inflame.", 
+    slug: "niebla-mental" 
+  },
+  { 
+    icon: (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="24" cy="24" r="4" />
+        <circle cx="24" cy="24" r="10" opacity="0.6" />
+        <circle cx="24" cy="24" r="16" opacity="0.3" />
+      </svg>
+    ), 
+    titulo: "Inflamación silenciosa", 
+    subtexto: "La raíz de casi todo. Polifenoles, cúrcuma y el poder del color en el plato.", 
+    slug: "inflamacion-silenciosa" 
+  }
 ]
 
 export default function SintomasPage() {
@@ -50,8 +115,8 @@ export default function SintomasPage() {
             >
               <Link href={`/sintomas/${sintoma.slug}`} className="group block h-full">
                 <div className="bg-[#F5F0E8] border border-[#6B2737]/20 p-10 md:p-12 rounded-2xl h-full transition-all duration-500 hover:shadow-[0_12px_40px_-8px_rgba(201,168,76,0.25)] hover:scale-[1.02] relative overflow-hidden flex flex-col justify-start">
-                  <div className="text-5xl mb-8 transform transition-transform group-hover:scale-110 group-hover:rotate-6 duration-500 origin-left">
-                    {sintoma.emoji}
+                  <div className="mb-8 transform transition-all duration-500 origin-left">
+                    {sintoma.icon}
                   </div>
                   <h3 className="text-2xl md:text-3xl font-serif font-semibold text-aubergine-dark mb-4 group-hover:text-[#6B2737] transition-colors">
                     {sintoma.titulo}
