@@ -62,33 +62,11 @@ function LoginForm() {
 
       // Read redirect parameter from URL, default to /dashboard
       const redirectTo = searchParams.get('redirect') || '/dashboard';
-      
-      // Step 2: Post-login redirect to Stripe if pendingPlan exists
-      if (typeof window !== 'undefined') {
-        const pendingPlan = sessionStorage.getItem('pendingPlan');
-        if (pendingPlan) {
-          try {
-            const res = await fetch('/api/checkout', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ plan: pendingPlan }),
-            });
-            const { url } = await res.json();
-            sessionStorage.removeItem('pendingPlan');
-            if (url) {
-              window.location.href = url;
-              return;
-            }
-          } catch (err) {
-            console.error("Error creating checkout session after login:", err);
-            // Fallback to normal redirect if checkout fails
-          }
-        }
-      }
 
       await new Promise(resolve => setTimeout(resolve, 100));
       router.replace(redirectTo);
       router.refresh();
+
     } else {
       setLoading(false);
       setError("Por favor, ingresa tu email y contraseña.");

@@ -64,16 +64,6 @@ export default function PricingPage() {
   }, [router]);
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
-    if (isCheckingAuth) return;
-
-    if (!isAuthenticated || !userId) {
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('pendingPlan', plan);
-      }
-      router.push(`/auth/login?redirect=/pricing`);
-      return;
-    }
-
     // Use Price IDs from environment or fallbacks
     const priceId = plan === "quarterly"
       ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
@@ -92,7 +82,7 @@ export default function PricingPage() {
         window.location.href = data.url;
       } else {
         console.error('Checkout response:', data);
-        alert(`Error al conectar con la pasarela de pago: ${data.error || 'Intêntelo de nuevo más tarde'}`);
+        alert(`Error al conectar con la pasarela de pago: ${data.error || 'Inténtelo de nuevo más tarde'}`);
         setIsCheckingOut(false);
       }
     } catch (err) {
@@ -211,13 +201,13 @@ export default function PricingPage() {
             ) : (
               <button
                 onClick={() => handleCheckout("monthly")}
-                disabled={isCheckingOut || isCheckingAuth}
+                disabled={isCheckingOut}
                 className="w-full py-3.5 rounded-xl bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
-                {isCheckingOut || isCheckingAuth ? (
+                {isCheckingOut ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  isAuthenticated ? "Suscribirme ahora" : "Suscribirme por 9€/mes"
+                  "Suscribirme por 9€/mes"
                 )}
               </button>
             )}
@@ -274,14 +264,14 @@ export default function PricingPage() {
               <>
                 <button
                   onClick={() => handleCheckout("quarterly")}
-                  disabled={isCheckingOut || isCheckingAuth}
+                  disabled={isCheckingOut}
                   className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50"
                 >
-                  {isCheckingOut || isCheckingAuth ? (
+                  {isCheckingOut ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <>
-                      {isAuthenticated ? "Suscribirme ahora" : "Empezar 7 días gratis"}
+                      Empezar por 5€/mes
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}

@@ -30,37 +30,37 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
-    if (!user) {
-      return NextResponse.json(
-        { error: 'unauthenticated', redirect: '/auth/login?redirect=/pricing' },
-        { status: 401 }
-      )
-    }
-
     const protocol = req.headers.get('x-forwarded-proto') || 'http'
     const host = req.headers.get('host') || 'localhost:3000'
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`
 
-    const session = await stripe.checkout.sessions.create({
+    // Build session params — works for both authenticated and guest users
+    const sessionParams: Record<string, unknown> = {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${baseUrl}/dashboard?subscribed=true`,
       cancel_url: `${baseUrl}/pricing`,
-      client_reference_id: user.id,
       allow_promotion_codes: true,
       billing_address_collection: 'auto',
-      customer_email: user.email,
       metadata: {
-        supabase_user_id: user.id,
         plan_type: planType || 'monthly',
+        ...(user ? { supabase_user_id: user.id } : {}),
       },
       subscription_data: {
         metadata: {
-          supabase_user_id: user.id,
           plan_type: planType || 'monthly',
+          ...(user ? { supabase_user_id: user.id } : {}),
         },
       },
-    })
+    }
+
+    // If authenticated, attach user info; otherwise let Stripe collect email
+    if (user) {
+      sessionParams.client_reference_id = user.id
+      sessionParams.customer_email = user.email
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionParams as any)
 
     return NextResponse.json({ url: session.url })
   } catch (err) {
