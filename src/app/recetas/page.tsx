@@ -113,7 +113,7 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
-      whileHover={locked ? {} : { y: -4, boxShadow: "0 8px 24px rgba(63,26,34,0.08)" }}
+      whileHover={{ y: -4, scale: locked ? 1.01 : 1, boxShadow: "0 8px 24px rgba(63,26,34,0.08)" }}
       transition={{ duration: 0.2 }}
       className={`relative bg-cream rounded-2xl border border-aubergine-dark/10 p-6 md:p-7 transition-all duration-200 h-full flex flex-col group overflow-hidden ${
         'cursor-pointer'
@@ -145,14 +145,21 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
         </span>
       </div>
 
-      {/* Lock overlay for free users */}
+      {/* Lock overlay for free users — Visible but gated */}
       {locked && (
-        <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center bg-cream/80 backdrop-blur-[2px]">
-          <Lock className="w-6 h-6 text-[#C9A84C]/50 mb-2" />
-          <span className="text-[11px] text-aubergine-dark/50 font-medium mb-1">Contenido Premium</span>
-          <Link href="/pricing" className="text-[11px] text-[#C9A84C] font-semibold hover:text-[#b8953e] transition-colors">
-            Hazte premium →
-          </Link>
+        <div 
+          className="absolute inset-x-0 bottom-0 top-1/4 flex flex-col items-center justify-end pb-8 bg-gradient-to-t from-cream via-cream/80 to-transparent pointer-events-none"
+        >
+          <div className="flex flex-col items-center pointer-events-auto">
+            <Lock className="w-5 h-5 text-[#C9A84C]/60 mb-2" />
+            <span className="text-[10px] text-aubergine-dark/60 font-semibold uppercase tracking-wider mb-2">Contenido Premium</span>
+            <Link 
+              href="/pricing" 
+              className="px-4 py-2 bg-[#C9A84C] text-white text-[11px] font-bold rounded-lg shadow-sm hover:bg-[#b8953e] hover:scale-105 transition-all"
+            >
+              Suscribirme para ver más →
+            </Link>
+          </div>
         </div>
       )}
     </motion.div>
@@ -170,7 +177,7 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={locked ? {} : { y: -4, boxShadow: "0 12px 32px rgba(201,168,76,0.15)" }}
+      whileHover={{ y: -4, scale: locked ? 1.01 : 1, boxShadow: "0 12px 32px rgba(201,168,76,0.15)" }}
       transition={{ duration: 0.25 }}
       className={`relative bg-gradient-to-br from-[#1a1118] to-[#2a1825] rounded-2xl border border-[#C9A84C]/20 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
         'cursor-pointer'
@@ -212,12 +219,19 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
       </div>
 
       {locked && (
-        <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center bg-[#1a1118]/80 backdrop-blur-[2px]">
-          <Lock className="w-6 h-6 text-[#C9A84C]/50 mb-2" />
-          <span className="text-[11px] text-[#C9A84C]/60 font-medium mb-1">Contenido Premium</span>
-          <Link href="/pricing" className="text-[11px] text-[#C9A84C] font-semibold hover:text-[#b8953e] transition-colors">
-            Hazte premium →
-          </Link>
+        <div 
+          className="absolute inset-x-0 bottom-0 top-1/4 flex flex-col items-center justify-end pb-8 bg-gradient-to-t from-[#2a1825] via-[#2a1825]/80 to-transparent pointer-events-none"
+        >
+          <div className="flex flex-col items-center pointer-events-auto">
+            <Lock className="w-5 h-5 text-[#C9A84C]/70 mb-2" />
+            <span className="text-[10px] text-[#C9A84C] font-bold uppercase tracking-widest mb-2">Acceso Exclusivo</span>
+            <Link 
+              href="/pricing" 
+              className="px-4 py-2 bg-[#C9A84C] text-white text-[11px] font-bold rounded-lg shadow-[0_4px_12px_rgba(201,168,76,0.3)] hover:bg-[#b8953e] hover:scale-105 transition-all"
+            >
+              Hacerse Premium →
+            </Link>
+          </div>
         </div>
       )}
     </motion.div>
@@ -236,7 +250,7 @@ function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: bool
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={locked ? {} : { y: -4, boxShadow: "0 12px 32px rgba(99,102,241,0.12)" }}
+      whileHover={{ y: -4, scale: locked ? 1.01 : 1, boxShadow: "0 12px 32px rgba(99,102,241,0.12)" }}
       transition={{ duration: 0.25 }}
       className={`relative bg-gradient-to-br from-[#f0f4ff] to-[#fdf2f8] rounded-2xl border border-indigo-200/40 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
         'cursor-pointer'
@@ -271,12 +285,19 @@ function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: bool
       </div>
 
       {locked && (
-        <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center bg-white/70 backdrop-blur-[2px]">
-          <Lock className="w-6 h-6 text-indigo-400/50 mb-2" />
-          <span className="text-[11px] text-indigo-500/60 font-medium mb-1">Contenido Premium</span>
-          <Link href="/pricing" className="text-[11px] text-[#C9A84C] font-semibold hover:text-[#b8953e] transition-colors">
-            Hazte premium →
-          </Link>
+        <div 
+          className="absolute inset-x-0 bottom-0 top-1/4 flex flex-col items-center justify-end pb-8 bg-gradient-to-t from-[#fdf2f8] via-[#fdf2f8]/80 to-transparent pointer-events-none"
+        >
+          <div className="flex flex-col items-center pointer-events-auto">
+            <Lock className="w-5 h-5 text-indigo-400 mb-2" />
+            <span className="text-[10px] text-indigo-600/60 font-bold uppercase tracking-widest mb-2">Plan Familiar</span>
+            <Link 
+              href="/pricing" 
+              className="px-4 py-2 bg-indigo-600 text-white text-[11px] font-bold rounded-lg shadow-sm hover:bg-indigo-700 hover:scale-105 transition-all"
+            >
+              Activar Acceso →
+            </Link>
+          </div>
         </div>
       )}
     </motion.div>
