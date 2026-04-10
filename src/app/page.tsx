@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button"
 import { createClient } from "@/lib/supabase/client"
 
 import { moods } from "@/data/moods"
-import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical } from "lucide-react"
+import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical, Loader2, CheckCircle2 } from "lucide-react"
 import { useRef, useState } from "react"
 
 export default function Home() {
@@ -93,9 +93,16 @@ export default function Home() {
             </motion.div>
 
             {/* Newsletter CTA */}
-            <motion.div variants={fadeIn} className="w-full max-w-md">
+            <motion.div variants={fadeIn} className="w-full max-w-md h-12 flex items-center justify-center">
               {nlSent ? (
-                <p className="text-sm text-[#C9A84C] font-medium">✓ ¡Suscrito! Recibirás tu primera receta esta semana.</p>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-2 px-6 py-3 bg-[#C9A84C]/10 border border-[#C9A84C]/20 rounded-xl text-[#C9A84C] font-medium shadow-sm"
+                >
+                  <CheckCircle2 className="w-5 h-5" />
+                  <span>¡Suscrito con éxito!</span>
+                </motion.div>
               ) : (
                 <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row items-center gap-2">
                   <p className="text-[12px] text-cream/40 font-light mb-1 sm:mb-0 w-full text-center sm:text-left">
@@ -109,16 +116,23 @@ export default function Home() {
                         value={nlEmail}
                         onChange={(e) => setNlEmail(e.target.value)}
                         placeholder="tu email"
-                        className="w-full sm:w-48 pl-9 pr-3 py-2.5 rounded-lg bg-cream/10 border border-cream/15 text-cream text-xs placeholder:text-cream/25 focus:outline-none focus:ring-1 focus:ring-[#C9A84C]/40"
+                        className="w-full sm:w-48 pl-9 pr-3 py-2.5 rounded-lg bg-cream/10 border border-cream/15 text-white text-xs placeholder:text-cream/25 focus:outline-none focus:ring-1 focus:ring-[#C9A84C]/40 transition-all"
+                        required
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={nlLoading}
-                      className="px-4 py-2.5 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5 shrink-0 disabled:opacity-50"
+                      className="px-6 py-2.5 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2 shrink-0 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg hover:shadow-[#C9A84C]/20 active:scale-95 min-w-[110px] justify-center"
                     >
-                      <Send className="w-3 h-3" />
-                      Suscribirse
+                      {nlLoading ? (
+                        <Loader2 className="w-4 h-4 animate-spin text-white" />
+                      ) : (
+                        <>
+                          <Send className="w-3 h-3" />
+                          Suscribirse
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -283,26 +297,18 @@ export default function Home() {
             {[
               {
                 quote: "Llevaba meses con bajones de energía a media tarde. Dos semanas siguiendo las recetas de Reset y he dejado el café de las 5.",
-                name: "Laura M.",
-                city: "Madrid",
                 mood: "Reset"
               },
               {
                 quote: "Nunca había conectado mis antojos con el nervio vago. Ahora tiene todo el sentido.",
-                name: "Ana P.",
-                city: "Barcelona",
                 mood: "Calma"
               },
               {
                 quote: "Las recetas de Focus me salvaron la semana de exámenes. Simple, rico y funcional.",
-                name: "Daniel R.",
-                city: "Valencia",
                 mood: "Focus"
               },
               {
                 quote: "A todos nos encantan los snacks nutritivos de la sección Familia. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
-                name: "Marta G.",
-                city: "Sevilla",
                 mood: "Familia"
               }
             ].map((t, i) => (
@@ -319,13 +325,8 @@ export default function Home() {
 
                 {/* Quote */}
                 <div className="text-3xl text-[#C9A84C]/25 font-serif leading-none mb-3">&ldquo;</div>
-                <p className="text-aubergine-dark/70 text-base leading-[1.8] font-light italic mb-6">
+                <p className="text-aubergine-dark/70 text-base leading-[1.8] font-light italic">
                   {t.quote}
-                </p>
-
-                {/* Author */}
-                <p className="text-sm text-aubergine-dark/40 font-medium">
-                  &mdash; {t.name}, {t.city}
                 </p>
               </motion.div>
             ))}
@@ -336,81 +337,33 @@ export default function Home() {
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
             className="text-center"
           >
-            <p className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-2">+2.400 tests realizados</p>
-            <p className="text-sm text-aubergine-dark/40 font-light">y subiendo cada semana</p>
+            <p className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-2">+200 tests realizados</p>
+            <p className="text-sm text-aubergine-dark/40 font-light italic">Impacto real en la comunidad</p>
           </motion.div>
         </div>
       </section>
 
-      {/* 4.75 QUIÉNES SOMOS */}
+      {/* 4.75 QUIÉNES SOMOS (RESUMEN) */}
       <section id="quienes-somos" className="py-32 md:py-48 bg-cream border-t border-aubergine-dark/10">
         <div className="max-w-5xl mx-auto px-6">
-          {/* Header — left aligned */}
           <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-            className="mb-20"
+            className="mb-16 text-center"
           >
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Quiénes Somos</h2>
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Equipo</h2>
             <h3 className="text-4xl md:text-6xl font-serif italic text-aubergine-dark mb-8 leading-[1.2]">Ciencia con propósito</h3>
-            <p className="text-base md:text-lg text-aubergine-dark/60 font-light leading-[1.8] max-w-3xl">
-              Somos un equipo de psicólogos, tecnólogos alimentarios y especialistas en longevidad y envejecimiento saludable, con más de 10 años de experiencia clínica e investigadora en el eje intestino-cerebro.
+            <p className="text-base md:text-lg text-aubergine-dark/60 font-light leading-[1.8] max-w-3xl mx-auto">
+              Somos un equipo multidisciplinar de psicólogos y tecnólogos alimentarios con más de 10 años de experiencia clínica. Nuestra misión es unir la neurociencia con el bienestar diario a través de la nutrición funcional.
             </p>
           </motion.div>
-
-          {/* 3 Pillar Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
-            {[
-              {
-                icon: Brain,
-                title: "Psicología y neurociencia",
-                text: "Especialistas en conducta alimentaria, psicobióticos y el impacto del estrés en el eje intestino-cerebro."
-              },
-              {
-                icon: Leaf,
-                title: "Tecnología alimentaria",
-                text: "Formulación funcional, microbiota y diseño de recetas con ingredientes de eficacia demostrada."
-              },
-              {
-                icon: Hourglass,
-                title: "Longevidad y envejecimiento saludable",
-                text: "Nutrición antienvejecimiento y gerontología nutricional basada en evidencia científica publicada."
-              }
-            ].map((pillar, i) => (
-              <motion.div
-                key={i}
-                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-                transition={{ delay: i * 0.12 }}
-                className="bg-cream rounded-xl shadow-luxury hover:shadow-luxury-hover border border-aubergine-dark/8 p-10 md:p-12 transition-all duration-300 group"
-              >
-                <div className="w-14 h-14 rounded-2xl bg-aubergine-dark/5 flex items-center justify-center mb-8 group-hover:bg-aubergine-dark/10 transition-colors duration-300">
-                  <pillar.icon className="w-6 h-6 text-aubergine-dark/60" />
-                </div>
-                <h4 className="font-serif text-xl font-semibold text-aubergine-dark mb-4 leading-snug">{pillar.title}</h4>
-                <p className="text-aubergine-dark/55 text-sm leading-[1.8] font-light">{pillar.text}</p>
-              </motion.div>
-            ))}
+          
+          <div className="flex justify-center">
+            <Link href="/quienes-somos">
+              <Button variant="outline" className="border-aubergine-dark/20 text-aubergine-dark hover:bg-aubergine-dark/5 px-8">
+                Conocer la historia completa <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
           </div>
-
-          {/* Evidence block */}
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-            className="rounded-xl bg-aubergine-dark/[0.03] border border-aubergine-dark/10 p-10 md:p-12 flex gap-6 items-start"
-          >
-            <div className="w-12 h-12 rounded-xl bg-aubergine-dark/5 flex items-center justify-center shrink-0">
-              <FlaskConical className="w-5 h-5 text-aubergine-dark/50" />
-            </div>
-            <div>
-              <h4 className="font-serif text-lg font-semibold text-aubergine-dark mb-2">
-                Todo está basado en evidencia científica publicada
-              </h4>
-              <p className="text-aubergine-dark/55 text-sm leading-[1.8] font-light mb-3">
-                No tendencias. No creencias. Cada recomendación de Food·Mood se apoya en investigación revisada por pares sobre neurociencia nutricional, microbiota y longevidad.
-              </p>
-              <a href="#referencias" className="text-sm font-medium text-aubergine-dark/70 hover:text-aubergine-dark transition-colors inline-flex items-center gap-1.5">
-                Ver referencias científicas <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -470,90 +423,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. REFERENCIAS CIENTÍFICAS */}
-      <section id="referencias" className="py-24 md:py-32 bg-cream border-t border-aubergine-dark/10">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-          >
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Evidencia</h2>
-            <h3 className="text-3xl md:text-4xl font-serif text-aubergine-dark mb-12">Referencias científicas</h3>
-
-            <ol className="space-y-6">
-              {[
-                {
-                  num: 1,
-                  authors: "Mörkl S. et al.",
-                  year: "2020",
-                  title: "Probiotics and the Microbiome-Gut-Brain Axis: Focus on Psychiatry.",
-                  journal: "Current Nutrition Reports.",
-                  url: "https://pubmed.ncbi.nlm.nih.gov/32002813/"
-                },
-                {
-                  num: 2,
-                  authors: "Cryan J.F. et al.",
-                  year: "2019",
-                  title: "The Microbiota-Gut-Brain Axis.",
-                  journal: "Physiological Reviews, 99(4), 1877–2013.",
-                  url: "https://pubmed.ncbi.nlm.nih.gov/31460832/"
-                },
-                {
-                  num: 3,
-                  authors: "Marx W. et al.",
-                  year: "2025",
-                  title: "Food and Mood: Current Evidence on Mental Health and the Microbiota-Gut-Brain Axis.",
-                  journal: "Current Psychiatry Reports, 27(11), 632–641.",
-                  url: "https://mdanderson.elsevierpure.com/en/publications/food-and-mood-current-evidence-on-mental-health-and-the-microbiot/"
-                },
-                {
-                  num: 4,
-                  authors: "Badal V.D. et al.",
-                  year: "2020",
-                  title: "The Gut Microbiome, Aging, and Longevity: A Systematic Review.",
-                  journal: "Nutrients, 12(12), 3759.",
-                  url: "https://pubmed.ncbi.nlm.nih.gov/33297486/"
-                },
-                {
-                  num: 5,
-                  authors: "Pan S. et al.",
-                  year: "2025",
-                  title: "Healthy Ageing and Gut Microbiota: A Study on Longevity in Adults.",
-                  journal: "PMC.",
-                  url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12298205/"
-                },
-                {
-                  num: 6,
-                  authors: "Huang C. et al.",
-                  year: "2026",
-                  title: "Aging and the microbiome: implications for health and disease.",
-                  journal: "PMC.",
-                  url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12867172/"
-                }
-              ].map((ref) => (
-                <li key={ref.num} className="text-sm leading-[1.8]">
-                  <span className="text-aubergine-dark/60 font-medium">[{ref.num}]</span>{' '}
-                  <span className="text-aubergine-dark font-semibold">{ref.authors}</span>{' '}
-                  <span className="text-aubergine-dark/70">({ref.year}).</span>{' '}
-                  <span className="text-aubergine-dark/90 italic">&ldquo;{ref.title}&rdquo;</span>{' '}
-                  <span className="text-aubergine-dark/70">{ref.journal}</span>{' '}
-                  <a
-                    href={ref.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-aubergine-dark/80 hover:text-aubergine-dark font-medium transition-colors inline-flex items-center gap-1"
-                  >
-                    → Ver estudio
-                  </a>
-                </li>
-              ))}
-            </ol>
-
-            <p className="mt-12 text-xs text-aubergine-dark/35 font-light leading-[1.8] border-t border-aubergine-dark/10 pt-8">
-              Las referencias científicas se incluyen con fines informativos. Food·Mood no es un servicio médico ni sustituye el consejo de un profesional de la salud.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* SECCIÓN REFERENCIAS ELIMINADA DE HOME (MOVIDA A /QUIENES-SOMOS) */}
       
     </main>
   )
