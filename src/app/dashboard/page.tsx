@@ -27,16 +27,21 @@ export default function DashboardPage() {
   const [weeklyMoods, setWeeklyMoods] = useState<Record<number, string>>({}); // dayOfWeek (1=Mon) -> moodId
   const searchParams = useSearchParams();
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const isSubscribedFromUrl = searchParams.get('subscribed') === 'true' || searchParams.get('success') === 'true';
 
   useEffect(() => {
-    if (mounted && isPremium) {
-      const hasSeen = localStorage.getItem('welcome_shown');
-      const isSubscribedFromUrl = searchParams.get('subscribed') === 'true' || searchParams.get('success') === 'true';
-      if (!hasSeen || isSubscribedFromUrl) {
-        setShowWelcomeModal(true);
-      }
+    if (!mounted) return;
+    
+    const hasSeen = localStorage.getItem('welcome_shown');
+    // If it's a direct return from payment, forcefully show it (bypassing the isPremium DB check which might be delayed by webhooks)
+    if (isSubscribedFromUrl) {
+      setShowWelcomeModal(true);
+    } 
+    // Otherwise, if they are premium and haven't seen it, show it
+    else if (isPremium && !hasSeen) {
+      setShowWelcomeModal(true);
     }
-  }, [mounted, isPremium, searchParams]);
+  }, [mounted, isPremium, isSubscribedFromUrl]);
 
   const handleCloseWelcome = () => {
     localStorage.setItem('welcome_shown', 'true');
@@ -319,7 +324,7 @@ export default function DashboardPage() {
         <MoodDiary />
 
         {/* 2.5 SUBSCRIPTION / CTA */}
-        {!isAuthenticated ? (
+        {!isAuthenticated && !isSubscribedFromUrl ? (
           /* Not logged in → simple CTA to take test */
           <section className="flex flex-col gap-8">
             <div className="bg-gradient-to-br from-aubergine-dark via-aubergine to-aubergine-dark rounded-[1.5rem] p-10 md:p-12 relative overflow-hidden text-center">
@@ -338,7 +343,7 @@ export default function DashboardPage() {
               </div>
             </div>
           </section>
-        ) : !isPremium ? (
+        ) : !isPremium && !isSubscribedFromUrl ? (
           /* Authenticated + free → show premium upsell */
           <section className="flex flex-col gap-8">
             <div className="flex items-center gap-4">
