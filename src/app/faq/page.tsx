@@ -1,4 +1,10 @@
 import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Preguntas Frecuentes | Food·Mood",
+  description: "Respuestas a tus dudas sobre la nutrición funcional y la conexión intestino-cerebro.",
+};
 
 export default function FAQPage() {
   const faqs = [
@@ -48,7 +54,7 @@ export default function FAQPage() {
     },
     {
       q: "¿Cómo contactar con nuestro equipo?",
-      a: "Nos encantaría leerte. Puedes enviarnos cualquier duda, comentario o logro personal a nuestra bandeja directa (hola@food-mood.com) para recibir apoyo de nuestro equipo de bienestar."
+      a: "Nos encantaría leerte. Puedes enviarnos cualquier duda, comentario o logro personal a nuestra bandeja directa (info@food-mood.app) para recibir apoyo de nuestro equipo de bienestar."
     }
   ];
 

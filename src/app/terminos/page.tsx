@@ -1,5 +1,11 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: "Términos y Condiciones | Food·Mood",
+  description: "Información legal y condiciones de uso de la plataforma Food·Mood.",
+};
 
 export default function TermsPage() {
   return (
@@ -90,7 +96,7 @@ export default function TermsPage() {
               Buzón Abierto
             </h2>
             <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
-              Si has invertido tiempo en leer este descargo completo, te lo agradecemos inmensamente. Para resolver dilemas legales, solicitar aclaraciones sobre cómo tratamos tus procesos digitales de bienestar o simplemente brindarnos perspectivas de valor, siempre encontrarás apoyo cálido de nuestro lado. Contáctanos sin reparo escribiendo directamente un mensaje a nuestra directora legal o al equipo de soporte a través de: <a href="mailto:hello@umyko.com" className="text-[#D4AF37] font-medium hover:underline underline-offset-4">hello@umyko.com</a>.
+              Si has invertido tiempo en leer este descargo completo, te lo agradecemos inmensamente. Para resolver dilemas legales, solicitar aclaraciones sobre cómo tratamos tus procesos digitales de bienestar o simplemente brindarnos perspectivas de valor, siempre encontrarás apoyo cálido de nuestro lado. Contáctanos sin reparo escribiendo directamente un mensaje a nuestra directora legal o al equipo de soporte a través de: <a href="mailto:info@food-mood.app" className="text-[#D4AF37] font-medium hover:underline underline-offset-4">info@food-mood.app</a>.
             </p>
           </section>
 

@@ -1,5 +1,11 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: "Política de Privacidad | Food·Mood",
+  description: "Cómo protegemos tus datos y respetamos tu privacidad en Food·Mood.",
+};
 
 export default function PrivacyPage() {
   return (
@@ -88,7 +94,7 @@ export default function PrivacyPage() {
               7. Conversemos de esto
             </h2>
             <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
-              Sabemos que detrás de los teclados existen ritmos cardíacos y vidas humanas. Si algún párrafo dentro de esta política genera en ti la más mínima incomodidad, confusión, o simplemente deseas ejercer tu control y dictar sin trabas tu derecho al olvido, anhelamos escucharte de cerca. Solo dirígete a nosotros mediante correo electrónico a: <a href="mailto:hello@umyko.com" className="text-[#D4AF37] font-medium hover:underline underlines-offset-4">hello@umyko.com</a>. Una persona empatizando directamente desde nuestro equipo te asistirá cálidamente en minutos.
+              Sabemos que detrás de los teclados existen ritmos cardíacos y vidas humanas. Si algún párrafo dentro de esta política genera en ti la más mínima incomodidad, confusión, o simplemente deseas ejercer tu control y dictar sin trabas tu derecho al olvido, anhelamos escucharte de cerca. Solo dirígete a nosotros mediante correo electrónico a: <a href="mailto:info@food-mood.app" className="text-[#D4AF37] font-medium hover:underline underlines-offset-4">info@food-mood.app</a>. Una persona empatizando directamente desde nuestro equipo te asistirá cálidamente en minutos.
             </p>
           </section>
 
