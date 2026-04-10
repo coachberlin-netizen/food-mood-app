@@ -1,13 +1,15 @@
+"use client"
+
 import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { Brain, Leaf, Hourglass, FlaskConical, ArrowRight, ShieldCheck, Heart, Sparkles, Send, Search } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 
-// SEO Metadata (Client component fallback - usually handled in layout or parent)
-// title: "Quiénes Somos | Food·Mood — Ciencia con propósito"
-
 export default function QuienesSomosPage() {
+  const [activeCategory, setActiveCategory] = useState("Todas")
+  const [searchQuery, setSearchQuery] = useState("")
+
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -77,6 +79,18 @@ export default function QuienesSomosPage() {
       url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12867172/"
     }
   ];
+
+  const categories = ["Todas", ...Array.from(new Set(references.map(r => r.category)))]
+
+  const filteredReferences = useMemo(() => {
+    return references.filter(ref => {
+      const matchesCategory = activeCategory === "Todas" || ref.category === activeCategory
+      const matchesSearch = searchQuery === "" ||
+        ref.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ref.authors.toLowerCase().includes(searchQuery.toLowerCase())
+      return matchesCategory && matchesSearch
+    })
+  }, [activeCategory, searchQuery])
 
   return (
     <main className="min-h-screen bg-[var(--background)] font-sans font-light selection:bg-gold/20 selection:text-aubergine-dark">
