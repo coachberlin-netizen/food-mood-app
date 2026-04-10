@@ -111,24 +111,34 @@ export default function DashboardPage() {
       const keyword = MOOD_KEYWORD[moodId] || 'Social';
 
       // First try: mood-matching free recipe
-      let { data, count } = await supabase
+      let queryCount = supabase
         .from('recetas')
         .select('id', { count: 'exact' })
         .ilike('mood_es', `%${keyword}%`)
         .eq('segmento', 'adulto')
-        .eq('premium_level', 0)
         .limit(1);
+        
+      if (!isPremium) {
+        queryCount = queryCount.eq('premium_level', 0);
+      }
+
+      let { count } = await queryCount;
 
       // Pick random offset if there are results
       if (count && count > 0) {
         const randomOffset = Math.floor(Math.random() * count);
-        const { data: randomData } = await supabase
+        let queryData = supabase
           .from('recetas')
           .select('id')
           .ilike('mood_es', `%${keyword}%`)
           .eq('segmento', 'adulto')
-          .eq('premium_level', 0)
           .range(randomOffset, randomOffset);
+
+        if (!isPremium) {
+          queryData = queryData.eq('premium_level', 0);
+        }
+
+        const { data: randomData } = await queryData;
         
         if (randomData?.length) {
           router.push(`/recetas/${randomData[0].id}`);
@@ -280,7 +290,7 @@ export default function DashboardPage() {
                   {isLoadingRecipe ? (
                     <><Loader2 className="w-4 h-4 animate-spin" /> Buscando...</>
                   ) : (
-                    <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Receta del hábito</>
+                    <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Déjate inspirar</>
                   )}
                 </button>
                 <Link
