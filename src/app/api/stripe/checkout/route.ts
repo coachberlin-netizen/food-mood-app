@@ -1,3 +1,4 @@
+import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
@@ -35,7 +36,7 @@ export async function POST(req: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`
 
     // Build session params — works for both authenticated and guest users
-    const sessionParams: Record<string, unknown> = {
+    const sessionParams: Stripe.Checkout.SessionCreateParams = {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${baseUrl}/dashboard?subscribed=true`,
@@ -60,12 +61,19 @@ export async function POST(req: NextRequest) {
       sessionParams.customer_email = user.email
     }
 
-    const session = await stripe.checkout.sessions.create(sessionParams as any)
+    const session = await stripe.checkout.sessions.create(sessionParams)
 
     return NextResponse.json({ url: session.url })
   } catch (err) {
-    console.error('[stripe/checkout] Error:', err)
-    const message = err instanceof Error ? err.message : 'Error al crear la sesión de pago'
+    console.error('[stripe/checkout] Critical Error:', err)
+    
+    let message = 'Error al crear la sesión de pago'
+    if (err instanceof Stripe.errors.StripeError) {
+      message = `${err.message} (${err.type}${err.code ? ' - ' + err.code : ''})`
+    } else if (err instanceof Error) {
+      message = err.message
+    }
+
     return NextResponse.json(
       { error: message },
       { status: 500 }
