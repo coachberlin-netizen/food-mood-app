@@ -29,12 +29,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.food-mood.app'),
   title: "Food·Mood — Descubre qué comer según cómo te sientes | Test gratis",
   description: "Test de neurociencia nutricional en 2 minutos. Recetas diseñadas para tu estado emocional: energía, calma, foco y bienestar. Sin dietas. Sin restricciones.",
   keywords: "recetas según estado de ánimo, neurociencia nutricional, psicobióticos, microbiota intestinal, alimentación emocional, recetas funcionales, eje intestino cerebro, bienestar emocional, longevidad alimentación",
   manifest: "/manifest.json",
   alternates: {
-    canonical: "https://www.food-mood.app/",
+    canonical: "/",
   },
   appleWebApp: {
     capable: true,
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     locale: "es_ES",
     images: [
       {
-        url: "https://www.food-mood.app/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Food·Mood — Neurociencia nutricional para tu estado emocional",
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Food·Mood — Come según cómo te sientes",
     description: "Test de neurociencia nutricional en 2 minutos. Recetas funcionales para tu estado emocional.",
-    images: ["https://www.food-mood.app/og-image.jpg"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: "/icons/icon-192.png",
