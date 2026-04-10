@@ -1,8 +1,7 @@
-"use client"
-
-import { motion } from "framer-motion"
+import { useState, useMemo } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { Brain, Leaf, Hourglass, FlaskConical, ArrowRight, ShieldCheck, Heart, Sparkles, Send } from "lucide-react"
+import { Brain, Leaf, Hourglass, FlaskConical, ArrowRight, ShieldCheck, Heart, Sparkles, Send, Search } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 
 // SEO Metadata (Client component fallback - usually handled in layout or parent)
@@ -216,50 +215,87 @@ export default function QuienesSomosPage() {
                 Cada decisión de nuestro algoritmo y cada ingrediente en nuestras recetas se apoya en investigación revisada por pares (peer-reviewed).
               </p>
             </div>
-            {/* Simple Category Badges (static for now as requested) */}
-            <div className="flex flex-wrap gap-2">
-              {["Neurociencia", "Microbiota", "Longevidad"].map(cat => (
-                <span key={cat} className="text-[10px] px-3 py-1 rounded-full border border-aubergine-dark/20 text-aubergine-dark/60 font-medium">
-                  {cat}
-                </span>
-              ))}
+            {/* Category Filter & Search */}
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-wrap gap-2">
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`text-[10px] px-4 py-2 rounded-full border transition-all duration-300 font-medium ${
+                      activeCategory === cat
+                        ? "bg-aubergine-dark text-white border-aubergine-dark shadow-md"
+                        : "border-aubergine-dark/20 text-aubergine-dark/60 hover:border-aubergine-dark/40"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+              
+              <div className="relative max-w-sm">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-aubergine-dark/30" />
+                <input
+                  type="text"
+                  placeholder="Buscar estudio o autor..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-cream border border-aubergine-dark/10 rounded-xl text-sm text-aubergine-dark focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all placeholder:text-aubergine-dark/25"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="space-y-6">
-            {references.map((ref) => (
-              <motion.div
-                key={ref.id}
-                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
-                className="p-6 md:p-8 bg-cream border border-aubergine-dark/10 rounded-2xl hover:shadow-luxury transition-all group"
-              >
-                <div className="flex flex-col md:flex-row gap-6 md:items-start">
-                  <div className="w-10 h-10 rounded-lg bg-aubergine-dark/5 flex items-center justify-center shrink-0">
-                    <span className="text-xs font-bold text-aubergine-dark/40">{ref.id}</span>
-                  </div>
-                  <div className="flex-grow">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-2 block">
-                      {ref.category}
-                    </span>
-                    <h4 className="text-lg md:text-xl font-serif font-semibold text-aubergine-dark mb-2 leading-relaxed">
-                      &ldquo;{ref.title}&rdquo;
-                    </h4>
-                    <p className="text-sm text-aubergine-dark/60 font-light mb-4 leading-relaxed">
-                      {ref.authors} ({ref.year}). <span className="font-medium">{ref.journal}</span>
-                    </p>
-                    <a
-                      href={ref.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-semibold text-aubergine-dark/80 hover:text-aubergine-dark transition-colors group"
-                    >
-                      Explorar estudio científico <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div layout className="space-y-6 min-h-[400px]">
+            <AnimatePresence mode="popLayout">
+              {filteredReferences.length > 0 ? (
+                filteredReferences.map((ref) => (
+                  <motion.div
+                    key={ref.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                    className="p-6 md:p-8 bg-cream border border-aubergine-dark/10 rounded-2xl hover:shadow-luxury transition-all group"
+                  >
+                    <div className="flex flex-col md:flex-row gap-6 md:items-start">
+                      <div className="w-10 h-10 rounded-lg bg-aubergine-dark/5 flex items-center justify-center shrink-0">
+                        <span className="text-xs font-bold text-aubergine-dark/40">{ref.id}</span>
+                      </div>
+                      <div className="flex-grow">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-2 block">
+                          {ref.category}
+                        </span>
+                        <h4 className="text-lg md:text-xl font-serif font-semibold text-aubergine-dark mb-2 leading-relaxed">
+                          &ldquo;{ref.title}&rdquo;
+                        </h4>
+                        <p className="text-sm text-aubergine-dark/60 font-light mb-4 leading-relaxed">
+                          {ref.authors} ({ref.year}). <span className="font-medium">{ref.journal}</span>
+                        </p>
+                        <a
+                          href={ref.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-xs font-semibold text-aubergine-dark/80 hover:text-aubergine-dark transition-colors group"
+                        >
+                          Explorar estudio científico <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                        </a>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="py-20 text-center"
+                >
+                  <p className="text-aubergine-dark/40 font-light italic">No se encontraron referencias para tu búsqueda.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
