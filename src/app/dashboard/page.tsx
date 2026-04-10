@@ -9,7 +9,8 @@ import { moods } from "@/data/moods";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Loader2, Sparkles, CheckCircle } from "lucide-react";
+import { Loader2, Sparkles, CheckCircle, X, Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { MoodDiary } from "@/components/dashboard/MoodDiary";
 import { InspirationSection } from "@/components/dashboard/InspirationSection";
 import { PushNotificationBanner } from "@/components/dashboard/PushNotificationBanner";
@@ -25,7 +26,22 @@ export default function DashboardPage() {
   const [isPremium, setIsPremium] = useState(false);
   const [weeklyMoods, setWeeklyMoods] = useState<Record<number, string>>({}); // dayOfWeek (1=Mon) -> moodId
   const searchParams = useSearchParams();
-  const showSuccess = searchParams.get('success') === 'true';
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+
+  useEffect(() => {
+    if (mounted && isPremium) {
+      const hasSeen = localStorage.getItem('welcome_shown');
+      const isSubscribedFromUrl = searchParams.get('subscribed') === 'true' || searchParams.get('success') === 'true';
+      if (!hasSeen || isSubscribedFromUrl) {
+        setShowWelcomeModal(true);
+      }
+    }
+  }, [mounted, isPremium, searchParams]);
+
+  const handleCloseWelcome = () => {
+    localStorage.setItem('welcome_shown', 'true');
+    setShowWelcomeModal(false);
+  };
 
   // Mood keyword map for Supabase ilike query
   const MOOD_KEYWORD: Record<string, string> = {
@@ -232,16 +248,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-transparent">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
         
-        {/* SUCCESS BANNER after payment */}
-        {showSuccess && (
-          <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-emerald-800 animate-in fade-in">
-            <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
-            <p className="text-sm font-medium">
-              ¡Bienvenida a Food·Mood Premium! Ya tienes acceso a todas las recetas.
-            </p>
-          </div>
-        )}
-
+        {/* Modal handles the success state now */}
         {/* 1. HEADER */}
         <header className="flex flex-col gap-4">
           <p className="font-serif text-2xl font-bold text-aubergine">
@@ -563,6 +570,68 @@ export default function DashboardPage() {
         <PushNotificationBanner />
 
       </div>
+
+      {/* MODAL WELCOME PREMIUM */}
+      <AnimatePresence>
+        {showWelcomeModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }} 
+              className="absolute inset-0 bg-aubergine-dark/80 backdrop-blur-sm"
+              onClick={handleCloseWelcome}
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-2xl bg-gradient-to-br from-[#1a1118] via-[#2a1825] to-[#1a1118] rounded-[2rem] p-8 md:p-12 shadow-2xl border border-[#C9A84C]/20 overflow-hidden"
+            >
+              <button 
+                onClick={handleCloseWelcome}
+                className="absolute top-6 right-6 text-cream/40 hover:text-cream transition-colors z-20"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-[80px]" />
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#C2714F]/10 rounded-full blur-[60px]" />
+              
+              <div className="relative flex flex-col items-center text-center gap-6 z-10">
+                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20">
+                  <Star className="w-4 h-4 fill-[#C9A84C]" /> Premium Activado
+                </span>
+                
+                <h2 className="text-3xl md:text-5xl font-serif font-black text-cream/95 leading-tight drop-shadow-sm">
+                  Enhorabuena.<br/>Aquí empieza tu viaje.
+                </h2>
+                
+                <p className="text-cream/60 font-light text-base md:text-lg max-w-md mx-auto leading-relaxed">
+                  Estás a un paso de un verdadero conocimiento de ti mismo a través de la neurociencia nutricional. Descubre cómo tu alimentación puede transformar tu mente.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 w-full mt-6 justify-center">
+                  <Link 
+                    href="/test" 
+                    onClick={handleCloseWelcome}
+                    className="inline-flex items-center justify-center px-8 py-4 bg-[#C9A84C] text-white text-sm font-bold rounded-full shadow-lg hover:bg-[#b8953e] hover:scale-105 transition-all"
+                  >
+                    Hacer mi primer test →
+                  </Link>
+                  <Link 
+                    href="/recetas" 
+                    onClick={handleCloseWelcome}
+                    className="inline-flex items-center justify-center px-8 py-4 border border-[#C9A84C]/40 text-cream text-sm font-medium rounded-full hover:bg-cream/5 transition-all"
+                  >
+                    Explorar mis recetas
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
