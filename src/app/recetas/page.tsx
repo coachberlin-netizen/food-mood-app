@@ -43,14 +43,9 @@ const CHEF_STYLE: Record<string, string> = {
 /* ── Profile filter options ───────────────────────────────────── */
 const ADULT_PROFILES = [
   { label: "Todos", sexo: "", edad: "", premiumLevel: "" },
-  { label: "Mujeres 18-30", sexo: "mujer", edad: "18-30", premiumLevel: "" },
-  { label: "Mujeres 31-44", sexo: "mujer", edad: "31-44", premiumLevel: "" },
-  { label: "Mujeres 45-60", sexo: "mujer", edad: "45-60", premiumLevel: "" },
-  { label: "Mujeres 60+",   sexo: "mujer", edad: "60+",   premiumLevel: "" },
-  { label: "Hombres 18-30", sexo: "hombre", edad: "18-30", premiumLevel: "" },
-  { label: "Hombres 31-44", sexo: "hombre", edad: "31-44", premiumLevel: "" },
-  { label: "Hombres 45-60", sexo: "hombre", edad: "45-60", premiumLevel: "" },
-  { label: "Hombres 60+",   sexo: "hombre", edad: "60+",   premiumLevel: "" },
+  { label: "Mujeres", sexo: "mujer", edad: "", premiumLevel: "" },
+  { label: "Mujeres +45", sexo: "mujer", edad: "45-60,60+", premiumLevel: "" },
+  { label: "Hombres", sexo: "hombre", edad: "", premiumLevel: "" },
   { label: "Chef / Exclusivo", sexo: "", edad: "", premiumLevel: "2" },
 ] as const;
 

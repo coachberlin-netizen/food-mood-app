@@ -38,7 +38,11 @@ export async function GET(req: NextRequest) {
     }
 
     if (edad) {
-      query = query.eq('grupo_edad', edad)
+      if (edad.includes(',')) {
+        query = query.in('grupo_edad', edad.split(','))
+      } else {
+        query = query.eq('grupo_edad', edad)
+      }
     }
 
     if (mood) {
