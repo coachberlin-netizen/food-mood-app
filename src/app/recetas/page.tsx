@@ -316,14 +316,31 @@ function SmartCard({ receta, isPremium }: { receta: Receta; isPremium: boolean }
 }
 
 /* ── Pill Button ──────────────────────────────────────────────── */
-function Pill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function Pill({ active, isChef, onClick, children }: { active: boolean; isChef?: boolean; onClick: () => void; children: React.ReactNode }) {
+  const baseClasses = "shrink-0 px-5 py-2 rounded-full text-[11px] font-medium tracking-[0.08em] uppercase transition-all duration-150 border whitespace-nowrap";
+  
+  if (isChef) {
+    return (
+      <button
+        onClick={onClick}
+        className={`${baseClasses} ${
+          active
+            ? "bg-[#C9A84C] text-[#1a1118] border-transparent"
+            : "bg-[#FAF8F4] text-[#C9A84C] border-[#C9A84C] hover:bg-[#C9A84C]/10"
+        }`}
+      >
+        {children}
+      </button>
+    );
+  }
+
   return (
     <button
       onClick={onClick}
-      className={`shrink-0 px-4 py-2 rounded-xl text-xs font-medium transition-all duration-200 border whitespace-nowrap ${
+      className={`${baseClasses} ${
         active
-          ? "bg-aubergine-dark text-cream border-aubergine-dark"
-          : "bg-cream text-aubergine-dark/60 border-aubergine-dark/10 hover:border-aubergine-dark/25"
+          ? "bg-aubergine-dark text-white border-transparent"
+          : "bg-[#FAF8F4] text-aubergine-dark/70 border-aubergine-dark/20 hover:border-aubergine-dark hover:text-aubergine-dark"
       }`}
     >
       {children}
@@ -582,7 +599,7 @@ function RecetasContent() {
               <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
                 {segmento === "adulto" ? (
                   ADULT_PROFILES.map((p, i) => (
-                    <Pill key={i} active={profileIdx === i} onClick={() => { setProfileIdx(i); setPage(1); }}>
+                    <Pill key={i} active={profileIdx === i} isChef={p.label === "Chef / Exclusivo"} onClick={() => { setProfileIdx(i); setPage(1); }}>
                       {p.label}
                     </Pill>
                   ))
