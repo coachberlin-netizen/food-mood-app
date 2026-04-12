@@ -292,7 +292,7 @@ export default function Home() {
           >
             <BookOpen className="w-6 h-6 text-aubergine-dark/30" />
             <p className="text-sm text-aubergine-dark/50 leading-[1.8] font-light">
-              Las explicaciones científicas de Food·Mood son simplificaciones divulgativas. Nuestro objetivo es traducir la investigación sobre el eje intestino-cerebro a un lenguaje claro y útil — no sustituir la literatura académica ni la opinión de profesionales.
+              Food·Mood es una herramienta de autoconocimiento emocional a través de la alimentación funcional. No sustituye ninguna terapia psicológica, médica ni nutricional profesional. Lo que sí hace es ayudarte a escuchar lo que tu cuerpo pide — y responderle con ciencia, placer y comida real.
             </p>
           </motion.div>
         </div>
@@ -367,7 +367,7 @@ export default function Home() {
             className="mb-16 text-center"
           >
             <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Equipo</h2>
-            <h3 className="text-4xl md:text-6xl font-serif italic text-aubergine-dark mb-8 leading-[1.2]">Ciencia con propósito</h3>
+            <h3 className="text-4xl md:text-6xl font-serif italic text-aubergine-dark mb-8 leading-[1.2]">Psicología, ciencia y placer con propósito</h3>
             <p className="text-base md:text-lg text-aubergine-dark/60 font-light leading-[1.8] max-w-3xl mx-auto">
               Somos un equipo multidisciplinar de psicólogos y tecnólogos alimentarios con más de 10 años de experiencia clínica. Nuestra misión es unir la neurociencia con el bienestar diario a través de la nutrición funcional.
             </p>
