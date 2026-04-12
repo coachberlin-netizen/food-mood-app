@@ -83,22 +83,28 @@ export default function Home() {
               ))}
             </motion.div>
             
-            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 items-center pt-8 w-full justify-center">
-              <Link href="/test" className="w-full sm:w-auto">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
-                  Hacer mi test gratis
-                  <ArrowRight className="ml-3 w-4 h-4" />
-                </Button>
-              </Link>
+            <motion.div variants={fadeIn} className="flex flex-col gap-6 items-center pt-8 w-full justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 items-center">
+                <Link href="/test" className="w-full sm:w-auto">
+                  <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
+                    Hacer mi test gratis
+                    <ArrowRight className="ml-3 w-4 h-4" />
+                  </Button>
+                </Link>
 
-              <div className="flex flex-col items-center">
-                <Link href="/sintomas" style={{color:'#C9A84C',fontSize:'0.9rem'}}>¿Tienes un síntoma concreto? → Encuentra recetas para tu cuerpo</Link>
+                <Link href="/paleta" className="w-full sm:w-auto">
+                  <button 
+                    className="w-full sm:w-auto text-[16px] px-[40px] py-[14px] rounded-[60px] border-[1.5px] border-[#6B2737] bg-transparent text-[#6B2737] font-medium transition-all duration-300 hover:border-[#C9A84C] hover:text-[#C9A84C]"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    Descubre tu color emocional
+                  </button>
+                </Link>
               </div>
 
-              <div className="text-cream/50 text-sm italic font-light px-2 hidden sm:block">o prefiere charlar</div>
-              <button onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})} className="w-full sm:w-auto text-cream/70 hover:text-cream text-sm font-medium transition-colors border border-transparent hover:border-cream/20 bg-cream/5 px-6 py-4 rounded-[8px] flex items-center justify-center gap-2">
-                Abrir chat IA
-              </button>
+              <div className="text-[13px] text-[#7a7974] opacity-60 text-center font-light mt-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                El test te da tu mood. La paleta te da tu color. Elige cómo empezar.
+              </div>
             </motion.div>
 
             {/* Newsletter CTA */}
