@@ -263,7 +263,8 @@ export default function InteractivePalettePage() {
                   width: '40px',
                   height: '40px',
                   borderRadius: '50%',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  zIndex: 50
                 }}
               />
             )}
