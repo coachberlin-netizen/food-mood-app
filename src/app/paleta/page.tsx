@@ -15,6 +15,7 @@ import {
 } from "@/components/palette/PaletteIcons";
 import PaletteResultView from "@/components/palette/PaletteResult";
 import { createClient } from "@/lib/supabase/client";
+import { usePalette } from "@/contexts/PaletteContext";
 import { Lock, Clock, ArrowRight, RotateCcw, Save, Loader2 } from "lucide-react";
 import Link from "next/link";
 
@@ -35,6 +36,7 @@ export default function InteractivePalettePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [paletteResult, setPaletteResult] = useState<PaletteResultType | null>(null);
 
+  const { refreshPalette } = usePalette();
   const supabase = createClient();
 
   // ── Authentication & Status ──────────────────────────────────
@@ -128,6 +130,10 @@ export default function InteractivePalettePage() {
         recetas_sugeridas: recetas.map(r => r.id)
       });
       if (error) throw error;
+      
+      // Update global context immediately
+      await refreshPalette();
+      
       alert("¡Paleta guardada en tu diario!");
     } catch (err) {
       console.error("Error saving palette:", err);
