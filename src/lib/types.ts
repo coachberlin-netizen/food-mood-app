@@ -4,7 +4,7 @@ export type MoodId =
   | "focus"
   | "social"
   | "reset"
-  | "familia";
+  | "confort";
 
 export interface MoodState {
   id: MoodId;

@@ -6,15 +6,7 @@ import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Crown, Sparkles, Sta
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
-/* ── Mood config ─────────────────────────────────────────────── */
-const MOODS = [
-  { id: "activacion",  label: "Activación & Energía",      emoji: "⚡", color: "#D97706", bg: "rgba(217,119,6,0.12)"  },
-  { id: "calma",       label: "Calma & Equilibrio",        emoji: "🌿", color: "#6B8E6B", bg: "rgba(107,142,107,0.12)" },
-  { id: "focus",       label: "Focus & Claridad Mental",   emoji: "🧠", color: "#0D9488", bg: "rgba(13,148,136,0.12)"  },
-  { id: "social",      label: "Social & Placer Compartido", emoji: "🥂", color: "#BE185D", bg: "rgba(190,24,93,0.12)"  },
-  { id: "reset",       label: "Reset & Ligereza",          emoji: "🍋", color: "#65A30D", bg: "rgba(101,163,13,0.12)"  },
-  { id: "familia",     label: "Familia & Niños",         emoji: "🧒", color: "#C2714F", bg: "rgba(194,113,79,0.12)"  },
-] as const;
+import { moods as MOODS } from "@/data/moods";
 
 /* ── Chef → anonymous style map ── */
 const CHEF_STYLE: Record<string, string> = {
@@ -72,6 +64,7 @@ interface Receta {
   chef_inspiracion?: string;
   premium_level?: number;
   segmento?: string;
+  moodId?: string;
 }
 
 interface ApiResponse {
@@ -101,7 +94,7 @@ function SkeletonCard() {
 
 /* ── Recipe Card (standard) ──────────────────────────────────── */
 function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
-  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS[0];
+  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
 
   const card = (
     <motion.div
@@ -114,10 +107,16 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
         'cursor-pointer'
       }`}
     >
-      <div className="flex items-center justify-between mb-4">
+      {/* Mood color indicator */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-[3px] z-20"
+        style={{ backgroundColor: mood.color }}
+      />
+
+      <div className="flex items-center justify-between mb-4 mt-1">
         <span
           className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
-          style={{ color: mood.color, backgroundColor: mood.bg }}
+          style={{ color: mood.color, backgroundColor: mood.colorLight }}
         >
           {mood.emoji} {mood.id}
         </span>
@@ -166,7 +165,7 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
 
 /* ── Michelin Card ────────────────────────────────────────────── */
 function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
-  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS[0];
+  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
 
   const card = (
     <motion.div
@@ -178,9 +177,15 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
         'cursor-pointer'
       }`}
     >
+      {/* Mood color indicator */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-[3px] z-20"
+        style={{ backgroundColor: mood.color }}
+      />
+
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
 
-      <div className="flex items-center justify-between mb-4 relative">
+      <div className="flex items-center justify-between mb-4 relative mt-1">
         <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] border border-[#C9A84C]/20">
           <Star className="w-3 h-3" /> Exclusiva
         </span>
@@ -204,7 +209,7 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
       <div className="mt-auto pt-4 flex items-center gap-2">
         <span
           className="text-[10px] font-medium px-2.5 py-1 rounded-lg border capitalize"
-          style={{ color: mood.color, backgroundColor: `${mood.color}15`, borderColor: `${mood.color}25` }}
+          style={{ color: mood.color, backgroundColor: mood.colorLight, borderColor: `${mood.color}25` }}
         >
           {mood.emoji} {mood.id}
         </span>
@@ -238,7 +243,7 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
 
 /* ── Familia Card ────────────────────────────────────────────────── */
 function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
-  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS[0];
+  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
   const ageEmoji = receta.grupo_edad === '3-7' ? '🧒' : receta.grupo_edad === '8-12' ? '👦' : '🧑';
 
   const card = (
@@ -251,9 +256,15 @@ function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: bool
         'cursor-pointer'
       }`}
     >
+      {/* Mood color indicator */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-[3px] z-20"
+        style={{ backgroundColor: mood.color }}
+      />
+      
       <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-violet-200/30 to-transparent rounded-full blur-2xl" />
 
-      <div className="flex items-center justify-between mb-4 relative">
+      <div className="flex items-center justify-between mb-4 relative mt-1">
         <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-600 border border-indigo-200/50">
           {ageEmoji} {receta.grupo_edad} años
         </span>
@@ -270,7 +281,7 @@ function FamiliaCard({ receta, locked = false }: { receta: Receta; locked?: bool
       <div className="mt-auto pt-4 flex items-center gap-2">
         <span
           className="text-[10px] font-semibold px-2.5 py-1 rounded-lg capitalize"
-          style={{ color: mood.color, backgroundColor: mood.bg }}
+          style={{ color: mood.color, backgroundColor: mood.colorLight }}
         >
           {mood.emoji} {mood.id}
         </span>
@@ -502,10 +513,10 @@ function RecetasContent() {
         <div className="max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-4xl md:text-6xl font-serif text-aubergine-dark mb-4 leading-[1.15]">
-              Recetas con superpoderes
+              Es mucho más que recetas.
             </h1>
             <p className="text-lg md:text-xl text-aubergine-dark/60 font-light max-w-2xl">
-              Recetas diseñadas para lo que sientes. Filtra, explora, disfruta.
+              Cada plato está diseñado para responder a tu paleta emocional. Elige tu color y descubre lo que tu cuerpo necesita.
             </p>
           </motion.div>
         </div>
@@ -526,13 +537,16 @@ function RecetasContent() {
                 onClick={() => toggleMood(m.id)}
                 className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 border ${
                   moodFilter === m.id
-                    ? "text-white shadow-sm"
+                    ? "shadow-sm"
                     : "bg-cream text-aubergine-dark/70 border-aubergine-dark/10 hover:border-aubergine-dark/25"
                 }`}
-                style={moodFilter === m.id ? { backgroundColor: m.color, borderColor: m.color } : {}}
+                style={moodFilter === m.id 
+                  ? { backgroundColor: m.color, borderColor: m.color, color: '#fff' } 
+                  : { backgroundColor: `${m.color}15`, borderColor: `${m.color}30`, color: m.color }
+                }
               >
                 <span className="text-sm">{m.emoji}</span>
-                <span className="hidden sm:inline">{m.label}</span>
+                <span className="hidden sm:inline">{m.nombre}</span>
                 <span className="sm:hidden capitalize">{m.id}</span>
               </button>
             ))}

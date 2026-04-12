@@ -70,7 +70,7 @@ export const moods: MoodState[] = [
     momento: "Después de excesos / cambio de estación",
   },
   {
-    id: "familia",
+    id: "confort",
     nombre: "Confort",
     emoji: "🏠",
     color: "#D4956A",

@@ -518,7 +518,7 @@ export const recipesData: Recipe[] = [
   // familia
   {
     id: "r16",
-    moodId: "familia",
+    moodId: "confort",
     title: "Sopa Miso con Verduras de Raíz",
     title_en: "Miso Soup with Root Vegetables",
     tagline: "Calor desde dentro",
@@ -549,7 +549,7 @@ export const recipesData: Recipe[] = [
   },
   {
     id: "r17",
-    moodId: "familia",
+    moodId: "confort",
     title: "Pan de Masa Madre con Mantequilla Fermentada",
     title_en: "Sourdough Toast with Cultured Butter",
     tagline: "La memoria del hogar",
@@ -578,7 +578,7 @@ export const recipesData: Recipe[] = [
   },
   {
     id: "r18",
-    moodId: "familia",
+    moodId: "confort",
     title: "Raíces Asadas con Marinada de Kombucha",
     title_en: "Roasted Roots & Kombucha Glaze",
     tagline: "Lento, profundo, bueno",
