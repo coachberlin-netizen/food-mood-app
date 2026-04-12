@@ -541,7 +541,7 @@ function RecetasContent() {
                     : "bg-cream text-aubergine-dark/70 border-aubergine-dark/10 hover:border-aubergine-dark/25"
                 }`}
                 style={moodFilter === m.id 
-                  ? { backgroundColor: m.color, borderColor: m.color, color: '#fff' } 
+                  ? { backgroundColor: m.color, borderColor: m.color, color: '#3D1517' } 
                   : { backgroundColor: `${m.color}15`, borderColor: `${m.color}30`, color: m.color }
                 }
               >
