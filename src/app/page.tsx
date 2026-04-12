@@ -425,7 +425,7 @@ export default function Home() {
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Gratuito</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-3">0€</span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test ilimitado + Tu color emocional + Inspiración diaria (lectura)</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test de mood + Paleta Emocional (resultado sin recetas)</p>
               <Link href="/test" className="mt-auto w-full py-3 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium text-center hover:bg-aubergine-dark/5 transition-colors">
                 Hacer mi test →
               </Link>

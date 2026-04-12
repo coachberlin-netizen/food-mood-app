@@ -12,8 +12,8 @@ import { createClient } from "@/lib/supabase/client";
 
 /* ── Feature lists ───────────────────────────────────────── */
 const FREE_FEATURES = [
-  { text: "Test ilimitado", included: true },
-  { text: "Tu color emocional + Inspiración diaria (lectura)", included: true },
+  { text: "Test de mood + Paleta Emocional (resultado sin recetas)", included: true },
+  { text: "Inspiración diaria (lectura)", included: true },
   { text: "Historial de estados", included: false },
   { text: "Recetas que responden a cada color", included: false },
   { text: "Glosario científico y Fermentos del Mundo", included: false },
@@ -22,10 +22,11 @@ const FREE_FEATURES = [
 
 const PREMIUM_FEATURES = [
   { text: "Todo lo gratuito, más:", included: true },
+  { text: "Tu Paleta Emocional personalizada — descubre tu color cada día", included: true },
+  { text: "Recetas adaptadas a tu mezcla emocional, no a una categoría genérica", included: true },
+  { text: "Historial de colores — observa tus patrones emocionales semanales", included: true },
   { text: "Acceso completo a todas las recetas", included: true },
-  { text: "Historial y analítica de estados", included: true },
   { text: "Glosario científico y Fermentos del Mundo", included: true },
-  { text: "Tu paleta emocional personalizada completa", included: true },
 ];
 
 export default function PricingPage() {
@@ -135,7 +136,7 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/siempre</span>
               </div>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Test ilimitado + Tu color emocional + Inspiración diaria (lectura)
+                Test de mood + Paleta Emocional (resultado sin recetas)
               </p>
             </div>
 
