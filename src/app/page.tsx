@@ -97,16 +97,16 @@ export default function Home() {
                     className="w-full sm:w-auto text-[16px] px-[40px] py-[14px] rounded-[60px] border-[1.5px] bg-transparent font-medium transition-all duration-300 cursor-pointer text-center"
                     style={{ 
                       fontFamily: "'DM Sans', sans-serif", 
-                      borderColor: '#6B2737', 
-                      color: '#6B2737' 
+                      borderColor: '#FAF9F6', 
+                      color: '#FAF9F6' 
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = '#C9A84C';
                       e.currentTarget.style.color = '#C9A84C';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = '#6B2737';
-                      e.currentTarget.style.color = '#6B2737';
+                      e.currentTarget.style.borderColor = '#FAF9F6';
+                      e.currentTarget.style.color = '#FAF9F6';
                     }}
                   >
                     Descubre tu color emocional
