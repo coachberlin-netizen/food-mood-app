@@ -31,14 +31,22 @@ const CATEGORIES = [
   { id: 'otro', label: 'Otros' }
 ];
 
+const MOOD_COLORS: Record<string, { color: string, bg: string }> = {
+  activacion: { color: '#E8A838', bg: '#E8A83815' },
+  calma: { color: '#7BA7BC', bg: '#7BA7BC15' },
+  focus: { color: '#5B8C5A', bg: '#5B8C5A15' },
+  social: { color: '#C97B84', bg: '#C97B8415' },
+  reset: { color: '#9B8EC4', bg: '#9B8EC415' },
+  confort: { color: '#D4956A', bg: '#D4956A15' },
+};
+
 const MOODS = [
   { id: "activacion", label: "Activación" },
   { id: "calma", label: "Calma" },
   { id: "focus", label: "Focus" },
   { id: "social", label: "Social" },
+  { id: "reset", label: "Reset" },
   { id: "confort", label: "Confort" },
-  { id: "recuperacion", label: "Recuperación" },
-  { id: "reset", label: "Reset" }
 ];
 
 export default function GlossaryClient({ initialData }: { initialData: GlossaryItem[] }) {
@@ -115,15 +123,21 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
             >
               Todos
             </button>
-            {MOODS.map(m => (
-              <button 
-                key={m.id}
-                onClick={() => setFilterMood(m.id)}
-                className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors border ${filterMood === m.id ? 'bg-[#6B2737]/10 border-[#6B2737] text-[#6B2737]' : 'bg-cream border-aubergine-dark/5 text-aubergine-dark/50 hover:border-aubergine-dark/20'}`}
-              >
-                {m.label}
-              </button>
-            ))}
+            {MOODS.map(m => {
+              const colors = MOOD_COLORS[m.id];
+              return (
+                <button 
+                  key={m.id}
+                  onClick={() => setFilterMood(m.id)}
+                  className="shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors border"
+                  style={filterMood === m.id 
+                    ? { backgroundColor: colors.color, borderColor: colors.color, color: '#3D1517' } 
+                    : { backgroundColor: 'transparent', borderColor: colors.color, color: colors.color }}
+                >
+                  {m.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* Category Filters */}
@@ -173,11 +187,18 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
                   
                   {item.moods && item.moods.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-auto border-t border-[#6B2737]/5 pt-4">
-                      {item.moods.slice(0, 3).map((mood) => (
-                        <span key={mood} className="text-[10px] px-2 py-1 bg-white/40 text-aubergine-dark/50 rounded-md capitalize border border-[#6B2737]/5">
-                          {mood}
-                        </span>
-                      ))}
+                      {item.moods.slice(0, 3).map((mood) => {
+                        const colors = MOOD_COLORS[mood] || { color: '#888', bg: '#88815' };
+                        return (
+                          <span 
+                            key={mood} 
+                            className="text-[10px] px-2 py-1 rounded-md capitalize border border-transparent font-medium"
+                            style={{ backgroundColor: colors.bg, color: colors.color }}
+                          >
+                            {mood}
+                          </span>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
