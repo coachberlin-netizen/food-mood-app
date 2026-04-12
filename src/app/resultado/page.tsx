@@ -11,21 +11,30 @@ import Link from "next/link";
 
 /* ── Mood colors for badges ──────────────────────────────────── */
 const MOOD_COLORS: Record<string, { color: string; bg: string; emoji: string }> = {
-  activacion: { color: "#D97706", bg: "rgba(217,119,6,0.10)", emoji: "⚡" },
-  calma:      { color: "#6B8E6B", bg: "rgba(107,142,107,0.10)", emoji: "🌿" },
-  focus:      { color: "#0D9488", bg: "rgba(13,148,136,0.10)", emoji: "🧠" },
-  social:     { color: "#BE185D", bg: "rgba(190,24,93,0.10)", emoji: "🥂" },
-  reset:      { color: "#65A30D", bg: "rgba(101,163,13,0.10)", emoji: "🍋" },
-  familia:    { color: "#C2714F", bg: "rgba(194,113,79,0.10)", emoji: "🏠" },
+  activacion: { color: "#E8A838", bg: "rgba(232,168,56,0.15)", emoji: "⚡" },
+  calma:      { color: "#7BA7BC", bg: "rgba(123,167,188,0.15)", emoji: "🌿" },
+  focus:      { color: "#5B8C5A", bg: "rgba(91,140,90,0.15)", emoji: "🧠" },
+  social:     { color: "#C97B84", bg: "rgba(201,123,132,0.15)", emoji: "🥂" },
+  reset:      { color: "#9B8EC4", bg: "rgba(155,142,196,0.15)", emoji: "🍋" },
+  confort:    { color: "#D4956A", bg: "rgba(212,149,106,0.15)", emoji: "🏠" },
+};
+
+const MOOD_DESCRIPTIONS: Record<string, string> = {
+  activacion: "vitalidad que se enciende",
+  calma: "serenidad sin esfuerzo",
+  focus: "claridad que corta la niebla",
+  social: "apertura que conecta",
+  reset: "restauración profunda",
+  confort: "raíz y seguridad",
 };
 
 const MOOD_MAP: Record<string, string> = {
-  activacion: "Activación & Energía",
-  calma: "Calma & Equilibrio",
-  focus: "Focus & Claridad Mental",
-  social: "Social & Placer Compartido",
-  reset: "Reset & Ligereza",
-  familia: "Familia & Bienestar",
+  activacion: "Activación",
+  calma: "Calma",
+  focus: "Focus",
+  social: "Social",
+  reset: "Reset",
+  confort: "Confort",
 };
 
 const MOOD_LEGACY_MAP: Record<string, string> = {
@@ -165,7 +174,7 @@ function ResultadoContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background)]">
+    <div className="min-h-screen bg-[var(--background)]" style={{ background: `linear-gradient(to bottom, ${moodStyle.color}10, transparent)` }}>
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-20 md:px-12">
 
         {/* ── Microbiome Profile Header ─────────────────────────── */}
@@ -180,9 +189,17 @@ function ResultadoContent() {
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-4 block">
             Perfil de Microbioma
           </span>
-          <h1 className="text-4xl md:text-5xl font-serif text-aubergine-dark mb-6">
-            Eres una persona de <span style={{ color: moodStyle.color }}>{moodData?.nombre || MOOD_MAP[moodId] || moodId}</span>
-          </h1>
+          <div className="flex flex-col items-center gap-4 mb-6">
+            <h1 className="text-4xl md:text-5xl font-serif text-aubergine-dark mb-2">
+              Tu color emocional hoy: <span style={{ color: moodStyle.color }}>{moodData?.nombre || MOOD_MAP[moodId] || moodId}</span>
+            </h1>
+            <div className="flex items-center gap-3">
+              <div style={{ backgroundColor: moodStyle.color, borderRadius: '50%', width: 40, height: 40, flexShrink: 0 }} />
+              <p className="text-xl md:text-2xl font-serif text-aubergine-dark/80 italic">
+                {MOOD_DESCRIPTIONS[moodId] || ""}
+              </p>
+            </div>
+          </div>
           <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-aubergine-dark/5 max-w-xl mx-auto">
             <p className="text-aubergine-dark/60 text-sm font-light leading-relaxed italic">
               "{moodData?.mecanismo}"
