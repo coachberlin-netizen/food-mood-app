@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MoodDiary } from "@/components/dashboard/MoodDiary";
 import { InspirationSection } from "@/components/dashboard/InspirationSection";
 import { PushNotificationBanner } from "@/components/dashboard/PushNotificationBanner";
+import { PaletteWidget } from "@/components/dashboard/PaletteWidget";
 
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
@@ -253,6 +254,9 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-transparent">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
         
+        {/* New Emotional Palette Widget */}
+        <PaletteWidget />
+
         {/* Modal handles the success state now */}
         {/* 1. HEADER */}
         <header className="flex flex-col gap-4">
