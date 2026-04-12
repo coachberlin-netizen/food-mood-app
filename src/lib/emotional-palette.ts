@@ -106,7 +106,7 @@ export function calculatePalette(input: PaletteInput): PaletteResult {
   const dom = MOOD_DATA[domId];
   const sec = MOOD_DATA[secId];
 
-  const descripcion = `Tu cuerpo pide ${dom.desc} con ${sec.desc}.`;
+  const descripcion = `${dom.desc} con ${sec.desc}`;
   
   // Combine needs in a natural way
   const necesidades = `${dom.needs} ${sec.needs}`;
