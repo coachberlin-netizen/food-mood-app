@@ -425,7 +425,7 @@ export default function Home() {
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Gratuito</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-3">0€</span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test ilimitado + Orientación e Inspiraciones</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test ilimitado + Tu color emocional + Inspiración diaria (lectura)</p>
               <Link href="/test" className="mt-auto w-full py-3 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium text-center hover:bg-aubergine-dark/5 transition-colors">
                 Hacer mi test →
               </Link>
@@ -437,7 +437,7 @@ export default function Home() {
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Mensual</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-3">9€<span className="text-base font-light text-aubergine-dark/40">/mes</span></span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso íntegro a todas las Recetas Completas e ingredientes funcionales.</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso completo a todas las recetas, el glosario científico, Fermentos del Mundo y tu paleta emocional personalizada.</p>
               <Link href="/pricing" className="mt-auto w-full py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium text-center hover:bg-aubergine-dark/90 transition-colors">
                 Suscribirme →
               </Link>
@@ -453,7 +453,7 @@ export default function Home() {
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2">Trimestral</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-1">15€<span className="text-base font-light text-aubergine-dark/40">/ 3 meses</span></span>
               <p className="text-sm text-[#C9A84C] font-semibold mb-1">Solo 5€/mes</p>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Tu paleta emocional completa, sin límites, ahorrando 44%</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Tu paleta emocional completa. Recetas que responden a cada color. Ahorrando un 44%.</p>
               <Link href="/pricing" className="mt-auto w-full py-3.5 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold text-center shadow-lg hover:shadow-xl transition-all">
                 7 días gratis →
               </Link>

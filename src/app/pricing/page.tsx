@@ -12,20 +12,20 @@ import { createClient } from "@/lib/supabase/client";
 
 /* ── Feature lists ───────────────────────────────────────── */
 const FREE_FEATURES = [
-  { text: "Test de estado emocional ilimitado", included: true },
-  { text: "Inspiraciones recomendadas diarias", included: true },
+  { text: "Test ilimitado", included: true },
+  { text: "Tu color emocional + Inspiración diaria (lectura)", included: true },
   { text: "Historial de estados", included: false },
-  { text: "Recetas completas paso a paso", included: false },
-  { text: "Guías de ingredientes funcionales", included: false },
-  { text: "Biblioteca integral de la Familia", included: false },
+  { text: "Recetas que responden a cada color", included: false },
+  { text: "Glosario científico y Fermentos del Mundo", included: false },
+  { text: "Paleta emocional personalizada completa", included: false },
 ];
 
 const PREMIUM_FEATURES = [
   { text: "Todo lo gratuito, más:", included: true },
-  { text: "Recetas completas con preparaciones", included: true },
+  { text: "Acceso completo a todas las recetas", included: true },
   { text: "Historial y analítica de estados", included: true },
-  { text: "Variantes completas para la Familia", included: true },
-  { text: "Guías clínicas de ingredientes", included: true },
+  { text: "Glosario científico y Fermentos del Mundo", included: true },
+  { text: "Tu paleta emocional personalizada completa", included: true },
 ];
 
 export default function PricingPage() {
@@ -135,7 +135,7 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/siempre</span>
               </div>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Descubre tu mapa emocional sin compromiso.
+                Test ilimitado + Tu color emocional + Inspiración diaria (lectura)
               </p>
             </div>
 
@@ -181,7 +181,7 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/mes</span>
               </div>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Acceso íntegro al recetario para reescribir tu biología.
+                Acceso completo a todas las recetas, el glosario científico, Fermentos del Mundo y tu paleta emocional personalizada.
               </p>
             </div>
 
@@ -240,10 +240,10 @@ export default function PricingPage() {
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">/ 3 meses</span>
               </div>
               <p className="text-sm text-[#C9A84C] font-semibold mb-1">
-                La opción inteligente para comprometerte de verdad
+                Ahorrando un 44%
               </p>
               <p className="text-sm text-aubergine-dark/45 font-light">
-                Solo 5€/mes (facturado trimestralmente)
+                Tu paleta emocional completa. Recetas que responden a cada color. Solo 5€/mes (facturado trimestralmente).
               </p>
             </div>
 
@@ -322,11 +322,11 @@ export default function PricingPage() {
               },
               {
                 q: "¿Qué incluye exactamente mi Premium?",
-                a: "Desbloquea instantáneamente el mapa Food·Mood al 100%: tendrás línea directa a todas las Recetas Completas (gramajes, instrucciones dietéticas precisas), la biblioteca adaptada a la Familia, e Historial evolutivo de tu estado.",
+                a: "Desbloquea instantáneamente el mapa Food·Mood al 100%: tendrás línea directa a todas las Recetas Completas (gramajes, instrucciones dietéticas precisas), el acceso al glosario y Fermentos del Mundo, e Historial evolutivo de tu estado.",
               },
               {
-                q: "¿Tenéis recetas para toda la Familia?",
-                a: "Totalmente. Hemos estructurado la arquitectura Premium para que funcione con variantes aptas para toda tu casa, resolviendo lo que deben comer niños y jóvenes sin que pierdas jamás tu foco terapéutico.",
+                q: "¿Las recetas sirven para todos en casa?",
+                a: "Totalmente. Hemos estructurado la arquitectura Premium para que funcione con ingredientes y preparaciones que todos pueden disfrutar, manteniendo siempre un foco en la salud y el bienestar de tu microbiota.",
               },
               {
                 q: "¿Es seguro el pago y cancelable?",
