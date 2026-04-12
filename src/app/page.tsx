@@ -83,8 +83,8 @@ export default function Home() {
               ))}
             </motion.div>
             
-            <motion.div variants={fadeIn} className="flex flex-col gap-6 items-center pt-8 w-full justify-center">
-              <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <motion.div variants={fadeIn} className="flex flex-col gap-8 items-center pt-8 w-full justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
                 <Link href="/test" className="w-full sm:w-auto">
                   <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
                     Hacer mi test gratis
@@ -93,16 +93,28 @@ export default function Home() {
                 </Link>
 
                 <Link href="/paleta" className="w-full sm:w-auto">
-                  <button 
-                    className="w-full sm:w-auto text-[16px] px-[40px] py-[14px] rounded-[60px] border-[1.5px] border-[#6B2737] bg-transparent text-[#6B2737] font-medium transition-all duration-300 hover:border-[#C9A84C] hover:text-[#C9A84C]"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  <div 
+                    className="w-full sm:w-auto text-[16px] px-[40px] py-[14px] rounded-[60px] border-[1.5px] bg-transparent font-medium transition-all duration-300 cursor-pointer text-center"
+                    style={{ 
+                      fontFamily: "'DM Sans', sans-serif", 
+                      borderColor: '#6B2737', 
+                      color: '#6B2737' 
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#C9A84C';
+                      e.currentTarget.style.color = '#C9A84C';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#6B2737';
+                      e.currentTarget.style.color = '#6B2737';
+                    }}
                   >
                     Descubre tu color emocional
-                  </button>
+                  </div>
                 </Link>
               </div>
 
-              <div className="text-[13px] text-[#7a7974] opacity-60 text-center font-light mt-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              <div className="text-[13px] text-[#7a7974] opacity-60 text-center font-light" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                 El test te da tu mood. La paleta te da tu color. Elige cómo empezar.
               </div>
             </motion.div>
