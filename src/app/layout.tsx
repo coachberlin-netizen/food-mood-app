@@ -7,6 +7,7 @@ import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ServiceWorkerRegistration } from "@/components/ui/ServiceWorkerRegistration";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { PaletteProvider } from "@/contexts/PaletteContext";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -109,17 +110,19 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${sourceSerif4.variable} ${playfairDisplay.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
-        <AnalyticsProvider />
-        <ServiceWorkerRegistration />
-        <Header />
-        <PageTransition>
-          <div className="flex-1">
-            {children}
-            <ChatWidget />
-          </div>
-        </PageTransition>
-        <InstallBanner />
-        <Footer />
+        <PaletteProvider>
+          <AnalyticsProvider />
+          <ServiceWorkerRegistration />
+          <Header />
+          <PageTransition>
+            <div className="flex-1">
+              {children}
+              <ChatWidget />
+            </div>
+          </PageTransition>
+          <InstallBanner />
+          <Footer />
+        </PaletteProvider>
       </body>
     </html>
   );
