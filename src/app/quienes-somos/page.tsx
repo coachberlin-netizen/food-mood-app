@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { Variants, motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { Brain, Leaf, Hourglass, FlaskConical, ArrowRight, ShieldCheck, Heart, Sparkles, Send, Search } from "lucide-react"
 import { Button } from "@/components/ui/Button"
@@ -10,12 +10,12 @@ export default function QuienesSomosPage() {
   const [activeCategory, setActiveCategory] = useState("Todas")
   const [searchQuery, setSearchQuery] = useState("")
 
-  const fadeIn = {
+  const fadeIn: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   }
 
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,

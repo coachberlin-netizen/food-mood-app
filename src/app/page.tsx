@@ -61,18 +61,27 @@ export default function Home() {
             
             <div className="space-y-6">
               <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream leading-[1.2] md:leading-[1.1] tracking-tight">
-                Dime cómo te sientes.<br/>
-                <span className="italic font-light text-cream/80">Te devolveré el equilibrio.</span>
+                Tu estado emocional tiene un color.<br className="hidden md:block" />
+                <span className="italic font-light text-cream/80">Y ese color tiene un sabor.</span>
               </motion.h1>
-              
-              <motion.h2 variants={fadeIn} className="text-2xl md:text-3xl text-[#F5F0E8] text-center font-serif">
-                Descubre qué comer según tu mood.
-              </motion.h2>
             </div>
             
-            <motion.p variants={fadeIn} className="text-base text-cream/70 max-w-md mx-auto text-center leading-[1.8] font-sans">
-              Food·Mood es tu guía de nutrición emocional. Haz nuestro test visual — o conversa libremente con nuestra IA — para recibir orientaciones funcionales, rituales e inspiración culinaria basada en la ciencia.
+            <motion.p variants={fadeIn} className="text-base text-cream/70 max-w-lg mx-auto text-center leading-[1.8] font-sans">
+              Las emociones no son simples. Son mezclas, como una paleta de colores. Food Mood lee tu paleta emocional y te devuelve recetas funcionales diseñadas para lo que tu cuerpo realmente necesita.
             </motion.p>
+
+            <motion.div variants={fadeIn} className="flex justify-center items-center gap-2 pt-2">
+              {[
+                '#E8A838',
+                '#7BA7BC',
+                '#5B8C5A',
+                '#C97B84',
+                '#9B8EC4',
+                '#D4956A'
+              ].map((hex) => (
+                <div key={hex} className="w-3 h-3 rounded-full" style={{ backgroundColor: hex }} />
+              ))}
+            </motion.div>
             
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 items-center pt-8 w-full justify-center">
               <Link href="/test" className="w-full sm:w-auto">
@@ -193,21 +202,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. LOS 6 ESTADOS */}
-      <section className="py-32 md:py-48 overflow-hidden bg-[var(--background)]">
+      {/* 3. TU PALETA EMOCIONAL */}
+      <section className="py-32 md:py-48 overflow-hidden bg-[var(--background)] relative">
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Mapa Emocional</h2>
-            <h3 className="text-4xl md:text-6xl font-serif text-aubergine-dark mb-8">Los 6 Estados Food·Mood</h3>
-            
-            {/* Legend / Horizontal Row of dots */}
-            <div className="flex justify-center gap-3">
-              {moods.map((m) => (
-                <div key={m.id} className="w-2.5 h-2.5 rounded-full opacity-60" style={{ backgroundColor: m.color }} />
-              ))}
-            </div>
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Tu Paleta Emocional</h2>
+            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark mb-8 leading-tight max-w-4xl mx-auto">
+              Las emociones no son casillas. Son espectros de color. Cada día tu paleta es distinta — y tu plato debe responder a ella.
+            </h3>
           </motion.div>
         </div>
+        
         <div className="max-w-[1400px] mx-auto px-6 overflow-hidden">
           <motion.div 
             variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-20px" }}
@@ -216,28 +221,39 @@ export default function Home() {
             {moods.map((mood) => (
               <motion.div 
                 key={mood.id} variants={fadeIn}
-                className="min-w-[300px] md:min-w-0 flex-1 bg-cream p-10 rounded-xl shadow-luxury border border-aubergine-dark/10 border-l-[3px] snap-center group hover:shadow-luxury-hover hover:border-l-[5px] transition-all duration-300 relative overflow-hidden"
-                style={{ borderLeftColor: mood.color }}
+                className="min-w-[300px] md:min-w-0 flex-1 p-8 rounded-xl snap-center relative overflow-hidden"
+                style={{ 
+                  background: `linear-gradient(to right, ${mood.colorLight}, transparent)`,
+                  borderLeftWidth: '4px',
+                  borderLeftStyle: 'solid',
+                  borderLeftColor: mood.color
+                }}
               >
-                {/* Background glow on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500" style={{ backgroundColor: mood.color }} />
-                
-                {/* Mood Header: Dot + Name */}
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-3 mb-4">
                   <div 
-                    className="w-4 h-4 rounded-full transition-transform duration-300 group-hover:scale-[1.3] shrink-0" 
-                    style={{ backgroundColor: mood.color }}
+                    className="shrink-0" 
+                    style={{ backgroundColor: mood.color, width: '20px', height: '20px', borderRadius: '50%' }}
                   />
                   <h4 className="font-serif text-xl md:text-2xl font-semibold text-aubergine-dark break-words">
-                    {mood.nombre}
+                    {mood.label || mood.nombre}
                   </h4>
                 </div>
                 
-                <p className="text-aubergine-dark/60 text-sm leading-[1.8] font-light italic">
-                  &ldquo;{mood.descripcion_corta}&rdquo;
+                <p className="text-aubergine-dark/60 text-sm leading-[1.8] font-light">
+                  {mood.descripcion_corta}
                 </p>
               </motion.div>
             ))}
+          </motion.div>
+
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="mt-16 text-center"
+          >
+            <p className="text-aubergine-dark/50 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
+              Nadie es un solo color. Eres una mezcla que cambia cada día.<br className="hidden sm:block" />
+              Y cada mezcla tiene su receta.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -308,8 +324,8 @@ export default function Home() {
                 mood: "Focus"
               },
               {
-                quote: "A todos nos encantan los snacks nutritivos de la sección Familia. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
-                mood: "Familia"
+                quote: "A todos nos encantan los snacks nutritivos de la sección Confort. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
+                mood: "Confort"
               }
             ].map((t, i) => (
               <motion.div
@@ -367,6 +383,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 4.85 TEASER FERMENTOS DEL MUNDO */}
+      <section className="py-24 md:py-32 px-6 bg-aubergine-dark border-t border-cream/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gold/5" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold/20 border border-gold/30 rounded-full mb-8">
+            <span className="w-2 h-2 rounded-full bg-gold"></span>
+            <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-gold">
+              Contenido Premium
+            </span>
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl font-serif font-black text-cream leading-[1.1] mb-6">
+            Fermentos del <span className="italic font-light">Mundo</span>
+          </h2>
+          
+          <p className="text-lg md:text-xl text-cream/70 font-light leading-relaxed max-w-2xl mb-12">
+            Explora nuestro mapa interactivo con los 16 fermentos ancestrales más poderosos del planeta. De la Nattokinasa japonesa al ácido láctico etíope — la ciencia detrás del eje intestino-cerebro mundial.
+          </p>
+          
+          <Link href="/pricing">
+            <Button variant="outline" className="border-gold text-gold hover:bg-gold hover:text-white px-8 py-6 rounded-xl text-sm font-bold tracking-wide transition-all shadow-lg hover:shadow-xl">
+              Descubrir con suscripción Premium <ArrowRight className="ml-3 w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
       {/* 5. PRICING SUMMARY */}
       <section className="py-24 md:py-32 px-6 bg-[var(--background)] border-t border-aubergine-dark/10">
         <div className="max-w-5xl mx-auto">
@@ -410,7 +453,7 @@ export default function Home() {
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2">Trimestral</span>
               <span className="text-4xl font-serif text-aubergine-dark mb-1">15€<span className="text-base font-light text-aubergine-dark/40">/ 3 meses</span></span>
               <p className="text-sm text-[#C9A84C] font-semibold mb-1">Solo 5€/mes</p>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">El mapa Premium para ti y tu Familia, ahorrando 44%</p>
+              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Tu paleta emocional completa, sin límites, ahorrando 44%</p>
               <Link href="/pricing" className="mt-auto w-full py-3.5 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold text-center shadow-lg hover:shadow-xl transition-all">
                 7 días gratis →
               </Link>

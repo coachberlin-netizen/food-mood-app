@@ -8,6 +8,6 @@ if (!apiKey) {
 }
 
 export const stripe = new Stripe(apiKey || '', {
-  apiVersion: '2024-06-20',
+  apiVersion: '2026-03-25.dahlia' as any,
   typescript: true,
 })

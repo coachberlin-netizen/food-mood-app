@@ -11,7 +11,7 @@ const MOOD_OPTIONS = [
   { id: "focus",   label: "Focus",   emoji: "🎯", color: "#0D9488" },
   { id: "social",  label: "Social",  emoji: "🤝", color: "#BE185D" },
   { id: "reset",   label: "Reset",   emoji: "🔄", color: "#65A30D" },
-  { id: "familia", label: "Familia", emoji: "👨‍👩‍👧", color: "#6366F1" },
+  { id: "confort",  label: "Confort",  color: "#D4956A" },
 ];
 
 const DAY_LABELS = ["L", "M", "X", "J", "V", "S", "D"];

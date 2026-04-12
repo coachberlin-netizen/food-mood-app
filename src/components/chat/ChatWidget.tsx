@@ -76,13 +76,13 @@ export function ChatWidget() {
       else if (inputLower.includes("foc") || inputLower.includes("concentra")) detectedMood = "focus";
       else if (inputLower.includes("soci") || inputLower.includes("amig")) detectedMood = "social";
       else if (inputLower.includes("res") || inputLower.includes("depura")) detectedMood = "reset";
-      else if (inputLower.includes("famili") || inputLower.includes("niñ")) detectedMood = "familia";
+      else if (inputLower.includes("famili") || inputLower.includes("niñ")) detectedMood = "confort";
 
       // If no mood detected, check resultMood
       const finalMood = detectedMood || resultMood || "social";
       const MOOD_MAP: Record<string, string> = {
         activacion: "Energía", calma: "Calma", focus: "Focus",
-        social: "Social", reset: "Reset", familia: "Familia"
+        social: "Social", reset: "Reset", confort: "Confort"
       };
 
       // 2. Fetch one matching recipe from Supabase

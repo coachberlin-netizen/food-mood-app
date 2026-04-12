@@ -12,7 +12,10 @@ export function Footer() {
           <p className="text-[13px] font-light text-white/40 text-center leading-relaxed px-4">
             Food·Mood recomienda recetas y alimentos funcionales basados en divulgación científica. No ofrece diagnóstico, tratamiento ni terapia. Ante cualquier duda de salud, consulta a un profesional.
           </p>
-          <div className="flex space-x-8 text-sm font-light text-white/50 pt-4">
+          <div className="flex flex-wrap justify-center gap-6 text-sm font-light text-white/50 pt-4 px-4">
+            <Link href="/fermentos-del-mundo" className="hover:text-white transition-colors duration-300 whitespace-nowrap">
+              Fermentos del Mundo
+            </Link>
             <Link href="/faq" className="hover:text-white transition-colors duration-300">
               FAQ
             </Link>

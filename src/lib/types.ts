@@ -12,6 +12,8 @@ export interface MoodState {
   nombre_en?: string;
   emoji?: string;
   color: string;
+  colorLight?: string;
+  label?: string;
   fondo: string;
   descripcion_corta: string;
   descripcion?: string;
