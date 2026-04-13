@@ -485,9 +485,23 @@ export default function DashboardPage() {
                     Tienes acceso total a todas las exclusivas. Escucha a tu cuerpo, elige recetas específicas para tu mood y descubre el impacto real de cada ingrediente en tu bienestar. Déjate inspirar.
                   </p>
                 </div>
-                <div className="hidden md:flex shrink-0 w-28 h-28 items-center justify-center bg-cream/5 rounded-full border border-cream/10 shadow-inner">
-                  <span className="text-5xl drop-shadow-lg">✨</span>
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ 
+                    opacity: [0.7, 1, 0.7],
+                    scale: [1, 1.05, 1],
+                    y: [0, -5, 0]
+                  }}
+                  transition={{ 
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="hidden md:flex shrink-0 w-28 h-28 items-center justify-center bg-gradient-to-br from-cream/10 to-cream/5 rounded-full border border-cream/20 shadow-[0_0_30px_rgba(201,168,76,0.15)] relative"
+                >
+                  <div className="absolute inset-0 bg-[#C9A84C]/5 rounded-full blur-xl animate-pulse" />
+                  <Sparkles className="w-12 h-12 text-[#C9A84C] drop-shadow-[0_0_10px_rgba(201,168,76,0.4)]" strokeWidth={1.5} />
+                </motion.div>
               </div>
             </div>
           </section>
