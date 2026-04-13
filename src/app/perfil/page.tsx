@@ -89,11 +89,11 @@ export default function ProfilePage() {
               {user?.name?.charAt(0).toUpperCase() || <User className="w-12 h-12" />}
             </div>
             
-            <div flex-1>
-              <h1 className="text-4xl md:text-5xl font-serif text-cream mb-4 leading-[1.2]">{user?.name || "Viajero"}</h1>
-              <p className="text-[11px] font-sans tracking-[0.2em] uppercase text-cream/70 flex flex-wrap items-center justify-center md:justify-start gap-4">
+            <div className="flex-1">
+              <h1 className="text-4xl md:text-5xl font-serif text-aubergine-dark mb-4 leading-[1.2]">{user?.name || "Viajero"}</h1>
+              <p className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/70 flex flex-wrap items-center justify-center md:justify-start gap-4">
                 <span>{user?.email || "hola@foodmood.app"}</span>
-                <span className="hidden md:inline-block w-1 h-1 rounded-full bg-cream/40" />
+                <span className="hidden md:inline-block w-1 h-1 rounded-full bg-aubergine-dark/20" />
                 <span className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5"/> Miembro reciente</span>
               </p>
             </div>
@@ -118,8 +118,8 @@ export default function ProfilePage() {
           {/* 2. MI PATRON FOOD MOOD */}
           <section className="space-y-8">
             <div className="flex items-center gap-4">
-              <PieChart className="w-5 h-5 text-cream/50" />
-              <h2 className="text-3xl font-serif text-cream">Tu Patrón</h2>
+              <PieChart className="w-5 h-5 text-aubergine-dark/50" />
+              <h2 className="text-3xl font-serif text-aubergine-dark">Tu Patrón</h2>
             </div>
             
             <div className="bg-cream rounded-xl p-10 md:p-14 shadow-luxury border border-aubergine-dark/20">
@@ -174,8 +174,8 @@ export default function ProfilePage() {
           {/* 3. MIS RECETAS */}
           <section className="space-y-8">
             <div className="flex items-center gap-4">
-              <Bookmark className="w-5 h-5 text-cream/50" />
-              <h2 className="text-3xl font-serif text-cream">Tus descubrimientos</h2>
+              <Bookmark className="w-5 h-5 text-aubergine-dark/50" />
+              <h2 className="text-3xl font-serif text-aubergine-dark">Tus descubrimientos</h2>
             </div>
             
             <div className="flex gap-8 border-b border-aubergine-dark/20 pb-4">
@@ -215,8 +215,8 @@ export default function ProfilePage() {
           {/* 4. HISTORIAL DE TESTS */}
           <section className="space-y-8">
             <div className="flex items-center gap-4">
-              <Activity className="w-5 h-5 text-cream/50" />
-              <h2 className="text-3xl font-serif text-cream">Tu historia</h2>
+              <Activity className="w-5 h-5 text-aubergine-dark/50" />
+              <h2 className="text-3xl font-serif text-aubergine-dark">Tu historia</h2>
             </div>
             
             <div className="bg-cream rounded-xl p-10 md:p-14 shadow-luxury border border-aubergine-dark/20 text-center md:text-left flex flex-col items-center md:items-start">
@@ -235,8 +235,8 @@ export default function ProfilePage() {
             {/* 5. AJUSTES */}
             <section className="space-y-8">
               <div className="flex items-center gap-4">
-                <Settings className="w-5 h-5 text-cream/50" />
-                <h2 className="text-3xl font-serif text-cream">Ajustes</h2>
+                <Settings className="w-5 h-5 text-aubergine-dark/50" />
+                <h2 className="text-3xl font-serif text-aubergine-dark">Ajustes</h2>
               </div>
               <div className="bg-cream rounded-xl p-8 shadow-luxury border border-aubergine-dark/20 space-y-2 divide-y divide-[#edeae3]">
                 <div className="py-4 flex justify-between items-center cursor-pointer group">
@@ -265,8 +265,8 @@ export default function ProfilePage() {
             {/* 6. SOBRE FOOD MOOD */}
             <section className="space-y-8">
               <div className="flex items-center gap-4">
-                <Heart className="w-5 h-5 text-cream/50" />
-                <h2 className="text-3xl font-serif text-cream">Sobre Food·Mood</h2>
+                <Heart className="w-5 h-5 text-aubergine-dark/50" />
+                <h2 className="text-3xl font-serif text-aubergine-dark">Sobre Food·Mood</h2>
               </div>
               <div className="bg-cream rounded-xl p-8 shadow-luxury border border-aubergine-dark/20 flex flex-col justify-center gap-6 text-center md:text-left h-full pb-10">
                 <h3 className="font-serif text-xl text-aubergine-dark">Food·Mood v.1.0 (Beta)</h3>

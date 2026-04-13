@@ -335,7 +335,7 @@ export default function DashboardPage() {
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A84C]/8 rounded-full blur-3xl" />
               <div className="relative flex flex-col items-center gap-6">
                 <h3 className="text-2xl font-serif font-bold text-cream/90">Descubre tu Food·Mood</h3>
-                <p className="text-cream/45 font-light text-sm max-w-md">
+                <p className="text-cream/70 font-light text-sm max-w-md">
                   Un test de 2 minutos basado en neurociencia nutricional. Sin dietas, sin restricciones.
                 </p>
                 <Link
@@ -369,7 +369,7 @@ export default function DashboardPage() {
                   <h3 className="text-2xl md:text-3xl font-serif font-bold text-cream/90 leading-snug mb-2">
                     Un plan adecuado y variado para ti
                   </h3>
-                  <p className="text-cream/40 font-light text-sm max-w-lg">
+                  <p className="text-cream/70 font-light text-sm max-w-lg">
                     Cada día una combinación nueva. Sin repeticiones, siempre adaptada a lo que tu cuerpo necesita.
                   </p>
                 </div>
@@ -385,7 +385,7 @@ export default function DashboardPage() {
                       <span className="text-lg shrink-0 mt-0.5">{benefit.icon}</span>
                       <div>
                         <p className="text-sm font-medium text-cream/80">{benefit.text}</p>
-                        <p className="text-[11px] text-cream/35 font-light mt-0.5">{benefit.detail}</p>
+                        <p className="text-[11px] text-cream/60 font-light mt-0.5">{benefit.detail}</p>
                       </div>
                     </li>
                   ))}
@@ -399,7 +399,7 @@ export default function DashboardPage() {
                     <Sparkles className="w-4 h-4" />
                     Suscríbete — 9€/mes
                   </Link>
-                  <p className="text-[11px] text-cream/25 font-light">
+                  <p className="text-[11px] text-cream/50 font-light">
                     Cancela cuando quieras · Sin permanencia
                   </p>
                 </div>
