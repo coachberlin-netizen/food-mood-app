@@ -1,46 +1,34 @@
-import { createClient } from '@/lib/supabase/server'
-import { NextResponse } from 'next/server'
+import { createClient } from "@/lib/supabase/server";
+import { NextResponse } from "next/server";
+import { getPremiumStatus } from "@/lib/premium";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
 /**
  * GET /api/mi-tier
  * Returns the current user's tier: 'free' or 'premium'
- * Calls get_my_tier() RPC if available, otherwise checks user_profiles table.
+ * Now leverages the centralized getPremiumStatus waterfall check.
  */
 export async function GET() {
   try {
-    const supabase = await createClient()
-
-    // Check if user is authenticated
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return NextResponse.json({ tier: 'free', authenticated: false })
+      return NextResponse.json({ tier: 'free', authenticated: false, isPremium: false });
     }
 
-    // Try calling get_my_tier() RPC function
-    try {
-      const { data, error } = await supabase.rpc('get_my_tier')
-      if (!error && data) {
-        return NextResponse.json({ tier: data, authenticated: true })
-      }
-    } catch {
-      // RPC not available, fallback to profile check
-    }
+    // Use the centralized waterfall check (subscriptions -> profiles -> user_profiles)
+    const isPremium = await getPremiumStatus(supabase, user.id);
 
-    // Fallback: check user_profiles table for tier
-    const { data: profile } = await supabase
-      .from('user_profiles')
-      .select('tier')
-      .eq('user_id', user.id)
-      .single()
+    return NextResponse.json({ 
+      tier: isPremium ? 'premium' : 'free',
+      authenticated: true,
+      isPremium
+    });
 
-    const tier = profile?.tier || 'free'
-
-    return NextResponse.json({ tier, authenticated: true })
-  } catch (err) {
-    console.error('API /api/mi-tier error:', err)
-    return NextResponse.json({ tier: 'free', authenticated: false })
+  } catch (error) {
+    console.error('API /api/mi-tier error:', error);
+    return NextResponse.json({ tier: 'free', authenticated: false, isPremium: false });
   }
 }

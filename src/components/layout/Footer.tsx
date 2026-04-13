@@ -1,7 +1,26 @@
+"use client";
+
 import * as React from "react"
 import Link from "next/link"
 
 export function Footer() {
+  const [isPremium, setIsPremium] = React.useState(false)
+
+  React.useEffect(() => {
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/mi-tier')
+        if (res.ok) {
+          const data = await res.json()
+          setIsPremium(data.isPremium)
+        }
+      } catch (err) {
+        console.error("Error checking status in footer:", err)
+      }
+    }
+    checkStatus()
+  }, [])
+
   return (
     <footer className="w-full bg-aubergine-dark py-16">
       <div className="container mx-auto px-6 md:px-12 flex flex-col items-center justify-center space-y-8">
@@ -28,9 +47,11 @@ export function Footer() {
             <Link href="/privacidad" className="hover:text-white transition-colors duration-300">
               Privacidad
             </Link>
-            <Link href="/pricing" className="hover:text-white transition-colors duration-300">
-              Planes
-            </Link>
+            {!isPremium && (
+              <Link href="/pricing" className="hover:text-white transition-colors duration-300">
+                Planes
+              </Link>
+            )}
           </div>
         </div>
       </div>

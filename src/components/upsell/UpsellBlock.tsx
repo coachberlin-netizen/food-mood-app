@@ -20,6 +20,28 @@ const PREMIUM_FEATURES = [
 ];
 
 export function UpsellBlock() {
+  const [isPremium, setIsPremium] = motion.useState(false)
+  const [loading, setLoading] = motion.useState(true)
+
+  motion.useEffect(() => {
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/mi-tier')
+        if (res.ok) {
+          const data = await res.json()
+          setIsPremium(data.isPremium)
+        }
+      } catch (err) {
+        console.error("Error checking status in UpsellBlock:", err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    checkStatus()
+  }, [])
+
+  if (loading || isPremium) return null
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 24 }}

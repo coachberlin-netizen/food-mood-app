@@ -25,12 +25,33 @@ export function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  const [isPremium, setIsPremium] = React.useState(false)
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+
+  React.useEffect(() => {
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/mi-tier')
+        if (res.ok) {
+          const data = await res.json()
+          setIsPremium(data.isPremium)
+          setIsAuthenticated(data.isAuthenticated)
+        }
+      } catch (err) {
+        console.error("Error checking premium status in header:", err)
+      }
+    }
+    checkStatus()
+  }, [])
+
   const handleLogout = async () => {
     try {
       const supabase = createClient()
       await supabase.auth.signOut()
       logout()
       setIsMenuOpen(false)
+      setIsPremium(false)
+      setIsAuthenticated(false)
       router.push("/")
     } catch (error) {
       console.error("Error signing out:", error)
@@ -67,9 +88,11 @@ export function Header() {
             <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
               Síntomas
             </Link>
-            <Link href="/pricing" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Planes
-            </Link>
+            {!isPremium && (
+              <Link href="/pricing" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors text-[#C9A84C] font-semibold">
+                Planes
+              </Link>
+            )}
           </nav>
         </div>
 
@@ -119,18 +142,20 @@ export function Header() {
                   style={{ color: "#FAF9F6" }}
                 >
                   <PieChart className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                  <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Mi Diario</span>
+                  <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Dashboard</span>
                 </Link>
 
-                <Link 
-                  href="/pricing" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                  style={{ color: "#FAF9F6" }}
-                >
-                  <CreditCard className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                  <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Planes</span>
-                </Link>
+                {!isPremium && (
+                  <Link 
+                    href="/pricing" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
+                    style={{ color: "#FAF9F6" }}
+                  >
+                    <CreditCard className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
+                    <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Planes</span>
+                  </Link>
+                )}
 
                 <div className="h-px bg-white/10 my-2" />
 

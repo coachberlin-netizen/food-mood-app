@@ -1,32 +1,27 @@
 // src/app/fermentos-del-mundo/page.tsx
 import { createClient } from "@/lib/supabase/server"
-import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import FermentosClient from "./FermentosClient"
+import { getPremiumStatus } from "@/lib/premium"
 
 export default async function FermentosDelMundoPage() {
   const supabase = await createClient();
 
   // 1. Check premium access securely on the server
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { user } } = await supabase.auth.getUser();
   
   // Si no hay sesión → redirect a /login
-  if (!session?.user) {
+  if (!user) {
     redirect('/login');
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('is_premium')
-    .eq('id', session.user.id)
-    .single();
+  // Use the centralized waterfall check
+  const isPremium = await getPremiumStatus(supabase, user.id);
     
-  // Si hay sesión pero is_premium = false → redirect a /pricing
-  if (!profile?.is_premium) {
+  // Si hay sesión pero no es premium → redirect a /pricing
+  if (!isPremium) {
     redirect('/pricing');
   }
-
-  const isPremium = true;
 
   // 2. Fetch ferments ordered by sort_order or created_at
   const { data: ferments } = await supabase

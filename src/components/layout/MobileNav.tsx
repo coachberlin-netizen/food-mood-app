@@ -5,6 +5,23 @@ import Link from "next/link"
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [isPremium, setIsPremium] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!isOpen) return
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/mi-tier')
+        if (res.ok) {
+          const data = await res.json()
+          setIsPremium(data.isPremium)
+        }
+      } catch (err) {
+        console.error("Error checking status in mobile nav:", err)
+      }
+    }
+    checkStatus()
+  }, [isOpen])
   
   return (
     <div className="md:hidden">
@@ -66,9 +83,11 @@ export function MobileNav() {
                 <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                   Síntomas
                 </Link>
-                <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Planes
-                </Link>
+                {!isPremium && (
+                  <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
+                    Planes
+                  </Link>
+                )}
                 <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                   Perfil
                 </Link>

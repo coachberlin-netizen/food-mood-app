@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, CheckCircle, Lock, Sparkles, Zap } from "lucide-react"
+import { getPremiumStatus } from "@/lib/premium"
 
 export const dynamic = 'force-dynamic'
 
@@ -24,8 +25,7 @@ export default async function SymptomDetailPage({ params }: { params: { slug: st
 
   // 1. Get user and premium status
   const { data: { user } } = await supabase.auth.getUser()
-  const { data: profile } = user ? await supabase.from('profiles').select('premium_level').eq('id', user.id).single() : { data: null }
-  const isPremium = (profile?.premium_level ?? 0) > 0
+  const isPremium = user ? await getPremiumStatus(supabase, user.id) : false
 
   // 2. Fetch Free Recipe (with fallback)
   let { data: freeRecipe } = await supabase
