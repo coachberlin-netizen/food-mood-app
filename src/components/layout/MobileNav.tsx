@@ -66,9 +66,6 @@ export function MobileNav() {
                 <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                   Síntomas
                 </Link>
-                <Link href="/quienes-somos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Quiénes somos
-                </Link>
                 <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                   Planes
                 </Link>

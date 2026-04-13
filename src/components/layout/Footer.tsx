@@ -16,6 +16,9 @@ export function Footer() {
             <Link href="/fermentos-del-mundo" className="hover:text-white transition-colors duration-300 whitespace-nowrap">
               Fermentos del Mundo
             </Link>
+            <Link href="/quienes-somos" className="hover:text-white transition-colors duration-300">
+              Quiénes somos
+            </Link>
             <Link href="/faq" className="hover:text-white transition-colors duration-300">
               FAQ
             </Link>
