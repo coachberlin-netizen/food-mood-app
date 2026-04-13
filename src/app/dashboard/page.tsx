@@ -15,6 +15,8 @@ import { MoodDiary } from "@/components/dashboard/MoodDiary";
 import { InspirationSection } from "@/components/dashboard/InspirationSection";
 import { PushNotificationBanner } from "@/components/dashboard/PushNotificationBanner";
 import { PaletteWidget } from "@/components/dashboard/PaletteWidget";
+import { WeekMosaic } from "@/components/diary/WeekMosaic";
+import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 
 export default function DashboardPage() {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
@@ -26,6 +28,8 @@ export default function DashboardPage() {
   const [todayFormatted, setTodayFormatted] = useState("");
   const [isPremium, setIsPremium] = useState(false);
   const [weeklyMoods, setWeeklyMoods] = useState<Record<number, string>>({}); // dayOfWeek (1=Mon) -> moodId
+  const [weekData, setWeekData] = useState<WeekData | null>(null);
+  const [isLoadingWeekly, setIsLoadingWeekly] = useState(true);
   const searchParams = useSearchParams();
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const isSubscribedFromUrl = searchParams.get('subscribed') === 'true' || searchParams.get('success') === 'true';
@@ -116,6 +120,16 @@ export default function DashboardPage() {
           moodsByDay[dow] = dr.mood; // latest wins if multiple per day
         }
         setWeeklyMoods(moodsByDay);
+      }
+
+      // 3. Fetch Weekly Data for Mosaic
+      try {
+        const wData = await getWeekData(supabase, session.user.id, getCurrentWeekStart());
+        setWeekData(wData);
+      } catch (err) {
+        console.error('Error fetching weekly data for mosaic:', err);
+      } finally {
+        setIsLoadingWeekly(false);
       }
     }
 
@@ -255,7 +269,51 @@ export default function DashboardPage() {
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
         
         {/* New Emotional Palette Widget */}
-        <PaletteWidget />
+        <div className="flex flex-col gap-6">
+          <PaletteWidget />
+          
+          {/* Weekly Mosaic Block */}
+          {isAuthenticated && (
+            <div className="bg-white rounded-[2rem] p-8 border border-aubergine-dark/5 shadow-sm">
+              <h4 className="font-sans text-[14px] font-medium text-[#6B2737] mb-6">
+                Tu semana en colores
+              </h4>
+              
+              {isLoadingWeekly ? (
+                <div className="flex gap-1 justify-center">
+                  {[...Array(7)].map((_, i) => (
+                    <div key={i} className="flex flex-col items-center gap-2">
+                      <div className="w-[36px] h-[36px] rounded-[6px] bg-gray-100 animate-pulse" />
+                      <div className="w-4 h-2 bg-gray-50 rounded animate-pulse" />
+                    </div>
+                  ))}
+                </div>
+              ) : isPremium && weekData ? (
+                <WeekMosaic 
+                  colors={weekData.days.map(d => d.color)}
+                  labels={["L", "M", "X", "J", "V", "S", "D"]}
+                  moods={weekData.days.map(d => d.moodName)}
+                  hasNota={weekData.days.map(d => d.hasNote)}
+                  dominantMood={weekData.dominantLabel}
+                  dominantColor={weekData.dominantColor}
+                  size="compact"
+                  animate={true}
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-4 py-2">
+                  <p className="text-sm font-light text-aubergine-dark/60 text-center">
+                    Desbloquea tu historial emocional
+                  </p>
+                  <Link href="/pricing">
+                    <button className="px-6 py-2 rounded-full border border-aubergine-dark/20 text-aubergine-dark/60 text-xs font-medium hover:bg-aubergine-dark hover:text-white transition-all">
+                      Ver Planes
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* Modal handles the success state now */}
         {/* 1. HEADER */}

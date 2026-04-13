@@ -56,13 +56,22 @@ export function PaletteWidget() {
           </div>
         </div>
 
-        <Link href="/paleta" className="z-10 group">
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-aubergine-dark/10 text-aubergine-dark/60 text-sm font-medium hover:bg-aubergine-dark hover:text-white transition-all">
-            <Palette className="w-4 h-4" />
-            Actualizar mezcla
-            <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </button>
-        </Link>
+            <div className="flex flex-col items-center md:items-end gap-2">
+              <Link href="/paleta" className="z-10 group">
+                <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-aubergine-dark/10 text-aubergine-dark/60 text-sm font-medium hover:bg-aubergine-dark hover:text-white transition-all">
+                  <Palette className="w-4 h-4" />
+                  Actualizar mezcla
+                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </button>
+              </Link>
+              <Link 
+                href="/diario" 
+                className="text-[13px] font-sans hover:opacity-80 transition-opacity flex items-center gap-1 z-10"
+                style={{ color: currentPalette.colorMezclado }}
+              >
+                Ver mi historial de colores →
+              </Link>
+            </div>
       </motion.div>
     );
   }
