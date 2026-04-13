@@ -41,8 +41,6 @@ const ADULT_PROFILES = [
   { label: "Chef / Exclusivo", sexo: "", edad: "", premiumLevel: "2" },
 ] as const;
 
-const FAMILIA_AGES = ["Todos", "3-7", "8-12", "13-17"] as const;
-
 /* ── Types ───────────────────────────────────────────────────── */
 interface Receta {
   id: string;
@@ -320,9 +318,6 @@ function SmartCard({ receta, isPremium }: { receta: Receta; isPremium: boolean }
   if ((receta.premium_level ?? 0) === 2) {
     return <ExclusivaCard receta={receta} locked={locked} />;
   }
-  if (receta.segmento === 'familia') {
-    return <FamiliaCard receta={receta} locked={locked} />;
-  }
   return <RecipeCard receta={receta} locked={locked} />;
 }
 
@@ -367,9 +362,8 @@ function RecetasContent() {
 
   // ── Filter state ──────────────────────────────────────────
   const [moodFilter, setMoodFilter] = useState<string>("");
-  const [segmento, setSegmento] = useState<string>("adulto");
+  const segmento = "adulto"; // Simplified to adults only
   const [profileIdx, setProfileIdx] = useState<number>(0);
-  const [familiaAgeIdx, setFamiliaAgeIdx] = useState<number>(0);
   const [q, setQ] = useState<string>(searchParams.get("q") || "");
   const [page, setPage] = useState<number>(1);
 
@@ -430,15 +424,10 @@ function RecetasContent() {
       params.set("segmento", segmento);
 
       // Profile/age filter
-      if (segmento === "adulto") {
-        const profile = ADULT_PROFILES[profileIdx];
-        if (profile.sexo) params.set("sexo", profile.sexo);
-        if (profile.edad) params.set("edad", profile.edad);
-        if (profile.premiumLevel) params.set("premium_level", profile.premiumLevel);
-      } else {
-        const age = FAMILIA_AGES[familiaAgeIdx];
-        if (age !== "Todos") params.set("edad", age);
-      }
+      const profile = ADULT_PROFILES[profileIdx];
+      if (profile.sexo) params.set("sexo", profile.sexo);
+      if (profile.edad) params.set("edad", profile.edad);
+      if (profile.premiumLevel) params.set("premium_level", profile.premiumLevel);
 
       // Text search
       if (q) params.set("q", q);
@@ -461,7 +450,7 @@ function RecetasContent() {
     } finally {
       setIsLoading(false);
     }
-  }, [moodFilter, segmento, profileIdx, familiaAgeIdx, q, page]);
+  }, [moodFilter, profileIdx, q, page]);
 
   useEffect(() => { fetchRecetas(); }, [fetchRecetas]);
 
@@ -471,19 +460,11 @@ function RecetasContent() {
     setPage(1);
   };
 
-  const changeSegmento = (seg: string) => {
-    setSegmento(seg);
-    setProfileIdx(0);
-    setFamiliaAgeIdx(0);
-    setPage(1);
-  };
-
-  const hasFilters = moodFilter || profileIdx > 0 || familiaAgeIdx > 0 || q;
+  const hasFilters = moodFilter || profileIdx > 0 || q;
 
   const resetFilters = () => {
     setMoodFilter("");
     setProfileIdx(0);
-    setFamiliaAgeIdx(0);
     setQ("");
     setPage(1);
   };
@@ -552,33 +533,8 @@ function RecetasContent() {
             ))}
           </div>
 
-          {/* FILA 2 — Segmento + Search */}
+          {/* Row 2 — Search */}
           <div className="flex items-center gap-3 flex-wrap">
-            <div className="flex rounded-xl overflow-hidden border border-aubergine-dark/15">
-              <button
-                onClick={() => changeSegmento("adulto")}
-                className={`px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all duration-200 ${
-                  segmento === "adulto"
-                    ? "bg-aubergine-dark text-cream"
-                    : "bg-cream text-aubergine-dark/60 hover:bg-aubergine-dark/5"
-                }`}
-              >
-                Adultos
-              </button>
-              <button
-                onClick={() => changeSegmento("familia")}
-                className={`px-4 py-2 text-xs font-medium tracking-widest transition-all duration-200 flex items-center gap-1.5 ${
-                  segmento === "familia"
-                    ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white"
-                    : "bg-cream text-aubergine-dark/60 hover:text-indigo-500/70"
-                }`}
-              >
-                <Baby className="w-3 h-3" /> Familia
-              </button>
-            </div>
-
-            <div className="h-6 w-px bg-aubergine-dark/10 hidden md:block" />
-
             {/* Search */}
             <div className="relative flex-1 min-w-[200px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-aubergine-dark/30" />
@@ -600,33 +556,14 @@ function RecetasContent() {
             </div>
           </div>
 
-          {/* FILA 3 — Profile pills (conditional) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={segmento}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.18 }}
-              className="overflow-hidden"
-            >
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
-                {segmento === "adulto" ? (
-                  ADULT_PROFILES.map((p, i) => (
-                    <Pill key={i} active={profileIdx === i} isChef={p.label === "Chef / Exclusivo"} onClick={() => { setProfileIdx(i); setPage(1); }}>
-                      {p.label}
-                    </Pill>
-                  ))
-                ) : (
-                  FAMILIA_AGES.map((age, i) => (
-                    <Pill key={i} active={familiaAgeIdx === i} onClick={() => { setFamiliaAgeIdx(i); setPage(1); }}>
-                      {age === "Todos" ? "Todos" : `${age} años`}
-                    </Pill>
-                  ))
-                )}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          {/* Row 3 — Profile pills */}
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
+            {ADULT_PROFILES.map((p, i) => (
+              <Pill key={i} active={profileIdx === i} isChef={p.label === "Chef / Exclusivo"} onClick={() => { setProfileIdx(i); setPage(1); }}>
+                {p.label}
+              </Pill>
+            ))}
+          </div>
 
           {/* Counter + Clear */}
           <div className="flex items-center gap-4 flex-wrap">
