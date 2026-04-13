@@ -26,6 +26,13 @@ function LoginForm() {
         router.replace(redirectTo);
       }
     };
+    
+    // Check for messages in URL (e.g. from password reset)
+    const message = searchParams.get('message');
+    if (message) {
+      setError(message);
+    }
+    
     checkSession();
   }, [supabase, router, searchParams]);
 
@@ -116,7 +123,7 @@ function LoginForm() {
 
           {error && (
             <div className={`p-4 rounded-xl text-sm mb-6 text-center ${
-              error.includes("reenviado") 
+              error.includes("reenviado") || error.includes("actualizada")
                 ? "bg-green-50 text-green-700 border border-green-100" 
                 : "bg-red-50 text-red-600 border border-red-100"
             }`}>
@@ -149,7 +156,7 @@ function LoginForm() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50">Contraseña</label>
-                <Link href="#" className="text-xs text-aubergine-dark/40 hover:text-aubergine-dark transition-colors font-semibold">
+                <Link href="/auth/forgot-password" title="Recuperar contraseña" className="text-xs text-aubergine-dark/40 hover:text-aubergine-dark transition-colors font-semibold">
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
