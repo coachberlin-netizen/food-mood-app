@@ -1,35 +1,37 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface WeekMosaicProps {
-  colors: string[];      // 7 hex colors, one per day L→D. Si no hay dato: "#E0E0E0"
-  moodNames: string[];   // 7 mood names, one per day (empty "" if none)
-  dominantMood: string;  // Name of the most frequent mood
-  dominantColor: string; // Hex of the dominant mood
-  hasNote: boolean[];    // 7 booleans for saved notes
+  colors: string[];          // 7 colores hex, índice 0=lunes ... 6=domingo
+  labels: string[];          // ["L","M","X","J","V","S","D"]
+  moods: string[];           // nombre del mood por día (para el tooltip)
+  hasNota: boolean[];        // true si ese día tiene nota del usuario
+  dominantMood: string;
+  dominantColor: string;     // hex del color dominante
   size: "compact" | "full";
-  animate?: boolean;     // Default true
+  animate: boolean;
 }
-
-const DAY_LABELS = ["L", "M", "X", "J", "V", "S", "D"];
 
 export function WeekMosaic({
   colors,
-  moodNames,
+  labels,
+  moods,
+  hasNota,
   dominantMood,
   dominantColor,
-  hasNote,
   size,
-  animate = true,
+  animate,
 }: WeekMosaicProps) {
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  
   const isCompact = size === "compact";
   const squareSize = isCompact ? 36 : 80;
   const borderRadius = isCompact ? 6 : 10;
   const gap = isCompact ? 4 : 8;
-  const labelSize = isCompact ? 10 : 14;
-  const footerMargin = isCompact ? 12 : 20;
+  const labelFontSize = isCompact ? 10 : 14;
   const footerFontSize = isCompact ? 14 : 18;
 
   const containerVariants = {
@@ -45,6 +47,16 @@ export function WeekMosaic({
     animate: { opacity: 1, scale: 1 },
   };
 
+  const dayNames = [
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+    "Domingo",
+  ];
+
   return (
     <div className="flex flex-col items-center w-full">
       <motion.div
@@ -54,71 +66,70 @@ export function WeekMosaic({
         animate={animate ? "animate" : false}
         variants={containerVariants}
       >
-        {DAY_LABELS.map((label, idx) => {
+        {labels.map((label, idx) => {
           const color = colors[idx] || "#E0E0E0";
-          const moodName = moodNames[idx] || "";
+          const mood = moods[idx] || "";
           const isEmpty = color === "#E0E0E0";
-          const dayHasNote = hasNote[idx];
+          const hasNote = hasNota[idx];
 
           return (
             <div key={idx} className="flex flex-col items-center gap-2">
               <motion.div
                 variants={itemVariants}
-                className="relative group"
+                className="relative"
+                onMouseEnter={() => !isCompact && setHoveredIdx(idx)}
+                onMouseLeave={() => !isCompact && setHoveredIdx(null)}
                 style={{
                   width: `${squareSize}px`,
                   height: `${squareSize}px`,
                   borderRadius: `${borderRadius}px`,
                   backgroundColor: isEmpty ? "transparent" : color,
-                  border: isEmpty ? "2px dashed #C8C5C0" : "none",
+                  border: isEmpty ? "1.5px dashed #D1D5DB" : "none",
                   cursor: isCompact ? "default" : "pointer",
                 }}
                 whileHover={
                   !isCompact
                     ? {
                         y: -4,
-                        boxShadow: `0 8px 20px ${color}40`,
+                        boxShadow: `0 8px 24px ${color}66`,
                       }
                     : {}
                 }
               >
-                {/* Custom Tooltip (Full version) */}
-                {!isCompact && moodName && (
-                  <div
-                    className="absolute opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-150 z-10"
-                    style={{
-                      bottom: "calc(100% + 8px)",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      backgroundColor: "#1A1A2E",
-                      color: "#FAF9F6",
-                      borderRadius: "6px",
-                      padding: "4px 10px",
-                      fontSize: "12px",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {[
-                      "Lunes",
-                      "Martes",
-                      "Miércoles",
-                      "Jueves",
-                      "Viernes",
-                      "Sábado",
-                      "Domingo",
-                    ][idx]}{" "}
-                    — {moodName}
-                  </div>
-                )}
+                {/* Custom Tooltip (Full version with State) */}
+                <AnimatePresence>
+                  {!isCompact && hoveredIdx === idx && mood && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9, y: 5 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9, y: 5 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute pointer-events-none z-10"
+                      style={{
+                        bottom: "calc(100% + 8px)",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        backgroundColor: "#1A1A2E",
+                        color: "#FAF9F6",
+                        borderRadius: "6px",
+                        padding: "4px 8px",
+                        fontSize: "12px",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {dayNames[idx]} — {mood}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Note Indicator (Full version) */}
-                {!isCompact && dayHasNote && (
+                {!isCompact && hasNote && (
                   <div
                     className="absolute"
                     style={{
                       width: "6px",
                       height: "6px",
-                      backgroundColor: "#6B2737",
+                      backgroundColor: "#6B2D3E",
                       borderRadius: "50%",
                       bottom: "6px",
                       right: "6px",
@@ -130,9 +141,10 @@ export function WeekMosaic({
               {/* Day Label */}
               <span
                 style={{
-                  fontSize: `${labelSize}px`,
-                  color: "#9a9690",
+                  fontSize: `${labelFontSize}px`,
+                  color: "#9CA3AF",
                   fontWeight: 500,
+                  textAlign: "center"
                 }}
               >
                 {label}
@@ -145,7 +157,7 @@ export function WeekMosaic({
       {/* Footer Summary */}
       <div
         className="flex items-center gap-2"
-        style={{ marginTop: `${footerMargin}px` }}
+        style={{ marginTop: isCompact ? "12px" : "20px" }}
       >
         <div
           style={{
@@ -158,13 +170,12 @@ export function WeekMosaic({
         <span
           style={{
             fontSize: `${footerFontSize}px`,
-            color: "#1A1A2E",
+            color: "#4B5563",
             fontFamily: "var(--font-dm-sans), sans-serif",
             fontWeight: 500,
           }}
         >
-          Color dominante esta semana:{" "}
-          <span className="font-bold">{dominantMood}</span>
+          Color dominante: <span className="font-bold">{dominantMood}</span>
         </span>
       </div>
     </div>

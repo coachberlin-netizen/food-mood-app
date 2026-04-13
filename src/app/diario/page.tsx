@@ -1,358 +1,408 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import * as React from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { createRecetasClient } from "@/lib/supabase/recetas";
-import { useAuthStore } from "@/store/useAuthStore";
-import { useQuizStore } from "@/store/useQuizStore";
-import { moods } from "@/data/moods";
+import { usePalette } from "@/contexts/PaletteContext";
 import { 
-  Plus, Save, ChevronRight, ArrowLeft, 
-  Sparkles, History, Calendar, Smile,
-  Activity, Info, Loader2, CheckCircle2
-} from "lucide-react";
+  analyzeWeek, 
+  analyzeMonth, 
+  type DiaryEntry,
+  type WeeklyAnalysis,
+  type MonthlyAnalysis
+} from "@/lib/diary-analysis";
+import { WeekMosaic } from "@/components/diary/WeekMosaic";
+import { MonthMosaic } from "@/components/diary/MonthMosaic";
+import { QuickLog } from "@/components/diary/QuickLog";
+import { ChevronDown, ChevronUp, Lock, Sparkles, Calendar, BookOpen } from "lucide-react";
 import Link from "next/link";
 
-const MOOD_MAP: Record<string, { label: string; emoji: string; color: string; bg: string }> = {
-  activacion: { label: "Activación", emoji: "⚡", color: "#d4856e", bg: "#fdf0ec" },
-  calma:      { label: "Calma",      emoji: "🌿", color: "#8a80a8", bg: "#f3f0f8" },
-  focus:      { label: "Focus",      emoji: "🧠", color: "#3d7a5f", bg: "#e8f5e9" },
-  social:     { label: "Social",     emoji: "🥂", color: "#c9a67e", bg: "#fdf5ec" },
-  reset:      { label: "Reset",      emoji: "🍋", color: "#5bb0ad", bg: "#e6f5f4" },
-  familia:    { label: "Familia",    emoji: "👨‍👩‍👧", color: "#b89a52", bg: "#f5efd8" },
+// Mood to Color Map for QuickLog logic (internal fallback)
+const MOOD_COLORS: Record<string, string> = {
+  activacion: '#E8A87C',
+  calma:      '#7EC8C8',
+  focus:      '#F4E285',
+  social:     '#F4A7B9',
+  reset:      '#B8A9C9',
+  confort:    '#D4A574'
 };
 
+const DAY_LABELS = ["L", "M", "X", "J", "V", "S", "D"];
+
 export default function DiarioPage() {
-  const router = useRouter();
-  const { user, isAuthenticated } = useAuthStore();
-  const { resultMood } = useQuizStore();
-  
+  const { currentPalette, refreshPalette } = usePalette();
+  const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [selectedMood, setSelectedMood] = useState<string | null>(null);
-  const [intensity, setIntensity] = useState(3);
-  const [notes, setNotes] = useState("");
-  const [weeklyHistory, setWeeklyHistory] = useState<any[]>([]);
-  const [todayRecord, setTodayRecord] = useState<any>(null);
-  const [recommendation, setRecommendation] = useState<any>(null);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    async function init() {
-      // Auth check
-      const supabase = createClient();
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        router.push("/test");
-        return;
-      }
-      
-      await fetchHistory(session.user.id);
-      setLoading(false);
-    }
-    init();
-  }, [router]);
+  // Data States
+  const [weekAnalysis, setWeekAnalysis] = useState<WeeklyAnalysis | null>(null);
+  const [monthAnalysis, setMonthAnalysis] = useState<(MonthlyAnalysis & { moodGrid: string[][]; monthName: string }) | null>(null);
+  const [historyMonths, setHistoryMonths] = useState<any[]>([]);
+  const [openMonth, setOpenMonth] = useState<string | null>(null);
 
-  async function fetchHistory(userId: string) {
-    const supabase = createClient();
-    const today = new Date().toISOString().split("T")[0];
-    
-    // Fetch last 7 days of logs
-    const { data: logs } = await supabase
-      .from("mood_diary")
+  const supabase = createClient();
+
+  const fetchData = useCallback(async (userId: string) => {
+    // 1. Fetch data for analysis
+    // We fetch last 120 days to cover past 3 months
+    const { data: allEntries, error } = await supabase
+      .from("emotional_palettes")
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
-      .limit(20);
+      .limit(200);
 
-    if (logs) {
-      setWeeklyHistory(logs);
-      const todayLog = logs.find(l => l.date === today || l.created_at.startsWith(today));
-      if (todayLog) {
-        setTodayRecord(todayLog);
-        setSelectedMood(todayLog.mood);
-        setIntensity(todayLog.intensity || 3);
-        setNotes(todayLog.notes || "");
-      }
+    if (error) {
+      console.error("Error fetching diary data:", error);
+      return;
     }
-  }
 
-  async function handleSave() {
-    if (!selectedMood || saving) return;
-    setSaving(true);
+    // Map DB rows to DiaryEntry type
+    const mappedEntries: DiaryEntry[] = allEntries.map(e => ({
+      id: e.id,
+      created_at: e.created_at,
+      energia: e.energia,
+      calma: e.serenidad || e.calma || 5,
+      claridad: e.claridad,
+      conexion: e.conexion,
+      mood_dominante: e.mood_dominante,
+      mood_secundario: e.mood_secundario,
+      color_resultado: e.color_resultado,
+      nota: e.nota,
+      receta_cocinada: e.recetas_sugeridas?.[0] || null,
+      dia_semana: new Date(e.created_at).toLocaleDateString("es-ES", { weekday: "long" })
+    }));
+
+    // Weekly Analysis (last 7 days)
+    const weekStart = new Date();
+    weekStart.setDate(weekStart.getDate() - 7);
+    const weeklyEntries = mappedEntries.filter(e => new Date(e.created_at) >= weekStart);
+    setWeekAnalysis(analyzeWeek(weeklyEntries));
+
+    // Monthly Analysis (current month)
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const monthlyEntries = mappedEntries.filter(e => new Date(e.created_at) >= monthStart);
     
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    // Group monthly entries into weeks for MonthMosaic
+    const groupedMonth = groupEntriesByWeek(monthlyEntries, now.getFullYear(), now.getMonth());
+    const mAnalysis = analyzeMonth([analyzeWeek(monthlyEntries)]); // Simplified for standard call
+    
+    setMonthAnalysis({
+      ...mAnalysis,
+      colorGrid: groupedMonth.colorGrid,
+      moodGrid: groupedMonth.moodGrid,
+      monthName: `${now.toLocaleString('es-ES', { month: 'long' })} ${now.getFullYear()}`
+    } as any);
+
+    // History (Past 3 months)
+    const history = [];
+    for (let i = 1; i <= 3; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const mEntries = mappedEntries.filter(e => {
+            const ed = new Date(e.created_at);
+            return ed.getMonth() === d.getMonth() && ed.getFullYear() === d.getFullYear();
+        });
+        if (mEntries.length > 0) {
+            const grouped = groupEntriesByWeek(mEntries, d.getFullYear(), d.getMonth());
+            const analysis = analyzeMonth([analyzeWeek(mEntries)]);
+            history.push({
+                id: `${d.getFullYear()}-${d.getMonth()}`,
+                name: d.toLocaleString('es-ES', { month: 'long', year: 'numeric' }),
+                analysis: {
+                    ...analysis,
+                    colorGrid: grouped.colorGrid,
+                    moodGrid: grouped.moodGrid
+                },
+                distribution: analysis.moodDistribution
+            });
+        }
+    }
+    setHistoryMonths(history);
+
+  }, [supabase]);
+
+  useEffect(() => {
+    async function init() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setLoading(false);
+        return;
+      }
+      setUser(session.user);
+
+      // Premium Check Pattern
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("is_premium")
+        .eq("id", session.user.id)
+        .single();
+      
+      const isPrem = !!profile?.is_premium;
+      setIsPremium(isPrem);
+
+      if (isPrem) {
+        await fetchData(session.user.id);
+      }
+      setLoading(false);
+    }
+    init();
+  }, [supabase, fetchData]);
+
+  const handleSaveQuickLog = async (entry: { mood: string; nota?: string }) => {
     if (!user) return;
-
-    const today = new Date().toISOString().split("T")[0];
-    const payload = {
+    
+    const { error } = await supabase.from("emotional_palettes").insert({
       user_id: user.id,
-      mood: selectedMood,
-      intensity,
-      notes,
-      date: today
-    };
+      mood_dominante: entry.mood,
+      mood_secundario: entry.mood,
+      nota: entry.nota || null,
+      energia: 5,
+      serenidad: 5,
+      claridad: 5,
+      conexion: 5,
+      color_resultado: MOOD_COLORS[entry.mood] || "#E0E0E0"
+    });
 
-    try {
-      let error;
-      if (todayRecord) {
-        ({ error } = await supabase
-          .from("mood_diary")
-          .update(payload)
-          .eq("id", todayRecord.id));
-      } else {
-        ({ error } = await supabase
-          .from("mood_diary")
-          .insert(payload));
-      }
-
-      if (error) throw error;
-
-      // Fetch recommendation
-      await fetchRecommendation(selectedMood);
-      
-      setShowSuccess(true);
-      await fetchHistory(user.id);
-      
-      setTimeout(() => {
-        const el = document.getElementById("recommendation-section");
-        el?.scrollIntoView({ behavior: "smooth" });
-      }, 500);
-
-    } catch (err) {
-      console.error("Error saving diary:", err);
-    } finally {
-      setSaving(false);
+    if (error) {
+      console.error("Error saving quick log:", error);
+    } else {
+      await refreshPalette();
+      await fetchData(user.id);
     }
-  }
-
-  async function fetchRecommendation(moodId: string) {
-    const { getRecipeRecommendationByMood } = await import("@/lib/daily-inspiration");
-    const supabase = createClient();
-    const recetasClient = createRecetasClient();
-    
-    // Simple mock context
-    const userContext: any = { id: user?.id, tier: 'registrado free' };
-    
-    // Map moodId to keyword if needed
-    const keyword = moodId.charAt(0).toUpperCase() + moodId.slice(1);
-    
-    const rec = await getRecipeRecommendationByMood(supabase, recetasClient, userContext, keyword, 'diary_log');
-    setRecommendation(rec);
-  }
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F5F0E8] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#5C1A1A] animate-spin" />
+      <div className="min-h-screen bg-[#FDFBF7] py-20 px-6">
+        <div className="max-w-4xl mx-auto flex flex-col gap-12">
+            <div className="h-10 w-64 bg-gray-200 animate-pulse rounded-lg" />
+            <div className="h-6 w-96 bg-gray-100 animate-pulse rounded-lg" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10">
+                <div className="h-80 bg-gray-100 animate-pulse rounded-[2rem]" />
+                <div className="h-80 bg-gray-100 animate-pulse rounded-[2rem]" />
+            </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F0E8] pb-20">
-      <div className="max-w-2xl mx-auto px-6 py-12 flex flex-col gap-12">
+    <main className="min-h-screen bg-[#FDFBF7] pb-32">
+      <div className="max-w-5xl mx-auto px-6 py-20 flex flex-col gap-20">
         
-        {/* Header */}
+        {/* SECTION 1: Header */}
         <header className="flex flex-col gap-4">
-          <Link 
-            href="/dashboard" 
-            className="flex items-center gap-2 text-sm text-[#5C1A1A]/50 hover:text-[#5C1A1A] transition-colors w-fit"
-          >
-            <ArrowLeft className="w-4 h-4" /> Volver al Dashboard
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-serif font-black text-[#5C1A1A] leading-tight">
-            Diario de <span className="text-[#C9A84C]">Mood</span>
+          <h1 className="font-serif text-[40px] md:text-[56px] text-[#6B2D3E] leading-tight font-black">
+            Tu Diario Emocional
           </h1>
-          <p className="text-lg text-[#5C1A1A]/70 font-light max-w-md">
-            Registrar cómo te sientes es el primer paso para nutrir tu equilibrio interno.
+          <p className="font-sans text-[18px] md:text-[22px] text-[#9CA3AF] font-light max-w-2xl leading-relaxed">
+            Cada día un color. Cada semana un patrón. 
+            Cada mes una historia que solo tú puedes leer.
           </p>
         </header>
 
-        {/* Form Section */}
-        <section className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-[#5C1A1A]/5 flex flex-col gap-10">
-          
-          {/* Mood Selector */}
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <Smile className="w-5 h-5 text-[#C9A84C]" />
-              <h2 className="text-sm font-bold uppercase tracking-widest text-[#5C1A1A]/80">
-                ¿Cómo te sientes hoy?
-              </h2>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {Object.entries(MOOD_MAP).map(([id, info]) => (
-                <button
-                  key={id}
-                  onClick={() => setSelectedMood(id)}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all duration-300 border-2 ${
-                    selectedMood === id 
-                      ? "border-[#C9A84C] bg-[#C9A84C]/5 shadow-md scale-[1.02]" 
-                      : "border-transparent bg-[#F5F0E8]/50 hover:bg-[#F5F0E8] grayscale-[0.3] opacity-70"
-                  }`}
-                >
-                  <span className="text-2xl">{info.emoji}</span>
-                  <span className={`text-[11px] font-bold uppercase tracking-tighter ${selectedMood === id ? "text-[#5C1A1A]" : "text-[#5C1A1A]/40"}`}>
-                    {info.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
+        {!isPremium ? (
+          /* NON-PREMIUM STATE */
+          <div className="flex flex-col gap-16">
+            <section className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-[#6B2D3E]/5 flex flex-col items-center">
+              <QuickLog currentPalette={currentPalette} onSave={handleSaveQuickLog} />
+            </section>
 
-          {/* Intensity Slider */}
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Activity className="w-5 h-5 text-[#C9A84C]" />
-                <h2 className="text-sm font-bold uppercase tracking-widest text-[#5C1A1A]/80">
-                  Intensidad
-                </h2>
-              </div>
-              <span className="text-2xl font-serif text-[#C9A84C] font-bold">{intensity}</span>
-            </div>
-            <div className="px-2">
-              <input 
-                type="range" 
-                min="1" 
-                max="5" 
-                step="1"
-                value={intensity}
-                onChange={(e) => setIntensity(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-[#F5F0E8] rounded-full appearance-none cursor-pointer accent-[#C9A84C]"
-              />
-              <div className="flex justify-between mt-3 text-[10px] text-[#5C1A1A]/30 uppercase font-bold tracking-widest">
-                <span>Leve</span>
-                <span>Muy intensa</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Notes */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <Info className="w-5 h-5 text-[#C9A84C]" />
-              <h2 className="text-sm font-bold uppercase tracking-widest text-[#5C1A1A]/80">
-                Notas (opcional)
-              </h2>
-            </div>
-            <textarea 
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="¿Qué ha pasado hoy? ¿Qué has comido? ¿Cómo has dormido?"
-              className="w-full h-32 bg-[#F5F0E8]/30 rounded-2xl p-4 border border-[#5C1A1A]/10 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 text-[#5C1A1A] font-light text-sm resize-none"
-            />
-          </div>
-
-          {/* Save Button */}
-          <button
-            onClick={handleSave}
-            disabled={!selectedMood || saving}
-            className="w-full py-5 rounded-2xl bg-[#5C1A1A] text-white font-semibold text-sm tracking-widest uppercase flex items-center justify-center gap-3 hover:bg-[#4a1515] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-[#5C1A1A]/10 group"
-          >
-            {saving ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
-            ) : (
-              <>
-                <Save className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                {todayRecord ? "Actualizar registro" : "Guardar sensaciones"}
-              </>
-            )}
-          </button>
-        </section>
-
-        {/* Recommendation Section */}
-        <AnimatePresence>
-          {recommendation && (
-            <motion.section
-              id="recommendation-section"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col gap-6"
-            >
-              <div className="flex items-center gap-3">
-                <Sparkles className="w-5 h-5 text-[#C9A84C]" />
-                <h2 className="text-sm font-bold uppercase tracking-widest text-[#5C1A1A]/60">
-                  Ideal para tu estado actual
-                </h2>
-              </div>
-              <div className="bg-[#5C1A1A] rounded-[2rem] p-8 text-white shadow- luxury relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/10 rounded-full blur-3xl opacity-50" />
-                <div className="relative flex flex-col gap-4">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
-                    RECOMENDACIÓN INSTANTÁNEA
-                  </span>
-                  <h3 className="text-2xl font-serif font-bold italic">
-                    {recommendation.nombre_es}
-                  </h3>
-                  <p className="text-sm text-white/60 font-light leading-relaxed">
-                    Basándonos en tu {selectedMood} de intensidad {intensity}, esta receta ayudará a regular tu eje intestino-cerebro.
-                  </p>
-                  <Link 
-                    href={`/recetas/${recommendation.id}`}
-                    className="flex items-center gap-2 text-sm font-semibold text-[#C9A84C] hover:text-[#d4b96a] transition-colors mt-2"
-                  >
-                    Ver preparación completa <ChevronRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            </motion.section>
-          )}
-        </AnimatePresence>
-
-        {/* History Section */}
-        <section className="flex flex-col gap-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <History className="w-5 h-5 text-[#C9A84C]" />
-              <h2 className="text-sm font-bold uppercase tracking-widest text-[#5C1A1A]/60">
-                Historial reciente
-              </h2>
-            </div>
-          </div>
-          
-          {weeklyHistory.length > 0 ? (
-            <div className="bg-white rounded-3xl p-6 border border-[#5C1A1A]/5 shadow-sm space-y-4">
-              {weeklyHistory.slice(0, 7).map((log, i) => {
-                const moodInfo = MOOD_MAP[log.mood];
-                const dateHeader = new Date(log.created_at).toLocaleDateString("es-ES", {
-                  day: "numeric", month: "short", weekday: "short"
-                });
-                return (
-                  <div key={log.id} className="flex items-center justify-between py-3 border-b border-[#5C1A1A]/5 last:border-0">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#F5F0E8] text-lg">
-                        {moodInfo?.emoji}
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs font-bold text-[#5C1A1A] capitalize">{dateHeader}</span>
-                        <span className="text-[10px] text-[#5C1A1A]/40 uppercase tracking-tighter">{moodInfo?.label} · Nivel {log.intensity}</span>
-                      </div>
+            <section className="relative group">
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center">
+                 <div className="bg-white/80 backdrop-blur-md p-10 rounded-[2.5rem] shadow-2xl border border-[#6B2D3E]/10 max-w-lg flex flex-col items-center gap-6">
+                    <div className="w-16 h-16 rounded-full bg-[#6B2D3E]/5 flex items-center justify-center text-[#6B2D3E]">
+                        <Lock className="w-8 h-8" />
                     </div>
-                    {log.notes && (
-                      <div className="hidden sm:block text-[11px] text-[#5C1A1A]/50 italic max-w-[200px] truncate">
-                        &quot;{log.notes}&quot;
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="bg-white/50 rounded-3xl p-12 text-center border-2 border-dashed border-[#5C1A1A]/10">
-              <Calendar className="w-12 h-12 text-[#5C1A1A]/10 mx-auto mb-4" />
-              <p className="text-sm font-light text-[#5C1A1A]/40">
-                Aún no tienes un historial. Empieza registrando tu mood de hoy.
-              </p>
-            </div>
-          )}
-        </section>
+                    <div className="space-y-2">
+                        <h3 className="font-serif text-2xl text-[#6B2D3E] font-bold">Tu semana emocional te espera</h3>
+                        <p className="text-gray-500 font-light">
+                            Registra tu color cada día y descubre los patrones que tu mente consciente no detecta.
+                        </p>
+                    </div>
+                    <Link 
+                        href="/pricing"
+                        className="bg-[#6B2D3E] text-white px-10 py-5 rounded-[60px] font-sans text-lg font-bold shadow-luxury hover:scale-105 transition-transform"
+                    >
+                        Desbloquear con Premium → <span className="block text-xs opacity-60 font-normal">Desde 6.99 €/mes</span>
+                    </Link>
+                 </div>
+              </div>
+              <div className="opacity-30 blur-md pointer-events-none select-none">
+                <WeekMosaic 
+                  colors={['#7EC8C8','#B8A9C9','#E8A87C','#7EC8C8','#F4E285','#B8A9C9','#E8A87C']}
+                  labels={DAY_LABELS}
+                  moods={['Calma', 'Reset', 'Activación', 'Calma', 'Focus', 'Reset', 'Activación']}
+                  hasNota={[true, false, true, true, false, true, false]}
+                  dominantMood="Calma"
+                  dominantColor="#7EC8C8"
+                  size="full"
+                  animate={false}
+                />
+              </div>
+            </section>
+          </div>
+        ) : (
+          /* PREMIUM STATE */
+          <div className="flex flex-col gap-24">
+            
+            {/* SECTION 2: Registro de hoy */}
+            <section className="flex flex-col items-center">
+              <QuickLog currentPalette={currentPalette} onSave={handleSaveQuickLog} />
+            </section>
 
+            {/* SECTION 3: Tu semana */}
+            {weekAnalysis && (
+              <section className="flex flex-col gap-10">
+                <div className="flex items-center gap-4">
+                    <Sparkles className="w-6 h-6 text-[#C9A84C]" />
+                    <h2 className="font-serif text-[28px] md:text-[32px] text-[#6B2D3E] font-bold italic">
+                        Esta semana
+                    </h2>
+                </div>
+                <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-[#6B2D3E]/5">
+                    <WeekMosaic 
+                        colors={weekAnalysis.colorSequence}
+                        labels={DAY_LABELS}
+                        moods={weekAnalysis.entries.map(e => e.mood_dominante)} // Approximate, mapping done by WeekMosaic usually
+                        hasNota={weekAnalysis.entries.map(e => e.nota !== null)}
+                        dominantMood={weekAnalysis.dominantMood}
+                        dominantColor={weekAnalysis.dominantColor}
+                        size="full"
+                        animate={true}
+                    />
+                    <div className="mt-12 flex flex-col gap-4 text-center max-w-2xl mx-auto">
+                        {weekAnalysis.pattern && (
+                            <p className="font-sans text-[18px] text-[#6B2D3E] italic">
+                                &quot;{weekAnalysis.pattern}&quot;
+                            </p>
+                        )}
+                        <p className="font-sans text-[16px] text-[#6B7280] leading-relaxed">
+                            {weekAnalysis.recommendation}
+                        </p>
+                    </div>
+                </div>
+              </section>
+            )}
+
+            {/* SECTION 4: Tu mes */}
+            {monthAnalysis && (
+              <section className="flex flex-col gap-10">
+                <div className="flex items-center gap-4">
+                    <BookOpen className="w-6 h-6 text-[#C9A84C]" />
+                    <h2 className="font-serif text-[28px] md:text-[32px] text-[#6B2D3E] font-bold italic">
+                        Este mes
+                    </h2>
+                </div>
+                <MonthMosaic 
+                    colorGrid={monthAnalysis.colorGrid}
+                    moodGrid={monthAnalysis.moodGrid}
+                    monthName={monthAnalysis.monthName}
+                    moodDistribution={monthAnalysis.moodDistribution}
+                    insight={monthAnalysis.insight}
+                    animate={true}
+                />
+              </section>
+            )}
+
+            {/* SECTION 5: Historial */}
+            {historyMonths.length > 0 && (
+              <section className="flex flex-col gap-10">
+                <div className="flex items-center gap-4">
+                    <Calendar className="w-6 h-6 text-[#C9A84C]" />
+                    <h2 className="font-serif text-[28px] md:text-[32px] text-[#6B2D3E] font-bold italic">
+                        Tu historia emocional
+                    </h2>
+                </div>
+                <div className="flex flex-col gap-4">
+                    {historyMonths.map((m) => {
+                        const isOpen = openMonth === m.id;
+                        return (
+                            <div key={m.id} className="bg-white rounded-3xl overflow-hidden border border-[#6B2D3E]/5 shadow-sm">
+                                <button 
+                                    onClick={() => setOpenMonth(isOpen ? null : m.id)}
+                                    className="w-full p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                                >
+                                    <div className="flex items-center gap-8">
+                                        <span className="font-sans text-lg font-bold text-[#6B2D3E] capitalize w-48">
+                                            {m.name}
+                                        </span>
+                                        {/* Mini distribution bar */}
+                                        <div className="hidden md:flex w-40 h-2 rounded-full overflow-hidden bg-gray-100">
+                                            {Object.entries(m.distribution).map(([mid, count]: [string, any]) => (
+                                                <div 
+                                                    key={mid} 
+                                                    style={{ 
+                                                        width: `${(count / 30) * 100}%`, // approx
+                                                        backgroundColor: MOOD_COLORS[mid] 
+                                                    }} 
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                    {isOpen ? <ChevronUp className="text-gray-400" /> : <ChevronDown className="text-gray-400" />}
+                                </button>
+                                <AnimatePresence>
+                                    {isOpen && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="border-t border-[#6B2D3E]/5 p-10 flex justify-center bg-gray-50/50"
+                                        >
+                                            <MonthMosaic 
+                                                colorGrid={m.analysis.colorGrid}
+                                                moodGrid={m.analysis.moodGrid}
+                                                monthName={m.name}
+                                                moodDistribution={m.analysis.moodDistribution}
+                                                insight={m.analysis.insight}
+                                                animate={false}
+                                            />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        );
+                    })}
+                </div>
+              </section>
+            )}
+            
+          </div>
+        )}
       </div>
-    </div>
+    </main>
   );
+}
+
+/**
+ * Helper to group entries into 5 weeks for MonthMosaic
+ */
+function groupEntriesByWeek(entries: DiaryEntry[], year: number, month: number) {
+    const colorGrid: string[][] = Array(5).fill(null).map(() => Array(7).fill("#E0E0E0"));
+    const moodGrid: string[][] = Array(5).fill(null).map(() => Array(7).fill(""));
+
+    // Find first Monday of the month (grid starts at week alignment)
+    const firstDayOfMonth = new Date(year, month, 1);
+    let startOffset = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1; // 0=Mon...6=Sun
+
+    entries.forEach(e => {
+        const d = new Date(e.created_at);
+        if (d.getMonth() === month && d.getFullYear() === year) {
+            const day = d.getDate();
+            const totalIndex = day + startOffset - 1;
+            const weekIdx = Math.floor(totalIndex / 7);
+            const dayIdx = totalIndex % 7;
+            
+            if (weekIdx < 5) {
+                colorGrid[weekIdx][dayIdx] = e.color_resultado;
+                moodGrid[weekIdx][dayIdx] = e.mood_dominante;
+            }
+        }
+    });
+
+    return { colorGrid, moodGrid };
 }

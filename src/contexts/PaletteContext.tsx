@@ -2,7 +2,9 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { calculatePalette, PaletteResult } from "@/lib/emotional-palette";
+import { calculatePalette, type PaletteResult } from "@/lib/emotional-palette";
+
+export type { PaletteResult };
 
 interface PaletteContextType {
   currentPalette: PaletteResult | null;
