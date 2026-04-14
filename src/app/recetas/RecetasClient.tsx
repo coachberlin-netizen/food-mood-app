@@ -33,9 +33,6 @@ const CHEF_STYLE: Record<string, string> = {
 
 const ADULT_PROFILES = [
   { label: "Todos", sexo: "", edad: "", premiumLevel: "" },
-  { label: "Mujeres", sexo: "mujer", edad: "", premiumLevel: "" },
-  { label: "Mujeres +45", sexo: "mujer", edad: "45-60,60+", premiumLevel: "" },
-  { label: "Hombres", sexo: "hombre", edad: "", premiumLevel: "" },
   { label: "Chef / Exclusivo", sexo: "", edad: "", premiumLevel: "2" },
 ] as const;
 

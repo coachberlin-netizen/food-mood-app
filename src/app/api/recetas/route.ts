@@ -16,8 +16,6 @@ export async function GET(req: NextRequest) {
     const { searchParams } = req.nextUrl
 
     // ── Parse query params ────────────────────────────────────
-    const sexo = searchParams.get('sexo')          // "mujer" | "hombre"
-    const edad = searchParams.get('edad')           // "18-30" | "31-44" | "45-60" | "60+"
     const mood = searchParams.get('mood')           // Use the short name for ilike matching (works for both adult and familia)
     const tiempo = searchParams.get('tiempo')       // max prep minutes
     const temporada = searchParams.get('temporada') // season string
@@ -32,18 +30,6 @@ export async function GET(req: NextRequest) {
       .from('recetas')
       .select('*', { count: 'exact' })
 
-    // Apply filters only when present
-    if (sexo) {
-      query = query.eq('sexo', sexo)
-    }
-
-    if (edad) {
-      if (edad.includes(',')) {
-        query = query.in('grupo_edad', edad.split(','))
-      } else {
-        query = query.eq('grupo_edad', edad)
-      }
-    }
 
     if (mood) {
       query = query.ilike('mood_es', `%${mood}%`)
@@ -87,7 +73,7 @@ export async function GET(req: NextRequest) {
       .range(from, to)
 
     // ── Execute ───────────────────────────────────────────────
-    console.log('[recetas-api] filters:', { sexo, edad, mood, tiempo, temporada, q, segmento, premiumLevel, page, limit })
+    console.log('[recetas-api] filters:', { mood, tiempo, temporada, q, segmento, premiumLevel, page, limit })
     const { data, error, count } = await query
 
     if (error) {

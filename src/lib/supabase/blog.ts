@@ -23,7 +23,7 @@ export interface BlogPost {
  * Public: Get all published posts
  */
 export async function getPublishedPosts() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -44,7 +44,7 @@ export async function getPublishedPosts() {
  * Public: Get a single post by slug
  */
 export async function getPostBySlug(slug: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -64,7 +64,7 @@ export async function getPostBySlug(slug: string) {
  * Admin: Get all posts (drafts + published)
  */
 export async function getAllPostsAdmin() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -82,7 +82,7 @@ export async function getAllPostsAdmin() {
  * Admin: Get a single post by ID (for editing)
  */
 export async function getPostByIdAdmin(id: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')

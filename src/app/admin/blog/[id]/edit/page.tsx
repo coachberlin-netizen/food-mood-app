@@ -7,8 +7,9 @@ interface EditPostPageProps {
   params: { id: string };
 }
 
-export default async function EditPostPage({ params }: EditPostPageProps) {
-  const post = await getPostByIdAdmin(params.id);
+export default async function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const post = await getPostByIdAdmin(id);
 
   if (!post) {
     notFound();

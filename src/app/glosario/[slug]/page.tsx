@@ -6,15 +6,16 @@ import { getPremiumStatus } from "@/lib/premium"
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const supabase = await createClient();
-  const { data } = await supabase.from('glossary').select('name, tagline').eq('slug', params.slug).single();
+  const { data } = await supabase.from('glossary').select('name, tagline').eq('slug', slug).single();
   if (!data) return { title: 'Glosario | Food·Mood' };
   return { title: `${data.name} | Glosario Food·Mood`, description: data.tagline };
 }
 
-export default async function GlossaryDetailPage({ params }: { params: { slug: string } }) {
-  const { slug } = params
+export default async function GlossaryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const supabase = await createClient()
 
   // Fetch glossary item

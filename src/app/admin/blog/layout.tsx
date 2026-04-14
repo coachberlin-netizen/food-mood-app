@@ -13,9 +13,13 @@ export default async function AdminBlogLayout({
   const { data: { user } } = await supabase.auth.getUser();
 
   // Robust protection: check if user is authenticated AND in the admin whitelist
-  if (!user || !isUserAdmin(user)) {
-    console.warn(`Unauthorized access attempt to /admin/blog by ${user?.email || 'unauthenticated user'}`);
+  if (!user) {
     redirect('/auth/login?returnTo=/admin/blog');
+  }
+
+  if (!isUserAdmin(user)) {
+    console.warn(`Unauthorized access attempt to /admin/blog by ${user.email}`);
+    redirect('/dashboard?error=admin-only');
   }
 
   return (

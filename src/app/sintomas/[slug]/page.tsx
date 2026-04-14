@@ -15,8 +15,8 @@ const datos: Record<string, any> = {
   'inflamacion-silenciosa': { emoji:'🔥', titulo: 'Inflamación silenciosa', subtitulo:'Polifenoles, cúrcuma y los 7 colores de la microbiota', explicacion:'La inflamación silenciosa es la raíz de la mayoría de enfermedades crónicas. Se origina en un intestino permeable y microbiota empobrecida. Estrategia Food·Mood: los 7 colores de polifenoles, cúrcuma con pimienta y fermentados para restaurar la barrera intestinal.', mood:'Reset' }
 }
 
-export default async function SymptomDetailPage({ params }: { params: { slug: string } }) {
-  const { slug } = params
+export default async function SymptomDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const info = datos[slug]
 
   if (!info) notFound()
