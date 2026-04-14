@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { getAllPostsAdmin } from '@/lib/supabase/blog';
+
 export default async function AdminBlogPage() {
-  const posts = await getAllPostsAdmin();
+  // const posts = await getAllPostsAdmin();
+  const posts: any[] = [];
 
   const total = posts.length;
   const published = posts.filter(p => p.status === 'published').length;
