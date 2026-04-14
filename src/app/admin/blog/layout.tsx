@@ -9,9 +9,8 @@ export default async function AdminBlogLayout({
 }: {
   children: React.ReactNode;
 }) {
-  try {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   // Robust protection: check if user is authenticated AND in the admin whitelist
   if (!user) {
@@ -42,13 +41,5 @@ export default async function AdminBlogLayout({
         {children}
       </div>
     </div>
-    );
-  } catch (error: any) {
-    return (
-      <div className="p-8 bg-red-50 text-red-600 rounded-2xl min-h-screen flex flex-col items-center justify-center">
-        <h2 className="text-xl font-bold mb-4">Error interno en el Layout de Administración</h2>
-        <pre className="text-sm whitespace-pre-wrap">{error.message || String(error)}</pre>
-      </div>
-    );
-  }
+  );
 }
