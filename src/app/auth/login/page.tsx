@@ -22,7 +22,7 @@ function LoginForm() {
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        const redirectTo = searchParams.get('redirect') || '/dashboard';
+        const redirectTo = searchParams.get('redirect') || searchParams.get('returnTo') || '/dashboard';
         router.replace(redirectTo);
       }
     };
@@ -68,7 +68,7 @@ function LoginForm() {
       });
 
       // Read redirect parameter from URL, default to /dashboard
-      const redirectTo = searchParams.get('redirect') || '/dashboard';
+      const redirectTo = searchParams.get('redirect') || searchParams.get('returnTo') || '/dashboard';
 
       await new Promise(resolve => setTimeout(resolve, 100));
       router.replace(redirectTo);
