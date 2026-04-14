@@ -68,11 +68,7 @@ export default function FermentosClient({
   const router = useRouter();
 
   const handleFermentClick = (slug: string) => {
-    if (!isPremium) {
-      setShowPremiumModal(true);
-    } else {
-      alert(`Próximamente: El contenido detallado para '${slug}' está en desarrollo.`);
-    }
+    setShowPremiumModal(true);
   };
 
   return (
