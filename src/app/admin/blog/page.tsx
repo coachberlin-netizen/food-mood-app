@@ -123,9 +123,5 @@ export default async function AdminBlogPage() {
         </div>
       </div>
     </div>
-          </table>
-        </div>
-      </div>
-    </div>
   );
 }

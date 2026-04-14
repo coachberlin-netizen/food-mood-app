@@ -13,8 +13,8 @@ export default async function AdminBlogLayout({
   const { data: { user } } = await supabase.auth.getUser();
 
   // Robust protection: check if user is authenticated AND in the admin whitelist
-  if (!user) {
-    redirect('/auth/login?returnTo=/admin/blog');
+  if (!user || (!user.email && !user.phone)) {
+    redirect('/ingresar');
   }
 
   if (!isUserAdmin(user)) {
