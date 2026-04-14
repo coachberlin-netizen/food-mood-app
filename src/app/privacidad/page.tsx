@@ -52,10 +52,13 @@ export default function PrivacyPage() {
           <section className="flex flex-col gap-4">
             <h2 className="text-2xl md:text-3xl font-serif text-aubergine-dark flex items-baseline gap-3">
               <span className="text-xl md:text-2xl text-[#D4AF37]">3.</span>
-              Dónde los guardamos
+              Dónde y cómo los resguardamos
             </h2>
             <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
               La paz mental siempre será nuestra prioridad invisible. Por esto, hemos confiado el alojamiento y preservación de toda tu actividad a Supabase, uno de los proveedores de arquitectura en la nube con los certificados más rigurosos de resiliencia global. Para brindarte seguridad inquebrantable, hemos dispuesto que tus procesos permanezcan profundamente encriptados; lo que significa que la información viaja blindada bajo algoritmos matemáticos irrevocables en código cerrado. Ni nosotros directamente ni terceros podemos &quot;leer&quot; caprichosamente tu vida de forma manual; tus datos están a salvo del ojo público y de intrusiones no autorizadas.
+            </p>
+            <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed mt-2">
+              Protegemos tus datos mediante medidas técnicas y organizativas razonables. Aun así, ningún sistema digital es completamente invulnerable. En caso de incidente de seguridad que afecte a datos personales, actuaremos conforme a la normativa aplicable en materia de protección de datos.
             </p>
           </section>
 

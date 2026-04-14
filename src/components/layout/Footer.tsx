@@ -36,6 +36,9 @@ export function Footer() {
           <p className="text-[13px] font-light text-white/40 text-center leading-relaxed px-4">
             Food·Mood recomienda recetas y alimentos funcionales basados en divulgación científica. No ofrece diagnóstico, tratamiento ni terapia. Ante cualquier duda de salud, consulta a un profesional.
           </p>
+          <p className="text-[11px] font-light text-white/30 text-center leading-relaxed px-4 mt-2 max-w-2xl">
+            Protegemos tus datos mediante medidas técnicas y organizativas razonables. Aun así, ningún sistema digital es completamente invulnerable. En caso de incidente de seguridad que afecte a datos personales, actuaremos conforme a la normativa aplicable en materia de protección de datos.
+          </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm font-light text-white/50 pt-4 px-4">
             <Link href="/fermentos-del-mundo" className="hover:text-white transition-colors duration-300 whitespace-nowrap">
               Fermentos del Mundo

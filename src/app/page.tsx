@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/Button"
 import { createClient } from "@/lib/supabase/client"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
 import { TrustBar } from "@/components/layout/TrustBar"
+import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
+import { WhatsappConsultSection } from "@/components/layout/WhatsappConsultSection"
+import { ExpertTeamSection } from "@/components/layout/ExpertTeamSection"
+import { MethodSection } from "@/components/layout/MethodSection"
+import { FaqSection } from "@/components/layout/FaqSection"
 
 import { moods } from "@/data/moods"
 import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical, Loader2, CheckCircle2, Palette } from "lucide-react"
@@ -57,18 +62,18 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
           <div className="space-y-12 flex flex-col items-center">
             <motion.div variants={itemVariants} className="text-[11px] font-sans tracking-[0.2em] uppercase text-gold">
-              ESCUCHA A TU CUERPO
+              NUTRICIÓN FUNCIONAL Y PSICOLOGÍA
             </motion.div>
             
             <div className="space-y-6">
               <motion.h1 variants={itemVariants} className="text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] md:leading-[1] font-serif italic text-white tracking-tight">
-                Tu estado emocional tiene un color.<br className="hidden md:block" />
-                <motion.span variants={itemVariants} className="italic font-light text-cream/80">Y ese color tiene un sabor.</motion.span>
+                Descubre qué comer<br className="hidden md:block" />
+                <motion.span variants={itemVariants} className="italic font-light text-cream/80">según cómo te sientes.</motion.span>
               </motion.h1>
             </div>
             
-            <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-lg mx-auto text-center leading-[1.8] font-sans">
-              Las emociones no son simples. Son mezclas, como una paleta de colores. Food Mood lee tu paleta emocional y te devuelve recetas funcionales diseñadas para lo que tu cuerpo realmente necesita.
+            <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-xl mx-auto text-center leading-[1.8] font-sans">
+              Food Mood une psicología de la alimentación, ciencia de la longevidad y tecnología para traducir tu estado emocional en recetas que equilibran tu bienestar diario. Mucho más que recetas, autoconocimiento real.
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex justify-center items-center gap-2 pt-2">
@@ -88,20 +93,20 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
                 <Link href="/test" className="w-full sm:w-auto">
                   <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
-                    Empezar Test gratis
+                    Hacer mi test gratuito
                   </Button>
                 </Link>
                 <Link href="/paleta" className="w-full sm:w-auto group">
                   <div className="flex items-center justify-center gap-3 px-8 py-4 rounded-[8px] border border-cream/20 bg-white/5 hover:bg-white/10 transition-all duration-300">
                     <Palette className="w-5 h-5 text-cream/60" />
-                    <span className="text-cream text-base font-medium">Ver Paleta</span>
+                    <span className="text-cream text-base font-medium">Explorar Paleta</span>
                     <ArrowRight className="w-4 h-4 text-cream/40 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Link>
               </div>
 
               <div className="text-[13px] text-[#7a7974] opacity-60 text-center font-light" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                El test te da tu mood. La paleta te da tu color. Elige cómo empezar.
+                El test detecta tu estado actual. La paleta te ofrece las recetas. Elige por dónde empezar.
               </div>
             </motion.div>
 
@@ -114,6 +119,8 @@ export default function Home() {
       </motion.section>
 
       <TrustBar />
+      <ExpertiseSection />
+      <WhatsappConsultSection />
 
       {/* 2. STORY SECTION */}
       <section className="py-32 md:py-48 bg-cream relative border-t border-aubergine-dark/20">
@@ -213,35 +220,7 @@ export default function Home() {
       </section>
 
       {/* 4. METHODOLOGY */}
-      <section className="py-32 md:py-48 bg-cream border-t border-aubergine-dark/20 relative">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-32">
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">La Metodología</h2>
-            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark">Tres pasos hacia tu <span className="italic">bio-bienestar</span>.</h3>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-16 text-left">
-            {[
-              { num: "01", title: "El Test", text: "2 minutos de introspección para detectar tus biomarcadores emocionales hoy." },
-              { num: "02", title: "Tu Mapa", text: "Nuestra tecnología mapea por ti tu estado digestivo y mental real." },
-              { num: "03", title: "La Inspiración", text: "Obtienes una poderosa recomendación funcional (y si eres Premium, desbloqueas su receta íntegra)." }
-            ].map((step, i) => (
-              <div key={i} className="flex flex-col gap-6">
-                <div className="text-6xl font-serif font-light text-aubergine-dark">{step.num}</div>
-                <h4 className="text-2xl font-serif font-semibold text-aubergine-dark">{step.title}</h4>
-                <p className="text-aubergine-dark/60 leading-[1.8] font-light">{step.text}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-32 max-w-3xl mx-auto flex flex-col items-center text-center gap-6 pt-16 border-t border-aubergine-dark/20">
-            <BookOpen className="w-6 h-6 text-aubergine-dark/30" />
-            <p className="text-sm text-aubergine-dark/40 leading-relaxed italic">
-              Food·Mood es una herramienta de autoconocimiento emocional a través de la alimentación funcional. No sustituye ninguna terapia psicológica, médica ni nutricional profesional. Lo que sí hace es ayudarte a escuchar lo que tu cuerpo pide — y responderle con ciencia, placer y comida real.
-            </p>
-          </div>
-        </div>
-      </section>
+      <MethodSection />
 
       {/* 4.5 TESTIMONIOS / PRUEBA SOCIAL */}
       <section className="py-24 md:py-32 bg-[var(--background)] border-t border-aubergine-dark/10">
@@ -296,26 +275,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4.75 QUIÉNES SOMOS (RESUMEN) */}
-      <section id="quienes-somos" className="py-32 md:py-48 bg-cream border-t border-aubergine-dark/10">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-16 text-center">
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Equipo</h2>
-            <h3 className="text-4xl md:text-6xl font-serif italic text-aubergine-dark mb-8 leading-[1.2]">Psicología, ciencia y placer con propósito</h3>
-            <p className="text-base md:text-lg text-aubergine-dark/60 font-light leading-[1.8] max-w-3xl mx-auto">
-              Somos un equipo multidisciplinar de psicólogos y tecnólogos alimentarios con más de 10 años de experiencia clínica. Nuestra misión es unir la neurociencia con el bienestar diario a través de la nutrición funcional.
-            </p>
-          </div>
-          
-          <div className="flex justify-center">
-            <Link href="/quienes-somos">
-              <Button variant="outline" className="border-aubergine-dark/20 text-aubergine-dark hover:bg-aubergine-dark/5 px-8">
-                Conocer la historia completa <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* 4.75 EXPERT TEAM SECTION */}
+      <ExpertTeamSection />
 
       {/* 4.85 TEASER FERMENTOS DEL MUNDO */}
       <section className="py-24 md:py-32 px-6 bg-aubergine-dark border-t border-cream/10 relative overflow-hidden">
@@ -395,6 +356,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* 6. FAQ SECTION */}
+      <FaqSection />
       
     </main>
   )

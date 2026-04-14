@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Check, X, Crown, ArrowRight, Sparkles } from "lucide-react";
 
+import { useEffect, useState } from "react";
+
 const FREE_FEATURES = [
   { text: "Orientación e inspiración por test", included: true },
   { text: "Sin acceso al paso-a-paso completo", included: false },
@@ -20,10 +22,10 @@ const PREMIUM_FEATURES = [
 ];
 
 export function UpsellBlock() {
-  const [isPremium, setIsPremium] = motion.useState(false)
-  const [loading, setLoading] = motion.useState(true)
+  const [isPremium, setIsPremium] = useState(false)
+  const [loading, setLoading] = useState(true)
 
-  motion.useEffect(() => {
+  useEffect(() => {
     async function checkStatus() {
       try {
         const res = await fetch('/api/mi-tier')

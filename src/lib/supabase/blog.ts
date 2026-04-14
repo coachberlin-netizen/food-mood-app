@@ -1,5 +1,4 @@
 import { createClient } from './server';
-import { Database } from '@/types/supabase'; // Assuming types exist or will be generated
 
 export interface BlogPost {
   id: string;
