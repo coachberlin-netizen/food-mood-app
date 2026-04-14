@@ -10,8 +10,12 @@
  */
 export function isAdmin(email?: string): boolean {
   if (!email) return false;
-  const rawEmails = process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL || '';
+  const rawEmails = process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL || 'coachberlin@gmail.com';
   const adminEmails = rawEmails.split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+  // Also explicitly add coachberlin@gmail.com as an emergency fallback just in case env vars fail on Vercel
+  if (!adminEmails.includes('coachberlin@gmail.com')) {
+    adminEmails.push('coachberlin@gmail.com');
+  }
   return adminEmails.includes(email.toLowerCase());
 }
 
