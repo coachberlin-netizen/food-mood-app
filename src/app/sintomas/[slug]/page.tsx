@@ -7,12 +7,12 @@ import { getPremiumStatus } from "@/lib/premium"
 export const dynamic = 'force-dynamic'
 
 const datos: Record<string, any> = {
-  'cansancio': { emoji:'😴', titulo: 'Cansancio', subtitulo:'Hierro, B12 y adaptógenos para despertar tu energía celular', explicacion:'El cansancio crónico empieza en el intestino: mala absorción de hierro y vitamina B12, inflamación de bajo grado y microbiota poco diversa. Los adaptógenos como ashwagandha y shiitake activan el eje intestino-cerebro para restaurar tu vitalidad.', mood:'Activación' },
-  'ansiedad': { emoji:'😰', titulo: 'Ansiedad', subtitulo:'Triptófano, magnesio y fermentados para calmar tu sistema nervioso', explicacion:'El 95% de la serotonina se produce en el intestino. Cuando tu microbiota está desequilibrada, el sistema nervioso entra en alerta. El triptófano, el magnesio y los fermentados reconectan ese eje y reducen la respuesta ansiosa.', mood:'Calma & Equilibrio' },
-  'insomnio': { emoji:'🌙', titulo: 'Insomnio', subtitulo:'GABA, melatonina precursora y digestión calmada para recuperar el sueño', explicacion:'El sueño se regula desde el intestino: el GABA y la melatonina se sintetizan con ayuda de tu microbiota. Una cena inflamatoria o un intestino permeable interrumpen ese proceso. Esta sección prioriza triptófano nocturno y alimentos calmantes.', mood:'Calma & Equilibrio' },
-  'hambre-constante': { emoji:'🍽️', titulo: 'Hambre constante', subtitulo:'Fibra, grasas buenas y microbiota saciante para romper el ciclo', explicacion:'El hambre constante no es siempre psicológica. Cuando tu microbiota carece de diversidad, produce menos ácidos grasos de cadena corta que regulan leptina y grelina. Más fibra prebiótica y proteína de calidad reeducan esas señales.', mood:'Reset' },
-  'niebla-mental': { emoji:'🧠', titulo: 'Niebla mental', subtitulo:'Omega-3, colina y un intestino que no inflame para pensar con claridad', explicacion:'La niebla mental es frecuentemente inflamación neurológica de bajo grado, alimentada desde el intestino. Los omega-3 (DHA), la colina y los fermentados protegen la barrera intestinal y reducen esa inflamación que nubla el pensamiento.', mood:'Focus' },
-  'inflamacion-silenciosa': { emoji:'🔥', titulo: 'Inflamación silenciosa', subtitulo:'Polifenoles, cúrcuma y los 7 colores de la microbiota', explicacion:'La inflamación silenciosa es la raíz de la mayoría de enfermedades crónicas. Se origina en un intestino permeable y microbiota empobrecida. Estrategia Food·Mood: los 7 colores de polifenoles, cúrcuma con pimienta y fermentados para restaurar la barrera intestinal.', mood:'Reset' }
+  'cansancio': { titulo: 'Cansancio', subtitulo:'Hierro, B12 y adaptógenos para despertar tu energía celular', explicacion:'El cansancio crónico empieza en el intestino: mala absorción de hierro y vitamina B12, inflamación de bajo grado y microbiota poco diversa. Los adaptógenos como ashwagandha y shiitake activan el eje intestino-cerebro para restaurar tu vitalidad.', mood:'Activación' },
+  'ansiedad': { titulo: 'Ansiedad', subtitulo:'Triptófano, magnesio y fermentados para calmar tu sistema nervioso', explicacion:'El 95% de la serotonina se produce en el intestino. Cuando tu microbiota está desequilibrada, el sistema nervioso entra en alerta. El triptófano, el magnesio y los fermentados reconectan ese eje y reducen la respuesta ansiosa.', mood:'Calma & Equilibrio' },
+  'insomnio': { titulo: 'Insomnio', subtitulo:'GABA, melatonina precursora y digestión calmada para recuperar el sueño', explicacion:'El sueño se regula desde el intestino: el GABA y la melatonina se sintetizan con ayuda de tu microbiota. Una cena inflamatoria o un intestino permeable interrumpen ese proceso. Esta sección prioriza triptófano nocturno y alimentos calmantes.', mood:'Calma & Equilibrio' },
+  'hambre-constante': { titulo: 'Hambre constante', subtitulo:'Fibra, grasas buenas y microbiota saciante para romper el ciclo', explicacion:'El hambre constante no es siempre psicológica. Cuando tu microbiota carece de diversidad, produce menos ácidos grasos de cadena corta que regulan leptina y grelina. Más fibra prebiótica y proteína de calidad reeducan esas señales.', mood:'Reset' },
+  'niebla-mental': { titulo: 'Niebla mental', subtitulo:'Omega-3, colina y un intestino que no inflame para pensar con claridad', explicacion:'La niebla mental es frecuentemente inflamación neurológica de bajo grado, alimentada desde el intestino. Los omega-3 (DHA), la colina y los fermentados protegen la barrera intestinal y reducen esa inflamación que nubla el pensamiento.', mood:'Focus' },
+  'inflamacion-silenciosa': { titulo: 'Inflamación silenciosa', subtitulo:'Polifenoles, cúrcuma y los 7 colores de la microbiota', explicacion:'La inflamación silenciosa es la raíz de la mayoría de enfermedades crónicas. Se origina en un intestino permeable y microbiota empobrecida. Estrategia Food·Mood: los 7 colores de polifenoles, cúrcuma con pimienta y fermentados para restaurar la barrera intestinal.', mood:'Reset' }
 }
 
 export default async function SymptomDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,29 +27,22 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
   const { data: { user } } = await supabase.auth.getUser()
   const isPremium = user ? await getPremiumStatus(supabase, user.id) : false
 
-  // 2. Fetch Free Recipe (with fallback)
+  // 2. Fetch Free Recipe (with robust data linkage)
   let { data: freeRecipe } = await supabase
     .from('recetas')
     .select('*')
-    .eq('sintoma_tag', slug)
     .eq('premium_level', 0)
+    .or(`sintoma_tag.eq.${slug},mood_es.eq.${info.mood}`)
     .limit(1)
     .single()
 
-  if (!freeRecipe) {
-    const { data: fallback } = await supabase
-      .from('recetas')
-      .select('*')
-      .eq('mood_es', info.mood)
-      .eq('premium_level', 0)
-      .limit(1)
-      .single()
-    freeRecipe = fallback
-  }
-
-  // 3. Fetch all recipes for symptom if premium
+  // 3. Fetch all scientifically contextualized recipes for symptom if premium
   const { data: allRecipes } = isPremium 
-    ? await supabase.from('recetas').select('*').eq('sintoma_tag', slug).order('premium_level', { ascending: true })
+    ? await supabase
+        .from('recetas')
+        .select('*')
+        .or(`sintoma_tag.eq.${slug},mood_es.eq.${info.mood}`)
+        .order('premium_level', { ascending: true })
     : { data: [] }
 
   return (
@@ -61,9 +54,8 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
         </Link>
 
         {/* Hero */}
-        <div className="mb-20 text-center md:text-left">
-          <div className="text-7xl mb-8">{info.emoji}</div>
-          <h1 className="text-5xl md:text-7xl font-serif text-aubergine-dark mb-6">{info.titulo}</h1>
+        <div className="mb-20 text-center md:text-left mt-8">
+          <h1 className="text-5xl md:text-7xl font-serif text-aubergine-dark mb-6 tracking-tight">{info.titulo}</h1>
           <p className="text-xl md:text-2xl font-serif italic text-[#C9A84C] mb-8 leading-tight max-w-3xl">
             {info.subtitulo}
           </p>

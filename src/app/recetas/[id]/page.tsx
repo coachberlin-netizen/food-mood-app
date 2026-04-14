@@ -103,7 +103,7 @@ function Toast({ show, message }: { show: boolean; message: string }) {
   );
 }
 
-import { createRecetasClient } from "@/lib/supabase/recetas";
+import { createClient } from "@/lib/supabase/client";
 
 /* ── Main Page ───────────────────────────────────────────────── */
 export default function RecetaDetailPage() {
@@ -133,7 +133,7 @@ export default function RecetaDetailPage() {
       setNotFound(false);
       
       try {
-        const supabase = createRecetasClient();
+        const supabase = createClient();
         let recetaData: Receta | null = null;
         let fetchError: any = null;
 

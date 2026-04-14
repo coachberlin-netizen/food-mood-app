@@ -3,7 +3,6 @@
 import { useQuizStore } from "@/store/useQuizStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { createClient } from "@/lib/supabase/client";
-import { createRecetasClient } from "@/lib/supabase/recetas";
 import { moods } from "@/data/moods";
 import Link from "next/link";
 import { useEffect, useState } from "react";
