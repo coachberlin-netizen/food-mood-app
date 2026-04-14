@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { createClient } from "@/lib/supabase/client"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
+import { TrustBar } from "@/components/layout/TrustBar"
 
 import { moods } from "@/data/moods"
 import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical, Loader2, CheckCircle2, Palette } from "lucide-react"
@@ -111,6 +112,8 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      <TrustBar />
 
       {/* 2. STORY SECTION */}
       <section className="py-32 md:py-48 bg-cream relative border-t border-aubergine-dark/20">

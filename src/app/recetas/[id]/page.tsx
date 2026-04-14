@@ -35,8 +35,6 @@ function isValidUUID(str: string): boolean {
 /* ── Types ───────────────────────────────────────────────────── */
 interface Receta {
   id: string;
-  sexo: string;
-  grupo_edad: string;
   nombre_es: string;
   nombre_en: string;
   mood_es: string;
@@ -294,7 +292,7 @@ export default function RecetaDetailPage() {
             transition={{ delay: 0.15 }}
             className="text-sm text-aubergine-dark/40 font-light mb-10 capitalize"
           >
-            {receta.tipo_plato} · {receta.sexo}, {receta.grupo_edad}
+            {receta.tipo_plato}
           </motion.p>
 
           {/* ── Base ácida (hero ingredient) ──────────────────── */}

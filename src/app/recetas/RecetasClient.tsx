@@ -31,15 +31,13 @@ const CHEF_STYLE: Record<string, string> = {
   "Dabiz Muñoz":           "Estilo español · técnica street-haute",
 };
 
-const ADULT_PROFILES = [
-  { label: "Todos", sexo: "", edad: "", premiumLevel: "" },
-  { label: "Chef / Exclusivo", sexo: "", edad: "", premiumLevel: "2" },
+const RECIPE_SCOPES = [
+  { label: "Todos", premiumLevel: "" },
+  { label: "Chef / Exclusivo", premiumLevel: "2" },
 ] as const;
 
 interface Receta {
   id: string;
-  sexo: string;
-  grupo_edad: string;
   nombre_es: string;
   nombre_en: string;
   mood_es: string;
@@ -309,9 +307,7 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
         }
       }
       params.set("segmento", segmento);
-      const profile = ADULT_PROFILES[profileIdx];
-      if (profile.sexo) params.set("sexo", profile.sexo);
-      if (profile.edad) params.set("edad", profile.edad);
+      const profile = RECIPE_SCOPES[profileIdx];
       if (profile.premiumLevel) params.set("premium_level", profile.premiumLevel);
       if (q) params.set("q", q);
       params.set("page", String(page));
@@ -421,7 +417,7 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
-            {ADULT_PROFILES.map((p, i) => (
+            {RECIPE_SCOPES.map((p, i) => (
               <Pill key={i} active={profileIdx === i} isChef={p.label === "Chef / Exclusivo"} onClick={() => { setProfileIdx(i); setPage(1); }}>
                 {p.label}
               </Pill>

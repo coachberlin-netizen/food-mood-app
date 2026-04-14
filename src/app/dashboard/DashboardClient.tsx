@@ -17,13 +17,11 @@ import { PaletteWidget } from "@/components/dashboard/PaletteWidget";
 import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 
-export default function DashboardClient({ initialIsPremium }: { initialIsPremium: boolean }) {
+export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot }: { initialIsPremium: boolean; weeklyHighlightsSlot?: React.ReactNode }) {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
   const { user, isAuthenticated } = useAuthStore();
   
   const [mounted, setMounted] = useState(false);
-  const [todayRecipe, setTodayRecipe] = useState<any>(null);
-  const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
   const [todayFormatted, setTodayFormatted] = useState("");
   const [isPremium, setIsPremium] = useState(initialIsPremium);
   const [weeklyMoods, setWeeklyMoods] = useState<Record<number, string>>({});
@@ -119,95 +117,6 @@ export default function DashboardClient({ initialIsPremium }: { initialIsPremium
     if (mounted) fetchUserData();
   }, [syncFromSupabase, mounted]);
 
-  const router = useRouter();
-
-  const handleRecetaDelDia = async () => {
-    setIsLoadingRecipe(true);
-    try {
-      const supabase = createRecetasClient();
-      const moodId = resultMood || 'social';
-      const keyword = MOOD_KEYWORD[moodId] || 'Social';
-
-      let queryCount = supabase
-        .from('recetas')
-        .select('id', { count: 'exact' })
-        .ilike('mood_es', `%${keyword}%`)
-        .eq('segmento', 'adulto')
-        .limit(1);
-        
-      if (!isPremium) {
-        queryCount = queryCount.eq('premium_level', 0);
-      }
-
-      let { count } = await queryCount;
-
-      if (count && count > 0) {
-        const randomOffset = Math.floor(Math.random() * count);
-        let queryData = supabase
-          .from('recetas')
-          .select('id')
-          .ilike('mood_es', `%${keyword}%`)
-          .eq('segmento', 'adulto')
-          .range(randomOffset, randomOffset);
-
-        if (!isPremium) {
-          queryData = queryData.eq('premium_level', 0);
-        }
-
-        const { data: randomData } = await queryData;
-        
-        if (randomData?.length) {
-          router.push(`/recetas/${randomData[0].id}`);
-          return;
-        }
-      }
-      router.push('/recetas');
-    } catch (err) {
-      console.error('Error navigating to receta del día:', err);
-      router.push('/recetas');
-    } finally {
-      setIsLoadingRecipe(false);
-    }
-  };
-
-  const handleHacerMagia = async () => {
-    setIsLoadingRecipe(true);
-    try {
-      const supabase = createRecetasClient();
-      const { count } = await supabase
-        .from('recetas')
-        .select('id', { count: 'exact', head: true })
-        .eq('premium_level', 2);
-
-      if (count && count > 0) {
-        const randomOffset = Math.floor(Math.random() * Math.min(count, 100));
-        const { data } = await supabase
-          .from('recetas')
-          .select('*')
-          .eq('premium_level', 2)
-          .range(randomOffset, randomOffset);
-        if (data?.length) {
-          setTodayRecipe(data[0]);
-          return;
-        }
-      }
-
-      const { count: totalCount } = await supabase
-        .from('recetas')
-        .select('id', { count: 'exact', head: true });
-      const offset = Math.floor(Math.random() * Math.min(totalCount || 100, 500));
-      const { data: fallback } = await supabase
-        .from('recetas')
-        .select('*')
-        .range(offset, offset);
-      if (fallback?.length) setTodayRecipe(fallback[0]);
-    } catch (err) {
-      console.error('Error fetching magia recipe:', err);
-    } finally {
-      setIsLoadingRecipe(false);
-    }
-  };
-
   if (!mounted) return null;
 
   const currentMoodId = resultMood || "social";
@@ -293,9 +202,9 @@ export default function DashboardClient({ initialIsPremium }: { initialIsPremium
                 <p className="text-xl md:text-2xl text-aubergine-dark/80 font-light leading-[1.6]">{taglines[currentMood.id] || currentMood.descripcion_corta}</p>
               </div>
               <div className="flex flex-col gap-3 shrink-0">
-                <button onClick={handleRecetaDelDia} disabled={isLoadingRecipe} className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-aubergine-dark text-white font-medium text-sm tracking-wide shadow-luxury hover:bg-aubergine transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                  {isLoadingRecipe ? <><Loader2 className="w-4 h-4 animate-spin" /> Buscando...</> : <><Sparkles className="w-4 h-4 text-[#C9A84C]" /> Déjate inspirar</>}
-                </button>
+                <Link href="/recetas" className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-aubergine-dark text-white font-medium text-sm tracking-wide shadow-luxury hover:bg-aubergine transition-colors">
+                  <Sparkles className="w-4 h-4 text-[#C9A84C]" /> Déjate inspirar
+                </Link>
                 <Link href="/test" onClick={() => resetQuiz()} className="inline-flex items-center justify-center px-10 py-3 border border-aubergine-dark/20 rounded-full text-aubergine-dark/70 bg-transparent hover:bg-cream hover:border-[#C9A84C] hover:text-aubergine-dark font-light text-xs tracking-wide transition-all">¿Cambió tu mood?</Link>
               </div>
             </div>
@@ -377,49 +286,8 @@ export default function DashboardClient({ initialIsPremium }: { initialIsPremium
             </div>
           </section>
         )}
+        {weeklyHighlightsSlot}
 
-        <section id="receta-del-dia" className="flex flex-col gap-8 scroll-mt-8">
-          <div className="flex items-center gap-4">
-            <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">Tu antojo para hoy</h2>
-            <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
-          </div>
-          <div className="bg-cream rounded-[1.5rem] p-10 border border-aubergine-dark/20 shadow-sm flex flex-col justify-center min-h-[200px]">
-            {todayRecipe ? (
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">{todayRecipe.mood_es}</span>
-                      {(todayRecipe.premium_level ?? 0) === 2 && <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[9px] font-bold uppercase tracking-wider border border-[#C9A84C]/20">✦ Exclusiva</span>}
-                    </div>
-                    <h3 className="text-2xl md:text-3xl font-serif font-black text-aubergine-dark">{todayRecipe.nombre_es}</h3>
-                    {todayRecipe.contexto_es && <p className="text-aubergine-dark/55 font-light text-sm leading-relaxed max-w-lg">{todayRecipe.contexto_es}</p>}
-                    <div className="flex items-center gap-5 text-xs text-aubergine-dark/45 font-light mt-2 uppercase tracking-wider">
-                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>{todayRecipe.tiempo_preparacion_min} min</span>
-                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>{todayRecipe.dificultad}</span>
-                      <span className="flex items-center gap-1.5 capitalize"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]"></span>{todayRecipe.tipo_plato}</span>
-                    </div>
-                  </div>
-                  {!todayRecipe.isRestricted || isPremium ? (
-                    <Link href={`/recetas/${todayRecipe.id}`} className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors">Ver receta completa →</Link>
-                  ) : (
-                    <Link href="/pricing" className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors">Desbloquear receta →</Link>
-                  )}
-                </div>
-                {todayRecipe.nota_food_mood_es && <div className="bg-[#C9A84C]/5 p-5 rounded-xl border-l-2 border-[#C9A84C] text-sm font-light text-aubergine-dark/80 italic">🧬 {todayRecipe.nota_food_mood_es}</div>}
-                <button onClick={handleRecetaDelDia} disabled={isLoadingRecipe} className="self-center text-[11px] text-aubergine-dark/35 hover:text-aubergine-dark/60 transition-colors cursor-pointer">Otra receta →</button>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center text-center gap-6">
-                <p className="font-serif text-xl md:text-2xl text-aubergine-dark/80 max-w-lg font-light leading-[1.6]">Aún no le has dado un capricho a tus sentidos hoy.<br/>¿Preparamos algo especial?</p>
-                <div className="flex flex-col sm:flex-row items-center gap-4">
-                  <button onClick={handleHacerMagia} disabled={isLoadingRecipe} className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-aubergine-dark text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-aubergine transition-colors tracking-wide">{isLoadingRecipe ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Hacer magia ahora mismo<Sparkles className="w-5 h-5 text-[#C9A84C]" /></>}</button>
-                  {!resultMood && <Link href="/test" className="text-xs text-aubergine-dark/50 hover:text-aubergine-dark font-sans tracking-wide">Haz el test para recetas personalizadas →</Link>}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-12">
           <section className="flex flex-col gap-8">

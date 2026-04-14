@@ -16,10 +16,11 @@ interface PageProps {
  * Dynamic Metadata Generation
  */
 export async function generateMetadata(
-  { params }: PageProps,
+  { params }: { params: Promise<{ slug: string }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   
   if (!post) return {};
 
@@ -48,8 +49,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function BlogPostPage({ params }: PageProps) {
-  const post = await getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();

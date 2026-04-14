@@ -5,15 +5,14 @@
  * The list of emails can be updated via .env.local
  */
 
-const rawEmails = process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL || '';
-export const ADMIN_EMAILS = rawEmails.split(',').map(email => email.trim().toLowerCase()).filter(Boolean);
-
 /**
  * Checks if a given email is in the admin whitelist.
  */
 export function isAdmin(email?: string): boolean {
   if (!email) return false;
-  return ADMIN_EMAILS.includes(email.toLowerCase());
+  const rawEmails = process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL || '';
+  const adminEmails = rawEmails.split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+  return adminEmails.includes(email.toLowerCase());
 }
 
 /**

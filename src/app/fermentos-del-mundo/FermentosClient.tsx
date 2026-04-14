@@ -71,7 +71,7 @@ export default function FermentosClient({
     if (!isPremium) {
       setShowPremiumModal(true);
     } else {
-      router.push(`/fermentos-del-mundo/${slug}`);
+      alert(`Próximamente: El contenido detallado para '${slug}' está en desarrollo.`);
     }
   };
 

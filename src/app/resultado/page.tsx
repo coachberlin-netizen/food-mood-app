@@ -11,8 +11,13 @@ interface PageProps {
  * Server Component: /resultado
  * Handles premium access verification before rendering the UI.
  */
-export default async function ResultadoPage({ searchParams }: PageProps) {
+export default async function ResultadoPage({ 
+  searchParams 
+}: { 
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
+}) {
   const supabase = await createClient();
+  const resolvedSearchParams = await searchParams;
   
   // 1. Get authenticated user
   const { data: { user } } = await supabase.auth.getUser();
@@ -21,7 +26,7 @@ export default async function ResultadoPage({ searchParams }: PageProps) {
   const isPremium = user ? await getPremiumStatus(supabase, user.id) : false;
 
   // Extract mood from search params
-  const moodParam = typeof searchParams.mood === 'string' ? searchParams.mood : null;
+  const moodParam = typeof resolvedSearchParams.mood === 'string' ? resolvedSearchParams.mood : null;
 
   return (
     <Suspense

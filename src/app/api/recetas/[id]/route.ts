@@ -33,7 +33,6 @@ export async function GET(
       .from('recetas')
       .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada')
       .eq('mood_es', receta.mood_es)
-      .eq('grupo_edad', receta.grupo_edad)
       .neq('id', receta.id)
       .limit(3)
 
