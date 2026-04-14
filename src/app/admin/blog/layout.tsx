@@ -18,8 +18,9 @@ export default async function AdminBlogLayout({
   }
 
   if (!isUserAdmin(user)) {
-    console.warn(`Unauthorized access attempt to /admin/blog by ${user.email}`);
-    redirect('/dashboard?error=admin-only');
+    const adminEmails = (process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL || '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+    console.error(`[ADMIN ACCESS DENIED] User: ${user.email}. Whitelist: ${adminEmails.join(', ')}`);
+    redirect(`/dashboard?error=admin-only&email=${encodeURIComponent(user.email || 'unknown')}`);
   }
 
   return (
