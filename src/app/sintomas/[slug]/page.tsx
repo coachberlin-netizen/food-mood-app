@@ -6,18 +6,12 @@ import { getPremiumStatus } from "@/lib/premium"
 
 export const dynamic = 'force-dynamic'
 
-const datos: Record<string, any> = {
-  'cansancio': { titulo: 'Cansancio', subtitulo:'Hierro, B12 y adaptógenos para despertar tu energía celular', explicacion:'El cansancio crónico empieza en el intestino: mala absorción de hierro y vitamina B12, inflamación de bajo grado y microbiota poco diversa. Los adaptógenos como ashwagandha y shiitake activan el eje intestino-cerebro para restaurar tu vitalidad.', mood:'Activación' },
-  'ansiedad': { titulo: 'Ansiedad', subtitulo:'Triptófano, magnesio y fermentados para calmar tu sistema nervioso', explicacion:'El 95% de la serotonina se produce en el intestino. Cuando tu microbiota está desequilibrada, el sistema nervioso entra en alerta. El triptófano, el magnesio y los fermentados reconectan ese eje y reducen la respuesta ansiosa.', mood:'Calma & Equilibrio' },
-  'insomnio': { titulo: 'Insomnio', subtitulo:'GABA, melatonina precursora y digestión calmada para recuperar el sueño', explicacion:'El sueño se regula desde el intestino: el GABA y la melatonina se sintetizan con ayuda de tu microbiota. Una cena inflamatoria o un intestino permeable interrumpen ese proceso. Esta sección prioriza triptófano nocturno y alimentos calmantes.', mood:'Calma & Equilibrio' },
-  'hambre-constante': { titulo: 'Hambre constante', subtitulo:'Fibra, grasas buenas y microbiota saciante para romper el ciclo', explicacion:'El hambre constante no es siempre psicológica. Cuando tu microbiota carece de diversidad, produce menos ácidos grasos de cadena corta que regulan leptina y grelina. Más fibra prebiótica y proteína de calidad reeducan esas señales.', mood:'Reset' },
-  'niebla-mental': { titulo: 'Niebla mental', subtitulo:'Omega-3, colina y un intestino que no inflame para pensar con claridad', explicacion:'La niebla mental es frecuentemente inflamación neurológica de bajo grado, alimentada desde el intestino. Los omega-3 (DHA), la colina y los fermentados protegen la barrera intestinal y reducen esa inflamación que nubla el pensamiento.', mood:'Focus' },
-  'inflamacion-silenciosa': { titulo: 'Inflamación silenciosa', subtitulo:'Polifenoles, cúrcuma y los 7 colores de la microbiota', explicacion:'La inflamación silenciosa es la raíz de la mayoría de enfermedades crónicas. Se origina en un intestino permeable y microbiota empobrecida. Estrategia Food·Mood: los 7 colores de polifenoles, cúrcuma con pimienta y fermentados para restaurar la barrera intestinal.', mood:'Reset' }
-}
+import { SYMPTOMS } from "@/data/symptoms"
+import { BookOpen, AlertCircle } from "lucide-react"
 
 export default async function SymptomDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const info = datos[slug]
+  const info = SYMPTOMS.find(s => s.slug === slug)
 
   if (!info) notFound()
 
@@ -27,21 +21,32 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
   const { data: { user } } = await supabase.auth.getUser()
   const isPremium = user ? await getPremiumStatus(supabase, user.id) : false
 
-  // 2. Fetch Free Recipe (with robust data linkage)
+  // 2. Fetch Free Recipe via Semantic Tag Overlap
   let { data: freeRecipe } = await supabase
     .from('recetas')
     .select('*')
     .eq('premium_level', 0)
-    .or(`sintoma_tag.eq.${slug},mood_es.eq.${info.mood}`)
+    .overlaps('tags', info.target_tags)
     .limit(1)
     .single()
 
-  // 3. Fetch all scientifically contextualized recipes for symptom if premium
+  if (!freeRecipe) {
+    // Ultimate fallback if tags fail
+    const { data: fallback } = await supabase
+      .from('recetas')
+      .select('*')
+      .eq('premium_level', 0)
+      .limit(1)
+      .single()
+    freeRecipe = fallback
+  }
+
+  // 3. Fetch all scientifically contextualized recipes via Tag Overlap
   const { data: allRecipes } = isPremium 
     ? await supabase
         .from('recetas')
         .select('*')
-        .or(`sintoma_tag.eq.${slug},mood_es.eq.${info.mood}`)
+        .overlaps('tags', info.target_tags)
         .order('premium_level', { ascending: true })
     : { data: [] }
 
@@ -59,10 +64,39 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
           <p className="text-xl md:text-2xl font-serif italic text-[#C9A84C] mb-8 leading-tight max-w-3xl">
             {info.subtitulo}
           </p>
-          <div className="bg-cream/50 border border-aubergine-dark/10 p-8 md:p-12 rounded-2xl">
-            <p className="text-lg text-aubergine-dark/70 leading-[1.8] font-light max-w-4xl italic">
-              {info.explicacion}
-            </p>
+          
+          <div className="grid md:grid-cols-3 gap-8 mt-12 items-start">
+            <div className="md:col-span-2 bg-cream/50 border border-aubergine-dark/10 p-8 md:p-12 rounded-2xl">
+              <h3 className="flex items-center gap-2 text-xl font-serif text-aubergine-dark mb-6">
+                <BookOpen className="w-5 h-5 text-gold" /> Racional Científico
+              </h3>
+              <p className="text-lg text-aubergine-dark/70 leading-[1.8] font-light italic">
+                {info.explicacion_cientifica}
+              </p>
+              
+              <div className="mt-8 pt-8 border-t border-aubergine-dark/5">
+                <h4 className="text-sm font-bold uppercase tracking-widest text-aubergine-dark/40 mb-4 flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4" /> Nota Práctica
+                </h4>
+                <p className="text-sm text-aubergine-dark/80 font-light leading-relaxed">
+                  {info.practical_note}
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-[#1a1118] p-8 md:p-10 rounded-2xl border border-[#C9A84C]/20 shadow-xl">
+              <h3 className="text-lg font-serif text-[#C9A84C] mb-6 flex items-center gap-2">
+                <Sparkles className="w-4 h-4" /> Activos Clave
+              </h3>
+              <ul className="space-y-4">
+                {info.key_ingredients.map((ing, i) => (
+                  <li key={i} className="flex items-start gap-3 text-cream/80 font-light text-sm border-b border-[#C9A84C]/10 pb-3 last:border-0">
+                    <CheckCircle className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" />
+                    <span className="leading-snug">{ing}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
