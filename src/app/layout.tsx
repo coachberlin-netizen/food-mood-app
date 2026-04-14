@@ -6,6 +6,7 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ServiceWorkerRegistration } from "@/components/ui/ServiceWorkerRegistration";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 import { PaletteProvider } from "@/contexts/PaletteContext";
 import "./globals.css";
 
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "Food·Mood",
+    startupImage: "/icons/icon-512.png",
   },
   openGraph: {
     type: "website",
@@ -111,7 +113,6 @@ export default function RootLayout({
       >
         <PaletteProvider>
           <AnalyticsProvider />
-          <ServiceWorkerRegistration />
           <Header />
           <PageTransition>
             <div className="flex-1">
@@ -120,6 +121,8 @@ export default function RootLayout({
           </PageTransition>
           <InstallBanner />
           <Footer />
+          <ChatWidget />
+          <ServiceWorkerRegistration />
         </PaletteProvider>
       </body>
     </html>

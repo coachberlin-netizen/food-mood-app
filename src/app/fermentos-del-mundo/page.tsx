@@ -7,21 +7,12 @@ import { getPremiumStatus } from "@/lib/premium"
 export default async function FermentosDelMundoPage() {
   const supabase = await createClient();
 
-  // 1. Check premium access securely on the server
+  // 1. Get authenticated user
   const { data: { user } } = await supabase.auth.getUser();
   
-  // Si no hay sesión → redirect a /login
-  if (!user) {
-    redirect('/login');
-  }
+  // 2. Centralized Waterfall Check
+  const isPremium = user ? await getPremiumStatus(supabase, user.id) : false;
 
-  // Use the centralized waterfall check
-  const isPremium = await getPremiumStatus(supabase, user.id);
-    
-  // Si hay sesión pero no es premium → redirect a /pricing
-  if (!isPremium) {
-    redirect('/pricing');
-  }
 
   // 2. Fetch ferments ordered by sort_order or created_at
   const { data: ferments } = await supabase

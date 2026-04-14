@@ -27,7 +27,7 @@ export function ChatWidget() {
   // Initial Greeting
   useEffect(() => {
     if (messages.length === 0 && (isOpen || true)) {
-      const moodLabel = resultMood ? resultMood.toUpperCase() : null;
+      const moodLabel = typeof resultMood === 'string' ? resultMood.toUpperCase() : null;
       const greeting = moodLabel 
         ? `Veo que hoy estás en modo ${moodLabel}. ¿Quieres que te recomiende algo especial?`
         : "Hola, soy tu asistente de Food·Mood. ¿Cómo te sientes hoy?";

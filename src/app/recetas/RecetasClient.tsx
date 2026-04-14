@@ -277,9 +277,28 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Use the server-side prop as source of truth, but handle local state if needed (though premium usually doesn't change during session without refresh)
-  const isPremium = initialIsPremium;
+  // State for premium status, initialized from server-side prop
+  const [isPremium, setIsPremium] = useState(initialIsPremium);
   const LIMIT = 24;
+
+  // Re-verify premium status on client side to handle caching/stale props
+  useEffect(() => {
+    async function checkAgain() {
+      if (!initialIsPremium) {
+        try {
+          const res = await fetch('/api/mi-tier');
+          const data = await res.json();
+          if (data.isPremium) {
+            setIsPremium(true);
+          }
+
+        } catch (err) {
+          console.error("Error re-verifying premium status:", err);
+        }
+      }
+    }
+    checkAgain();
+  }, [initialIsPremium]);
 
   const fetchRecetas = useCallback(async () => {
     setIsLoading(true);

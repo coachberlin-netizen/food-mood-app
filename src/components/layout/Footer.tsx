@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { NewsletterForm } from "./NewsletterForm"
 
 export function Footer() {
   const [isPremium, setIsPremium] = React.useState(false)
@@ -27,6 +28,10 @@ export function Footer() {
         <span className="font-serif text-2xl font-semibold text-white">
           Food<span className="text-gold">·</span>Mood
         </span>
+        <div className="w-full flex flex-col items-center space-y-4 mb-8">
+          <p className="text-sm font-light text-white/60">Únete al Newsletter para un consejo semanal</p>
+          <NewsletterForm source="footer" dark={true} />
+        </div>
         <div className="flex flex-col items-center space-y-4 pt-8 border-t border-white/5 w-full max-w-3xl">
           <p className="text-[13px] font-light text-white/40 text-center leading-relaxed px-4">
             Food·Mood recomienda recetas y alimentos funcionales basados en divulgación científica. No ofrece diagnóstico, tratamiento ni terapia. Ante cualquier duda de salud, consulta a un profesional.
@@ -37,6 +42,9 @@ export function Footer() {
             </Link>
             <Link href="/quienes-somos" className="hover:text-white transition-colors duration-300">
               Quiénes somos
+            </Link>
+            <Link href="/blog" className="hover:text-white transition-colors duration-300">
+              Blog
             </Link>
             <Link href="/faq" className="hover:text-white transition-colors duration-300">
               FAQ

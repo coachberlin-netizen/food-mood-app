@@ -48,11 +48,13 @@ export async function POST(req: NextRequest) {
         ...(user ? { supabase_user_id: user.id } : {}),
       },
       subscription_data: {
+        ...(planType === 'quarterly' ? { trial_period_days: 7 } : {}),
         metadata: {
           plan_type: planType || 'monthly',
           ...(user ? { supabase_user_id: user.id } : {}),
         },
       },
+
     }
 
     // If authenticated, attach user info; otherwise let Stripe collect email

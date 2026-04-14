@@ -33,24 +33,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 })
   }
 
+  // Initialize Supabase Admin
+  const supabaseAdmin = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.RECETAS_SUPABASE_KEY!,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    }
+  )
+
   // Handle the event
   switch (event.type) {
-    case 'checkout.session.completed':
+    case 'checkout.session.completed': {
       const session = event.data.object
       let userId = session.metadata?.supabase_user_id || session.client_reference_id
       const customerEmail = session.customer_details?.email || session.customer_email
-
-      // Initialize Supabase Admin with Service Role Key. Fallback to RECETAS_SUPABASE_KEY if the primary fails.
-      const supabaseAdmin = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.RECETAS_SUPABASE_KEY!,
-        {
-          auth: {
-            autoRefreshToken: false,
-            persistSession: false
-          }
-        }
-      )
 
       // Fallback: Si no hay userId en los metadatos, buscamos el usuario por su email del checkout
       if (!userId && customerEmail) {
@@ -98,9 +98,65 @@ export async function POST(req: NextRequest) {
           console.log(`✅ Profile updated (upsert): User ${userId} is now PREMIUM.`)
         }
       } else {
-        console.warn(`⚠️ Pago recibido (Email: ${customerEmail}) pero NO se encontró un usuario existente en Supabase. El webhook no ha podido vincular la compra.`)
+        console.warn(`⚠️ Pago recibido (Email: ${customerEmail}) pero NO se encontró un usuario existente en Supabase.`)
       }
       break
+    }
+
+    case 'customer.subscription.created':
+    case 'customer.subscription.updated': {
+      const subscription = event.data.object
+      const status = subscription.status
+      const customerId = subscription.customer as string
+      
+      // Get user by Stripe Customer ID if stored, or by email
+      const customer = await stripe.customers.retrieve(customerId)
+      const email = (customer as any).email
+
+      if (email) {
+        const { data: authData } = await supabaseAdmin.auth.admin.listUsers()
+        const user = authData?.users.find(u => u.email?.toLowerCase() === email.toLowerCase())
+
+        if (user) {
+          const isPremium = ['active', 'trialing'].includes(status)
+          console.log(`🔄 Subscription ${event.type} for ${email}: status=${status} -> is_premium=${isPremium}`)
+          
+          await supabaseAdmin
+            .from('profiles')
+            .upsert({ 
+              id: user.id, 
+              is_premium: isPremium,
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'id' })
+        }
+      }
+      break
+    }
+
+    case 'customer.subscription.deleted': {
+      const subscription = event.data.object
+      const customerId = subscription.customer as string
+      
+      const customer = await stripe.customers.retrieve(customerId)
+      const email = (customer as any).email
+
+      if (email) {
+        const { data: authData } = await supabaseAdmin.auth.admin.listUsers()
+        const user = authData?.users.find(u => u.email?.toLowerCase() === email.toLowerCase())
+
+        if (user) {
+          console.log(`🚫 Subscription deleted for ${email}: is_premium=false`)
+          await supabaseAdmin
+            .from('profiles')
+            .upsert({ 
+              id: user.id, 
+              is_premium: false,
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'id' })
+        }
+      }
+      break
+    }
 
     default:
       console.log(`🟡 Unhandled event type ${event.type}`)

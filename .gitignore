@@ -31,6 +31,17 @@ yarn-error.log*
 # vercel
 .vercel
 
+# scripts outputs and temporary files
+scripts/*.log
+scripts/*.txt
+scripts/*.json
+!scripts/package.json
+!scripts/chef_hits.json
+!scripts/chef_recipes_full.json
+!scripts/moods.json
+!scripts/fix_recipe.json
+!scripts/chef_results.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

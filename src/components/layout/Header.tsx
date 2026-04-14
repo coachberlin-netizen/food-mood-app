@@ -88,6 +88,9 @@ export function Header() {
             <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
               Síntomas
             </Link>
+            <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+              Blog
+            </Link>
             {!isPremium && (
               <Link href="/pricing" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors text-[#C9A84C] font-semibold">
                 Planes

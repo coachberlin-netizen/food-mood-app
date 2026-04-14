@@ -21,38 +21,20 @@ export async function getPremiumStatus(supabase: SupabaseClient, userId: string)
   if (!userId) return false;
 
   try {
-    // 1. Check subscriptions table (Stripe direct mapping)
-    const { data: subData } = await supabase
-      .from('subscriptions')
-      .select('status')
-      .eq('user_id', userId)
-      .eq('status', 'active')
-      .maybeSingle();
-
-    if (subData) return true;
-
-    // 2. Check profiles table (legacy/Standard flags)
-    const { data: profileData } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
-      .select('is_premium, premium_level')
+      .select('is_premium')
       .eq('id', userId)
       .maybeSingle();
 
-    if (profileData?.is_premium === true) return true;
-    if ((profileData?.premium_level ?? 0) > 0) return true;
+    if (error) {
+      console.error('Error fetching premium status:', error.message);
+      return false;
+    }
 
-    // 3. Check user_profiles table (Legacy tier system)
-    const { data: userProfileData } = await supabase
-      .from('user_profiles')
-      .select('tier')
-      .eq('user_id', userId)
-      .maybeSingle();
-
-    if (userProfileData?.tier === 'premium') return true;
-
-    return false;
+    return data?.is_premium === true;
   } catch (error) {
-    console.error('Error checking premium status:', error);
-    return false; // Fail safe to free tier
+    console.error('Unexpected error checking premium status:', error);
+    return false;
   }
 }

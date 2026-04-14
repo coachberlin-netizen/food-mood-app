@@ -12,7 +12,9 @@ const withPWA = withPWAInit({
 const nextConfig = {
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
-  serverExternalPackages: ['@anthropic-ai/sdk'],
+  experimental: {
+    serverExternalPackages: ['@anthropic-ai/sdk'],
+  },
   images: {
     remotePatterns: [
       {

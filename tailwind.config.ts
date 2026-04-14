@@ -28,6 +28,22 @@ const config: Config = {
         'luxury': '0 1px 3px rgba(26,35,50,0.04)',
         'luxury-hover': '0 4px 12px rgba(26,35,50,0.06)',
       },
+      typography: ({ theme }: { theme: any }) => ({
+        'food-mood': {
+          css: {
+            '--tw-prose-headings': theme('colors.aubergine-dark'),
+            '--tw-prose-body': theme('colors.aubergine-dark / 0.8'),
+            '--tw-prose-links': theme('colors.gold'),
+            '--tw-prose-bold': theme('colors.aubergine-dark'),
+            '--tw-prose-bullets': theme('colors.gold'),
+            '--tw-prose-quote-borders': theme('colors.gold'),
+            fontFamily: theme('fontFamily.sans').join(', '),
+            h1: { fontFamily: theme('fontFamily.serif').join(', ') },
+            h2: { fontFamily: theme('fontFamily.serif').join(', ') },
+            h3: { fontFamily: theme('fontFamily.serif').join(', ') },
+          },
+        },
+      }),
     },
   },
   plugins: [require("@tailwindcss/typography")],

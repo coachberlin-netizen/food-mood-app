@@ -283,7 +283,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
                     {receta?.preparacion_es?.map((pasoRaw, i) => {
                       const paso = typeof pasoRaw === 'string' ? pasoRaw : (pasoRaw as any).paso || (pasoRaw as any).texto || JSON.stringify(pasoRaw);
                       return (
-                        <li key={i} className={`flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5 transition-all ${!isPremium ? 'blur-sm opacity-50 select-none' : ''}`}>
+                        <li key={i} className="flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5 transition-all">
                           <span className="shrink-0 w-8 h-8 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
                             {i + 1}
                           </span>
@@ -291,14 +291,6 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
                         </li>
                       );
                     })}
-                    {!isPremium && (
-                      <div className="absolute inset-0 flex items-center justify-center z-10">
-                        <Link href="/pricing" className="bg-aubergine-dark hover:bg-aubergine text-cream px-6 py-3 rounded-xl shadow-xl flex items-center gap-2 text-sm font-semibold transition-all hover:scale-105">
-                          <Lock className="w-4 h-4 text-[#C9A84C]" />
-                          Desbloquea la receta completa → Hazte Premium
-                        </Link>
-                      </div>
-                    )}
                   </ol>
                 </div>
               )}
