@@ -1,9 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { getAllPostsAdmin } from '@/lib/supabase/blog';
-import { Plus, Edit, Eye, Trash2, Calendar, FileText, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-
 export default async function AdminBlogPage() {
   const posts = await getAllPostsAdmin();
 
@@ -16,27 +13,18 @@ export default async function AdminBlogPage() {
       {/* Stats Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="bg-white rounded-2xl p-6 border border-aubergine-dark/5 shadow-luxury flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-aubergine-dark/5 flex items-center justify-center text-aubergine-dark">
-            <FileText className="w-6 h-6" />
-          </div>
           <div>
             <p className="text-[11px] font-bold uppercase tracking-widest text-aubergine-dark/40">Total Posts</p>
             <p className="text-2xl font-serif font-black">{total}</p>
           </div>
         </div>
         <div className="bg-white rounded-2xl p-6 border border-aubergine-dark/5 shadow-luxury flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-green-600">
-            <CheckCircle2 className="w-6 h-6" />
-          </div>
           <div>
             <p className="text-[11px] font-bold uppercase tracking-widest text-aubergine-dark/40">Publicados</p>
             <p className="text-2xl font-serif font-black">{published}</p>
           </div>
         </div>
         <div className="bg-white rounded-2xl p-6 border border-aubergine-dark/5 shadow-luxury flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold">
-            <Calendar className="w-6 h-6" />
-          </div>
           <div>
             <p className="text-[11px] font-bold uppercase tracking-widest text-aubergine-dark/40">Borradores</p>
             <p className="text-2xl font-serif font-black">{drafts}</p>
@@ -47,11 +35,8 @@ export default async function AdminBlogPage() {
       {/* Toolbar */}
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-serif font-semibold">Listado de Artículos</h2>
-        <Link href="/admin/blog/new">
-          <Button variant="primary" className="gap-2 shadow-lg">
-            <Plus className="w-4 h-4" />
-            Nuevo Post
-          </Button>
+        <Link href="/admin/blog/new" className="px-4 py-2 bg-aubergine-dark text-white rounded font-bold">
+          + Nuevo Post
         </Link>
       </div>
 
@@ -95,17 +80,15 @@ export default async function AdminBlogPage() {
                       <Link 
                         href={`/blog/${post.slug}`} 
                         target="_blank"
-                        className="w-9 h-9 rounded-lg border border-aubergine-dark/10 flex items-center justify-center text-aubergine-dark/40 hover:text-aubergine-dark hover:bg-aubergine-dark/5 transition-all"
-                        title="Ver en el blog"
+                        className="text-sm font-bold text-aubergine-dark/60 hover:text-aubergine-dark"
                       >
-                        <Eye className="w-4 h-4" />
+                        Ver
                       </Link>
                       <Link 
                         href={`/admin/blog/${post.id}/edit`}
-                        className="w-9 h-9 rounded-lg border border-aubergine-dark/10 flex items-center justify-center text-aubergine-dark/40 hover:text-gold hover:border-gold/30 hover:bg-gold/5 transition-all"
-                        title="Editar"
+                        className="text-sm font-bold text-aubergine-dark/60 hover:text-gold"
                       >
-                        <Edit className="w-4 h-4" />
+                        Editar
                       </Link>
                     </div>
                   </td>
