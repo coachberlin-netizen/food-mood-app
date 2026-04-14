@@ -5,14 +5,15 @@ import { Plus, Edit, Eye, Trash2, Calendar, FileText, CheckCircle2 } from 'lucid
 import { Button } from '@/components/ui/Button';
 
 export default async function AdminBlogPage() {
-  const posts = await getAllPostsAdmin();
+  try {
+    const posts = await getAllPostsAdmin();
 
-  const total = posts.length;
-  const published = posts.filter(p => p.status === 'published').length;
-  const drafts = total - published;
+    const total = posts.length;
+    const published = posts.filter(p => p.status === 'published').length;
+    const drafts = total - published;
 
-  return (
-    <div className="space-y-8">
+    return (
+      <div className="space-y-8">
       {/* Stats Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="bg-white rounded-2xl p-6 border border-aubergine-dark/5 shadow-luxury flex items-center gap-4">
@@ -123,5 +124,13 @@ export default async function AdminBlogPage() {
         </div>
       </div>
     </div>
-  );
+    );
+  } catch (error: any) {
+    return (
+      <div className="p-8 bg-red-50 text-red-600 rounded-2xl">
+        <h2 className="text-xl font-bold mb-4">Error interno del panel de administración</h2>
+        <pre className="text-sm whitespace-pre-wrap">{error.message || String(error)}</pre>
+      </div>
+    );
+  }
 }
