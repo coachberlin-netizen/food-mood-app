@@ -73,8 +73,8 @@ export default function Home() {
               </motion.h1>
             </div>
             
-            <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-lg mx-auto text-center leading-[1.8] font-sans">
-              Tu estado de ánimo influye en tu cuerpo. Food Mood te guía con recetas que nutren tu bienestar emocional y físico.
+            <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-2xl mx-auto text-center leading-[1.8] font-sans">
+              Aplica los últimos avances en neurociencia nutricional para ofrecerte una alimentación que impacta positivamente en tu estado de ánimo, energía y claridad mental.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">

@@ -40,42 +40,37 @@ export function Footer() {
             Protegemos tus datos mediante medidas técnicas y organizativas razonables. Aun así, ningún sistema digital es completamente invulnerable. En caso de incidente de seguridad que afecte a datos personales, actuaremos conforme a la normativa aplicable en materia de protección de datos.
           </p>
           
-          <div className="pt-8 pb-4 flex flex-wrap justify-center gap-x-8 gap-y-4">
-            <Link href="/testimonios" className="text-[11px] tracking-widest uppercase text-white/40 hover:text-gold transition-colors duration-300">
-              Historias de bienestar real <span className="mx-2 opacity-30">·</span> Leer testimonios
-            </Link>
-            <Link href="/fundamentos" className="text-[11px] tracking-widest uppercase text-white/40 hover:text-gold transition-colors duration-300">
-              Ciencia aplicada <span className="mx-2 opacity-30">·</span> Fundamentos
-            </Link>
-            <Link href="/equipo" className="text-[11px] tracking-widest uppercase text-white/40 hover:text-gold transition-colors duration-300">
-              Equipo interdisciplinar <span className="mx-2 opacity-30">·</span> Quiénes somos
-            </Link>
+          <div className="pt-12 pb-8 grid grid-cols-1 md:grid-cols-2 gap-8 w-full border-b border-white/5">
+            <div className="flex flex-col items-center md:items-start space-y-2">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold">Preguntas Frecuentes</span>
+              <Link href="/faq" className="text-sm text-white/60 hover:text-gold transition-colors">
+                Visita nuestra sección de FAQ (abierta a todos)
+              </Link>
+            </div>
+            <div className="flex flex-col items-center md:items-end space-y-2">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold">Fermentos del Mundo</span>
+              <Link href="/fermentos-del-mundo" className="text-sm text-white/60 hover:text-gold transition-colors">
+                Explora nuestro mapa interactivo
+              </Link>
+            </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6 text-sm font-light text-white/50 pt-4 px-4">
-            <Link href="/fermentos-del-mundo" className="hover:text-white transition-colors duration-300 whitespace-nowrap">
-              Fermentos del Mundo
-            </Link>
-            <Link href="/quienes-somos" className="hover:text-white transition-colors duration-300">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[11px] tracking-[0.2em] uppercase text-white/40 pt-8 px-4">
+            <Link href="/quienes-somos" className="hover:text-gold transition-colors duration-300">
               Quiénes somos
             </Link>
-            <Link href="/blog" className="hover:text-white transition-colors duration-300">
+            <span className="opacity-10 hidden sm:inline">|</span>
+            <Link href="/blog" className="hover:text-gold transition-colors duration-300">
               Blog
             </Link>
-            <Link href="/faq" className="hover:text-white transition-colors duration-300">
-              FAQ
-            </Link>
-            <Link href="/terminos" className="hover:text-white transition-colors duration-300">
+            <span className="opacity-10 hidden sm:inline">|</span>
+            <Link href="/terminos" className="hover:text-gold transition-colors duration-300">
               Términos
             </Link>
-            <Link href="/privacidad" className="hover:text-white transition-colors duration-300">
+            <span className="opacity-10 hidden sm:inline">|</span>
+            <Link href="/privacidad" className="hover:text-gold transition-colors duration-300">
               Privacidad
             </Link>
-            {!isPremium && (
-              <Link href="/pricing" className="hover:text-white transition-colors duration-300">
-                Planes
-              </Link>
-            )}
           </div>
         </div>
       </div>

@@ -79,8 +79,8 @@ export function EmotionalLandscape() {
             Cada emoción es una señal. <br />
             <span className="italic font-light">Escúchalas y responde con nutrición.</span>
           </motion.h3>
-          <p className="mt-8 text-aubergine-dark/60 font-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-            Con Food Mood, transformamos tus estados emocionales en una paleta de colores que te indica qué necesita tu cuerpo en cada momento.
+          <p className="mt-8 text-aubergine-dark/60 font-light text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+            Cada emoción es una señal. Aprende a interpretarlas y a responder con la nutrición adecuada. Con Food Mood, transformamos tus estados emocionales en una paleta de colores que te indica qué necesita tu cuerpo:
           </p>
         </div>
 

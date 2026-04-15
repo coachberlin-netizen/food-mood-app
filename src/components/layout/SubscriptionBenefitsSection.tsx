@@ -10,11 +10,11 @@ const benefits = [
   },
   {
     title: "Glosario de ingredientes",
-    description: "Entiende el poder de cada alimento y cómo influye en tu bienestar emocional."
+    description: "Entiende el poder de cada alimento y cómo influye en tu bienestar."
   },
   {
     title: "Diario emocional-alimentario",
-    description: "Un espacio privado para observar y mejorar tus patrones conectando plato y emoción."
+    description: "Un espacio privado para observar y mejorar tus patrones de alimentación consciente."
   },
   {
     title: "Paleta emocional personalizada",
@@ -27,6 +27,10 @@ const benefits = [
   {
     title: "Contenido exclusivo",
     description: "Artículos y lecciones sobre nutrición, bienestar y el eje intestino-cerebro."
+  },
+  {
+    title: "Fermentos del Mundo",
+    description: "Acceso a nuestro mapa interactivo con los 16 fermentos ancestrales más poderosos del planeta."
   }
 ];
 
