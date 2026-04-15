@@ -11,6 +11,7 @@ import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
 import { WhatsappConsultSection } from "@/components/layout/WhatsappConsultSection"
 import { ExpertTeamSection } from "@/components/layout/ExpertTeamSection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
+import { StoryConstellation } from "@/components/layout/StoryConstellation"
 import { MethodSection } from "@/components/layout/MethodSection"
 import { FaqSection } from "@/components/layout/FaqSection"
 
@@ -97,59 +98,9 @@ export default function Home() {
       <TrustBar />
       <ExpertiseSection />
       <WhatsappConsultSection />
+      {/* 2. STORY SECTION: CONSTELLATION */}
+      <StoryConstellation />
 
-      {/* 2. STORY SECTION */}
-      <section className="py-32 md:py-48 bg-cream relative border-t border-aubergine-dark/20">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-5xl mx-auto px-6 text-center mb-24"
-        >
-          <motion.h2 variants={itemVariants} className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">El Origen</motion.h2>
-          <motion.h3 variants={itemVariants} className="text-3xl md:text-5xl font-serif text-aubergine-dark max-w-4xl mx-auto leading-tight text-balance">
-            &quot;No es falta de voluntad, es bioquímica. Lo que comes determina cómo te sientes, y cómo te sientes dicta qué quieres comer.&quot;
-          </motion.h3>
-        </motion.div>
-
-        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8 mb-32">
-          {[
-            { title: "Hambre Nerviosa", text: "Comes por ansiedad, no por necesidad calórica real." },
-            { title: "Neblina Mental", text: "Tu cerebro se apaga después de comidas inflamatorias." },
-            { title: "Ansiedad Digestiva", text: "Tu estómago reacciona físicamente a tus picos de estrés." },
-            { title: "Antojos Emocionales", text: "Buscas azúcar o carbohidratos buscando un abrazo bioquímico." }
-          ].map((item, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-cream p-12 md:p-16 rounded-xl shadow-luxury hover:shadow-luxury-hover border border-transparent transition-all duration-300"
-            >
-              <h4 className="font-serif font-semibold text-aubergine-dark text-2xl mb-4">{item.title}</h4>
-              <p className="text-aubergine-dark/60 leading-[1.8] font-light">{item.text}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="max-w-5xl mx-auto px-6"
-        >
-          <div className="bg-aubergine-dark rounded-2xl p-12 md:p-32 text-center text-white relative overflow-hidden">
-            <div className="relative z-10 max-w-3xl mx-auto space-y-12">
-              <FlaskConical className="w-10 h-10 text-[#C9A84C]/40 mx-auto" />
-              <p className="text-xl md:text-2xl font-light leading-[1.8]">
-                Nosotros te damos el mejor sabor para romper el ciclo de inflamación y sentirte genial de verdad, usando ingredientes que hablan directamente con tu nervio vago.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </section>
 
       {/* 3. MOODS SECTION */}
       <section className="py-32 md:py-48 overflow-hidden bg-[var(--background)] relative">
@@ -198,58 +149,7 @@ export default function Home() {
       {/* 4. METHODOLOGY */}
       <MethodSection />
 
-      {/* 4.5 TESTIMONIOS / PRUEBA SOCIAL */}
-      <section className="py-24 md:py-32 bg-[var(--background)] border-t border-aubergine-dark/10">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Lo Dicen Ellos</h2>
-            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark">Historias reales</h3>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {[
-              {
-                quote: "Llevaba meses con bajones de energía a media tarde. Dos semanas siguiendo las recetas de Reset y he dejado el café de las 5.",
-                mood: "Reset"
-              },
-              {
-                quote: "Nunca había conectado mis antojos con el nervio vago. Ahora tiene todo el sentido.",
-                mood: "Calma"
-              },
-              {
-                quote: "Las recetas de Focus me salvaron la semana de exámenes. Simple, rico y funcional.",
-                mood: "Focus"
-              },
-              {
-                quote: "A todos nos encantan los snacks nutritivos de la sección Confort. Su digestión y la mía han agradecido el cambio sin que sientan 'dietas' extremas.",
-                mood: "Confort"
-              }
-            ].map((t, i) => (
-              <div
-                key={i}
-                className="bg-cream rounded-2xl p-8 md:p-10 border border-aubergine-dark/10 shadow-luxury relative"
-              >
-                {/* Badge */}
-                <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-medium uppercase tracking-wider mb-5">
-                  {t.mood}
-                </span>
-
-                {/* Quote */}
-                <div className="text-3xl text-[#C9A84C]/25 font-serif leading-none mb-3">&ldquo;</div>
-                <p className="text-aubergine-dark/70 text-base leading-[1.8] font-light italic">
-                  {t.quote}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Counter */}
-          <div className="text-center">
-            <p className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-2">+200 tests realizados</p>
-            <p className="text-sm text-aubergine-dark/40 font-light italic">Impacto real en la comunidad</p>
-          </div>
-        </div>
-      </section>
 
       {/* 4.75 EXPERT TEAM SECTION */}
       <ExpertTeamSection />
