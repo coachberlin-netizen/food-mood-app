@@ -67,14 +67,14 @@ export default function Home() {
             </motion.div>
             
             <div className="space-y-6">
-              <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] md:leading-[1] font-serif italic text-white tracking-tight">
+              <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] md:leading-[1] font-serif italic text-white tracking-tight text-balance">
                 Descubre qué comer<br className="hidden md:block" />
-                <motion.span variants={itemVariants} className="italic font-light text-cream/80">según cómo te sientes.</motion.span>
+                <motion.span variants={itemVariants} className="italic font-light text-cream/80"> para sentirte mejor.</motion.span>
               </motion.h1>
             </div>
             
             <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-lg mx-auto text-center leading-[1.8] font-sans">
-              Tu estado emocional determina lo que tu cuerpo necesita. Food Mood traduce cómo te sientes en recetas que realmente te cuidan.
+              Tu estado de ánimo influye en tu cuerpo. Food Mood te guía con recetas que nutren tu bienestar emocional y físico.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
@@ -145,8 +145,12 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 bg-[var(--background)] border-t border-aubergine-dark/10">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Planes</h2>
-            <h3 className="text-3xl md:text-5xl font-serif italic text-aubergine-dark">Empieza gratis. <span className="not-italic font-semibold">Profundiza cuando quieras.</span></h3>
+            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">¿Listo para empezar?</h2>
+            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark leading-tight max-w-3xl mx-auto">
+              Dale a tus emociones la importancia que se merecen <br className="hidden md:block" />
+              <span className="italic font-light">y ajusta tus decisiones alimenticias.</span>
+            </h3>
+            <p className="mt-8 text-aubergine-dark/60 font-light text-lg">Hacer el test es gratis, o explora nuestros planes directamente:</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -156,7 +160,7 @@ export default function Home() {
               <span className="text-4xl font-serif text-aubergine-dark mb-3">0€</span>
               <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test de mood + Paleta Emocional (resultado sin recetas)</p>
               <Link href="/test" className="mt-auto w-full py-3 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium text-center hover:bg-aubergine-dark/5 transition-colors">
-                Hacer mi test →
+                Hacer mi test gratuito →
               </Link>
             </div>
 
@@ -166,7 +170,7 @@ export default function Home() {
               <span className="text-4xl font-serif text-aubergine-dark mb-3">9€<span className="text-base font-light text-aubergine-dark/40">/mes</span></span>
               <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso completo a todas las recetas, el glosario científico, Fermentos del Mundo y tu paleta emocional personalizada.</p>
               <Link href="/pricing" className="mt-auto w-full py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium text-center hover:bg-aubergine-dark/90 transition-colors">
-                Suscribirme →
+                Ver planes de suscripción →
               </Link>
             </div>
 

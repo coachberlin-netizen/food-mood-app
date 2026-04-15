@@ -7,12 +7,12 @@ import { Palette, ArrowRight, Zap, Wind, Sparkles, Heart, RefreshCw, Home } from
 import { moods } from '@/data/moods';
 
 const microTexts: Record<string, string> = {
-  activacion: "Fuego suave, energía clara.",
-  calma: "Silencio interno, pulso lento.",
-  focus: "Luz limpia, mente nítida.",
-  social: "Apertura cálida, risas compartidas.",
-  reset: "Limpieza profunda, nuevo inicio.",
-  confort: "Raíz segura, abrazo digestivo."
+  activacion: "Energía natural y enfoque.",
+  calma: "Relajación y bienestar digestivo.",
+  focus: "Claridad mental y concentración.",
+  social: "Conexión y disfrute.",
+  reset: "Renovación y ligereza.",
+  confort: "Placer y equilibrio."
 };
 
 const icons: Record<string, React.ReactNode> = {
@@ -67,7 +67,7 @@ export function EmotionalLandscape() {
             viewport={{ once: true }}
             className="text-[11px] font-sans tracking-[0.3em] uppercase text-aubergine-dark/40 mb-6 font-bold"
           >
-            Tu Paisaje Interno
+            Tus emociones, tu guía.
           </motion.h2>
           <motion.h3 
             initial={{ opacity: 0, y: 20 }}
@@ -76,9 +76,12 @@ export function EmotionalLandscape() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif text-aubergine-dark max-w-4xl mx-auto leading-[1.1]"
           >
-            Las emociones no son casillas. <br />
-            <span className="italic font-light">Son un espectro de luz y color.</span>
+            Cada emoción es una señal. <br />
+            <span className="italic font-light">Escúchalas y responde con nutrición.</span>
           </motion.h3>
+          <p className="mt-8 text-aubergine-dark/60 font-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+            Con Food Mood, transformamos tus estados emocionales en una paleta de colores que te indica qué necesita tu cuerpo en cada momento.
+          </p>
         </div>
 
         {/* The Map / Landscape */}

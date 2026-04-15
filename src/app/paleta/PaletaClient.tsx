@@ -151,39 +151,40 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
       >
         <span className="text-[10px] tracking-[0.3em] uppercase text-[#6B2737]/40 mb-8 block font-bold">Concepto & Ciencia</span>
         <h1 className="font-serif text-5xl md:text-7xl text-[#6B2737] mb-12 leading-[1.1] italic">
-          La nutrición no es combustible. <br className="hidden md:block" />
-          <span className="not-italic font-light opacity-80">Es información.</span>
+          Importa lo que comes. <br className="hidden md:block" />
+          <span className="not-italic font-light opacity-80 text-3xl md:text-5xl">Pero importa más quién eres cuando comes.</span>
         </h1>
-        <p className="font-sans text-xl md:text-2xl text-[#7a7974] font-light max-w-2xl mx-auto leading-relaxed">
-          El eje intestino-cerebro es el diálogo más poderoso de tu cuerpo. Tu paleta emocional es la traducción visual de ese equilibrio bioquímico.
-        </p>
+        <div className="space-y-6 font-sans text-xl text-[#7a7974] font-light max-w-2xl mx-auto leading-relaxed text-left md:text-center">
+          <p>
+            Tu cuerpo no es una máquina que procesa nutrientes. Es un organismo emocional que metaboliza la realidad. 
+            El mismo plato te nutre o te inflama según tu estado mental, tu nivel de calma y lo que buscas en ese bocado.
+          </p>
+        </div>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center mb-32">
+      <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start mb-32">
         <div className="space-y-8">
-          <h2 className="font-serif text-3xl text-[#6B2737] italic">El espejo de tu microbiota</h2>
+          <h2 className="font-serif text-3xl text-[#6B2737] italic">Cortisol vs Serenidad</h2>
           <p className="text-[#7a7974] leading-relaxed font-light">
-            El 95% de tu serotonina y el 50% de tu dopamina se sintetizan en el entorno gastrointestinal. No comemos solo para nutrir células, sino para modular neurotransmisores. 
+            Comer con ansiedad convierte cualquier alimento en inflamación. Comer desde la calma lo convierte en reparación. 
+            Tu intestino no distingue solo entre brócoli y pizza — distingue entre cortisol y serenidad. 
+            Por eso el 95% de tu serotonina se produce en el intestino: porque tu estado emocional y tu digestión son el mismo sistema.
           </p>
           <div className="pl-6 border-l border-[#6B2737]/10 flex flex-col gap-4">
-            <div className="flex items-center gap-4 text-sm text-[#6B2737]/60 font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#E8A838]"></span> Activación vía Dopamina
-            </div>
-            <div className="flex items-center gap-4 text-sm text-[#6B2737]/60 font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#7BA7BC]"></span> Calma vía GABA
-            </div>
-            <div className="flex items-center gap-4 text-sm text-[#6B2737]/60 font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#5B8C5A]"></span> Enfoque vía Acetilcolina
-            </div>
+            <p className="text-sm font-serif italic text-[#6B2737]/60">
+              "Tu paleta emocional es tu verdadero perfil nutricional."
+            </p>
           </div>
         </div>
         <div className="bg-white/40 backdrop-blur-sm rounded-3xl p-10 border border-[#6B2737]/5 shadow-xl">
           <h3 className="font-serif text-[13px] uppercase tracking-widest text-[#6B2737]/40 mb-6">Lo que revelan tus colores</h3>
           <p className="text-sm text-[#7a7974] leading-[1.8] font-light italic">
-            "Tu paleta de hoy no es estática. Es un paisaje vivo que responde a la inflamación, el cortisol y la diversidad bacteriana. Al identificar tu color dominante, podemos seleccionar los prebióticos y fitoquímicos precisos para restaurar la homeostasis."
+            "Tu color dominante de hoy no habla solo de lo que te falta nutricionalmente. Habla de lo que necesitas emocionalmente. 
+            De si buscas confort, estímulo, silencio o energía. Identificar ese color es el primer paso para comer desde ti — 
+            y no solo desde una tabla de nutrientes."
           </p>
           <div className="mt-8 flex justify-end">
-            <span className="text-[11px] font-serif italic text-[#6B2737]/60 font-bold">— Dirección Científica, Food Mood</span>
+            <span className="text-[11px] font-serif italic text-[#6B2737]/60 font-bold">— Food·Mood, Psicología de la Alimentación</span>
           </div>
         </div>
       </div>
@@ -193,7 +194,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
         whileInView={{ opacity: 1 }}
         className="flex flex-col items-center gap-8 py-16 border-t border-[#6B2737]/5"
       >
-        <p className="text-[#7a7974] font-medium tracking-wide text-sm uppercase">Comienza tu diagnóstico visual</p>
+        <p className="text-[#7a7974] font-medium tracking-wide text-sm uppercase">Comienza tu exploración</p>
         <button
           onClick={() => setScreen('sliders')}
           className="bg-[#6B2737] text-[#FAF9F6] rounded-[60px] px-12 py-5 font-sans text-[18px] font-medium transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl flex items-center gap-4"
@@ -221,7 +222,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
             {visibleSliders >= 1 && (
               <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full">
                 <EmotionalSlider
-                  label="Tu nivel de energía ahora mismo"
+                  label="Tu impulso de moverte y actuar"
                   value={energia}
                   colorEnd="#E8A838"
                   iconLeft={<EnergyLow />}
@@ -233,7 +234,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
             {visibleSliders >= 2 && (
               <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full">
                 <EmotionalSlider
-                  label="Cuánta calma sientes en el cuerpo"
+                  label="Tu necesidad de quietud y silencio"
                   value={serenidad}
                   colorEnd="#7BA7BC"
                   iconLeft={<SerenityLow />}
@@ -245,7 +246,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
             {visibleSliders >= 3 && (
               <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full">
                 <EmotionalSlider
-                  label="Cómo está tu mente ahora"
+                  label="Tu búsqueda de dirección y nitidez"
                   value={claridad}
                   colorEnd="#5B8C5A"
                   iconLeft={<ClarityLow />}
@@ -257,7 +258,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
             {visibleSliders >= 4 && (
               <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full">
                 <EmotionalSlider
-                  label="Cuánta apertura sientes hacia los demás"
+                  label="Tu deseo de conexión y pertenencia"
                   value={conexion}
                   colorEnd="#C97B84"
                   iconLeft={<ConnectionLow />}

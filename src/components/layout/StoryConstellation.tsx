@@ -53,9 +53,12 @@ export function StoryConstellation() {
           className="mb-16 md:mb-24"
         >
           <h2 className="text-[10px] tracking-[0.2em] uppercase text-aubergine-dark/40 mb-6">El Origen</h2>
-          <h3 className="text-2xl md:text-4xl font-serif text-aubergine-dark max-w-2xl mx-auto leading-tight italic">
-            "Tu bioquímica dicta lo que sientes. Tu plato tiene el poder de cambiarlo."
+          <h3 className="text-2xl md:text-3xl font-serif text-aubergine-dark max-w-4xl mx-auto leading-tight">
+            La ciencia de <span className="italic font-light">sentirte bien.</span>
           </h3>
+          <p className="mt-8 text-aubergine-dark/60 font-light text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+            Entendemos la profunda conexión entre tu intestino y tu cerebro. Food Mood aplica los últimos avances en neurociencia nutricional para ofrecerte una alimentación que impacta positivamente en tu estado de ánimo, energía y claridad mental.
+          </p>
         </motion.div>
 
         {/* Constellation Container */}

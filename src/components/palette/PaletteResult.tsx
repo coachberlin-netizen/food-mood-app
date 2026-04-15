@@ -82,7 +82,7 @@ export default function PaletteResultView({
         className="mt-3 text-[28px] italic"
         style={{ fontFamily: "'Playfair Display', serif", color: "#6B2737" }}
       >
-        Tu cuerpo pide {result.descripcion}
+        Tu paisaje hoy narra {result.descripcion}
       </motion.h2>
 
       {/* 5. Necesidades */}

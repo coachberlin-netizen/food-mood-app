@@ -6,27 +6,27 @@ import { motion, Variants } from 'framer-motion';
 const benefits = [
   {
     title: "Recetas funcionales",
-    description: "Acceso completo a recetas organizadas por estado emocional y síntoma, diseñadas para nutrir tu bioquímica."
+    description: "Acceso ilimitado a recetas diseñadas para cada estado emocional y necesidad de tu cuerpo."
   },
   {
-    title: "Glosario científico",
-    description: "Una biblioteca detallada de ingredientes, nutrientes y fermentos para entender el 'porqué' detrás de cada bocado."
+    title: "Glosario de ingredientes",
+    description: "Entiende el poder de cada alimento y cómo influye en tu bienestar emocional."
   },
   {
     title: "Diario emocional-alimentario",
-    description: "Espacio privado para registrar y observar tus patrones, conectando lo que comes con cómo te sientes."
+    description: "Un espacio privado para observar y mejorar tus patrones conectando plato y emoción."
   },
   {
     title: "Paleta emocional personalizada",
-    description: "Tu perfil metabólico-afectivo traducido a un espectro de color único que evoluciona contigo."
+    description: "Tu perfil único que evoluciona contigo a medida que cambian tus necesidades."
   },
   {
-    title: "Consulta por WhatsApp",
-    description: "Contacto directo con nuestra psicóloga experta para resolver dudas sobre psicología de la alimentación."
+    title: "Soporte vía WhatsApp",
+    description: "Consulta directa con nuestra psicóloga experta en psicología de la alimentación."
   },
   {
-    title: "Contenido educativo",
-    description: "Lecciones y artículos actualizados sobre el eje intestino-cerebro, longevidad y tecnología alimentaria."
+    title: "Contenido exclusivo",
+    description: "Artículos y lecciones sobre nutrición, bienestar y el eje intestino-cerebro."
   }
 ];
 
@@ -59,15 +59,15 @@ export function SubscriptionBenefitsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-20 lg:mb-24">
           <div className="col-span-1 lg:col-span-4">
             <h2 className="text-[10px] sm:text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6 font-semibold">
-              ¿Qué incluye exactamente?
+              ¿Qué incluye tu suscripción?
             </h2>
           </div>
           <div className="col-span-1 lg:col-span-8 flex flex-col items-start">
             <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark leading-[1.15] max-w-2xl">
-              Lo que obtienes al <span className="italic font-light">suscribirte a Food Mood.</span>
+              Todo lo que necesitas para <span className="italic font-light">transformar tu relación con la comida.</span>
             </h3>
             <p className="mt-8 text-aubergine-dark/60 font-light text-base md:text-lg leading-relaxed max-w-2xl">
-              Nuestra suscripción no es solo un acceso; es una infraestructura diseñada para que la ciencia de la alimentación y tu bienestar emocional hablen el mismo idioma.
+              Al unirte a Food Mood obtienes una infraestructura completa diseñada para que tu bienestar emocional sea la base de tu nutrición.
             </p>
           </div>
         </div>
