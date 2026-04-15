@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { MethodSection } from '@/components/layout/MethodSection';
-import { Navbar } from '@/components/layout/Navbar';
+import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { motion } from 'framer-motion';
 
 export default function ComoFuncionaPage() {
   return (
     <main className="min-h-screen bg-cream">
-      <Navbar />
+      <Header />
       
       <div className="pt-32 pb-16 px-6 max-w-6xl mx-auto">
         <motion.div
