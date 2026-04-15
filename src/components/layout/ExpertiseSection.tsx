@@ -20,7 +20,7 @@ export function ExpertiseSection() {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-[var(--background)]">
+    <section className="py-16 md:py-24 bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12">
           {/* Left Column: Contextual Heading */}

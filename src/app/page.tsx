@@ -5,7 +5,7 @@ import { motion, Variants } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { createClient } from "@/lib/supabase/client"
-import { NewsletterForm } from "@/components/layout/NewsletterForm"
+// NewsletterForm removed from hero — relocated to footer area
 import { TrustBar } from "@/components/layout/TrustBar"
 import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
 import { WhatsappConsultSection } from "@/components/layout/WhatsappConsultSection"
@@ -14,7 +14,7 @@ import { MethodSection } from "@/components/layout/MethodSection"
 import { FaqSection } from "@/components/layout/FaqSection"
 
 import { moods } from "@/data/moods"
-import { ArrowRight, BookOpen, Mail, Send, Brain, Leaf, Hourglass, FlaskConical, Loader2, CheckCircle2, Palette } from "lucide-react"
+import { ArrowRight, FlaskConical, Palette } from "lucide-react"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -57,10 +57,10 @@ export default function Home() {
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        className="relative min-h-[90vh] flex flex-col justify-center items-center px-6 pt-32 pb-24 bg-aubergine"
+        className="relative min-h-[88vh] flex flex-col justify-center items-center px-6 pt-32 pb-16 bg-aubergine"
       >
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
-          <div className="space-y-12 flex flex-col items-center">
+          <div className="space-y-10 flex flex-col items-center">
             <motion.div variants={itemVariants} className="text-[11px] font-sans tracking-[0.2em] uppercase text-gold">
               NUTRICIÓN FUNCIONAL Y PSICOLOGÍA
             </motion.div>
@@ -72,47 +72,22 @@ export default function Home() {
               </motion.h1>
             </div>
             
-            <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-xl mx-auto text-center leading-[1.8] font-sans">
-              Food Mood une psicología de la alimentación, ciencia de la longevidad y tecnología para traducir tu estado emocional en recetas que equilibran tu bienestar diario. Mucho más que recetas, autoconocimiento real.
+            <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-lg mx-auto text-center leading-[1.8] font-sans">
+              Tu estado emocional determina lo que tu cuerpo necesita. Food Mood traduce cómo te sientes en recetas que realmente te cuidan.
             </motion.p>
-
-            <motion.div variants={itemVariants} className="flex justify-center items-center gap-2 pt-2">
-              {[
-                '#E8A838',
-                '#7BA7BC',
-                '#956F8A',
-                '#B3C186',
-                '#D67452',
-                '#7A8274'
-              ].map((hex) => (
-                <div key={hex} className="w-3 h-3 rounded-full" style={{ backgroundColor: hex }} />
-              ))}
-            </motion.div>
             
-            <motion.div variants={itemVariants} className="flex flex-col gap-8 items-center pt-8 w-full justify-center">
-              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
-                <Link href="/test" className="w-full sm:w-auto">
-                  <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
-                    Hacer mi test gratuito
-                  </Button>
-                </Link>
-                <Link href="/paleta" className="w-full sm:w-auto group">
-                  <div className="flex items-center justify-center gap-3 px-8 py-4 rounded-[8px] border border-cream/20 bg-white/5 hover:bg-white/10 transition-all duration-300">
-                    <Palette className="w-5 h-5 text-cream/60" />
-                    <span className="text-cream text-base font-medium">Explorar Paleta</span>
-                    <ArrowRight className="w-4 h-4 text-cream/40 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
-              </div>
-
-              <div className="text-[13px] text-[#7a7974] opacity-60 text-center font-light" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                El test detecta tu estado actual. La paleta te ofrece las recetas. Elige por dónde empezar.
-              </div>
-            </motion.div>
-
-            {/* Newsletter CTA — Hidden on mobile as per UX optimization */}
-            <motion.div variants={itemVariants} className="hidden sm:flex w-full max-w-md h-12 items-center justify-center">
-              <NewsletterForm source="newsletter_hero" dark={true} />
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full pt-2">
+              <Link href="/test" className="w-full sm:w-auto">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
+                  Hacer mi test gratuito
+                </Button>
+              </Link>
+              <Link
+                href="/paleta"
+                className="text-sm text-cream/50 hover:text-cream/80 transition-colors underline-offset-4 hover:underline font-light"
+              >
+                o explorar la Paleta →
+              </Link>
             </motion.div>
           </div>
         </div>

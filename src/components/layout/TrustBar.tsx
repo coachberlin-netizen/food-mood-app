@@ -2,43 +2,24 @@ import React from 'react';
 
 export function TrustBar() {
   return (
-    <section className="border-b border-aubergine-dark/5 bg-[var(--background)] py-8 md:py-10 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
-        {/* Eyebrow / Label */}
-        <div className="shrink-0 flex items-center justify-center md:justify-start">
-          <h4 className="text-xs sm:text-sm font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 font-semibold">
-            Base experta
-          </h4>
-        </div>
-        
-        {/* Separator for mobile */}
-        <div className="md:hidden w-12 h-px bg-aubergine-dark/10" />
-
-        {/* Pillars */}
-        <div className="flex flex-col sm:flex-row items-center justify-center w-full md:justify-around gap-6 sm:gap-4 md:gap-0">
-          <div className="text-center group cursor-default">
-            <span className="font-serif text-lg md:text-xl text-aubergine-dark font-medium group-hover:text-aubergine transition-colors">
-              Psicología de la alimentación
-            </span>
-          </div>
-          
-          <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-aubergine-dark/20 mx-4 lg:mx-8" />
-          
-          <div className="text-center group cursor-default">
-            <span className="font-serif text-lg md:text-xl text-aubergine-dark font-medium group-hover:text-aubergine transition-colors">
-              Longevidad y bienestar
-            </span>
-          </div>
-          
-          <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-aubergine-dark/20 mx-4 lg:mx-8" />
-          
-          <div className="text-center group cursor-default">
-            <span className="font-serif text-lg md:text-xl text-aubergine-dark font-medium group-hover:text-aubergine transition-colors">
-              Food tech aplicada
-            </span>
-          </div>
-        </div>
+    <div className="border-b border-aubergine-dark/5 bg-[var(--background)] py-4 md:py-5 px-6">
+      <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2 md:gap-x-12">
+        <span className="text-[10px] font-sans tracking-[0.18em] uppercase text-aubergine-dark/35 font-semibold shrink-0 hidden sm:inline">
+          Base experta
+        </span>
+        <span className="hidden sm:block w-px h-3 bg-aubergine-dark/15" />
+        <span className="font-serif text-sm md:text-[0.9rem] text-aubergine-dark/60 font-medium">
+          Psicología de la alimentación
+        </span>
+        <span className="w-1 h-1 rounded-full bg-aubergine-dark/15 hidden sm:inline-block" />
+        <span className="font-serif text-sm md:text-[0.9rem] text-aubergine-dark/60 font-medium">
+          Longevidad y bienestar
+        </span>
+        <span className="w-1 h-1 rounded-full bg-aubergine-dark/15 hidden sm:inline-block" />
+        <span className="font-serif text-sm md:text-[0.9rem] text-aubergine-dark/60 font-medium">
+          Food tech aplicada
+        </span>
       </div>
-    </section>
+    </div>
   );
 }

@@ -89,7 +89,7 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
                 <Sparkles className="w-4 h-4" /> Activos Clave
               </h3>
               <ul className="space-y-4">
-                {info.key_ingredients.map((ing, i) => (
+                {info.nutritionFocus.map((ing, i) => (
                   <li key={i} className="flex items-start gap-3 text-cream/80 font-light text-sm border-b border-[#C9A84C]/10 pb-3 last:border-0">
                     <CheckCircle className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" />
                     <span className="leading-snug">{ing}</span>

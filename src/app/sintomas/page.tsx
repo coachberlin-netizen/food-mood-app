@@ -1,5 +1,7 @@
 "use client"
 
+import React from "react"
+
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
@@ -46,6 +48,26 @@ const svgMap: Record<string, React.ReactNode> = {
       <circle cx="24" cy="24" r="4" />
       <circle cx="24" cy="24" r="10" opacity="0.6" />
       <circle cx="24" cy="24" r="16" opacity="0.3" />
+    </svg>
+  ),
+  'digestion-pesada': (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 20 Q 18 14 24 20 Q 30 26 38 20" />
+      <path d="M10 28 Q 18 22 24 28 Q 30 34 38 28" />
+      <path d="M24 10 C 28 10 34 14 34 20 C 34 26 28 32 24 32 C 20 32 14 38 14 38" />
+    </svg>
+  ),
+  'irritabilidad': (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#6B2737] group-hover:stroke-[#C9A84C] transition-colors duration-300" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="24" cy="24" r="6" />
+      <path d="M24 6 L24 10" />
+      <path d="M24 38 L24 42" />
+      <path d="M6 24 L10 24" />
+      <path d="M38 24 L42 24" />
+      <path d="M11.5 11.5 L14.3 14.3" />
+      <path d="M33.7 33.7 L36.5 36.5" />
+      <path d="M36.5 11.5 L33.7 14.3" />
+      <path d="M14.3 33.7 L11.5 36.5" />
     </svg>
   )
 };

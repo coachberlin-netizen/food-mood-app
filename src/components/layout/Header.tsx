@@ -63,40 +63,56 @@ export function Header() {
       <div className="container mx-auto px-6 h-20 md:px-12 flex items-center justify-between gap-8">
         <div className="flex items-center justify-start flex-1">
           <MobileNav />
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/dashboard" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Dashboard
-            </Link>
-            <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Test
-            </Link>
-            <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Mi Paleta
-            </Link>
-            <Link href="/diario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Mi Diario
-            </Link>
-            <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Recetas
-            </Link>
-            <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Glosario
-            </Link>
-            <Link href="/fermentos-del-mundo" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Fermentos
-            </Link>
-            <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Síntomas
-            </Link>
-            <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-              Blog
-            </Link>
-            {!isPremium && (
-              <Link href="/pricing" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors text-[#C9A84C] font-semibold">
+          {/* Authenticated nav: full feature set */}
+          {isAuthenticated ? (
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link href="/dashboard" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Dashboard
+              </Link>
+              <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Test
+              </Link>
+              <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Mi Paleta
+              </Link>
+              <Link href="/diario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Mi Diario
+              </Link>
+              <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Recetas
+              </Link>
+              <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Glosario
+              </Link>
+              <Link href="/fermentos-del-mundo" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Fermentos
+              </Link>
+              <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Síntomas
+              </Link>
+              <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Blog
+              </Link>
+              {!isPremium && (
+                <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
+                  Planes
+                </Link>
+              )}
+            </nav>
+          ) : (
+            /* Public nav: minimal — guide the visitor to the one key action */
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Test gratuito
+              </Link>
+              <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Blog
+              </Link>
+              <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                 Planes
               </Link>
-            )}
-          </nav>
+            </nav>
+          )}
         </div>
 
         <Link href="/" className="flex-1 flex justify-center transition-transform hover:scale-[1.02] duration-300 shrink-0">
