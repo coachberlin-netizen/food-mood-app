@@ -66,6 +66,12 @@ export function Header() {
           {/* Authenticated nav: full feature set */}
           {isAuthenticated ? (
             <nav className="hidden md:flex items-center space-x-8">
+              <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
+                Home
+              </Link>
+              <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Guía Emocional
+              </Link>
               <Link href="/dashboard" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Dashboard
               </Link>
@@ -102,6 +108,12 @@ export function Header() {
           ) : (
             /* Public nav: minimal — guide the visitor to the one key action */
             <nav className="hidden md:flex items-center space-x-8">
+              <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
+                Home
+              </Link>
+              <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Guía Emocional
+              </Link>
               <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Test gratuito
               </Link>

@@ -13,7 +13,6 @@ import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBen
 import { StoryConstellation } from "@/components/layout/StoryConstellation"
 import { MethodFlowDiagram } from "@/components/layout/MethodFlowDiagram"
 import { FaqSection } from "@/components/layout/FaqSection"
-import { EmotionalLandscape } from "@/components/layout/EmotionalLandscape"
 import { ArrowRight, FlaskConical } from "lucide-react"
 
 const containerVariants: Variants = {
@@ -100,9 +99,6 @@ export default function Home() {
 
       {/* 2. STORY SECTION: CONSTELLATION */}
       <StoryConstellation />
-
-      {/* 3. EMOTIONAL LANDSCAPE MAP */}
-      <EmotionalLandscape />
 
       {/* 4.8 SUBSCRIPTION BENEFITS SECTION */}
       <SubscriptionBenefitsSection />

@@ -59,6 +59,12 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
               <nav className="flex flex-col space-y-6">
                 {isAuthenticated ? (
                   <>
+                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Home
+                    </Link>
+                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Guía Emocional
+                    </Link>
                     <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Dashboard
                     </Link>
@@ -91,6 +97,12 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                   </>
                 ) : (
                   <>
+                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Home
+                    </Link>
+                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Guía Emocional
+                    </Link>
                     <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Test gratuito
                     </Link>
