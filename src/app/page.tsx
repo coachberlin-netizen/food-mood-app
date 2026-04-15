@@ -14,9 +14,8 @@ import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBen
 import { StoryConstellation } from "@/components/layout/StoryConstellation"
 import { MethodSection } from "@/components/layout/MethodSection"
 import { FaqSection } from "@/components/layout/FaqSection"
-
-import { moods } from "@/data/moods"
-import { ArrowRight, FlaskConical, Palette } from "lucide-react"
+import { EmotionalLandscape } from "@/components/layout/EmotionalLandscape"
+import { ArrowRight, FlaskConical } from "lucide-react"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -96,63 +95,21 @@ export default function Home() {
       </motion.section>
 
       <TrustBar />
-      <ExpertiseSection />
-      <WhatsappConsultSection />
+      
+      {/* 2. METHODOLOGY (Moved Up) */}
+      <MethodSection />
+
       {/* 2. STORY SECTION: CONSTELLATION */}
       <StoryConstellation />
 
 
-      {/* 3. MOODS SECTION */}
-      <section className="py-32 md:py-48 overflow-hidden bg-[var(--background)] relative">
-        <div className="max-w-6xl mx-auto px-6 mb-24 text-center">
-          <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Tu Paleta Emocional</h2>
-          <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark mb-8 leading-tight max-w-4xl mx-auto">
-            Las emociones no son casillas. Son espectros de color. Cada día tu paleta es distinta — y tu plato debe responder a ella.
-          </h3>
-        </div>
-        
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="flex gap-8 overflow-x-auto pb-16 pt-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 lg:grid-cols-6">
-            {moods.map((mood) => (
-              <div 
-                key={mood.id}
-                className="min-w-[300px] md:min-w-0 flex-1 p-8 rounded-xl snap-center relative overflow-hidden"
-                style={{ 
-                  background: `linear-gradient(to right, ${mood.colorLight}, transparent)`,
-                  border: `1px solid ${mood.color}20`
-                }}
-              >
-                <div 
-                   className="w-12 h-12 rounded-full mb-6 flex items-center justify-center shadow-sm"
-                   style={{ backgroundColor: mood.color }}
-                >
-                  <Palette className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="font-serif text-2xl text-aubergine-dark mb-3">
-                  {mood.nombre}
-                </h4>
-                <p className="text-aubergine-dark/60 text-sm leading-[1.8] font-light">
-                  {mood.descripcion_corta}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center">
-            <p className="text-aubergine-dark/50 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
-              Y cada mezcla tiene su receta.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. METHODOLOGY */}
-      <MethodSection />
+      {/* 3. EMOTIONAL LANDSCAPE MAP */}
+      <EmotionalLandscape />
 
 
 
-      {/* 4.75 EXPERT TEAM SECTION */}
-      <ExpertTeamSection />
+
+
 
       {/* 4.8 SUBSCRIPTION BENEFITS SECTION */}
       <SubscriptionBenefitsSection />
@@ -235,6 +192,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* 5.5 WHATSAPP CONSULT */}
+      <WhatsappConsultSection />
 
       {/* 6. FAQ SECTION */}
       <FaqSection />

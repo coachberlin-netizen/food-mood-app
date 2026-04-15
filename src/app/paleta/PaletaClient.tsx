@@ -142,34 +142,73 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
     setScreen('intro');
   };
 
+  const EditorialIntro = () => (
+    <div className="max-w-4xl mx-auto px-6 py-20 md:py-32">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-24"
+      >
+        <span className="text-[10px] tracking-[0.3em] uppercase text-[#6B2737]/40 mb-8 block font-bold">Concepto & Ciencia</span>
+        <h1 className="font-serif text-5xl md:text-7xl text-[#6B2737] mb-12 leading-[1.1] italic">
+          La nutrición no es combustible. <br className="hidden md:block" />
+          <span className="not-italic font-light opacity-80">Es información.</span>
+        </h1>
+        <p className="font-sans text-xl md:text-2xl text-[#7a7974] font-light max-w-2xl mx-auto leading-relaxed">
+          El eje intestino-cerebro es el diálogo más poderoso de tu cuerpo. Tu paleta emocional es la traducción visual de ese equilibrio bioquímico.
+        </p>
+      </motion.div>
+
+      <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center mb-32">
+        <div className="space-y-8">
+          <h2 className="font-serif text-3xl text-[#6B2737] italic">El espejo de tu microbiota</h2>
+          <p className="text-[#7a7974] leading-relaxed font-light">
+            El 95% de tu serotonina y el 50% de tu dopamina se sintetizan en el entorno gastrointestinal. No comemos solo para nutrir células, sino para modular neurotransmisores. 
+          </p>
+          <div className="pl-6 border-l border-[#6B2737]/10 flex flex-col gap-4">
+            <div className="flex items-center gap-4 text-sm text-[#6B2737]/60 font-medium">
+              <span className="w-2 h-2 rounded-full bg-[#E8A838]"></span> Activación vía Dopamina
+            </div>
+            <div className="flex items-center gap-4 text-sm text-[#6B2737]/60 font-medium">
+              <span className="w-2 h-2 rounded-full bg-[#7BA7BC]"></span> Calma vía GABA
+            </div>
+            <div className="flex items-center gap-4 text-sm text-[#6B2737]/60 font-medium">
+              <span className="w-2 h-2 rounded-full bg-[#5B8C5A]"></span> Enfoque vía Acetilcolina
+            </div>
+          </div>
+        </div>
+        <div className="bg-white/40 backdrop-blur-sm rounded-3xl p-10 border border-[#6B2737]/5 shadow-xl">
+          <h3 className="font-serif text-[13px] uppercase tracking-widest text-[#6B2737]/40 mb-6">Lo que revelan tus colores</h3>
+          <p className="text-sm text-[#7a7974] leading-[1.8] font-light italic">
+            "Tu paleta de hoy no es estática. Es un paisaje vivo que responde a la inflamación, el cortisol y la diversidad bacteriana. Al identificar tu color dominante, podemos seleccionar los prebióticos y fitoquímicos precisos para restaurar la homeostasis."
+          </p>
+          <div className="mt-8 flex justify-end">
+            <span className="text-[11px] font-serif italic text-[#6B2737]/60 font-bold">— Dirección Científica, Food Mood</span>
+          </div>
+        </div>
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        className="flex flex-col items-center gap-8 py-16 border-t border-[#6B2737]/5"
+      >
+        <p className="text-[#7a7974] font-medium tracking-wide text-sm uppercase">Comienza tu diagnóstico visual</p>
+        <button
+          onClick={() => setScreen('sliders')}
+          className="bg-[#6B2737] text-[#FAF9F6] rounded-[60px] px-12 py-5 font-sans text-[18px] font-medium transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl flex items-center gap-4"
+        >
+          Descubrir mi color de hoy <ArrowRight className="w-5 h-5" />
+        </button>
+      </motion.div>
+    </div>
+  );
+
   return (
     <main className="min-h-[100dvh] bg-[#FAF9F6]">
       <AnimatePresence mode="wait">
         
-        {screen === 'intro' && (
-          <motion.div
-            key="intro"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="flex flex-col items-center justify-center min-h-[100dvh] px-6 text-center"
-          >
-            <h1 className="font-serif text-[48px] text-[#6B2737] mb-4 leading-tight">Tu Paleta Emocional</h1>
-            <p className="font-sans text-[20px] text-[#7a7974] font-light mb-8 max-w-md">Cuatro preguntas. Tu color de hoy. Las recetas que necesitas.</p>
-            <div className="flex gap-2 mb-12">
-              {["#E8A838", "#7BA7BC", "#5B8C5A", "#C97B84", "#9B8EC4", "#D4956A"].map(c => (
-                <div key={c} className="w-3 h-3 rounded-full" style={{ backgroundColor: c }} />
-              ))}
-            </div>
-            <button
-              onClick={() => setScreen('sliders')}
-              className="bg-[#6B2737] text-[#FAF9F6] rounded-[60px] px-12 py-4 font-sans text-[18px] font-medium transition-transform hover:scale-105 active:scale-95 shadow-lg"
-            >
-              Descubrir mi color
-            </button>
-            <p className="mt-4 font-sans text-[14px] text-[#7a7974] opacity-50">Tarda menos de 30 segundos.</p>
-          </motion.div>
-        )}
+        {screen === 'intro' && <EditorialIntro />}
 
         {screen === 'sliders' && (
           <motion.div

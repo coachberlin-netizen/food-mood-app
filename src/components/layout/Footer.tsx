@@ -40,9 +40,15 @@ export function Footer() {
             Protegemos tus datos mediante medidas técnicas y organizativas razonables. Aun así, ningún sistema digital es completamente invulnerable. En caso de incidente de seguridad que afecte a datos personales, actuaremos conforme a la normativa aplicable en materia de protección de datos.
           </p>
           
-          <div className="pt-8 pb-4">
+          <div className="pt-8 pb-4 flex flex-wrap justify-center gap-x-8 gap-y-4">
             <Link href="/testimonios" className="text-[11px] tracking-widest uppercase text-white/40 hover:text-gold transition-colors duration-300">
               Historias de bienestar real <span className="mx-2 opacity-30">·</span> Leer testimonios
+            </Link>
+            <Link href="/fundamentos" className="text-[11px] tracking-widest uppercase text-white/40 hover:text-gold transition-colors duration-300">
+              Ciencia aplicada <span className="mx-2 opacity-30">·</span> Fundamentos
+            </Link>
+            <Link href="/equipo" className="text-[11px] tracking-widest uppercase text-white/40 hover:text-gold transition-colors duration-300">
+              Equipo interdisciplinar <span className="mx-2 opacity-30">·</span> Quiénes somos
             </Link>
           </div>
 
