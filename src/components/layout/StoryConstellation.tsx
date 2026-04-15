@@ -1,3 +1,7 @@
+"use client";
+
+import React from 'react';
+import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 
 const concepts = [
