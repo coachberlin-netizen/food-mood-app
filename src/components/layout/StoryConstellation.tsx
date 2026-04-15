@@ -62,7 +62,7 @@ export function StoryConstellation() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 md:mb-24"
+          className="mb-12 md:mb-16"
         >
           <h2 className="text-[10px] tracking-[0.2em] uppercase text-aubergine-dark/40 mb-6 font-bold">La Esencia</h2>
           <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark max-w-5xl mx-auto leading-tight">
@@ -74,25 +74,10 @@ export function StoryConstellation() {
           </p>
         </motion.div>
 
-        {/* Visual Element: Illustration */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="relative max-w-3xl mx-auto mb-20 md:mb-32 rounded-2xl overflow-hidden shadow-luxury"
-        >
-          <Image 
-            src="/images/gut-brain.png" 
-            alt="Conexión Intestino-Cerebro" 
-            width={1200} 
-            height={800} 
-            className="w-full h-auto object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-aubergine-dark/20 to-transparent pointer-events-none" />
-        </motion.div>
-
-        {/* Constellation Container - Desktop Only Background */}
-        <div className="relative h-[600px] w-full hidden lg:flex items-center justify-center mb-32">
+        {/* Primary Visual: The Solar System / Constellation */}
+        <div className="relative h-[500px] md:h-[650px] w-full flex items-center justify-center mb-16 md:mb-24">
+          
+          {/* SVG Connections */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none">
             <motion.g initial="hidden" whileInView="visible" viewport={{ once: true }}>
               {concepts.map((concept) => (
@@ -102,7 +87,7 @@ export function StoryConstellation() {
                   y1="50%"
                   x2={`calc(50% + ${concept.x}px)`}
                   y2={`calc(50% + ${concept.y}px)`}
-                  stroke="rgba(201, 168, 76, 0.15)"
+                  stroke="rgba(201, 168, 76, 0.2)"
                   strokeWidth="1"
                   variants={lineVariants}
                 />
@@ -110,15 +95,18 @@ export function StoryConstellation() {
             </motion.g>
           </svg>
 
+          {/* Central Node: Bienestar */}
           <motion.div 
             initial={{ scale: 0, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            className="w-28 h-28 rounded-full bg-aubergine-dark border-4 border-gold/20 flex items-center justify-center z-20 shadow-xl"
+            className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-aubergine-dark border-4 border-gold/30 flex flex-col items-center justify-center z-20 shadow-2xl relative"
           >
-            <span className="text-gold font-serif text-sm italic text-center px-2">Origen</span>
+            <div className="absolute inset-0 rounded-full bg-gold/5 animate-pulse" />
+            <span className="text-gold font-serif text-xs md:text-sm font-medium tracking-wider text-center px-2 uppercase">Bienestar</span>
           </motion.div>
 
+          {/* Orbiting Nodes */}
           <motion.div 
             className="absolute inset-0"
             variants={containerVariants}
@@ -137,17 +125,25 @@ export function StoryConstellation() {
                   transform: 'translate(-50%, -50%)'
                 }}
               >
-                <div className="w-3 h-3 rounded-full bg-gold/40 group-hover:bg-gold transition-colors duration-300 shadow-sm" />
-                <div className="flex flex-col items-center">
-                  <span className="text-[11px] font-semibold text-aubergine-dark tracking-wide">{node.title}</span>
+                {/* Node Dot */}
+                <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-gold/30 group-hover:bg-gold transition-all duration-500 shadow-sm border border-gold/40" />
+                
+                {/* Node Label */}
+                <div className="flex flex-col items-center max-w-[80px] md:max-w-[120px]">
+                  <span className="text-[10px] md:text-[11px] font-bold text-aubergine-dark tracking-wide uppercase group-hover:text-gold transition-colors text-center leading-tight">
+                    {node.title}
+                  </span>
+                  <span className="text-[8px] md:text-[9px] text-aubergine-dark/40 italic opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block mt-1">
+                    {node.desc}
+                  </span>
                 </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
 
-        {/* Detailed Grid - Mobile & Desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-left">
+        {/* Detailed Grid for Readability */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 text-left border-t border-aubergine-dark/10 pt-16">
           {pillarsDetail.map((pillar, i) => (
             <motion.div 
               key={i}
@@ -155,12 +151,12 @@ export function StoryConstellation() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="p-6 rounded-xl border border-aubergine-dark/5 hover:border-gold/20 transition-all hover:shadow-soft group"
+              className="p-6 rounded-xl bg-white/30 backdrop-blur-sm border border-white hover:border-gold/30 transition-all group"
             >
-              <h4 className="font-serif text-xl text-aubergine-dark mb-3 group-hover:text-gold transition-colors">
+              <h4 className="font-serif text-lg md:text-xl text-aubergine-dark mb-2 group-hover:text-gold transition-colors">
                 {pillar.title}
               </h4>
-              <p className="text-sm text-aubergine-dark/60 leading-relaxed font-light">
+              <p className="text-xs md:text-sm text-aubergine-dark/60 leading-relaxed font-light">
                 {pillar.desc}
               </p>
             </motion.div>
@@ -173,10 +169,10 @@ export function StoryConstellation() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 1 }}
-          className="mt-24"
+          className="mt-20 md:mt-24"
         >
           <p className="text-[11px] text-aubergine-dark/30 font-light italic">
-            Ciencia aplicada para restaurar tu diálogo interno.
+            Ciencia aplicada para restaurar tu diálogo interno a través de una nutrición consciente.
           </p>
         </motion.div>
 
