@@ -71,7 +71,7 @@ export function FaqSection() {
     <section className="py-24 md:py-32 bg-cream border-t border-aubergine-dark/10">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Preguntas Críticas</h2>
+          <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">Saber más</h2>
           <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark">Transparencia para tu bienestar.</h3>
         </div>
 

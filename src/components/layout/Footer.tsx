@@ -42,9 +42,9 @@ export function Footer() {
           
           <div className="pt-12 pb-8 grid grid-cols-1 md:grid-cols-2 gap-8 w-full border-b border-white/5">
             <div className="flex flex-col items-center md:items-start space-y-2">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold">Preguntas Frecuentes</span>
-              <Link href="/faq" className="text-sm text-white/60 hover:text-gold transition-colors">
-                Visita nuestra sección de FAQ (abierta a todos)
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold">Saber más</span>
+              <Link href="/saber-mas" className="text-sm text-white/60 hover:text-gold transition-colors">
+                Dudas, transparencia y bienestar
               </Link>
             </div>
             <div className="flex flex-col items-center md:items-end space-y-2">

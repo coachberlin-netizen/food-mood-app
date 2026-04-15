@@ -10,9 +10,7 @@ import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
 import { WhatsappConsultSection } from "@/components/layout/WhatsappConsultSection"
 import { ExpertTeamSection } from "@/components/layout/ExpertTeamSection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
-import { StoryConstellation } from "@/components/layout/StoryConstellation"
 import { MethodFlowDiagram } from "@/components/layout/MethodFlowDiagram"
-import { FaqSection } from "@/components/layout/FaqSection"
 import { ArrowRight, FlaskConical } from "lucide-react"
 
 const containerVariants: Variants = {
@@ -97,44 +95,11 @@ export default function Home() {
       {/* 2. THE FLOW / METHOD */}
       <MethodFlowDiagram />
 
-      {/* 2. STORY SECTION: CONSTELLATION */}
-      <StoryConstellation />
-
-      {/* 4.8 SUBSCRIPTION BENEFITS SECTION */}
+      {/* 3. SUBSCRIPTION BENEFITS SECTION */}
       <SubscriptionBenefitsSection />
 
-      {/* 4.85 TEASER FERMENTOS DEL MUNDO */}
-      <section className="py-24 md:py-32 px-6 bg-aubergine-dark border-t border-cream/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gold/5" />
-        <div className="max-w-4xl mx-auto relative z-10 text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold/20 border border-gold/30 rounded-full mb-8">
-            <span className="w-2 h-2 rounded-full bg-gold"></span>
-            <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-gold">
-              Contenido Premium
-            </span>
-          </div>
-          
-          <h2 className="text-4xl md:text-6xl font-serif font-black text-cream leading-[1.1] mb-6">
-            Fermentos del <span className="italic font-light">Mundo</span>
-          </h2>
-          
-          <p className="text-lg md:text-xl text-cream/70 font-light leading-relaxed max-w-2xl mb-12">
-            Explora nuestro mapa interactivo con los 16 fermentos ancestrales más poderosos del planeta. De la Nattokinasa japonesa al ácido láctico etíope — la ciencia detrás del eje intestino-cerebro mundial.
-          </p>
-          
-          <Link href="/pricing">
-            <Button variant="outline" className="border-gold text-gold hover:bg-gold hover:text-white px-8 py-6 rounded-xl text-sm font-bold tracking-wide transition-all shadow-lg hover:shadow-xl">
-              Descubrir con suscripción Premium <ArrowRight className="ml-3 w-4 h-4" />
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* 5.5 WHATSAPP CONSULT */}
+      {/* 4. WHATSAPP CONSULT */}
       <WhatsappConsultSection />
-
-      {/* 6. FAQ SECTION */}
-      <FaqSection />
       
     </main>
   )
