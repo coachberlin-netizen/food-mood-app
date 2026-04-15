@@ -10,6 +10,7 @@ import { TrustBar } from "@/components/layout/TrustBar"
 import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
 import { WhatsappConsultSection } from "@/components/layout/WhatsappConsultSection"
 import { ExpertTeamSection } from "@/components/layout/ExpertTeamSection"
+import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
 import { MethodSection } from "@/components/layout/MethodSection"
 import { FaqSection } from "@/components/layout/FaqSection"
 
@@ -252,6 +253,9 @@ export default function Home() {
 
       {/* 4.75 EXPERT TEAM SECTION */}
       <ExpertTeamSection />
+
+      {/* 4.8 SUBSCRIPTION BENEFITS SECTION */}
+      <SubscriptionBenefitsSection />
 
       {/* 4.85 TEASER FERMENTOS DEL MUNDO */}
       <section className="py-24 md:py-32 px-6 bg-aubergine-dark border-t border-cream/10 relative overflow-hidden">
