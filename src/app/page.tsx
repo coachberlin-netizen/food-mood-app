@@ -7,10 +7,8 @@ import { Button } from "@/components/ui/Button"
 import { createClient } from "@/lib/supabase/client"
 import { TrustBar } from "@/components/layout/TrustBar"
 import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
-import { WhatsappConsultSection } from "@/components/layout/WhatsappConsultSection"
-import { ExpertTeamSection } from "@/components/layout/ExpertTeamSection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
-import { MethodFlowDiagram } from "@/components/layout/MethodFlowDiagram"
+import { CompactMethod } from "@/components/layout/CompactMethod"
 import { ArrowRight, FlaskConical } from "lucide-react"
 
 const containerVariants: Variants = {
@@ -58,9 +56,6 @@ export default function Home() {
       >
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
           <div className="space-y-7 md:space-y-10 flex flex-col items-center">
-            <motion.div variants={itemVariants} className="text-[11px] font-sans tracking-[0.2em] uppercase text-gold">
-              PSICOLOGÍA DE LA ALIMENTACIÓN
-            </motion.div>
             
             <div className="space-y-6">
               <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] md:leading-[1] font-serif italic text-white tracking-tight text-balance">
@@ -92,14 +87,11 @@ export default function Home() {
 
       <TrustBar />
       
-      {/* 2. THE FLOW / METHOD */}
-      <MethodFlowDiagram />
+      {/* 2. THE FLOW / METHOD & WHATSAPP */}
+      <CompactMethod />
 
       {/* 3. SUBSCRIPTION BENEFITS SECTION */}
       <SubscriptionBenefitsSection />
-
-      {/* 4. WHATSAPP CONSULT */}
-      <WhatsappConsultSection />
       
     </main>
   )
