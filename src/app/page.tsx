@@ -130,62 +130,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. PRICING SUMMARY */}
-      <section className="py-24 md:py-32 px-6 bg-[var(--background)] border-t border-aubergine-dark/10">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6">¿Listo para empezar?</h2>
-            <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark leading-tight max-w-3xl mx-auto">
-              Dale a tus emociones la importancia que se merecen <br className="hidden md:block" />
-              <span className="italic font-light">y ajusta tus decisiones alimenticias.</span>
-            </h3>
-            <p className="mt-8 text-aubergine-dark/60 font-light text-lg">Hacer el test es gratis, o explora nuestros planes directamente:</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {/* Free */}
-            <div className="bg-cream rounded-2xl border border-aubergine-dark/10 p-8 flex flex-col items-start">
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Gratuito</span>
-              <span className="text-4xl font-serif text-aubergine-dark mb-3">0€</span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Test de mood + Paleta Emocional (resultado sin recetas)</p>
-              <Link href="/test" className="mt-auto w-full py-3 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 text-sm font-medium text-center hover:bg-aubergine-dark/5 transition-colors">
-                Hacer mi test gratuito →
-              </Link>
-            </div>
-
-            {/* Monthly */}
-            <div className="bg-cream rounded-2xl border border-aubergine-dark/10 p-8 flex flex-col items-start">
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/35 mb-2">Mensual</span>
-              <span className="text-4xl font-serif text-aubergine-dark mb-3">9€<span className="text-base font-light text-aubergine-dark/40">/mes</span></span>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Acceso completo a todas las recetas, el glosario científico, Fermentos del Mundo y tu paleta emocional personalizada.</p>
-              <Link href="/pricing" className="mt-auto w-full py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium text-center hover:bg-aubergine-dark/90 transition-colors">
-                Ver planes de suscripción →
-              </Link>
-            </div>
-
-            {/* Quarterly — highlighted */}
-            <div className="relative bg-cream rounded-2xl border-2 border-[#C9A84C]/40 p-8 flex flex-col items-start shadow-luxury">
-              <div className="absolute -top-3 right-6">
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#C9A84C] text-white text-[10px] font-bold uppercase tracking-wider shadow-md">Más popular</span>
-              </div>
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2">Trimestral</span>
-              <span className="text-4xl font-serif text-aubergine-dark mb-1">15€<span className="text-base font-light text-aubergine-dark/40">/ 3 meses</span></span>
-              <p className="text-sm text-[#C9A84C] font-semibold mb-1">Solo 5€/mes</p>
-              <p className="text-sm text-aubergine-dark/50 font-light mb-6">Tu paleta emocional completa. Recetas que responden a cada color. Ahorrando un 44%.</p>
-              <Link href="/pricing" className="mt-auto w-full py-3.5 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold text-center shadow-lg hover:shadow-xl transition-all">
-                7 días gratis →
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <p className="text-xs text-aubergine-dark/35 font-light">
-              Sin permanencia · Cancela cuando quieras · Pago seguro
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* 5.5 WHATSAPP CONSULT */}
       <WhatsappConsultSection />
 
