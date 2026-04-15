@@ -60,6 +60,10 @@ export function Footer() {
               Quiénes somos
             </Link>
             <span className="opacity-10 hidden sm:inline">|</span>
+            <Link href="/como-funciona" className="hover:text-gold transition-colors duration-300">
+              Nuestro Método
+            </Link>
+            <span className="opacity-10 hidden sm:inline">|</span>
             <Link href="/blog" className="hover:text-gold transition-colors duration-300">
               Blog
             </Link>
