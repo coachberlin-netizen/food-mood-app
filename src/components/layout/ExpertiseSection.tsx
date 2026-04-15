@@ -13,9 +13,9 @@ export function ExpertiseSection() {
       outcome: "Te ayuda a que cada pequeño gesto en tu cocina sume hacia una vida más larga, autónoma y placentera, sin entrar en extremos."
     },
     {
-      title: "Food tech aplicada",
-      description: "Utilizamos tecnología para cruzar cómo te sientes con las propiedades de ingredientes y recetas, y así acercarte opciones que encajan contigo en cada momento.",
-      outcome: "Te ayuda a decidir qué comer según tu estado interno sin tener que estudiar nutrición ni perderte entre miles de opciones."
+      title: "Coaching nutricional",
+      description: "Te acompañamos en el proceso de cambio de hábitos mediante herramientas de coaching orientadas a la acción y la sostenibilidad, respetando tus tiempos y tu realidad individual.",
+      outcome: "Te ayuda a pasar de la teoría a la práctica de forma amable, convirtiendo cada pequeño paso en un logro sólido y duradero."
     }
   ];
 
@@ -32,7 +32,7 @@ export function ExpertiseSection() {
               La base <span className="italic font-light">científica</span> detrás de lo que sientes.
             </h3>
             <p className="mt-8 text-aubergine-dark/60 font-light text-base leading-relaxed max-w-sm">
-              Nuestra aproximación se asienta en tres disciplinas complementarias, estructuradas de forma que la ciencia más avanzada resulte accesible, cálida y aplicable en tu cocina.
+              Nuestra aproximación se asienta en cuatro disciplinas complementarias, estructuradas de forma que la ciencia más avanzada resulte accesible, cálida y aplicable en tu cocina.
             </p>
           </div>
 

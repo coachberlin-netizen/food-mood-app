@@ -13,9 +13,9 @@ export function ExpertTeamSection() {
       impact: "Te ayuda a ver más allá del síntoma inmediato (hambre, cansancio) para que puedas construir una base de cuidado que se sostenga orgánicamente en el tiempo."
     },
     {
-      role: "Food Tech Aplicada",
-      description: "Convierte las complejas señales nutricionales y psicofísicas en experiencias digitales de alto valor. Centrado en traducir la densidad clínica de los datos en recomendaciones fluidas, íntimas e integradas a tu teléfono móvil.",
-      impact: "Transforma la teoría científica en una herramienta verdaderamente tuya: práctica, sutil, ultra-personalizada y extraordinariamente fácil de usar en tu rutina diaria."
+      role: "Coaching Nutricional",
+      description: "Especialistas en el acompañamiento humano para la consolidación de nuevos hábitos. Utilizamos metodologías de coaching para derribar las barreras mentales que impiden la constancia, trabajando desde la compasión y el refuerzo positivo.",
+      impact: "Te aporta el 'cómo' cuando ya sabes el 'qué', asegurando que los cambios no sean una carga temporal sino una evolución natural de tu estilo de vida."
     }
   ];
 

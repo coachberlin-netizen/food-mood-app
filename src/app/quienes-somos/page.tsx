@@ -132,7 +132,7 @@ export default function QuienesSomosPage() {
             <h3 className="text-4xl md:text-6xl font-serif text-aubergine-dark leading-tight">Mentes unidas por<br/>una misma visión</h3>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {[
               {
                 icon: Brain,
@@ -151,6 +151,12 @@ export default function QuienesSomosPage() {
                 title: "Longevidad y Salud Celular",
                 text: "Gerontólogos nutricionales enfocados en el envejecimiento saludable. Aplicamos evidencia sobre la autofagia y la disminución de la neuroinflamación para que tu mente siga joven a través de lo que comes.",
                 detail: "Nos enfocamos en el impacto a largo plazo: comer para el hoy es bueno; comer para siempre es vital."
+              },
+              {
+                icon: Heart,
+                title: "Coaching Nutricional",
+                text: "Especialistas en acompañamiento para el cambio de hábitos. Aplicamos técnicas de refuerzo positivo y sostenibilidad para que tu relación con la comida evolucione sin fricción.",
+                detail: "Transformamos la intención en acción, asegurando que cada cambio sea un paso firme hacia tu nuevo bienestar."
               }
             ].map((pillar, i) => (
               <motion.div
