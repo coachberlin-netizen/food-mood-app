@@ -3,24 +3,19 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 
-export function MobileNav() {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [isPremium, setIsPremium] = React.useState(false)
+interface MobileNavProps {
+  isAuthenticated?: boolean;
+  isPremium?: boolean;
+}
 
+export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
+  const [isOpen, setIsOpen] = React.useState(false)
+
+  // Status is now passed from Header to avoid redundant fetches
   React.useEffect(() => {
-    if (!isOpen) return
-    async function checkStatus() {
-      try {
-        const res = await fetch('/api/mi-tier')
-        if (res.ok) {
-          const data = await res.json()
-          setIsPremium(data.isPremium)
-        }
-      } catch (err) {
-        console.error("Error checking status in mobile nav:", err)
-      }
+    if (isOpen) {
+      // Optional: keep fetch if needed for some reason, but prop is better
     }
-    checkStatus()
   }, [isOpen])
   
   return (
@@ -62,35 +57,51 @@ export function MobileNav() {
                 </button>
               </div>
               <nav className="flex flex-col space-y-6">
-                <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Dashboard
-                </Link>
-                <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Test
-                </Link>
-                <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Mi Paleta
-                </Link>
-                <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Mi Diario
-                </Link>
-                <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Recetas
-                </Link>
-                <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Glosario
-                </Link>
-                <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Síntomas
-                </Link>
-                {!isPremium && (
-                  <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
-                    Planes
-                  </Link>
+                {isAuthenticated ? (
+                  <>
+                    <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Dashboard
+                    </Link>
+                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Test
+                    </Link>
+                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Mi Paleta
+                    </Link>
+                    <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Mi Diario
+                    </Link>
+                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Recetas
+                    </Link>
+                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Glosario
+                    </Link>
+                    <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Síntomas
+                    </Link>
+                    {!isPremium && (
+                      <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
+                        Planes
+                      </Link>
+                    )}
+                    <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors border-t border-cream/10 pt-6 mt-2">
+                      Perfil
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Test gratuito
+                    </Link>
+                    <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Blog
+                    </Link>
+                    <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
+                      Planes
+                    </Link>
+                  </>
                 )}
-                <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                  Perfil
-                </Link>
               </nav>
             </motion.div>
           </>
