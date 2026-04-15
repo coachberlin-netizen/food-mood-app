@@ -94,6 +94,12 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                     <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Test gratuito
                     </Link>
+                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Recetas
+                    </Link>
+                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      Glosario
+                    </Link>
                     <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Blog
                     </Link>

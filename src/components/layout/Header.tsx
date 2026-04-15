@@ -105,6 +105,12 @@ export function Header() {
               <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Test gratuito
               </Link>
+              <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Recetas
+              </Link>
+              <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Glosario
+              </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Blog
               </Link>
