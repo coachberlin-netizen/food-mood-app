@@ -57,16 +57,16 @@ export default function Home() {
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        className="relative min-h-[88vh] flex flex-col justify-center items-center px-6 pt-32 pb-16 bg-aubergine"
+        className="relative min-h-[88vh] flex flex-col justify-center items-center px-6 pt-24 md:pt-32 pb-16 bg-aubergine"
       >
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
-          <div className="space-y-10 flex flex-col items-center">
+          <div className="space-y-7 md:space-y-10 flex flex-col items-center">
             <motion.div variants={itemVariants} className="text-[11px] font-sans tracking-[0.2em] uppercase text-gold">
-              NUTRICIÓN FUNCIONAL Y PSICOLOGÍA
+              PSICOLOGÍA DE LA ALIMENTACIÓN
             </motion.div>
             
             <div className="space-y-6">
-              <motion.h1 variants={itemVariants} className="text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] md:leading-[1] font-serif italic text-white tracking-tight">
+              <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] md:leading-[1] font-serif italic text-white tracking-tight">
                 Descubre qué comer<br className="hidden md:block" />
                 <motion.span variants={itemVariants} className="italic font-light text-cream/80">según cómo te sientes.</motion.span>
               </motion.h1>
@@ -76,7 +76,7 @@ export default function Home() {
               Tu estado emocional determina lo que tu cuerpo necesita. Food Mood traduce cómo te sientes en recetas que realmente te cuidan.
             </motion.p>
             
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full pt-2">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
               <Link href="/test" className="w-full sm:w-auto">
                 <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
                   Hacer mi test gratuito
