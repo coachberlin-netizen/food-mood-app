@@ -11,69 +11,78 @@ const nodes = [
   { id: "reset", name: "Reset", color: "#9575CD", x: 25, y: 80, size: 50, fruit: "pear" },
   { id: "confort", name: "Confort", color: "#BCAAA4", x: 15, y: 55, size: 42, fruit: "peach" },
 ]
-
 const FruitIcon = ({ type, color, isHovered }: { type: string, color: string, isHovered: boolean }) => {
-  const glowStyle = {
-    filter: isHovered ? `blur(8px) brightness(1.2)` : `blur(4px)`,
-    opacity: isHovered ? 1 : 0.6,
-    transition: "all 0.3s ease"
-  };
+  return (
+    <g>
+      {/* Background Glow (only blurred part) */}
+      <circle
+        r="6"
+        fill={color}
+        style={{
+          filter: "blur(5px)",
+          opacity: isHovered ? 0.8 : 0.4,
+          transition: "all 0.3s ease"
+        }}
+      />
+      
+      {/* Solid Fruit Body */}
+      <g opacity={isHovered ? 1 : 0.9}>
+        {type === 'apple' && (
+          <g transform="scale(0.8)">
+            <path d="M0,3 C-2,3 -4,1 -4,-2 C-4,-5 -2,-7 0,-7 C2,-7 4,-5 4,-2 C4,1 2,3 0,3 Z" fill={color} />
+            <path d="M0,-7 C0,-9 0.5,-10 1.5,-10" stroke={color} strokeWidth="1.2" fill="none" />
+            <path d="M1.5,-10 C2.5,-10 3.5,-9 3.5,-8 C3.5,-7 2.5,-6 1.5,-6" fill={color} />
+          </g>
+        )}
+        {type === 'citrus' && (
+          <g transform="scale(0.9)">
+            <circle r="4.5" fill={color} />
+            <path d="M-3,0 L3,0 M0,-3 L0,3 M-2.1,-2.1 L2.1,2.1 M-2.1,2.1 L2.1,-2.1" stroke="rgba(255,255,255,0.4)" strokeWidth="0.8" />
+          </g>
+        )}
+        {type === 'grapes' && (
+          <g transform="scale(0.7) translate(0, -1)">
+            <circle cx="-2" cy="-2" r="2.2" fill={color} />
+            <circle cx="2" cy="-2" r="2.2" fill={color} />
+            <circle cx="0" cy="1" r="2.2" fill={color} />
+            <circle cx="-1.5" cy="4" r="2.2" fill={color} />
+            <circle cx="1.5" cy="4" r="2.2" fill={color} />
+          </g>
+        )}
+        {type === 'strawberry' && (
+          <g transform="scale(0.8)">
+            <path d="M0,5 C-3.5,5 -5,1 -5,-2 C-5,-5 -2.5,-6 0,-6 C2.5,-6 5,-5 5,-2 C5,1 3.5,5 0,5 Z" fill={color} />
+            <path d="M-2,-6 L0,-3 L2,-6" stroke="white" strokeWidth="1" fill="none" opacity="0.6" />
+            <circle cx="-1.5" cy="0" r="0.4" fill="white" opacity="0.7" />
+            <circle cx="1.5" cy="1" r="0.4" fill="white" opacity="0.7" />
+            <circle cx="0" cy="3" r="0.4" fill="white" opacity="0.7" />
+          </g>
+        )}
+        {type === 'pear' && (
+          <g transform="scale(0.8)">
+            <path d="M0,5 C-3.5,5 -4,2.5 -4,0 C-4,-2 -2,-4 -1,-6 C0,-7.5 0,-8.5 0,-8.5 C0,-8.5 0,-7.5 1,-6 C2,-4 4,-2 4,0 C4,2.5 3.5,5 0,5 Z" fill={color} />
+            <path d="M0,-8.5 C0,-9.5 0.5,-10.5 1.5,-10.5" stroke={color} strokeWidth="1.2" fill="none" />
+          </g>
+        )}
+        {type === 'peach' && (
+          <g transform="scale(0.9)">
+            <circle r="4.5" fill={color} />
+            <path d="M0,-4.5 Q1.5,0 0,4.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1" fill="none" />
+            <path d="M0,-4.5 C1,-6.5 2.5,-7.5 4,-7.5" stroke={color} strokeWidth="1.2" fill="none" />
+          </g>
+        )}
+      </g>
 
-  switch (type) {
-    case 'apple':
-      return (
-        <g style={glowStyle}>
-          <path d="M0,2 C-2,2 -4,0 -4,-3 C-4,-6 -2,-8 0,-8 C2,-8 4,-6 4,-3 C4,0 2,2 0,2 Z" fill={color} />
-          <path d="M0,-8 C0,-10 1,-11 2,-11" stroke={color} strokeWidth="1" fill="none" />
-          <path d="M2,-11 C3,-11 4,-10 4,-9 C4,-8 3,-7 2,-7" fill={color} opacity="0.8" />
-        </g>
-      );
-    case 'citrus':
-      return (
-        <g style={glowStyle}>
-          <circle r="4" fill={color} />
-          <circle r="3" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3" />
-          <line x1="-3" y1="0" x2="3" y2="0" stroke="white" strokeWidth="0.3" opacity="0.5" />
-          <line x1="0" y1="-3" x2="0" y2="3" stroke="white" strokeWidth="0.3" opacity="0.5" />
-        </g>
-      );
-    case 'grapes':
-      return (
-        <g style={glowStyle}>
-          <circle cx="-1.5" cy="-1.5" r="1.8" fill={color} />
-          <circle cx="1.5" cy="-1.5" r="1.8" fill={color} />
-          <circle cx="0" cy="1" r="1.8" fill={color} />
-          <circle cx="0" cy="3.5" r="1.8" fill={color} />
-        </g>
-      );
-    case 'strawberry':
-      return (
-        <g style={glowStyle}>
-          <path d="M0,4 C-3,4 -4,1 -4,-2 C-4,-4 -2,-5 0,-5 C2,-5 4,-4 4,-2 C4,1 3,4 0,4 Z" fill={color} />
-          <path d="M-2,-5 L0,-3 L2,-5" stroke="white" strokeWidth="0.5" fill="none" opacity="0.5" />
-          <circle cx="-1" cy="0" r="0.3" fill="white" opacity="0.6" />
-          <circle cx="1" cy="1" r="0.3" fill="white" opacity="0.6" />
-          <circle cx="0" cy="-1" r="0.3" fill="white" opacity="0.6" />
-        </g>
-      );
-    case 'pear':
-      return (
-        <g style={glowStyle}>
-          <path d="M0,4 C-3,4 -4,2 -4,-1 C-4,-3 -2,-4 -1,-6 C0,-7 0,-8 0,-8 C0,-8 0,-7 1,-6 C2,-4 4,-3 4,-1 C4,2 3,4 0,4 Z" fill={color} />
-          <path d="M0,-8 C0,-9 1,-10 2,-10" stroke={color} strokeWidth="0.8" fill="none" />
-        </g>
-      );
-    case 'peach':
-      return (
-        <g style={glowStyle}>
-          <circle r="4" fill={color} />
-          <path d="M0,-4 Q1,0 0,4" stroke="white" strokeWidth="0.5" fill="none" opacity="0.3" />
-          <path d="M0,-4 C1,-6 2,-7 3,-7" stroke={color} strokeWidth="0.8" fill="none" />
-        </g>
-      );
-    default:
-      return <circle r="4" fill={color} style={glowStyle} />;
-  }
+      {/* Subtle shine highlight */}
+      <circle
+        r="1.5"
+        cx="-1.5"
+        cy="-1.5"
+        fill="white"
+        opacity={isHovered ? 0.4 : 0.2}
+      />
+    </g>
+  );
 };
 
 const connections = [
@@ -112,12 +121,12 @@ export function EmotionalConstellation() {
         {nodes.map((node, i) => (
           <motion.g
             key={node.id}
-            initial={{ scale: 0, opacity: 0 }}
+            initial={{ scale: 0, opacity: 0, x: node.x, y: node.y }}
             animate={{ 
               scale: 1, 
               opacity: 1,
-              y: [0, -4, 0],
-              x: [0, 2, 0]
+              y: [node.y, node.y - 4, node.y],
+              x: [node.x, node.x + 2, node.x]
             }}
             transition={{
               scale: { delay: i * 0.1, duration: 0.5 },
@@ -129,15 +138,9 @@ export function EmotionalConstellation() {
             onMouseEnter={() => setHoveredNode(node.id)}
             onMouseLeave={() => setHoveredNode(null)}
             onTouchStart={() => setHoveredNode(node.id)}
-            transform={`translate(${node.x}, ${node.y})`}
           >
+            {/* Using x/y in animate above handles positioning perfectly */}
             <FruitIcon type={node.fruit} color={node.color} isHovered={hoveredNode === node.id} />
-            
-            <circle
-              r={node.size / 22}
-              fill="white"
-              opacity={hoveredNode === node.id ? 0.4 : 0.2}
-            />
             
             {/* Tooltip-like Text */}
             <AnimatePresence>
@@ -149,7 +152,7 @@ export function EmotionalConstellation() {
                 >
                   <text
                     x={0}
-                    y={10}
+                    y={12}
                     textAnchor="middle"
                     fill="white"
                     className="text-[3px] font-sans tracking-[0.1em] uppercase font-bold pointer-events-none"
