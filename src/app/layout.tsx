@@ -113,8 +113,8 @@ export default function RootLayout({
       >
         <PaletteProvider>
           <AnalyticsProvider />
-          <HomeAnimationWrapper />
           <Header />
+          <HomeAnimationWrapper />
           <PageTransition>
             <div className="flex-1">
               {children}
