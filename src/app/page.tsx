@@ -46,14 +46,13 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
           <div className="space-y-7 md:space-y-10 flex flex-col items-center">
             
-            <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[7.5rem] leading-[1.1] md:leading-[0.95] font-serif italic text-white tracking-tight text-balance mb-4">
-                Tu Placer,<br className="hidden md:block" />
-                <motion.span variants={itemVariants} className="italic font-light text-cream/80"> Tu Bienestar.</motion.span>
-            </motion.h1>
-
-            <motion.p variants={itemVariants} className="text-cream/60 font-sans tracking-[0.2em] uppercase font-bold text-sm md:text-base">
-              ¡A comer con ganas!
+            <motion.p variants={itemVariants} className="text-cream/60 font-sans tracking-[0.2em] uppercase font-bold text-sm md:text-base mb-2">
+              Tu Placer, Tu Bienestar
             </motion.p>
+
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-[5.5rem] lg:text-[7.5rem] leading-[1.1] md:leading-[0.95] font-serif italic text-white tracking-tight text-balance mb-8">
+                ¡A comer con ganas!
+            </motion.h1>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full mt-4">
               <Link href="/test" className="w-full sm:w-auto">
