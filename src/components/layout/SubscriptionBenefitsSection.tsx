@@ -94,7 +94,7 @@ export function SubscriptionBenefitsSection() {
             className="text-4xl md:text-6xl font-serif text-aubergine-dark max-w-3xl mx-auto leading-tight"
           >
             Todo lo que necesitas para <span className="italic font-light">nutrir tu bienestar.</span>
-          </h3 >
+          </motion.h3>
         </div>
 
         {/* The Visual Journey (Vertical Flow) */}
