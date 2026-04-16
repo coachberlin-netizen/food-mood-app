@@ -4,12 +4,12 @@ import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const nodes = [
-  { id: "activacion", name: "Activación", color: "#FF3F00", x: 20, y: 30, size: 45, fruit: "citrus" },
-  { id: "calma", name: "Calma", color: "#00E5FF", x: 75, y: 25, size: 55, fruit: "grapes" },
-  { id: "focus", name: "Focus", color: "#39FF14", x: 50, y: 55, size: 50, fruit: "apple" },
-  { id: "social", name: "Social", color: "#FF007F", x: 80, y: 70, size: 40, fruit: "strawberry" },
-  { id: "reset", name: "Reset", color: "#BF00FF", x: 25, y: 80, size: 50, fruit: "pear" },
-  { id: "confort", name: "Confort", color: "#FFD700", x: 15, y: 55, size: 42, fruit: "peach" },
+  { id: "activacion", name: "Activación", color: "#FFFFFF", x: 20, y: 30, size: 45, fruit: "citrus" },
+  { id: "calma", name: "Calma", color: "#FADADD", x: 75, y: 25, size: 55, fruit: "grapes" },
+  { id: "focus", name: "Focus", color: "#FFFFFF", x: 50, y: 55, size: 50, fruit: "apple" },
+  { id: "social", name: "Social", color: "#FADADD", x: 80, y: 70, size: 40, fruit: "strawberry" },
+  { id: "reset", name: "Reset", color: "#FFFFFF", x: 25, y: 80, size: 50, fruit: "pear" },
+  { id: "confort", name: "Confort", color: "#FADADD", x: 15, y: 55, size: 42, fruit: "peach" },
 ]
 const FruitIcon = ({ type, color, isHovered }: { type: string, color: string, isHovered: boolean }) => {
   return (
