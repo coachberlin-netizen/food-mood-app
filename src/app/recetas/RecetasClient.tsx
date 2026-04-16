@@ -279,17 +279,15 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
   // Re-verify premium status on client side to handle caching/stale props
   useEffect(() => {
     async function checkAgain() {
-      if (!initialIsPremium) {
-        try {
-          const res = await fetch('/api/mi-tier');
-          const data = await res.json();
-          if (data.isPremium) {
-            setIsPremium(true);
-          }
-
-        } catch (err) {
-          console.error("Error re-verifying premium status:", err);
+      // Re-check even if initial was false, especially for recent subscribers
+      try {
+        const res = await fetch('/api/mi-tier');
+        const data = await res.json();
+        if (data.isPremium) {
+          setIsPremium(true);
         }
+      } catch (err) {
+        console.error("Error re-verifying premium status:", err);
       }
     }
     checkAgain();
@@ -302,8 +300,9 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
       if (moodFilter) {
         const moodObj = MOODS.find(m => m.id === moodFilter);
         if (moodObj) {
-          const moodShort = moodFilter.charAt(0).toUpperCase() + moodFilter.slice(1);
-          params.set("mood", moodShort);
+          // Fix: Use the correct accented name from the data object
+          // instead of manual title-case conversion which breaks accent sensitivity
+          params.set("mood", moodObj.nombre);
         }
       }
       params.set("segmento", segmento);
