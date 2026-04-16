@@ -138,10 +138,10 @@ export default function GutBrainInfographic() {
               />
             </svg>
             
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 flex flex-col items-start gap-2">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col items-start gap-2">
                 <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-gold animate-ping" />
-                    <span className="text-[20px] font-serif italic text-white font-bold leading-none">Bottom-Up</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold animate-ping" />
+                    <span className="text-[16px] md:text-[18px] font-serif italic text-white font-bold leading-none">Bottom-Up</span>
                 </div>
             </div>
           </div>
