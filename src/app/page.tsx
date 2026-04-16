@@ -5,7 +5,7 @@ import { motion, Variants } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { TrustBar } from "@/components/layout/TrustBar"
-import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
+import { PhilosophySection } from "@/components/layout/PhilosophySection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
 import { CompactMethod } from "@/components/layout/CompactMethod"
 
@@ -47,11 +47,15 @@ export default function Home() {
           <div className="space-y-7 md:space-y-10 flex flex-col items-center">
             
             <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[7.5rem] leading-[1.1] md:leading-[0.95] font-serif italic text-white tracking-tight text-balance mb-4">
-                Descubre qué comer<br className="hidden md:block" />
-                <motion.span variants={itemVariants} className="italic font-light text-cream/80"> para sentirte mejor.</motion.span>
+                Tu Placer,<br className="hidden md:block" />
+                <motion.span variants={itemVariants} className="italic font-light text-cream/80"> Tu Bienestar.</motion.span>
             </motion.h1>
 
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full mt-8">
+            <motion.p variants={itemVariants} className="text-cream/60 font-sans tracking-[0.2em] uppercase font-bold text-sm md:text-base">
+              ¡A comer con ganas!
+            </motion.p>
+            
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full mt-4">
               <Link href="/test" className="w-full sm:w-auto">
                 <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-12 py-5 rounded-[8px] font-bold shadow-2xl">
                   Hacer mi test gratuito
@@ -68,7 +72,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      <ExpertiseSection />
+      <PhilosophySection />
       
       {/* 2. THE FLOW / METHOD & WHATSAPP */}
       <CompactMethod />

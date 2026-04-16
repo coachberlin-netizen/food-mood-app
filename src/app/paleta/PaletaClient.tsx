@@ -30,6 +30,77 @@ const MOOD_COLORS: Record<string, string> = {
   confort:    '#FF6B00'
 };
 
+const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
+  <div className="max-w-6xl mx-auto px-6 py-20 md:py-32">
+    {/* 1. HERO STAT */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-center mb-16 md:mb-24"
+    >
+      <span className="text-[10px] tracking-[0.4em] uppercase text-[#6B2737]/60 mb-12 block font-bold">Evidencia Biológica</span>
+      <div className="relative inline-block mb-10">
+        <motion.h1 
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="font-serif text-[8rem] md:text-[14rem] leading-none text-[#6B2737] italic font-bold tracking-tighter"
+        >
+          95%
+        </motion.h1>
+        <motion.div 
+           initial={{ opacity: 0, x: -20 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ delay: 0.5 }}
+           className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 bg-[#C9A84C] text-[#FAF9F6] px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest rotate-12 hidden md:block"
+        >
+          Dato Clave
+        </motion.div>
+      </div>
+      
+      <div className="space-y-4">
+        <h2 className="text-xl md:text-3xl font-serif text-[#6B2737] italic tracking-tight">
+          de tu serotonina se produce en el intestino
+        </h2>
+        <p className="text-sm md:text-md text-[#4A4A4A] font-light max-w-xl mx-auto leading-relaxed uppercase tracking-[0.1em]">
+          Tu estado emocional y tu digestión son el mismo sistema.
+        </p>
+      </div>
+    </motion.div>
+
+    {/* 2. MAIN HEADLINE */}
+    <motion.div 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className="max-w-4xl mx-auto text-center mb-24 md:mb-32"
+    >
+      <h3 className="font-serif text-3xl md:text-6xl text-[#6B2737] leading-[1.1] font-light">
+        Comer con ansiedad convierte <br className="hidden md:block" />
+        <span className="italic font-bold">cualquier alimento en inflamación.</span>
+      </h3>
+    </motion.div>
+
+    {/* 3. INFOGRAPHIC */}
+    <GutBrainInfographic />
+
+    <motion.div 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className="flex flex-col items-center gap-8 py-16 border-t border-[#6B2737]/5 mt-20 md:mt-32"
+    >
+      <p className="text-[#4A4A4A] font-medium tracking-wide text-[10px] uppercase tracking-[0.3em]">Comienza tu exploración</p>
+      <button
+        onClick={onStart}
+        className="bg-[#6B2737] text-[#FAF9F6] rounded-[60px] px-12 py-5 font-sans text-[18px] font-medium transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl flex items-center gap-4"
+      >
+        Descubrir mi color de hoy <ArrowRight className="w-5 h-5" />
+      </button>
+    </motion.div>
+  </div>
+);
+
 export default function PaletaClient({ initialIsPremium }: { initialIsPremium: boolean }) {
   const [screen, setScreen] = useState<'intro' | 'sliders' | 'result'>('intro');
   
@@ -144,82 +215,11 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
     setScreen('intro');
   };
 
-  const EditorialIntro = () => (
-    <div className="max-w-6xl mx-auto px-6 py-20 md:py-32">
-      {/* 1. HERO STAT */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-16 md:mb-24"
-      >
-        <span className="text-[10px] tracking-[0.4em] uppercase text-[#6B2737]/60 mb-12 block font-bold">Evidencia Biológica</span>
-        <div className="relative inline-block mb-10">
-          <motion.h1 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="font-serif text-[8rem] md:text-[14rem] leading-none text-[#6B2737] italic font-bold tracking-tighter"
-          >
-            95%
-          </motion.h1>
-          <motion.div 
-             initial={{ opacity: 0, x: -20 }}
-             animate={{ opacity: 1, x: 0 }}
-             transition={{ delay: 0.5 }}
-             className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 bg-[#C9A84C] text-[#FAF9F6] px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest rotate-12 hidden md:block"
-          >
-            Dato Clave
-          </motion.div>
-        </div>
-        
-        <div className="space-y-4">
-          <h2 className="text-xl md:text-3xl font-serif text-[#6B2737] italic tracking-tight">
-            de tu serotonina se produce en el intestino
-          </h2>
-          <p className="text-sm md:text-md text-[#4A4A4A] font-light max-w-xl mx-auto leading-relaxed uppercase tracking-[0.1em]">
-            Tu estado emocional y tu digestión son el mismo sistema.
-          </p>
-        </div>
-      </motion.div>
-
-      {/* 2. MAIN HEADLINE */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="max-w-4xl mx-auto text-center mb-24 md:mb-32"
-      >
-        <h3 className="font-serif text-3xl md:text-6xl text-[#6B2737] leading-[1.1] font-light">
-          Comer con ansiedad convierte <br className="hidden md:block" />
-          <span className="italic font-bold">cualquier alimento en inflamación.</span>
-        </h3>
-      </motion.div>
-
-      {/* 3. INFOGRAPHIC */}
-      <GutBrainInfographic />
-
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="flex flex-col items-center gap-8 py-16 border-t border-[#6B2737]/5 mt-20 md:mt-32"
-      >
-        <p className="text-[#4A4A4A] font-medium tracking-wide text-[10px] uppercase tracking-[0.3em]">Comienza tu exploración</p>
-        <button
-          onClick={() => setScreen('sliders')}
-          className="bg-[#6B2737] text-[#FAF9F6] rounded-[60px] px-12 py-5 font-sans text-[18px] font-medium transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl flex items-center gap-4"
-        >
-          Descubrir mi color de hoy <ArrowRight className="w-5 h-5" />
-        </button>
-      </motion.div>
-    </div>
-  );
-
   return (
-    <main className="min-h-[100dvh] bg-[var(--background)]">
+    <main className="min-h-[100dvh] bg-[#FAF9F6]">
       <AnimatePresence mode="wait">
         
-        {screen === 'intro' && <EditorialIntro />}
+        {screen === 'intro' && <EditorialIntro onStart={() => setScreen('sliders')} />}
 
         {screen === 'sliders' && (
           <motion.div
