@@ -9,25 +9,48 @@ const steps = [
   {
     title: "Entender",
     desc: "Escucha activa",
-    icon: <Ear className="w-5 h-5" />,
-    color: "#C9A84C"
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M12 2a5 5 0 00-5 5v3" strokeLinecap="round" />
+        <path d="M19 10v-3a7 7 0 00-14 0v3" strokeLinecap="round" />
+        <path d="M12 22a5 5 0 005-5v-1" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.2" />
+      </svg>
+    ),
+    color: "#FFB000"
   },
   {
     title: "Traducir",
     desc: "Ciencia funcional",
-    icon: <Sparkles className="w-5 h-5" />,
-    color: "#722F37"
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="3" fill="currentColor" fillOpacity="0.2" />
+      </svg>
+    ),
+    color: "#00D1FF"
   },
   {
     title: "Integrar",
     desc: "Nutrición emocional",
-    icon: <Utensils className="w-5 h-5" />,
-    color: "#4A1D36"
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M12 2v20M2 12h20" strokeLinecap="round" opacity="0.3" />
+        <rect x="6" y="6" width="12" height="12" rx="2" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="2" fill="currentColor" />
+      </svg>
+    ),
+    color: "#FF2D55"
   },
   {
     title: "Acompañar",
     desc: "Consulta WhatsApp",
-    icon: <MessageCircle className="w-5 h-5" />,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-7.6 8.38 8.38 0 013.8.9L22 4l-2.1 4.7z" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="1" fill="currentColor" />
+      </svg>
+    ),
     color: "#25D366",
     isAction: true,
     link: "https://wa.me/34600000000?text=Hola.%20Vengo%20de%20la%20web%20de%20Food%20Mood%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20psicol%C3%B3gica%20sobre%20mi%20relaci%C3%B3n%20con%20la%20comida."

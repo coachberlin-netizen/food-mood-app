@@ -22,12 +22,12 @@ import Link from "next/link";
 import GutBrainInfographic from "@/components/palette/GutBrainInfographic";
 
 const MOOD_COLORS: Record<string, string> = {
-  activacion: '#E8A87C',
-  calma:      '#7EC8C8',
-  focus:      '#F4E285',
-  social:     '#F4A7B9',
-  reset:      '#B8A9C9',
-  confort:    '#D4A574'
+  activacion: '#FFB000',
+  calma:      '#00D1FF',
+  focus:      '#00DD80',
+  social:     '#FF2D55',
+  reset:      '#9D00FF',
+  confort:    '#FF6B00'
 };
 
 export default function PaletaClient({ initialIsPremium }: { initialIsPremium: boolean }) {
@@ -152,7 +152,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-16 md:mb-24"
       >
-        <span className="text-[10px] tracking-[0.4em] uppercase text-[#6B2737]/40 mb-12 block font-bold">Evidencia Biológica</span>
+        <span className="text-[10px] tracking-[0.4em] uppercase text-[#6B2737]/60 mb-12 block font-bold">Evidencia Biológica</span>
         <div className="relative inline-block mb-10">
           <motion.h1 
             initial={{ scale: 0.9, opacity: 0 }}
@@ -176,7 +176,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
           <h2 className="text-xl md:text-3xl font-serif text-[#6B2737] italic tracking-tight">
             de tu serotonina se produce en el intestino
           </h2>
-          <p className="text-sm md:text-md text-[#7a7974] font-light max-w-xl mx-auto leading-relaxed uppercase tracking-[0.1em]">
+          <p className="text-sm md:text-md text-[#4A4A4A] font-light max-w-xl mx-auto leading-relaxed uppercase tracking-[0.1em]">
             Tu estado emocional y tu digestión son el mismo sistema.
           </p>
         </div>
@@ -204,7 +204,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
         viewport={{ once: true }}
         className="flex flex-col items-center gap-8 py-16 border-t border-[#6B2737]/5 mt-20 md:mt-32"
       >
-        <p className="text-[#7a7974] font-medium tracking-wide text-[10px] uppercase tracking-[0.3em]">Comienza tu exploración</p>
+        <p className="text-[#4A4A4A] font-medium tracking-wide text-[10px] uppercase tracking-[0.3em]">Comienza tu exploración</p>
         <button
           onClick={() => setScreen('sliders')}
           className="bg-[#6B2737] text-[#FAF9F6] rounded-[60px] px-12 py-5 font-sans text-[18px] font-medium transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl flex items-center gap-4"
@@ -216,7 +216,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
   );
 
   return (
-    <main className="min-h-[100dvh] bg-[#FAF9F6]">
+    <main className="min-h-[100dvh] bg-[var(--background)]">
       <AnimatePresence mode="wait">
         
         {screen === 'intro' && <EditorialIntro />}
@@ -234,7 +234,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
                 <EmotionalSlider
                   label="Tu impulso de moverte y actuar"
                   value={energia}
-                  colorEnd="#E8A838"
+                  colorEnd="#FFB000"
                   iconLeft={<EnergyLow />}
                   iconRight={<EnergyHigh />}
                   onChange={(v) => { setEnergia(v); markMoved('energia'); }}
@@ -246,7 +246,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
                 <EmotionalSlider
                   label="Tu necesidad de quietud y silencio"
                   value={serenidad}
-                  colorEnd="#7BA7BC"
+                  colorEnd="#00D1FF"
                   iconLeft={<SerenityLow />}
                   iconRight={<SerenityHigh />}
                   onChange={(v) => { setSerenidad(v); markMoved('serenidad'); }}
@@ -258,7 +258,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
                 <EmotionalSlider
                   label="Tu búsqueda de dirección y nitidez"
                   value={claridad}
-                  colorEnd="#5B8C5A"
+                  colorEnd="#00DD80"
                   iconLeft={<ClarityLow />}
                   iconRight={<ClarityHigh />}
                   onChange={(v) => { setClaridad(v); markMoved('claridad'); }}
@@ -270,7 +270,7 @@ export default function PaletaClient({ initialIsPremium }: { initialIsPremium: b
                 <EmotionalSlider
                   label="Tu deseo de conexión y pertenencia"
                   value={conexion}
-                  colorEnd="#C97B84"
+                  colorEnd="#FF2D55"
                   iconLeft={<ConnectionLow />}
                   iconRight={<ConnectionHigh />}
                   onChange={(v) => { setConexion(v); markMoved('conexion'); }}

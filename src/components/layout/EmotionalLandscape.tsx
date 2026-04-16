@@ -16,12 +16,64 @@ const microTexts: Record<string, string> = {
 };
 
 const icons: Record<string, React.ReactNode> = {
-  activacion: <Zap className="w-5 h-5" />,
-  calma: <Wind className="w-5 h-5" />,
-  focus: <Sparkles className="w-5 h-5" />,
-  social: <Heart className="w-5 h-5" />,
-  reset: <RefreshCw className="w-5 h-5" />,
-  confort: <Home className="w-5 h-5" />
+  activacion: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  calma: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M2 12c5-5 15 5 20 0" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2 17c5-5 15 5 20 0" opacity="0.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  focus: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="2" fill="currentColor" />
+    </svg>
+  ),
+  social: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M18 8a3 3 0 10-6 0 3 3 0 006 0zM6 15a3 3 0 100-6 3 3 0 000 6zM21 19a3 3 0 100-6 3 3 0 000 6z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  reset: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M20 11a8.1 8.1 0 00-15.5-2m-.5 5v-5h5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 13a8.1 8.1 0 0015.5 2m.5-5v5h-5" opacity="0.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  confort: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 22V12h6v10" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+};
+
+// Premium Abstract Advantage Icons
+const AdvantageIcons = {
+  Visual: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <circle cx="12" cy="12" r="10" strokeDasharray="4 4" />
+      <path d="M12 2v20M2 12h20" opacity="0.3" />
+      <circle cx="12" cy="12" r="3" fill="currentColor" fillOpacity="0.2" />
+    </svg>
+  ),
+  Precision: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="12" r="4" strokeDasharray="2 2" />
+    </svg>
+  ),
+  GutBrain: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M12 21c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 13c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z" opacity="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 17c-2.209 0-4 1.791-4 4" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
+    </svg>
+  )
 };
 
 const containerVariants: Variants = {
@@ -40,6 +92,7 @@ const blobVariants: Variants = {
     transition: { type: "spring", stiffness: 100, damping: 15 }
   },
   float: {
+    opacity: 1,
     y: [0, -15, 0],
     x: [0, 10, 0],
     transition: {
@@ -52,7 +105,7 @@ const blobVariants: Variants = {
 
 export function EmotionalLandscape() {
   return (
-    <section className="py-24 md:py-36 bg-[var(--background)] relative overflow-hidden">
+    <section className="py-24 md:py-36 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-[10%] left-[5%] w-64 h-64 bg-aubergine/5 rounded-full blur-3xl" />
@@ -98,22 +151,25 @@ export function EmotionalLandscape() {
               <motion.div
                 key={mood.id}
                 variants={blobVariants}
-                animate="float"
+                animate={["visible", "float"]}
                 transition={{ delay: idx * 0.2 }}
                 className={`flex flex-col items-center gap-6 p-6 md:p-10 rounded-[40px] transition-all hover:scale-105 group bg-white/40 backdrop-blur-sm border border-white/60 shadow-sm hover:shadow-xl hover:bg-white/80 ${
                     idx % 3 === 0 ? 'md:translate-y-12' : idx % 3 === 2 ? 'md:-translate-y-8' : ''
                 }`}
               >
                 <div 
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-inner relative overflow-hidden"
-                  style={{ backgroundColor: mood.color + '15', color: mood.color }}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center relative overflow-visible"
+                  style={{ color: mood.color }}
                 >
-                  <motion.div 
-                    animate={{ rotate: [0, 360] }} 
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 opacity-20 bg-[radial-gradient(circle,white_0%,transparent_70%)]"
+                  {/* ACCENT GLOW */}
+                  <div 
+                    className="absolute inset-0 rounded-full blur-[20px] opacity-40 group-hover:opacity-70 transition-opacity duration-500"
+                    style={{ backgroundColor: mood.color }}
                   />
-                  {icons[mood.id]}
+                  
+                  <div className="relative z-10 w-full h-full flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                     {icons[mood.id]}
+                  </div>
                 </div>
 
                 <div className="text-center space-y-2">
@@ -136,8 +192,8 @@ export function EmotionalLandscape() {
         >
           <div className="grid md:grid-cols-3 gap-8 p-1 px-1 bg-white/30 backdrop-blur-md rounded-[50px] border border-white/50 shadow-luxury overflow-hidden">
             <div className="flex items-center gap-4 p-8 md:p-10 group hover:bg-white/50 transition-colors rounded-[40px]">
-              <div className="w-10 h-10 rounded-full bg-aubergine-dark flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
-                <Palette className="w-4 h-4" />
+              <div className="text-aubergine-dark shrink-0 group-hover:scale-110 transition-transform">
+                {AdvantageIcons.Visual}
               </div>
               <div className="space-y-1">
                 <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Diagnóstico Visual</p>
@@ -146,8 +202,8 @@ export function EmotionalLandscape() {
             </div>
 
             <div className="flex items-center gap-4 p-8 md:p-10 group hover:bg-white/50 transition-colors rounded-[40px] border-y md:border-y-0 md:border-x border-aubergine-dark/5">
-              <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
-                <Sparkles className="w-4 h-4" />
+              <div className="text-gold shrink-0 group-hover:scale-110 transition-transform">
+                {AdvantageIcons.Precision}
               </div>
               <div className="space-y-1">
                 <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Nutrición de Precisión</p>
@@ -156,8 +212,8 @@ export function EmotionalLandscape() {
             </div>
 
             <div className="flex items-center gap-4 p-8 md:p-10 group hover:bg-white/50 transition-colors rounded-[40px]">
-              <div className="w-10 h-10 rounded-full bg-aubergine flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
-                <Heart className="w-4 h-4" />
+              <div className="text-aubergine-dark/60 shrink-0 group-hover:scale-110 transition-transform">
+                {AdvantageIcons.GutBrain}
               </div>
               <div className="space-y-1">
                 <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Eje Gut-Brain</p>

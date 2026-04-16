@@ -2,29 +2,52 @@
 
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
-import { MessageSquare, Heart, BookOpen, Calculator, Globe, Calendar, Zap, Layout } from 'lucide-react';
 import Link from 'next/link';
 
 const benefits = [
   {
     title: "Recetas funcionales",
     description: "Acceso ilimitado a recetas diseñadas para cada estado emocional y necesidad de tu cuerpo.",
-    icon: <Heart className="w-5 h-5" />
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
   },
   {
     title: "Glosario de ingredientes",
     description: "Entiende el poder de cada alimento y cómo influye en tu bienestar desde la neurociencia.",
-    icon: <BookOpen className="w-5 h-5" />
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" strokeLinecap="round" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" strokeLinecap="round" />
+        <path d="M8 7h8M8 11h8M8 15h4" strokeLinecap="round" opacity="0.4" />
+      </svg>
+    )
   },
   {
     title: "Diario emocional-alimentario",
     description: "Un espacio privado para observar y mejorar tus patrones de alimentación consciente.",
-    icon: <Calendar className="w-5 h-5" />
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeLinecap="round" />
+        <path d="M16 2v4M8 2v4M3 10h18" strokeLinecap="round" />
+        <circle cx="8" cy="14" r="1" fill="currentColor" />
+        <circle cx="12" cy="14" r="1" fill="currentColor" opacity="0.4" />
+        <circle cx="16" cy="14" r="1" fill="currentColor" opacity="0.2" />
+      </svg>
+    )
   },
   {
     title: "Paleta emocional personalizada",
     description: "Tu perfil único que evoluciona contigo a medida que cambian tus necesidades.",
-    icon: <Calculator className="w-5 h-5" />
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <circle cx="12" cy="12" r="10" strokeDasharray="3 3" />
+        <circle cx="12" cy="12" r="4" strokeLinecap="round" />
+        <path d="M12 2v2M12 20v2M2 12h2M20 12h2" opacity="0.4" />
+      </svg>
+    )
   },
   {
     title: "food-mood Club en WhatsApp",
@@ -37,17 +60,30 @@ const benefits = [
     ],
     cta: "Recibir la mini-newsletter en WhatsApp",
     href: "https://wa.me/34660727224",
-    icon: <MessageSquare className="w-5 h-5" />
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-7.6 8.38 8.38 0 013.8.9L22 4l-2.1 4.7z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
   },
   {
     title: "Contenido científico exclusivo",
     description: "Artículos sobre el eje intestino-cerebro, microbiota y psicología de la alimentación.",
-    icon: <Zap className="w-5 h-5" />
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
   },
   {
     title: "Fermentos del Mundo",
     description: "Explora nuestro mapa interactivo con los 16 fermentos ancestrales más poderosos del planeta.",
-    icon: <Globe className="w-5 h-5" />
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" strokeLinecap="round" opacity="0.4" />
+      </svg>
+    )
   }
 ];
 
@@ -71,33 +107,6 @@ const itemVariants: Variants = {
   }
 };
 
-export function ExpertiseSection() {
-  const pillars = [
-    { title: "Psicología", icon: <Brain className="w-5 h-5" /> },
-    { title: "Longevidad", icon: <Heart className="w-5 h-5" /> },
-    { title: "Food Tech", icon: <Zap className="w-5 h-5" /> },
-    { title: "Coaching", icon: <Sparkles className="w-5 h-5" /> },
-  ];
-
-  return (
-    <section className="py-8 md:py-12 bg-cream/30 border-y border-aubergine-dark/5">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="flex flex-wrap justify-around items-center gap-8 md:gap-12">
-          {pillars.map((pillar, idx) => (
-            <div key={idx} className="flex flex-col items-center gap-3 group">
-              <div className="w-12 h-12 rounded-full border border-aubergine-dark/10 flex items-center justify-center text-aubergine-dark/40 group-hover:text-[#C9A84C] group-hover:border-[#C9A84C]/50 transition-all duration-300">
-                {pillar.icon}
-              </div>
-              <span className="text-[10px] sm:text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 font-bold">
-                {pillar.title}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export function SubscriptionBenefitsSection() {
   return (

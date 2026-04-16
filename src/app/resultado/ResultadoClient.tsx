@@ -9,12 +9,12 @@ import Link from "next/link";
 
 /* ── Mood colors for badges ──────────────────────────────────── */
 const MOOD_COLORS: Record<string, { color: string; bg: string; emoji: string }> = {
-  activacion: { color: "#E8A838", bg: "rgba(232,168,56,0.15)", emoji: "⚡" },
-  calma:      { color: "#7BA7BC", bg: "rgba(123,167,188,0.15)", emoji: "🌿" },
-  focus:      { color: "#5B8C5A", bg: "rgba(91,140,90,0.15)", emoji: "🧠" },
-  social:     { color: "#C97B84", bg: "rgba(201,123,132,0.15)", emoji: "🥂" },
-  reset:      { color: "#9B8EC4", bg: "rgba(155,142,196,0.15)", emoji: "🍋" },
-  familia:    { color: "#D4956A", bg: "rgba(212,149,106,0.15)", emoji: "🏠" },
+  activacion: { color: "#FFB000", bg: "rgba(255,176,0,0.15)", emoji: "⚡" },
+  calma:      { color: "#00D1FF", bg: "rgba(0,209,255,0.15)", emoji: "🌿" },
+  focus:      { color: "#00DD80", bg: "rgba(0,221,128,0.15)", emoji: "🧠" },
+  social:     { color: "#FF2D55", bg: "rgba(255,45,85,0.15)", emoji: "🥂" },
+  reset:      { color: "#9D00FF", bg: "rgba(157,0,255,0.15)", emoji: "🍋" },
+  familia:    { color: "#FF6B00", bg: "rgba(255,107,0,0.15)", emoji: "🏠" },
 };
 
 const MOOD_DESCRIPTIONS: Record<string, string> = {

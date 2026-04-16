@@ -8,7 +8,6 @@ import { TrustBar } from "@/components/layout/TrustBar"
 import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
 import { CompactMethod } from "@/components/layout/CompactMethod"
-import { EmotionalConstellation } from "@/components/layout/EmotionalConstellation"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -35,7 +34,7 @@ const itemVariants: Variants = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--background)] overflow-hidden font-sans font-light">
+    <main className="min-h-screen bg-background overflow-hidden font-sans font-light">
       
       {/* 1. HERO SECTION */}
       <motion.section 
@@ -52,11 +51,6 @@ export default function Home() {
                 <motion.span variants={itemVariants} className="italic font-light text-cream/80"> para sentirte mejor.</motion.span>
             </motion.h1>
 
-            {/* NEW: VISUAL CONSTELLATION */}
-            <motion.div variants={itemVariants} className="w-full py-4 md:py-0">
-              <EmotionalConstellation />
-            </motion.div>
-            
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full mt-8">
               <Link href="/test" className="w-full sm:w-auto">
                 <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-12 py-5 rounded-[8px] font-bold shadow-2xl">

@@ -3,8 +3,6 @@ import PaletaClient from "./PaletaClient";
 import { createClient } from "@/lib/supabase/server";
 import { getPremiumStatus } from "@/lib/premium";
 import { EmotionalLandscape } from "@/components/layout/EmotionalLandscape";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
 
 export const dynamic = 'force-dynamic';
 
@@ -18,11 +16,10 @@ export default async function PaletaPage() {
   const isPremium = user ? await getPremiumStatus(supabase, user.id) : false;
 
   return (
-    <div className="min-h-screen bg-cream">
-      <Header />
+    <div className="min-h-screen bg-[#FFE135]">
       <Suspense fallback={
-        <div className="min-h-[100dvh] bg-[#FAF9F6] flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full border-2 border-[#6B2737]/10 border-t-[#6B2737] animate-spin" />
+        <div className="min-h-[100dvh] bg-[#FFE135] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full border-2 border-aubergine/10 border-t-aubergine animate-spin" />
         </div>
       }>
         <PaletaClient initialIsPremium={isPremium} />
@@ -30,8 +27,6 @@ export default async function PaletaPage() {
 
       {/* Guía Emocional section moved from Home */}
       <EmotionalLandscape />
-
-      <Footer />
     </div>
   );
 }

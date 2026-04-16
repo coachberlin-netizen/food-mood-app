@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Source_Serif_4, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/Header";
+import { HomeAnimationWrapper } from "@/components/layout/HomeAnimationWrapper";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
@@ -112,6 +113,7 @@ export default function RootLayout({
       >
         <PaletteProvider>
           <AnalyticsProvider />
+          <HomeAnimationWrapper />
           <Header />
           <PageTransition>
             <div className="flex-1">

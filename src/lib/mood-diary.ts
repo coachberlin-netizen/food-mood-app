@@ -16,21 +16,21 @@ export type WeekData = {
 };
 
 const MOOD_COLOR_LABELS: Record<string, string> = {
-  activacion: "Ámbar",
-  calma: "Azul Sereno",
-  focus: "Verde Bosque",
-  social: "Rosa Coral",
-  reset: "Lavanda",
-  confort: "Terracota",
+  activacion: "Oro Líquido",
+  calma: "Azul Infinito",
+  focus: "Esmeralda Viva",
+  social: "Rubí Profundo",
+  reset: "Amatista Eléctrica",
+  confort: "Ámbar Radiante",
 };
 
 const MOOD_COLORS: Record<string, string> = {
-  activacion: "#E8A838",
-  calma: "#7BA7BC",
-  focus: "#5B8C5A",
-  social: "#C97B84",
-  reset: "#9B8EC4",
-  confort: "#D4956A",
+  activacion: "#FFB000",
+  calma: "#00D1FF",
+  focus: "#00DD80",
+  social: "#FF2D55",
+  reset: "#9D00FF",
+  confort: "#FF6B00",
 };
 
 /**

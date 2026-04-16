@@ -14,7 +14,7 @@ export default async function AdminBlogLayout({
 
   // Robust protection: check if user is authenticated AND in the admin whitelist
   if (!user || (!user.email && !user.phone)) {
-    redirect('/ingresar');
+    redirect('/login');
   }
 
   if (!isUserAdmin(user)) {

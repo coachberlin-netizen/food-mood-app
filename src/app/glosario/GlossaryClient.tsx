@@ -32,12 +32,12 @@ const CATEGORIES = [
 ];
 
 const MOOD_COLORS: Record<string, { color: string, bg: string }> = {
-  activacion: { color: '#E8A838', bg: '#E8A83815' },
-  calma: { color: '#7BA7BC', bg: '#7BA7BC15' },
-  focus: { color: '#5B8C5A', bg: '#5B8C5A15' },
-  social: { color: '#C97B84', bg: '#C97B8415' },
-  reset: { color: '#9B8EC4', bg: '#9B8EC415' },
-  confort: { color: '#D4956A', bg: '#D4956A15' },
+  activacion: { color: '#FFB000', bg: '#FFB00015' },
+  calma: { color: '#00D1FF', bg: '#00D1FF15' },
+  focus: { color: '#00DD80', bg: '#00DD8015' },
+  social: { color: '#FF2D55', bg: '#FF2D5515' },
+  reset: { color: '#9D00FF', bg: '#9D00FF15' },
+  confort: { color: '#FF6B00', bg: '#FF6B0015' },
 };
 
 const MOODS = [
