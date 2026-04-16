@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { MethodSection } from '@/components/layout/MethodSection';
-import { MethodSection } from '@/components/layout/MethodSection';
 import { motion } from 'framer-motion';
 
 export default function ComoFuncionaPage() {

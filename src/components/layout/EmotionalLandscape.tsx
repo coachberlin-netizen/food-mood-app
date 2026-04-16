@@ -196,8 +196,8 @@ export function EmotionalLandscape() {
                 {AdvantageIcons.Visual}
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Diagnóstico Visual</p>
-                <p className="text-xs text-aubergine-dark/60 font-light">Traduce tu bioquímica en color.</p>
+                <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Bioquímica en color</p>
+                <p className="text-xs text-aubergine-dark/60 font-light">Eje Visual.</p>
               </div>
             </div>
 
@@ -206,8 +206,8 @@ export function EmotionalLandscape() {
                 {AdvantageIcons.Precision}
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Nutrición de Precisión</p>
-                <p className="text-xs text-aubergine-dark/60 font-light">Fitoquímicos para cada estado.</p>
+                <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Fitoquímicos de precisión</p>
+                <p className="text-xs text-aubergine-dark/60 font-light">Nutrición de Precisión.</p>
               </div>
             </div>
 
@@ -216,8 +216,8 @@ export function EmotionalLandscape() {
                 {AdvantageIcons.GutBrain}
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Eje Gut-Brain</p>
-                <p className="text-xs text-aubergine-dark/60 font-light">Equilibrio desde tu segundo cerebro.</p>
+                <p className="text-sm font-bold text-aubergine-dark tracking-wide uppercase">Equilibrio Gut-Brain</p>
+                <p className="text-xs text-aubergine-dark/60 font-light">Eje Segundo Cerebro.</p>
               </div>
             </div>
           </div>

@@ -118,6 +118,7 @@ export default function RecetaDetailPage() {
   const [notFound, setNotFound] = useState(false);
   const [showCiencia, setShowCiencia] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [glossaryTerms, setGlossaryTerms] = useState<{ name: string; slug: string }[]>([]);
 
   // Fetch recipe directly from Supabase
   useEffect(() => {
@@ -190,6 +191,16 @@ export default function RecetaDetailPage() {
     load();
   }, [rawId, isUUID, router]);
 
+  // Fetch glossary terms for linkification
+  useEffect(() => {
+    async function fetchGlossary() {
+      const supabase = createClient();
+      const { data } = await supabase.from('glossary').select('name, slug');
+      if (data) setGlossaryTerms(data);
+    }
+    fetchGlossary();
+  }, []);
+
   // Share
   const handleShare = useCallback(async () => {
     const url = window.location.href;
@@ -205,13 +216,38 @@ export default function RecetaDetailPage() {
     setTimeout(() => setShowToast(false), 2200);
   }, []);
 
-  // Back with filters
-  const goBack = () => {
-    if (typeof window !== "undefined" && document.referrer.includes("/recetas")) {
-      router.back();
-    } else {
-      router.push("/recetas");
-    }
+  // Helper to linkify text based on glossary terms
+  const Linkify = ({ text }: { text: string }) => {
+    if (!glossaryTerms.length || !text) return <>{text}</>;
+
+    // Sort terms by length descending to match longest terms first (e.g. "té verde" before "té")
+    const sortedTerms = [...glossaryTerms].sort((a, b) => b.name.length - a.name.length);
+    
+    // Create a regex from the glossary names
+    const escapedTerms = sortedTerms.map(t => t.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const regex = new RegExp(`(${escapedTerms.join('|')})`, 'gi');
+    
+    const parts = text.split(regex);
+    
+    return (
+      <>
+        {parts.map((part, i) => {
+          const term = sortedTerms.find(t => t.name.toLowerCase() === part.toLowerCase());
+          if (term) {
+            return (
+              <Link 
+                key={i} 
+                href={`/glosario/${term.slug}`}
+                className="text-[#C9A84C] hover:underline font-medium selection:bg-[#C9A84C]/20"
+              >
+                {part}
+              </Link>
+            );
+          }
+          return part;
+        })}
+      </>
+    );
   };
 
   if (isLoading) return <DetailSkeleton />;
@@ -334,7 +370,9 @@ export default function RecetaDetailPage() {
                     <span className="shrink-0 w-6 h-6 rounded-full bg-aubergine-dark/5 text-aubergine-dark/40 text-[10px] font-bold flex items-center justify-center mt-0.5">
                       {i + 1}
                     </span>
-                    <span className="text-aubergine-dark/80 font-light text-[15px] leading-relaxed">{ing}</span>
+                    <span className="text-aubergine-dark/80 font-light text-[15px] leading-relaxed">
+                      <Linkify text={ing} />
+                    </span>
                   </li>
                 );
               })}
@@ -381,7 +419,7 @@ export default function RecetaDetailPage() {
                   🧬 Nota Food·Mood
                 </span>
                 <p className="text-[15px] md:text-base font-light leading-[1.85] text-cream/85">
-                  {receta.nota_food_mood_es}
+                  <Linkify text={receta.nota_food_mood_es} />
                 </p>
               </div>
             </div>
