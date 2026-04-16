@@ -15,7 +15,7 @@ Los 6 estados Food·Mood:
 5. Reset — fermentos citricos, raices amargas, caldo ligero, curcuma
 6. familia — fermentos calidos, marinadas lentas, raices asadas, sopas miso, masa madre
 
-Ingrediente estrella: vinagre de kombucha / Kombuv+H (acido vivo de kombucha artesanal)
+Ingrediente estrella: vinagre de kombucha o de manzana cruda (ácido vivo artesanal)
 
 Para cada receta genera el siguiente objeto JSON que representará la receta:
 - title: nombre evocador y corto (string)

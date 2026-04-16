@@ -4,12 +4,11 @@ import React, { useRef, useState } from "react"
 import { motion, Variants } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
-import { createClient } from "@/lib/supabase/client"
 import { TrustBar } from "@/components/layout/TrustBar"
 import { ExpertiseSection } from "@/components/layout/ExpertiseSection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
 import { CompactMethod } from "@/components/layout/CompactMethod"
-import { ArrowRight, FlaskConical } from "lucide-react"
+import { EmotionalConstellation } from "@/components/layout/EmotionalConstellation"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -34,15 +33,6 @@ const itemVariants: Variants = {
   }
 }
 
-const slideRightVariants: Variants = {
-  hidden: { opacity: 0, x: -30 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
-}
-
 export default function Home() {
   return (
     <main className="min-h-screen bg-[var(--background)] overflow-hidden font-sans font-light">
@@ -57,26 +47,25 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
           <div className="space-y-7 md:space-y-10 flex flex-col items-center">
             
-            <div className="space-y-6">
-              <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] md:leading-[1] font-serif italic text-white tracking-tight text-balance">
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-[5rem] lg:text-[7.5rem] leading-[1.1] md:leading-[0.95] font-serif italic text-white tracking-tight text-balance mb-4">
                 Descubre qué comer<br className="hidden md:block" />
                 <motion.span variants={itemVariants} className="italic font-light text-cream/80"> para sentirte mejor.</motion.span>
-              </motion.h1>
-            </div>
+            </motion.h1>
+
+            {/* NEW: VISUAL CONSTELLATION */}
+            <motion.div variants={itemVariants} className="w-full py-4 md:py-0">
+              <EmotionalConstellation />
+            </motion.div>
             
-            <motion.p variants={itemVariants} className="text-base text-cream/70 max-w-2xl mx-auto text-center leading-[1.8] font-sans">
-              Aplica los últimos avances en neurociencia nutricional para ofrecerte una alimentación que impacta positivamente en tu estado de ánimo, energía y claridad mental.
-            </motion.p>
-            
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full mt-8">
               <Link href="/test" className="w-full sm:w-auto">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-10 py-4 rounded-[8px] font-semibold">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-12 py-5 rounded-[8px] font-bold shadow-2xl">
                   Hacer mi test gratuito
                 </Button>
               </Link>
               <Link
                 href="/paleta"
-                className="text-sm text-cream/50 hover:text-cream/80 transition-colors underline-offset-4 hover:underline font-light"
+                className="text-sm text-cream/60 hover:text-[#C9A84C] transition-all underline-offset-8 hover:underline font-light tracking-wide"
               >
                 o explorar la Paleta →
               </Link>
@@ -85,7 +74,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      <TrustBar />
+      <ExpertiseSection />
       
       {/* 2. THE FLOW / METHOD & WHATSAPP */}
       <CompactMethod />

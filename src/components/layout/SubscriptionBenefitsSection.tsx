@@ -71,6 +71,34 @@ const itemVariants: Variants = {
   }
 };
 
+export function ExpertiseSection() {
+  const pillars = [
+    { title: "Psicología", icon: <Brain className="w-5 h-5" /> },
+    { title: "Longevidad", icon: <Heart className="w-5 h-5" /> },
+    { title: "Food Tech", icon: <Zap className="w-5 h-5" /> },
+    { title: "Coaching", icon: <Sparkles className="w-5 h-5" /> },
+  ];
+
+  return (
+    <section className="py-8 md:py-12 bg-cream/30 border-y border-aubergine-dark/5">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="flex flex-wrap justify-around items-center gap-8 md:gap-12">
+          {pillars.map((pillar, idx) => (
+            <div key={idx} className="flex flex-col items-center gap-3 group">
+              <div className="w-12 h-12 rounded-full border border-aubergine-dark/10 flex items-center justify-center text-aubergine-dark/40 group-hover:text-[#C9A84C] group-hover:border-[#C9A84C]/50 transition-all duration-300">
+                {pillar.icon}
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 font-bold">
+                {pillar.title}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function SubscriptionBenefitsSection() {
   return (
     <section className="py-24 md:py-40 bg-cream border-t border-aubergine-dark/10 overflow-hidden">
@@ -97,74 +125,51 @@ export function SubscriptionBenefitsSection() {
           </motion.h3>
         </div>
 
-        {/* The Visual Journey (Vertical Flow) */}
-        <div className="relative">
-          {/* Central Line (Desktop Only) */}
-          <div className="absolute left-[39px] top-0 bottom-0 w-px bg-aubergine-dark/10 hidden md:block" />
+        {/* Benefits Grid (Visual-First Layout) */}
+        <motion.div 
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
+          {benefits.map((benefit, idx) => (
+            <motion.div 
+              key={idx} 
+              variants={itemVariants}
+              className={`relative h-48 md:h-56 p-6 rounded-[24px] transition-all duration-500 flex flex-col items-center justify-center text-center group cursor-default overflow-hidden ${benefit.isWhatsApp ? 'bg-[#1a1118] border border-[#C9A84C]/30' : 'bg-white/50 border border-aubergine-dark/5 hover:bg-white hover:border-aubergine-dark/15'}`}
+            >
+              <div className={`mb-4 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${benefit.isWhatsApp ? 'bg-[#C9A84C] text-white' : 'bg-aubergine-dark/5 text-aubergine-dark group-hover:bg-aubergine-dark group-hover:text-white'}`}>
+                {benefit.icon}
+              </div>
+              <h4 className={`text-sm md:text-base font-serif font-bold transition-all duration-500 line-clamp-2 px-2 ${benefit.isWhatsApp ? 'text-[#C9A84C]' : 'text-aubergine-dark group-hover:text-gold'}`}>
+                {benefit.title}
+              </h4>
 
-          <motion.div 
-            className="space-y-16 md:space-y-24 relative z-10"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-          >
-            {benefits.map((benefit, idx) => (
+              {/* Hover Reveal Description */}
               <motion.div 
-                key={idx} 
-                variants={itemVariants}
-                className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16 group"
+                initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+                whileHover={{ opacity: 1, backdropFilter: "blur(4px)" }}
+                className="absolute inset-0 bg-[#1a1118]/90 flex items-center justify-center p-6 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto"
               >
-                {/* Visual Node */}
-                <div className="relative z-20 flex items-center justify-center w-20 h-20 rounded-full bg-white border border-aubergine-dark/10 shadow-luxury group-hover:border-[#C9A84C]/50 transition-all duration-500 shrink-0">
-                  <div className="text-aubergine-dark group-hover:text-[#C9A84C] transition-colors duration-300">
-                    {benefit.icon}
-                  </div>
-                  {/* Step Number (Small) */}
-                  <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-[#1a1118] text-white text-[10px] font-bold flex items-center justify-center border border-white/20">
-                    {idx + 1}
-                  </span>
-                </div>
-
-                {/* Content Card */}
-                <div className={`flex-1 p-8 md:p-12 rounded-[24px] transition-all duration-500 ${benefit.isWhatsApp ? 'bg-[#1a1118] text-cream shadow-2xl border border-[#C9A84C]/20' : 'bg-white/50 border border-aubergine-dark/5 hover:border-aubergine-dark/10 shadow-sm'}`}>
-                  <h4 className={`text-2xl md:text-3xl font-serif font-medium mb-4 ${benefit.isWhatsApp ? 'text-[#C9A84C]' : 'text-aubergine-dark'}`}>
-                    {benefit.title}
-                  </h4>
-                  <p className={`text-lg leading-relaxed font-light max-w-2xl mb-6 ${benefit.isWhatsApp ? 'text-cream/70' : 'text-aubergine-dark/60'}`}>
+                <div className="space-y-4">
+                  <p className="text-[12px] md:text-[13px] text-cream/80 font-light leading-relaxed">
                     {benefit.description}
                   </p>
-
                   {benefit.isWhatsApp && (
-                    <div className="space-y-6 pt-4 border-t border-white/10 mt-6">
-                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {benefit.details?.map((detail, d) => (
-                          <li key={d} className="flex items-start gap-3 text-sm font-light text-cream/50">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0 mt-1.5" />
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="pt-4 flex flex-col sm:flex-row items-center gap-6">
-                        <Link 
-                          href={benefit.href || '#'} 
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full sm:w-auto px-8 py-4 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-1 text-center"
-                        >
-                          {benefit.cta}
-                        </Link>
-                        <p className="text-[11px] italic font-light text-cream/40">
-                          *Canal privado: nadie verá tus datos ni número.
-                        </p>
-                      </div>
-                    </div>
+                    <Link 
+                      href={benefit.href || '#'} 
+                      target="_blank"
+                      className="inline-block px-4 py-2 bg-[#C9A84C] text-white text-[10px] uppercase tracking-widest font-bold rounded-lg"
+                    >
+                      Entrar →
+                    </Link>
                   )}
                 </div>
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Global Footer Note */}
         <div className="mt-32 pt-16 border-t border-aubergine-dark/5 text-center">
