@@ -45,7 +45,7 @@ const benefits = [
 
 export function SubscriptionBenefitsSection() {
   return (
-    <section className="py-24 md:py-48 relative overflow-hidden px-6">
+    <section className="pt-4 md:pt-8 pb-24 md:pb-48 relative overflow-hidden px-6">
       
       {/* MAPA MUNDI: Backdrop Connectors (Ultra-subtle navigation lines) */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.02] md:opacity-[0.03]">
@@ -59,7 +59,7 @@ export function SubscriptionBenefitsSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Header Section (Minimal) */}
-        <div className="mb-24 md:mb-36 text-center">
+        <div className="mb-16 md:mb-24 text-center">
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

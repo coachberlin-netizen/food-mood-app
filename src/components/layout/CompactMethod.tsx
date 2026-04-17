@@ -59,7 +59,7 @@ const steps = [
 
 export function CompactMethod() {
   return (
-    <section className="py-20 md:py-32 relative overflow-hidden px-6">
+    <section className="pt-20 md:pt-32 pb-8 md:pb-12 relative overflow-hidden px-6">
       
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="text-center mb-16 md:mb-24">
@@ -125,7 +125,7 @@ export function CompactMethod() {
         </div>
 
         {/* Global Footer Navigation */}
-        <div className="mt-20 md:mt-32 text-center">
+        <div className="mt-16 md:mt-24 text-center">
           <Link href="/como-funciona" className="inline-flex items-center gap-4 group">
             <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-aubergine-dark/30 group-hover:text-gold transition-colors font-bold">
                Explorar el método completo
