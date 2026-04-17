@@ -45,63 +45,76 @@ const benefits = [
 
 export function SubscriptionBenefitsSection() {
   return (
-    <section className="py-24 md:py-48 bg-cream border-t border-aubergine-dark/5 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-24 md:py-48 relative overflow-hidden px-6">
+      
+      {/* MAPA MUNDI: Backdrop Connectors (Subtle constellation lines) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] md:opacity-[0.05]">
+        <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+          <path d="M200,300 Q400,100 600,300 T900,500" fill="none" stroke="currentColor" strokeWidth="1" />
+          <path d="M100,600 Q300,800 500,600 T800,400" fill="none" stroke="currentColor" strokeWidth="1" />
+          <path d="M400,200 Q500,500 400,800" fill="none" stroke="currentColor" strokeWidth="1" />
+        </svg>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         
-        {/* Header Section */}
-        <div className="mb-24 md:mb-40">
+        {/* Header Section (Minimal & Integrated) */}
+        <div className="mb-20 md:mb-32 text-center">
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-[10px] font-sans tracking-[0.5em] uppercase text-aubergine-dark/30 mb-8 block font-bold"
           >
-            Ventajas Club Food Mood
+            Universo Food Mood Club
           </motion.span>
           <motion.h3 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-7xl font-serif text-aubergine-dark max-w-4xl leading-[1.05]"
+            className="text-4xl md:text-6xl font-serif text-aubergine-dark max-w-4xl mx-auto leading-tight"
           >
             Todo lo que necesitas para <br/>
             <span className="italic font-light">nutrir tu bienestar.</span>
           </motion.h3>
         </div>
 
-        {/* Benefits Staggered List / Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-24 md:gap-y-40">
+        {/* MAPA MUNDI Layout: Tight Organic Cluster */}
+        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-16 md:gap-x-20 md:gap-y-24 max-w-5xl mx-auto lg:min-h-[500px]">
           {benefits.map((benefit, idx) => (
             <motion.div 
               key={idx} 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1, duration: 1 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: idx * 0.05, duration: 0.8 }}
               viewport={{ once: true }}
-              className={`relative flex flex-col md:flex-row items-start gap-8 md:gap-12 ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
+              className={`relative flex flex-col items-center group max-w-[220px] text-center ${
+                idx === 1 ? 'md:-translate-y-12' : 
+                idx === 2 ? 'md:translate-y-12' : 
+                idx === 4 ? 'md:-translate-y-8' : ''
+              }`}
             >
-              {/* Event of Color (Compact Watercolor Stain) */}
-              <div className="relative flex-shrink-0 group">
+              {/* Node / Manchita */}
+              <div className="relative mb-6">
                 <motion.img 
                   src={benefit.watercolor}
                   alt=""
                   animate={{ 
-                    scale: [1, 1.08, 1],
-                    y: [0, -5, 0],
-                    rotate: [0, 5, 0]
+                    scale: [1, 1.05, 1],
+                    rotate: [0, 3, 0]
                   }}
                   transition={{ 
-                    duration: 12 + idx, 
+                    duration: 10 + idx, 
                     repeat: Infinity, 
                     ease: "easeInOut" 
                   }}
-                  className="w-20 h-20 md:w-28 md:h-28 object-contain opacity-80 mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
+                  className="w-24 h-24 md:w-32 md:h-32 object-contain opacity-80 mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
 
-              <div className="space-y-4 max-w-sm">
-                <h4 className="text-2xl md:text-3xl font-serif text-aubergine-dark leading-snug">
+              <div className="space-y-3 px-2">
+                <h4 className="text-lg md:text-xl font-serif text-aubergine-dark font-bold leading-tight">
                   {benefit.title}
                 </h4>
-                <p className="text-md md:text-lg text-aubergine-dark/60 font-light leading-relaxed text-balance">
+                <p className="text-[12px] md:text-[13px] text-aubergine-dark/60 font-light leading-relaxed text-balance">
                   {benefit.description}
                 </p>
               </div>
@@ -109,65 +122,42 @@ export function SubscriptionBenefitsSection() {
           ))}
         </div>
 
-        {/* Featured: WhatsApp Club Card (Premium Membership Feel) */}
+        {/* Featured: WhatsApp Club Access (Integrated into flow) */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-40 md:mt-60 relative group"
+          className="mt-32 md:mt-48 flex flex-col items-center"
         >
-          <div className="absolute inset-0 bg-aubergine-dark rounded-[40px] md:rounded-[60px] opacity-10 blur-3xl group-hover:opacity-20 transition-opacity duration-1000" />
-          
-          <div className="relative bg-aubergine-dark text-cream p-12 md:p-24 rounded-[40px] md:rounded-[60px] overflow-hidden">
-            {/* Background Texture Effect */}
-            <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
-              <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-gold/20 rounded-full blur-[100px]" />
-            </div>
-
-            <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <span className="text-[10px] font-sans tracking-[0.4em] uppercase text-gold/60 font-bold block">
-                  Suscripción Premium
-                </span>
-                <h3 className="text-4xl md:text-6xl font-serif leading-tight">
-                  food-mood Club <br/>
-                  <span className="italic font-light opacity-80 text-gold">vía WhatsApp</span>
-                </h3>
-                <p className="text-lg md:text-xl text-cream/60 font-light leading-relaxed">
-                  Acceso directo a la mini-newsletter semanal. <br className="hidden md:block"/>
-                  Curada por expertos, libre de ruido.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                  <Link 
-                    href="https://wa.me/34660727224" 
-                    target="_blank"
-                    className="inline-flex items-center justify-center px-10 py-5 bg-gold text-aubergine-dark text-[11px] uppercase tracking-[0.3em] font-bold rounded-full hover:scale-105 transition-transform duration-300 shadow-xl"
-                  >
-                    Entrar al Club →
-                  </Link>
-                  <div className="flex items-center gap-3 px-4">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-[10px] uppercase tracking-[0.2em] opacity-40">Canal privado • 1 envío/semanal</span>
-                  </div>
-                </div>
+          <div className="inline-block relative p-1">
+            <div className="absolute inset-0 bg-gold/10 rounded-full blur-2xl animate-pulse" />
+            <Link 
+              href="https://wa.me/34660727224" 
+              target="_blank"
+              className="relative flex flex-col items-center gap-4 bg-aubergine-dark text-cream px-10 py-10 md:px-16 md:py-16 rounded-full hover:scale-105 transition-transform duration-500 shadow-luxury group overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gold opacity-0 group-hover:opacity-5 transition-opacity" />
+              
+              <span className="text-[9px] font-sans tracking-[0.4em] uppercase text-gold/80 font-bold">
+                Entrar al Club
+              </span>
+              <h3 className="text-3xl md:text-4xl font-serif leading-tight text-center">
+                Vía <span className="italic font-light text-gold">WhatsApp</span>
+              </h3>
+              
+              {/* Subtle Status Info */}
+              <div className="flex items-center gap-2 pt-2 opacity-50 text-[9px] uppercase tracking-widest">
+                <div className="w-1 h-1 bg-green-500 rounded-full" />
+                <span>Canal Privado • Newsletter Semanal</span>
               </div>
-
-              <div className="hidden md:flex flex-col space-y-6 opacity-40">
-                 <p className="text-sm font-light italic leading-loose">
-                  "No es un grupo: tu número es privado y no visible para el resto. Recibes contenido de alto valor científico y recursos curados para tu bienestar."
-                 </p>
-              </div>
-            </div>
+            </Link>
           </div>
         </motion.div>
 
-        {/* Global Footer Note */}
-        <div className="mt-40 md:mt-60 pt-20 border-t border-aubergine-dark/5 text-center">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-aubergine-dark/30 font-bold mb-6">
-            Infraestructura Humana
-          </p>
-          <p className="text-sm md:text-md text-aubergine-dark/40 font-light italic max-w-xl mx-auto leading-loose">
-            Diseñado artesanalmente para asegurar que tu bioquímica y tu bienestar emocional sean los protagonistas de tu mesa.
+        {/* Global Footer Note - More integrated */}
+        <div className="mt-32 text-center">
+          <p className="text-[11px] md:text-[12px] text-aubergine-dark/30 font-light italic max-w-lg mx-auto leading-loose">
+            Diseñamos esta infraestructura para asegurar que tu bioquímica y tu bienestar emocional sean los protagonistas de cada plato.
           </p>
         </div>
 
