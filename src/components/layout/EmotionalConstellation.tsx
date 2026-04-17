@@ -111,7 +111,7 @@ export function EmotionalConstellation() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
 
   return (
-    <div className="relative w-full h-[300px] md:h-[500px] flex items-center justify-center pointer-events-auto">
+    <div className="relative w-full h-[150px] md:h-[250px] flex items-center justify-center pointer-events-auto">
       <svg
         viewBox="0 0 100 100"
         className="w-full h-full max-w-2xl overflow-visible drop-shadow-2xl"

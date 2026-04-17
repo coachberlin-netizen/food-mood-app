@@ -9,7 +9,7 @@ export function HomeAnimationWrapper() {
   if (pathname !== "/") return null;
 
   return (
-    <div className="bg-aubergine-dark py-12">
+    <div className="bg-aubergine py-2">
       <EmotionalConstellation />
     </div>
   );
