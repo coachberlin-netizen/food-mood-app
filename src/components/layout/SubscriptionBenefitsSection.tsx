@@ -26,20 +26,20 @@ const benefits = [
   {
     title: "Paleta emocional personalizada",
     description: "Tu perfil único que evoluciona contigo a medida que cambian tus necesidades.",
-    watercolor: "/images/textures/blob-turquoise.png",
-    color: "#00CED1"
+    watercolor: "/images/textures/blob-aubergine.png",
+    color: "#4B0082"
   },
   {
     title: "Contenido científico exclusivo",
     description: "Artículos sobre el eje intestino-cerebro, microbiota y psicología de la alimentación.",
-    watercolor: "/images/textures/blob-raspberry.png",
-    color: "#E30B5D"
+    watercolor: "/images/textures/blob-gold.png",
+    color: "#C9A84C"
   },
   {
     title: "Fermentos del Mundo",
     description: "Explora nuestro mapa interactivo con los 16 fermentos ancestrales más poderosos del planeta.",
-    watercolor: "/images/textures/blob-turquoise.png",
-    color: "#00CED1"
+    watercolor: "/images/textures/blob-yellow.png",
+    color: "#FFF633"
   }
 ];
 
