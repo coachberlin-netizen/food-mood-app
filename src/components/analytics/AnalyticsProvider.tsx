@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Example typed events
 export type AnalyticsEvent = 
@@ -13,14 +15,11 @@ export type AnalyticsEvent =
 
 /**
  * Global function to track events. 
- * Replace console.log with actual Plausible/GA/Mixpanel calls.
  */
 export const trackEvent = (event: AnalyticsEvent) => {
   if (process.env.NODE_ENV !== "production") {
     // console.log("[Analytics Event]", event.name, "properties" in event ? event.properties : "");
   }
-  // window.plausible(event.name, { props: event.properties });
-  // gtag('event', event.name, { ...event.properties });
 };
 
 export function AnalyticsProvider() {
@@ -33,5 +32,10 @@ export function AnalyticsProvider() {
     }
   }, [pathname]);
 
-  return null; // This component doesn't render anything, just handles global analytics logic
+  return (
+    <>
+      <Analytics />
+      <SpeedInsights />
+    </>
+  );
 }
