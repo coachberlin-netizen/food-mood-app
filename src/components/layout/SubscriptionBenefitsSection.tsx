@@ -8,37 +8,37 @@ const benefits = [
   {
     title: "Recetas funcionales",
     description: "Acceso ilimitado a recetas diseñadas para cada estado emocional y necesidad de tu cuerpo.",
-    watercolor: "/images/textures/watercolor-raspberry.png",
+    watercolor: "/images/textures/blob-raspberry.png",
     color: "#E30B5D"
   },
   {
     title: "Glosario de ingredientes",
     description: "Entiende el poder de cada alimento y cómo influye en tu bienestar desde la neurociencia.",
-    watercolor: "/images/textures/watercolor-lavender.png",
+    watercolor: "/images/textures/blob-lavender.png",
     color: "#E6E6FA"
   },
   {
     title: "Diario emocional-alimentario",
     description: "Un espacio privado para observar y mejorar tus patrones de alimentación consciente.",
-    watercolor: "/images/textures/watercolor-pomelo.png",
+    watercolor: "/images/textures/blob-pomelo.png",
     color: "#FF7F50"
   },
   {
     title: "Paleta emocional personalizada",
     description: "Tu perfil único que evoluciona contigo a medida que cambian tus necesidades.",
-    watercolor: "/images/textures/watercolor-turquoise.png",
+    watercolor: "/images/textures/blob-turquoise.png",
     color: "#00CED1"
   },
   {
     title: "Contenido científico exclusivo",
     description: "Artículos sobre el eje intestino-cerebro, microbiota y psicología de la alimentación.",
-    watercolor: "/images/textures/watercolor-pink.png",
-    color: "#FFD1DC"
+    watercolor: "/images/textures/blob-raspberry.png",
+    color: "#E30B5D"
   },
   {
     title: "Fermentos del Mundo",
     description: "Explora nuestro mapa interactivo con los 16 fermentos ancestrales más poderosos del planeta.",
-    watercolor: "/images/textures/watercolor-turquoise.png",
+    watercolor: "/images/textures/blob-turquoise.png",
     color: "#00CED1"
   }
 ];
@@ -68,7 +68,7 @@ export function SubscriptionBenefitsSection() {
         </div>
 
         {/* Benefits Staggered List / Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-24 md:gap-y-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-24 md:gap-y-40">
           {benefits.map((benefit, idx) => (
             <motion.div 
               key={idx} 
@@ -76,30 +76,29 @@ export function SubscriptionBenefitsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 1 }}
               viewport={{ once: true }}
-              className={`relative flex flex-col items-start ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
+              className={`relative flex flex-col md:flex-row items-start gap-8 md:gap-12 ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
             >
-              {/* Event of Color (Watercolor Accent) */}
-              <div className="relative mb-8 group">
+              {/* Event of Color (Compact Watercolor Stain) */}
+              <div className="relative flex-shrink-0 group">
                 <motion.img 
                   src={benefit.watercolor}
                   alt=""
                   animate={{ 
-                    rotate: [0, 10, 0],
-                    scale: [1, 1.1, 1]
+                    scale: [1, 1.08, 1],
+                    y: [0, -5, 0],
+                    rotate: [0, 5, 0]
                   }}
-                  transition={{ duration: 10 + idx, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-32 h-32 md:w-48 md:h-48 object-contain opacity-60 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-80"
-                />
-                
-                {/* Concept Dot */}
-                <div 
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full blur-[1px] shadow-lg"
-                  style={{ backgroundColor: benefit.color }}
+                  transition={{ 
+                    duration: 12 + idx, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  className="w-20 h-20 md:w-28 md:h-28 object-contain opacity-80 mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
 
               <div className="space-y-4 max-w-sm">
-                <h4 className="text-2xl md:text-3xl font-serif text-aubergine-dark leading-tight">
+                <h4 className="text-2xl md:text-3xl font-serif text-aubergine-dark leading-snug">
                   {benefit.title}
                 </h4>
                 <p className="text-md md:text-lg text-aubergine-dark/60 font-light leading-relaxed text-balance">
