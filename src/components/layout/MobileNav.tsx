@@ -97,9 +97,6 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                   </>
                 ) : (
                   <>
-                    <Link href="/auth/register" onClick={() => setIsOpen(false)} className="text-xl font-bold text-gold hover:text-white transition-colors border-b border-cream/10 pb-6 mb-2 block">
-                      Únete a la Newsletter
-                    </Link>
                     <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Home
                     </Link>

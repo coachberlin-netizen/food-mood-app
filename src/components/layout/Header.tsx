@@ -158,72 +158,52 @@ export function Header() {
                   boxShadow: "0 8px 24px rgba(0,0,0,0.3)"
                 }}
               >
-                {isAuthenticated ? (
-                  <>
-                    <div className="px-2 pb-2 mb-2 border-b border-white/10">
-                      <p className="text-[10px] uppercase tracking-widest text-[#FAF9F6]/40 px-3 py-1">Usuario</p>
-                    </div>
-                    
-                    <Link 
-                      href="/perfil" 
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                      style={{ color: "#FAF9F6" }}
-                    >
-                      <User className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                      <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Mi Perfil</span>
-                    </Link>
+                <div className="px-2 pb-2 mb-2 border-b border-white/10">
+                  <p className="text-[10px] uppercase tracking-widest text-[#FAF9F6]/40 px-3 py-1">Usuario</p>
+                </div>
+                
+                <Link 
+                  href="/perfil" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
+                  style={{ color: "#FAF9F6" }}
+                >
+                  <User className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
+                  <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Mi Perfil</span>
+                </Link>
 
-                    <Link 
-                      href="/dashboard" 
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                      style={{ color: "#FAF9F6" }}
-                    >
-                      <PieChart className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                      <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Dashboard</span>
-                    </Link>
+                <Link 
+                  href="/dashboard" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
+                  style={{ color: "#FAF9F6" }}
+                >
+                  <PieChart className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
+                  <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Dashboard</span>
+                </Link>
 
-                    {!isPremium && (
-                      <Link 
-                        href="/pricing" 
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                        style={{ color: "#FAF9F6" }}
-                      >
-                        <CreditCard className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                        <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Planes</span>
-                      </Link>
-                    )}
-
-                    <div className="h-px bg-white/10 my-2" />
-
-                    <button 
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group text-left"
-                      style={{ color: "#FAF9F6" }}
-                    >
-                      <LogOut className="w-4 h-4 opacity-70 group-hover:text-red-400" />
-                      <span className="group-hover:text-red-400 group-hover:bg-white/[0.08] transition-all">Cerrar sesión</span>
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <div className="px-2 pb-2 mb-2 border-b border-white/10">
-                      <p className="text-[10px] uppercase tracking-widest text-[#FAF9F6]/40 px-3 py-1">Acceso Exclusivo</p>
-                    </div>
-                    
-                    <Link 
-                      href="/auth/register" 
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                      style={{ color: "#FAF9F6" }}
-                    >
-                      <User className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                      <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Únete a la Newsletter</span>
-                    </Link>
-                  </>
+                {!isPremium && (
+                  <Link 
+                    href="/pricing" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
+                    style={{ color: "#FAF9F6" }}
+                  >
+                    <CreditCard className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
+                    <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Planes</span>
+                  </Link>
                 )}
+
+                <div className="h-px bg-white/10 my-2" />
+
+                <button 
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group text-left"
+                  style={{ color: "#FAF9F6" }}
+                >
+                  <LogOut className="w-4 h-4 opacity-70 group-hover:text-red-400" />
+                  <span className="group-hover:text-red-400 group-hover:bg-white/[0.08] transition-all">Cerrar sesión</span>
+                </button>
               </div>
             )}
           </div>
