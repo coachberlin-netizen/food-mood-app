@@ -4,58 +4,64 @@ import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const nodes = [
-  { id: "activacion", name: "Activación", color: "#FFD700", x: 20, y: 30, size: 45, fruit: "citrus" },
-  { id: "calma", name: "Calma", color: "#E6E6FA", x: 75, y: 25, size: 55, fruit: "grapes" },
-  { id: "focus", name: "Focus", color: "#FFFFFF", x: 50, y: 55, size: 50, fruit: "apple" },
-  { id: "social", name: "Social", color: "#FFD1DC", x: 80, y: 70, size: 40, fruit: "strawberry" },
-  { id: "reset", name: "Reset", color: "#E0FFF0", x: 25, y: 80, size: 50, fruit: "pear" },
-  { id: "confort", name: "Confort", color: "#FFDAB9", x: 15, y: 55, size: 42, fruit: "peach" },
+  { id: "activacion", name: "Activación", color: "#FFD700", x: 12, y: 18, size: 45, fruit: "citrus" },
+  { id: "calma", name: "Calma", color: "#E6E6FA", x: 88, y: 12, size: 55, fruit: "grapes" },
+  { id: "focus", name: "Focus", color: "#FFFFFF", x: 50, y: 48, size: 50, fruit: "apple" },
+  { id: "social", name: "Social", color: "#FFD1DC", x: 92, y: 82, size: 40, fruit: "strawberry" },
+  { id: "reset", name: "Reset", color: "#E0FFF0", x: 15, y: 88, size: 50, fruit: "pear" },
+  { id: "confort", name: "Confort", color: "#FFDAB9", x: 6, y: 52, size: 42, fruit: "peach" },
 ]
 
 const FruitIcon = ({ type, color, isHovered, index }: { type: string, color: string, isHovered: boolean, index: number }) => {
   return (
     <g>
-      {/* Halo Background Glow (soft & wide) */}
+      {/* 1. Nebula Halo (Extra wide & soft) */}
       <circle
-        r="7"
+        r="18"
         fill={color}
         style={{
-          filter: "blur(6px)",
-          opacity: isHovered ? 0.35 : 0.15,
-          transition: "all 0.3s ease"
+          filter: "blur(10px)",
+          opacity: isHovered ? 0.15 : 0.08,
+          transition: "all 0.5s ease"
+        }}
+      />
+
+      {/* 2. Atmospheric Glow (Medium) */}
+      <circle
+        r="8"
+        fill={color}
+        style={{
+          filter: "blur(5px)",
+          opacity: isHovered ? 0.4 : 0.2,
+          transition: "all 0.4s ease"
         }}
       />
       
-      {/* Main Core Glow (brighter) */}
+      {/* 3. Core Radiance (Brighter) */}
       <circle
         r="4.5"
         fill={color}
         style={{
-          filter: "blur(3px)",
-          opacity: isHovered ? 0.8 : 0.45,
+          filter: "blur(2.5px)",
+          opacity: isHovered ? 0.95 : 0.6,
           transition: "all 0.3s ease"
         }}
       />
       
-      {/* Sparkles (Destellos) - tiny twinkling stars */}
+      {/* Sparkles (Twinkling stars) */}
       <motion.circle
-        r="0.5" cx="-3" cy="-2" fill="white"
+        r="0.5" cx="-4" cy="-3" fill="white"
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1.5 + (index % 3), repeat: Infinity, delay: index * 0.2 }}
       />
       <motion.circle
-        r="0.4" cx="2" cy="-4" fill="white"
+        r="0.4" cx="3" cy="-5" fill="white"
         animate={{ opacity: [0, 0.8, 0] }}
         transition={{ duration: 2 + (index % 2), repeat: Infinity, delay: index * 0.5 }}
       />
-      <motion.circle
-        r="0.3" cx="3" cy="2" fill="white"
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 1.8 + (index % 4), repeat: Infinity, delay: index * 0.7 }}
-      />
       
-      {/* Solid Fruit Body */}
-      <g opacity={isHovered ? 1 : 0.85} transform="scale(0.45)">
+      {/* Solid Fruit Body (Remains elegant/small) */}
+      <g opacity={isHovered ? 1 : 0.85} transform="scale(0.48)">
         {type === 'apple' && (
           <g>
             <path d="M0,3 C-2,3 -4,1 -4,-2 C-4,-5 -2,-7 0,-7 C2,-7 4,-5 4,-2 C4,1 2,3 0,3 Z" fill={color} />
@@ -96,9 +102,6 @@ const FruitIcon = ({ type, color, isHovered, index }: { type: string, color: str
           </g>
         )}
       </g>
-
-      {/* Subtle shine highlight */}
-      <circle r="1" cx="-1" cy="-1" fill="white" opacity={isHovered ? 0.35 : 0.2} />
     </g>
   );
 };
@@ -111,14 +114,14 @@ export function EmotionalConstellation() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
 
   return (
-    <div className="relative w-full h-[150px] md:h-[250px] flex items-center justify-center pointer-events-auto">
+    <div className="relative w-full h-[85vh] md:h-[80vh] flex items-center justify-center pointer-events-auto">
       <svg
         viewBox="0 0 100 100"
-        className="w-full h-full max-w-2xl overflow-visible drop-shadow-2xl"
+        className="w-full h-full overflow-visible drop-shadow-2xl"
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* Fine Connections (ethereal/magical) */}
-        <g opacity="0.12">
+        {/* Fine Connections (Slightly more visible in large space) */}
+        <g opacity="0.18">
           {connections.map(([a, b], i) => (
             <motion.line
               key={i}
@@ -127,7 +130,7 @@ export function EmotionalConstellation() {
               x2={nodes[b].x}
               y2={nodes[b].y}
               stroke="white"
-              strokeWidth="0.22"
+              strokeWidth="0.25"
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
               transition={{ duration: 1.5, delay: i * 0.1 }}
@@ -143,8 +146,8 @@ export function EmotionalConstellation() {
             animate={{ 
               scale: 1, 
               opacity: 1,
-              y: [node.y, node.y - 3, node.y],
-              x: [node.x, node.x + 1.5, node.x]
+              y: [node.y, node.y - 4, node.y],
+              x: [node.x, node.x + 2, node.x]
             }}
             transition={{
               scale: { delay: i * 0.1, duration: 0.5 },
@@ -169,10 +172,10 @@ export function EmotionalConstellation() {
                 >
                   <text
                     x={0}
-                    y={10}
+                    y={12}
                     textAnchor="middle"
                     fill="white"
-                    className="text-[2.2px] font-sans tracking-[0.22em] uppercase font-bold pointer-events-none"
+                    className="text-[2.5px] font-sans tracking-[0.25em] uppercase font-bold pointer-events-none"
                     style={{ filter: "none" }}
                   >
                     {node.name}
