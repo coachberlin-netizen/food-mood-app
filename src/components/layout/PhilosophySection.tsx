@@ -27,8 +27,8 @@ export function PhilosophySection() {
       label: "La Realidad",
       title: "Impacto del Entorno",
       text: "¿De qué sirve la nutrición si hay estrés? El cansancio y la baja calidad bloquean tu depuración natural. Es como regar una planta en un desierto.",
-      color: "#FFD1DC", // Pastel Pink
-      watercolor: "/images/textures/watercolor-pink.png",
+      color: "#FF7F50", // Naranja Pomelo
+      watercolor: "/images/textures/watercolor-pomelo.png",
       size: "w-[320px] h-[320px]",
       pos: "lg:translate-x-8 lg:-translate-y-8"
     },
@@ -36,8 +36,8 @@ export function PhilosophySection() {
       label: "Calidad",
       title: "100% Real",
       text: "Alimentos donde cada ingrediente es una joya. Seleccionamos lo mejor porque tu bienestar se nota por fuera cuando te sientes bien por dentro.",
-      color: "#E0FFF0", // Mint
-      watercolor: "/images/textures/watercolor-mint.png",
+      color: "#00CED1", // Turquesa Fuerte
+      watercolor: "/images/textures/watercolor-turquoise.png",
       size: "w-[280px] h-[280px]",
       pos: "lg:-translate-x-4 lg:translate-y-12"
     }
