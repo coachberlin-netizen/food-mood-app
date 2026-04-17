@@ -184,7 +184,7 @@ function LoginForm() {
           </form>
 
           <p className="text-center text-aubergine-dark/60 text-sm mt-8 border-t border-aubergine-dark/5 pt-8">
-            ¿No tienes cuenta? <Link href="/auth/register" className="font-bold text-aubergine-dark hover:underline">Crear cuenta gratis</Link>
+            ¿No eres miembro? <Link href="/pricing" className="font-bold text-aubergine-dark hover:underline">Ver planes y acceder</Link>
           </p>
         </div>
       </div>

@@ -28,7 +28,6 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
   const [isLoadingWeekly, setIsLoadingWeekly] = useState(true);
   const searchParams = useSearchParams();
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const isSubscribedFromUrl = searchParams.get('subscribed') === 'true' || searchParams.get('success') === 'true';
 
   useEffect(() => {
     setIsPremium(initialIsPremium);
@@ -41,12 +40,10 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
   useEffect(() => {
     if (!mounted) return;
     const hasSeen = localStorage.getItem('welcome_shown');
-    if (isSubscribedFromUrl) {
-      setShowWelcomeModal(true);
-    } else if (isPremium && !hasSeen) {
+    if (isPremium && !hasSeen) {
       setShowWelcomeModal(true);
     }
-  }, [mounted, isPremium, isSubscribedFromUrl]);
+  }, [mounted, isPremium]);
 
   const handleCloseWelcome = () => {
     localStorage.setItem('welcome_shown', 'true');
@@ -213,7 +210,7 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
         <InspirationSection currentMoodId={currentMoodId} />
         <MoodDiary />
 
-        {!isAuthenticated && !isSubscribedFromUrl ? (
+        {!isAuthenticated ? (
           <section className="flex flex-col gap-8">
             <div className="bg-gradient-to-br from-aubergine-dark via-aubergine to-aubergine-dark rounded-[1.5rem] p-10 md:p-12 relative overflow-hidden text-center">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A84C]/8 rounded-full blur-3xl" />
@@ -224,7 +221,7 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
               </div>
             </div>
           </section>
-        ) : !isPremium && !isSubscribedFromUrl ? (
+        ) : !isPremium ? (
           <section className="flex flex-col gap-8">
             <div className="flex items-center gap-4">
               <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">Tu plan Food·Mood</h2>

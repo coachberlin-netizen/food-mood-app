@@ -1,4 +1,5 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/server'
+import { getPremiumStatus } from '@/lib/premium'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -7,12 +8,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    const SUPABASE_URL = process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
-    const SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    if (!SUPABASE_URL || !SUPABASE_KEY) {
-      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
-    }
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+    const supabase = await createClient()
 
     // Fetch the recipe
     const { data: receta, error } = await supabase
@@ -26,6 +22,19 @@ export async function GET(
         { error: 'Receta no encontrada' },
         { status: 404 }
       )
+    }
+
+    // 🛡️ Security Check: Validate premium access on the backend
+    if (receta.premium_level && receta.premium_level > 0) {
+      const { data: { user } } = await supabase.auth.getUser()
+      const isPremium = user ? await getPremiumStatus(supabase, user.id) : false
+      
+      if (!isPremium) {
+        return NextResponse.json(
+          { error: 'Acceso Denegado: Esta receta requiere una suscripción Premium activa.' },
+          { status: 403 }
+        )
+      }
     }
 
     // Fetch 3 related recipes (same mood + grupo_edad, excluding current)

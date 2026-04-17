@@ -111,6 +111,7 @@ export default function RecetaDetailPage() {
   const router = useRouter();
   const rawId = params.id as string;
   const isUUID = isValidUUID(rawId);
+  const goBack = () => router.back();
 
   const [receta, setReceta] = useState<Receta | null>(null);
   const [relacionadas, setRelacionadas] = useState<RelatedReceta[]>([]);

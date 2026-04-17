@@ -1,17 +1,11 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(req: NextRequest) {
   try {
-    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-    if (!SUPABASE_URL || !SUPABASE_KEY) {
-      console.error('[recetas-api] Missing Supabase env vars')
-      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
-    }
+    const supabase = await createClient()
 
     const { searchParams } = req.nextUrl
 
@@ -24,11 +18,9 @@ export async function GET(req: NextRequest) {
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '24', 10)))
 
     // ── Build Supabase query ──────────────────────────────────
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
-
     let query = supabase
       .from('recetas')
-      .select('*', { count: 'exact' })
+      .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada, segmento, premium_level, image', { count: 'exact' })
 
 
     if (mood) {

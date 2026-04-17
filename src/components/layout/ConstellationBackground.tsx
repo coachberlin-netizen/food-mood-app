@@ -61,7 +61,7 @@ export function ConstellationBackground() {
           fill="none" 
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 0.3 }}
-          transition={{ duration: 10, repeat: Infinity, alternate: true }}
+          transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
         />
         <motion.path 
           d="M200,800 Q400,600 800,900" 
@@ -70,7 +70,7 @@ export function ConstellationBackground() {
           fill="none" 
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 0.3 }}
-          transition={{ duration: 15, repeat: Infinity, alternate: true, delay: 2 }}
+          transition={{ duration: 15, repeat: Infinity, repeatType: "reverse", delay: 2 }}
         />
       </svg>
     </div>
