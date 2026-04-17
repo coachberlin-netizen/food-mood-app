@@ -59,63 +59,81 @@ const steps = [
 
 export function CompactMethod() {
   return (
-    <section className="py-16 md:py-24 bg-cream border-t border-aubergine-dark/5 overflow-hidden">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-[10px] font-sans tracking-[0.3em] uppercase text-aubergine-dark/40 mb-4 font-bold">
-            El Método
-          </h2>
-          <h3 className="text-2xl md:text-3xl font-serif text-aubergine-dark italic">
-            Un flujo circular de bienestar.
+    <section className="py-20 md:py-32 relative overflow-hidden px-6">
+      
+      <div className="max-w-5xl mx-auto relative z-10">
+        <div className="text-center mb-16 md:mb-24">
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-[9px] font-sans tracking-[0.4em] uppercase text-aubergine-dark/30 mb-6 font-bold"
+          >
+            Nuestra Metodología
+          </motion.h2>
+          <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark leading-tight">
+            Un flujo circular <br className="md:hidden" />
+            <span className="italic font-light">de bienestar real.</span>
           </h3>
         </div>
 
-        <div className="relative flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
-          {/* Horizontal Line (Desktop) */}
-          <div className="absolute top-[26px] left-[10%] right-[10%] h-[1px] bg-aubergine-dark/10 hidden md:block" />
+        <div className="relative flex flex-col md:flex-row items-start justify-between gap-12 md:gap-4 max-w-4xl mx-auto">
+          {/* Subtle Connection Line (Desktop) */}
+          <div className="absolute top-[32px] left-[10%] right-[10%] h-[1px] bg-aubergine-dark/5 hidden md:block" />
 
           {steps.map((step, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: idx * 0.1, duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative z-10 flex flex-col items-center flex-1"
+              className="relative z-10 flex flex-col items-center flex-1 group"
             >
-              {/* Node */}
+              {/* Icon Marker (Minimalist) */}
               <div 
-                className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm border border-white/50 ${step.isAction ? 'bg-aubergine-dark text-white hover:scale-110 mb-4' : 'bg-white text-aubergine-dark mb-4'}`}
-                style={!step.isAction ? { borderTop: `2px solid ${step.color}` } : {}}
+                className={`w-16 h-16 flex items-center justify-center transition-all duration-500 mb-6 rounded-full ${step.isAction ? 'bg-aubergine-dark text-gold shadow-luxury scale-110' : 'bg-transparent text-aubergine-dark/40 group-hover:text-aubergine-dark group-hover:scale-105'}`}
               >
                 {step.link ? (
-                  <Link href={step.link} target="_blank" rel="noopener noreferrer">
+                  <Link href={step.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                     {step.icon}
                   </Link>
                 ) : (
-                  step.icon
+                  <div className="flex items-center justify-center relative">
+                    {step.icon}
+                    {/* Subtle glow for non-action icons */}
+                    <div className="absolute inset-0 bg-aubergine-dark/5 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
                 )}
               </div>
 
-              {/* Text */}
-              <div className="text-center">
-                <h4 className="text-[13px] font-serif font-bold text-aubergine-dark mb-0.5">{step.title}</h4>
-                <p className="text-[10px] font-sans uppercase tracking-widest text-aubergine-dark/40 font-medium">
+              {/* Text Content */}
+              <div className="text-center space-y-2">
+                <h4 className="text-sm md:text-base font-serif font-bold text-aubergine-dark tracking-wide">
+                  {step.title}
+                </h4>
+                <p className="text-[10px] md:text-[11px] font-sans uppercase tracking-[0.2em] text-aubergine-dark/40 font-medium whitespace-nowrap">
                   {step.desc}
                 </p>
               </div>
 
-              {/* Vertical Line (Mobile) */}
+              {/* Vertical Connector (Mobile) */}
               {idx < steps.length - 1 && (
-                <div className="w-[1px] h-8 bg-aubergine-dark/10 mt-4 md:hidden" />
+                <div className="w-[1px] h-10 bg-aubergine-dark/5 mt-6 md:hidden" />
               )}
             </motion.div>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <Link href="/como-funciona" className="text-[10px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/30 hover:text-gold transition-colors font-bold flex items-center justify-center gap-2">
-            Ver método completo <ArrowRight className="w-3 h-3" />
+        {/* Global Footer Navigation */}
+        <div className="mt-20 md:mt-32 text-center">
+          <Link href="/como-funciona" className="inline-flex items-center gap-4 group">
+            <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-aubergine-dark/30 group-hover:text-gold transition-colors font-bold">
+               Explorar el método completo
+            </span>
+            <div className="w-6 h-px bg-aubergine-dark/10 group-hover:bg-gold group-hover:w-10 transition-all duration-500" />
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-aubergine-dark/30 group-hover:text-gold transition-colors">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </Link>
         </div>
       </div>
