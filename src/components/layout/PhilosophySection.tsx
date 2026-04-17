@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function PhilosophySection() {
   const nodes = [
@@ -9,8 +9,8 @@ export function PhilosophySection() {
       label: "El Enfoque",
       title: "Hedonismo Consciente",
       text: "¿Cansado de dietas aburridas y reglas estrictas? Creemos que la vida es demasiado corta para no disfrutar cada bocado. Olvídate de la culpa: lo que te sienta bien, ¡es lo que sabe bien!",
-      color: "#FFD700", // Gold
-      watercolor: "/images/textures/watercolor-gold.png",
+      color: "#E30B5D", // Vibrante Frambuesa
+      watercolor: "/images/textures/watercolor-raspberry.png",
       size: "w-[340px] h-[340px]",
       pos: "lg:-translate-x-12"
     },
@@ -47,7 +47,7 @@ export function PhilosophySection() {
     <section className="py-24 md:py-40 bg-background overflow-hidden px-6 relative">
       {/* Decorative Orbs in background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-gold/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-pink-500/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-aubergine/10 rounded-full blur-[120px]" />
       </div>
 
@@ -63,10 +63,10 @@ export function PhilosophySection() {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-serif text-aubergine-dark max-w-3xl leading-[1.1]"
+            className="text-4xl md:text-6xl font-serif text-aubergine-dark max-w-4xl leading-[1.1]"
           >
             Donde el <span className="italic font-light text-aubergine">placer</span> <br className="hidden md:block"/>
-            se encuentra con la <span className="italic font-light text-aubergine">conciencia</span>.
+            se encuentra con la <span className="italic font-light text-aubergine">vitalidad</span>.
           </motion.h2>
         </header>
 
@@ -89,14 +89,14 @@ export function PhilosophySection() {
                 scale: { delay: idx * 0.15, duration: 1 }
               }}
               viewport={{ once: true }}
-              className={`relative group flex flex-col items-center justify-center text-center p-10 rounded-full border border-aubergine-dark/5 shadow-luxury hover:shadow-2xl transition-all duration-500 bg-white/30 backdrop-blur-md ${node.size} ${node.pos}`}
+              className={`relative group flex flex-col items-center justify-center text-center p-10 rounded-full border border-aubergine-dark/5 shadow-luxury hover:shadow-2xl transition-all duration-500 bg-white/40 backdrop-blur-md ${node.size} ${node.pos}`}
             >
-              {/* Watercolor Brushstroke Asset */}
+              {/* Watercolor Brushstroke Asset - Brightened & Boosted */}
               <motion.img 
                 src={node.watercolor}
                 alt=""
                 initial={{ opacity: 0, scale: 0.8, rotate: idx * 45 }}
-                whileInView={{ opacity: 0.45 }}
+                whileInView={{ opacity: 0.75 }}
                 animate={{ 
                   rotate: [idx * 45, idx * 45 + 10, idx * 45],
                   scale: [1, 1.05, 1],
@@ -107,17 +107,27 @@ export function PhilosophySection() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute -inset-16 w-[140%] h-[140%] max-w-none object-contain pointer-events-none opacity-45"
-                style={{ mixBlendMode: 'multiply' }}
+                className="absolute -inset-16 w-[140%] h-[140%] max-w-none object-contain pointer-events-none"
+                style={{ 
+                  mixBlendMode: 'multiply',
+                  filter: 'saturate(1.5) brightness(1.1) contrast(1.1)'
+                }}
               />
 
-              {/* Inner Glow Aura */}
+              {/* Inner Glow Aura - Much more intense */}
               <div 
                 className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                 style={{ 
-                  background: `radial-gradient(circle at center, ${node.color}30 0%, transparent 70%)`,
-                  filter: 'blur(30px)'
+                  background: `radial-gradient(circle at center, ${node.color}60 0%, transparent 80%)`,
+                  filter: 'blur(35px)'
                 }}
+              />
+
+              {/* Twinkling Sparkle sync with constellation */}
+              <motion.div 
+                className="absolute top-1/4 right-1/4 w-1 h-1 bg-white rounded-full blur-[1px]"
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: idx * 0.5 }}
               />
 
               <div className="relative z-10 flex flex-col items-center">
@@ -134,7 +144,7 @@ export function PhilosophySection() {
 
               {/* Decorative Dot */}
               <div 
-                className="absolute bottom-10 w-1.5 h-1.5 rounded-full"
+                className="absolute bottom-10 w-2 h-2 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.9)]"
                 style={{ backgroundColor: node.color }}
               />
             </motion.div>
