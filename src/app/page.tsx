@@ -8,6 +8,7 @@ import { TrustBar } from "@/components/layout/TrustBar"
 import { PhilosophySection } from "@/components/layout/PhilosophySection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
 import { CompactMethod } from "@/components/layout/CompactMethod"
+import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -43,6 +44,7 @@ export default function Home() {
         variants={containerVariants}
         className="relative min-h-[88vh] flex flex-col justify-center items-center px-6 pt-24 md:pt-32 pb-16 bg-aubergine"
       >
+        <ConstellationBackground />
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
           <div className="space-y-7 md:space-y-10 flex flex-col items-center">
             
