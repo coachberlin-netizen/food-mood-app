@@ -169,7 +169,7 @@ export function QuizResult() {
         <div className="w-full sm:flex-1 flex flex-col items-center">
           {!isAuthenticated && (
             <Link href="/auth/register" className="text-xs text-aubergine-dark/60 mt-3 font-sans hover:text-aubergine-dark transition-colors text-center w-full">
-              Crea cuenta para recetas sin repetir cada día →
+              Únete al Club Privado para recibir más recetas →
             </Link>
           )}
         </div>
@@ -177,7 +177,6 @@ export function QuizResult() {
 
 
 
-      {/* Redirección silenciosa si de alguna manera llegaron al result (sin Auth - ya protegido por TestPage, fallback opcional) */}
       {!isAuthenticated && (
         <motion.div 
           initial={{ opacity: 0 }} 
@@ -185,11 +184,11 @@ export function QuizResult() {
           className="w-full bg-[#faf9f6]/80 rounded-xl p-8 md:p-12 border border-aubergine-dark/20 mt-12 shadow-sm flex flex-col items-center"
         >
           <h3 className="text-center text-base font-sans font-light text-aubergine-dark mb-4 max-w-sm">
-            Para ver tu resultado completo y guardar tu estado actual:
+            Para no perder tu resultado y recibir inspiración continua:
           </h3>
           <Link href="/auth/register">
              <button className="py-4 px-8 text-base font-light rounded-xl bg-aubergine-dark text-white hover:bg-aubergine-dark/90 transition-colors">
-               Crear cuenta gratuita
+               Únete al Club Exclusivo
              </button>
           </Link>
         </motion.div>
