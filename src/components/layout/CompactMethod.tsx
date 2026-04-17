@@ -124,16 +124,34 @@ export function CompactMethod() {
           ))}
         </div>
 
-        {/* Global Footer Navigation */}
+        {/* Global Footer Navigation - New Cheerful Yellow Accent */}
         <div className="mt-16 md:mt-24 text-center">
-          <Link href="/como-funciona" className="inline-flex items-center gap-4 group">
-            <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-aubergine-dark/30 group-hover:text-gold transition-colors font-bold">
-               Explorar el método completo
-            </span>
-            <div className="w-6 h-px bg-aubergine-dark/10 group-hover:bg-gold group-hover:w-10 transition-all duration-500" />
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-aubergine-dark/30 group-hover:text-gold transition-colors">
-              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+          <Link 
+            href="/como-funciona" 
+            className="inline-flex items-center gap-6 group relative"
+          >
+            {/* Soft Luminous Glow Background */}
+            <div className="absolute inset-x-[-15px] inset-y-[-10px] bg-gold/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            
+            <div className="relative flex items-center gap-4 bg-gold/5 group-hover:bg-gold py-3 px-8 rounded-full border border-gold/20 group-hover:border-gold transition-all duration-500 shadow-sm group-hover:shadow-luxury">
+              <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-aubergine-dark group-hover:text-white transition-colors font-bold">
+                 Explorar el método completo
+              </span>
+              <div className="w-8 h-px bg-aubergine-dark/20 group-hover:bg-white/50 transition-all duration-500" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-aubergine-dark group-hover:text-white transition-all group-hover:translate-x-1">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
+            {/* Small animating sparkle dot */}
+            <motion.div 
+              animate={{ 
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="absolute -top-1 -right-1 w-2 h-2 bg-gold rounded-full blur-[1px]" 
+            />
           </Link>
         </div>
       </div>
