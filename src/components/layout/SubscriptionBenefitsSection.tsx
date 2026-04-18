@@ -45,7 +45,7 @@ const benefits = [
 
 export function SubscriptionBenefitsSection() {
   return (
-    <section className="pt-4 md:pt-8 pb-24 md:pb-48 relative overflow-hidden px-6">
+    <section className="pt-4 md:pt-8 pb-16 md:pb-24 relative overflow-hidden px-6">
       
       {/* MAPA MUNDI: Backdrop Connectors (Ultra-subtle navigation lines) */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.02] md:opacity-[0.03]">
@@ -59,7 +59,7 @@ export function SubscriptionBenefitsSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Header Section (Minimal) */}
-        <div className="mb-16 md:mb-24 text-center">
+        <div className="mb-12 md:mb-16 text-center">
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -78,7 +78,7 @@ export function SubscriptionBenefitsSection() {
         </div>
 
         {/* MAPA MUNDI: Clustered arrows layout */}
-        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-12 md:gap-x-16 md:gap-y-20 max-w-4xl mx-auto">
+        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-8 md:gap-x-12 md:gap-y-12 max-w-4xl mx-auto">
           {benefits.map((benefit, idx) => (
             <motion.div 
               key={idx} 
@@ -114,10 +114,10 @@ export function SubscriptionBenefitsSection() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-36 md:mt-52 flex flex-col items-center"
+          className="mt-20 md:mt-28 flex flex-col items-center"
         >
           <Link 
-            href="https://wa.me/34660727224" 
+            href="/pricing" 
             target="_blank"
             className="group relative flex items-center gap-6 bg-aubergine-dark text-cream px-10 py-6 md:px-14 md:py-8 rounded-full hover:scale-[1.02] transition-all duration-500 shadow-luxury overflow-hidden"
           >
@@ -126,7 +126,7 @@ export function SubscriptionBenefitsSection() {
              <div className="flex flex-col items-start">
                <span className="text-[8px] font-sans tracking-[0.4em] uppercase text-gold/80 font-bold">Entrar al Club</span>
                <h3 className="text-2xl md:text-3xl font-serif leading-tight">
-                 Vía <span className="italic font-light text-gold">WhatsApp</span>
+                 Planes y <span className="italic font-light text-gold">Suscripciones</span>
                </h3>
              </div>
 
@@ -144,7 +144,7 @@ export function SubscriptionBenefitsSection() {
         </motion.div>
 
         {/* Global Footer Note */}
-        <div className="mt-32 text-center">
+        <div className="mt-16 text-center">
           <p className="text-[11px] text-aubergine-dark/20 font-light italic max-w-md mx-auto">
             Infraestructura emocional diseñada bajo evidencia científica.
           </p>
