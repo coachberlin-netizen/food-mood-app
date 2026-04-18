@@ -182,7 +182,7 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
                   )}
                   <h3 className="text-3xl font-serif text-aubergine-dark group-hover:text-[#6B2737] transition-colors mb-4">{item.name}</h3>
                   <p className="text-[15px] font-light text-aubergine-dark/70 italic leading-relaxed line-clamp-3 mb-6 flex-1">
-                    "{item.tagline}"
+                    &ldquo;{item.tagline}&rdquo;
                   </p>
                   
                   {item.moods && item.moods.length > 0 && (

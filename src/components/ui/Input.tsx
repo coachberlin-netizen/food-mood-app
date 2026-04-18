@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           type={type}
           id={inputId}
           className={cn(
-            "peer flex h-14 w-full rounded-md border border-aubergine-dark/20 dark:border-cream/20 bg-transparent px-4 pt-4 pb-1 text-sm text-foreground transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-navy dark:focus-visible:ring-cream disabled:cursor-not-allowed disabled:opacity-50",
+            "peer flex h-14 w-full rounded-md border border-aubergine-dark/20 dark:border-cream/20 bg-transparent px-4 pt-4 pb-1 text-sm text-foreground transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-aubergine dark:focus-visible:ring-cream disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           placeholder={label}

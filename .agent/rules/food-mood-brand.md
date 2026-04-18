@@ -10,14 +10,16 @@ Connecting emotional states (moods) with functional nutrition to improve well-be
 - Empathetic, encouraging, and scientifically grounded.
 - Always use positive framing.
 
-## Allowed/Forbidden Language
-- **Allowed**: Nourish, support, balance, vitality, mind-body connection, holistic.
-- **Forbidden**: Diet, restriction, detox, guilt, bad foods.
+## Allowed/Forbidden Language (Spanish)
+- **Allowed**: nutrir, equilibrio, vitalidad, placer, conexión mente-cuerpo, holístico.
+- **Forbidden**: dieta, restricción, detox, culpa, alimentos malos.
+- NEVER write "Kombucha vinegar" — always "vinagre de kombucha" or "vinagre de manzana".
 
 ## Colors
-- **Navy**: `#0F172A` (Primary Text)
-- **Gold**: `#F59E0B` (Accents/Highlights)
-- **Cream**: `#FEF9C3` (Backgrounds)
-- **Sage**: `#86EFAC` (Calm/Growth)
-- **Coral**: `#FDA4AF` (Energy/Warmth)
-- **Lavender**: `#D8B4FE` (Relaxation/Focus)
+- **Burgundy**: `#6B2737` (Primary)
+- **Cream**: `#F5F0E8` (Backgrounds)
+- **Gold**: `#C9A84C` (Accents/Highlights)
+- NEVER use navy.
+
+## Aesthetic
+Luxury, hedonistic, pleasure-first, editorial dark typography.

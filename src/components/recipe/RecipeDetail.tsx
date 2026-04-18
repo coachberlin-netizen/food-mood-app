@@ -119,7 +119,7 @@ export function RecipeDetail({ recipe }: { recipe: Recipe }) {
             </div>
           </section>
 
-          <section className="bg-navy p-10 md:p-14 rounded-xl shadow-2xl border border-[#0f172a] relative overflow-hidden">
+          <section className="bg-aubergine p-10 md:p-14 rounded-xl shadow-2xl border border-[#6B2737] relative overflow-hidden">
             <h2 className="text-[11px] font-sans uppercase tracking-[0.2em] mb-6 flex items-center gap-3 text-gold">
               <span className="p-2 rounded-md border border-gold/30 bg-gold/10">✨</span> 
               El toque Food·Mood

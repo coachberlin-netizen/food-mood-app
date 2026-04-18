@@ -15,7 +15,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         <textarea
           id={textareaId}
           className={cn(
-            "peer flex min-h-[120px] w-full rounded-md border border-aubergine-dark/20 dark:border-cream/20 bg-transparent px-4 pt-6 pb-2 text-sm text-foreground transition-colors placeholder:text-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-navy dark:focus-visible:ring-cream disabled:cursor-not-allowed disabled:opacity-50 resize-y",
+            "peer flex min-h-[120px] w-full rounded-md border border-aubergine-dark/20 dark:border-cream/20 bg-transparent px-4 pt-6 pb-2 text-sm text-foreground transition-colors placeholder:text-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-aubergine dark:focus-visible:ring-cream disabled:cursor-not-allowed disabled:opacity-50 resize-y",
             className
           )}
           placeholder={label}

@@ -423,7 +423,7 @@ export const recipesData: Recipe[] = [
     id: "r13",
     moodId: "reset",
     title: "Caldo Depurativo de Cúrcuma y Jengibre",
-    title_en: "Detox Turmeric & Ginger Broth",
+    title_en: "Caldo Depurativo de Cúrcuma y Jengibre",
     tagline: "Volver a cero",
     description: "Para días siguientes a excesos o viajes. Ligero pero potentemente activador hepático.",
     acidBase: "vinagre de kombucha o de manzana cruda",

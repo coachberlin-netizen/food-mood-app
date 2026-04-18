@@ -34,7 +34,7 @@ export default async function AdminWaitlistPage() {
               type="password" 
               name="password"
               placeholder="Admin Password"
-              className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-navy/20"
+              className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-aubergine/20"
               required 
             />
             <button type="submit" className="w-full bg-aubergine-dark text-white py-3 rounded-xl font-bold">

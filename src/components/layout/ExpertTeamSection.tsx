@@ -75,7 +75,7 @@ export function ExpertTeamSection() {
         {/* Closing Thought */}
         <div className="mt-20 md:mt-24 max-w-4xl flex flex-col items-start gap-8">
           <p className="text-lg md:text-[22px] font-serif text-aubergine-dark/60 leading-relaxed italic border-l-2 border-[#C9A84C]/40 pl-6 md:pl-10">
-            "Food Mood combina estratégicamente la sofisticación científica estructural humana con el alcance nativo de la tecnología. El resultado hace que entender la intrincada relación diaria entre tu mente, lo que sientes y lo que comes, sea infinitamente más sencillo, intuitivo y sostenible."
+            &ldquo;Food Mood combina estratégicamente la sofisticación científica estructural humana con el alcance nativo de la tecnología. El resultado hace que entender la intrincada relación diaria entre tu mente, lo que sientes y lo que comes, sea infinitamente más sencillo, intuitivo y sostenible.&rdquo;
           </p>
         </div>
 

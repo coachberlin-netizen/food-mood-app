@@ -185,7 +185,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
           </div>
           <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-aubergine-dark/5 max-w-xl mx-auto">
             <p className="text-aubergine-dark/60 text-sm font-light leading-relaxed italic">
-              "{moodData?.mecanismo}"
+              &ldquo;{moodData?.mecanismo}&rdquo;
             </p>
           </div>
         </motion.div>
@@ -357,7 +357,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
                     </span>
                     <div className="h-px w-8 bg-cream/20 mb-3" />
                     <p className="text-xs text-cream/60 font-light italic">
-                      "{m.descripcion_corta}"
+                      &ldquo;{m.descripcion_corta}&rdquo;
                     </p>
                   </div>
                 </div>

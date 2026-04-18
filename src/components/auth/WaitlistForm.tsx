@@ -71,7 +71,7 @@ export function WaitlistForm({ className = "" }: { className?: string }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full bg-cream/10 border border-aubergine-dark/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-aubergine-dark dark:text-white placeholder-navy/40 dark:placeholder-white/40"
+                className="w-full bg-cream/10 border border-aubergine-dark/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-aubergine-dark dark:text-white placeholder-aubergine/40 dark:placeholder-white/40"
                 placeholder="Tu nombre"
               />
               <input 
@@ -79,7 +79,7 @@ export function WaitlistForm({ className = "" }: { className?: string }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-cream/10 border border-aubergine-dark/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-aubergine-dark dark:text-white placeholder-navy/40 dark:placeholder-white/40"
+                className="w-full bg-cream/10 border border-aubergine-dark/20 dark:border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all font-medium text-aubergine-dark dark:text-white placeholder-aubergine/40 dark:placeholder-white/40"
                 placeholder="tu@email.com"
               />
             </div>

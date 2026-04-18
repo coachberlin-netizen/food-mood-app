@@ -44,7 +44,7 @@ export default function TestimoniosPage() {
                 {t.mood}
               </span>
               <p className="text-xl md:text-2xl font-serif text-aubergine-dark/80 leading-relaxed italic mb-4">
-                "{t.quote}"
+                &ldquo;{t.quote}&rdquo;
               </p>
             </div>
           ))}

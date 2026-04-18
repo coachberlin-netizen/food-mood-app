@@ -54,7 +54,7 @@ const INSPIRATION_MAP: Record<string, InspirationData[]> = {
     {
       phrase: "El cuerpo sabe cómo volver.",
       ingredient: "Cúrcuma",
-      benefit: "Apoya la detoxificación hepática natural.",
+      benefit: "Apoya la depuración hepática natural.",
       ritual: "Bebe un vaso de agua tibia con limón en ayunas."
     }
   ],

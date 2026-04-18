@@ -62,7 +62,7 @@ export default function EquipoPage() {
 
         <footer className="mt-32 pt-16 border-t border-aubergine-dark/10 text-center">
           <p className="text-lg md:text-xl font-serif text-aubergine-dark/60 italic max-w-2xl mx-auto leading-relaxed">
-            "No partimos de una visión unipersonal, sino de un equipo enfocado colectivamente en que el bienestar emocional trascienda la academia."
+            &ldquo;No partimos de una visión unipersonal, sino de un equipo enfocado colectivamente en que el bienestar emocional trascienda la academia.&rdquo;
           </p>
         </footer>
       </div>

@@ -61,7 +61,7 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
           </h1>
           {item.tagline && (
             <p className="text-2xl md:text-3xl text-aubergine-dark/60 font-serif italic max-w-3xl leading-snug">
-              "{item.tagline}"
+              &ldquo;{item.tagline}&rdquo;
             </p>
           )}
         </header>

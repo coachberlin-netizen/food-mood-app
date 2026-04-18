@@ -110,7 +110,7 @@ export function MoodTrend() {
                <circle 
                  key={entry.id}
                  cx={x} cy={y} r="6"
-                 fill={m?.color || "#navy"}
+                 fill={m?.color || "#6B2737"}
                  stroke="#fff"
                  strokeWidth="2"
                  className="hover:r-8 transition-all cursor-crosshair"
