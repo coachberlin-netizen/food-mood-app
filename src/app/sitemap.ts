@@ -1,9 +1,14 @@
 import { MetadataRoute } from 'next';
-import { recipesData } from '@/data/recipes';
 import { SYMPTOMS } from '@/data/symptoms';
+import { createClient } from '@supabase/supabase-js';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.food-mood.app';
+
+  // Initialize Supabase client
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
   // Static Pages
   const staticPages = [
@@ -23,10 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  // Recipes
-  const recipePages = recipesData.map((recipe) => ({
+  // Fetch all recipes from DB
+  const { data: dbRecipes } = await supabase
+    .from('recetas')
+    .select('id, updated_at');
+
+  const recipePages = (dbRecipes || []).map((recipe) => ({
     url: `${baseUrl}/recetas/${recipe.id}`,
-    lastModified: new Date(),
+    lastModified: recipe.updated_at ? new Date(recipe.updated_at) : new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
