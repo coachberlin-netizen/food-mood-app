@@ -1,235 +1,535 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { quizData } from "@/data/quiz"
-import { moods } from "@/data/moods"
-import { useQuizStore } from "@/store/useQuizStore"
-import { QuizStep } from "@/components/quiz/QuizStep"
-import { QuizProgress } from "@/components/quiz/QuizProgress"
-import { QuizResult } from "@/components/quiz/QuizResult"
-import { useRouter } from "next/navigation"
-import { useAuthStore } from "@/store/useAuthStore"
+import { useState, useEffect, useMemo } from "react"
+import { createClient } from "@/lib/supabase/client"
 import Link from "next/link"
-import { ArrowRight, RefreshCw, Sparkles } from "lucide-react"
+import { Lock, ArrowRight, RotateCcw, Check } from "lucide-react"
 
-export default function TestPage() {
-  const { currentStep, isFinished, leadingMood, calculateResult, resultMood, resetQuiz, quizCount } = useQuizStore()
-  const { isAuthenticated } = useAuthStore()
-  const router = useRouter()
-  const [mounted, setMounted] = useState(false)
+// ── Types ─────────────────────────────────────────────────────────────────
 
-  // Email capture state
-  const [showEmailGate, setShowEmailGate] = useState(false)
+type SliderKey = "energia" | "animo" | "tension" | "conexion" | "claridad"
+type SliderValues = Record<SliderKey, number>
+type SaveStatus = "idle" | "saving" | "saved" | "error"
+type SubEmotion = { name: string; pct: number; color: string }
+type MosaicoEntry = { date: string; color_hex: string; state_name: string }
+
+// ── Slider config ─────────────────────────────────────────────────────────
+
+const SLIDERS: {
+  key: SliderKey
+  label: string
+  emoji: string
+  low: string
+  high: string
+  trackStart: string
+  trackEnd: string
+}[] = [
+  { key: "energia",  label: "Energía",  emoji: "⚡", low: "Agotada",     high: "Vibrante",    trackStart: "#9B6DE6", trackEnd: "#FFB000" },
+  { key: "animo",    label: "Ánimo",    emoji: "🌡", low: "Hundida",     high: "Radiante",    trackStart: "#4A7AB5", trackEnd: "#E8703A" },
+  { key: "tension",  label: "Tensión",  emoji: "🌊", low: "Calma total", high: "Muy tensa",   trackStart: "#5A9B8A", trackEnd: "#C04878" },
+  { key: "conexion", label: "Conexión", emoji: "🤍", low: "Aislada",     high: "Conectada",   trackStart: "#7A5AAA", trackEnd: "#5A9B8A" },
+  { key: "claridad", label: "Claridad", emoji: "🔮", low: "Niebla",      high: "Foco total",  trackStart: "#8A8AAA", trackEnd: "#4A90D0" },
+]
+
+const SUB_COLORS: Record<string, string> = {
+  "Calma":         "#5A9B8A",
+  "Ansiedad leve": "#7A5AAA",
+  "Energía":       "#E8703A",
+  "Melancolía":    "#4A7AB5",
+  "Conexión":      "#C04878",
+  "Foco":          "#4A90D0",
+}
+
+// ── Math helpers ──────────────────────────────────────────────────────────
+
+function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
+
+function calcColor(v: SliderValues): { r: number; g: number; b: number; hex: string } {
+  const { energia, animo, tension, conexion, claridad } = v
+  const r = lerp(lerp(60, 220, energia / 100), lerp(40, 200, tension / 100), 0.5)
+  const g = lerp(lerp(30, 180, animo / 100), lerp(80, 200, claridad / 100), 0.5)
+  const b = lerp(lerp(40, 180, conexion / 100), lerp(60, 200, (100 - tension) / 100), 0.45)
+  const hex = "#" + [r, g, b].map(n => Math.round(Math.max(0, Math.min(255, n))).toString(16).padStart(2, "0")).join("")
+  return { r, g, b, hex }
+}
+
+function calcStateName(v: SliderValues): string {
+  const { energia, animo, tension, conexion, claridad } = v
+  if (tension < 35 && animo > 55 && energia > 45)           return "Calma luminosa"
+  if (tension > 65 && animo < 45)                            return "Tormenta interior"
+  if (energia < 40 && animo > 40 && tension < 40)            return "Bruma tranquila"
+  if (energia > 60 && conexion > 65)                         return "Chispa social"
+  if (claridad > 65 && tension < 45 && energia > 40)         return "Foco profundo"
+  if (tension > 50 && energia > 55)                          return "Viento cruzado"
+  if (claridad < 40 && tension < 50)                         return "Niebla suave"
+  if (animo > 70 && energia > 65)                            return "Marea alta"
+  if (energia < 35 && tension < 35 && animo > 35)            return "Remanso quieto"
+  return "Luz dispersa"
+}
+
+function calcSubEmotions(v: SliderValues): SubEmotion[] {
+  const { energia, animo, tension, conexion, claridad } = v
+  const raw = [
+    { name: "Calma",         value: (100 - tension) * 0.6 + (100 - energia) * 0.2 },
+    { name: "Ansiedad leve", value: tension * 0.5 + (100 - animo) * 0.2 },
+    { name: "Energía",       value: energia * 0.7 + animo * 0.1 },
+    { name: "Melancolía",    value: (100 - animo) * 0.5 + (100 - conexion) * 0.2 },
+    { name: "Conexión",      value: conexion * 0.6 + animo * 0.2 },
+    { name: "Foco",          value: claridad * 0.7 + (100 - tension) * 0.15 },
+  ]
+  const top3 = [...raw].sort((a, b) => b.value - a.value).slice(0, 3)
+  const total = top3.reduce((s, e) => s + e.value, 0)
+  return top3.map(e => ({
+    name: e.name,
+    pct: total > 0 ? Math.round((e.value / total) * 100) : 0,
+    color: SUB_COLORS[e.name] ?? "#888",
+  }))
+}
+
+// ── Slider component ──────────────────────────────────────────────────────
+
+function DimensionSlider({
+  cfg,
+  value,
+  onChange,
+}: {
+  cfg: typeof SLIDERS[number]
+  value: number
+  onChange: (v: number) => void
+}) {
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-[11px] font-bold uppercase tracking-widest text-[#6B2737]/50">
+          {cfg.emoji} {cfg.label}
+        </span>
+        <span className="text-[11px] font-semibold text-[#6B2737]/50 tabular-nums">{value}</span>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-[10px] text-[#6B2737]/35 w-14 text-right shrink-0 leading-tight">{cfg.low}</span>
+        <div className="relative flex-1 h-8 flex items-center">
+          {/* Gradient track */}
+          <div
+            className="absolute w-full h-2 rounded-full"
+            style={{ background: `linear-gradient(to right, ${cfg.trackStart}, ${cfg.trackEnd})` }}
+          />
+          {/* Dim right portion */}
+          <div
+            className="absolute h-2 right-0 rounded-r-full bg-white/50 transition-all duration-75"
+            style={{ width: `${100 - value}%` }}
+          />
+          {/* Native input (transparent, handles events) */}
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={value}
+            onChange={e => onChange(Number(e.target.value))}
+            className="absolute w-full h-full opacity-0 cursor-pointer z-10"
+          />
+          {/* Custom thumb */}
+          <div
+            className="absolute w-5 h-5 rounded-full bg-white shadow-md border-2 pointer-events-none transition-all duration-75"
+            style={{ left: `calc(${value}% - 10px)`, borderColor: cfg.trackEnd }}
+          />
+        </div>
+        <span className="text-[10px] text-[#6B2737]/35 w-14 shrink-0 leading-tight">{cfg.high}</span>
+      </div>
+    </div>
+  )
+}
+
+// ── Email gate ────────────────────────────────────────────────────────────
+
+function EmailGate({
+  onSubmit,
+  onSkip,
+}: {
+  onSubmit: (email: string) => Promise<void>
+  onSkip: () => void
+}) {
   const [email, setEmail] = useState("")
-  const [emailSubmitting, setEmailSubmitting] = useState(false)
-  const [emailError, setEmailError] = useState("")
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
-  useEffect(() => {
-    setMounted(true)
-    // Always start fresh when entering the test page
-    resetQuiz()
-  }, [resetQuiz])
-
-  useEffect(() => {
-    if (currentStep >= quizData.length && !isFinished) {
-      // Show email gate only once
-      const leadCaptured = localStorage.getItem('fm_lead_captured')
-      if (leadCaptured) {
-        calculateResult()
-      } else {
-        setShowEmailGate(true)
-      }
-    }
-  }, [currentStep, isFinished, calculateResult])
-
-  // Email submission handler
-  const handleEmailSubmit = async (e: React.FormEvent) => {
+  const handle = async (e: React.FormEvent) => {
     e.preventDefault()
     const trimmed = email.trim().toLowerCase()
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setEmailError('Introduce un email válido')
+      setError("Introduce un email válido")
       return
     }
-    setEmailSubmitting(true)
-    setEmailError('')
-
+    setSubmitting(true)
+    setError("")
     try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmed, source: 'quiz' }),
-      })
-      const data = await res.json()
-      // 23505 = unique violation (email already exists) → treat as success
-      if (!res.ok && data?.code !== '23505') {
-        setEmailError('Algo ha ido mal. Inténtalo de nuevo.')
-        setEmailSubmitting(false)
-        return
-      }
+      await onSubmit(trimmed)
     } catch {
-      setEmailError('Algo ha ido mal. Inténtalo de nuevo.')
-      setEmailSubmitting(false)
-      return
+      setError("Algo ha ido mal. Inténtalo de nuevo.")
+      setSubmitting(false)
     }
-
-    localStorage.setItem('fm_lead_captured', 'true')
-    setShowEmailGate(false)
-    setEmailSubmitting(false)
-    calculateResult()
   }
-
-  // Skip email
-  const handleSkipEmail = () => {
-    setShowEmailGate(false)
-    calculateResult()
-  }
-
-  // Prevent hydration mismatch
-  if (!mounted) return null;
-
-  // ── EMAIL CAPTURE GATE (after quiz, before result) ──────────
-  if (showEmailGate) {
-    return (
-      <div className="min-h-[calc(100vh-80px)] w-full flex flex-col items-center justify-center p-6 md:p-12 bg-[var(--background)]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full flex flex-col items-center text-center"
-        >
-          {/* Eyebrow */}
-          <span className="text-[11px] font-sans tracking-[0.2em] uppercase text-[#C9A84C] font-semibold mb-6">
-            Tu estado Food·Mood está listo
-          </span>
-
-          <h2 className="text-3xl md:text-4xl font-serif italic text-aubergine-dark mb-4 leading-snug">
-            ¿Dónde te lo enviamos?
-          </h2>
-          <p className="text-base text-aubergine-dark/50 font-light mb-8 leading-relaxed max-w-sm">
-            Accede a tu resultado ahora y recibe cada semana una receta funcional personalizada para tu estado de ánimo.
-          </p>
-
-          <form onSubmit={handleEmailSubmit} className="w-full max-w-sm space-y-4">
-            <div>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => { setEmail(e.target.value); setEmailError('') }}
-                placeholder="tu@email.com"
-                required
-                className="w-full px-4 py-4 rounded-xl border border-aubergine-dark/15 bg-cream text-aubergine-dark text-sm placeholder:text-aubergine-dark/30 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/30 focus:border-[#C9A84C]/50 transition-all"
-                autoFocus
-              />
-              {emailError && (
-                <p className="text-xs text-red-500 text-left mt-2">{emailError}</p>
-              )}
-            </div>
-            <button
-              type="submit"
-              disabled={emailSubmitting}
-              className="w-full inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream text-sm font-semibold rounded-xl shadow-luxury hover:shadow-luxury-hover transition-all disabled:opacity-60"
-            >
-              {emailSubmitting ? (
-                <div className="w-4 h-4 rounded-full border-2 border-cream/30 border-t-cream animate-spin" />
-              ) : (
-                <>
-                  Ver mi resultado
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-          </form>
-
-          <p className="mt-6 text-[11px] text-aubergine-dark/30 font-light">
-            Sin spam. Cancela cuando quieras.
-          </p>
-
-          <button
-            onClick={handleSkipEmail}
-            className="mt-4 text-[11px] text-aubergine-dark/25 hover:text-aubergine-dark/40 transition-colors cursor-pointer"
-          >
-            Prefiero no dejar mi email →
-          </button>
-        </motion.div>
-      </div>
-    )
-  }
-
-  // ── QUIZ ALREADY COMPLETED: show return screen ──────────────
-  if (quizCount > 0 && !isFinished && currentStep === 0 && resultMood) {
-    const moodObj = moods.find(m => m.id === resultMood)
-
-    return (
-      <div className="min-h-[calc(100vh-80px)] w-full flex flex-col items-center justify-center p-6 md:p-12 bg-[var(--background)]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-lg w-full flex flex-col items-center text-center gap-8"
-        >
-          <div className="w-24 h-24 rounded-full flex items-center justify-center text-5xl"
-            style={{ backgroundColor: moodObj?.color + '20' }}
-          >
-            {moodObj?.emoji || '✨'}
-          </div>
-
-          <div className="space-y-3">
-            <h1 className="text-3xl md:text-4xl font-serif text-aubergine-dark">
-              Ya conoces tu estado
-            </h1>
-            <p className="text-lg text-aubergine-dark/50 font-light">
-              Tu último resultado: <span className="font-semibold text-aubergine-dark">{moodObj?.nombre}</span>
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4 w-full max-w-xs">
-            <Link
-              href="/resultado"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-aubergine-dark text-cream text-sm font-semibold rounded-xl shadow-luxury hover:shadow-luxury-hover transition-all"
-            >
-              <Sparkles className="w-4 h-4" />
-              Ver mi resultado e inspiración
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <button
-              onClick={() => resetQuiz()}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm text-aubergine-dark/60 font-medium hover:text-aubergine-dark transition-colors"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              Repetir el test
-            </button>
-          </div>
-
-          <p className="text-[11px] text-aubergine-dark/30 font-light mt-4">
-            Has completado {quizCount} {quizCount === 1 ? 'test' : 'tests'}
-          </p>
-        </motion.div>
-      </div>
-    )
-  }
-
-  const activeMoodObj = leadingMood ? moods.find(m => m.id === leadingMood) : null
-  const backgroundColor = activeMoodObj?.fondo || "var(--background)"
 
   return (
-    <motion.div 
-      className="min-h-[calc(100vh-80px)] w-full flex flex-col p-6 md:p-12 lg:p-16 transition-colors duration-1000 ease-in-out"
-      animate={{ backgroundColor }}
-      style={{ backgroundColor: "#faf9f6" }}
-    >
-      <div className="w-full max-w-4xl mx-auto flex-1 flex flex-col pt-8 lg:pt-16">
-        {!isFinished && currentStep < quizData.length ? (
-          <>
-            <QuizProgress total={quizData.length} />
-            <div className="flex-1 flex flex-col relative w-full overflow-hidden">
-              <AnimatePresence mode="wait">
-                <QuizStep key={currentStep} question={quizData[currentStep]} />
-              </AnimatePresence>
-            </div>
-          </>
-        ) : (
-          <QuizResult />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ backgroundColor: "rgba(45,15,22,0.72)" }}>
+      <div className="bg-[#F5F0E8] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-4">Tu estado está listo</p>
+        <h2 className="font-serif text-2xl text-[#2d0f16] mb-3 leading-snug">¿Dónde te lo enviamos?</h2>
+        <p className="text-sm text-[#6B2737]/55 font-light mb-6 leading-relaxed">
+          Accede a tu resultado y recibe cada semana una receta personalizada para tu estado.
+        </p>
+        <form onSubmit={handle} className="space-y-3">
+          <input
+            type="email"
+            value={email}
+            onChange={e => { setEmail(e.target.value); setError("") }}
+            placeholder="tu@email.com"
+            autoFocus
+            className="w-full px-4 py-3 rounded-xl border border-[#6B2737]/15 bg-white text-[#2d0f16] text-sm placeholder:text-[#6B2737]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/40"
+          />
+          {error && <p className="text-xs text-red-500 text-left">{error}</p>}
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-60"
+            style={{ backgroundColor: "#6B2737" }}
+          >
+            {submitting ? "Guardando…" : "Ver mi resultado"}
+          </button>
+        </form>
+        <button
+          onClick={onSkip}
+          className="mt-4 text-xs text-[#6B2737]/30 hover:text-[#6B2737]/50 transition-colors"
+        >
+          Prefiero no dejar mi email →
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ── Mosaico emocional ─────────────────────────────────────────────────────
+
+const PLACEHOLDER_COLORS = [
+  "#5A9B8A","#E8703A","#4A7AB5","#C04878","#C8902A",
+  "#7A5AAA","#4A90D0","#5A9B8A","#E8703A","#4A7AB5",
+]
+
+function MosaicoEmocional({ isSubscriber }: { isSubscriber: boolean }) {
+  const [entries, setEntries] = useState<MosaicoEntry[]>([])
+  const supabase = createClient()
+
+  useEffect(() => {
+    if (!isSubscriber) return
+    async function load() {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+      const { data } = await supabase
+        .from("test_results")
+        .select("created_at, color_hex, state_name")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(28)
+      if (data) {
+        setEntries(data.map(d => ({
+          date: (d.created_at as string).split("T")[0],
+          color_hex: d.color_hex as string,
+          state_name: d.state_name as string,
+        })))
+      }
+    }
+    load()
+  }, [isSubscriber])
+
+  const today = new Date().toISOString().split("T")[0]
+
+  const cells = Array.from({ length: 28 }, (_, i) => {
+    const d = new Date()
+    d.setDate(d.getDate() - i)
+    const dateStr = d.toISOString().split("T")[0]
+    const entry = entries.find(e => e.date === dateStr)
+    return { date: dateStr, entry, isToday: dateStr === today }
+  })
+
+  return (
+    <section className="mt-12 pt-10 border-t border-[#6B2737]/8">
+      <div className="mb-5">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-1">Diario emocional</p>
+        <h2 className="font-serif text-2xl text-[#2d0f16]">Tu mosaico emocional</h2>
+        <p className="text-xs text-[#6B2737]/40 font-light mt-1">28 días · un color por día</p>
+      </div>
+
+      <div className="relative">
+        {/* Grid */}
+        <div className={`grid grid-cols-7 gap-1.5 ${!isSubscriber ? "blur-sm pointer-events-none select-none" : ""}`}>
+          {isSubscriber
+            ? cells.map((cell, i) => (
+                <div
+                  key={i}
+                  title={cell.entry ? `${cell.date} · ${cell.entry.state_name}` : cell.date}
+                  className="aspect-square rounded-lg transition-all"
+                  style={{
+                    backgroundColor: cell.entry ? cell.entry.color_hex : "#E4DDD6",
+                    outline: cell.isToday ? "2px solid #6B2737" : "none",
+                    outlineOffset: "2px",
+                  }}
+                />
+              ))
+            : Array.from({ length: 28 }, (_, i) => (
+                <div
+                  key={i}
+                  className="aspect-square rounded-lg"
+                  style={{ backgroundColor: PLACEHOLDER_COLORS[i % PLACEHOLDER_COLORS.length] }}
+                />
+              ))
+          }
+        </div>
+
+        {/* Lock overlay */}
+        {!isSubscriber && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <span className="text-2xl mb-3">🔐</span>
+            <p className="font-serif text-base text-[#2d0f16] leading-snug mb-4">
+              Suscríbete y únete a nuestro<br />club de WhatsApp Premium
+            </p>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:scale-105 shadow-md"
+              style={{ backgroundColor: "#6B2737" }}
+            >
+              Suscribirme <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         )}
       </div>
-    </motion.div>
+    </section>
+  )
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────
+
+const INITIAL: SliderValues = { energia: 50, animo: 50, tension: 50, conexion: 50, claridad: 50 }
+
+export default function TestPage() {
+  const [values, setValues]           = useState<SliderValues>(INITIAL)
+  const [saveStatus, setSaveStatus]   = useState<SaveStatus>("idle")
+  const [showEmailGate, setShowEmailGate] = useState(false)
+  const [isSubscriber, setIsSubscriber]  = useState(false)
+  const [mounted, setMounted]         = useState(false)
+
+  const supabase = createClient()
+
+  useEffect(() => {
+    setMounted(true)
+    async function checkSub() {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+      const { data } = await supabase
+        .from("profiles")
+        .select("is_premium")
+        .eq("id", user.id)
+        .single()
+      if (data?.is_premium) setIsSubscriber(true)
+    }
+    checkSub()
+  }, [])
+
+  const color       = useMemo(() => calcColor(values), [values])
+  const stateName   = useMemo(() => calcStateName(values), [values])
+  const subEmotions = useMemo(() => calcSubEmotions(values), [values])
+
+  const handleChange = (key: SliderKey, v: number) => {
+    setValues(prev => ({ ...prev, [key]: v }))
+    if (saveStatus === "saved") setSaveStatus("idle")
+  }
+
+  const doInsert = async (sessionId: string) => {
+    const { data: { user } } = await supabase.auth.getUser()
+    const top = subEmotions
+    const { error } = await supabase.from("test_results").insert({
+      user_id:     user?.id ?? null,
+      session_id:  sessionId,
+      ...values,
+      color_hex:   color.hex,
+      state_name:  stateName,
+      subemocion_1: top[0]?.name ?? null,
+      subpct_1:     top[0]?.pct  ?? null,
+      subemocion_2: top[1]?.name ?? null,
+      subpct_2:     top[1]?.pct  ?? null,
+      subemocion_3: top[2]?.name ?? null,
+      subpct_3:     top[2]?.pct  ?? null,
+    })
+    if (error) throw error
+  }
+
+  const handleSave = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    const sessionId = crypto.randomUUID()
+
+    if (user || localStorage.getItem("fm_lead_captured")) {
+      setSaveStatus("saving")
+      try {
+        await doInsert(sessionId)
+        setSaveStatus("saved")
+      } catch {
+        setSaveStatus("error")
+      }
+    } else {
+      setShowEmailGate(true)
+    }
+  }
+
+  const handleEmailSubmit = async (email: string) => {
+    const sessionId = crypto.randomUUID()
+    await fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, source: "test-color" }),
+    })
+    localStorage.setItem("fm_lead_captured", "true")
+    setShowEmailGate(false)
+    setSaveStatus("saving")
+    try {
+      await doInsert(sessionId)
+      setSaveStatus("saved")
+    } catch {
+      setSaveStatus("error")
+    }
+  }
+
+  const handleSkipEmail = async () => {
+    const sessionId = crypto.randomUUID()
+    setShowEmailGate(false)
+    setSaveStatus("saving")
+    try {
+      await doInsert(sessionId)
+      setSaveStatus("saved")
+    } catch {
+      setSaveStatus("error")
+    }
+  }
+
+  const reset = () => {
+    setValues(INITIAL)
+    setSaveStatus("idle")
+  }
+
+  // Orb colours — lighter top-left, darker bottom-right for 3D effect
+  const { r, g, b, hex } = color
+  const light = `rgb(${Math.min(255, Math.round(r + 45))},${Math.min(255, Math.round(g + 45))},${Math.min(255, Math.round(b + 45))})`
+  const dark  = `rgb(${Math.max(0,   Math.round(r - 25))},${Math.max(0,   Math.round(g - 25))},${Math.max(0,   Math.round(b - 25))})`
+
+  if (!mounted) return null
+
+  return (
+    <>
+      {showEmailGate && (
+        <EmailGate onSubmit={handleEmailSubmit} onSkip={handleSkipEmail} />
+      )}
+
+      <div className="min-h-[calc(100vh-80px)] bg-[#F5F0E8] py-10 px-5">
+        <div className="max-w-[520px] mx-auto">
+
+          {/* Header */}
+          <header className="text-center mb-10">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#C9A84C] mb-3">
+              Test de estado
+            </p>
+            <h1 className="font-serif text-3xl md:text-4xl text-[#2d0f16] leading-tight">
+              ¿De qué color es tu hoy?
+            </h1>
+            <p className="text-sm text-[#6B2737]/45 font-light mt-2">
+              Mueve los 5 sliders — tu color aparece en tiempo real.
+            </p>
+          </header>
+
+          {/* Orb */}
+          <div className="flex flex-col items-center mb-10">
+            <div
+              className="w-44 h-44 md:w-52 md:h-52 rounded-full shadow-2xl"
+              style={{
+                background: `radial-gradient(circle at 35% 35%, ${light}, ${hex} 52%, ${dark})`,
+                transition: "background 0.15s ease",
+              }}
+            />
+            <div className="mt-5 text-center">
+              <p className="font-serif text-xl text-[#2d0f16] italic">{stateName}</p>
+              <p className="text-[10px] text-[#6B2737]/35 font-mono mt-1 uppercase tracking-widest">{hex}</p>
+            </div>
+          </div>
+
+          {/* Granularity bars */}
+          <div className="mb-8 bg-white rounded-2xl p-5 border border-[#6B2737]/8 space-y-4">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#6B2737]/35 mb-1">
+              Tu espectro emocional
+            </p>
+            {subEmotions.map(sub => (
+              <div key={sub.name}>
+                <div className="flex justify-between items-center mb-1.5">
+                  <span className="text-xs font-semibold text-[#2d0f16]">{sub.name}</span>
+                  <span className="text-xs text-[#6B2737]/45 tabular-nums">{sub.pct}%</span>
+                </div>
+                <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: "#F5F0E8" }}>
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${sub.pct}%`,
+                      backgroundColor: sub.color,
+                      transition: "width 0.15s ease",
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Sliders */}
+          <div className="space-y-7 mb-9">
+            {SLIDERS.map(cfg => (
+              <DimensionSlider
+                key={cfg.key}
+                cfg={cfg}
+                value={values[cfg.key]}
+                onChange={v => handleChange(cfg.key, v)}
+              />
+            ))}
+          </div>
+
+          {/* Save button */}
+          <div className="flex flex-col gap-3">
+            {saveStatus === "saved" ? (
+              <div
+                className="flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-semibold"
+                style={{ color: "#5A9B8A", backgroundColor: "#5A9B8A18" }}
+              >
+                <Check className="w-4 h-4" /> Estado guardado
+              </div>
+            ) : (
+              <button
+                onClick={handleSave}
+                disabled={saveStatus === "saving"}
+                className="w-full py-4 rounded-2xl text-sm font-semibold text-white transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 shadow-lg"
+                style={{ backgroundColor: "#6B2737" }}
+              >
+                {saveStatus === "saving"
+                  ? "Guardando…"
+                  : saveStatus === "error"
+                  ? "Error — inténtalo de nuevo"
+                  : "Guardar mi estado"}
+              </button>
+            )}
+            <button
+              onClick={reset}
+              className="flex items-center justify-center gap-1.5 text-xs text-[#6B2737]/35 hover:text-[#6B2737]/55 transition-colors py-1"
+            >
+              <RotateCcw className="w-3 h-3" /> Reiniciar
+            </button>
+          </div>
+
+          {/* Mosaico emocional */}
+          <MosaicoEmocional isSubscriber={isSubscriber} />
+
+        </div>
+      </div>
+    </>
   )
 }
