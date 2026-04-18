@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
+import { RECIPE_COLUMNS } from '@/lib/constants'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,7 +21,7 @@ export async function GET(req: NextRequest) {
     // ── Build Supabase query ──────────────────────────────────
     let query = supabase
       .from('recetas')
-      .select('id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada, segmento, premium_level, image', { count: 'exact' })
+      .select(RECIPE_COLUMNS, { count: 'exact' })
 
 
     if (mood) {

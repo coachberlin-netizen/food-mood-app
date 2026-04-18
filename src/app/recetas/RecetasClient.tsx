@@ -271,6 +271,7 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // State for premium status, initialized from server-side prop
   const [isPremium, setIsPremium] = useState(initialIsPremium);
@@ -313,13 +314,21 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
       params.set("limit", String(LIMIT));
 
       const res = await fetch(`/api/recetas?${params.toString()}`);
+      
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Error al cargar las recetas");
+      }
+
       const data: ApiResponse = await res.json();
       setRecetas(data.recetas || []);
       setTotal(data.total || 0);
       setTotalPages(data.totalPages || 0);
-    } catch (err) {
+      setError(null);
+    } catch (err: any) {
       console.error("Error fetching recetas:", err);
       setRecetas([]);
+      setError(err.message || "No se pudieron cargar las recetas");
     } finally {
       setIsLoading(false);
     }
@@ -444,6 +453,17 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
           </div>
+        ) : error ? (
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center justify-center py-24 text-center">
+            <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mb-6">
+              <X className="w-8 h-8 text-red-500" />
+            </div>
+            <h2 className="text-2xl font-serif text-aubergine-dark mb-3">Error de servidor</h2>
+            <p className="text-aubergine-dark/50 font-light max-w-md mb-8">{error}</p>
+            <button onClick={fetchRecetas} className="px-8 py-3 rounded-xl bg-aubergine-dark text-cream text-sm font-medium hover:bg-aubergine transition-colors">
+              Reintentar
+            </button>
+          </motion.div>
         ) : recetas.length === 0 ? (
           (!isPremium && hasFilters) ? (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center py-16">
