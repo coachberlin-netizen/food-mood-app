@@ -44,7 +44,7 @@ export function PhilosophySection() {
   ];
 
   return (
-    <section className="py-24 md:py-40 bg-background overflow-hidden px-6 relative">
+    <section className="py-16 md:py-24 bg-background overflow-hidden px-6 relative">
       {/* Decorative Orbs in background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-pink-500/10 rounded-full blur-[120px]" />
@@ -52,7 +52,7 @@ export function PhilosophySection() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <header className="mb-20 md:mb-32 flex flex-col items-center text-center">
+        <header className="mb-12 md:mb-16 flex flex-col items-center text-center">
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -70,7 +70,7 @@ export function PhilosophySection() {
           </motion.h2>
         </header>
 
-        <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-0 lg:min-h-[600px]">
+        <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-0 lg:min-h-[500px]">
           {nodes.map((node, idx) => (
             <motion.div
               key={idx}

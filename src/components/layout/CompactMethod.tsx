@@ -43,26 +43,26 @@ const steps = [
     color: "#FF2D55"
   },
   {
-    title: "Acompañar",
-    desc: "Consulta WhatsApp",
+    title: "Únete al Club",
+    desc: "Suscripciones",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-7.6 8.38 8.38 0 013.8.9L22 4l-2.1 4.7z" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx="12" cy="12" r="1" fill="currentColor" />
       </svg>
     ),
-    color: "#25D366",
+    color: "#C9A84C",
     isAction: true,
-    link: "https://wa.me/34600000000?text=Hola.%20Vengo%20de%20la%20web%20de%20Food%20Mood%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20psicol%C3%B3gica%20sobre%20mi%20relaci%C3%B3n%20con%20la%20comida."
+    link: "/pricing"
   }
 ];
 
 export function CompactMethod() {
   return (
-    <section className="pt-20 md:pt-32 pb-8 md:pb-12 relative overflow-hidden px-6">
+    <section className="pt-12 md:pt-16 pb-8 relative overflow-hidden px-6">
       
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-12 md:mb-16">
           <motion.h2 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -125,7 +125,7 @@ export function CompactMethod() {
         </div>
 
         {/* Global Footer Navigation - New Cheerful Yellow Accent */}
-        <div className="mt-16 md:mt-24 text-center">
+        <div className="mt-12 md:mt-16 text-center">
           <Link 
             href="/como-funciona" 
             className="inline-flex items-center gap-6 group relative"

@@ -42,11 +42,11 @@ export default function Home() {
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        className="relative min-h-[88vh] flex flex-col justify-center items-center px-6 pt-24 md:pt-32 pb-16 bg-aubergine"
+        className="relative min-h-[70vh] flex flex-col justify-center items-center px-6 pt-20 md:pt-24 pb-12 bg-aubergine"
       >
         <ConstellationBackground />
         <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
-          <div className="space-y-7 md:space-y-10 flex flex-col items-center">
+          <div className="space-y-6 md:space-y-8 flex flex-col items-center">
             
             <motion.p variants={itemVariants} className="text-cream/60 font-sans tracking-[0.2em] uppercase font-bold text-sm md:text-base mb-2">
               Tu Placer, Tu Bienestar
