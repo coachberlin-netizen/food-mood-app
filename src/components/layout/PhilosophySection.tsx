@@ -6,8 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 export function PhilosophySection() {
   const nodes = [
     {
-      label: "El Enfoque",
-      title: "Hedonismo Consciente",
+      label: "Buen Sabor",
+      title: "Buen Sabor",
       text: "¿Cansado de dietas aburridas y reglas estrictas? Creemos que la vida es demasiado corta para no disfrutar cada bocado. Olvídate de la culpa: lo que te sienta bien, ¡es lo que sabe bien!",
       color: "#E30B5D", // Vibrante Frambuesa
       watercolor: "/images/textures/watercolor-raspberry.png",
@@ -131,9 +131,6 @@ export function PhilosophySection() {
               />
 
               <div className="relative z-10 flex flex-col items-center">
-                <span className="text-[9px] font-sans tracking-[0.3em] uppercase text-gold font-bold mb-3 block opacity-80">
-                  {node.label}
-                </span>
                 <h4 className="text-xl md:text-2xl font-serif text-aubergine-dark mb-4 leading-tight">
                   {node.title}
                 </h4>
