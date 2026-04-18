@@ -16,15 +16,23 @@ function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
+  const processedRef = React.useRef(false);
 
   useEffect(() => {
     const code = searchParams.get('code');
-    if (code) {
-      // PKCE Exchange: Critical to establish a session before updateUser
-      supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
-        if (error) {
-          setError("El enlace de recuperación es inválido o ha caducado. Por favor, solicita uno nuevo.");
-        }
+    if (code && !processedRef.current) {
+      processedRef.current = true;
+      
+      // Check if we already have a session (maybe it was exchanged by middleware or previous run)
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) return; // Already have a session, we are good
+
+        supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+          if (error) {
+            console.error("Exchange error:", error);
+            setError("El enlace de recuperación es inválido o ha caducado. Por favor, solicita uno nuevo.");
+          }
+        });
       });
     }
   }, [searchParams, supabase.auth]);
