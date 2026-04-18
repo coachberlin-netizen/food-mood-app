@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import PaletaClient from "./PaletaClient";
+import { PaletaIntroSection } from "./PaletaIntroSection";
 import { createClient } from "@/lib/supabase/server";
 import { getPremiumStatus } from "@/lib/premium";
 import { EmotionalLandscape } from "@/components/layout/EmotionalLandscape";
@@ -24,6 +25,7 @@ export default async function PaletaPage() {
 
   return (
     <div className="min-h-screen bg-[#FFE135]">
+      <PaletaIntroSection />
       <Suspense fallback={
         <div className="min-h-[100dvh] bg-[#FFE135] flex items-center justify-center">
           <div className="w-10 h-10 rounded-full border-2 border-aubergine/10 border-t-aubergine animate-spin" />

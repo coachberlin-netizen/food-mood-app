@@ -32,56 +32,96 @@ const MOOD_COLORS: Record<string, string> = {
 
 const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
   <div className="max-w-6xl mx-auto px-6 py-20 md:py-32">
-    {/* 1. HERO STAT */}
+
+    {/* HEADLINE */}
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      className="text-center mb-16 md:mb-24"
+      className="text-center mb-16 md:mb-20"
     >
-      <span className="text-[10px] tracking-[0.4em] uppercase text-[#6B2737]/60 mb-12 block font-bold">Evidencia Biológica</span>
-      <div className="relative inline-block mb-10">
-        <motion.h1 
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="font-serif text-[8rem] md:text-[14rem] leading-none text-[#6B2737] italic font-bold tracking-tighter"
-        >
+      <span className="text-[10px] tracking-[0.4em] uppercase text-[#6B2737]/50 mb-8 block font-bold">
+        Evidencia Biológica
+      </span>
+      <h2 className="font-serif text-4xl md:text-7xl text-[#6B2737] leading-[1.1] font-bold mb-6">
+        Tus emociones no son psicológicas.<br className="hidden md:block" />{" "}
+        <span className="italic font-light">Son bioquímica.</span>
+      </h2>
+      <p className="text-base md:text-lg text-[#4A4A4A] font-light max-w-2xl mx-auto leading-relaxed">
+        El eje intestino-cerebro procesa más información de abajo arriba que al revés.
+        Lo que comes cambia cómo te sientes — antes de que lo decidas.
+      </p>
+    </motion.div>
+
+    {/* STAT CARDS */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-20 md:mb-28"
+    >
+      {/* Serotonina */}
+      <div className="bg-white rounded-3xl border border-[#6B2737]/8 p-8 text-center shadow-sm">
+        <span className="font-serif text-[5rem] leading-none text-[#6B2737] italic font-bold block mb-2">
           95%
-        </motion.h1>
-        <motion.div 
-           initial={{ opacity: 0, x: -20 }}
-           animate={{ opacity: 1, x: 0 }}
-           transition={{ delay: 0.5 }}
-           className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 bg-[#C9A84C] text-[#FAF9F6] px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest rotate-12 hidden md:block"
-        >
-          Dato Clave
-        </motion.div>
-      </div>
-      
-      <div className="space-y-4">
-        <h2 className="text-xl md:text-3xl font-serif text-[#6B2737] italic tracking-tight">
+        </span>
+        <p className="text-base font-serif text-[#6B2737] italic mb-3">
           de tu serotonina se produce en el intestino
-        </h2>
-        <p className="text-sm md:text-md text-[#4A4A4A] font-light max-w-xl mx-auto leading-relaxed uppercase tracking-[0.1em]">
-          Tu estado emocional y tu digestión son el mismo sistema.
+        </p>
+        <p className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
+          No en el cerebro — allí solo llega el resultado.
+        </p>
+      </div>
+
+      {/* Dopamina */}
+      <div className="bg-white rounded-3xl border border-[#6B2737]/8 p-8 text-center shadow-sm">
+        <span className="font-serif text-[5rem] leading-none text-[#6B2737] italic font-bold block mb-2">
+          50%
+        </span>
+        <p className="text-base font-serif text-[#6B2737] italic mb-3">
+          de tu dopamina depende del microbioma intestinal
+        </p>
+        <p className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
+          Tu motivación del lunes empieza en lo que comiste el domingo.
         </p>
       </div>
     </motion.div>
 
-    {/* 2. MAIN HEADLINE */}
-    <motion.div 
+    {/* ANSIEDAD MECANISMO — bloque destacado */}
+    <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className="max-w-4xl mx-auto text-center mb-24 md:mb-32"
+      className="max-w-4xl mx-auto mb-24 md:mb-32 rounded-3xl overflow-hidden border border-[#6B2737]/10"
     >
-      <h3 className="font-serif text-3xl md:text-6xl text-[#6B2737] leading-[1.1] font-light">
-        Comer con ansiedad convierte <br className="hidden md:block" />
-        <span className="italic font-bold">cualquier alimento en inflamación.</span>
-      </h3>
+      <div className="bg-[#2d0f16] px-8 md:px-12 py-8">
+        <p className="font-serif text-2xl md:text-4xl text-[#F5F0E8] leading-[1.2] font-light italic">
+          &ldquo;Comer con ansiedad convierte cualquier alimento en inflamación.&rdquo;
+        </p>
+      </div>
+      <div className="bg-white px-8 md:px-12 py-8">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-4">
+          El mecanismo
+        </p>
+        <div className="flex flex-col md:flex-row gap-4">
+          {[
+            { step: "01", text: "El sistema simpático (estrés) se activa" },
+            { step: "02", text: "Suprime la digestión y el peristaltismo" },
+            { step: "03", text: "Altera la permeabilidad y el microbioma" },
+          ].map((item) => (
+            <div key={item.step} className="flex items-start gap-3 flex-1">
+              <span className="font-serif text-2xl font-bold text-[#6B2737]/20 shrink-0 leading-tight">
+                {item.step}
+              </span>
+              <p className="text-sm text-[#4A4A4A] font-light leading-relaxed pt-0.5">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </motion.div>
 
-    {/* 3. INFOGRAPHIC */}
+    {/* INFOGRAPHIC */}
     <GutBrainInfographic />
 
     <motion.div 
