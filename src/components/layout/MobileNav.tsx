@@ -63,7 +63,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                       Home
                     </Link>
                     <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      Guía Emocional
+                      Tus emociones
                     </Link>
                     <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Dashboard
@@ -71,9 +71,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                     <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Test
                     </Link>
-                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      Mi Paleta
-                    </Link>
+
                     <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Mi Diario
                     </Link>
@@ -101,7 +99,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                       Home
                     </Link>
                     <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      Guía Emocional
+                      Tus emociones
                     </Link>
                     <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Test gratuito

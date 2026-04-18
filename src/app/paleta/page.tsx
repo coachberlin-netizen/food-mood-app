@@ -4,6 +4,13 @@ import { createClient } from "@/lib/supabase/server";
 import { getPremiumStatus } from "@/lib/premium";
 import { EmotionalLandscape } from "@/components/layout/EmotionalLandscape";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tus emociones | Food·Mood",
+  description: "Explora tu paleta emocional y descubre qué alimentos necesita tu cuerpo hoy.",
+};
+
 export const dynamic = 'force-dynamic';
 
 export default async function PaletaPage() {
@@ -25,7 +32,7 @@ export default async function PaletaPage() {
         <PaletaClient initialIsPremium={isPremium} />
       </Suspense>
 
-      {/* Guía Emocional section moved from Home */}
+      {/* Tus emociones section moved from Home */}
       <EmotionalLandscape />
     </div>
   );

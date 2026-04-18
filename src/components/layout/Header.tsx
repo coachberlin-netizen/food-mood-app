@@ -70,7 +70,7 @@ export function Header() {
                 Home
               </Link>
               <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Guía Emocional
+                Tus emociones
               </Link>
               <Link href="/dashboard" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Dashboard
@@ -78,9 +78,7 @@ export function Header() {
               <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Test
               </Link>
-              <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mi Paleta
-              </Link>
+
               <Link href="/diario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Mi Diario
               </Link>
@@ -112,7 +110,7 @@ export function Header() {
                 Home
               </Link>
               <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Guía Emocional
+                Tus emociones
               </Link>
               <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Test gratuito
