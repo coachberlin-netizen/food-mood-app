@@ -133,7 +133,7 @@ export function SubscriptionBenefitsSection() {
              <div className="w-px h-12 bg-cream/10 hidden md:block" />
 
              <div className="hidden md:flex flex-col text-[9px] uppercase tracking-widest text-cream/40 gap-1 font-bold">
-               <span>Canal Privado</span>
+               <span>Canal Privado de WhatsApp</span>
                <span>1 Envío Semanal</span>
              </div>
 
