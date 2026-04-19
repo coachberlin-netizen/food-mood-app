@@ -79,6 +79,9 @@ export function Header() {
                 Test
               </Link>
 
+              <Link href="/bol" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                🥣 Mi bol
+              </Link>
               <Link href="/diario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Mi Diario
               </Link>
