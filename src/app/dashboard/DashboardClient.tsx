@@ -15,6 +15,7 @@ import { PushNotificationBanner } from "@/components/dashboard/PushNotificationB
 import { PaletteWidget } from "@/components/dashboard/PaletteWidget";
 import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
+import { FoodMoodIndex } from "@/components/FoodMoodIndex";
 
 export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot }: { initialIsPremium: boolean; weeklyHighlightsSlot?: React.ReactNode }) {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
@@ -130,6 +131,12 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
   return (
     <div className="min-h-screen bg-transparent">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
+
+        {/* ── Índice Food·Mood ── */}
+        <div className="max-w-[520px] w-full mx-auto">
+          <FoodMoodIndex />
+        </div>
+
         <div className="flex flex-col gap-6">
           <PaletteWidget />
           {isAuthenticated && (
