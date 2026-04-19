@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import { InstallBanner } from "@/components/ui/InstallBanner";
+import { ConsentModal } from "@/components/ui/ConsentModal";
 import { ServiceWorkerRegistration } from "@/components/ui/ServiceWorkerRegistration";
 import { PaletteProvider } from "@/contexts/PaletteContext";
 import "./globals.css";
@@ -120,6 +121,7 @@ export default function RootLayout({
               {children}
             </div>
           </PageTransition>
+          <ConsentModal />
           <InstallBanner />
           <Footer />
           <ServiceWorkerRegistration />

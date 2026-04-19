@@ -82,6 +82,14 @@ RESEND_API_KEY
 # Push Notifications
 NEXT_PUBLIC_VAPID_PUBLIC_KEY
 VAPID_PRIVATE_KEY
+
+# Security
+ENCRYPTION_SECRET      # AES-256-GCM key for sensitive field encryption (server-side only)
+ANALYTICS_SALT         # Salt for irreversible user_hash in analytics_aggregated
+
+# Admin
+ADMIN_EMAIL
+RESEND_FROM_EMAIL
 ```
 
 ## Code Style
