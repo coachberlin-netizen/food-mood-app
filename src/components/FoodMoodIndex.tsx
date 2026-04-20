@@ -223,14 +223,15 @@ export function FoodMoodIndex() {
   const supabaseRef = useRef(createClient())
   const supabase = supabaseRef.current
 
-  const [loading, setLoading]         = useState(true)
-  const [userId, setUserId]           = useState<string | null>(null)
-  const [indexValue, setIndexValue]   = useState<number | null>(null)
-  const [yesterday, setYesterday]     = useState<number | null>(null)
-  const [streak, setStreak]           = useState(0)
-  const [history, setHistory]         = useState<HistoryEntry[]>([])
-  const [todayTest, setTodayTest]     = useState<TestSnapshot | null>(null)
-  const [todayBol, setTodayBol]       = useState<FoodSnapshot | null>(null)
+  const [loading, setLoading]               = useState(true)
+  const [userId, setUserId]                 = useState<string | null>(null)
+  const [indexValue, setIndexValue]         = useState<number | null>(null)
+  const [yesterday, setYesterday]           = useState<number | null>(null)
+  const [streak, setStreak]                 = useState(0)
+  const [history, setHistory]               = useState<HistoryEntry[]>([])
+  const [todayTest, setTodayTest]           = useState<TestSnapshot | null>(null)
+  const [todayBol, setTodayBol]             = useState<FoodSnapshot | null>(null)
+  const [todaySymptoms, setTodaySymptoms]   = useState(false)
 
   useEffect(() => {
     async function init() {
@@ -240,8 +241,8 @@ export function FoodMoodIndex() {
 
       const today = todayISO()
 
-      // Fetch today's test + bol in parallel
-      const [{ data: testRaw }, { data: bolRaw }] = await Promise.all([
+      // Fetch today's test + bol + symptoms in parallel
+      const [{ data: testRaw }, { data: bolRaw }, { data: sympRaw }] = await Promise.all([
         supabase
           .from("test_results")
           .select("*")
@@ -256,7 +257,14 @@ export function FoodMoodIndex() {
           .eq("user_id", user.id)
           .eq("log_date", today)
           .maybeSingle(),
+        supabase
+          .from("symptom_log")
+          .select("id")
+          .eq("user_id", user.id)
+          .eq("log_date", today)
+          .maybeSingle(),
       ])
+      setTodaySymptoms(!!sympRaw)
 
       const test = testRaw as TestSnapshot | null
       const bol  = bolRaw  as FoodSnapshot | null
@@ -457,7 +465,7 @@ export function FoodMoodIndex() {
       {todayTest && <ColorCard test={todayTest} />}
 
       {/* ── Quick-action CTAs ── */}
-      {(!todayTest || !todayBol) && (
+      {(!todayTest || !todayBol || !todaySymptoms) && (
         <div
           className="rounded-3xl p-5"
           style={{
@@ -492,6 +500,19 @@ export function FoodMoodIndex() {
                 }}
               >
                 🥣 Registrar mi bol
+              </Link>
+            )}
+            {!todaySymptoms && (
+              <Link
+                href="/sintomas"
+                className="flex-1 py-3 rounded-2xl text-center text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+                style={{
+                  backgroundColor: "white",
+                  border: "2px solid #6B2737",
+                  color: "#6B2737",
+                }}
+              >
+                🩺 Mis síntomas
               </Link>
             )}
           </div>

@@ -85,7 +85,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                       Glosario
                     </Link>
                     <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      Síntomas
+                      🩺 Síntomas
                     </Link>
                     {!isPremium && (
                       <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">

@@ -95,7 +95,7 @@ export function Header() {
                 Fermentos
               </Link>
               <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Síntomas
+                🩺 Síntomas
               </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Blog
