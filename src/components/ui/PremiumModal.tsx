@@ -70,7 +70,7 @@ export function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
                   className="w-full py-4 rounded-full bg-aubergine-dark text-white font-medium hover:bg-aubergine transition-all hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-5 h-5" />
-                  Hazte Premium — 9.99€/mes
+                  Hazte Premium — desde 5€/mes
                 </button>
                 <p className="text-xs text-aubergine-dark/50 font-medium">
                   Cancela cuando quieras. Sin compromisos.

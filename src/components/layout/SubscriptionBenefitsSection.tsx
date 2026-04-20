@@ -142,7 +142,7 @@ export function SubscriptionBenefitsSection() {
                 className="text-sm font-light transition-colors hover:text-white"
                 style={{ color: 'rgba(245,240,232,0.45)' }}
               >
-                Suscríbete al club de WhatsApp Premium →
+                Desde 5€/mes — ver planes →
               </Link>
             </div>
           </div>
