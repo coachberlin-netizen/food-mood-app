@@ -158,7 +158,7 @@ export function Header() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="transition-opacity hover:opacity-80 flex items-center focus:outline-none"
             >
-              <Avatar fallback="U" size="sm" />
+              <Avatar fallback="U" size="sm" className="bg-cream/15 border-cream/20 text-cream" />
             </button>
 
             {isMenuOpen && (

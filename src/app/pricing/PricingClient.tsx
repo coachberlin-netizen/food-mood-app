@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 
 const FREE_FEATURES = [
-  { text: "Test de mood + Paleta Emocional (resultado sin recetas)", included: true },
   { text: "Inspiración diaria (lectura)", included: true },
   { text: "Historial de estados", included: false },
   { text: "Recetas que responden a cada color", included: false },
