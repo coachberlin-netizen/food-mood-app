@@ -77,6 +77,109 @@ function JourneyCard() {
   )
 }
 
+// ── RetosCard — compact dashboard widget ──────────────────────────────────────
+function RetosCard() {
+  const [activeReto, setActiveReto] = useState<{
+    slug: string; title: string; emoji: string; color: string;
+    current_day: number; duration_days: number
+  } | null>(null)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    async function load() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { setLoaded(true); return }
+
+      const { data: enrollments } = await supabase
+        .from('user_challenges')
+        .select('challenge_id, current_day, paid, completed')
+        .eq('user_id', user.id)
+        .eq('paid', true)
+        .eq('completed', false)
+        .limit(1)
+        .maybeSingle()
+
+      if (enrollments) {
+        const { data: ch } = await supabase
+          .from('challenges')
+          .select('slug, title, emoji, color, duration_days')
+          .eq('id', enrollments.challenge_id)
+          .single()
+        if (ch) {
+          setActiveReto({
+            slug:         ch.slug,
+            title:        ch.title,
+            emoji:        ch.emoji,
+            color:        ch.color,
+            duration_days: ch.duration_days,
+            current_day:  enrollments.current_day,
+          })
+        }
+      }
+      setLoaded(true)
+    }
+    load()
+  }, [])
+
+  if (!loaded) return null
+
+  if (!activeReto) {
+    return (
+      <Link
+        href="/retos"
+        className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
+        style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.1)" }}
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+              🎯 Retos
+            </p>
+            <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>
+              Elige tu próxima transformación
+            </p>
+          </div>
+          <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
+            Ver retos →
+          </span>
+        </div>
+      </Link>
+    )
+  }
+
+  const pct = Math.min(100, ((activeReto.current_day - 1) / activeReto.duration_days) * 100)
+
+  return (
+    <Link
+      href={`/retos/${activeReto.slug}`}
+      className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
+      style={{ backgroundColor: activeReto.color + '18', border: `1px solid ${activeReto.color}33` }}
+    >
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: activeReto.color }}>
+          🎯 Tu reto activo
+        </p>
+        <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
+          Continuar →
+        </span>
+      </div>
+      <p className="font-serif text-lg font-bold mb-1" style={{ color: "#2d0f16" }}>
+        {activeReto.emoji} {activeReto.title}
+      </p>
+      <p className="text-xs font-medium mb-3" style={{ color: activeReto.color }}>
+        Día {activeReto.current_day} de {activeReto.duration_days}
+      </p>
+      <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: "rgba(107,39,55,0.1)" }}>
+        <div
+          className="h-1.5 rounded-full"
+          style={{ width: `${Math.max(2, pct)}%`, backgroundColor: activeReto.color }}
+        />
+      </div>
+    </Link>
+  )
+}
+
 // ── WeeklyCard — compact dashboard widget ─────────────────────────────────────
 function WeeklyCard() {
   const d   = new Date()
@@ -235,6 +338,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
 
         {/* ── Journey card ── */}
         {isAuthenticated && <JourneyCard />}
+
+        {/* ── Retos card ── */}
+        {isAuthenticated && <RetosCard />}
 
         {/* ── Weekly card ── */}
         {isAuthenticated && <WeeklyCard />}

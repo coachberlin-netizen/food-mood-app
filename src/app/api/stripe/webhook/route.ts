@@ -51,6 +51,35 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object
+
+      // ── Reto (one-time payment) ───────────────────────────────────────────
+      if (session.metadata?.type === 'challenge') {
+        const { user_id, challenge_id } = session.metadata
+        if (user_id && challenge_id) {
+          const { data: fmData } = await supabaseAdmin
+            .from('fm_index_log')
+            .select('index_value')
+            .eq('user_id', user_id)
+            .order('log_date', { ascending: false })
+            .limit(1)
+            .maybeSingle()
+
+          await supabaseAdmin
+            .from('user_challenges')
+            .update({
+              paid:              true,
+              stripe_session_id: session.id,
+              fm_index_start:    (fmData as any)?.index_value ?? null,
+            })
+            .eq('user_id', user_id)
+            .eq('challenge_id', challenge_id)
+
+          console.log(`✅ Reto pagado: user=${user_id} challenge=${challenge_id}`)
+        }
+        break
+      }
+
+      // ── Subscripción (existing flow) ──────────────────────────────────────
       let userId = session.metadata?.supabase_user_id || session.client_reference_id
       const customerEmail = session.customer_details?.email || session.customer_email
 

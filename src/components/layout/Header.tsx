@@ -103,6 +103,9 @@ export function Header() {
               <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 🩺 Síntomas
               </Link>
+              <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                🎯 Retos
+              </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 📩 Newsletter
               </Link>
@@ -129,6 +132,9 @@ export function Header() {
               </Link>
               <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Glosario
+              </Link>
+              <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                🎯 Retos
               </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 📩 Newsletter

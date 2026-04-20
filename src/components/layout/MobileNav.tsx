@@ -93,6 +93,9 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                     <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       🩺 Síntomas
                     </Link>
+                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      🎯 Retos
+                    </Link>
                     {!isPremium && (
                       <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
                         Planes
@@ -118,6 +121,9 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                     </Link>
                     <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Glosario
+                    </Link>
+                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      🎯 Retos
                     </Link>
                     <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       📩 Newsletter
