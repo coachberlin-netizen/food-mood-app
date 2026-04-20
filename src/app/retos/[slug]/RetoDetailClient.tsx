@@ -4,6 +4,26 @@ import { useState, useTransition, useEffect } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
+// ── Twemoji ───────────────────────────────────────────────────────────────────
+const TWEMOJI_BASE = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg'
+const TWEMOJI: Record<string, string> = {
+  '😴': '1f634', '⚡': '26a1', '🌿': '1f33f', '🌸': '1f338', '🏆': '1f3c6',
+}
+
+function Twemoji({ emoji, size }: { emoji: string; size: number }) {
+  const code = TWEMOJI[emoji]
+  if (!code) return <span>{emoji}</span>
+  return (
+    <img
+      src={`${TWEMOJI_BASE}/${code}.svg`}
+      width={size}
+      height={size}
+      alt={emoji}
+      style={{ display: 'inline-block', verticalAlign: 'middle' }}
+    />
+  )
+}
+
 interface Challenge {
   id:           string
   slug:         string
@@ -150,7 +170,15 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         style={{ background: `linear-gradient(160deg, rgba(${rgb},0.12) 0%, transparent 60%)` }}
       >
         <div className="max-w-2xl mx-auto">
-          <span className="text-5xl block mb-4">{challenge.emoji}</span>
+          <div
+            className="flex items-center justify-center rounded-3xl mx-auto mb-4"
+            style={{
+              width: 80, height: 80,
+              backgroundColor: `${challenge.color}18`,
+            }}
+          >
+            <Twemoji emoji={challenge.emoji} size={44} />
+          </div>
           <h1 className="font-serif text-4xl md:text-5xl font-black mb-3 leading-tight" style={{ color: '#2d0f16' }}>
             {challenge.title}
           </h1>
@@ -343,7 +371,9 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             className="rounded-2xl p-8 text-center border"
             style={{ backgroundColor: `rgba(${rgb},0.06)`, borderColor: `rgba(${rgb},0.2)` }}
           >
-            <p className="text-3xl mb-3">🏆</p>
+            <div className="flex justify-center mb-3">
+              <Twemoji emoji="🏆" size={40} />
+            </div>
             <p className="font-serif text-xl font-bold mb-2" style={{ color: '#2d0f16' }}>
               ¡Reto completado!
             </p>

@@ -4,6 +4,27 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 
+// ── Twemoji helpers ───────────────────────────────────────────────────────────
+const TWEMOJI_BASE = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg'
+const TWEMOJI: Record<string, string> = {
+  '😴': '1f634', '⚡': '26a1',  '🌿': '1f33f', '🌸': '1f338',
+  '📘': '1f4d8', '🎧': '1f3a7', '📊': '1f4ca',
+}
+
+function Twemoji({ emoji, size }: { emoji: string; size: number }) {
+  const code = TWEMOJI[emoji]
+  if (!code) return <span>{emoji}</span>
+  return (
+    <img
+      src={`${TWEMOJI_BASE}/${code}.svg`}
+      width={size}
+      height={size}
+      alt={emoji}
+      style={{ display: 'inline-block', verticalAlign: 'middle' }}
+    />
+  )
+}
+
 interface Challenge {
   id:           string
   slug:         string
@@ -55,7 +76,16 @@ function ChallengeCard({
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
-        <span className="text-3xl leading-none">{challenge.emoji}</span>
+        {/* Emoji con halo de color temático */}
+        <div
+          className="flex items-center justify-center rounded-2xl shrink-0"
+          style={{
+            width: 52, height: 52,
+            backgroundColor: `${challenge.color}18`,
+          }}
+        >
+          <Twemoji emoji={challenge.emoji} size={32} />
+        </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
           <span
             className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
@@ -88,9 +118,22 @@ function ChallengeCard({
       </div>
 
       {/* Meta */}
-      <p className="text-xs" style={{ color: 'rgba(107,39,55,0.5)' }}>
-        📘 {challenge.recipe_count} recetas · 🎧 {challenge.audio_count} audios · 📊 tracking diario
-      </p>
+      <div className="flex items-center gap-3 flex-wrap text-xs" style={{ color: 'rgba(107,39,55,0.5)' }}>
+        <span className="flex items-center gap-1">
+          <Twemoji emoji="📘" size={14} />
+          <span>{challenge.recipe_count} recetas</span>
+        </span>
+        <span style={{ opacity: 0.3 }}>·</span>
+        <span className="flex items-center gap-1">
+          <Twemoji emoji="🎧" size={14} />
+          <span>{challenge.audio_count} audios</span>
+        </span>
+        <span style={{ opacity: 0.3 }}>·</span>
+        <span className="flex items-center gap-1">
+          <Twemoji emoji="📊" size={14} />
+          <span>tracking diario</span>
+        </span>
+      </div>
 
       {/* Enrollment state */}
       {enrollment?.paid && !enrollment.completed ? (
