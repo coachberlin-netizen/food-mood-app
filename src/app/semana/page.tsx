@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
+import { getWeekBounds } from "@/lib/weekly-insights"
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -35,20 +36,6 @@ interface CuratedItem {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function getWeekBounds(): { weekStart: string; weekEnd: string } {
-  const d   = new Date()
-  const day = d.getDay()
-  const offset = day === 0 ? -6 : 1 - day
-  const monday = new Date(d)
-  monday.setDate(d.getDate() + offset)
-  monday.setHours(0, 0, 0, 0)
-  const sunday = new Date(monday)
-  sunday.setDate(monday.getDate() + 6)
-  return {
-    weekStart: monday.toISOString().split("T")[0],
-    weekEnd:   sunday.toISOString().split("T")[0],
-  }
-}
 
 function addDays(date: string, n: number): string {
   const d = new Date(date)
@@ -141,7 +128,7 @@ export default function SemanaPage() {
   const [isAuth, setIsAuth]         = useState(false)
   const [loading, setLoading]       = useState(true)
 
-  const { weekStart, weekEnd } = getWeekBounds()
+  const { weekStart, weekEnd } = useMemo(() => getWeekBounds(), [])
 
   useEffect(() => {
     async function init() {
