@@ -305,6 +305,72 @@ function MosaicoEmocional({ isSubscriber }: { isSubscriber: boolean }) {
   )
 }
 
+// ── Result modal ─────────────────────────────────────────────────────────
+
+function ResultModal({
+  color,
+  stateName,
+  subEmotions,
+  onClose,
+}: {
+  color: { r: number; g: number; b: number; hex: string }
+  stateName: string
+  subEmotions: SubEmotion[]
+  onClose: () => void
+}) {
+  const { r, g, b, hex } = color
+  const light = `rgb(${Math.min(255, Math.round(r + 45))},${Math.min(255, Math.round(g + 45))},${Math.min(255, Math.round(b + 45))})`
+  const dark  = `rgb(${Math.max(0, Math.round(r - 25))},${Math.max(0, Math.round(g - 25))},${Math.max(0, Math.round(b - 25))})`
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ backgroundColor: "rgba(45,15,22,0.72)" }}>
+      <div className="bg-[#F5F0E8] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-5">
+          Tu estado de hoy
+        </p>
+
+        {/* Color orb */}
+        <div className="flex justify-center mb-4">
+          <div
+            className="w-28 h-28 rounded-full shadow-xl"
+            style={{ background: `radial-gradient(circle at 35% 35%, ${light}, ${hex} 52%, ${dark})` }}
+          />
+        </div>
+
+        <p className="font-serif text-2xl text-[#2d0f16] italic mb-1">{stateName}</p>
+        <p className="text-[10px] font-mono text-[#6B2737]/30 uppercase tracking-widest mb-5">{hex}</p>
+
+        {/* Sub-emotions */}
+        <div className="space-y-2 mb-7">
+          {subEmotions.map(sub => (
+            <div key={sub.name} className="flex items-center gap-2">
+              <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "#e4ddd6" }}>
+                <div className="h-full rounded-full" style={{ width: `${sub.pct}%`, backgroundColor: sub.color }} />
+              </div>
+              <span className="text-[10px] text-[#6B2737]/50 w-20 text-right shrink-0">{sub.pct}% {sub.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <Link
+          href="/recetas"
+          className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl text-sm font-semibold text-white mb-3 transition-all hover:scale-[1.02] shadow-md"
+          style={{ backgroundColor: "#6B2737" }}
+        >
+          Ver mis recetas para este estado <ArrowRight className="w-4 h-4" />
+        </Link>
+
+        <button
+          onClick={onClose}
+          className="text-xs text-[#6B2737]/35 hover:text-[#6B2737]/55 transition-colors"
+        >
+          Seguir ajustando →
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // ── Main page ─────────────────────────────────────────────────────────────
 
 const INITIAL: SliderValues = { energia: 50, animo: 50, tension: 50, conexion: 50, claridad: 50 }
@@ -313,6 +379,7 @@ export default function TestPage() {
   const [values, setValues]           = useState<SliderValues>(INITIAL)
   const [saveStatus, setSaveStatus]   = useState<SaveStatus>("idle")
   const [showEmailGate, setShowEmailGate] = useState(false)
+  const [showResult, setShowResult]   = useState(false)
   const [isSubscriber, setIsSubscriber]  = useState(false)
   const [mounted, setMounted]         = useState(false)
 
@@ -371,6 +438,7 @@ export default function TestPage() {
       try {
         await doInsert(sessionId)
         setSaveStatus("saved")
+        setShowResult(true)
       } catch {
         setSaveStatus("error")
       }
@@ -392,6 +460,7 @@ export default function TestPage() {
     try {
       await doInsert(sessionId)
       setSaveStatus("saved")
+      setShowResult(true)
     } catch {
       setSaveStatus("error")
     }
@@ -404,6 +473,7 @@ export default function TestPage() {
     try {
       await doInsert(sessionId)
       setSaveStatus("saved")
+      setShowResult(true)
     } catch {
       setSaveStatus("error")
     }
@@ -412,6 +482,7 @@ export default function TestPage() {
   const reset = () => {
     setValues(INITIAL)
     setSaveStatus("idle")
+    setShowResult(false)
   }
 
   // Orb colours — lighter top-left, darker bottom-right for 3D effect
@@ -425,6 +496,14 @@ export default function TestPage() {
     <>
       {showEmailGate && (
         <EmailGate onSubmit={handleEmailSubmit} onSkip={handleSkipEmail} />
+      )}
+      {showResult && (
+        <ResultModal
+          color={color}
+          stateName={stateName}
+          subEmotions={subEmotions}
+          onClose={() => setShowResult(false)}
+        />
       )}
 
       <div className="min-h-[calc(100vh-80px)] bg-[#F5F0E8] py-10 px-5">

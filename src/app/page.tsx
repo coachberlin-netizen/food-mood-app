@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { motion, Variants } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
@@ -9,6 +9,7 @@ import { PhilosophySection } from "@/components/layout/PhilosophySection"
 import { SubscriptionBenefitsSection } from "@/components/layout/SubscriptionBenefitsSection"
 import { CompactMethod } from "@/components/layout/CompactMethod"
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
+import { createClient } from "@/lib/supabase/client"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -33,7 +34,62 @@ const itemVariants: Variants = {
   },
 }
 
+const PALETA_BARS = [
+  { label: "Calma matizada",      segments: [{ pct: 60, color: "#5A9B8A" }, { pct: 25, color: "#4A7AB5" }, { pct: 15, color: "#C04878" }] },
+  { label: "Mañana de energía",   segments: [{ pct: 45, color: "#E8703A" }, { pct: 35, color: "#7A5AAA" }, { pct: 20, color: "#5A9B8A" }] },
+  { label: "Tarde introspectiva", segments: [{ pct: 70, color: "#C8902A" }, { pct: 20, color: "#4A7AB5" }, { pct: 10, color: "#5A9B8A" }] },
+]
+
+function PaletaTeaser() {
+  return (
+    <section className="px-6 py-14 md:py-20" style={{ backgroundColor: "#FEFBF4" }}>
+      <div className="max-w-3xl mx-auto">
+        <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#C9A84C] mb-3 text-center">
+          Tu paleta emocional
+        </p>
+        <h2 className="font-serif text-3xl md:text-4xl text-[#2d0f16] text-center leading-tight mb-3">
+          Las emociones no son blanco y negro.
+        </h2>
+        <p className="text-sm font-light text-[#6B2737]/55 text-center max-w-md mx-auto mb-10 leading-relaxed">
+          Cada estado es una mezcla única. Food·Mood la traduce en colores y en recetas que responden exactamente a esa mezcla.
+        </p>
+
+        <div className="space-y-4 mb-10">
+          {PALETA_BARS.map((bar, i) => (
+            <div key={i}>
+              <p className="text-[9px] font-bold uppercase tracking-widest text-[#6B2737]/35 mb-1.5">{bar.label}</p>
+              <div className="flex rounded-full overflow-hidden h-6">
+                {bar.segments.map((s, j) => (
+                  <div key={j} style={{ width: `${s.pct}%`, backgroundColor: s.color }} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center">
+          <Link
+            href="/paleta"
+            className="px-8 py-3 rounded-full text-sm font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
+            style={{ backgroundColor: "#6B2737" }}
+          >
+            Explorar mi paleta emocional →
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Home() {
+  const [isAuth, setIsAuth] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    createClient().auth.getUser().then(({ data: { user } }) => {
+      setIsAuth(!!user)
+    })
+  }, [])
+
   return (
     <main className="min-h-screen bg-background overflow-hidden font-sans font-light">
       
@@ -78,6 +134,8 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      {isAuth === false && <PaletaTeaser />}
 
       <PhilosophySection />
       
