@@ -1,12 +1,26 @@
+import { Metadata } from "next"
 import { createClient } from "@/lib/supabase/server"
 import GlossaryClient from "./GlossaryClient"
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-export const metadata = {
-  title: "Glosario Food·Mood | El poder de tus ingredientes",
-  description: "Descubre la ciencia interactiva detrás de la comida real. Cómo cada especia, semilla y alimento vivo modula tu biología y tu estado de ánimo."
+export const metadata: Metadata = {
+  title: "Glosario de Ingredientes Funcionales — Food·Mood",
+  description: "Qué es la cúrcuma, el kimchi, la ashwagandha y 50+ ingredientes más: su ciencia, sus compuestos activos y cómo afectan tu estado emocional y tu microbiota.",
+  alternates: { canonical: "/glosario" },
+  openGraph: {
+    title: "Glosario de Ingredientes Funcionales — Food·Mood",
+    description: "Qué es la cúrcuma, el kimchi, la ashwagandha y 50+ ingredientes más: su ciencia, sus compuestos activos y cómo afectan tu estado emocional.",
+    url: "https://www.food-mood.app/glosario",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Glosario de ingredientes funcionales — Food·Mood" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Glosario de Ingredientes Funcionales — Food·Mood",
+    description: "Qué es la cúrcuma, el kimchi, la ashwagandha y 50+ ingredientes más: ciencia real aplicada a tu bienestar.",
+    images: ["/og-image.png"],
+  },
 }
 
 export default async function GlosarioPage() {

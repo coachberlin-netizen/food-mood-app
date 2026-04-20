@@ -1,8 +1,27 @@
 // src/app/fermentos-del-mundo/page.tsx
+import { Metadata } from "next"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import FermentosClient from "./FermentosClient"
 import { getPremiumStatus } from "@/lib/premium"
+
+export const metadata: Metadata = {
+  title: "Mapa de Fermentos del Mundo — Kimchi, Kéfir, Kombucha | Food·Mood",
+  description: "16 fermentos de 12 países: qué son, cómo afectan tu microbiota y tu estado emocional. Kimchi, kéfir, miso, kombucha, tempeh y más, explicados con ciencia.",
+  alternates: { canonical: "/fermentos-del-mundo" },
+  openGraph: {
+    title: "Mapa de Fermentos del Mundo — Food·Mood",
+    description: "16 fermentos de 12 países. Qué es el kimchi, el kéfir, el miso: ciencia del eje intestino-cerebro aplicada a cada tradición fermentada del mundo.",
+    url: "https://www.food-mood.app/fermentos-del-mundo",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Mapa de fermentos del mundo — Food·Mood" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mapa de Fermentos del Mundo — Food·Mood",
+    description: "16 fermentos de 12 países. Qué es el kimchi, el kéfir, el miso: ciencia del eje intestino-cerebro.",
+    images: ["/og-image.png"],
+  },
+}
 
 export default async function FermentosDelMundoPage() {
   const supabase = await createClient();
