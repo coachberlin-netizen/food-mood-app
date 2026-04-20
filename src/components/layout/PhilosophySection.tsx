@@ -6,37 +6,37 @@ import { motion, AnimatePresence } from 'framer-motion';
 export function PhilosophySection() {
   const nodes = [
     {
-      label: "Buen Sabor",
-      title: "Buen Sabor",
-      text: "¿Cansado de dietas aburridas y reglas estrictas? Creemos que la vida es demasiado corta para no disfrutar cada bocado. Olvídate de la culpa: lo que te sienta bien, ¡es lo que sabe bien!",
-      color: "#E30B5D", // Vibrante Frambuesa
+      label: "Serotonina",
+      title: "El 95% de tu serotonina la produce tu intestino.",
+      text: "No tu cerebro. Por eso lo que comes cambia cómo te sientes — antes de que lo decidas conscientemente.",
+      color: "#E30B5D",
       watercolor: "/images/textures/watercolor-raspberry.png",
       size: "w-[340px] h-[340px]",
       pos: "lg:-translate-x-12"
     },
     {
-      label: "La Esencia",
-      title: "Vive, Disfruta, Nutre",
-      text: "La verdadera nutrición empieza por el placer. No se trata de prohibir, sino de potenciar tu capacidad de disfrutar mientras te cuidas.",
-      color: "#E6E6FA", // Lavender
+      label: "Placer",
+      title: "El placer no es opcional. Es el mecanismo.",
+      text: "Comer algo que te gusta activa dopamina, reduce el cortisol y mejora la absorción de nutrientes. El placer es la vía, no la recompensa.",
+      color: "#E6E6FA",
       watercolor: "/images/textures/watercolor-lavender.png",
       size: "w-[300px] h-[300px]",
       pos: "lg:translate-y-20"
     },
     {
-      label: "La Realidad",
-      title: "Impacto del Entorno",
-      text: "¿De qué sirve la nutrición si hay estrés? El cansancio y la baja calidad bloquean tu depuración natural. Es como regar una planta en un desierto.",
-      color: "#FF7F50", // Naranja Pomelo
+      label: "Contexto",
+      title: "Tu estado emocional cambia tu digestión.",
+      text: "Comer con ansiedad convierte cualquier alimento en inflamación. El contexto importa tanto como el ingrediente.",
+      color: "#FF7F50",
       watercolor: "/images/textures/watercolor-pomelo.png",
       size: "w-[320px] h-[320px]",
       pos: "lg:translate-x-8 lg:-translate-y-8"
     },
     {
-      label: "Calidad",
-      title: "100% Real",
-      text: "Alimentos donde cada ingrediente es una joya. Seleccionamos lo mejor porque tu bienestar se nota por fuera cuando te sientes bien por dentro.",
-      color: "#00CED1", // Turquesa Fuerte
+      label: "Hábitos",
+      title: "Los hábitos inconscientes son los más poderosos.",
+      text: "Y los más difíciles de cambiar. Por eso Food·Mood los hace visibles — con datos, no con fuerza de voluntad.",
+      color: "#00CED1",
       watercolor: "/images/textures/watercolor-turquoise.png",
       size: "w-[280px] h-[280px]",
       pos: "lg:-translate-x-4 lg:translate-y-12"
@@ -53,21 +53,29 @@ export function PhilosophySection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <header className="mb-12 md:mb-16 flex flex-col items-center text-center">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-[10px] font-sans tracking-[0.5em] uppercase text-aubergine-dark/30 mb-8 block font-bold"
           >
-            Filosofía de Vida
+            La ciencia detrás
           </motion.span>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-serif text-aubergine-dark max-w-4xl leading-[1.1]"
           >
-            Donde el <span className="italic font-light text-aubergine">placer</span> <br className="hidden md:block"/>
-            se encuentra con la <span className="italic font-light text-aubergine">vitalidad</span>.
+            Donde la <span className="italic font-light text-aubergine">ciencia</span> <br className="hidden md:block" />
+            se convierte en <span className="italic font-light text-aubergine">placer</span>.
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-aubergine-dark/50 font-light mt-4 max-w-xl"
+          >
+            No es nutrición. Es neurociencia aplicada a tu mesa.
+          </motion.p>
         </header>
 
         <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-0 lg:min-h-[500px]">

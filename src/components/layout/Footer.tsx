@@ -25,9 +25,12 @@ export function Footer() {
   return (
     <footer className="w-full bg-aubergine-dark py-16">
       <div className="container mx-auto px-6 md:px-12 flex flex-col items-center justify-center space-y-8">
-        <span className="font-serif text-2xl font-semibold text-white">
-          Food<span className="text-gold">·</span>Mood
-        </span>
+        <div className="flex flex-col items-center gap-1">
+          <span className="font-serif text-2xl font-semibold text-white">
+            Food<span className="text-gold">·</span>Mood
+          </span>
+          <span className="text-[11px] font-light text-white/30 tracking-wide">food-mood.app · © 2026</span>
+        </div>
         <div className="w-full flex flex-col items-center space-y-4 mb-8">
           <p className="text-sm font-light text-white/60">Únete al Newsletter para un consejo semanal</p>
           <NewsletterForm source="footer" dark={true} />
@@ -65,7 +68,7 @@ export function Footer() {
             </Link>
             <span className="opacity-10 hidden sm:inline">|</span>
             <Link href="/blog" className="hover:text-gold transition-colors duration-300">
-              Blog
+              Newsletter
             </Link>
             <span className="opacity-10 hidden sm:inline">|</span>
             <Link href="/terminos" className="hover:text-gold transition-colors duration-300">

@@ -7,8 +7,9 @@ import { Ear, Sparkles, Utensils, MessageCircle, ArrowRight } from 'lucide-react
 
 const steps = [
   {
-    title: "Entender",
-    desc: "Escucha activa",
+    title: "Escuchar",
+    desc: "Tu espectro emocional real",
+    body: "El test de estado lee tu espectro emocional real. No una etiqueta — porcentajes.",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M12 2a5 5 0 00-5 5v3" strokeLinecap="round" />
@@ -20,8 +21,9 @@ const steps = [
     color: "#FFB000"
   },
   {
-    title: "Traducir",
-    desc: "Ciencia funcional",
+    title: "Correlacionar",
+    desc: "Patrones que emergen solos",
+    body: "Cruzamos tu estado con tus alimentos y síntomas. Los patrones aparecen solos.",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" strokeLinecap="round" />
@@ -31,8 +33,9 @@ const steps = [
     color: "#00D1FF"
   },
   {
-    title: "Integrar",
-    desc: "Nutrición emocional",
+    title: "Recomendar",
+    desc: "La receta de hoy",
+    body: "Recetas diseñadas para tu estado de hoy. Con el mecanismo explicado.",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M12 2v20M2 12h20" strokeLinecap="round" opacity="0.3" />
@@ -43,8 +46,9 @@ const steps = [
     color: "#FF2D55"
   },
   {
-    title: "Únete al Club",
-    desc: "Suscripciones",
+    title: "Transformar",
+    desc: "90 días de datos reales",
+    body: "90 días de datos = tu nueva base biológica documentada.",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-7.6 8.38 8.38 0 013.8.9L22 4l-2.1 4.7z" strokeLinecap="round" strokeLinejoin="round" />
@@ -53,7 +57,7 @@ const steps = [
     ),
     color: "#C9A84C",
     isAction: true,
-    link: "/pricing"
+    link: "/viaje"
   }
 ];
 
@@ -63,16 +67,16 @@ export function CompactMethod() {
       
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="text-center mb-12 md:mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-[9px] font-sans tracking-[0.4em] uppercase text-aubergine-dark/30 mb-6 font-bold"
           >
-            Nuestra Metodología
+            Nuestra metodología
           </motion.h2>
           <h3 className="text-3xl md:text-5xl font-serif text-aubergine-dark leading-tight">
-            Un flujo circular <br className="md:hidden" />
-            <span className="italic font-light">de bienestar real.</span>
+            Un sistema circular que <br className="md:hidden" />
+            <span className="italic font-light">se retroalimenta con tus datos.</span>
           </h3>
         </div>
 

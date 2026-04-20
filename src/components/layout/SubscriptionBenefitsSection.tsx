@@ -6,38 +6,38 @@ import Link from 'next/link';
 
 const benefits = [
   {
-    title: "Recetas funcionales",
-    description: "Acceso ilimitado a recetas diseñadas para cada estado emocional y necesidad de tu cuerpo.",
+    title: "Test de estado diario",
+    description: "30 segundos. 5 sliders. Tu color emocional del día y las recetas que responden a él.",
     watercolor: "/images/textures/blob-raspberry.png",
     color: "#E30B5D"
   },
   {
-    title: "Glosario de ingredientes",
-    description: "Entiende el poder de cada alimento y cómo influye en tu bienestar desde la neurociencia.",
+    title: "Bol del día",
+    description: "Registro lúdico de grupos alimentarios. Sin calorías, sin gramos. Solo tocar y ver tu bol llenarse.",
     watercolor: "/images/textures/blob-lavender.png",
     color: "#E6E6FA"
   },
   {
-    title: "Diario emocional-alimentario",
-    description: "Un espacio privado para observar y mejorar tus patrones de alimentación consciente.",
+    title: "Diario de síntomas",
+    description: "Tap-based. Los patrones inconscientes se vuelven visibles a partir del día 7.",
     watercolor: "/images/textures/blob-pomelo.png",
     color: "#FF7F50"
   },
   {
-    title: "Paleta emocional personalizada",
-    description: "Tu perfil único que evoluciona contigo a medida que cambian tus necesidades.",
+    title: "Índice Food·Mood",
+    description: "Tu número diario del 1 al 100. La trayectoria de 90 días documentada con datos reales.",
     watercolor: "/images/textures/blob-aubergine.png",
     color: "#4B0082"
   },
   {
-    title: "Contenido científico exclusivo",
-    description: "Artículos sobre el eje intestino-cerebro, microbiota y psicología de la alimentación.",
+    title: "Semana de datos",
+    description: "Cada domingo: tus correlaciones personales + el newsletter curated de nuestro equipo.",
     watercolor: "/images/textures/blob-gold.png",
     color: "#C9A84C"
   },
   {
-    title: "Fermentos del Mundo",
-    description: "Explora nuestro mapa interactivo con los 16 fermentos ancestrales más poderosos del planeta.",
+    title: "Retos de transformación",
+    description: "7 días o 4 semanas. Un objetivo, un camino, resultados medibles con tu índice.",
     watercolor: "/images/textures/blob-yellow.png",
     color: "#FFF633"
   }
@@ -60,20 +60,20 @@ export function SubscriptionBenefitsSection() {
         
         {/* Header Section (Minimal) */}
         <div className="mb-12 md:mb-16 text-center">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-[9px] font-sans tracking-[0.5em] uppercase text-aubergine-dark/30 mb-8 block font-bold"
           >
-            Directorio Food Mood Club
+            El ecosistema
           </motion.span>
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-serif text-aubergine-dark max-w-4xl mx-auto leading-tight"
           >
-            Todo lo que necesitas para <br/>
-            <span className="italic font-light">nutrir tu bienestar.</span>
+            Todo lo que necesitas<br />
+            <span className="italic font-light">en un ecosistema.</span>
           </motion.h3>
         </div>
 
@@ -109,46 +109,44 @@ export function SubscriptionBenefitsSection() {
           ))}
         </div>
 
-        {/* Featured: WhatsApp Club Access */}
-        <motion.div 
+        {/* CTA Final */}
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20 md:mt-28 flex flex-col items-center"
+          className="mt-20 md:mt-28 rounded-3xl px-10 py-16 md:px-20 md:py-20 text-center relative overflow-hidden"
+          style={{ backgroundColor: '#2d0f16' }}
         >
-          <Link 
-            href="/pricing" 
-            target="_blank"
-            className="group relative flex items-center gap-6 bg-aubergine-dark text-cream px-10 py-6 md:px-14 md:py-8 rounded-full hover:scale-[1.02] transition-all duration-500 shadow-luxury overflow-hidden"
-          >
-             <div className="absolute inset-0 bg-gold opacity-0 group-hover:opacity-5 transition-opacity" />
-             
-             <div className="flex flex-col items-start">
-               <span className="text-[8px] font-sans tracking-[0.4em] uppercase text-gold/80 font-bold">Entrar al Club</span>
-               <h3 className="text-2xl md:text-3xl font-serif leading-tight">
-                 Planes y <span className="italic font-light text-gold">Suscripciones</span>
-               </h3>
-             </div>
-
-             <div className="w-px h-12 bg-cream/10 hidden md:block" />
-
-             <div className="hidden md:flex flex-col text-[9px] uppercase tracking-widest text-cream/40 gap-1 font-bold">
-               <span>Canal Privado de WhatsApp</span>
-               <span>1 Envío Semanal</span>
-             </div>
-
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="ml-4 text-gold group-hover:translate-x-1 transition-transform">
-               <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-             </svg>
-          </Link>
+          <div className="absolute top-0 right-0 w-72 h-72 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" style={{ backgroundColor: 'rgba(201,168,76,0.06)' }} />
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] block mb-5" style={{ color: '#C9A84C' }}>
+              Tu viaje empieza hoy
+            </span>
+            <h3 className="text-3xl md:text-5xl font-serif font-black text-white mb-6 leading-tight">
+              Empieza tu viaje de 90 días.
+            </h3>
+            <p className="font-serif italic text-lg md:text-xl font-light leading-relaxed mb-10 max-w-xl mx-auto" style={{ color: 'rgba(245,240,232,0.6)' }}>
+              Tus hematíes, tu microbioma, tus hábitos neuronales — todo se renueva en 90 días.
+              Es el ciclo biológico real del cambio. Empieza hoy.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+              <Link
+                href="/test"
+                className="px-10 py-4 rounded-full text-sm font-bold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
+                style={{ backgroundColor: '#6B2737', border: '1px solid rgba(201,168,76,0.3)' }}
+              >
+                Hacer mi test gratuito →
+              </Link>
+              <Link
+                href="/pricing"
+                className="text-sm font-light transition-colors hover:text-white"
+                style={{ color: 'rgba(245,240,232,0.45)' }}
+              >
+                Suscríbete al club de WhatsApp Premium →
+              </Link>
+            </div>
+          </div>
         </motion.div>
-
-        {/* Global Footer Note */}
-        <div className="mt-16 text-center">
-          <p className="text-[11px] text-aubergine-dark/20 font-light italic max-w-md mx-auto">
-            Infraestructura emocional diseñada bajo evidencia científica.
-          </p>
-        </div>
 
       </div>
     </section>
