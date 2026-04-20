@@ -11,7 +11,7 @@ const MOOD_OPTIONS = [
   { id: "focus",   label: "Focus",   emoji: "🎯", color: "#0D9488" },
   { id: "social",  label: "Social",  emoji: "🤝", color: "#BE185D" },
   { id: "reset",   label: "Reset",   emoji: "🔄", color: "#65A30D" },
-  { id: "confort",  label: "Confort",  color: "#D4956A" },
+  { id: "confort",  label: "Confort",  emoji: "🛋️", color: "#D4956A" },
 ];
 
 const DAY_LABELS = ["L", "M", "X", "J", "V", "S", "D"];
@@ -151,7 +151,7 @@ export function MoodDiary() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Selector */}
         <div className="md:col-span-2 bg-cream rounded-2xl p-8 border border-aubergine-dark/15 shadow-sm">
-          <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+          <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
             {MOOD_OPTIONS.map((mood) => (
               <button
                 key={mood.id}
@@ -173,7 +173,7 @@ export function MoodDiary() {
 
         {/* History dots */}
         <div className="bg-cream rounded-2xl p-8 border border-aubergine-dark/15 shadow-sm flex flex-col justify-center">
-          <div className="flex justify-between items-end gap-1 px-1">
+          <div className="flex justify-between items-end gap-2 px-2">
             {DAY_LABELS.map((label, i) => {
               const dayMoodId = weeklyHistory[i];
               const mood = MOOD_OPTIONS.find(m => m.id === dayMoodId);
