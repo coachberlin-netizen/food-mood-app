@@ -75,6 +75,9 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                     <Link href="/bol" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       🥣 Mi bol
                     </Link>
+                    <Link href="/viaje" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                      🧭 Mi viaje
+                    </Link>
                     <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Mi Diario
                     </Link>

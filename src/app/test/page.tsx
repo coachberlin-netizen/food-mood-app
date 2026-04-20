@@ -359,6 +359,7 @@ export default function TestPage() {
       subpct_3:     top[2]?.pct  ?? null,
     })
     if (error) throw error
+    if (user?.id) fetch("/api/correlations", { method: "POST" }).catch(() => {})
   }
 
   const handleSave = async () => {

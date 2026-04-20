@@ -281,6 +281,7 @@ export default function SintomasPage() {
         localStorage.setItem(`fm_sintomas_${today}`, JSON.stringify({ levels, notes }))
       }
       showToast("¡Síntomas guardados! 🩺")
+      if (userId) fetch("/api/correlations", { method: "POST" }).catch(() => {})
     }
     setSaving(false)
   }

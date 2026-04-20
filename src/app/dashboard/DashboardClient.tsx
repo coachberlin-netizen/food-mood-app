@@ -17,6 +17,66 @@ import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 import { FoodMoodIndex } from "@/components/FoodMoodIndex";
 
+// ── JourneyCard — compact dashboard widget ────────────────────────────────────
+function JourneyCard() {
+  const [day, setDay] = useState<number | null>(null)
+
+  useEffect(() => {
+    async function load() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+
+      const { data } = await supabase
+        .from("user_journey")
+        .select("journey_start_date")
+        .eq("user_id", user.id)
+        .order("journey_number", { ascending: false })
+        .limit(1)
+        .maybeSingle()
+
+      if (data?.journey_start_date) {
+        const today = new Date().toISOString().split("T")[0]
+        const diff  = Math.floor(
+          (new Date(today).getTime() - new Date(data.journey_start_date).getTime()) / 86_400_000
+        )
+        setDay(Math.max(1, diff + 1))
+      }
+    }
+    load()
+  }, [])
+
+  if (day === null) return null
+
+  const pct = Math.min(100, (day / 90) * 100)
+
+  return (
+    <Link
+      href="/viaje"
+      className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
+      style={{ backgroundColor: "#2d0f16" }}
+    >
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#C9A84C" }}>
+          🧭 Tu viaje
+        </p>
+        <span className="text-xs font-light" style={{ color: "rgba(255,255,255,0.4)" }}>
+          Ver detalle →
+        </span>
+      </div>
+      <p className="font-serif text-2xl font-black text-white mb-3">
+        Día <span style={{ color: "#C9A84C" }}>{day}</span> de 90
+      </p>
+      <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
+        <div
+          className="h-1.5 rounded-full"
+          style={{ width: `${Math.max(2, pct)}%`, backgroundColor: "#C9A84C" }}
+        />
+      </div>
+    </Link>
+  )
+}
+
 export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot }: { initialIsPremium: boolean; weeklyHighlightsSlot?: React.ReactNode }) {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
   const { user, isAuthenticated } = useAuthStore();
@@ -136,6 +196,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
         <div className="max-w-[520px] w-full mx-auto">
           <FoodMoodIndex />
         </div>
+
+        {/* ── Journey card ── */}
+        {isAuthenticated && <JourneyCard />}
 
         <div className="flex flex-col gap-6">
           <PaletteWidget />

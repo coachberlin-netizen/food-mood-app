@@ -432,6 +432,7 @@ export default function BolPage() {
         isNewTodayRef.current = false
         showToast("¡Bol guardado! 🥣")
         if (wasNew) await refreshStreak(userId)
+        fetch("/api/correlations", { method: "POST" }).catch(() => {})
       }
     } else {
       // Anonymous: insert with session_id + persist locally
