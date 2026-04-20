@@ -26,11 +26,11 @@ interface DayEntry {
 }
 
 interface CuratedItem {
-  id:       string
-  category: string
-  title:    string
-  summary:  string | null
-  url:      string | null
+  id:           string
+  category:     string
+  title:        string
+  excerpt:      string | null
+  external_url: string | null
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -172,10 +172,12 @@ export default function SemanaPage() {
           .gte("log_date", weekStart)
           .lte("log_date", weekEnd),
         supabase
-          .from("curated_content")
-          .select("id, category, title, summary, url")
+          .from("blog_posts")
+          .select("id, category, title, excerpt, external_url")
           .eq("week_start", weekStart)
-          .eq("is_active", true)
+          .not("category", "is", null)
+          .eq("status", "published")
+          .order("category", { ascending: true })
           .limit(10),
       ])
 
@@ -430,14 +432,14 @@ export default function SemanaPage() {
                           <p className="text-sm font-semibold mb-1" style={{ color: "#2d0f16" }}>
                             {item.title}
                           </p>
-                          {item.summary && (
+                          {item.excerpt && (
                             <p className="text-xs font-light leading-relaxed mb-2" style={{ color: "rgba(107,39,55,0.65)" }}>
-                              {item.summary}
+                              {item.excerpt}
                             </p>
                           )}
-                          {item.url && (
+                          {item.external_url && (
                             <a
-                              href={item.url}
+                              href={item.external_url}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-[11px] font-bold"

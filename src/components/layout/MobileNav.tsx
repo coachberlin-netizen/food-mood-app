@@ -120,7 +120,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                       Glosario
                     </Link>
                     <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      Blog
+                      📩 Newsletter
                     </Link>
                     <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
                       Planes

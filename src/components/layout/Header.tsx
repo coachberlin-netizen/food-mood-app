@@ -104,7 +104,7 @@ export function Header() {
                 🩺 Síntomas
               </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Blog
+                📩 Newsletter
               </Link>
               {!isPremium && (
                 <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
@@ -131,7 +131,7 @@ export function Header() {
                 Glosario
               </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Blog
+                📩 Newsletter
               </Link>
               <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                 Planes

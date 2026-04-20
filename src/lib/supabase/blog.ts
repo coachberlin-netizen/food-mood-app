@@ -14,6 +14,10 @@ export interface BlogPost {
   seo_description: string | null;
   author_name: string;
   newsletter_date: string | null;
+  // newsletter curated fields
+  category:     string | null;
+  week_start:   string | null;
+  external_url: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -75,6 +79,27 @@ export async function getAllPostsAdmin() {
   }
 
   return data as BlogPost[];
+}
+
+/**
+ * Newsletter: Get curated items for a specific week_start
+ */
+export async function getPostsByWeekStart(weekStart: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select('id, category, title, excerpt, external_url')
+    .eq('week_start', weekStart)
+    .not('category', 'is', null)
+    .eq('status', 'published')
+    .order('category', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching posts by week_start:', error);
+    return [];
+  }
+
+  return data as Pick<BlogPost, 'id' | 'category' | 'title' | 'excerpt' | 'external_url'>[];
 }
 
 /**

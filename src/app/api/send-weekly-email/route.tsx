@@ -45,13 +45,20 @@ export async function POST(req: NextRequest) {
 
   // Get curated content for this week (shared across all users)
   const { data: curatedRaw } = await supabaseAdmin
-    .from("curated_content")
-    .select("category, title, summary, url")
+    .from("blog_posts")
+    .select("category, title, excerpt, external_url")
     .eq("week_start", weekStart)
-    .eq("is_active", true)
+    .not("category", "is", null)
+    .eq("status", "published")
+    .order("category", { ascending: true })
     .limit(10)
 
-  const curatedItems = (curatedRaw ?? []) as { category: string; title: string; summary: string | null; url: string | null }[]
+  const curatedItems = (curatedRaw ?? []).map((r: any) => ({
+    category: r.category as string,
+    title:    r.title    as string,
+    summary:  r.excerpt  as string | null,
+    url:      r.external_url as string | null,
+  }))
 
   const results = { sent: 0, skipped: 0, errors: 0 }
 

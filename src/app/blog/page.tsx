@@ -7,64 +7,173 @@ import { NewsletterForm } from '@/components/layout/NewsletterForm';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Blog | Food·Mood — Neurociencia Nutricional y Bienestar',
-  description: 'Archivo editorial de nuestras newsletters semanales. Ciencia del metabolismo, salud digestiva y recetas funcionales para tu estado emocional.',
-  alternates: {
-    canonical: '/blog'
-  }
+  title: 'Newsletter | Food·Mood — Neurociencia, Alimentación y Bienestar',
+  description: 'Contenido curado cada semana: neurociencia, psicología, alimentación funcional, longevidad y biotecnología. Ciencia real aplicada a tu bienestar.',
+  alternates: { canonical: '/blog' },
 };
+
+const CATEGORY_META: Record<string, { emoji: string; label: string; color: string }> = {
+  neurociencia:  { emoji: '🧬', label: 'Neurociencia',  color: '#7A5AAA' },
+  alimentacion:  { emoji: '🌿', label: 'Alimentación',  color: '#5A9B8A' },
+  psicologia:    { emoji: '🧠', label: 'Psicología',    color: '#4A7AB5' },
+  longevidad:    { emoji: '🔬', label: 'Longevidad',    color: '#C8902A' },
+  biotecnologia: { emoji: '💊', label: 'Biotecnología', color: '#C04878' },
+};
+
+function weekLabel(weekStart: string | null, newsletterDate: string | null): string {
+  const raw = weekStart ?? newsletterDate;
+  if (!raw) return 'Archivo';
+  const d = new Date(raw);
+  const end = new Date(d);
+  end.setDate(d.getDate() + 6);
+  const fmt = (dt: Date) => dt.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
+  return `${fmt(d)} – ${fmt(end)}`;
+}
 
 export default async function BlogPage() {
   const posts = await getPublishedPosts();
 
+  // Group by week_start (or newsletter_date for old posts)
+  const grouped = new Map<string, typeof posts>();
+  for (const post of posts) {
+    const key = post.week_start ?? post.newsletter_date ?? '__archivo__';
+    if (!grouped.has(key)) grouped.set(key, []);
+    grouped.get(key)!.push(post);
+  }
+
+  // Sort keys descending (newest first), archivo at end
+  const sortedKeys = Array.from(grouped.keys()).sort((a, b) => {
+    if (a === '__archivo__') return 1;
+    if (b === '__archivo__') return -1;
+    return b.localeCompare(a);
+  });
+
   return (
     <main className="min-h-screen bg-[var(--background)] pt-32 pb-24">
-      {/* Hero Section */}
-      <section className="px-6 mb-20 text-center">
-        <div className="max-w-4xl mx-auto">
+
+      {/* ── Hero ── */}
+      <section className="px-6 mb-16 text-center">
+        <div className="max-w-3xl mx-auto">
           <span className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6 block">
-            Archivo Semanal
+            📩 Newsletter Semanal
           </span>
           <h1 className="text-4xl md:text-6xl font-serif text-aubergine-dark mb-6 leading-tight">
-            El Blog de <span className="italic">Food·Mood</span>
+            Lo que importa saber<br />
+            <span className="italic">esta semana</span>
           </h1>
           <p className="text-lg text-aubergine-dark/60 font-light leading-relaxed max-w-2xl mx-auto">
-            Explora nuestra colección de artículos sobre nutrición funcional, el eje intestino-cerebro y cómo lo que comes define cómo te sientes.
+            Neurociencia, alimentación, psicología, longevidad y biotecnología —
+            curado por el equipo Food·Mood cada domingo.
           </p>
         </div>
       </section>
 
-      {/* Articles Grid */}
-      <section className="px-6 max-w-7xl mx-auto mb-32">
-        {posts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <BlogCard key={post.id} post={post} />
-            ))}
-          </div>
-        ) : (
+      {/* ── Contenido agrupado por semana ── */}
+      <section className="px-6 max-w-5xl mx-auto mb-32 space-y-20">
+        {sortedKeys.length === 0 ? (
           <div className="text-center py-20 bg-cream rounded-2xl border border-aubergine-dark/5">
             <p className="text-aubergine-dark/40 font-light italic">
-              Aún no hay artículos publicados. ¡Vuelve pronto!
+              Vuelve el próximo domingo — el equipo está preparando el contenido.
             </p>
           </div>
+        ) : (
+          sortedKeys.map(key => {
+            const weekPosts = grouped.get(key)!;
+            const firstPost = weekPosts[0];
+            const label = key === '__archivo__'
+              ? 'Archivo'
+              : weekLabel(firstPost.week_start, firstPost.newsletter_date);
+
+            // Separate curated items (have category) from regular blog posts
+            const curated = weekPosts.filter(p => p.category);
+            const regular = weekPosts.filter(p => !p.category);
+
+            return (
+              <div key={key}>
+                {/* Week header */}
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-px bg-[#C9A84C] opacity-30 flex-1" />
+                  <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#6B2737] whitespace-nowrap">
+                    {label}
+                  </span>
+                  <div className="h-px bg-[#C9A84C] opacity-30 flex-1" />
+                </div>
+
+                {/* Curated newsletter items */}
+                {curated.length > 0 && (
+                  <div className="grid md:grid-cols-2 gap-4 mb-8">
+                    {curated.map(post => {
+                      const meta = CATEGORY_META[post.category ?? ''] ?? { emoji: '📌', label: post.category ?? '', color: '#6B2737' };
+                      return (
+                        <div
+                          key={post.id}
+                          className="bg-white rounded-2xl p-6 border border-aubergine-dark/6 shadow-sm hover:shadow-md transition-shadow"
+                        >
+                          <div className="flex items-center gap-2 mb-3">
+                            <span
+                              className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white"
+                              style={{ backgroundColor: meta.color }}
+                            >
+                              {meta.emoji} {meta.label}
+                            </span>
+                          </div>
+                          <h3 className="font-serif text-lg font-semibold text-aubergine-dark mb-2 leading-snug">
+                            {post.title}
+                          </h3>
+                          {post.excerpt && (
+                            <p className="text-sm text-aubergine-dark/60 font-light leading-relaxed mb-4">
+                              {post.excerpt}
+                            </p>
+                          )}
+                          {post.external_url ? (
+                            <a
+                              href={post.external_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs font-bold text-[#6B2737] hover:underline"
+                            >
+                              Leer más →
+                            </a>
+                          ) : (
+                            <a href={`/blog/${post.slug}`} className="text-xs font-bold text-[#6B2737] hover:underline">
+                              Leer más →
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Regular blog posts */}
+                {regular.length > 0 && (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {regular.map(post => (
+                      <BlogCard key={post.id} post={post} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })
         )}
       </section>
 
-      {/* Newsletter CTA */}
+      {/* ── Newsletter CTA ── */}
       <section className="px-6">
         <div className="max-w-5xl mx-auto bg-aubergine-dark rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-serif text-cream mb-6">¿Quieres recibir esto en tu email?</h2>
+            <h2 className="text-3xl md:text-5xl font-serif text-cream mb-6">
+              ¿Quieres recibirlo cada domingo?
+            </h2>
             <p className="text-cream/60 font-light text-lg mb-10 max-w-xl mx-auto">
-              Únete a nuestra comunidad y recibe cada domingo ciencia aplicada y recetas para tu paleta emocional.
+              Únete a la comunidad y recibe ciencia aplicada directo a tu email.
             </p>
             <div className="max-w-md mx-auto h-12 flex items-center justify-center">
-              <NewsletterForm source="blog_footer" dark={true} />
+              <NewsletterForm source="newsletter_footer" dark={true} />
             </div>
           </div>
-          {/* Subtle decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         </div>
       </section>
     </main>
