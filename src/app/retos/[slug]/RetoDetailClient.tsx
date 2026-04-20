@@ -91,6 +91,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   const [checkoutErr,  setCheckoutErr]  = useState<string | null>(null)
   const [isPending,    startTransition]  = useTransition()
   const [showSuccess,  setShowSuccess]  = useState(false)
+  const [notifState,   setNotifState]   = useState<'idle' | 'loading' | 'done' | 'denied'>('idle')
 
   const isSuccess = searchParams.get('success') === 'true'
 
@@ -125,6 +126,34 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         setCheckoutErr('Error de conexión. Inténtalo de nuevo.')
       }
     })
+  }
+
+  async function handleEnableReminder() {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+      setNotifState('denied')
+      return
+    }
+    setNotifState('loading')
+    try {
+      const permission = await Notification.requestPermission()
+      if (permission !== 'granted') { setNotifState('denied'); return }
+
+      const reg = await navigator.serviceWorker.ready
+      const existing = await reg.pushManager.getSubscription()
+      const sub = existing ?? await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+      })
+
+      await fetch('/api/push/subscribe', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ endpoint: sub.endpoint, keys: (sub.toJSON() as any).keys }),
+      })
+      setNotifState('done')
+    } catch {
+      setNotifState('denied')
+    }
   }
 
   async function handleCompleteDay() {
@@ -363,6 +392,36 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               </div>
             )}
           </section>
+        )}
+
+        {/* ── Recordatorio diario ── */}
+        {enrollment?.paid && !enrollment.completed && notifState !== 'done' && (
+          <section className="rounded-2xl p-5 border border-aubergine-dark/8 bg-white flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <p className="text-sm font-semibold" style={{ color: '#2d0f16' }}>
+                Recordatorio diario
+              </p>
+              <p className="text-xs font-light mt-0.5" style={{ color: 'rgba(107,39,55,0.55)' }}>
+                {notifState === 'denied'
+                  ? 'Activa los permisos de notificación en tu navegador.'
+                  : 'Recibe la receta del día a las 19:30h.'}
+              </p>
+            </div>
+            <button
+              onClick={handleEnableReminder}
+              disabled={notifState === 'loading' || notifState === 'denied'}
+              className="px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all hover:opacity-85 disabled:opacity-50 shrink-0"
+              style={{ backgroundColor: challenge.color }}
+            >
+              {notifState === 'loading' ? 'Activando…' : notifState === 'denied' ? 'Sin permisos' : 'Activar 🔔'}
+            </button>
+          </section>
+        )}
+
+        {enrollment?.paid && notifState === 'done' && (
+          <p className="text-center text-xs font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
+            🔔 Recordatorio activado — te avisamos cada día a las 19:30h.
+          </p>
         )}
 
         {/* ── Completado ── */}

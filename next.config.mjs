@@ -6,6 +6,7 @@ const withPWA = withPWAInit({
   register: true,
   skipWaiting: true,
   cacheOnFrontEndNav: true,
+  customWorkerSrc: "worker",
 });
 
 /** @type {import('next').NextConfig} */
