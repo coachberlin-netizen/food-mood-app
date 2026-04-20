@@ -261,7 +261,7 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [moodFilter, setMoodFilter] = useState<string>("");
+  const [moodFilter, setMoodFilter] = useState<string>(searchParams.get("mood") || "");
   const segmento = "adulto";
   const [profileIdx, setProfileIdx] = useState<number>(0);
   const [q, setQ] = useState<string>(searchParams.get("q") || "");

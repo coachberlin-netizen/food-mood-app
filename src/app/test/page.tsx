@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { createClient } from "@/lib/supabase/client"
 import Link from "next/link"
-import { Lock, ArrowRight, RotateCcw, Check } from "lucide-react"
+import { ArrowRight, Check } from "lucide-react"
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -38,6 +38,30 @@ const SUB_COLORS: Record<string, string> = {
   "Melancolía":    "#4A7AB5",
   "Conexión":      "#C04878",
   "Foco":          "#4A90D0",
+}
+
+// ── State → Mood mapping ──────────────────────────────────────────────────
+
+const STATE_TO_MOOD: Record<string, string> = {
+  "Calma luminosa":   "calma",
+  "Bruma tranquila":  "calma",
+  "Remanso quieto":   "calma",
+  "Foco profundo":    "focus",
+  "Luz dispersa":     "focus",
+  "Chispa social":    "social",
+  "Marea alta":       "activacion",
+  "Viento cruzado":   "activacion",
+  "Tormenta interior":"reset",
+  "Niebla suave":     "reset",
+}
+
+const MOOD_PHRASES: Record<string, string> = {
+  activacion: "Tu cuerpo está en marcha. Te vienen bien alimentos que sostengan esa energía sin bajón posterior.",
+  calma:      "Estás en el estado ideal para absorber nutrientes. Tu digestión funciona mejor cuando estás así.",
+  focus:      "Modo concentración. Hay alimentos que alimentan literalmente las neuronas — hoy los necesitas.",
+  social:     "Energía de conexión. Algunos sabores potencian la oxitocina, la hormona del vínculo.",
+  reset:      "Tu cuerpo pide pausa. Recetas ligeras que ayudan a tu hígado y te dejan respirar.",
+  confort:    "Necesitas que algo te abrace por dentro. Existe la ciencia del confort sin culpa.",
 }
 
 // ── Math helpers ──────────────────────────────────────────────────────────
@@ -319,12 +343,52 @@ function ResultModal({
   onClose: () => void
 }) {
   const { r, g, b, hex } = color
-  const light = `rgb(${Math.min(255, Math.round(r + 45))},${Math.min(255, Math.round(g + 45))},${Math.min(255, Math.round(b + 45))})`
-  const dark  = `rgb(${Math.max(0, Math.round(r - 25))},${Math.max(0, Math.round(g - 25))},${Math.max(0, Math.round(b - 25))})`
+  const light   = `rgb(${Math.min(255, Math.round(r + 45))},${Math.min(255, Math.round(g + 45))},${Math.min(255, Math.round(b + 45))})`
+  const dark    = `rgb(${Math.max(0, Math.round(r - 25))},${Math.max(0, Math.round(g - 25))},${Math.max(0, Math.round(b - 25))})`
+  const moodId  = STATE_TO_MOOD[stateName] ?? "calma"
+  const phrase  = MOOD_PHRASES[moodId]
+
+  const cardRef   = useRef<HTMLDivElement>(null)
+  const closeRef  = useRef<HTMLButtonElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  // Animate in
+  useEffect(() => {
+    const t = requestAnimationFrame(() => setVisible(true))
+    return () => cancelAnimationFrame(t)
+  }, [])
+
+  // Focus first button on open
+  useEffect(() => { closeRef.current?.focus() }, [])
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose() }
+    document.addEventListener("keydown", handler)
+    return () => document.removeEventListener("keydown", handler)
+  }, [onClose])
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ backgroundColor: "rgba(45,15,22,0.72)" }}>
-      <div className="bg-[#F5F0E8] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="result-modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-5"
+      style={{
+        backgroundColor: "rgba(45,15,22,0.72)",
+        opacity: visible ? 1 : 0,
+        transition: "opacity 300ms ease-out",
+      }}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
+    >
+      <div
+        ref={cardRef}
+        className="bg-[#F5F0E8] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl"
+        style={{
+          transform: visible ? "scale(1)" : "scale(0.95)",
+          transition: "transform 300ms ease-out",
+        }}
+      >
         <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-5">
           Tu estado de hoy
         </p>
@@ -332,13 +396,18 @@ function ResultModal({
         {/* Color orb */}
         <div className="flex justify-center mb-4">
           <div
-            className="w-28 h-28 rounded-full shadow-xl"
+            className="w-24 h-24 rounded-full shadow-xl"
             style={{ background: `radial-gradient(circle at 35% 35%, ${light}, ${hex} 52%, ${dark})` }}
           />
         </div>
 
-        <p className="font-serif text-2xl text-[#2d0f16] italic mb-1">{stateName}</p>
-        <p className="text-[10px] font-mono text-[#6B2737]/30 uppercase tracking-widest mb-5">{hex}</p>
+        <h2 id="result-modal-title" className="font-serif text-2xl text-[#2d0f16] italic mb-1">
+          {stateName}
+        </h2>
+        <p className="text-[10px] font-mono text-[#6B2737]/30 uppercase tracking-widest mb-4">{hex}</p>
+
+        {/* Mechanism phrase */}
+        <p className="text-sm text-[#6B2737]/60 font-light leading-relaxed mb-5 px-1">{phrase}</p>
 
         {/* Sub-emotions */}
         <div className="space-y-2 mb-7">
@@ -353,18 +422,19 @@ function ResultModal({
         </div>
 
         <Link
-          href="/recetas"
+          href={`/recetas?mood=${moodId}`}
           className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl text-sm font-semibold text-white mb-3 transition-all hover:scale-[1.02] shadow-md"
           style={{ backgroundColor: "#6B2737" }}
         >
-          Ver mis recetas para este estado <ArrowRight className="w-4 h-4" />
+          Ver mis recetas para hoy <ArrowRight className="w-4 h-4" />
         </Link>
 
         <button
+          ref={closeRef}
           onClick={onClose}
           className="text-xs text-[#6B2737]/35 hover:text-[#6B2737]/55 transition-colors"
         >
-          Seguir ajustando →
+          Ver mi mosaico de 28 días
         </button>
       </div>
     </div>
@@ -563,6 +633,11 @@ export default function TestPage() {
           </div>
 
           {/* Sliders */}
+          <p className="text-sm text-[#6B2737]/45 font-light text-center mb-6 leading-relaxed">
+            Mueve cada slider hasta donde sientas que estás ahora mismo.
+            Sin pensarlo mucho — la primera respuesta es la más honesta.
+            Al terminar verás tu color emocional del día.
+          </p>
           <div className="space-y-7 mb-9">
             {SLIDERS.map(cfg => (
               <DimensionSlider
@@ -599,9 +674,9 @@ export default function TestPage() {
             )}
             <button
               onClick={reset}
-              className="flex items-center justify-center gap-1.5 text-xs text-[#6B2737]/35 hover:text-[#6B2737]/55 transition-colors py-1"
+              className="text-xs text-[#6B2737]/30 hover:text-[#6B2737]/50 transition-colors py-1"
             >
-              <RotateCcw className="w-3 h-3" /> Reiniciar
+              ↺ Empezar de nuevo
             </button>
           </div>
 
