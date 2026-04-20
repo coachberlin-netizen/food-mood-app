@@ -40,15 +40,14 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
       className="text-center mb-16 md:mb-20"
     >
       <span className="text-[10px] tracking-[0.4em] uppercase text-[#6B2737]/50 mb-8 block font-bold">
-        Evidencia Biológica
+        Tu barriga y tu cabeza hablan constantemente.
       </span>
       <h2 className="font-serif text-4xl md:text-7xl text-[#6B2737] leading-[1.1] font-bold mb-6">
         Tus emociones no son psicológicas.<br className="hidden md:block" />{" "}
         <span className="italic font-light">Son bioquímica.</span>
       </h2>
       <p className="text-base md:text-lg text-[#4A4A4A] font-light max-w-2xl mx-auto leading-relaxed">
-        El eje intestino-cerebro procesa más información de abajo arriba que al revés.
-        Lo que comes cambia cómo te sientes — antes de que lo decidas.
+        Lo que comes cambia cómo te sientes. Lo que sientes cambia cómo digiere tu cuerpo. Van juntos.
       </p>
     </motion.div>
 
@@ -65,10 +64,10 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
           95%
         </span>
         <p className="text-base font-serif text-[#6B2737] italic mb-3">
-          de tu serotonina se produce en el intestino
+          de la serotonina — la hormona que te hace sentir bien — la fabrica tu barriga, no tu cabeza.
         </p>
         <p className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
-          No en el cerebro — allí solo llega el resultado.
+          Lo que comes hoy decide tu estado de ánimo de mañana.
         </p>
       </div>
 
@@ -78,10 +77,10 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
           50%
         </span>
         <p className="text-base font-serif text-[#6B2737] italic mb-3">
-          de tu dopamina depende del microbioma intestinal
+          de la dopamina — lo que te da ganas de hacer cosas — depende de las bacterias de tu intestino.
         </p>
         <p className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
-          Tu motivación del lunes empieza en lo que comiste el domingo.
+          Tu energía del lunes empieza en lo que cenaste el domingo.
         </p>
       </div>
     </motion.div>
@@ -95,7 +94,7 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
     >
       <div className="bg-[#2d0f16] px-8 md:px-12 py-8">
         <p className="font-serif text-2xl md:text-4xl text-[#F5F0E8] leading-[1.2] font-light italic">
-          &ldquo;Comer con ansiedad convierte cualquier alimento en inflamación.&rdquo;
+          &ldquo;Cuando comes con el estómago encogido de estrés, hasta la ensalada más sana inflama.&rdquo;
         </p>
       </div>
       <div className="bg-white px-8 md:px-12 py-8">
@@ -104,9 +103,9 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
         </p>
         <div className="flex flex-col md:flex-row gap-4">
           {[
-            { step: "01", text: "El sistema simpático (estrés) se activa" },
-            { step: "02", text: "Suprime la digestión y el peristaltismo" },
-            { step: "03", text: "Altera la permeabilidad y el microbioma" },
+            { step: "01", text: "Tu cuerpo entra en modo alarma (estrés)" },
+            { step: "02", text: "La digestión se para en seco — tu cuerpo prioriza escapar, no digerir" },
+            { step: "03", text: "Tu barriga se desequilibra y las bacterias buenas se resienten" },
           ].map((item) => (
             <div key={item.step} className="flex items-start gap-3 flex-1">
               <span className="font-serif text-2xl font-bold text-[#6B2737]/20 shrink-0 leading-tight">

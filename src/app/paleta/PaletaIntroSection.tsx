@@ -137,27 +137,20 @@ export function PaletaIntroSection() {
         {/* Explanatory box */}
         <div className="bg-white rounded-3xl border border-[#6B2737]/8 p-8 md:p-12 mb-12 shadow-sm">
           <h2 className="font-serif text-2xl md:text-3xl text-[#2d0f16] mb-5">
-            ¿Qué es la granularidad emocional?
+            Cuanto más preciso eres con lo que sientes, menos lo sufres.
           </h2>
           <p className="text-[#4a3a3a]/80 font-light leading-relaxed mb-8 text-base md:text-lg">
-            La neurocientífica{" "}
-            <strong className="font-semibold text-[#6B2737]">
-              Lisa Feldman Barrett
-            </strong>{" "}
-            demostró que las personas con mayor vocabulario emocional
-            experimentan menos sufrimiento ante las mismas situaciones. El
-            psicólogo{" "}
-            <strong className="font-semibold text-[#6B2737]">
-              Matthew Lieberman
-            </strong>{" "}
-            aportó la evidencia clave: el <em>affect labeling</em> — nombrar lo
-            que sientes con precisión — reduce directamente la activación de la
-            amígdala. Cuanto más específico es el nombre, menor es la reacción
-            de estrés.
+            Cuanto más exacto eres al describir lo que sientes, menos te afecta.
+            No es intuición — está probado científicamente. Cuando le pones un
+            nombre concreto a una emoción, la parte de tu cerebro que dispara el
+            miedo se calma sola. La diferencia entre decir{" "}
+            <em>"estoy mal"</em> y decir{" "}
+            <em>"tengo ese cansancio de hacer cosas que no me apetecen"</em> es
+            real: menos estrés en el cuerpo, mejores decisiones, más calma.
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             {[
-              { emoji: "🧠", text: "Menos activación de amígdala" },
+              { emoji: "🧠", text: "Menos estrés en el cuerpo" },
               { emoji: "📊", text: "Mejor toma de decisiones" },
               { emoji: "🍽", text: "Comer más consciente" },
             ].map((card) => (
@@ -195,6 +188,37 @@ export function PaletaIntroSection() {
             etiqueta, sino porcentajes.
           </p>
         </div>
+
+        {/* Accordion ciencia */}
+        <details className="mb-14 rounded-3xl border border-[#6B2737]/8 overflow-hidden group" open={typeof window !== "undefined" && window.innerWidth >= 768 ? true : undefined}>
+          <summary className="cursor-pointer px-8 py-6 bg-[#F5F0E8]/60 hover:bg-[#F5F0E8] transition-colors list-none flex items-center justify-between gap-4">
+            <span className="font-serif italic text-xl text-[#2d0f16]">
+              ¿Por qué funciona esto? La ciencia, en sencillo.
+            </span>
+            <svg className="w-4 h-4 text-[#6B2737]/40 shrink-0 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </summary>
+          <div className="px-8 py-8 bg-white" style={{ maxWidth: "65ch", margin: "0 auto" }}>
+            <p className="text-sm font-light text-[#4a3a3a]/70 leading-relaxed mb-5">
+              <strong className="font-semibold text-[#6B2737]">Lisa Feldman Barrett</strong>{" "}
+              es investigadora del cerebro en Harvard. Descubrió que las personas que saben
+              describir con exactitud lo que sienten sufren menos — literalmente tienen menos
+              estrés físico en el cuerpo.{" "}
+              <strong className="font-semibold text-[#6B2737]">Matthew Lieberman</strong>,
+              psicólogo de UCLA, lo confirmó en laboratorio: cuando le pones nombre
+              concreto a una emoción, la parte de tu cerebro que dispara el miedo se calma
+              sola.
+            </p>
+            <p className="text-sm font-light text-[#4a3a3a]/70 leading-relaxed">
+              En Food·Mood lo aplicamos de una forma diferente: en lugar de decirte qué
+              emoción tienes, te mostramos tu mezcla real en porcentajes. Porque{" "}
+              <em>"estoy triste"</em> es una etiqueta que cierra.{" "}
+              <em>"60% calma, 25% melancolía, 15% curiosidad"</em> es un mapa que abre —
+              y con ese mapa puedes decidir qué comer y cómo cuidarte de verdad.
+            </p>
+          </div>
+        </details>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4">

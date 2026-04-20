@@ -34,6 +34,11 @@ const nextConfig = {
         destination: '/privacidad',
         permanent: true,
       },
+      {
+        source: '/emociones',
+        destination: '/paleta',
+        permanent: true,
+      },
     ]
   },
 };

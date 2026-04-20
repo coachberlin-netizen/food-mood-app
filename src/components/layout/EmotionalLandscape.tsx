@@ -19,48 +19,48 @@ const MOODS: MoodDetail[] = [
     id: "activacion",
     nombre: "Activación",
     color: "#E8703A",
-    microText: "Energía natural y enfoque.",
-    neurotransmitters: "Dopamina + noradrenalina",
+    microText: "Tienes pila. Tu cuerpo pide alimentos que mantengan ese ritmo sin dejarte caer después.",
+    neurotransmitters: "Energía mental + respuesta rápida",
     foods: "Proteína completa, omega-3, adaptógenos (ashwagandha, rhodiola)",
   },
   {
     id: "calma",
     nombre: "Calma",
     color: "#5A9B8A",
-    microText: "Relajación y bienestar digestivo.",
-    neurotransmitters: "GABA + serotonina",
+    microText: "Estás tranquila. Es el mejor momento para que tu cuerpo absorba bien todo lo que comes.",
+    neurotransmitters: "Calma + bienestar",
     foods: "Fermentados (kéfir, miso), magnesio (semillas de calabaza), triptófano (pavo, huevo)",
   },
   {
     id: "focus",
     nombre: "Focus",
     color: "#4A7AB5",
-    microText: "Claridad mental y concentración.",
-    neurotransmitters: "Acetilcolina + DHA",
+    microText: "Necesitas que tu cabeza funcione. Hay alimentos que literalmente alimentan las neuronas.",
+    neurotransmitters: "Memoria + concentración",
     foods: "Huevo, pescado azul, nueces, vinagre de kombucha",
   },
   {
     id: "social",
     nombre: "Social",
     color: "#C04878",
-    microText: "Conexión y disfrute.",
-    neurotransmitters: "Oxitocina + dopamina ritual",
+    microText: "Modo compartir activado. Algunos sabores y rituales hacen que conectar con los demás sea aún mejor.",
+    neurotransmitters: "Vínculo + placer compartido",
     foods: "Frutos rojos, cacao puro, shrubs y bebidas fermentadas compartidas",
   },
   {
     id: "reset",
     nombre: "Reset",
     color: "#7A5AAA",
-    microText: "Renovación y ligereza.",
-    neurotransmitters: "Nrf2 + autofagia",
+    microText: "Tu cuerpo pide pausa y limpieza. Alimentos que ayudan a tu hígado y te dejan respirar.",
+    neurotransmitters: "Limpieza celular + antiinflamación",
     foods: "Cúrcuma, brócoli y crucíferas, caldo de huesos, ayuno intermitente suave",
   },
   {
     id: "confort",
     nombre: "Confort",
     color: "#C8902A",
-    microText: "Placer y equilibrio.",
-    neurotransmitters: "Endorfinas + serotonina",
+    microText: "Necesitas que algo te abrace por dentro. Existe la ciencia del confort sin culpa.",
+    neurotransmitters: "Placer + bienestar",
     foods: "Papaya, plátano, cacao, fermentados cálidos (sopa de miso, kéfir tibio)",
   },
 ];
@@ -147,8 +147,7 @@ export function EmotionalLandscape() {
             </span>
           </motion.h2>
           <p className="mt-8 text-aubergine-dark/60 font-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-            Pulsa cada estado para ver el mecanismo bioquímico y los alimentos
-            que lo sostienen.
+            Pulsa cada estado para ver cómo funciona en tu cuerpo y qué comer para sostenerlo.
           </p>
         </div>
 
@@ -205,7 +204,7 @@ export function EmotionalLandscape() {
                             className="text-[10px] font-bold uppercase tracking-widest mb-2"
                             style={{ color: mood.color }}
                           >
-                            Mecanismo bioquímico
+                            Cómo funciona en tu cuerpo
                           </p>
                           <p className="text-sm font-semibold text-aubergine-dark">
                             {mood.neurotransmitters}
