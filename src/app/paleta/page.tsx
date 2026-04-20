@@ -10,6 +10,19 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Paleta Emocional — Descubre tu Espectro | Food·Mood",
   description: "Explora tu paleta emocional y descubre qué alimentos necesita tu cuerpo hoy.",
+  alternates: { canonical: "/paleta" },
+  openGraph: {
+    title: "Paleta Emocional — Descubre tu Espectro | Food·Mood",
+    description: "Las emociones no son blanco y negro. Descubre tu mezcla exacta y las recetas que responden a ella.",
+    url: "https://www.food-mood.app/paleta",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Paleta Emocional — Food·Mood" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Paleta Emocional — Descubre tu Espectro | Food·Mood",
+    description: "Las emociones no son blanco y negro. Descubre tu mezcla exacta y las recetas que responden a ella.",
+    images: ["/og-image.png"],
+  },
 };
 
 export const dynamic = 'force-dynamic';

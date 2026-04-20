@@ -10,6 +10,18 @@ export const metadata: Metadata = {
   title: 'Newsletter | Food·Mood — Neurociencia, Alimentación y Bienestar',
   description: 'Contenido curado cada semana: neurociencia, psicología, alimentación funcional, longevidad y biotecnología. Ciencia real aplicada a tu bienestar.',
   alternates: { canonical: '/blog' },
+  openGraph: {
+    title: 'Newsletter Food·Mood — Ciencia aplicada a tu bienestar',
+    description: 'Cada semana: neurociencia, alimentación funcional y longevidad. Sin ruido. Solo lo que funciona.',
+    url: 'https://www.food-mood.app/blog',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter Food·Mood' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Newsletter Food·Mood — Ciencia aplicada a tu bienestar',
+    description: 'Cada semana: neurociencia, alimentación funcional y longevidad. Sin ruido. Solo lo que funciona.',
+    images: ['/og-image.png'],
+  },
 };
 
 const CATEGORY_META: Record<string, { emoji: string; label: string; color: string }> = {
