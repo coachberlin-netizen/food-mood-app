@@ -3,7 +3,6 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Avatar } from "@/components/ui/Avatar"
 import { MobileNav } from "./MobileNav"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/store/useAuthStore"
@@ -158,7 +157,24 @@ export function Header() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="transition-opacity hover:opacity-80 flex items-center focus:outline-none"
             >
-              <Avatar fallback="U" size="sm" className="bg-cream/15 border-cream/20 text-cream" />
+              <div
+                style={{
+                  width: 32, height: 32,
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(253,251,247,0.15)',
+                  border: '1px solid rgba(253,251,247,0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#FDFBF7',
+                  fontSize: 12,
+                  fontFamily: 'var(--font-cormorant, serif)',
+                  fontWeight: 500,
+                  flexShrink: 0,
+                }}
+              >
+                U
+              </div>
             </button>
 
             {isMenuOpen && (
