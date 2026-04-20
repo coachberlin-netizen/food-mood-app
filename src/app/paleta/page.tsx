@@ -8,7 +8,7 @@ import { EmotionalLandscape } from "@/components/layout/EmotionalLandscape";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tus emociones | Food·Mood",
+  title: "Paleta Emocional — Descubre tu Espectro | Food·Mood",
   description: "Explora tu paleta emocional y descubre qué alimentos necesita tu cuerpo hoy.",
 };
 
