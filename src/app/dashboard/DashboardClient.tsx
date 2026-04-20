@@ -77,6 +77,42 @@ function JourneyCard() {
   )
 }
 
+// ── WeeklyCard — compact dashboard widget ─────────────────────────────────────
+function WeeklyCard() {
+  const d   = new Date()
+  const day = d.getDay()
+  const offset = day === 0 ? -6 : 1 - day
+  const monday = new Date(d)
+  monday.setDate(d.getDate() + offset)
+  const sunday = new Date(monday)
+  sunday.setDate(monday.getDate() + 6)
+
+  const fmt = (dt: Date) =>
+    dt.toLocaleDateString("es-ES", { day: "numeric", month: "short" })
+
+  return (
+    <Link
+      href="/semana"
+      className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
+      style={{ backgroundColor: "#F5F0E8", border: "1px solid rgba(107,39,55,0.12)" }}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+            📊 Tu semana
+          </p>
+          <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>
+            {fmt(monday)} – {fmt(sunday)}
+          </p>
+        </div>
+        <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
+          Ver detalle →
+        </span>
+      </div>
+    </Link>
+  )
+}
+
 export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot }: { initialIsPremium: boolean; weeklyHighlightsSlot?: React.ReactNode }) {
   const { resultMood, quizCount, syncFromSupabase, resetQuiz } = useQuizStore();
   const { user, isAuthenticated } = useAuthStore();
@@ -199,6 +235,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
 
         {/* ── Journey card ── */}
         {isAuthenticated && <JourneyCard />}
+
+        {/* ── Weekly card ── */}
+        {isAuthenticated && <WeeklyCard />}
 
         <div className="flex flex-col gap-6">
           <PaletteWidget />

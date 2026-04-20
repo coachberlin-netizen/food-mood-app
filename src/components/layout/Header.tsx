@@ -85,6 +85,9 @@ export function Header() {
               <Link href="/viaje" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 🧭 Mi viaje
               </Link>
+              <Link href="/semana" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                📊 Mi semana
+              </Link>
               <Link href="/diario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Mi Diario
               </Link>
