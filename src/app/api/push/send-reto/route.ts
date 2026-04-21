@@ -5,16 +5,25 @@ import { NextRequest, NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 
 const DAY_MESSAGES: Record<number, { title: string; body: string }> = {
+  // Semana 1 — Magnesio + Zinc + base mineral
   1:  { title: '😴 Día 1 — Tu reset empieza hoy',          body: 'Arroz con leche de avena y semillas de calabaza. Magnesio puro para tu primer buen sueño.' },
   2:  { title: '😴 Día 2 — Tu intestino agradece esto',     body: 'Kéfir con plátano y nueces. El 90% de tu serotonina viene de tu barriga.' },
   3:  { title: '😴 Día 3 — Antiinflamación nocturna',       body: 'Crema de boniato con cúrcuma. Reducir la inflamación mejora el sueño profundo.' },
-  4:  { title: '😴 Día 4 — Mitad del camino 🎯',            body: 'Salmón con espárragos y quinoa. Omega-3 + magnesio para el sueño REM.' },
+  4:  { title: '😴 Día 4 — Mitad del camino',               body: 'Salmón con espárragos y quinoa. Omega-3 + magnesio para el sueño REM.' },
   5:  { title: '😴 Día 5 — Fermentado nocturno',            body: 'Sopa de miso con tofu. Una cena caliente que prepara tu cuerpo para el descanso.' },
   6:  { title: '😴 Día 6 — Melatonina natural',             body: 'Batido de cereza y kéfir. Las cerezas tienen más melatonina que cualquier suplemento.' },
-  7:  { title: '😴 Día 7 — ¡Primera semana completada! 🏆', body: 'Tortilla de espinacas y semillas de girasol. La trinidad del sueño profundo.' },
-  14: { title: '😴 Día 14 — Dos semanas. El hábito es tuyo.', body: 'El patrón de sueño tarda 14 días en cambiar. Lo estás consiguiendo.' },
+  7:  { title: '😴 Día 7 — Primera semana completada',      body: 'Tortilla de espinacas y semillas de girasol. La trinidad del sueño profundo.' },
+  // Semana 2 — Triptófano + Ritmo circadiano + Melatonina
+  8:  { title: '🌅 Semana 2 — empieza el trabajo en profundidad', body: 'Desayuno de triptófano: avena nocturna con plátano y semillas de girasol. Lo que comes a las 8h determina el sueño de las 23h.' },
+  9:  { title: '🥦 Noche 9 — brócoli y sulforafano',        body: 'Bol de brócoli asado con tahini negro y huevo. Nrf2 activado — reparación celular durante el sueño profundo.' },
+  10: { title: '🫙 Noche 10 — kéfir con avena',             body: 'Kéfir con manzana y chía. El microbioma pide fibra — la pectina alimenta al Bifidobacterium que produce GABA.' },
+  11: { title: '🐟 Noche 11 — caballa en escabeche',        body: 'Caballa marinada en vinagre de kombucha con aguacate. Omega-3 para el REM profundo — el DHA llega intacto.' },
+  12: { title: '🌰 Noche 12 — crema de anacardos',          body: 'Crema de anacardos con dátiles y cacao. Triptófano directo + magnesio cofactor. La cadena completa en un bol.' },
+  13: { title: '🫁 Noche 13 — caldo de huesos con miso',    body: 'Glicina + zinc juntos. Doble apagador del sistema nervioso nocturno. Tómalo a las 20h.' },
+  14: { title: '🎉 Día 14 — dos semanas',                   body: 'Sushi bowl de salmón y arroz integral. Tu microbioma ya lo nota. Celébralo.' },
+  // Semana 3 y 4 — placeholders
   21: { title: '😴 Día 21 — Tres semanas de transformación', body: 'Tu microbiota ya ha cambiado. Tu sueño también lo nota.' },
-  28: { title: '😴 Día 28 — ¡Reto completado! 🏆',          body: 'Lo lograste. Revisa tu informe personalizado.' },
+  28: { title: '😴 Día 28 — Reto completado',               body: 'Lo lograste. Revisa tu informe personalizado.' },
 }
 
 function getDefaultMessage(day: number) {
