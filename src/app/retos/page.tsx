@@ -3,27 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-
-// ── Twemoji helpers ───────────────────────────────────────────────────────────
-const TWEMOJI_BASE = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg'
-const TWEMOJI: Record<string, string> = {
-  '😴': '1f634', '⚡': '26a1',  '🌿': '1f33f', '🌸': '1f338',
-  '📘': '1f4d8', '🎧': '1f3a7', '📊': '1f4ca',
-}
-
-function Twemoji({ emoji, size }: { emoji: string; size: number }) {
-  const code = TWEMOJI[emoji]
-  if (!code) return <span>{emoji}</span>
-  return (
-    <img
-      src={`${TWEMOJI_BASE}/${code}.svg`}
-      width={size}
-      height={size}
-      alt={emoji}
-      style={{ display: 'inline-block', verticalAlign: 'middle' }}
-    />
-  )
-}
+import { Moon, Zap, Leaf, Activity, BookOpen, Headphones, BarChart2 } from 'lucide-react'
 
 interface Challenge {
   id:           string
@@ -47,6 +27,18 @@ interface Enrollment {
   paid:         boolean
 }
 
+// Map DB category → Lucide icon + brand dot color
+const CATEGORY_CONFIG: Record<string, { icon: React.ReactNode; dot: string }> = {
+  'sueño':      { icon: <Moon     size={16} strokeWidth={1.5} />, dot: '#6B2737' },
+  'energía':    { icon: <Zap      size={16} strokeWidth={1.5} />, dot: '#C9A84C' },
+  'inflamación':{ icon: <Leaf     size={16} strokeWidth={1.5} />, dot: '#4A7C59' },
+  'hormonas':   { icon: <Activity size={16} strokeWidth={1.5} />, dot: '#8B5E83' },
+}
+
+function getCategoryConfig(category: string) {
+  return CATEGORY_CONFIG[category.toLowerCase()] ?? { icon: <Leaf size={16} strokeWidth={1.5} />, dot: '#6B2737' }
+}
+
 function ProgressBar({ value, color }: { value: number; color: string }) {
   return (
     <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: 'rgba(107,39,55,0.1)' }}>
@@ -68,38 +60,30 @@ function ChallengeCard({
   const pct = enrollment
     ? Math.min(100, ((enrollment.current_day - 1) / challenge.duration_days) * 100)
     : 0
+  const cat = getCategoryConfig(challenge.category)
 
   return (
     <div
       className="bg-white rounded-2xl p-6 border-l-4 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4"
       style={{ borderLeftColor: challenge.color }}
     >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3">
-        {/* Emoji con halo de color temático */}
-        <div
-          className="flex items-center justify-center rounded-2xl shrink-0"
-          style={{
-            width: 52, height: 52,
-            backgroundColor: `${challenge.color}18`,
-          }}
-        >
-          <Twemoji emoji={challenge.emoji} size={32} />
-        </div>
-        <div className="flex flex-col items-end gap-1 shrink-0">
+      {/* Header — category badge + duration */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
           <span
-            className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
-            style={{ backgroundColor: challenge.color }}
+            className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest"
+            style={{ color: challenge.color }}
           >
-            {challenge.duration_days === 7 ? '1 semana' : '4 semanas'}
-          </span>
-          <span
-            className="text-[10px] uppercase tracking-widest font-medium"
-            style={{ color: 'rgba(107,39,55,0.45)' }}
-          >
+            {cat.icon}
             {challenge.category}
           </span>
         </div>
+        <span
+          className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
+          style={{ backgroundColor: challenge.color }}
+        >
+          {challenge.duration_days === 7 ? '1 semana' : '4 semanas'}
+        </span>
       </div>
 
       {/* Title */}
@@ -117,21 +101,21 @@ function ChallengeCard({
         )}
       </div>
 
-      {/* Meta */}
+      {/* Meta — Lucide icons */}
       <div className="flex items-center gap-3 flex-wrap text-xs" style={{ color: 'rgba(107,39,55,0.5)' }}>
         <span className="flex items-center gap-1">
-          <Twemoji emoji="📘" size={14} />
-          <span>{challenge.recipe_count} recetas</span>
+          <BookOpen size={13} strokeWidth={1.5} />
+          {challenge.recipe_count} recetas
         </span>
         <span style={{ opacity: 0.3 }}>·</span>
         <span className="flex items-center gap-1">
-          <Twemoji emoji="🎧" size={14} />
-          <span>{challenge.audio_count} audios</span>
+          <Headphones size={13} strokeWidth={1.5} />
+          {challenge.audio_count} audios
         </span>
         <span style={{ opacity: 0.3 }}>·</span>
         <span className="flex items-center gap-1">
-          <Twemoji emoji="📊" size={14} />
-          <span>tracking diario</span>
+          <BarChart2 size={13} strokeWidth={1.5} />
+          tracking diario
         </span>
       </div>
 
@@ -157,7 +141,7 @@ function ChallengeCard({
         </div>
       ) : enrollment?.completed ? (
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-green-700">✓ Reto completado</span>
+          <span className="text-xs font-semibold text-green-700">Reto completado</span>
           <Link href={`/retos/${challenge.slug}`} className="text-xs font-bold" style={{ color: '#6B2737' }}>
             Ver informe →
           </Link>
@@ -188,14 +172,11 @@ export default function RetosPage() {
   useEffect(() => {
     async function load() {
       const supabase = createClient()
-
       const [{ data: ch }, { data: { user } }] = await Promise.all([
         supabase.from('challenges').select('*').eq('is_active', true).order('created_at'),
         supabase.auth.getUser(),
       ])
-
       setChallenges((ch ?? []) as Challenge[])
-
       if (user) {
         const { data: en } = await supabase
           .from('user_challenges')
@@ -203,7 +184,6 @@ export default function RetosPage() {
           .eq('user_id', user.id)
         setEnrollments((en ?? []) as Enrollment[])
       }
-
       setLoading(false)
     }
     load()
@@ -225,7 +205,7 @@ export default function RetosPage() {
     <main className="min-h-screen" style={{ backgroundColor: '#F5F0E8' }}>
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-24">
 
-        {/* ── Hero ── */}
+        {/* Hero */}
         <section className="mb-16 text-center">
           <span
             className="text-[11px] font-bold uppercase tracking-[0.2em] block mb-6"
@@ -241,7 +221,7 @@ export default function RetosPage() {
           </p>
         </section>
 
-        {/* ── Grid ── */}
+        {/* Grid */}
         <section className="grid md:grid-cols-2 gap-6 mb-20">
           {challenges.map(challenge => (
             <ChallengeCard
@@ -252,7 +232,7 @@ export default function RetosPage() {
           ))}
         </section>
 
-        {/* ── Por qué funcionan ── */}
+        {/* Por qué funcionan */}
         <section
           className="rounded-3xl p-10 md:p-16 text-center"
           style={{ backgroundColor: '#2d0f16' }}

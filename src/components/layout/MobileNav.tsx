@@ -73,13 +73,13 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                     </Link>
 
                     <Link href="/bol" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      🥣 Mi bol
+                      Mi bol
                     </Link>
                     <Link href="/viaje" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      🧭 Mi viaje
+                      Mi viaje
                     </Link>
                     <Link href="/semana" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      📊 Mi semana
+                      Mi semana
                     </Link>
                     <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
                       Mi Diario
@@ -91,10 +91,10 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                       Glosario
                     </Link>
                     <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      🩺 Síntomas
+                      Síntomas
                     </Link>
                     <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      🎯 Retos
+                      Retos
                     </Link>
                     {!isPremium && (
                       <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
@@ -123,10 +123,10 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                       Glosario
                     </Link>
                     <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      🎯 Retos
+                      Retos
                     </Link>
                     <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
-                      📩 Newsletter
+                      Newsletter
                     </Link>
                     <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
                       Planes

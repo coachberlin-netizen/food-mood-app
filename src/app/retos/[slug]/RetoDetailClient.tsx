@@ -3,25 +3,17 @@
 import { useState, useTransition, useEffect } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { Moon, Zap, Leaf, Activity, Trophy, Bell, Check } from 'lucide-react'
 
-// ── Twemoji ───────────────────────────────────────────────────────────────────
-const TWEMOJI_BASE = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg'
-const TWEMOJI: Record<string, string> = {
-  '😴': '1f634', '⚡': '26a1', '🌿': '1f33f', '🌸': '1f338', '🏆': '1f3c6',
-}
-
-function Twemoji({ emoji, size }: { emoji: string; size: number }) {
-  const code = TWEMOJI[emoji]
-  if (!code) return <span>{emoji}</span>
-  return (
-    <img
-      src={`${TWEMOJI_BASE}/${code}.svg`}
-      width={size}
-      height={size}
-      alt={emoji}
-      style={{ display: 'inline-block', verticalAlign: 'middle' }}
-    />
-  )
+function CategoryIcon({ emoji, size }: { emoji: string; size: number }) {
+  const map: Record<string, React.ReactNode> = {
+    '😴': <Moon     width={size} height={size} strokeWidth={1.5} />,
+    '⚡': <Zap      width={size} height={size} strokeWidth={1.5} />,
+    '🌿': <Leaf     width={size} height={size} strokeWidth={1.5} />,
+    '🌸': <Activity width={size} height={size} strokeWidth={1.5} />,
+    '🏆': <Trophy   width={size} height={size} strokeWidth={1.5} />,
+  }
+  return <>{map[emoji] ?? null}</>
 }
 
 interface Challenge {
@@ -188,7 +180,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             className="rounded-2xl px-6 py-4 text-center shadow-lg text-white font-semibold"
             style={{ backgroundColor: challenge.color }}
           >
-            🎉 ¡Pago confirmado! Tu reto ha comenzado. Día 1 te espera.
+            ¡Pago confirmado! Tu reto ha comenzado. Día 1 te espera.
           </div>
         </div>
       )}
@@ -206,7 +198,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               backgroundColor: `${challenge.color}18`,
             }}
           >
-            <Twemoji emoji={challenge.emoji} size={44} />
+            <CategoryIcon emoji={challenge.emoji} size={44} />
           </div>
           <h1 className="font-serif text-4xl md:text-5xl font-black mb-3 leading-tight" style={{ color: '#2d0f16' }}>
             {challenge.title}
@@ -334,7 +326,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             {dayDone ? (
               <div className="text-center py-4">
                 <p className="font-serif text-lg font-bold mb-1" style={{ color: '#2d0f16' }}>
-                  ¡Día {enrollment.current_day - 1} completado! 🎉
+                  Día {enrollment.current_day - 1} completado
                 </p>
                 <p className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.6)' }}>
                   Vuelve mañana para el día {enrollment.current_day}.
@@ -413,14 +405,14 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               className="px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all hover:opacity-85 disabled:opacity-50 shrink-0"
               style={{ backgroundColor: challenge.color }}
             >
-              {notifState === 'loading' ? 'Activando…' : notifState === 'denied' ? 'Sin permisos' : 'Activar 🔔'}
+              {notifState === 'loading' ? 'Activando…' : notifState === 'denied' ? 'Sin permisos' : 'Activar recordatorio'}
             </button>
           </section>
         )}
 
         {enrollment?.paid && notifState === 'done' && (
           <p className="text-center text-xs font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
-            🔔 Recordatorio activado — te avisamos cada día a las 19:30h.
+            Recordatorio activado — te avisamos cada día a las 19:30h.
           </p>
         )}
 
@@ -431,7 +423,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             style={{ backgroundColor: `rgba(${rgb},0.06)`, borderColor: `rgba(${rgb},0.2)` }}
           >
             <div className="flex justify-center mb-3">
-              <Twemoji emoji="🏆" size={40} />
+              <Trophy size={36} strokeWidth={1.5} style={{ color: '#C9A84C' }} />
             </div>
             <p className="font-serif text-xl font-bold mb-2" style={{ color: '#2d0f16' }}>
               ¡Reto completado!

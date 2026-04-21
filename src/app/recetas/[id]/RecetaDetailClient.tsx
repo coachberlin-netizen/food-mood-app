@@ -292,7 +292,7 @@ export default function RecetaDetailClient({
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-cream/5 rounded-full blur-3xl" />
               <div className="relative">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-4 block">
-                  🧬 Por qué funciona
+                  Por qué funciona
                 </span>
                 <p className="text-[15px] md:text-base font-light leading-[1.85] text-cream/85">
                   <Linkify text={receta.nota_food_mood_es} />

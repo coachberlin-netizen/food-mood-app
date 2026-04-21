@@ -79,13 +79,13 @@ export function Header() {
               </Link>
 
               <Link href="/bol" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                🥣 Mi bol
+                Mi bol
               </Link>
               <Link href="/viaje" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                🧭 Mi viaje
+                Mi viaje
               </Link>
               <Link href="/semana" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                📊 Mi semana
+                Mi semana
               </Link>
               <Link href="/diario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Mi Diario
@@ -100,13 +100,13 @@ export function Header() {
                 Fermentos
               </Link>
               <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                🩺 Síntomas
+                Síntomas
               </Link>
               <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                🎯 Retos
+                Retos
               </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                📩 Newsletter
+                Newsletter
               </Link>
               {!isPremium && (
                 <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
@@ -133,10 +133,10 @@ export function Header() {
                 Glosario
               </Link>
               <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                🎯 Retos
+                Retos
               </Link>
               <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                📩 Newsletter
+                Newsletter
               </Link>
               <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                 Planes
