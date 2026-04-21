@@ -21,8 +21,15 @@ const DAY_MESSAGES: Record<number, { title: string; body: string }> = {
   12: { title: '🌰 Noche 12 — crema de anacardos',          body: 'Crema de anacardos con dátiles y cacao. Triptófano directo + magnesio cofactor. La cadena completa en un bol.' },
   13: { title: '🫁 Noche 13 — caldo de huesos con miso',    body: 'Glicina + zinc juntos. Doble apagador del sistema nervioso nocturno. Tómalo a las 20h.' },
   14: { title: '🎉 Día 14 — dos semanas',                   body: 'Sushi bowl de salmón y arroz integral. Tu microbioma ya lo nota. Celébralo.' },
-  // Semana 3 y 4 — placeholders
-  21: { title: '😴 Día 21 — Tres semanas de transformación', body: 'Tu microbiota ya ha cambiado. Tu sueño también lo nota.' },
+  // Semana 3 — Consolidación + Microbioma nocturno
+  15: { title: '🧠 Semana 3 — consolidación',               body: 'Tu cerebro ya reconoce el ritual. Infusión de valeriana y manzanilla a las 21h — mismo lugar, misma taza.' },
+  16: { title: '🫫 Noche 16 — chocolate negro con especias', body: 'Mousse de cacao con frambuesas y flor de sal. Teobromina sostenida 7-9 horas — activa hasta las 3-4h.' },
+  17: { title: '🥬 Noche 17 — ensalada de rúcula y sardinas', body: 'Amargo + omega-3. El TAS2R de la rúcula baja tu frecuencia cardíaca vía nervio vago en minutos.' },
+  18: { title: '🍵 Noche 18 — sopa de lentejas rojas',       body: 'Triptófano vegetal + hierro cofactor + leche de coco. La cadena completa hacia la serotonina.' },
+  19: { title: '🫙 Noche 19 — bol de fermentados mixtos',    body: 'Chucrut, kimchi, miso y kéfir juntos. Tu microbioma en modo noche — butirato en producción.' },
+  20: { title: '🌿 Noche 20 — crema de espinacas con miso',  body: 'Folato + GABA bacteriano. El sueño profundo necesita folato para reparar el ADN — espinacas 5 minutos, no más.' },
+  21: { title: '🎉 3 semanas — tu sueño ya es un hábito neuronal', body: 'Bol de quinoa con boniato, tahini negro y granada. La receta más completa del reto. Una semana más.' },
+  // Semana 4 — placeholder
   28: { title: '😴 Día 28 — Reto completado',               body: 'Lo lograste. Revisa tu informe personalizado.' },
 }
 
