@@ -104,49 +104,33 @@ export function PaletaIntroSection() {
           No eres{" "}
           <span className="italic font-light">&ldquo;triste&rdquo;</span>.{" "}
           <br className="hidden md:block" />
-          Eres un{" "}
-          <span
-            className="inline-block px-3 py-0.5 rounded-full text-white"
-            style={{ backgroundColor: "#5A9B8A" }}
-          >
-            60% calma
-          </span>
-          ,{" "}
-          <span
-            className="inline-block px-3 py-0.5 rounded-full text-white"
-            style={{ backgroundColor: "#4A7AB5" }}
-          >
-            25% melancolía
-          </span>{" "}
-          y un{" "}
-          <span
-            className="inline-block px-3 py-0.5 rounded-full text-white"
-            style={{ backgroundColor: "#C04878" }}
-          >
-            15%
-          </span>{" "}
-          de algo que aún no tiene nombre.
+          Eres una mezcla única.
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-[#6B2737]/70 font-serif italic leading-relaxed max-w-3xl mb-16">
-          &ldquo;Por qué el espectro emocional continuo es la herramienta de
-          autorregulación más potente que existe — y casi nadie la usa.&rdquo;
+        <p className="text-lg md:text-xl text-[#6B2737]/70 font-serif font-light leading-relaxed max-w-3xl mb-16">
+          Hoy quizá seas un{" "}
+          <span className="inline-block px-2 py-0.5 rounded-full text-white text-base" style={{ backgroundColor: "#5A9B8A" }}>60% calma</span>
+          , un{" "}
+          <span className="inline-block px-2 py-0.5 rounded-full text-white text-base" style={{ backgroundColor: "#4A7AB5" }}>25% melancolía</span>
+          {" "}y un{" "}
+          <span className="inline-block px-2 py-0.5 rounded-full text-white text-base" style={{ backgroundColor: "#C04878" }}>15%</span>
+          {" "}de algo que aún no tiene nombre. Tu mundo emocional no cabe en una sola etiqueta, y ahí empieza tu poder para autorregularte.
         </p>
 
         {/* Explanatory box */}
         <div className="bg-white rounded-3xl border border-[#6B2737]/8 p-8 md:p-12 mb-12 shadow-sm">
           <h2 className="font-serif text-2xl md:text-3xl text-[#2d0f16] mb-5">
-            Cuanto más preciso eres con lo que sientes, menos lo sufres.
+            La herramienta de autorregulación que casi nadie está usando.
           </h2>
           <p className="text-[#4a3a3a]/80 font-light leading-relaxed mb-8 text-base md:text-lg">
-            Cuanto más exacto eres al describir lo que sientes, menos te afecta.
-            No es intuición — está probado científicamente. Cuando le pones un
-            nombre concreto a una emoción, la parte de tu cerebro que dispara el
-            miedo se calma sola. La diferencia entre decir{" "}
-            <em>"estoy mal"</em> y decir{" "}
-            <em>"tengo ese cansancio de hacer cosas que no me apetecen"</em> es
-            real: menos estrés en el cuerpo, mejores decisiones, más calma.
+            No eres &ldquo;triste&rdquo;, &ldquo;dramática&rdquo; o &ldquo;demasiado sensible&rdquo;.
+            Eres una mezcla viva que cambia de proporciones a lo largo del tiempo.{" "}
+            Cada vez que nombras con más precisión esa mezcla, refinas tu receta interna:
+            bajas el fuego, añades descanso, pides apoyo, eliges lo que te sienta bien.{" "}
+            Ese es el trabajo silencioso de la autorregulación. Y empieza con una pregunta distinta:
+            no <em>&ldquo;¿qué etiqueta me define?&rdquo;</em>, sino{" "}
+            <em>&ldquo;¿cómo se reparte mi espectro emocional ahora mismo?&rdquo;</em>.
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             {[
