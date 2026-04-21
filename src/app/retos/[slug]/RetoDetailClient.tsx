@@ -57,9 +57,10 @@ interface Props {
 }
 
 const MILESTONES: Record<number, string> = {
-  7:  'Primera semana — los primeros cambios se sienten.',
-  14: 'Segunda semana — el hábito empieza a formarse.',
-  28: 'Reto completado — transformación medible.',
+  7:  'Primera semana — base mineral y primeros fermentados.',
+  14: 'Segunda semana — síntesis hormonal completa. Triptófano activo.',
+  21: 'Tercera semana — microbioma nocturno. El hábito empieza a ser automático.',
+  28: 'Cuarta semana — sistema nervioso y cronobiología. Transformación medible.',
 }
 
 const SHORT_MILESTONES: Record<number, string> = {
@@ -425,24 +426,59 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             <div className="flex justify-center mb-3">
               <Trophy size={36} strokeWidth={1.5} style={{ color: '#C9A84C' }} />
             </div>
-            <p className="font-serif text-xl font-bold mb-2" style={{ color: '#2d0f16' }}>
+            <p className="font-serif text-xl font-bold mb-1" style={{ color: '#2d0f16' }}>
               ¡Reto completado!
             </p>
+            <p className="text-xs font-light mb-5" style={{ color: 'rgba(107,39,55,0.45)' }}>
+              {challenge.duration_days} días · {challenge.duration_days} recetas · {challenge.duration_days / 7} semanas
+            </p>
             {enrollment.fm_index_start != null && enrollment.fm_index_end != null && (
-              <p className="text-sm font-light mb-4" style={{ color: 'rgba(107,39,55,0.65)' }}>
-                Índice {enrollment.fm_index_start} → {enrollment.fm_index_end}
-                {enrollment.fm_index_end > enrollment.fm_index_start
-                  ? ` · ↑ ${enrollment.fm_index_end - enrollment.fm_index_start} puntos de mejora`
-                  : ''}
-              </p>
+              <div
+                className="rounded-xl px-5 py-4 mb-5 text-left"
+                style={{ backgroundColor: 'white', border: `1px solid rgba(${rgb},0.15)` }}
+              >
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: challenge.color }}>
+                  Tu índice Food·Mood
+                </p>
+                <div className="flex items-center gap-3">
+                  <span className="font-serif text-2xl font-black" style={{ color: 'rgba(107,39,55,0.35)' }}>
+                    {enrollment.fm_index_start}
+                  </span>
+                  <span className="text-sm" style={{ color: 'rgba(107,39,55,0.3)' }}>→</span>
+                  <span className="font-serif text-2xl font-black" style={{ color: challenge.color }}>
+                    {enrollment.fm_index_end}
+                  </span>
+                  {enrollment.fm_index_end > enrollment.fm_index_start && (
+                    <span className="ml-auto text-xs font-semibold" style={{ color: '#4A7C59' }}>
+                      ↑ {enrollment.fm_index_end - enrollment.fm_index_start} puntos
+                    </span>
+                  )}
+                </div>
+              </div>
             )}
-            <Link
-              href="/retos"
-              className="text-sm font-bold"
-              style={{ color: '#6B2737' }}
-            >
-              Ver más retos →
-            </Link>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/retos"
+                className="block py-3 rounded-full text-sm font-bold text-white"
+                style={{ backgroundColor: challenge.color }}
+              >
+                Ver más retos →
+              </Link>
+              <button
+                onClick={() => {
+                  const text = `Acabo de completar el reto "${challenge.title}" en 28 días con Food·Mood. El eje intestino-cerebro es real. 🏆`
+                  if (navigator.share) {
+                    navigator.share({ text, url: window.location.href }).catch(() => {})
+                  } else {
+                    navigator.clipboard.writeText(text + ' ' + window.location.href)
+                  }
+                }}
+                className="block w-full py-3 rounded-full text-sm font-bold border-2 transition-all hover:opacity-80"
+                style={{ borderColor: challenge.color, color: challenge.color }}
+              >
+                Compartir mi logro →
+              </button>
+            </div>
           </section>
         )}
 

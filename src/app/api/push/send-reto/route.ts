@@ -29,8 +29,14 @@ const DAY_MESSAGES: Record<number, { title: string; body: string }> = {
   19: { title: '🫙 Noche 19 — bol de fermentados mixtos',    body: 'Chucrut, kimchi, miso y kéfir juntos. Tu microbioma en modo noche — butirato en producción.' },
   20: { title: '🌿 Noche 20 — crema de espinacas con miso',  body: 'Folato + GABA bacteriano. El sueño profundo necesita folato para reparar el ADN — espinacas 5 minutos, no más.' },
   21: { title: '🎉 3 semanas — tu sueño ya es un hábito neuronal', body: 'Bol de quinoa con boniato, tahini negro y granada. La receta más completa del reto. Una semana más.' },
-  // Semana 4 — placeholder
-  28: { title: '😴 Día 28 — Reto completado',               body: 'Lo lograste. Revisa tu informe personalizado.' },
+  // Semana 4 — Sistema nervioso + Cronobiología + Cierre
+  22: { title: '🌿 Semana 4 — afinar el sistema',            body: 'Leche dorada de ashwagandha y melisa. La curva del cortisol nocturno empieza a normalizarse.' },
+  23: { title: '⏰ Noche 23 — cronobiología',                body: 'Sopa de lentejas rojas con coco. La hora de cenar también es medicina — comer antes de las 20h sincroniza el reloj hepático.' },
+  24: { title: '⚡ Noche 24 — mitocondrias activas',         body: 'Bol de semillas tostadas con aguacate y huevo. CoQ10 y semillas para la reparación celular durante el NREM3.' },
+  25: { title: '🔄 Noche 25 — el círculo completo',          body: 'Salmón lacado con miso y arroz negro. Intestino → nervio vago → cerebro. 25 días de trabajo convergiendo en un plato.' },
+  26: { title: '💓 Noche 26 — tono vagal',                   body: 'Kéfir + chucrut crudo + aceite de oliva. Los fermentados activan el nervio vago en minutos — notarás la calma.' },
+  27: { title: '🍇 Noche 27 — limpieza glinfática',          body: 'Ensalada de arándanos, moras y cebolla roja. Resveratrol y quercetina para que el cerebro se limpie esta noche.' },
+  28: { title: '🏆 Día 28 — lo has conseguido',              body: '28 días de bioquímica real. El gran bol integrador. Tu cerebro te lo agradece esta noche.' },
 }
 
 function getDefaultMessage(day: number) {
