@@ -43,11 +43,11 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
         Tu barriga y tu cabeza hablan constantemente.
       </span>
       <h2 className="font-serif text-4xl md:text-7xl text-[#6B2737] leading-[1.1] font-bold mb-6">
-        Tus emociones no son psicológicas.<br className="hidden md:block" />{" "}
-        <span className="italic font-light">Son bioquímica.</span>
+        Tus emociones no son solo psicológicas.<br className="hidden md:block" />{" "}
+        <span className="italic font-light">También son bioquímica en movimiento.</span>
       </h2>
       <p className="text-base md:text-lg text-[#4A4A4A] font-light max-w-2xl mx-auto leading-relaxed">
-        Lo que comes cambia cómo te sientes. Lo que sientes cambia cómo digiere tu cuerpo. Van juntos.
+        Lo que comes cambia cómo te sientes. Y lo que sientes cambia cómo digiere tu cuerpo. No van separados. Van juntos.
       </p>
     </motion.div>
 
