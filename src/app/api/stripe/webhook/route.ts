@@ -64,15 +64,32 @@ export async function POST(req: NextRequest) {
             .limit(1)
             .maybeSingle()
 
+          // Registrar compra en reto_purchases
+          await supabaseAdmin
+            .from('reto_purchases')
+            .upsert({
+              user_id,
+              challenge_id,
+              stripe_session_id:     session.id,
+              stripe_payment_intent: session.payment_intent as string,
+              amount_eur:            (session.amount_total ?? 0) / 100,
+              status:                'active',
+              purchased_at:          new Date().toISOString(),
+            }, { onConflict: 'stripe_session_id' })
+
+          // Marcar user_challenges como pagado
           await supabaseAdmin
             .from('user_challenges')
-            .update({
+            .upsert({
+              user_id,
+              challenge_id,
               paid:              true,
               stripe_session_id: session.id,
               fm_index_start:    (fmData as any)?.index_value ?? null,
-            })
-            .eq('user_id', user_id)
-            .eq('challenge_id', challenge_id)
+              current_day:       1,
+              completed:         false,
+              start_date:        new Date().toISOString().split('T')[0],
+            }, { onConflict: 'user_id,challenge_id' })
 
           console.log(`✅ Reto pagado: user=${user_id} challenge=${challenge_id}`)
         }

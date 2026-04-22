@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnySupabase = { from: (table: string) => any }
+type AnySupabase = { from: (table: string) => any } // eslint-disable-line
 
 export interface WeeklyDigest {
   user_id:           string

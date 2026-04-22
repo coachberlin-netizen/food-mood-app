@@ -118,9 +118,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           {post.cover_image && (
             <div className="mt-12 rounded-3xl overflow-hidden shadow-luxury aspect-[16/9]">
-              <img 
-                src={post.cover_image} 
-                alt={post.title} 
+              <img
+                src={post.cover_image}
+                alt={post.title}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>

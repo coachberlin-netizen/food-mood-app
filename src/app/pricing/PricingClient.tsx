@@ -113,9 +113,12 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
             <div className="absolute -top-3 right-6"><span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#C9A84C] text-white text-[10px] font-bold uppercase tracking-wider shadow-md"><Zap className="w-3 h-3" />Más popular</span></div>
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-3"><Sparkles className="w-4 h-4 text-[#C9A84C]" /><span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">Trimestral</span></div>
-              <div className="flex items-end gap-1 mt-1 mb-1"><span className="text-5xl font-serif text-aubergine-dark">15€</span><span className="text-aubergine-dark/40 font-light text-sm mb-2">/ 3 meses</span></div>
-              <p className="text-sm text-[#C9A84C] font-semibold mb-1">Ahorrando un 44%</p>
-              <p className="text-sm text-aubergine-dark/45 font-light">Tu paleta emocional completa. Recetas que responden a cada color. Solo 5€/mes (facturado trimestralmente).</p>
+              <div className="flex items-end gap-1 mt-1 mb-1">
+                <span className="text-5xl font-serif text-aubergine-dark">15€</span>
+                <span className="text-aubergine-dark/40 font-light text-sm mb-2">facturados cada 3 meses</span>
+              </div>
+              <p className="text-sm text-[#C9A84C] font-semibold mb-1">Equivale a 5€/mes · Ahorra un 44%</p>
+              <p className="text-sm text-aubergine-dark/45 font-light">Tu paleta emocional completa. Recetas que responden a cada color.</p>
             </div>
             <ul className="space-y-3.5 mb-10 flex-1">
               {PREMIUM_FEATURES.map((f, i) => (
@@ -127,9 +130,9 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
             ) : (
               <>
                 <button onClick={() => handleCheckout("quarterly")} disabled={isCheckingOut} className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50">
-                  {isCheckingOut ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Empezar por 5€/mes<ArrowRight className="w-4 h-4" /></>}
+                  {isCheckingOut ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Suscribirme por 15€/trimestre<ArrowRight className="w-4 h-4" /></>}
                 </button>
-                <p className="text-center text-[10px] text-aubergine-dark/30 mt-3 font-light">Después 15 € / 3 meses · Cancela cuando quieras</p>
+                <p className="text-center text-[10px] text-aubergine-dark/30 mt-3 font-light">15€ facturados trimestralmente · Cancela cuando quieras</p>
               </>
             )}
           </motion.div>

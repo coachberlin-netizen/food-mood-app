@@ -1,38 +1,54 @@
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import RetoDetailClient from './RetoDetailClient'
 
 export const dynamic = 'force-dynamic'
 
-interface PageProps {
-  params: { slug: string }
-}
+type PageProps = { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
   const supabase = await createClient()
   const { data } = await supabase
     .from('challenges')
-    .select('title, subtitle')
-    .eq('slug', params.slug)
+    .select('title, subtitle, description, price_eur, duration_days')
+    .eq('slug', slug)
     .single()
 
   if (!data) return { title: 'Reto — Food·Mood' }
 
+  const title = `${data.title} | Food·Mood`
+  const description = data.subtitle ?? `Reto de ${data.duration_days} días · ${data.price_eur}€ · Nutrición emocional basada en el eje intestino-cerebro.`
+
   return {
-    title: `${data.title} | Food·Mood`,
-    description: data.subtitle ?? undefined,
-    alternates: { canonical: `/retos/${params.slug}` },
+    title,
+    description,
+    alternates: { canonical: `https://www.food-mood.app/retos/${slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `https://www.food-mood.app/retos/${slug}`,
+      type: 'website',
+      images: [{ url: '/og-image.png', width: 1200, height: 630, alt: data.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   }
 }
 
 export default async function RetoDetailPage({ params }: PageProps) {
+  const { slug } = await params
   const supabase = await createClient()
 
   const { data: challenge } = await supabase
     .from('challenges')
     .select('*')
-    .eq('slug', params.slug)
+    .eq('slug', slug)
     .eq('is_active', true)
     .single()
 
@@ -66,10 +82,12 @@ export default async function RetoDetailPage({ params }: PageProps) {
   }
 
   return (
-    <RetoDetailClient
-      challenge={challenge}
-      enrollment={enrollment}
-      todayContent={todayContent}
-    />
+    <Suspense fallback={null}>
+      <RetoDetailClient
+        challenge={challenge}
+        enrollment={enrollment}
+        todayContent={todayContent}
+      />
+    </Suspense>
   )
 }

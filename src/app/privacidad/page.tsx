@@ -90,6 +90,9 @@ export default function PrivacyPage() {
             <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
               Detestamos las asfixiantes persecuciones publicitarias que abundan por toda la red tanto como tú. Es por ello que en Food·Mood apenas usamos cookies (pequeños rastreadores que viven en el navegador). Únicamente hemos implementado aquellas estrictamente técnicas y vitales para asegurar que la página ruede maravillosamente rápido, manteniendo tu sesión conectada y velando para que no pierdas tu progreso si recargas. En nuestro entorno no habrá molestos mercaderes rondando en tu pantalla.
             </p>
+            <p className="text-base md:text-lg text-aubergine-dark/80 font-light leading-relaxed">
+              Para entender cómo se usa la aplicación de forma agregada —qué secciones se visitan, desde qué dispositivos, con qué frecuencia— utilizamos <strong className="font-medium">Vercel Analytics</strong> y <strong className="font-medium">Vercel Speed Insights</strong>. Estos servicios son proporcionados por Vercel Inc., la misma infraestructura que aloja Food·Mood. Los datos se recogen de forma anónima, sin cookies de rastreo y sin identificar a usuarios individuales. Puedes desactivar esta analítica en cualquier momento desde el panel de preferencias de privacidad. Más información en la política de privacidad de Vercel: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#D4AF37] font-medium hover:underline underline-offset-4">vercel.com/legal/privacy-policy</a>.
+            </p>
           </section>
 
           <section className="flex flex-col gap-4 border-l-4 border-[#D4AF37] pl-6 py-2 mt-4 bg-[#D4AF37]/5 rounded-r-2xl">

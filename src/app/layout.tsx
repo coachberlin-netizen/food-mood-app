@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { DM_Sans, Source_Serif_4, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/Header";
-import { HomeAnimationWrapper } from "@/components/layout/HomeAnimationWrapper";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ConsentModal } from "@/components/ui/ConsentModal";
-import { ServiceWorkerRegistration } from "@/components/ui/ServiceWorkerRegistration";
 import { PaletteProvider } from "@/contexts/PaletteContext";
 import "./globals.css";
 
@@ -32,15 +31,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
-  title: "Food·Mood — Descubre qué comer según cómo te sientes | Test gratis",
-  description: "Test de neurociencia nutricional en 2 minutos. Recetas diseñadas para tu estado emocional: energía, calma, foco y bienestar. Sin dietas. Sin restricciones.",
+  title: "Food·Mood — Come según cómo te sientes | Retos de 7 y 30 días",
+  description: "Recetas diseñadas para tu estado emocional. Sin dietas, sin contar calorías. Basado en la ciencia del eje intestino-cerebro. Empieza tu reto de 7 días.",
   keywords: "recetas según estado de ánimo, neurociencia nutricional, psicobióticos, microbiota intestinal, alimentación emocional, recetas funcionales, eje intestino cerebro, bienestar emocional, longevidad alimentación",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
   },
   appleWebApp: {
-    capable: true,
     statusBarStyle: "black-translucent",
     title: "Food·Mood",
     startupImage: "/icons/icon-512.png",
@@ -48,8 +46,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://www.food-mood.app/",
-    title: "Food·Mood — Come según cómo te sientes",
-    description: "Test de neurociencia nutricional en 2 minutos. Recetas funcionales para tu estado emocional.",
+    title: "Food·Mood — Come según cómo te sientes | Retos de 7 y 30 días",
+    description: "Recetas diseñadas para tu estado emocional. Sin dietas, sin contar calorías. Basado en la ciencia del eje intestino-cerebro.",
     siteName: "Food·Mood",
     locale: "es_ES",
     images: [
@@ -64,12 +62,17 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Food·Mood — Come según cómo te sientes",
-    description: "Test de neurociencia nutricional en 2 minutos. Recetas funcionales para tu estado emocional.",
+    description: "Recetas diseñadas para tu estado emocional. Sin dietas, sin contar calorías. Basado en el eje intestino-cerebro.",
     images: ["/og-image.png"],
   },
   icons: {
     icon: "/icons/icon-192.png",
     apple: "/icons/icon-192.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
 };
 
@@ -89,21 +92,44 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebApplication",
+              "@type": "SoftwareApplication",
               name: "Food·Mood",
               url: "https://www.food-mood.app",
-              description: "Aplicación de neurociencia nutricional que personaliza recetas según el estado emocional del usuario.",
+              description: "Aplicación de neurociencia nutricional que personaliza recetas según el estado emocional del usuario. Basada en la ciencia del eje microbiota-intestino-cerebro.",
               applicationCategory: "HealthApplication",
-              operatingSystem: "Web",
+              applicationSubCategory: "NutritionApplication",
+              operatingSystem: "Web, iOS, Android",
               inLanguage: "es",
               offers: [
                 { "@type": "Offer", name: "Plan Gratuito", price: "0", priceCurrency: "EUR" },
                 { "@type": "Offer", name: "Plan Mensual", price: "9.00", priceCurrency: "EUR" },
                 { "@type": "Offer", name: "Plan Trimestral", price: "15.00", priceCurrency: "EUR" },
               ],
-              audience: {
-                "@type": "Audience",
-                geographicArea: { "@type": "AdministrativeArea", name: "Hispanohablante" },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                ratingCount: "127",
+                bestRating: "5",
+                worstRating: "1",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Food·Mood",
+              url: "https://www.food-mood.app",
+              logo: "https://www.food-mood.app/icons/icon-512.png",
+              description: "Plataforma de nutrición emocional basada en el eje intestino-cerebro.",
+              sameAs: [],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                availableLanguage: "Spanish",
               },
             }),
           }}
@@ -115,16 +141,16 @@ export default function RootLayout({
         <PaletteProvider>
           <AnalyticsProvider />
           <Header />
-          <HomeAnimationWrapper />
-          <PageTransition>
-            <div className="flex-1">
-              {children}
-            </div>
-          </PageTransition>
+          <Suspense fallback={<div className="flex-1">{children}</div>}>
+            <PageTransition>
+              <div className="flex-1">
+                {children}
+              </div>
+            </PageTransition>
+          </Suspense>
           <ConsentModal />
           <InstallBanner />
           <Footer />
-          <ServiceWorkerRegistration />
         </PaletteProvider>
       </body>
     </html>

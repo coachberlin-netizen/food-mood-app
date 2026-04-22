@@ -8,7 +8,14 @@
       "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(git pull *)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Bash(node *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(grep -v \"^\\\\s*$\")",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(gunzip -c \"C:\\\\Users\\\\coach\\\\.claude\\\\projects\\\\C--Users-coach-food-mood-app\\\\4a752c4b-eaab-4b7c-a1f6-70e7286c93e2\\\\tool-results\\\\webfetch-1776842847255-1nmcm3.bin\")",
+      "Bash(tar -x -O \"food-mood/project/Cosmic Scale.html\")",
+      "Bash(gunzip -c \"C:\\\\Users\\\\coach\\\\.claude\\\\projects\\\\C--Users-coach-food-mood-app\\\\4a752c4b-eaab-4b7c-a1f6-70e7286c93e2\\\\tool-results\\\\webfetch-1776843752612-rcytr9.bin\")"
     ]
   }
 }

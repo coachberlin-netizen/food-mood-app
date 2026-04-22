@@ -48,7 +48,7 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
   }
 
   return (
-    <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row items-center gap-2 w-full max-w-md">
+    <form onSubmit={handleNewsletter} method="post" className="flex flex-col sm:flex-row items-center gap-2 w-full max-w-md">
       <div className="flex w-full sm:w-auto gap-2">
         <div className="relative flex-1 sm:flex-initial">
           <Mail className={`absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${dark ? 'text-cream/30' : 'text-aubergine-dark/30'}`} />

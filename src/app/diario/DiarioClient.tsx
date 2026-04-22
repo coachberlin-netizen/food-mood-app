@@ -194,7 +194,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
                         <h3 className="font-serif text-2xl text-[#6B2D3E] font-bold">Tu semana emocional te espera</h3>
                         <p className="text-gray-500 font-light">Registra tu color cada día y descubre los patrones que tu mente consciente no detecta.</p>
                     </div>
-                    <Link href="/pricing" className="bg-[#6B2D3E] text-white px-10 py-5 rounded-[60px] font-sans text-lg font-bold shadow-luxury hover:scale-105 transition-transform">Desbloquear con Premium → <span className="block text-xs opacity-60 font-normal">Desde 6.99 €/mes</span></Link>
+                    <Link href="/pricing" className="bg-[#6B2D3E] text-white px-10 py-5 rounded-[60px] font-sans text-lg font-bold shadow-luxury hover:scale-105 transition-transform">Desbloquear con Premium → <span className="block text-xs opacity-60 font-normal">Desde 5€/mes</span></Link>
                  </div>
               </div>
               <div className="opacity-30 blur-md pointer-events-none select-none">

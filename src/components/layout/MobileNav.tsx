@@ -20,11 +20,14 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
   
   return (
     <div className="md:hidden">
-      <button 
+      <button
         onClick={() => setIsOpen(true)}
         className="p-2 -ml-2 text-cream"
+        aria-label="Abrir menú"
+        aria-expanded={isOpen}
+        aria-controls="mobile-nav-menu"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
@@ -45,13 +48,14 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
               exit={{ x: "-100%" }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
               className="fixed inset-y-0 left-0 z-50 w-3/4 max-w-sm bg-aubergine-dark border-r border-cream/10 shadow-2xl p-6"
+              id="mobile-nav-menu"
             >
               <div className="flex justify-between items-center mb-8">
                 <span className="font-serif text-2xl font-bold text-cream">
                   Food<span className="text-[#D4A017]">·</span>Mood
                 </span>
-                <button onClick={() => setIsOpen(false)} className="p-2 text-cream/70 hover:text-cream">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button onClick={() => setIsOpen(false)} className="p-2 text-cream/70 hover:text-cream" aria-label="Cerrar menú">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>

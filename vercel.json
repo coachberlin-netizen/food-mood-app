@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/send-weekly-email",
+      "path": "/api/newsletter/send-weekly",
       "schedule": "0 9 * * 0"
     },
     {

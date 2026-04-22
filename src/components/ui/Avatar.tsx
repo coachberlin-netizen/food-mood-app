@@ -31,7 +31,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         {...props}
       >
         {src ? (
-          <img src={src} alt={alt} className="aspect-square h-full w-full object-cover" />
+          <img src={src} alt={alt} loading="lazy" decoding="async" className="aspect-square h-full w-full object-cover" />
         ) : (
           <span className="font-serif font-medium">{fallback}</span>
         )}

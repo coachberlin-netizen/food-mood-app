@@ -54,6 +54,26 @@ export async function middleware(request: NextRequest) {
   // Basic password protection for admin can be handled within the page itself
   // so we don't necessarily block it here unless we implement full admin auth.
 
+  supabaseResponse.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains')
+  supabaseResponse.headers.set('X-Frame-Options', 'DENY')
+  supabaseResponse.headers.set('X-Content-Type-Options', 'nosniff')
+  supabaseResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  supabaseResponse.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+  supabaseResponse.headers.set(
+    'Content-Security-Policy',
+    [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",   // Next.js requires unsafe-inline/eval
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' https://fonts.gstatic.com",
+      "img-src 'self' data: blob: https://cuoycqwtzorjbzmyclqo.supabase.co",
+      "connect-src 'self' https://*.supabase.co https://api.anthropic.com https://generativelanguage.googleapis.com",
+      "media-src 'self' blob: https://cuoycqwtzorjbzmyclqo.supabase.co",
+      "worker-src 'self' blob:",
+      "frame-ancestors 'none'",
+    ].join('; ')
+  )
+
   return supabaseResponse
 }
 

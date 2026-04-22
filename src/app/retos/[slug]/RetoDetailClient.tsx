@@ -2,8 +2,9 @@
 
 import { useState, useTransition, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
-import { Moon, Zap, Leaf, Activity, Trophy, Bell, Check } from 'lucide-react'
+import { Moon, Zap, Leaf, Activity, Trophy, Bell, Brain } from 'lucide-react'
 
 function CategoryIcon({ emoji, size }: { emoji: string; size: number }) {
   const map: Record<string, React.ReactNode> = {
@@ -12,6 +13,7 @@ function CategoryIcon({ emoji, size }: { emoji: string; size: number }) {
     '🌿': <Leaf     width={size} height={size} strokeWidth={1.5} />,
     '🌸': <Activity width={size} height={size} strokeWidth={1.5} />,
     '🏆': <Trophy   width={size} height={size} strokeWidth={1.5} />,
+    '🧠': <Brain    width={size} height={size} strokeWidth={1.5} />,
   }
   return <>{map[emoji] ?? null}</>
 }
@@ -41,19 +43,67 @@ interface Enrollment {
   paid:           boolean
 }
 
+interface RecipeData {
+  fase?:         string
+  push_message?: string
+  semana?:       number
+  idea_clara?: {
+    titulo:        string
+    texto:         string
+    concepto_clave?: string
+  }
+  cambio_del_dia?: {
+    titulo:      string
+    instruccion: string
+    por_que:     string
+    duracion:    string
+  }
+  psicobiotico?: {
+    titulo:           string
+    texto:            string
+    alimento_estrella: string
+  }
+  audio?: {
+    titulo:      string
+    descripcion: string
+    duracion_min: number
+    tipo:        string
+    archivo:     string
+  }
+  lectura?: {
+    titulo: string
+    texto:  string
+  }
+  registro_diario?: {
+    pregunta_manana: string
+    pregunta_tarde:  string
+    pregunta_noche:  string
+  }
+  reflexion?: string
+  hito?: Record<string, unknown> | null
+  // sueño fields
+  ingredientes?:    string[]
+  pasos?:           string[]
+  nutricion?:       Record<string, number>
+  beneficio_sueno?: string
+  tiempo_min?:      number
+  momento?:         string
+}
+
 interface ChallengeDay {
-  id:        string
-  day_number: number
-  title:     string
-  recipe_id: string | null
-  tip:       string | null
-  audio_url: string | null
+  id:          string
+  day_number:  number
+  title:       string
+  recipe_id:   string | null
+  tip:         string | null
+  audio_url:   string | null
+  recipe_data: RecipeData | null
 }
 
 interface Props {
   challenge:    Challenge
   enrollment:   Enrollment | null
-  todayContent: ChallengeDay | null
+  todayContent: ChallengeDay | null  // kept for backwards compat, no longer rendered inline
 }
 
 const MILESTONES: Record<number, string> = {
@@ -69,6 +119,7 @@ const SHORT_MILESTONES: Record<number, string> = {
   7: 'Día 7 — reto completado.',
 }
 
+
 function hexToRgb(hex: string) {
   const r = parseInt(hex.slice(1, 3), 16)
   const g = parseInt(hex.slice(3, 5), 16)
@@ -76,25 +127,26 @@ function hexToRgb(hex: string) {
   return `${r},${g},${b}`
 }
 
-export default function RetoDetailClient({ challenge, enrollment: initialEnrollment, todayContent: initialTodayContent }: Props) {
+export default function RetoDetailClient({ challenge, enrollment: initialEnrollment }: Props) {
+  const router       = useRouter()
   const searchParams = useSearchParams()
-  const [enrollment,   setEnrollment]   = useState(initialEnrollment)
-  const [todayContent, setTodayContent] = useState(initialTodayContent)
-  const [dayDone,      setDayDone]      = useState(false)
-  const [checkoutErr,  setCheckoutErr]  = useState<string | null>(null)
-  const [isPending,    startTransition]  = useTransition()
-  const [showSuccess,  setShowSuccess]  = useState(false)
-  const [notifState,   setNotifState]   = useState<'idle' | 'loading' | 'done' | 'denied'>('idle')
+  const [enrollment,  setEnrollment]  = useState(initialEnrollment)
+  const [checkoutErr, setCheckoutErr] = useState<string | null>(null)
+  const [isPending,   startTransition] = useTransition()
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [notifState,  setNotifState]  = useState<'idle' | 'loading' | 'done' | 'denied'>('idle')
 
   const isSuccess = searchParams.get('success') === 'true'
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && enrollment?.paid) {
+      router.replace(`/retos/${challenge.slug}/dia/1`)
+    } else if (isSuccess) {
       setShowSuccess(true)
       const t = setTimeout(() => setShowSuccess(false), 6000)
       return () => clearTimeout(t)
     }
-  }, [isSuccess])
+  }, [isSuccess]) // eslint-disable-line
 
   const rgb = hexToRgb(challenge.color)
   const pct = enrollment
@@ -149,24 +201,173 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
     }
   }
 
-  async function handleCompleteDay() {
-    startTransition(async () => {
-      const res = await fetch('/api/retos/complete-day', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ challenge_id: challenge.id }),
-      })
-      const data = await res.json()
-      if (res.ok) {
-        setEnrollment(data.enrollment)
-        setDayDone(true)
-        if (!data.completed) {
-          // Would need to refresh todayContent — router.refresh() would do it
-          // but since this is a client component with server data we just clear it
-          setTodayContent(null)
-        }
-      }
-    })
+  // ── Modo dashboard (ya pagado, en curso) ────────────────────────────────────
+  if (enrollment?.paid && !enrollment.completed) {
+    const currentDay  = enrollment.current_day as number
+    const weekNum     = Math.ceil(currentDay / 7)
+    const totalWeeks  = Math.ceil(challenge.duration_days / 7)
+    const progressPct = Math.min(100, ((currentDay - 1) / challenge.duration_days) * 100)
+
+    return (
+      <main className="min-h-screen" style={{ background: '#F5F0E8' }}>
+        {/* Nav */}
+        <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
+          <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: challenge.color }}>
+            ← Ver todos los retos
+          </Link>
+        </div>
+
+        <div className="max-w-[480px] mx-auto px-5 pb-16 pt-8 space-y-4">
+
+          {/* Encabezado del reto */}
+          <div className="flex items-center gap-3 mb-2">
+            <div
+              className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+              style={{ background: `${challenge.color}18` }}
+            >
+              <CategoryIcon emoji={challenge.emoji} size={28} />
+            </div>
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-widest mb-0.5" style={{ color: 'rgba(107,39,55,0.45)' }}>
+                En curso
+              </p>
+              <h1 className="font-serif text-[18px] font-bold leading-tight" style={{ color: '#2d0f16' }}>
+                {challenge.title}
+              </h1>
+            </div>
+          </div>
+
+          {/* Progreso */}
+          <div className="bg-white rounded-2xl border border-[#e8ddd5] p-5">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-[11px] font-medium uppercase tracking-widest" style={{ color: 'rgba(107,39,55,0.45)' }}>
+                Progreso
+              </p>
+              <span className="text-[13px] font-bold" style={{ color: challenge.color }}>
+                Semana {weekNum} de {totalWeeks}
+              </span>
+            </div>
+
+            {/* Barra */}
+            <div className="w-full h-2 rounded-full mb-1.5" style={{ background: 'rgba(107,39,55,0.08)' }}>
+              <div
+                className="h-2 rounded-full transition-all duration-700"
+                style={{ width: `${Math.max(3, progressPct)}%`, background: challenge.color }}
+              />
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[11px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Día 1</span>
+              <span className="text-[13px] font-bold" style={{ color: '#2d0f16' }}>
+                Día {currentDay} <span style={{ color: 'rgba(107,39,55,0.35)', fontWeight: 400 }}>/ {challenge.duration_days}</span>
+              </span>
+              <span className="text-[11px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Día {challenge.duration_days}</span>
+            </div>
+
+            {/* Grid de semanas */}
+            <div className="mt-4 space-y-2">
+              {Array.from({ length: totalWeeks }, (_, w) => (
+                <div key={w} className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-light w-5 shrink-0 text-right" style={{ color: 'rgba(107,39,55,0.35)' }}>
+                    S{w + 1}
+                  </span>
+                  <div className="flex gap-1">
+                    {Array.from({ length: 7 }, (_, d) => {
+                      const dayN = w * 7 + d + 1
+                      if (dayN > challenge.duration_days) return <span key={d} className="w-5 h-5" />
+                      const isDone    = dayN < currentDay
+                      const isCurrent = dayN === currentDay
+                      return (
+                        <Link
+                          key={d}
+                          href={isDone || isCurrent ? `/retos/${challenge.slug}/dia/${dayN}` : '#'}
+                          className="w-5 h-5 rounded-full flex items-center justify-center no-underline transition-transform hover:scale-110"
+                          style={{
+                            background:  isDone    ? challenge.color
+                                       : isCurrent ? 'white'
+                                       : 'rgba(107,39,55,0.08)',
+                            border:      isCurrent ? `2px solid ${challenge.color}` : 'none',
+                            cursor:      isDone || isCurrent ? 'pointer' : 'default',
+                          }}
+                          onClick={e => { if (!isDone && !isCurrent) e.preventDefault() }}
+                        >
+                          {isCurrent && (
+                            <span
+                              className="w-2 h-2 rounded-full"
+                              style={{ background: challenge.color }}
+                            />
+                          )}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Índice Food·Mood (si existe) */}
+          {enrollment.fm_index_start != null && (
+            <div className="bg-white rounded-2xl border border-[#e8ddd5] p-5">
+              <p className="text-[11px] font-medium uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>
+                Índice Food·Mood
+              </p>
+              <div className="flex items-center gap-3">
+                <div>
+                  <p className="text-[10px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Inicio</p>
+                  <p className="font-serif text-2xl font-black" style={{ color: 'rgba(107,39,55,0.35)' }}>
+                    {enrollment.fm_index_start}
+                  </p>
+                </div>
+                <div className="flex-1 h-px" style={{ background: 'rgba(107,39,55,0.1)' }} />
+                <div className="text-right">
+                  <p className="text-[10px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Evolución</p>
+                  <p className="text-[13px] font-medium" style={{ color: 'rgba(107,39,55,0.55)' }}>
+                    Al completar
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* CTA principal */}
+          <Link
+            href={`/retos/${challenge.slug}/dia/${currentDay}`}
+            className="block w-full py-4 rounded-2xl text-[16px] font-bold text-center no-underline transition-opacity hover:opacity-90"
+            style={{ background: challenge.color, color: 'white' }}
+          >
+            {challenge.emoji} Ir al Día {currentDay} →
+          </Link>
+
+          {/* Recordatorio diario */}
+          {notifState !== 'done' && (
+            <div className="bg-white rounded-2xl border border-[#e8ddd5] p-5 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold" style={{ color: '#2d0f16' }}>Recordatorio diario</p>
+                <p className="text-xs font-light mt-0.5" style={{ color: 'rgba(107,39,55,0.55)' }}>
+                  {notifState === 'denied'
+                    ? 'Activa los permisos de notificación en tu navegador.'
+                    : 'Recibe el recordatorio a las 19:30h.'}
+                </p>
+              </div>
+              <button
+                onClick={handleEnableReminder}
+                disabled={notifState === 'loading' || notifState === 'denied'}
+                className="px-4 py-2.5 rounded-full text-sm font-bold text-white shrink-0 disabled:opacity-50"
+                style={{ background: challenge.color }}
+              >
+                {notifState === 'loading' ? '…' : notifState === 'denied' ? 'Sin permisos' : 'Activar'}
+              </button>
+            </div>
+          )}
+          {notifState === 'done' && (
+            <p className="text-center text-xs font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
+              Recordatorio activado — te avisamos cada día a las 19:30h.
+            </p>
+          )}
+
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -174,9 +375,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
       {/* ── Success banner ── */}
       {showSuccess && (
-        <div
-          className="fixed top-20 left-0 right-0 z-50 mx-auto max-w-lg px-4"
-        >
+        <div className="fixed top-20 left-0 right-0 z-50 mx-auto max-w-lg px-4">
           <div
             className="rounded-2xl px-6 py-4 text-center shadow-lg text-white font-semibold"
             style={{ backgroundColor: challenge.color }}
@@ -194,10 +393,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         <div className="max-w-2xl mx-auto">
           <div
             className="flex items-center justify-center rounded-3xl mx-auto mb-4"
-            style={{
-              width: 80, height: 80,
-              backgroundColor: `${challenge.color}18`,
-            }}
+            style={{ width: 80, height: 80, backgroundColor: `${challenge.color}18` }}
           >
             <CategoryIcon emoji={challenge.emoji} size={44} />
           </div>
@@ -214,7 +410,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               className="text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white"
               style={{ backgroundColor: challenge.color }}
             >
-              {challenge.duration_days === 7 ? '7 días' : '28 días'}
+              {challenge.duration_days} días
             </span>
             <span className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.5)' }}>
               Basado en evidencia · Seguimiento real con tu índice Food·Mood
@@ -227,10 +423,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
         {/* ── Qué incluye ── */}
         <section className="bg-white rounded-2xl p-8 shadow-sm border border-aubergine-dark/5">
-          <p
-            className="text-[10px] font-bold uppercase tracking-widest mb-6"
-            style={{ color: challenge.color }}
-          >
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-6" style={{ color: challenge.color }}>
             Qué incluye
           </p>
           {challenge.description && (
@@ -248,8 +441,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
                 <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs text-white"
-                  style={{ backgroundColor: challenge.color }}
-                >✓</span>
+                  style={{ backgroundColor: challenge.color }}>✓</span>
                 {item}
               </li>
             ))}
@@ -258,23 +450,16 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
         {/* ── Cómo funciona ── */}
         <section>
-          <p
-            className="text-[10px] font-bold uppercase tracking-widest mb-5"
-            style={{ color: 'rgba(107,39,55,0.5)' }}
-          >
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.5)' }}>
             Cómo funciona
           </p>
           <div className="relative pl-6">
-            <div
-              className="absolute left-2 top-2 bottom-2 w-0.5 rounded-full"
-              style={{ backgroundColor: `rgba(${rgb},0.25)` }}
-            />
+            <div className="absolute left-2 top-2 bottom-2 w-0.5 rounded-full"
+              style={{ backgroundColor: `rgba(${rgb},0.25)` }} />
             {Object.entries(milestones).map(([day, label]) => (
               <div key={day} className="relative mb-6 last:mb-0">
-                <div
-                  className="absolute -left-4 top-1 w-4 h-4 rounded-full border-2 border-white"
-                  style={{ backgroundColor: challenge.color }}
-                />
+                <div className="absolute -left-4 top-1 w-4 h-4 rounded-full border-2 border-white"
+                  style={{ backgroundColor: challenge.color }} />
                 <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: challenge.color }}>
                   Día {day}
                 </p>
@@ -282,10 +467,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               </div>
             ))}
             <div className="relative mb-0">
-              <div
-                className="absolute -left-4 top-1 w-4 h-4 rounded-full border-2 border-white"
-                style={{ backgroundColor: '#C9A84C' }}
-              />
+              <div className="absolute -left-4 top-1 w-4 h-4 rounded-full border-2 border-white"
+                style={{ backgroundColor: '#C9A84C' }} />
               <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#C9A84C' }}>
                 Al completar
               </p>
@@ -296,126 +479,6 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           </div>
         </section>
 
-        {/* ── Día actual (si inscrito y pagado) ── */}
-        {enrollment?.paid && !enrollment.completed && (
-          <section
-            className="rounded-2xl p-6 border"
-            style={{
-              backgroundColor: `rgba(${rgb},0.06)`,
-              borderColor:     `rgba(${rgb},0.2)`,
-            }}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <p
-                className="text-[10px] font-bold uppercase tracking-widest"
-                style={{ color: challenge.color }}
-              >
-                Tu día de hoy
-              </p>
-              <span className="text-xs font-semibold" style={{ color: challenge.color }}>
-                Día {enrollment.current_day} / {challenge.duration_days}
-              </span>
-            </div>
-
-            <div className="w-full h-1.5 rounded-full mb-5" style={{ backgroundColor: 'rgba(107,39,55,0.1)' }}>
-              <div
-                className="h-1.5 rounded-full"
-                style={{ width: `${Math.max(2, pct)}%`, backgroundColor: challenge.color }}
-              />
-            </div>
-
-            {dayDone ? (
-              <div className="text-center py-4">
-                <p className="font-serif text-lg font-bold mb-1" style={{ color: '#2d0f16' }}>
-                  Día {enrollment.current_day - 1} completado
-                </p>
-                <p className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.6)' }}>
-                  Vuelve mañana para el día {enrollment.current_day}.
-                </p>
-              </div>
-            ) : todayContent ? (
-              <div className="space-y-4">
-                <h3 className="font-serif text-lg font-bold" style={{ color: '#2d0f16' }}>
-                  {todayContent.title}
-                </h3>
-                {todayContent.tip && (
-                  <div
-                    className="rounded-xl p-4 border-l-4"
-                    style={{ backgroundColor: 'white', borderLeftColor: challenge.color }}
-                  >
-                    <p className="text-sm font-light italic" style={{ color: '#2d0f16' }}>
-                      💡 {todayContent.tip}
-                    </p>
-                  </div>
-                )}
-                {todayContent.audio_url && (
-                  <audio controls src={todayContent.audio_url} className="w-full rounded-lg" />
-                )}
-                {todayContent.recipe_id && (
-                  <Link
-                    href={`/recetas/${todayContent.recipe_id}`}
-                    className="block text-center py-3 rounded-full text-sm font-bold text-white"
-                    style={{ backgroundColor: challenge.color }}
-                  >
-                    Ver receta del día →
-                  </Link>
-                )}
-                <button
-                  onClick={handleCompleteDay}
-                  disabled={isPending}
-                  className="w-full py-3 rounded-full text-sm font-bold border-2 transition-all hover:opacity-80 disabled:opacity-50"
-                  style={{ borderColor: challenge.color, color: challenge.color }}
-                >
-                  {isPending ? 'Guardando…' : '✓ Marcar día como completado'}
-                </button>
-              </div>
-            ) : (
-              <div className="text-center py-4">
-                <p className="text-sm font-light mb-4" style={{ color: 'rgba(107,39,55,0.6)' }}>
-                  El contenido de hoy se publicará en breve.
-                </p>
-                <button
-                  onClick={handleCompleteDay}
-                  disabled={isPending}
-                  className="px-6 py-2.5 rounded-full text-sm font-bold border-2 transition-all hover:opacity-80 disabled:opacity-50"
-                  style={{ borderColor: challenge.color, color: challenge.color }}
-                >
-                  {isPending ? 'Guardando…' : '✓ Marcar día completado'}
-                </button>
-              </div>
-            )}
-          </section>
-        )}
-
-        {/* ── Recordatorio diario ── */}
-        {enrollment?.paid && !enrollment.completed && notifState !== 'done' && (
-          <section className="rounded-2xl p-5 border border-aubergine-dark/8 bg-white flex items-center justify-between gap-4 flex-wrap">
-            <div>
-              <p className="text-sm font-semibold" style={{ color: '#2d0f16' }}>
-                Recordatorio diario
-              </p>
-              <p className="text-xs font-light mt-0.5" style={{ color: 'rgba(107,39,55,0.55)' }}>
-                {notifState === 'denied'
-                  ? 'Activa los permisos de notificación en tu navegador.'
-                  : 'Recibe la receta del día a las 19:30h.'}
-              </p>
-            </div>
-            <button
-              onClick={handleEnableReminder}
-              disabled={notifState === 'loading' || notifState === 'denied'}
-              className="px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all hover:opacity-85 disabled:opacity-50 shrink-0"
-              style={{ backgroundColor: challenge.color }}
-            >
-              {notifState === 'loading' ? 'Activando…' : notifState === 'denied' ? 'Sin permisos' : 'Activar recordatorio'}
-            </button>
-          </section>
-        )}
-
-        {enrollment?.paid && notifState === 'done' && (
-          <p className="text-center text-xs font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
-            Recordatorio activado — te avisamos cada día a las 19:30h.
-          </p>
-        )}
 
         {/* ── Completado ── */}
         {enrollment?.completed && (

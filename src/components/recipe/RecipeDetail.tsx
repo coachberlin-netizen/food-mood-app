@@ -52,6 +52,9 @@ export function RecipeDetail({ recipe }: { recipe: Recipe }) {
           <img
             src={recipe.image}
             alt={recipe.title}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
         ) : (

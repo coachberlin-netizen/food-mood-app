@@ -175,6 +175,41 @@ function EmailGate({
   const [email, setEmail] = useState("")
   const [error, setError] = useState("")
   const [submitting, setSubmitting] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const inputRef  = useRef<HTMLInputElement>(null)
+
+  // Escape para cerrar
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onSkip()
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [onSkip])
+
+  // Focus trap — cicla el foco dentro del diálogo
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+    const focusable = dialog.querySelectorAll<HTMLElement>(
+      'a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])'
+    )
+    const first = focusable[0]
+    const last  = focusable[focusable.length - 1]
+
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus() }
+      } else {
+        if (document.activeElement === last)  { e.preventDefault(); first.focus() }
+      }
+    }
+    dialog.addEventListener('keydown', trap)
+    // Foco inicial en el input
+    inputRef.current?.focus()
+    return () => dialog.removeEventListener('keydown', trap)
+  }, [])
 
   const handle = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -194,23 +229,44 @@ function EmailGate({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ backgroundColor: "rgba(45,15,22,0.72)" }}>
-      <div className="bg-[#F5F0E8] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-5"
+      style={{ backgroundColor: "rgba(45,15,22,0.72)" }}
+      aria-hidden="true"
+    >
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="email-gate-title"
+        className="bg-[#F5F0E8] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl"
+      >
         <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-4">Tu estado está listo</p>
-        <h2 className="font-serif text-2xl text-[#2d0f16] mb-3 leading-snug">¿Dónde te lo enviamos?</h2>
+        <h2 id="email-gate-title" className="font-serif text-2xl text-[#2d0f16] mb-3 leading-snug">
+          ¿Dónde te lo enviamos?
+        </h2>
         <p className="text-sm text-[#6B2737]/55 font-light mb-6 leading-relaxed">
           Accede a tu resultado y recibe cada semana una receta personalizada para tu estado.
         </p>
         <form onSubmit={handle} className="space-y-3">
           <input
+            ref={inputRef}
             type="email"
             value={email}
             onChange={e => { setEmail(e.target.value); setError("") }}
             placeholder="tu@email.com"
-            autoFocus
+            required
+            minLength={5}
+            maxLength={254}
+            aria-label="Tu dirección de email"
+            aria-describedby={error ? "email-gate-error" : undefined}
             className="w-full px-4 py-3 rounded-xl border border-[#6B2737]/15 bg-white text-[#2d0f16] text-sm placeholder:text-[#6B2737]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/40"
           />
-          {error && <p className="text-xs text-red-500 text-left">{error}</p>}
+          {error && (
+            <p id="email-gate-error" role="alert" className="text-xs text-red-500 text-left">
+              {error}
+            </p>
+          )}
           <button
             type="submit"
             disabled={submitting}

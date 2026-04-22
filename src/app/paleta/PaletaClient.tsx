@@ -60,27 +60,37 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
     >
       {/* Serotonina */}
       <div className="bg-white rounded-3xl border border-[#6B2737]/8 p-8 text-center shadow-sm">
-        <span className="font-serif text-[5rem] leading-none text-[#6B2737] italic font-bold block mb-2">
-          95%
-        </span>
-        <p className="text-base font-serif text-[#6B2737] italic mb-3">
-          de la serotonina — la hormona que te hace sentir bien — la fabrica tu barriga, no tu cabeza.
-        </p>
-        <p className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
-          Lo que comes hoy decide tu estado de ánimo de mañana.
+        <dl>
+          <dt className="font-serif text-[5rem] leading-none text-[#6B2737] italic font-bold block mb-2">
+            95%
+          </dt>
+          <dd className="text-base font-serif text-[#6B2737] italic mb-3">
+            de la serotonina — la hormona que te hace sentir bien — la fabrica tu barriga, no tu cabeza.
+          </dd>
+          <dd className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
+            Lo que comes hoy decide tu estado de ánimo de mañana.
+          </dd>
+        </dl>
+        <p className="text-[9px] text-[#4A4A4A]/30 font-light mt-4 italic">
+          Cryan et al., <cite>Physiological Reviews</cite>, 2019
         </p>
       </div>
 
       {/* Dopamina */}
       <div className="bg-white rounded-3xl border border-[#6B2737]/8 p-8 text-center shadow-sm">
-        <span className="font-serif text-[5rem] leading-none text-[#6B2737] italic font-bold block mb-2">
-          50%
-        </span>
-        <p className="text-base font-serif text-[#6B2737] italic mb-3">
-          de la dopamina — lo que te da ganas de hacer cosas — depende de las bacterias de tu intestino.
-        </p>
-        <p className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
-          Tu energía del lunes empieza en lo que cenaste el domingo.
+        <dl>
+          <dt className="font-serif text-[5rem] leading-none text-[#6B2737] italic font-bold block mb-2">
+            50%
+          </dt>
+          <dd className="text-base font-serif text-[#6B2737] italic mb-3">
+            de la dopamina — lo que te da ganas de hacer cosas — depende de las bacterias de tu intestino.
+          </dd>
+          <dd className="text-xs text-[#4A4A4A]/70 font-light leading-relaxed">
+            Tu energía del lunes empieza en lo que cenaste el domingo.
+          </dd>
+        </dl>
+        <p className="text-[9px] text-[#4A4A4A]/30 font-light mt-4 italic">
+          Yano et al., <cite>Cell</cite>, 2015
         </p>
       </div>
     </motion.div>
@@ -140,8 +150,14 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
   </div>
 );
 
-export default function PaletaClient({ initialIsPremium }: { initialIsPremium: boolean }) {
-  const [screen, setScreen] = useState<'intro' | 'sliders' | 'result'>('intro');
+export default function PaletaClient({
+  initialIsPremium,
+  initialScreen = 'intro',
+}: {
+  initialIsPremium: boolean;
+  initialScreen?: 'intro' | 'sliders' | 'result';
+}) {
+  const [screen, setScreen] = useState<'intro' | 'sliders' | 'result'>(initialScreen);
   
   const [energia, setEnergia] = useState(5);
   const [serenidad, setSerenidad] = useState(5);

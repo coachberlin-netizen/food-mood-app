@@ -29,9 +29,11 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
       >
         <div className="relative w-full aspect-[4/3] border-b border-aubergine-dark/20 overflow-hidden">
           {/* Using img native specifically mapped as requested by the user */}
-          <img 
-            src={recipe.image || previewPlaceholderUrl} 
+          <img
+            src={recipe.image || previewPlaceholderUrl}
             alt={recipe.nombre_es || recipe.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>

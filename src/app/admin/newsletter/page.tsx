@@ -23,16 +23,17 @@ interface Item {
   id: string;
   category: string;
   title: string;
-  excerpt: string | null;
-  external_url: string | null;
+  summary: string | null;
+  url: string | null;
   week_start: string;
+  is_active: boolean;
 }
 
 export default function AdminNewsletterPage() {
   const [weekStart, setWeekStart]   = useState(getCurrentMonday());
   const [category,  setCategory]    = useState<string>('neurociencia');
   const [title,     setTitle]       = useState('');
-  const [excerpt,   setExcerpt]     = useState('');
+  const [summary,   setSummary]     = useState('');
   const [url,       setUrl]         = useState('');
   const [items,     setItems]       = useState<Item[]>([]);
   const [error,     setError]       = useState<string | null>(null);
@@ -66,11 +67,11 @@ export default function AdminNewsletterPage() {
           week_start:   weekStart,
           category:     category as any,
           title:        title.trim(),
-          excerpt:      excerpt.trim(),
+          summary:      summary.trim(),
           external_url: url.trim(),
         });
         setTitle('');
-        setExcerpt('');
+        setSummary('');
         setUrl('');
         setSuccess(true);
         await loadItems();
@@ -159,11 +160,11 @@ export default function AdminNewsletterPage() {
 
         <div>
           <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-1.5">
-            Resumen (excerpt)
+            Resumen
           </label>
           <textarea
-            value={excerpt}
-            onChange={e => setExcerpt(e.target.value)}
+            value={summary}
+            onChange={e => setSummary(e.target.value)}
             rows={3}
             placeholder="Breve descripción del contenido..."
             className="w-full border border-aubergine-dark/20 rounded-lg px-3 py-2.5 text-sm bg-white resize-none focus:outline-none focus:ring-2 focus:ring-gold/40"
@@ -218,19 +219,19 @@ export default function AdminNewsletterPage() {
                 <p className="font-serif text-sm font-semibold text-aubergine-dark leading-snug">
                   {item.title}
                 </p>
-                {item.excerpt && (
+                {item.summary && (
                   <p className="text-xs text-aubergine-dark/55 font-light leading-relaxed">
-                    {item.excerpt}
+                    {item.summary}
                   </p>
                 )}
-                {item.external_url && (
+                {item.url && (
                   <a
-                    href={item.external_url}
+                    href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[11px] font-bold text-[#6B2737] hover:underline truncate"
                   >
-                    {item.external_url}
+                    {item.url}
                   </a>
                 )}
               </div>

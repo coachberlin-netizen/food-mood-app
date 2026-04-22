@@ -11,7 +11,7 @@ export interface NewsletterItemInput {
   week_start:   string;
   category:     Category;
   title:        string;
-  excerpt:      string;
+  summary:      string;
   external_url: string;
 }
 
@@ -23,22 +23,15 @@ export async function saveNewsletterItemAction(input: NewsletterItemInput) {
     throw new Error('Acceso denegado: se requieren privilegios de administrador.');
   }
 
-  const slug = `newsletter-${input.week_start}-${input.category}-${Date.now()}`;
-
   const { data, error } = await supabase
-    .from('blog_posts')
+    .from('curated_content')
     .insert({
-      slug,
-      title:        input.title,
-      excerpt:      input.excerpt || null,
-      content_md:   '',
-      tags:         [],
-      status:       'published',
-      published_at: new Date().toISOString(),
-      author_name:  user!.email ?? 'Admin',
-      category:     input.category,
       week_start:   input.week_start,
-      external_url: input.external_url || null,
+      category:     input.category,
+      title:        input.title,
+      summary:      input.summary || null,
+      url:          input.external_url || null,
+      is_active:    true,
     })
     .select()
     .single();
@@ -47,8 +40,6 @@ export async function saveNewsletterItemAction(input: NewsletterItemInput) {
     throw new Error(`Error guardando item: ${error.message}`);
   }
 
-  revalidatePath('/blog');
-  revalidatePath('/semana');
   revalidatePath('/admin/newsletter');
 
   return data;
@@ -63,7 +54,7 @@ export async function deleteNewsletterItemAction(id: string) {
   }
 
   const { error } = await supabase
-    .from('blog_posts')
+    .from('curated_content')
     .delete()
     .eq('id', id);
 
@@ -71,8 +62,6 @@ export async function deleteNewsletterItemAction(id: string) {
     throw new Error(`Error eliminando item: ${error.message}`);
   }
 
-  revalidatePath('/blog');
-  revalidatePath('/semana');
   revalidatePath('/admin/newsletter');
 
   return true;
@@ -87,10 +76,9 @@ export async function getNewsletterItemsByWeek(weekStart: string) {
   }
 
   const { data, error } = await supabase
-    .from('blog_posts')
-    .select('id, category, title, excerpt, external_url, week_start')
+    .from('curated_content')
+    .select('id, category, title, summary, url, week_start, is_active')
     .eq('week_start', weekStart)
-    .not('category', 'is', null)
     .order('category', { ascending: true });
 
   if (error) {

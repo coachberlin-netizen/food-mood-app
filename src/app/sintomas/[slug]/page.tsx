@@ -166,7 +166,7 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
                 <div className="flex flex-col items-center gap-6 pt-4">
                   <Link href="/pricing" className="bg-[#C9A84C] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-xl hover:shadow-gold/20 transition-all transform hover:-translate-y-1 flex items-center gap-3">
                     <Lock className="w-5 h-5" />
-                    Ver todas las recetas — 9€/mes
+                    Ver todas las recetas — desde 5€/mes
                   </Link>
                   <p className="text-cream/40 text-sm font-light">
                     O accede con el Plan Trimestral — <span className="text-gold font-medium text-base">5€/mes</span> (15€/3 meses)

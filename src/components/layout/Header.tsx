@@ -153,9 +153,12 @@ export function Header() {
         
         <div className="flex flex-1 items-center justify-end">
           <div className="relative" ref={menuRef}>
-            <button 
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="transition-opacity hover:opacity-80 flex items-center focus:outline-none"
+              aria-label="Mi perfil"
+              aria-expanded={isMenuOpen}
+              aria-haspopup="menu"
             >
               <div
                 style={{

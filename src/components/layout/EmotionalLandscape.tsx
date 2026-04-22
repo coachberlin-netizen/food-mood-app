@@ -19,7 +19,7 @@ const MOODS: MoodDetail[] = [
     id: "activacion",
     nombre: "Activación",
     color: "#E8703A",
-    microText: "Tienes pila. Tu cuerpo pide alimentos que mantengan ese ritmo sin dejarte caer después.",
+    microText: "Estás encendida. Lo que comas ahora puede sostener ese ritmo — o tirarlo por tierra a las 4 de la tarde.",
     neurotransmitters: "Energía mental + respuesta rápida",
     foods: "Proteína completa, omega-3, adaptógenos (ashwagandha, rhodiola)",
   },
@@ -27,7 +27,7 @@ const MOODS: MoodDetail[] = [
     id: "calma",
     nombre: "Calma",
     color: "#5A9B8A",
-    microText: "Estás tranquila. Es el mejor momento para que tu cuerpo absorba bien todo lo que comes.",
+    microText: "Modo absorción total. Tu cuerpo está receptivo — es el mejor momento para darle lo bueno de verdad.",
     neurotransmitters: "Calma + bienestar",
     foods: "Fermentados (kéfir, miso), magnesio (semillas de calabaza), triptófano (pavo, huevo)",
   },
@@ -35,7 +35,7 @@ const MOODS: MoodDetail[] = [
     id: "focus",
     nombre: "Focus",
     color: "#4A7AB5",
-    microText: "Necesitas que tu cabeza funcione. Hay alimentos que literalmente alimentan las neuronas.",
+    microText: "Tu cerebro quiere rendir. Hay alimentos que le dan exactamente lo que necesita para no fallar.",
     neurotransmitters: "Memoria + concentración",
     foods: "Huevo, pescado azul, nueces, vinagre de kombucha",
   },
@@ -43,7 +43,7 @@ const MOODS: MoodDetail[] = [
     id: "social",
     nombre: "Social",
     color: "#C04878",
-    microText: "Modo compartir activado. Algunos sabores y rituales hacen que conectar con los demás sea aún mejor.",
+    microText: "Quieres conectar. Algunos sabores y rituales hacen que estar con gente sea todavía mejor.",
     neurotransmitters: "Vínculo + placer compartido",
     foods: "Frutos rojos, cacao puro, shrubs y bebidas fermentadas compartidas",
   },
@@ -51,7 +51,7 @@ const MOODS: MoodDetail[] = [
     id: "reset",
     nombre: "Reset",
     color: "#7A5AAA",
-    microText: "Tu cuerpo pide pausa y limpieza. Alimentos que ayudan a tu hígado y te dejan respirar.",
+    microText: "Necesitas parar. Tu cuerpo lo sabe antes que tú — hay alimentos que lo ayudan a soltar.",
     neurotransmitters: "Limpieza celular + antiinflamación",
     foods: "Cúrcuma, brócoli y crucíferas, caldo de huesos, ayuno intermitente suave",
   },
@@ -59,7 +59,7 @@ const MOODS: MoodDetail[] = [
     id: "confort",
     nombre: "Confort",
     color: "#C8902A",
-    microText: "Necesitas que algo te abrace por dentro. Existe la ciencia del confort sin culpa.",
+    microText: "Necesitas que algo te abrace por dentro. Eso también es nutrición — y tiene su propia ciencia.",
     neurotransmitters: "Placer + bienestar",
     foods: "Papaya, plátano, cacao, fermentados cálidos (sopa de miso, kéfir tibio)",
   },
@@ -115,7 +115,7 @@ export function EmotionalLandscape() {
   const toggle = (id: string) => setOpenMood(openMood === id ? null : id);
 
   return (
-    <section className="py-24 md:py-36 bg-background relative overflow-hidden">
+    <section id="estados" className="py-24 md:py-36 bg-background relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-[10%] left-[5%] w-64 h-64 bg-aubergine/5 rounded-full blur-3xl" />
         <div className="absolute bottom-[10%] right-[5%] w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
@@ -131,7 +131,7 @@ export function EmotionalLandscape() {
             viewport={{ once: true }}
             className="text-[11px] font-sans tracking-[0.3em] uppercase text-aubergine-dark/40 mb-6 font-bold"
           >
-            Tus emociones, tu guía.
+            Seis estados. Seis maneras de comer.
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -140,14 +140,14 @@ export function EmotionalLandscape() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif text-aubergine-dark max-w-4xl mx-auto leading-[1.1]"
           >
-            Cada emoción es una señal.{" "}
+            Lo que sientes hoy{" "}
             <br />
             <span className="italic font-light">
-              Escúchalas y responde con nutrición.
+              cambia lo que tu cuerpo necesita.
             </span>
           </motion.h2>
           <p className="mt-8 text-aubergine-dark/60 font-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-            Pulsa cada estado para ver cómo funciona en tu cuerpo y qué comer para sostenerlo.
+            Toca cada estado y mira qué pasa dentro — y qué comer para que tu cuerpo vaya contigo.
           </p>
         </div>
 
@@ -247,8 +247,8 @@ export function EmotionalLandscape() {
                 Club Premium
               </p>
               <p className="font-serif text-2xl md:text-3xl text-[#F5F0E8] leading-[1.3] font-light">
-                Suscríbete y únete a nuestro club de WhatsApp Premium — contenido
-                curado de verdad y contrastado por nuestros expertos.
+                Un grupo de WhatsApp donde compartimos lo que funciona de verdad.
+                Sin ruido. Sin algoritmos. Solo personas que cuidan lo que comen.
               </p>
             </div>
             <Link

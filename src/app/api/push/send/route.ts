@@ -8,6 +8,10 @@ import { NextRequest, NextResponse } from 'next/server'
  * Body: { userId?: string, title: string, body: string, url: string }
  */
 export async function POST(req: NextRequest) {
+  if (req.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     const { userId, title, body, url } = await req.json()
     const supabase = await createClient()

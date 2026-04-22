@@ -21,26 +21,30 @@ export function InstallBanner() {
 
     // 2. Check if already installed
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
-    if (isStandalone) {
-      return;
-    }
+    if (isStandalone) return;
 
-    // 3. Android/Chrome prompt listener
+    // 3. Gate: dismissed forever OR shown within last 7 days
+    const dismissed  = localStorage.getItem("pwa-prompt-dismissed") === "true";
+    const lastShown  = parseInt(localStorage.getItem("pwa-prompt-shown-at") ?? "0", 10);
+    const sevenDays  = 7 * 24 * 60 * 60 * 1000;
+    const tooRecent  = Date.now() - lastShown < sevenDays;
+    if (dismissed || tooRecent) return;
+
+    const markShown = () => localStorage.setItem("pwa-prompt-shown-at", String(Date.now()));
+
+    // 4. Android/Chrome prompt listener
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      // Show if not dismissed
-      if (localStorage.getItem("pwa-prompt-dismissed") !== "true") {
-        setIsVisible(true);
-      }
+      markShown();
+      setIsVisible(true);
     };
 
     window.addEventListener("beforeinstallprompt", handler);
 
-    // 4. iOS Fallback visibility
-    if (isIOS && localStorage.getItem("pwa-prompt-dismissed") !== "true") {
-      // Small delay to not annoy immediately
-      const timer = setTimeout(() => setIsVisible(true), 3000);
+    // 5. iOS fallback — show once per 7-day window
+    if (isIOS) {
+      const timer = setTimeout(() => { markShown(); setIsVisible(true); }, 4000);
       return () => clearTimeout(timer);
     }
 

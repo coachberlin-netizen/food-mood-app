@@ -27,9 +27,11 @@ export function BlogCard({ post }: BlogCardProps) {
     <Link href={`/blog/${post.slug}`} className="group flex flex-col h-full bg-cream rounded-2xl border border-aubergine-dark/10 overflow-hidden shadow-luxury hover:shadow-luxury-hover transition-all duration-300">
       {post.cover_image && (
         <div className="relative h-48 w-full overflow-hidden">
-          <img 
-            src={post.cover_image} 
-            alt={post.title} 
+          <img
+            src={post.cover_image}
+            alt={post.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>

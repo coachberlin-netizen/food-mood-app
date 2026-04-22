@@ -11,21 +11,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   // Static Pages
-  const staticPages = [
-    '',
-    '/pricing',
-    '/como-funciona',
-    '/quienes-somos',
-    '/saber-mas',
-    '/sintomas',
-    '/recetas',
-    '/test',
-    '/auth/login'
-  ].map((route) => ({
+  const staticRoutes: { route: string; priority: number; freq: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never' }[] = [
+    { route: '',                    priority: 1.0, freq: 'weekly'  },
+    { route: '/paleta',             priority: 0.9, freq: 'weekly'  },
+    { route: '/paleta/ansiedad',   priority: 0.8, freq: 'monthly' },
+    { route: '/paleta/melancolia', priority: 0.8, freq: 'monthly' },
+    { route: '/paleta/estres',     priority: 0.8, freq: 'monthly' },
+    { route: '/paleta/agotamiento', priority: 0.8, freq: 'monthly' },
+    { route: '/pricing',            priority: 0.9, freq: 'weekly'  },
+    { route: '/retos',              priority: 0.8, freq: 'weekly'  },
+    { route: '/test',               priority: 0.8, freq: 'weekly'  },
+    { route: '/como-funciona',      priority: 0.8, freq: 'monthly' },
+    { route: '/recetas',            priority: 0.8, freq: 'weekly'  },
+    { route: '/blog',               priority: 0.7, freq: 'weekly'  },
+    { route: '/sintomas',           priority: 0.7, freq: 'monthly' },
+    { route: '/glosario',           priority: 0.7, freq: 'monthly' },
+    { route: '/fermentos-del-mundo', priority: 0.7, freq: 'monthly' },
+    { route: '/quienes-somos',      priority: 0.6, freq: 'monthly' },
+    { route: '/saber-mas',          priority: 0.6, freq: 'monthly' },
+  ];
+
+  const staticPages = staticRoutes.map(({ route, priority, freq }) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : 0.8,
+    changeFrequency: freq,
+    priority,
+  }));
+
+  // Fetch published blog posts
+  const { data: blogPosts } = await supabase
+    .from('blog_posts')
+    .select('slug, updated_at')
+    .eq('status', 'published');
+
+  const blogPages = (blogPosts || []).map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: post.updated_at ? new Date(post.updated_at) : new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.65,
   }));
 
   // Fetch all recipes from DB
@@ -48,5 +71,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...recipePages, ...symptomPages];
+  return [...staticPages, ...blogPages, ...recipePages, ...symptomPages];
 }

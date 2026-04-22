@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Crown, Sparkles, Star, ChefHat, SearchX } from "lucide-react";
+import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, Star, ChefHat, SearchX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { moods as MOODS } from "@/data/moods";
+import { PaywallModal } from "@/components/recetas/PaywallModal";
 
 /* ── Chef → anonymous style map ── */
 const CHEF_STYLE: Record<string, string> = {
@@ -81,7 +82,7 @@ function SkeletonCard() {
   );
 }
 
-function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
+function RecipeCard({ receta, locked = false, onLockedClick }: { receta: Receta; locked?: boolean; onLockedClick?: () => void }) {
   const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
 
   const card = (
@@ -127,29 +128,29 @@ function RecipeCard({ receta, locked = false }: { receta: Receta; locked?: boole
       </div>
 
       {locked && (
-        <div 
+        <div
           className="absolute inset-x-0 bottom-0 top-1/4 flex flex-col items-center justify-end pb-8 bg-gradient-to-t from-cream via-cream/80 to-transparent pointer-events-none"
         >
           <div className="flex flex-col items-center pointer-events-auto">
             <Lock className="w-5 h-5 text-[#C9A84C]/60 mb-2" />
             <span className="text-[10px] text-aubergine-dark/60 font-semibold uppercase tracking-wider mb-2">Contenido Premium</span>
-            <Link 
-              href="/pricing" 
+            <button
+              onClick={e => { e.preventDefault(); onLockedClick?.(); }}
               className="px-4 py-2 bg-[#C9A84C] text-white text-[11px] font-bold rounded-lg shadow-sm hover:bg-[#b8953e] hover:scale-105 transition-all"
             >
-              Suscribirme para ver más →
-            </Link>
+              Desbloquear — desde 5€/mes
+            </button>
           </div>
         </div>
       )}
     </motion.div>
   );
 
-  if (locked) return <Link href="/pricing">{card}</Link>;
+  if (locked) return <button className="text-left w-full h-full" onClick={onLockedClick}>{card}</button>;
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
-function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: boolean }) {
+function ExclusivaCard({ receta, locked = false, onLockedClick }: { receta: Receta; locked?: boolean; onLockedClick?: () => void }) {
   const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
 
   const card = (
@@ -197,34 +198,35 @@ function ExclusivaCard({ receta, locked = false }: { receta: Receta; locked?: bo
         </span>
       </div>
       {locked && (
-        <div 
+        <div
           className="absolute inset-x-0 bottom-0 top-1/4 flex flex-col items-center justify-end pb-8 bg-gradient-to-t from-[#2a1825] via-[#2a1825]/80 to-transparent pointer-events-none"
         >
           <div className="flex flex-col items-center pointer-events-auto">
             <Lock className="w-5 h-5 text-[#C9A84C]/70 mb-2" />
             <span className="text-[10px] text-[#C9A84C] font-bold uppercase tracking-widest mb-2">Acceso Exclusivo</span>
-            <Link 
-              href="/pricing" 
+            <button
+              onClick={e => { e.preventDefault(); onLockedClick?.(); }}
               className="px-4 py-2 bg-[#C9A84C] text-white text-[11px] font-bold rounded-lg shadow-[0_4px_12px_rgba(201,168,76,0.3)] hover:bg-[#b8953e] hover:scale-105 transition-all"
             >
-              Hacerse Premium →
-            </Link>
+              Desbloquear — desde 5€/mes
+            </button>
           </div>
         </div>
       )}
     </motion.div>
   );
 
-  if (locked) return <Link href="/pricing">{card}</Link>;
+  if (locked) return <button className="text-left w-full h-full" onClick={onLockedClick}>{card}</button>;
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
-function SmartCard({ receta, isPremium }: { receta: Receta; isPremium: boolean }) {
-  const locked = !isPremium && (receta.premium_level ?? 0) > 0;
+function SmartCard({ receta, isPremium, freeQuota = false, onLockedClick }: { receta: Receta; isPremium: boolean; freeQuota?: boolean; onLockedClick: (r: Receta) => void }) {
+  const locked = !isPremium && !freeQuota && (receta.premium_level ?? 0) > 0;
+  const handleLocked = locked ? () => onLockedClick(receta) : undefined;
   if ((receta.premium_level ?? 0) === 2) {
-    return <ExclusivaCard receta={receta} locked={locked} />;
+    return <ExclusivaCard receta={receta} locked={locked} onLockedClick={handleLocked} />;
   }
-  return <RecipeCard receta={receta} locked={locked} />;
+  return <RecipeCard receta={receta} locked={locked} onLockedClick={handleLocked} />;
 }
 
 function Pill({ active, isChef, onClick, children }: { active: boolean; isChef?: boolean; onClick: () => void; children: React.ReactNode }) {
@@ -275,6 +277,7 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
 
   // State for premium status, initialized from server-side prop
   const [isPremium, setIsPremium] = useState(initialIsPremium);
+  const [lockedReceta, setLockedReceta] = useState<Receta | null>(null);
   const LIMIT = 24;
 
   // Re-verify premium status on client side to handle caching/stale props
@@ -350,31 +353,17 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
-      {!isPremium && (
-        <div className="bg-gradient-to-r from-aubergine-dark to-aubergine text-cream px-6 py-4">
-          <div className="max-w-6xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
-              <Crown className="w-4 h-4 text-[#C9A84C] shrink-0" />
-              <p className="text-sm font-light">
-                Estás viendo una muestra. <span className="font-medium">Suscríbete</span> para acceder a todas las recetas.
-              </p>
-            </div>
-            <Link href="/pricing" className="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-xs font-medium rounded-lg transition-colors">
-              <Sparkles className="w-3 h-3" />
-              Premium — 9€/mes
-            </Link>
-          </div>
-        </div>
-      )}
-
       <section className="px-6 pt-12 pb-6 md:pt-20 md:pb-8 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-4xl md:text-6xl font-serif text-aubergine-dark mb-4 leading-[1.15]">
               Es mucho más que recetas.
             </h1>
-            <p className="text-lg md:text-xl text-aubergine-dark/60 font-light max-w-2xl">
+            <p className="text-lg md:text-xl text-aubergine-dark/60 font-light max-w-2xl mb-2">
               Cada plato está diseñado para responder a tu paleta emocional. Elige tu color y descubre lo que tu cuerpo necesita.
+            </p>
+            <p className="text-sm text-aubergine-dark/40 font-light">
+              279 recetas diseñadas para tu estado emocional. Las 3 primeras de cada color, siempre gratis.
             </p>
           </motion.div>
         </div>
@@ -497,7 +486,28 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               <AnimatePresence mode="popLayout">
-                {recetas.map((receta) => <SmartCard key={receta.id} receta={receta} isPremium={isPremium} />)}
+                {(() => {
+                  const freeQuotaIds = new Set<string>();
+                  if (!isPremium) {
+                    const countByMood: Record<string, number> = {};
+                    for (const r of recetas) {
+                      if ((r.premium_level ?? 0) > 0) {
+                        const moodId = MOODS.find(m => r.mood_es?.toLowerCase().includes(m.id))?.id ?? r.moodId ?? 'unknown';
+                        countByMood[moodId] = (countByMood[moodId] ?? 0) + 1;
+                        if (countByMood[moodId] <= 3) freeQuotaIds.add(r.id);
+                      }
+                    }
+                  }
+                  return recetas.map((receta) => (
+                    <SmartCard
+                      key={receta.id}
+                      receta={receta}
+                      isPremium={isPremium}
+                      freeQuota={freeQuotaIds.has(receta.id)}
+                      onLockedClick={setLockedReceta}
+                    />
+                  ));
+                })()}
               </AnimatePresence>
             </div>
             {totalPages > 1 && (
@@ -510,6 +520,8 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
           </>
         )}
       </section>
+
+      <PaywallModal receta={lockedReceta} onClose={() => setLockedReceta(null)} />
     </div>
   );
 }

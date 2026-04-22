@@ -3,6 +3,8 @@ import ResultadoClient from "./ResultadoClient";
 import { createClient } from "@/lib/supabase/server";
 import { getPremiumStatus } from "@/lib/premium";
 
+export const metadata = { robots: { index: false, follow: false } };
+
 interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }

@@ -4,14 +4,19 @@ import { generateRecipeImage } from '@/lib/ai/image-generator';
 
 export async function POST(request: Request) {
   try {
+    const supabase = await createClient();
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { recipeName, moodId, ingredients } = body;
 
     if (!recipeName || !moodId) {
       return NextResponse.json({ error: 'recipeName and moodId are required' }, { status: 400 });
     }
-
-    const supabase = await createClient();
     
     // Create a safe, consistent filename
     const safeName = recipeName.toLowerCase().replace(/[^a-z0-9]+/g, '-');

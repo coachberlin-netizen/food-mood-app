@@ -1,41 +1,42 @@
-"use client";
+"use client"
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { useEffect, useState } from "react"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
-// Example typed events
-export type AnalyticsEvent = 
+const CONSENT_KEY = "fm_consent_v"
+const ANALYTICS_KEY = "fm_consent_analytics"
+const CONSENT_VERSION = "1.0"
+
+export type AnalyticsEvent =
   | { name: "quiz_started" }
   | { name: "quiz_completed"; properties: { resultMood: string } }
   | { name: "recipe_viewed"; properties: { recipeId: string } }
   | { name: "mood_tracked"; properties: { moodId: string } }
-  | { name: "waitlist_signup" };
+  | { name: "waitlist_signup" }
 
-/**
- * Global function to track events. 
- */
-export const trackEvent = (event: AnalyticsEvent) => {
-  if (process.env.NODE_ENV !== "production") {
-    // console.log("[Analytics Event]", event.name, "properties" in event ? event.properties : "");
-  }
-};
+export const trackEvent = (_event: AnalyticsEvent) => {}
 
 export function AnalyticsProvider() {
-  const pathname = usePathname();
+  const [analyticsAllowed, setAnalyticsAllowed] = useState(false)
 
   useEffect(() => {
-    // Track page views automatically on route change if needed
-    if (process.env.NODE_ENV !== "production") {
-      // console.log("[Analytics Pageview]", pathname);
+    const check = () => {
+      const consented = localStorage.getItem(CONSENT_KEY) === CONSENT_VERSION
+      const analyticsOn = localStorage.getItem(ANALYTICS_KEY) === "true"
+      setAnalyticsAllowed(consented && analyticsOn)
     }
-  }, [pathname]);
+    check()
+    window.addEventListener("fm:consent-updated", check)
+    return () => window.removeEventListener("fm:consent-updated", check)
+  }, [])
+
+  if (!analyticsAllowed) return null
 
   return (
     <>
       <Analytics />
       <SpeedInsights />
     </>
-  );
+  )
 }

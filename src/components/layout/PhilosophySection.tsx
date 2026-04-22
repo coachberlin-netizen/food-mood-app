@@ -100,9 +100,12 @@ export function PhilosophySection() {
               className={`relative group flex flex-col items-center justify-center text-center p-10 rounded-full border border-aubergine-dark/5 shadow-luxury hover:shadow-2xl transition-all duration-500 bg-white/40 backdrop-blur-md ${node.size} ${node.pos}`}
             >
               {/* Watercolor Brushstroke Asset - Brightened & Boosted */}
-              <motion.img 
+              <motion.img
                 src={node.watercolor}
                 alt=""
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
                 initial={{ opacity: 0, scale: 0.8, rotate: idx * 45 }}
                 whileInView={{ opacity: 0.75 }}
                 animate={{ 
@@ -139,9 +142,9 @@ export function PhilosophySection() {
               />
 
               <div className="relative z-10 flex flex-col items-center">
-                <h4 className="text-xl md:text-2xl font-serif text-aubergine-dark mb-4 leading-tight">
+                <h3 className="text-xl md:text-2xl font-serif text-aubergine-dark mb-4 leading-tight">
                   {node.title}
-                </h4>
+                </h3>
                 <p className="text-[13px] md:text-[14px] text-aubergine-dark/60 font-light leading-relaxed max-w-[240px] text-balance">
                   {node.text}
                 </p>

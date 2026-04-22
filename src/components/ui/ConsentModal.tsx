@@ -1,10 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 
 const CONSENT_VERSION = "1.0"
 const STORAGE_KEY = "fm_consent_v"
+const ANALYTICS_KEY = "fm_consent_analytics"
 
 type ConsentState = {
   consent_analytics: boolean
@@ -36,6 +38,8 @@ export function ConsentModal() {
   const handleSubmit = async () => {
     setSaving(true)
     localStorage.setItem(STORAGE_KEY, CONSENT_VERSION)
+    localStorage.setItem(ANALYTICS_KEY, String(consent.consent_analytics))
+    window.dispatchEvent(new Event("fm:consent-updated"))
 
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
@@ -99,7 +103,7 @@ export function ConsentModal() {
           <CompactRow
             checked={consent.consent_analytics}
             onChange={() => toggle("consent_analytics")}
-            label="Analítica de patrones"
+            label="Analítica (Vercel Analytics)"
           />
           <CompactRow
             checked={consent.consent_newsletter}
@@ -114,7 +118,11 @@ export function ConsentModal() {
         </div>
 
         <p className="text-[9px] text-[#6B2737]/30 mt-3 leading-relaxed">
-          Esencial siempre activo · Resto opcional · Cambia preferencias en tu perfil
+          Esencial siempre activo · Resto opcional · Cambia preferencias en tu perfil.{" "}
+          Los datos de estado emocional se tratan como datos de salud (Art. 9 GDPR).{" "}
+          <Link href="/privacidad" className="underline hover:text-[#6B2737]/60 transition-colors">
+            Política de privacidad
+          </Link>
         </p>
       </div>
     </div>
