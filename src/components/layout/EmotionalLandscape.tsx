@@ -247,8 +247,7 @@ export function EmotionalLandscape() {
                 Club Premium
               </p>
               <p className="font-serif text-2xl md:text-3xl text-[#F5F0E8] leading-[1.3] font-light">
-                Un grupo de WhatsApp donde compartimos lo que funciona de verdad.
-                Sin ruido. Sin algoritmos. Solo personas que cuidan lo que comen.
+                Canal privado de Telegram y comunidad de WhatsApp — contenido curado, sin ruido, solo para premium.
               </p>
             </div>
             <Link
