@@ -369,7 +369,7 @@ function MosaicoEmocional({ isSubscriber }: { isSubscriber: boolean }) {
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
             <span className="text-2xl mb-3">🔐</span>
             <p className="font-serif text-base text-[#2d0f16] leading-snug mb-4">
-              Suscríbete y únete a nuestro<br />club de WhatsApp Premium
+              Suscríbete y únete al canal<br />privado de Telegram + WhatsApp
             </p>
             <Link
               href="/pricing"

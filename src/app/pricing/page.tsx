@@ -8,18 +8,18 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "Precios — Club Premium Food·Mood | Desde 5€/mes",
-  description: "Accede a 200+ recetas funcionales, el grupo WhatsApp Premium y seguimiento personalizado. Sin compromiso — cancela cuando quieras.",
+  description: "Accede a 200+ recetas funcionales, canal privado de Telegram, comunidad WhatsApp y seguimiento personalizado. Sin compromiso — cancela cuando quieras.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "Precios — Club Premium Food·Mood",
-    description: "Accede a 200+ recetas funcionales, grupo WhatsApp y seguimiento emocional desde 5€/mes.",
+    description: "Accede a 200+ recetas funcionales, Telegram privado, WhatsApp y seguimiento emocional desde 5€/mes.",
     url: "https://www.food-mood.app/pricing",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Food·Mood Premium" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Precios — Club Premium Food·Mood",
-    description: "200+ recetas funcionales + grupo WhatsApp Premium desde 5€/mes.",
+    description: "200+ recetas funcionales + canal Telegram privado + WhatsApp desde 5€/mes.",
     images: ["/og-image.png"],
   },
 };

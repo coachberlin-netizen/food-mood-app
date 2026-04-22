@@ -106,7 +106,7 @@ function PreparacionPaywall() {
             Pasos de preparación
           </p>
           <p className="text-xs text-[#6B2737]/50 font-light mb-4 leading-relaxed">
-            Accede a todos los pasos, 200+ recetas y al grupo WhatsApp Premium.
+            Accede a todos los pasos, 200+ recetas, canal de Telegram y comunidad WhatsApp.
           </p>
           <Link
             href="/pricing"

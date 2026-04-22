@@ -15,11 +15,11 @@ const FAQs = [
   },
   {
     question: "¿Qué incluye exactamente la experiencia premium?",
-    answer: "Acceso ilimitado a nuestro catálogo completo de recetas emocionales (sin bloqueos de contenido), el mapa interactivo profundo de 'Fermentos del Mundo', detalle de ingredientes funcionales y un canal directo vía WhatsApp."
+    answer: "Acceso ilimitado a nuestro catálogo completo de recetas emocionales, el mapa interactivo 'Fermentos del Mundo', detalle de ingredientes funcionales, canal privado de Telegram con contenido exclusivo y comunidad de WhatsApp."
   },
   {
-    question: "¿Cómo funciona la consulta por WhatsApp?",
-    answer: "Como suscriptor premium, dispones de una línea de WhatsApp como canal de soporte directo. Puedes escribir para consultar sobre sustitución de ingredientes, entender mejor un fermento, o resolver dudas sobre tu perfil nutricional."
+    question: "¿Cómo funciono el canal de Telegram y WhatsApp?",
+    answer: "Al suscribirte recibes un enlace único al canal privado de Telegram donde publicamos hallazgos científicos y protocolos antes que nadie. También tendrás acceso a la comunidad de WhatsApp para consultas directas sobre recetas, fermentos y tu perfil nutricional."
   },
   {
     question: "¿Necesito conocimientos previos de nutrición?",

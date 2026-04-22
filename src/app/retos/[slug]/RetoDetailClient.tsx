@@ -435,7 +435,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             {[
               `📘 ${challenge.recipe_count} recetas ${challenge.duration_days <= 7 ? 'de reset' : '— una por día'}`,
               `🎧 ${challenge.audio_count} audios de apoyo`,
-              '💬 Acceso al grupo WhatsApp Premium durante el reto',
+              '💬 Canal privado de Telegram + comunidad WhatsApp Premium',
               '📊 Seguimiento diario con tu índice Food·Mood',
               '📋 Informe final personalizado al completar',
             ].map((item, i) => (

@@ -454,11 +454,11 @@ export default function SemanaPage() {
             Club Premium
           </p>
           <p className="font-serif text-lg font-bold text-white mb-2">
-            Únete a nuestro WhatsApp Premium
+            Canal privado de Telegram + comunidad WhatsApp
           </p>
           <p className="text-xs font-light leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.6)" }}>
-            Suscríbete y accede a contenido curado de verdad y contrastado
-            por nuestros expertos — directo a tu WhatsApp cada semana.
+            Suscríbete y accede a contenido científico exclusivo en Telegram
+            y a la comunidad de WhatsApp — solo para premium.
           </p>
           <Link
             href="/pricing"
