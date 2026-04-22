@@ -30,6 +30,129 @@ const MOOD_COLORS: Record<string, string> = {
   confort:    '#FF6B00'
 };
 
+function ScienceSection() {
+  const [open, setOpen] = useState(false);
+  return (
+    <motion.div
+      id="ciencia-espectros"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className="max-w-3xl mx-auto mt-20 md:mt-28 mb-0 rounded-3xl border border-[#6B2737]/10 overflow-hidden"
+    >
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center justify-between px-8 py-7 bg-white text-left group hover:bg-[#6B2737]/2 transition-colors"
+      >
+        <span className="font-serif text-xl text-[#6B2737] font-semibold">
+          Qué dice la ciencia sobre espectros emocionales
+        </span>
+        <span
+          className="text-[#6B2737]/40 text-xl font-light transition-transform duration-300 shrink-0 ml-4"
+          style={{ transform: open ? 'rotate(45deg)' : 'rotate(0deg)' }}
+        >
+          +
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="science-body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="px-8 py-8 bg-white border-t border-[#6B2737]/6 space-y-8 text-sm text-[#4A4A4A] font-light leading-relaxed">
+
+              {/* Modelos dimensionales */}
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-3">
+                  Modelos continuos de emoción
+                </p>
+                <p className="mb-3">
+                  En psicología de la emoción existe una tradición sólida de modelos continuos o dimensionales —
+                  no de &ldquo;emociones básicas&rdquo; discretas.
+                </p>
+                <p className="mb-3">
+                  El modelo <strong className="font-medium text-[#6B2737]">circumplex de Russell</strong> describe
+                  cualquier estado afectivo como un punto en un espacio continuo de{' '}
+                  <em>valencia</em> (agradable–desagradable) y <em>activación</em> (baja–alta).
+                  El modelo <strong className="font-medium text-[#6B2737]">VAD</strong> (Valence–Arousal–Dominance)
+                  añade una tercera dimensión: cuánto control sientes sobre la emoción.
+                </p>
+                <p className="text-[11px] text-[#4A4A4A]/50 italic">
+                  La ciencia lleva décadas tratando las emociones como mezclas graduales en un espacio continuo, no como cajones rígidos.{' '}
+                  <a
+                    href="https://pubmed.ncbi.nlm.nih.gov/16262989/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-[#6B2737]/60 hover:text-[#6B2737] transition-colors"
+                  >
+                    Russell, 2003 — PubMed
+                  </a>
+                </p>
+              </div>
+
+              {/* Granularidad emocional */}
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-3">
+                  Granularidad emocional y autorregulación
+                </p>
+                <p className="mb-3">
+                  La <strong className="font-medium text-[#6B2737]">diferenciación emocional</strong> (o granularidad) es la
+                  capacidad de distinguir con precisión entre matices de emoción en lugar de agrupar todo en &ldquo;me siento mal&rdquo;.
+                  La evidencia muestra que:
+                </p>
+                <ul className="space-y-2 pl-4 mb-3">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                    Personas con alta granularidad muestran menos síntomas de ansiedad y depresión ante el estrés.
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                    Alta granularidad se asocia con estrategias de regulación más específicas y eficaces.
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                    Baja granularidad se relaciona con afrontamiento más problemático (incluyendo conductas desadaptativas).
+                  </li>
+                </ul>
+                <p className="mb-3">
+                  Pasar de &ldquo;estoy fatal&rdquo; a algo más matizado —&ldquo;hay mucha calma, algo de melancolía y una inquietud que aún no sé nombrar&rdquo;—
+                  no es subjetivismo: es una intervención de autorregulación respaldada por la investigación.
+                </p>
+                <p className="text-[11px] text-[#4A4A4A]/50 italic">
+                  <a
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8315101/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-[#6B2737]/60 hover:text-[#6B2737] transition-colors"
+                  >
+                    Revisión sobre diferenciación emocional — PMC 2021
+                  </a>
+                </p>
+              </div>
+
+              {/* Nota metodológica */}
+              <div className="pt-4 border-t border-[#6B2737]/6">
+                <p className="text-[11px] text-[#4A4A4A]/45 leading-relaxed italic">
+                  Food·Mood traduce estos modelos en una paleta emocional continua.
+                  En lugar de &ldquo;estoy mal&rdquo;, puedes explorar cuánto hay de calma, inquietud, melancolía o vitalidad en tu estado de hoy.
+                  Ese aumento de granularidad es, según la investigación, una ayuda real para regular mejor tus emociones — y para entender qué necesitas comer para sostenerlas.
+                </p>
+              </div>
+
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
   <div className="max-w-6xl mx-auto px-6 py-20 md:py-32">
 
@@ -49,6 +172,26 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
       <p className="text-base md:text-lg text-[#4A4A4A] font-light max-w-2xl mx-auto leading-relaxed">
         Lo que comes cambia cómo te sientes. Y lo que sientes cambia cómo digiere tu cuerpo. No van separados. Van juntos.
       </p>
+    </motion.div>
+
+    {/* ESPECTRO EMOCIONAL — bloque relatable */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="max-w-2xl mx-auto mb-20 text-center"
+    >
+      <p className="text-base md:text-lg text-[#4A4A4A] font-light leading-relaxed mb-5">
+        No eres &ldquo;dramática&rdquo; ni &ldquo;demasiado sensible&rdquo;. Eres una mezcla que cambia cada día — y eso es normal.
+        Cuando consigues ponerle nombre exacto a esa mezcla, algo cambia: sabes si necesitas descanso,
+        si necesitas moverte, si necesitas hablar con alguien, o si simplemente necesitas comer algo que te nutra de verdad.
+      </p>
+      <a
+        href="#ciencia-espectros"
+        className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#6B2737]/50 hover:text-[#6B2737] transition-colors border-b border-[#6B2737]/20 hover:border-[#6B2737]/50 pb-0.5"
+      >
+        Qué dice la ciencia sobre espectros emocionales ↓
+      </a>
     </motion.div>
 
     {/* STAT CARDS */}
@@ -133,7 +276,10 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
     {/* INFOGRAPHIC */}
     <GutBrainInfographic />
 
-    <motion.div 
+    {/* CIENCIA — sección expandible */}
+    <ScienceSection />
+
+    <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
