@@ -431,20 +431,21 @@ export default function SintomasPage() {
           style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.07)" }}
         >
           {[
-            { n: "1", label: "Poco",    bg: "#F9F5F0" },
-            { n: "2", label: "Medio",   bg: "#F4EDE4" },
-            { n: "3", label: "Mucho",   bg: "#EBE0D5" },
+            { n: "1", intensity: "Poco",  feeling: "Mal",     bg: "#F9F5F0" },
+            { n: "2", intensity: "Medio", feeling: "Regular", bg: "#F4EDE4" },
+            { n: "3", intensity: "Mucho", feeling: "Bien",    bg: "#EBE0D5" },
           ].map((item, i) => (
             <div
               key={item.n}
-              className="flex-1 py-2.5 flex flex-col items-center gap-0.5"
+              className="flex-1 py-2.5 flex flex-col items-center gap-0"
               style={{
                 backgroundColor: item.bg,
                 borderLeft: i > 0 ? "1px solid rgba(107,39,55,0.07)" : undefined,
               }}
             >
               <span className="text-sm font-bold font-serif" style={{ color: "#6B2737" }}>{item.n}</span>
-              <span className="text-[10px] font-light" style={{ color: "rgba(107,39,55,0.5)" }}>{item.label}</span>
+              <span className="text-[10px] font-semibold" style={{ color: "rgba(107,39,55,0.6)" }}>{item.intensity}</span>
+              <span className="text-[9px] font-light" style={{ color: "rgba(107,39,55,0.4)" }}>{item.feeling}</span>
             </div>
           ))}
         </div>
