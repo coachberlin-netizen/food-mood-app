@@ -6,6 +6,7 @@ import Link from "next/link"
 import { ChevronDown, BookOpen, Headphones, BarChart2, Moon, Zap, Leaf, Activity, Brain, ArrowRight, Check } from "lucide-react"
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
+import HomeHero from "@/components/layout/HomeHero"
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
 const RETOS = [
@@ -206,52 +207,7 @@ export default function Home() {
       }) }} />
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
-      <motion.section
-        aria-label="Presentación"
-        initial="hidden"
-        animate="visible"
-        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.16, delayChildren: 0.1 } } }}
-        className="relative min-h-[80vh] flex flex-col justify-center items-center px-6 pt-24 md:pt-28 pb-16 bg-aubergine"
-      >
-        <ConstellationBackground />
-        <div className="max-w-5xl mx-auto text-center relative z-10 w-full space-y-7 flex flex-col items-center">
-
-          <motion.p variants={fade} className="text-cream/50 font-sans tracking-[0.2em] uppercase font-bold text-xs">
-            Neurociencia nutricional · Eje intestino-cerebro
-          </motion.p>
-
-          <motion.h1
-            variants={fade}
-            className="text-4xl md:text-[5.5rem] lg:text-[7rem] leading-[1.05] font-serif italic text-white tracking-tight text-balance"
-          >
-            Recetas que te cambian el humor.
-          </motion.h1>
-
-          <motion.p variants={fade} className="text-cream/55 font-light text-base md:text-xl max-w-lg text-center leading-relaxed">
-            Cada plato está diseñado para cómo te sientes hoy — no para un número en la báscula.
-          </motion.p>
-
-          <motion.div variants={fade} className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full pt-2">
-            <Link
-              href="/retos"
-              className="w-full sm:w-auto px-10 py-4 rounded-full text-sm font-bold text-[#2d0f16] transition-all hover:opacity-90 hover:scale-[1.02] shadow-xl"
-              style={{ backgroundColor: "#C9A84C" }}
-            >
-              Empieza tu reto de 7 días →
-            </Link>
-            <Link
-              href="/paleta"
-              className="text-sm text-cream/55 hover:text-[#C9A84C] transition-all font-light tracking-wide"
-            >
-              Descubre tu paleta emocional
-            </Link>
-          </motion.div>
-
-          <motion.p variants={fade} className="text-cream/25 text-xs font-light pt-1">
-            Sin suscripción oculta · Sin ingredientes imposibles · Desde 19€
-          </motion.p>
-        </div>
-      </motion.section>
+      <HomeHero />
 
       {/* ── 2. EL PROBLEMA ──────────────────────────────────────────────────── */}
       <section aria-label="El problema con la alimentación emocional" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
