@@ -23,16 +23,20 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Initialize Supabase Admin to bypass RLS and set password
-    const supabaseAdmin = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.RECETAS_SUPABASE_KEY!,
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false
-        }
-      }
-    )
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const serviceKey  = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY
+
+    if (!supabaseUrl || !serviceKey) {
+      console.error('[auth/setup] Missing env vars — SUPABASE_SERVICE_ROLE_KEY not set in Vercel')
+      return NextResponse.json(
+        { error: 'Error de configuración del servidor. Contacta a soporte: falta SUPABASE_SERVICE_ROLE_KEY.' },
+        { status: 500 }
+      )
+    }
+
+    const supabaseAdmin = createClient(supabaseUrl, serviceKey, {
+      auth: { autoRefreshToken: false, persistSession: false }
+    })
 
     // 3. Find the user by email — use getUserByEmail to avoid pagination issues
     const { data: matchData, error: lookupError } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
