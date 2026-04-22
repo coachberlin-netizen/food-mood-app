@@ -11,9 +11,9 @@ const GOLD_LIGHT = "#E8C98A";
 const CREAM      = "#F5EDE0";
 
 const PHOTOS = [
-  "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=1280&q=85&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1280&q=85&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1280&q=85&auto=format&fit=crop",
+  "/hero/hero1.jpg",
+  "/hero/hero2.jpg",
+  "/hero/hero3.jpg",
 ];
 
 const HERO_CSS = `
