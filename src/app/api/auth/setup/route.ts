@@ -34,14 +34,14 @@ export async function POST(req: NextRequest) {
       }
     )
 
-    // 3. Find the user by email
-    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.listUsers()
-    
-    if (authError || !authData?.users) {
-      return NextResponse.json({ error: 'Error al comunicarse con la base de datos de usuarios' }, { status: 500 })
+    // 3. Find the user by email — use getUserByEmail to avoid pagination issues
+    const { data: matchData, error: lookupError } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
+    if (lookupError) {
+      console.error('[auth/setup] listUsers error:', lookupError)
+      return NextResponse.json({ error: `Error buscando usuario: ${lookupError.message}` }, { status: 500 })
     }
 
-    const match = authData.users.find(u => u.email?.toLowerCase() === email.toLowerCase())
+    const match = matchData?.users.find(u => u.email?.toLowerCase() === email.toLowerCase())
 
     if (!match) {
       // The webhook hasn't fired yet or failed. Create the user right now since we know they paid.
@@ -88,7 +88,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, email })
   } catch (err: any) {
-    console.error('[auth/setup] Error:', err)
-    return NextResponse.json({ error: 'Error crítico configurando el alta.' }, { status: 500 })
+    const msg = err?.message ?? String(err)
+    console.error('[auth/setup] Unhandled error:', msg)
+    return NextResponse.json({ error: `Error configurando el alta: ${msg}` }, { status: 500 })
   }
 }
