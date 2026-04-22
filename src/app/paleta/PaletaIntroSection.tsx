@@ -1,343 +1,327 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
-type Segment = { name: string; pct: number; color: string };
-type BarData = { label: string; segments: Segment[] };
+const CALMA_C = "#8BB5A8";
+const MELAN_C = "#8B7FA8";
+const SIN_C   = "#D4A87A";
 
-const BARS: BarData[] = [
-  {
-    label: "Un día de calma matizada",
-    segments: [
-      { name: "Calma", pct: 60, color: "#5A9B8A" },
-      { name: "Melancolía", pct: 25, color: "#4A7AB5" },
-      { name: "Sin nombre", pct: 15, color: "#C04878" },
-    ],
-  },
-  {
-    label: "Una mañana de alta intensidad",
-    segments: [
-      { name: "Activación", pct: 45, color: "#E8703A" },
-      { name: "Ansiedad leve", pct: 35, color: "#7A5AAA" },
-      { name: "Curiosidad", pct: 20, color: "#5A9B8A" },
-    ],
-  },
-  {
-    label: "Una tarde de introspección",
-    segments: [
-      { name: "Confort", pct: 70, color: "#C8902A" },
-      { name: "Nostalgia", pct: 20, color: "#4A7AB5" },
-      { name: "Alegría quieta", pct: 10, color: "#5A9B8A" },
-    ],
-  },
-];
+const ORB_CSS = `
+  @keyframes palOrbSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  @keyframes palOrbRev  { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
+  .pal-spin-a { animation:palOrbSpin 40s linear infinite; transform-origin:160px 160px; }
+  .pal-spin-b { animation:palOrbRev  28s linear infinite; transform-origin:160px 160px; }
+  .pal-spin-c { animation:palOrbSpin 55s linear infinite reverse; transform-origin:160px 160px; }
+`;
 
-function GranularityBar({
-  bar,
-  active,
-  onClick,
-}: {
-  bar: BarData;
-  active: boolean;
-  onClick: () => void;
-}) {
+function BarFill({ color, width, delay }: { color: string; width: string; delay: number }) {
+  const [go, setGo] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setGo(true), delay);
+    return () => clearTimeout(t);
+  }, [delay]);
   return (
-    <button onClick={onClick} className="w-full text-left">
-      <div
-        className={`rounded-2xl border transition-all duration-300 p-4 ${
-          active
-            ? "border-[#6B2737]/25 shadow-md bg-white"
-            : "border-[#e8e0d8] bg-[#F5F0E8]/60 hover:bg-white hover:border-[#6B2737]/10"
-        }`}
-      >
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#6B2737]/50 mb-3">
-          {bar.label}
-        </p>
-        <div className="flex rounded-full overflow-hidden h-7">
-          {bar.segments.map((s) => (
-            <div
-              key={s.name}
-              style={{ width: `${s.pct}%`, backgroundColor: s.color }}
-              className="transition-all duration-500"
-            />
-          ))}
-        </div>
-        {active && (
-          <div className="flex flex-wrap gap-4 mt-3">
-            {bar.segments.map((s) => (
-              <span
-                key={s.name}
-                className="flex items-center gap-1.5 text-xs font-medium text-[#3a2a2a]"
-              >
-                <span
-                  className="w-2.5 h-2.5 rounded-full inline-block shrink-0"
-                  style={{ backgroundColor: s.color }}
-                />
-                {s.pct}% {s.name}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-    </button>
+    <div style={{
+      height: "100%",
+      borderRadius: 9999,
+      width: go ? width : "0%",
+      backgroundColor: color,
+      transition: "width 1.2s cubic-bezier(0.16,1,0.3,1)",
+    }} />
   );
 }
 
+const BENEFITS = [
+  {
+    bg: CALMA_C + "33", stroke: CALMA_C,
+    title: "Menos estrés en el cuerpo",
+    desc: "Identificar tus emociones reduce la respuesta al estrés y mejora tu bienestar físico.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9.5 2a2.5 2.5 0 0 1 5 0v.5A2.5 2.5 0 0 1 12 5a2.5 2.5 0 0 1-2.5-2.5V2z"/>
+        <path d="M9 5.5C5.5 5.5 3 8 3 11.5c0 2 .8 3.7 2 5 .7.7 1 1.7 1 2.5v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1c0-.8.3-1.8 1-2.5 1.2-1.3 2-3 2-5C21 8 18.5 5.5 15 5.5"/>
+        <path d="M9 15h6M10 18h4"/>
+      </svg>
+    ),
+  },
+  {
+    bg: MELAN_C + "33", stroke: MELAN_C,
+    title: "Mejor toma de decisiones",
+    desc: "Cuando sabes cómo estás repartido, actúas desde la claridad, no desde el ruido.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="14" width="4" height="7" rx="1"/>
+        <rect x="10" y="9" width="4" height="12" rx="1"/>
+        <rect x="17" y="4" width="4" height="17" rx="1"/>
+        <path d="M5 14 10 9 14 11 19 4" strokeOpacity="0.5"/>
+      </svg>
+    ),
+  },
+  {
+    bg: SIN_C + "33", stroke: SIN_C,
+    title: "Comer más consciente",
+    desc: "La nutrición emocional empieza por saber qué sientes antes de abrir la nevera.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 11c0-4.4 3.6-8 8-8s8 3.6 8 8v1H3v-1z"/>
+        <path d="M2 12h20"/>
+        <path d="M12 12v8"/>
+        <path d="M8 20h8"/>
+        <path d="M7 7.5C8 6 10 5.5 12 6"/>
+      </svg>
+    ),
+  },
+];
+
+const BARS = [
+  { name: "Calma",          pct: "60%", w: "60%", color: CALMA_C, delay: 600 },
+  { name: "Melancolía",     pct: "25%", w: "25%", color: MELAN_C, delay: 800 },
+  { name: "Sin nombre aún", pct: "15%", w: "15%", color: SIN_C,   delay: 1000, nameColor: SIN_C },
+];
+
 export function PaletaIntroSection() {
-  const [activeBar, setActiveBar] = useState<number | null>(0);
-
   return (
-    <section className="bg-[#F5F0E8] py-20 md:py-32 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+      <style dangerouslySetInnerHTML={{ __html: ORB_CSS }} />
 
-        {/* Breadcrumb + skip link */}
-        <nav aria-label="Migas de pan" className="mb-10 flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-light transition-colors hover:opacity-80"
-            style={{ color: "rgba(107,39,55,0.4)" }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Food·Mood
-          </Link>
-          <Link
-            href="/paleta?test=1"
-            className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
-            style={{ color: "#C9A84C" }}
-          >
-            Ir al test →
-          </Link>
-        </nav>
+      <div className="max-w-4xl mx-auto flex flex-col gap-0">
 
-        {/* Eyebrow */}
-        <p
-          className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 block"
-          style={{ color: "#C9A84C" }}
+        {/* ── HEADER ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
+          className="mb-14"
         >
-          Una forma distinta de entenderte
-        </p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: CALMA_C }}>
+            food·mood · inteligencia emocional
+          </p>
+          <h1
+            className="font-serif font-light leading-[1.05] tracking-tight mb-5 max-w-[560px]"
+            style={{ fontSize: "clamp(42px,6vw,68px)", color: "#2d0f16" }}
+          >
+            Una forma distinta de{" "}
+            <em style={{ fontStyle: "italic", color: MELAN_C }}>entenderte</em>
+          </h1>
+          <p className="text-base font-light leading-[1.7] max-w-[440px]" style={{ color: "#5C5750" }}>
+            No eres &ldquo;triste&rdquo;. Eres una{" "}
+            <strong style={{ color: "#2d0f16", fontWeight: 500 }}>mezcla única</strong>.<br />
+            Hoy quizá seas un 60% calma, un 25% melancolía y un 15% de algo que
+            aún no tiene nombre. Eso es normal — y tiene más información de lo que parece.
+          </p>
+        </motion.div>
 
-        {/* H1 */}
-        <h1 className="font-serif text-4xl md:text-6xl text-[#2d0f16] leading-[1.15] mb-8">
-          No eres{" "}
-          <span className="italic font-light">&ldquo;triste&rdquo;</span>.{" "}
-          <br className="hidden md:block" />
-          Eres una mezcla única.
-        </h1>
+        {/* ── MAIN VISUAL: orbe + result card ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.35 }}
+          className="grid md:grid-cols-2 gap-10 items-center mb-16"
+        >
+          {/* ORB */}
+          <div className="relative flex items-center justify-center py-10 px-10 md:px-0">
+            {/* Calma */}
+            <motion.div
+              className="absolute flex items-center gap-2 bg-white rounded-full shadow-lg z-10"
+              style={{ top: 8, left: -8, padding: "8px 16px 8px 10px", whiteSpace: "nowrap" }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0 }}
+            >
+              <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: CALMA_C }} />
+              <span className="font-serif text-[19px] font-medium leading-none" style={{ color: CALMA_C }}>60%</span>
+              <span className="text-[11px] uppercase tracking-wider font-light" style={{ color: "#5C5750" }}>Calma</span>
+            </motion.div>
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl text-[#6B2737]/70 font-serif font-light leading-relaxed max-w-3xl mb-16">
-          Hoy quizá seas un{" "}
-          <span className="inline-block px-2 py-0.5 rounded-full text-white text-base" style={{ backgroundColor: "#5A9B8A" }}>60% calma</span>
-          , un{" "}
-          <span className="inline-block px-2 py-0.5 rounded-full text-white text-base" style={{ backgroundColor: "#4A7AB5" }}>25% melancolía</span>
-          {" "}y un{" "}
-          <span className="inline-block px-2 py-0.5 rounded-full text-white text-base" style={{ backgroundColor: "#C04878" }}>15%</span>
-          {" "}de algo que aún no tiene nombre. Eso es normal — y tiene más información de lo que parece.
-        </p>
+            {/* Melancolía */}
+            <motion.div
+              className="absolute flex items-center gap-2 bg-white rounded-full shadow-lg z-10"
+              style={{ bottom: 30, left: -12, padding: "8px 16px 8px 10px", whiteSpace: "nowrap" }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.3 }}
+            >
+              <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: MELAN_C }} />
+              <span className="font-serif text-[19px] font-medium leading-none" style={{ color: MELAN_C }}>25%</span>
+              <span className="text-[11px] uppercase tracking-wider font-light" style={{ color: "#5C5750" }}>Melancolía</span>
+            </motion.div>
 
-        {/* Static palette mockup — show don't tell */}
-        <div className="mb-12 rounded-2xl bg-white border border-[#6B2737]/8 shadow-sm overflow-hidden">
-          <div className="px-6 pt-6 pb-4">
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(107,39,55,0.35)" }}>
+            {/* Sin nombre — wrapper handles -50% centering, motion handles float */}
+            <div className="absolute z-10" style={{ top: "50%", right: -8, transform: "translateY(-50%)" }}>
+              <motion.div
+                className="flex items-center gap-2 bg-white rounded-full shadow-lg"
+                style={{ padding: "8px 16px 8px 10px", whiteSpace: "nowrap" }}
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+              >
+                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: SIN_C }} />
+                <span className="font-serif text-[19px] font-medium leading-none" style={{ color: SIN_C }}>15%</span>
+                <span className="text-[11px] uppercase tracking-wider font-light" style={{ color: "#5C5750" }}>Sin nombre aún</span>
+              </motion.div>
+            </div>
+
+            <svg
+              width="320" height="320" viewBox="0 0 320 320" fill="none"
+              style={{ filter: "drop-shadow(0 20px 60px rgba(139,181,168,0.25))", overflow: "visible" }}
+            >
+              <defs>
+                <filter id="palB1" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="18"/>
+                </filter>
+                <filter id="palB2" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="12"/>
+                </filter>
+                <clipPath id="palC"><circle cx="160" cy="160" r="130"/></clipPath>
+              </defs>
+
+              <circle cx="160" cy="160" r="150" stroke="rgba(44,42,38,0.06)" strokeWidth="1"/>
+              <circle cx="160" cy="160" r="140" stroke="rgba(44,42,38,0.04)" strokeWidth="1" strokeDasharray="4 8"/>
+
+              <g clipPath="url(#palC)">
+                <g className="pal-spin-a">
+                  <ellipse cx="140" cy="130" rx="120" ry="110" fill={CALMA_C} opacity="0.75" filter="url(#palB1)"/>
+                </g>
+                <g className="pal-spin-b">
+                  <ellipse cx="130" cy="210" rx="90" ry="80" fill={MELAN_C} opacity="0.70" filter="url(#palB2)"/>
+                </g>
+                <g className="pal-spin-c">
+                  <ellipse cx="215" cy="170" rx="75" ry="65" fill={SIN_C} opacity="0.65" filter="url(#palB2)"/>
+                </g>
+                <ellipse cx="145" cy="135" rx="45" ry="35" fill="white" opacity="0.22"/>
+              </g>
+
+              <circle cx="160" cy="160" r="130" stroke="rgba(44,42,38,0.08)" strokeWidth="1.5"/>
+              <text x="160" y="154" textAnchor="middle" fontSize="13" fill="rgba(44,42,38,0.5)" letterSpacing="2" fontFamily="Georgia, serif">TU MEZCLA</text>
+              <text x="160" y="172" textAnchor="middle" fontSize="13" fill="rgba(44,42,38,0.5)" letterSpacing="2" fontFamily="Georgia, serif">HOY</text>
+            </svg>
+          </div>
+
+          {/* RESULT CARD */}
+          <div className="bg-white rounded-3xl p-8 shadow-lg relative overflow-hidden">
+            <div
+              className="absolute top-0 left-0 right-0 h-[3px]"
+              style={{ background: `linear-gradient(90deg, ${CALMA_C}, ${MELAN_C}, ${SIN_C})` }}
+            />
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-5" style={{ color: "#9B9690" }}>
               Así se ve tu resultado — ejemplo real
             </p>
-            <div className="flex rounded-full overflow-hidden h-8 mb-4">
-              <div style={{ width: "60%", backgroundColor: "#5A9B8A" }} />
-              <div style={{ width: "25%", backgroundColor: "#4A7AB5" }} />
-              <div style={{ width: "15%", backgroundColor: "#C04878" }} />
-            </div>
-            <div className="flex flex-wrap gap-4">
-              {[
-                { pct: "60%", label: "Calma", color: "#5A9B8A" },
-                { pct: "25%", label: "Melancolía", color: "#4A7AB5" },
-                { pct: "15%", label: "Sin nombre aún", color: "#C04878" },
-              ].map((s) => (
-                <span key={s.label} className="flex items-center gap-1.5 text-sm font-medium text-[#3a2a2a]">
-                  <span className="w-2.5 h-2.5 rounded-full shrink-0 inline-block" style={{ backgroundColor: s.color }} />
-                  {s.pct} {s.label}
-                </span>
+
+            <div className="flex flex-col gap-3.5 mb-7">
+              {BARS.map(bar => (
+                <div key={bar.name} className="flex flex-col gap-1.5">
+                  <div className="flex justify-between items-baseline">
+                    <span className="font-serif text-[17px]" style={{ color: bar.nameColor ?? "#2d0f16" }}>
+                      {bar.name}
+                    </span>
+                    <span className="text-xs font-medium" style={{ color: "#5C5750" }}>{bar.pct}</span>
+                  </div>
+                  <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(44,42,38,0.07)" }}>
+                    <BarFill color={bar.color} width={bar.w} delay={bar.delay} />
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
-          <div className="px-6 py-4 border-t" style={{ borderColor: "rgba(107,39,55,0.06)", backgroundColor: "rgba(245,240,232,0.4)" }}>
-            <p className="text-xs font-light" style={{ color: "rgba(107,39,55,0.5)" }}>
-              Recetas para este estado:{" "}
-              <span className="font-medium" style={{ color: "rgba(107,39,55,0.7)" }}>
-                Kéfir con fresas · Ensalada de wakame · Infusión de pasiflora
-              </span>
-            </p>
-          </div>
-        </div>
 
-        {/* Explanatory box */}
-        <div className="bg-white rounded-3xl border border-[#6B2737]/8 p-8 md:p-12 mb-12 shadow-sm">
-          <h2 className="font-serif text-2xl md:text-3xl text-[#2d0f16] mb-5">
-            Cuanto más específico eres con lo que sientes, más fácil es hacer algo al respecto.
-          </h2>
-          <p className="text-[#4a3a3a]/80 font-light leading-relaxed mb-8 text-base md:text-lg">
-            No eres &ldquo;triste&rdquo;, &ldquo;dramática&rdquo; o &ldquo;demasiado sensible&rdquo;.
-            Eres una mezcla que cambia cada día — y eso es normal.{" "}
-            Cuando consigues ponerle nombre exacto a esa mezcla, algo cambia:
-            sabes si necesitas descanso, si necesitas moverte, si necesitas hablar con alguien, o si simplemente necesitas comer algo que te nutra de verdad.{" "}
-            No hace falta que sea complicado. Empieza con una sola pregunta:{" "}
-            <em>&ldquo;¿cómo estoy repartido emocionalmente ahora mismo?&rdquo;</em>.
-          </p>
-          <div className="grid md:grid-cols-3 gap-4">
-            {[
-              { emoji: "🧠", text: "Menos estrés en el cuerpo" },
-              { emoji: "📊", text: "Mejor toma de decisiones" },
-              { emoji: "🍽", text: "Comer más consciente" },
-            ].map((card) => (
-              <div
-                key={card.text}
-                className="rounded-2xl p-5 flex items-center gap-3"
-                style={{ backgroundColor: "#F5F0E8" }}
-              >
-                <span className="text-2xl shrink-0">{card.emoji}</span>
-                <p className="text-sm font-semibold text-[#2d0f16]">
-                  {card.text}
-                </p>
+            <div className="pt-5 border-t" style={{ borderColor: "rgba(44,42,38,0.08)" }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] mb-3" style={{ color: "#9B9690" }}>
+                Recetas para este estado
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["Kéfir con fresas", "Ensalada de wakame", "Infusión de pasiflora"].map(r => (
+                  <span
+                    key={r}
+                    className="px-3.5 py-1.5 rounded-full text-xs border"
+                    style={{ backgroundColor: "#F5F0E8", color: "#5C5750", borderColor: "rgba(44,42,38,0.08)" }}
+                  >
+                    {r}
+                  </span>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Mid-page conversion CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-14 p-6 rounded-2xl" style={{ backgroundColor: "#2d0f16" }}>
-          <div className="flex-1">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-1" style={{ color: "#C9A84C" }}>Empieza ahora</p>
-            <p className="font-serif text-lg text-white font-light leading-snug">
-              Descubre tu mezcla emocional de hoy — y las recetas que le corresponden.
+        {/* ── INSIGHT QUOTE ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="rounded-3xl px-8 md:px-12 py-12 mb-12 relative overflow-hidden"
+          style={{ backgroundColor: "#2d0f16" }}
+        >
+          <span
+            className="absolute right-8 -top-5 font-serif leading-none pointer-events-none select-none"
+            style={{ fontSize: 200, color: "rgba(255,255,255,0.04)" }}
+          >
+            &ldquo;
+          </span>
+          <p
+            className="font-serif font-light italic leading-[1.55] max-w-[620px] mb-6"
+            style={{ fontSize: "clamp(20px,2.5vw,27px)", color: "#FDFAF6" }}
+          >
+            No eres &ldquo;dramática&rdquo; ni &ldquo;demasiado sensible&rdquo;.<br />
+            Eres una{" "}
+            <em style={{ fontStyle: "normal", color: "#ffffff" }}>mezcla que cambia cada día</em>
+            {" "}— y eso es normal.
+          </p>
+          <p className="text-sm font-light leading-[1.7] max-w-[540px]" style={{ color: "rgba(253,250,246,0.5)" }}>
+            Cuando consigues ponerle nombre exacto a esa mezcla, algo cambia: sabes si necesitas
+            descanso, si necesitas moverte, si necesitas hablar con alguien, o si simplemente
+            necesitas{" "}
+            <strong style={{ color: "rgba(253,250,246,0.85)", fontWeight: 500 }}>
+              comer algo que te nutra de verdad
+            </strong>.
+          </p>
+        </motion.div>
+
+        {/* ── BENEFITS ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="grid md:grid-cols-3 gap-6 mb-12"
+        >
+          {BENEFITS.map(b => (
+            <div
+              key={b.title}
+              className="bg-white rounded-2xl p-7 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-default"
+            >
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                style={{ backgroundColor: b.bg, color: b.stroke }}
+              >
+                {b.icon}
+              </div>
+              <p className="font-serif text-[18px] leading-[1.2]" style={{ color: "#2d0f16" }}>{b.title}</p>
+              <p className="text-[13px] font-light leading-[1.6]" style={{ color: "#5C5750" }}>{b.desc}</p>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* ── CTA (existing, functional) ── */}
+        <div
+          className="flex flex-col sm:flex-row gap-6 p-8 rounded-2xl items-center justify-between"
+          style={{ backgroundColor: "#2d0f16" }}
+        >
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: "#C9A84C" }}>
+              Empieza ahora
+            </p>
+            <p className="font-serif text-lg font-light leading-snug" style={{ color: "#F7F0E6" }}>
+              Descubre tu <em>mezcla emocional</em> de hoy — y las recetas que le corresponden.
             </p>
           </div>
           <Link
             href="/test"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm shrink-0 transition-all hover:opacity-90 hover:scale-[1.02] shadow-lg"
+            className="inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-sm shrink-0 transition-all hover:opacity-90 hover:scale-[1.02] shadow-lg whitespace-nowrap"
             style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
           >
             Descubrir mi paleta →
           </Link>
         </div>
 
-        {/* Spectrum visualizer */}
-        <div className="mb-14" role="group" aria-labelledby="espectros-label">
-          <p id="espectros-label" className="text-[10px] font-bold uppercase tracking-widest text-[#6B2737]/40 mb-5 flex items-center gap-2">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 3a1.5 1.5 0 0 1 3 0v7.5h2.25A2.25 2.25 0 0 1 21 12.75v1.5a4.5 4.5 0 0 1-4.5 4.5h-3a4.5 4.5 0 0 1-4.5-4.5V9a1.5 1.5 0 0 1 3 0v2.25H13.5V3Z"/></svg>
-            Toca cada espectro para ver los porcentajes
-          </p>
-          <div className="space-y-3">
-            {BARS.map((bar, i) => (
-              <GranularityBar
-                key={i}
-                bar={bar}
-                active={activeBar === i}
-                onClick={() => setActiveBar(activeBar === i ? null : i)}
-              />
-            ))}
-          </div>
-          <p className="text-xs text-[#6B2737]/45 font-light mt-5 leading-relaxed">
-            En Food·Mood el test de estado te muestra tu espectro real — no una
-            etiqueta, sino porcentajes.
-          </p>
-          <Link
-            href="#estados"
-            className="inline-flex items-center gap-1.5 mt-4 text-xs font-semibold transition-opacity hover:opacity-70"
-            style={{ color: "#6B2737" }}
-          >
-            ¿Qué comer para cada estado? Explora los 6 estados →
-          </Link>
-        </div>
-
-        {/* Accordion ciencia */}
-        <details className="mb-14 rounded-3xl border border-[#6B2737]/8 overflow-hidden group" open={typeof window !== "undefined" && window.innerWidth >= 768 ? true : undefined}>
-          <summary className="cursor-pointer px-8 py-6 bg-[#F5F0E8]/60 hover:bg-[#F5F0E8] transition-colors list-none flex items-center justify-between gap-4">
-            <span className="font-serif italic text-xl text-[#2d0f16]">
-              ¿Por qué funciona esto? La ciencia, en sencillo.
-            </span>
-            <svg className="w-4 h-4 text-[#6B2737]/40 shrink-0 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </summary>
-          <div className="px-8 py-8 bg-white" style={{ maxWidth: "65ch", margin: "0 auto" }}>
-            <p className="text-sm font-light text-[#4a3a3a]/70 leading-relaxed mb-5">
-              <a
-                href="https://www.lisafeldmanbarrett.com/books/how-emotions-are-made/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold underline decoration-[#6B2737]/20 hover:decoration-[#6B2737]/60 transition-all"
-                style={{ color: "#6B2737" }}
-              >
-                Lisa Feldman Barrett
-              </a>{" "}
-              (neurocientífica, Northeastern University) descubrió que las personas que saben
-              describir con exactitud lo que sienten sufren menos — literalmente tienen menos
-              estrés físico en el cuerpo.{" "}
-              <a
-                href="https://www.scn.ucla.edu/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold underline decoration-[#6B2737]/20 hover:decoration-[#6B2737]/60 transition-all"
-                style={{ color: "#6B2737" }}
-              >
-                Matthew Lieberman
-              </a>{" "}
-              (psicólogo, UCLA) lo confirmó en laboratorio: cuando le pones nombre
-              concreto a una emoción, la parte de tu cerebro que dispara el miedo se calma
-              sola.{" "}
-              <cite className="not-italic text-[#4a3a3a]/40 text-xs">
-                Lieberman et al., <em>Psychological Science</em>, 2007.
-              </cite>
-            </p>
-            <p className="text-sm font-light text-[#4a3a3a]/70 leading-relaxed">
-              En Food·Mood lo aplicamos de una forma diferente: en lugar de decirte qué
-              emoción tienes, te mostramos tu mezcla real en porcentajes. Porque{" "}
-              <em>&ldquo;estoy triste&rdquo;</em> es una etiqueta que cierra.{" "}
-              <em>&ldquo;60% calma, 25% melancolía, 15% curiosidad&rdquo;</em> es un mapa que abre —
-              y con ese mapa puedes decidir qué comer y cómo cuidarte de verdad.
-            </p>
-          </div>
-        </details>
-
-        {/* Bibliografía */}
-        <div className="mb-14 pt-10 border-t" style={{ borderColor: "rgba(107,39,55,0.08)" }}>
-          <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(107,39,55,0.3)" }}>
-            Referencias científicas
-          </p>
-          <ul className="space-y-2">
-            {[
-              { authors: "Barrett, L.F.", year: "2017", title: "How Emotions Are Made", pub: "Houghton Mifflin Harcourt" },
-              { authors: "Lieberman, M.D. et al.", year: "2007", title: "Putting Feelings Into Words", pub: "Psychological Science, 18(5), 421–428" },
-              { authors: "Cryan, J.F. et al.", year: "2019", title: "The Microbiota-Gut-Brain Axis", pub: "Physiological Reviews, 99(4), 1877–2013" },
-              { authors: "Yano, J.M. et al.", year: "2015", title: "Indigenous Bacteria from the Gut Microbiota Regulate Host Serotonin Biosynthesis", pub: "Cell, 161(2), 264–276" },
-            ].map((ref) => (
-              <li key={ref.title} className="text-[11px] font-light leading-relaxed" style={{ color: "rgba(74,58,58,0.45)" }}>
-                {ref.authors} ({ref.year}). <cite className="not-italic font-medium">{ref.title}</cite>. {ref.pub}.
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/test"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-white text-base transition-all hover:scale-105 active:scale-95 shadow-lg"
-            style={{ backgroundColor: "#6B2737" }}
-          >
-            Descubrir mi espectro hoy →
-          </Link>
-          <Link
-            href="/pricing"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-base border-2 transition-all hover:bg-[#6B2737]/5"
-            style={{ borderColor: "#6B2737", color: "#6B2737" }}
-          >
-            Club WhatsApp Premium
-          </Link>
-        </div>
       </div>
     </section>
   );
