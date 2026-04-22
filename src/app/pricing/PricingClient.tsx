@@ -24,6 +24,7 @@ const PREMIUM_FEATURES = [
   { text: "Historial de colores — observa tus patrones emocionales semanales", included: true },
   { text: "Acceso completo a todas las recetas", included: true },
   { text: "Glosario científico y Fermentos del Mundo", included: true },
+  { text: "Canal privado de Telegram — contenido exclusivo y avant-première", included: true },
 ];
 
 export default function PricingClient({ initialIsPremium, initialIsAuthenticated }: { initialIsPremium: boolean; initialIsAuthenticated: boolean }) {
@@ -146,6 +147,24 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2 text-aubergine-dark/35"><item.icon className="w-4 h-4" /><span className="text-sm font-light">{item.text}</span></div>
           ))}
+        </motion.div>
+
+        {/* ── Canal privado de Telegram ── */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
+          className="max-w-3xl mx-auto mb-16 rounded-2xl border border-aubergine-dark/10 bg-cream overflow-hidden flex flex-col md:flex-row">
+          <div className="md:w-2 bg-[#6B2737] shrink-0" />
+          <div className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 flex-1">
+            <div className="text-3xl select-none">✈️</div>
+            <div className="flex-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#6B2737] mb-1">Solo para premium</p>
+              <h3 className="font-serif text-xl text-aubergine-dark mb-2">Canal privado de Telegram</h3>
+              <p className="text-sm text-aubergine-dark/55 font-light leading-relaxed">
+                Al suscribirte recibes un enlace de invitación único a nuestro canal privado donde publicamos
+                hallazgos científicos, protocolos de bienestar y contenido exclusivo antes de que llegue a ningún otro sitio.
+                El acceso se activa automáticamente con tu suscripción y se revoca si cancelas.
+              </p>
+            </div>
+          </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="max-w-2xl mx-auto">

@@ -10,17 +10,32 @@ import {
   User, Calendar, Activity, PieChart, Bookmark, CheckCircle2, 
   Settings, Download, Trash2, Globe, Heart, ExternalLink, LogOut
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
+import { saveWhatsAppOptInAction, getWhatsAppOptInAction } from "./actions";
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
   const { moodHistory, savedRecipes, completedRecipes } = useQuizStore();
-  const [activeTab, setActiveTab] = useState<"guardadas" | "completadas">("guardadas");
+  const [activeTab, setActiveTab]       = useState<"guardadas" | "completadas">("guardadas");
+  const [waPhone,   setWaPhone]         = useState('');
+  const [waOptIn,   setWaOptIn]         = useState(false);
+  const [waSaving,  setWaSaving]        = useState(false);
+  const [waSuccess, setWaSuccess]       = useState(false);
+  const [waError,   setWaError]         = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    getWhatsAppOptInAction().then(data => {
+      if (data) {
+        setWaPhone(data.whatsapp_phone ?? '');
+        setWaOptIn(data.whatsapp_opt_in ?? false);
+      }
+    })
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -228,6 +243,60 @@ export default function ProfilePage() {
               ) : (
                 <p className="text-aubergine-dark/50 font-light text-lg">Realiza pruebas para documentar tu historia emocional.</p>
               )}
+            </div>
+          </section>
+
+          {/* 5b. WHATSAPP OPT-IN */}
+          <section className="space-y-6">
+            <div className="flex items-center gap-4">
+              <span className="text-aubergine-dark/50 text-xl leading-none">📱</span>
+              <h2 className="text-3xl font-serif text-aubergine-dark">WhatsApp</h2>
+            </div>
+            <div className="bg-cream rounded-xl p-8 shadow-luxury border border-aubergine-dark/20 space-y-5">
+              <p className="text-sm text-aubergine-dark/60 font-light leading-relaxed">
+                Recibe recomendaciones personalizadas y novedades exclusivas directamente en WhatsApp.
+                Solo para suscriptoras premium. Tu número nunca se compartirá con terceros.
+              </p>
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/40 mb-2">Número de teléfono</label>
+                <input
+                  type="tel"
+                  value={waPhone}
+                  onChange={e => setWaPhone(e.target.value)}
+                  placeholder="+34 600 000 000"
+                  className="w-full border border-aubergine-dark/20 rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/40"
+                />
+              </div>
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={waOptIn}
+                  onChange={e => setWaOptIn(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 rounded border-aubergine-dark/30 accent-[#6B2737] shrink-0"
+                />
+                <span className="text-sm text-aubergine-dark/70 font-light leading-relaxed group-hover:text-aubergine-dark transition-colors">
+                  Acepto recibir mensajes de WhatsApp de Food·Mood con contenido de bienestar personalizado.
+                  Puedo retirar mi consentimiento en cualquier momento desde esta pantalla.
+                </span>
+              </label>
+              {waError   && <p className="text-sm text-red-600">{waError}</p>}
+              {waSuccess && <p className="text-sm text-green-700">✓ Preferencias guardadas.</p>}
+              <button
+                disabled={waSaving}
+                onClick={async () => {
+                  if (waOptIn && !waPhone.trim()) { setWaError('Introduce tu número de teléfono.'); return; }
+                  setWaSaving(true); setWaError(null); setWaSuccess(false);
+                  try {
+                    await saveWhatsAppOptInAction(waPhone, waOptIn);
+                    setWaSuccess(true);
+                    setTimeout(() => setWaSuccess(false), 3000);
+                  } catch (err: any) { setWaError(err.message); }
+                  finally { setWaSaving(false); }
+                }}
+                className="px-5 py-2.5 rounded-full bg-[#6B2737] text-white text-sm font-semibold hover:bg-[#5a2030] transition-colors disabled:opacity-50"
+              >
+                {waSaving ? 'Guardando…' : 'Guardar preferencias'}
+              </button>
             </div>
           </section>
 

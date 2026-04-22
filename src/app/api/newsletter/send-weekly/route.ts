@@ -160,7 +160,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ success: true, weekStart, weekLabel, ...results })
 }
 
-async function markEditionSent(supabase: ReturnType<typeof createClient>, weekStart: string) {
+async function markEditionSent(supabase: ReturnType<typeof createClient<any>>, weekStart: string) {
   await supabase
     .from('curated_content')
     .update({ status: 'sent', sent_at: new Date().toISOString() })

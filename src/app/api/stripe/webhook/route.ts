@@ -2,6 +2,8 @@ import { stripe } from '@/lib/stripe'
 import { createClient } from '@supabase/supabase-js'
 import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
+import { createInviteLink, removeMember, isTelegramConfigured } from '@/lib/telegram'
 
 /**
  * POST /api/stripe/webhook
@@ -131,11 +133,11 @@ export async function POST(req: NextRequest) {
 
       if (userId) {
         console.log(`🔔 Payment successful for user: ${userId} (${customerEmail || 'No email provided'})`)
-        
+
         const { error } = await supabaseAdmin
           .from('profiles')
-          .upsert({ 
-            id: userId, 
+          .upsert({
+            id: userId,
             is_premium: true,
             updated_at: new Date().toISOString()
           }, { onConflict: 'id' })
@@ -144,6 +146,45 @@ export async function POST(req: NextRequest) {
           console.error(`❌ Error updating profile for user ${userId}:`, error.message)
         } else {
           console.log(`✅ Profile updated (upsert): User ${userId} is now PREMIUM.`)
+        }
+
+        // ── Telegram: generate one-time invite link ────────────────────────
+        if (isTelegramConfigured() && customerEmail && session.metadata?.type !== 'challenge') {
+          try {
+            const inviteLink = await createInviteLink(`premium-${userId.slice(0, 8)}`)
+            await supabaseAdmin
+              .from('profiles')
+              .update({ telegram_invite_url: inviteLink, telegram_invite_sent_at: new Date().toISOString() })
+              .eq('id', userId)
+
+            const resend = new Resend(process.env.RESEND_API_KEY)
+            await resend.emails.send({
+              from:    `Food·Mood <${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app'}>`,
+              to:      customerEmail,
+              subject: 'Tu acceso al canal privado de Telegram — Food·Mood',
+              html: `
+                <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2d0f16">
+                  <h1 style="font-size:24px;font-weight:400;margin-bottom:8px">Bienvenida al canal privado ✨</h1>
+                  <p style="font-size:15px;line-height:1.6;color:#6b4452">
+                    Como miembro premium de Food·Mood tienes acceso exclusivo a nuestro canal privado de Telegram,
+                    donde compartimos contenido científico, novedades y recomendaciones antes que nadie.
+                  </p>
+                  <p style="margin:28px 0">
+                    <a href="${inviteLink}"
+                       style="display:inline-block;background:#6B2737;color:#F5F0E8;padding:14px 28px;border-radius:50px;text-decoration:none;font-size:14px;font-weight:600">
+                      Unirme al canal →
+                    </a>
+                  </p>
+                  <p style="font-size:12px;color:#b08090;line-height:1.5">
+                    Este enlace es de uso único y personal. Si tienes problemas, responde a este correo.
+                  </p>
+                </div>
+              `,
+            })
+            console.log(`✅ Telegram invite sent to ${customerEmail}`)
+          } catch (tgErr: any) {
+            console.error(`⚠️ Telegram invite failed (non-blocking): ${tgErr.message}`)
+          }
         }
       } else {
         console.warn(`⚠️ Pago recibido (Email: ${customerEmail}) pero NO se encontró un usuario existente en Supabase.`)
@@ -196,11 +237,33 @@ export async function POST(req: NextRequest) {
           console.log(`🚫 Subscription deleted for ${email}: is_premium=false`)
           await supabaseAdmin
             .from('profiles')
-            .upsert({ 
-              id: user.id, 
+            .upsert({
+              id: user.id,
               is_premium: false,
               updated_at: new Date().toISOString()
             }, { onConflict: 'id' })
+
+          // ── Telegram: kick from group ─────────────────────────────────
+          if (isTelegramConfigured()) {
+            try {
+              const { data: profile } = await supabaseAdmin
+                .from('profiles')
+                .select('telegram_user_id, telegram_joined')
+                .eq('id', user.id)
+                .maybeSingle()
+
+              if (profile?.telegram_user_id && profile.telegram_joined) {
+                await removeMember(Number(profile.telegram_user_id))
+                await supabaseAdmin
+                  .from('profiles')
+                  .update({ telegram_joined: false, telegram_user_id: null, telegram_invite_url: null })
+                  .eq('id', user.id)
+                console.log(`✅ Removed from Telegram: user=${user.id}`)
+              }
+            } catch (tgErr: any) {
+              console.error(`⚠️ Telegram kick failed (non-blocking): ${tgErr.message}`)
+            }
+          }
         }
       }
       break
