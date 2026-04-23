@@ -32,7 +32,6 @@ ALTER TABLE public.user_challenges          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_journey             ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_recipe_history      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_streaks             ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.user_weekly_summary      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.weekly_digest            ENABLE ROW LEVEL SECURITY;
 
 -- 2. Políticas ─────────────────────────────────────────────────────────────────
@@ -66,7 +65,6 @@ DROP POLICY IF EXISTS "challenge_logs_own"        ON public.challenge_logs;
 DROP POLICY IF EXISTS "reto_purchases_own"        ON public.reto_purchases;
 DROP POLICY IF EXISTS "reto_informes_own"         ON public.reto_informes;
 DROP POLICY IF EXISTS "receta_del_test_own"       ON public.receta_del_test;
-DROP POLICY IF EXISTS "user_weekly_summary_own"   ON public.user_weekly_summary;
 
 CREATE POLICY "subscriptions_own"        ON public.subscriptions        USING (auth.uid() = user_id);
 CREATE POLICY "test_results_own"          ON public.test_results          USING (auth.uid() = user_id);
@@ -88,7 +86,6 @@ CREATE POLICY "challenge_logs_own"        ON public.challenge_logs        USING 
 CREATE POLICY "reto_purchases_own"        ON public.reto_purchases        FOR SELECT USING (auth.uid() = user_id);
 CREATE POLICY "reto_informes_own"         ON public.reto_informes         FOR SELECT USING (auth.uid() = user_id);
 CREATE POLICY "receta_del_test_own"       ON public.receta_del_test       USING (auth.uid() = user_id);
-CREATE POLICY "user_weekly_summary_own"   ON public.user_weekly_summary   USING (auth.uid() = user_id);
 
 -- user_challenges (select + insert + update separados)
 DROP POLICY IF EXISTS "user_challenges_select_own" ON public.user_challenges;
