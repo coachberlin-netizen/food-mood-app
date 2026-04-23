@@ -591,9 +591,6 @@ export default function Home() {
                 { label: "iOS", available: true },
                 { label: "Android", available: true },
                 { label: "Desktop", available: true },
-                { label: "Apple Health", available: false },
-                { label: "Google Fit", available: false },
-                { label: "MyFitnessPal", available: false },
               ].map((item) => (
                 <span
                   key={item.label}
