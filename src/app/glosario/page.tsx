@@ -8,7 +8,13 @@ export const metadata: Metadata = {
   title: "Glosario de Ingredientes Funcionales — Food·Mood",
   description:
     "Qué es la cúrcuma, el kimchi, la ashwagandha y 50+ ingredientes más: su ciencia, sus compuestos activos y cómo afectan tu estado emocional y tu microbiota.",
-  alternates: { canonical: "/glosario" },
+  alternates: {
+    canonical: "/glosario",
+    languages: {
+      "es": "https://www.food-mood.app/glosario",
+      "x-default": "https://www.food-mood.app/glosario",
+    },
+  },
   openGraph: {
     title: "Glosario de Ingredientes Funcionales — Food·Mood",
     description:
@@ -32,6 +38,25 @@ export const metadata: Metadata = {
   },
 }
 
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Food·Mood",
+      item: "https://www.food-mood.app",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Glosario de ingredientes funcionales",
+      item: "https://www.food-mood.app/glosario",
+    },
+  ],
+}
+
 export default async function GlosarioPage() {
   const supabase = await createClient()
   const { data, error } = await supabase
@@ -45,8 +70,33 @@ export default async function GlosarioPage() {
 
   const terms = data || []
 
+  const definedTermSetSchema = {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    name: "Glosario de ingredientes funcionales Food·Mood",
+    description:
+      "Más de 50 ingredientes funcionales explicados: compuestos activos, efectos en el estado emocional y en la microbiota intestinal.",
+    url: "https://www.food-mood.app/glosario",
+    hasDefinedTerm: terms.slice(0, 30).map((t) => ({
+      "@type": "DefinedTerm",
+      name: t.name,
+      description: t.tagline ?? "",
+      url: `https://www.food-mood.app/glosario/${t.slug}`,
+      inDefinedTermSet: "https://www.food-mood.app/glosario",
+    })),
+  }
+
   return (
     <main className="min-h-screen bg-[var(--background)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(definedTermSetSchema) }}
+      />
+
       {/* Server-rendered glossary for crawlers */}
       <div className="sr-only">
         <h1>Glosario de ingredientes funcionales — Food·Mood</h1>
@@ -54,6 +104,13 @@ export default async function GlosarioPage() {
           Más de 50 ingredientes explicados: qué son, qué compuestos activos tienen y cómo
           afectan tu estado emocional y tu microbiota.
         </p>
+        <nav aria-label="Categorías del glosario">
+          <a href="/glosario?categoria=fermentado">Fermentados</a>
+          <a href="/glosario?categoria=especia">Especias</a>
+          <a href="/glosario?categoria=hongo">Hongos</a>
+          <a href="/glosario?categoria=semilla">Semillas</a>
+          <a href="/glosario?categoria=verdura">Verduras</a>
+        </nav>
         {terms.length > 0 && (
           <dl>
             {terms.map((term) => (
@@ -65,8 +122,8 @@ export default async function GlosarioPage() {
                   </a>
                 </dt>
                 {term.tagline && <dd>{term.tagline}</dd>}
-                {term.active_compounds && (
-                  <dd>Compuestos activos: {term.active_compounds}</dd>
+                {Array.isArray(term.active_compounds) && term.active_compounds.length > 0 && (
+                  <dd>Compuestos activos: {(term.active_compounds as string[]).join(", ")}</dd>
                 )}
               </div>
             ))}
@@ -74,7 +131,7 @@ export default async function GlosarioPage() {
         )}
       </div>
 
-      <GlossaryClient initialData={terms} />
+      <GlossaryClient initialData={terms as any} />
     </main>
   )
 }

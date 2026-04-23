@@ -61,7 +61,7 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
         (item.tagline && item.tagline.toLowerCase().includes(search.toLowerCase())) ||
         (item.active_compounds && item.active_compounds.some(c => c.toLowerCase().includes(search.toLowerCase())))
       ) : true;
-      const matchCat = filterCategory ? item.category === filterCategory : true;
+      const matchCat = filterCategory ? item.category?.toLowerCase() === filterCategory.toLowerCase() : true;
       const matchMood = filterMood ? item.moods && item.moods.includes(filterMood) : true;
       return matchSearch && matchCat && matchMood;
     })
@@ -98,21 +98,22 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
 
       {/* Filters & Search */}
       <div className="sticky top-20 z-30 bg-[var(--background)]/90 backdrop-blur-md py-6 border-b border-aubergine-dark/10 mb-12 space-y-6">
-        <div className="relative max-w-xl">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-aubergine-dark/40" />
+        <form action="/glosario" method="GET" onSubmit={e => e.preventDefault()} className="relative max-w-xl">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-aubergine-dark/40" aria-hidden="true" />
           <input
             type="text"
+            name="q"
             placeholder="Busca por ingrediente o beneficio..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-12 pr-10 py-4 bg-cream rounded-full border border-aubergine-dark/10 text-aubergine-dark placeholder:text-aubergine-dark/30 focus:outline-none focus:ring-1 focus:ring-[#C9A84C] transition-shadow shadow-sm"
+            className="w-full pl-12 pr-10 py-4 bg-cream rounded-full border border-aubergine-dark/10 text-aubergine-dark placeholder:text-aubergine-dark/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 transition-shadow shadow-sm"
           />
           {search && (
-            <button onClick={() => setSearch("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark p-1">
+            <button type="button" onClick={() => setSearch("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark p-1" aria-label="Limpiar búsqueda">
               <X className="w-4 h-4" />
             </button>
           )}
-        </div>
+        </form>
 
         <div className="flex flex-col md:flex-row gap-6">
           {/* Mood Filters */}
