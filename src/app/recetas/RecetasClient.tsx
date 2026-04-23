@@ -82,7 +82,7 @@ function SkeletonCard() {
   );
 }
 
-function RecipeCard({ receta, locked = false, onLockedClick }: { receta: Receta; locked?: boolean; onLockedClick?: () => void }) {
+function RecipeCard({ receta, locked = false, isFree = false, onLockedClick }: { receta: Receta; locked?: boolean; isFree?: boolean; onLockedClick?: () => void }) {
   const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
 
   const card = (
@@ -119,6 +119,11 @@ function RecipeCard({ receta, locked = false, onLockedClick }: { receta: Receta;
       </h3>
 
       <div className="mt-auto pt-4 flex items-center gap-2 flex-wrap">
+        {isFree && (
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A84C] bg-[#C9A84C]/10 border border-[#C9A84C]/25 px-2.5 py-1 rounded-lg">
+            Gratis
+          </span>
+        )}
         <span className="text-[10px] font-sans font-medium text-aubergine-dark/50 bg-aubergine-dark/5 px-2.5 py-1 rounded-lg border border-aubergine-dark/10 capitalize">
           {receta.tipo_plato}
         </span>
@@ -150,7 +155,7 @@ function RecipeCard({ receta, locked = false, onLockedClick }: { receta: Receta;
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
-function ExclusivaCard({ receta, locked = false, onLockedClick }: { receta: Receta; locked?: boolean; onLockedClick?: () => void }) {
+function ExclusivaCard({ receta, locked = false, isFree = false, onLockedClick }: { receta: Receta; locked?: boolean; isFree?: boolean; onLockedClick?: () => void }) {
   const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
 
   const card = (
@@ -186,7 +191,12 @@ function ExclusivaCard({ receta, locked = false, onLockedClick }: { receta: Rece
           {CHEF_STYLE[receta.chef_inspiracion]}
         </p>
       )}
-      <div className="mt-auto pt-4 flex items-center gap-2">
+      <div className="mt-auto pt-4 flex items-center gap-2 flex-wrap">
+        {isFree && (
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A84C] bg-[#C9A84C]/15 border border-[#C9A84C]/30 px-2.5 py-1 rounded-lg">
+            Gratis
+          </span>
+        )}
         <span
           className="text-[10px] font-medium px-2.5 py-1 rounded-lg border capitalize"
           style={{ color: mood.color, backgroundColor: mood.colorLight, borderColor: `${mood.color}25` }}
@@ -222,11 +232,12 @@ function ExclusivaCard({ receta, locked = false, onLockedClick }: { receta: Rece
 
 function SmartCard({ receta, isPremium, freeQuota = false, onLockedClick }: { receta: Receta; isPremium: boolean; freeQuota?: boolean; onLockedClick: (r: Receta) => void }) {
   const locked = !isPremium && !freeQuota && (receta.premium_level ?? 0) > 0;
+  const isFree = (receta.premium_level ?? 0) === 0 || freeQuota;
   const handleLocked = locked ? () => onLockedClick(receta) : undefined;
   if ((receta.premium_level ?? 0) === 2) {
-    return <ExclusivaCard receta={receta} locked={locked} onLockedClick={handleLocked} />;
+    return <ExclusivaCard receta={receta} locked={locked} isFree={isFree} onLockedClick={handleLocked} />;
   }
-  return <RecipeCard receta={receta} locked={locked} onLockedClick={handleLocked} />;
+  return <RecipeCard receta={receta} locked={locked} isFree={isFree} onLockedClick={handleLocked} />;
 }
 
 function Pill({ active, isChef, onClick, children }: { active: boolean; isChef?: boolean; onClick: () => void; children: React.ReactNode }) {

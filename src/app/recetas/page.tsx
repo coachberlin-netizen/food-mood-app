@@ -51,6 +51,9 @@ export default async function RecetasPage() {
         "@id": `https://www.food-mood.app/recetas/${r.id}`,
         name: r.nombre_es,
         description: r.contexto_es ?? r.nota_food_mood_es ?? "",
+        image: [
+          `https://www.food-mood.app/og-image.png`,
+        ],
         prepTime: r.tiempo_preparacion_min ? `PT${r.tiempo_preparacion_min}M` : undefined,
         totalTime: r.tiempo_preparacion_min ? `PT${r.tiempo_preparacion_min}M` : undefined,
         recipeCategory: r.tipo_plato ?? "",
