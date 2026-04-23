@@ -49,7 +49,19 @@ const nextConfig = {
     ],
   },
   async headers() {
-    return [{ source: '/(.*)', headers: securityHeaders }]
+    return [
+      { source: '/(.*)', headers: securityHeaders },
+      {
+        source: '/api/(.*)',
+        headers: [
+          { key: 'Access-Control-Allow-Origin',      value: 'https://www.food-mood.app' },
+          { key: 'Access-Control-Allow-Methods',     value: 'GET, POST, PUT, DELETE, OPTIONS' },
+          { key: 'Access-Control-Allow-Headers',     value: 'Content-Type, Authorization, x-telegram-bot-api-secret-token' },
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Max-Age',           value: '86400' },
+        ],
+      },
+    ]
   },
   async redirects() {
     return [

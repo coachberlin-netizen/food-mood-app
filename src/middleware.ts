@@ -1,7 +1,31 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+const ALLOWED_ORIGINS = [
+  'https://www.food-mood.app',
+  'https://food-mood.app',
+  'http://localhost:3000',
+]
+
+function corsHeaders(origin: string | null) {
+  const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0]
+  return {
+    'Access-Control-Allow-Origin':      allowed,
+    'Access-Control-Allow-Methods':     'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers':     'Content-Type, Authorization, x-telegram-bot-api-secret-token',
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Max-Age':           '86400',
+  }
+}
+
 export async function middleware(request: NextRequest) {
+  const origin = request.headers.get('origin')
+
+  // Handle CORS preflight for API routes
+  if (request.method === 'OPTIONS' && request.nextUrl.pathname.startsWith('/api/')) {
+    return new NextResponse(null, { status: 204, headers: corsHeaders(origin) })
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   })
@@ -53,6 +77,12 @@ export async function middleware(request: NextRequest) {
 
   // Basic password protection for admin can be handled within the page itself
   // so we don't necessarily block it here unless we implement full admin auth.
+
+  // CORS headers for API routes
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    const cors = corsHeaders(origin)
+    Object.entries(cors).forEach(([k, v]) => supabaseResponse.headers.set(k, v))
+  }
 
   supabaseResponse.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains')
   supabaseResponse.headers.set('X-Frame-Options', 'DENY')
