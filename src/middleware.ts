@@ -84,24 +84,44 @@ export async function middleware(request: NextRequest) {
     Object.entries(cors).forEach(([k, v]) => supabaseResponse.headers.set(k, v))
   }
 
-  supabaseResponse.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains')
-  supabaseResponse.headers.set('X-Frame-Options', 'DENY')
-  supabaseResponse.headers.set('X-Content-Type-Options', 'nosniff')
-  supabaseResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-  supabaseResponse.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
-  supabaseResponse.headers.set(
-    'Content-Security-Policy',
-    [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",   // Next.js requires unsafe-inline/eval
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: blob: https://cuoycqwtzorjbzmyclqo.supabase.co",
-      "connect-src 'self' https://*.supabase.co https://api.anthropic.com https://generativelanguage.googleapis.com",
-      "media-src 'self' blob: https://cuoycqwtzorjbzmyclqo.supabase.co",
-      "worker-src 'self' blob:",
-      "frame-ancestors 'none'",
-    ].join('; ')
+  const csp = [
+    "default-src 'self'",
+    // Next.js necesita unsafe-inline; Stripe y Vercel Analytics necesitan sus dominios
+    "script-src 'self' 'unsafe-inline' https://js.stripe.com https://va.vercel-scripts.com",
+    // Estilos: inline (Tailwind/Framer) + Google Fonts
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    // Fuentes
+    "font-src 'self' https://fonts.gstatic.com",
+    // Imágenes: Supabase storage (wildcard cubre ambos proyectos)
+    "img-src 'self' data: blob: https://*.supabase.co",
+    // Conexiones: Supabase, AI APIs, Stripe, Vercel Analytics, Resend (server-side, no CSP needed)
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://generativelanguage.googleapis.com https://api.stripe.com https://vitals.vercel-insights.com",
+    // Iframes: solo Stripe (checkout embebido)
+    "frame-src https://js.stripe.com https://hooks.stripe.com",
+    // Audio/video: Supabase storage para audios de retos
+    "media-src 'self' blob: https://*.supabase.co",
+    // Service Worker (PWA)
+    "worker-src 'self' blob:",
+    // Manifest PWA
+    "manifest-src 'self'",
+    // Formularios solo al propio dominio
+    "form-action 'self'",
+    // Base URL
+    "base-uri 'self'",
+    // No iframes externos
+    "frame-ancestors 'none'",
+    // Forzar HTTPS
+    "upgrade-insecure-requests",
+  ].join('; ')
+
+  supabaseResponse.headers.set('Content-Security-Policy',       csp)
+  supabaseResponse.headers.set('Strict-Transport-Security',     'max-age=63072000; includeSubDomains; preload')
+  supabaseResponse.headers.set('X-Frame-Options',               'DENY')
+  supabaseResponse.headers.set('X-Content-Type-Options',        'nosniff')
+  supabaseResponse.headers.set('X-DNS-Prefetch-Control',        'on')
+  supabaseResponse.headers.set('Referrer-Policy',               'strict-origin-when-cross-origin')
+  supabaseResponse.headers.set('Permissions-Policy',
+    'camera=(), microphone=(), geolocation=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()'
   )
 
   return supabaseResponse
