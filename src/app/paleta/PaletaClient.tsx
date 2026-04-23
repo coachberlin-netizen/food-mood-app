@@ -182,9 +182,9 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
       className="max-w-2xl mx-auto mb-20 text-center"
     >
       <p className="text-base md:text-lg text-[#4A4A4A] font-light leading-relaxed mb-5">
-        No eres &ldquo;dramática&rdquo; ni &ldquo;demasiado sensible&rdquo;. Eres una mezcla que cambia cada día — y eso es normal.
-        Cuando consigues ponerle nombre exacto a esa mezcla, algo cambia: sabes si necesitas descanso,
-        si necesitas moverte, si necesitas hablar con alguien, o si simplemente necesitas comer algo que te nutra de verdad.
+        Cuanto más precisa es tu paleta emocional, más fácil es saber qué necesitas hoy.
+        Descanso, movimiento, conexión — o simplemente un plato que te nutra de verdad.
+        La granularidad emocional no es un lujo: es la herramienta más práctica que tienes para sentirte mejor.
       </p>
       <a
         href="#ciencia-espectros"
