@@ -215,7 +215,9 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
           </dd>
         </dl>
         <p className="text-[9px] text-[#4A4A4A]/30 font-light mt-4 italic">
-          Cryan et al., <cite>Physiological Reviews</cite>, 2019
+          <a href="https://doi.org/10.1152/physrev.00018.2018" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4A4A4A]/60 transition-colors">
+            Cryan et al., <cite>Physiological Reviews</cite>, 2019
+          </a>
         </p>
       </div>
 
@@ -233,7 +235,9 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
           </dd>
         </dl>
         <p className="text-[9px] text-[#4A4A4A]/30 font-light mt-4 italic">
-          Yano et al., <cite>Cell</cite>, 2015
+          <a href="https://doi.org/10.1016/j.cell.2015.02.047" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#4A4A4A]/60 transition-colors">
+            Yano et al., <cite>Cell</cite>, 2015
+          </a>
         </p>
       </div>
     </motion.div>
