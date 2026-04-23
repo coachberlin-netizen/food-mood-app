@@ -365,8 +365,10 @@ export default function RecetasClient({
   useEffect(() => { fetchRecetas(); }, [fetchRecetas]);
 
   const toggleMood = (id: string) => {
-    setMoodFilter(prev => prev === id ? "" : id);
+    const next = moodFilter === id ? "" : id;
+    setMoodFilter(next);
     setPage(1);
+    router.replace(next ? `/recetas?mood=${next}` : "/recetas", { scroll: false });
   };
   const hasFilters = moodFilter || profileIdx > 0 || q;
   const resetFilters = () => {
@@ -374,6 +376,7 @@ export default function RecetasClient({
     setProfileIdx(0);
     setQ("");
     setPage(1);
+    router.replace("/recetas", { scroll: false });
   };
 
   return (
@@ -388,7 +391,7 @@ export default function RecetasClient({
               Cada plato está diseñado para responder a tu paleta emocional. Elige tu color y descubre lo que tu cuerpo necesita.
             </p>
             <p className="text-sm text-aubergine-dark/40 font-light">
-              279 recetas diseñadas para tu estado emocional. Las 3 primeras de cada color, siempre gratis.
+              {total > 0 ? total : ""} recetas diseñadas para tu estado emocional. Las 3 primeras de cada color, siempre gratis.
             </p>
           </motion.div>
         </div>
@@ -397,31 +400,38 @@ export default function RecetasClient({
       <div className="sticky top-20 z-30 bg-[var(--background)]/95 backdrop-blur-lg border-b border-aubergine-dark/10 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-5 flex flex-col gap-4">
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
-            <Pill active={!moodFilter} onClick={() => { setMoodFilter(""); setPage(1); }}>Todos</Pill>
+            <Pill active={!moodFilter} onClick={() => { setMoodFilter(""); setPage(1); router.replace("/recetas", { scroll: false }); }}>Todos</Pill>
             {MOODS.map(m => (
-              <button
+              <Link
                 key={m.id}
-                onClick={() => toggleMood(m.id)}
+                href={`/recetas?mood=${m.id}`}
+                onClick={e => { e.preventDefault(); toggleMood(m.id); }}
                 className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 border ${
                   moodFilter === m.id ? "shadow-sm" : "bg-cream text-aubergine-dark/70 border-aubergine-dark/10 hover:border-aubergine-dark/25"
                 }`}
-                style={moodFilter === m.id 
-                  ? { backgroundColor: m.color, borderColor: m.color, color: '#3D1517' } 
+                style={moodFilter === m.id
+                  ? { backgroundColor: m.color, borderColor: m.color, color: '#3D1517' }
                   : { backgroundColor: `${m.color}15`, borderColor: `${m.color}30`, color: m.color }
                 }
               >
                 <span className="text-sm">{m.emoji}</span>
                 <span className="hidden sm:inline">{m.nombre}</span>
                 <span className="sm:hidden capitalize">{m.id}</span>
-              </button>
+              </Link>
             ))}
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
-            <div className="relative flex-1 min-w-[200px]">
+            <form
+              action="/recetas"
+              method="GET"
+              onSubmit={e => e.preventDefault()}
+              className="relative flex-1 min-w-[200px]"
+            >
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-aubergine-dark/30" />
               <input
                 type="text"
+                name="q"
                 placeholder="Buscar por nombre o tipo de plato..."
                 value={q}
                 onChange={e => { setQ(e.target.value); setPage(1); }}
@@ -429,13 +439,14 @@ export default function RecetasClient({
               />
               {q && (
                 <button
+                  type="button"
                   onClick={() => { setQ(""); setPage(1); }}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark transition-colors"
                 >
                   <X className="w-3 h-3" />
                 </button>
               )}
-            </div>
+            </form>
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
@@ -535,6 +546,33 @@ export default function RecetasClient({
                 })()}
               </AnimatePresence>
             </div>
+
+            {/* Upgrade CTA — visible to non-premium users after the grid */}
+            {!isPremium && total > 9 && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-10 rounded-2xl bg-gradient-to-br from-aubergine-dark to-[#2d0f16] p-8 md:p-10 text-center"
+              >
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-3">
+                  Club Premium
+                </p>
+                <p className="text-xl md:text-2xl font-serif text-cream mb-2 leading-snug">
+                  Viste {Math.min(recetas.length, 9)} de {total} recetas.
+                </p>
+                <p className="text-cream/60 font-light text-sm mb-6 max-w-md mx-auto">
+                  Desbloquea el catálogo completo — cada receta diseñada para tu paleta emocional exacta.
+                </p>
+                <Link
+                  href="/pricing"
+                  className="inline-block px-8 py-3.5 rounded-full bg-[#C9A84C] text-aubergine-dark text-sm font-bold hover:bg-[#b8953e] transition-all hover:scale-105"
+                >
+                  Ver planes — desde 5€/mes
+                </Link>
+              </motion.div>
+            )}
+
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-4 pt-12">
                 <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page <= 1} className="p-2.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronLeft className="w-4 h-4" /></button>
