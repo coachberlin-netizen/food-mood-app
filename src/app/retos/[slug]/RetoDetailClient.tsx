@@ -101,9 +101,10 @@ interface ChallengeDay {
 }
 
 interface Props {
-  challenge:    Challenge
-  enrollment:   Enrollment | null
-  todayContent: ChallengeDay | null  // kept for backwards compat, no longer rendered inline
+  challenge:       Challenge
+  enrollment:      Enrollment | null
+  todayContent:    ChallengeDay | null  // kept for backwards compat, no longer rendered inline
+  isAuthenticated: boolean
 }
 
 const MILESTONES: Record<number, string> = {
@@ -127,7 +128,7 @@ function hexToRgb(hex: string) {
   return `${r},${g},${b}`
 }
 
-export default function RetoDetailClient({ challenge, enrollment: initialEnrollment }: Props) {
+export default function RetoDetailClient({ challenge, enrollment: initialEnrollment, isAuthenticated }: Props) {
   const router       = useRouter()
   const searchParams = useSearchParams()
   const [enrollment,  setEnrollment]  = useState(initialEnrollment)
@@ -156,6 +157,11 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   const milestones = challenge.duration_days <= 7 ? SHORT_MILESTONES : MILESTONES
 
   async function handleCheckout() {
+    if (!isAuthenticated) {
+      router.push(`/auth/login?redirect=/retos/${challenge.slug}`)
+      return
+    }
+
     setCheckoutErr(null)
     startTransition(async () => {
       try {

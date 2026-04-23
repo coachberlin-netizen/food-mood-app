@@ -87,6 +87,7 @@ export default async function RetoDetailPage({ params }: PageProps) {
         challenge={challenge}
         enrollment={enrollment}
         todayContent={todayContent}
+        isAuthenticated={!!user}
       />
     </Suspense>
   )
