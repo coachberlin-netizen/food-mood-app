@@ -302,8 +302,8 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* ══ RIGHT — PHOTO ══ */}
-        <div style={{ position:"relative",overflow:"hidden",background:BURG_DEEP }} className="max-md:min-h-[52vw]">
+        {/* ══ RIGHT — PHOTO (desktop only) ══ */}
+        <div style={{ position:"relative",overflow:"hidden",background:BURG_DEEP }} className="max-md:hidden">
           {/* Photo */}
           <div ref={parallaxRef} style={{
             position:"absolute",inset:"-5%",
@@ -317,8 +317,6 @@ export default function HomeHero() {
           <div style={{ position:"absolute",inset:0,background:`linear-gradient(135deg,rgba(92,19,32,.68) 0%,rgba(123,29,42,.42) 45%,rgba(142,37,53,.28) 100%)`,mixBlendMode:"multiply",zIndex:1 }} />
           <div style={{ position:"absolute",inset:0,background:`radial-gradient(ellipse 65% 55% at 50% 44%, rgba(201,169,110,.14) 0%, transparent 70%)`,zIndex:2 }} />
           <div style={{ position:"absolute",inset:0,background:`linear-gradient(90deg,rgba(92,19,32,.82) 0%,transparent 28%)`,zIndex:3 }} className="max-md:hidden" />
-          {/* Mobile: top fade so it blends with text block above */}
-          <div style={{ position:"absolute",top:0,left:0,right:0,height:"40px",background:`linear-gradient(180deg,${BURG_DEEP} 0%,transparent 100%)`,zIndex:3 }} className="md:hidden" />
           <div style={{ position:"absolute",inset:0,background:`radial-gradient(ellipse 72% 72% at 52% 46%, transparent 28%, rgba(50,8,18,.72) 100%)`,zIndex:4 }} />
           <div className="hero-grain" style={{ zIndex:5 }} />
           <div ref={dustRightRef} style={{ position:"absolute",inset:0,pointerEvents:"none",zIndex:6,overflow:"hidden" }} />

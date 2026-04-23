@@ -10,15 +10,18 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-
 
 async function fetchReceta(id: string): Promise<Receta | null> {
   const supabase = await createClient();
-  if (UUID_RE.test(id)) {
-    const { data } = await supabase.from("recetas").select("*").eq("id", id).single();
-    return data as Receta | null;
+  // Always try exact ID match first (covers UUIDs and AS-06 / AE-01 style IDs)
+  const { data: byId } = await supabase.from("recetas").select("*").eq("id", id).maybeSingle();
+  if (byId) return byId as Receta;
+  // Fallback: slug-style name search for human-readable URLs
+  if (!UUID_RE.test(id)) {
+    const searchName = id.replace(/-/g, " ").split(" ").slice(0, 3).join(" ");
+    const { data } = await supabase
+      .from("recetas").select("*")
+      .ilike("nombre_es", `%${searchName}%`).limit(1);
+    return (data?.[0] as Receta) ?? null;
   }
-  const searchName = id.replace(/-/g, " ").split(" ").slice(0, 2).join(" ");
-  const { data } = await supabase
-    .from("recetas").select("*")
-    .ilike("nombre_es", `%${searchName}%`).limit(1);
-  return (data?.[0] as Receta) ?? null;
+  return null;
 }
 
 async function fetchRelated(receta: Receta): Promise<RelatedReceta[]> {
