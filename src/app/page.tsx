@@ -186,7 +186,7 @@ function FaqItem({ faq, isOpen, onToggle }: { faq: typeof FAQS[0]; isOpen: boole
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Home() {
-  const [openFaqs, setOpenFaqs] = useState<Set<number>>(new Set([0, 1, 2]))
+  const [openFaqs, setOpenFaqs] = useState<Set<number>>(new Set())
   const toggleFaq = (i: number) => setOpenFaqs(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s })
 
   return (
@@ -892,7 +892,7 @@ export default function Home() {
                 </Link>
               </div>
               <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.25)" }}>
-                Retos desde 19€ · Pago único · Acceso de por vida · Planes premium: cancelas cuando quieras
+                Retos desde 19€ · Planes premium desde 5€/mes · Cancelas cuando quieras
               </p>
             </div>
           </motion.div>
