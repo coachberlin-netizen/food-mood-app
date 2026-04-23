@@ -47,14 +47,14 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="fixed inset-y-0 left-0 z-50 w-3/4 max-w-sm bg-aubergine-dark border-r border-cream/10 shadow-2xl p-6"
+              className="fixed inset-y-0 left-0 z-50 w-3/4 max-w-sm bg-[#F5F0E8] border-r border-[#6B2737]/15 shadow-2xl p-6 overflow-y-auto"
               id="mobile-nav-menu"
             >
               <div className="flex justify-between items-center mb-8">
-                <span className="font-serif text-2xl font-bold text-cream">
-                  Food<span className="text-[#D4A017]">·</span>Mood
+                <span className="font-serif text-2xl font-bold text-[#3F1A22]">
+                  Food<span className="text-[#C9A84C]">·</span>Mood
                 </span>
-                <button onClick={() => setIsOpen(false)} className="p-2 text-cream/70 hover:text-cream" aria-label="Cerrar menú">
+                <button onClick={() => setIsOpen(false)} className="p-2 text-[#6B2737]/60 hover:text-[#6B2737]" aria-label="Cerrar menú">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -63,76 +63,76 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
               <nav className="flex flex-col space-y-6">
                 {isAuthenticated ? (
                   <>
-                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Home
                     </Link>
-                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Tus emociones
                     </Link>
-                    <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Dashboard
                     </Link>
-                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Test
                     </Link>
 
-                    <Link href="/bol" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/bol" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Mi bol
                     </Link>
-                    <Link href="/viaje" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/viaje" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Mi viaje
                     </Link>
-                    <Link href="/semana" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/semana" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Mi semana
                     </Link>
-                    <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Mi Diario
                     </Link>
-                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Recetas
                     </Link>
-                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Glosario
                     </Link>
-                    <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Síntomas
                     </Link>
-                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Retos
                     </Link>
                     {!isPremium && (
-                      <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
+                      <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-bold text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                         Planes
                       </Link>
                     )}
-                    <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors border-t border-cream/10 pt-6 mt-2">
+                    <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors border-t border-[#6B2737]/15 pt-6 mt-2">
                       Perfil
                     </Link>
                   </>
                 ) : (
                   <>
-                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Home
                     </Link>
-                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Tus emociones
                     </Link>
-                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Test gratuito
                     </Link>
-                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Recetas
                     </Link>
-                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Glosario
                     </Link>
-                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Retos
                     </Link>
-                    <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-cream hover:text-white transition-colors">
+                    <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
                       Newsletter
                     </Link>
-                    <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#C9A84C] hover:text-white transition-colors font-bold">
+                    <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-bold text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                       Planes
                     </Link>
                   </>
