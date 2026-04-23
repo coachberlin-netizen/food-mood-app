@@ -294,7 +294,7 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
         onClick={onStart}
         className="bg-[#6B2737] text-[#FAF9F6] rounded-[60px] px-12 py-5 font-sans text-[18px] font-medium transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl flex items-center gap-4"
       >
-        Descubrir mi color de hoy <ArrowRight className="w-5 h-5" />
+        Hacer el test — 30 segundos <ArrowRight className="w-5 h-5" />
       </button>
     </motion.div>
   </div>

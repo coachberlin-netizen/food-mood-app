@@ -186,7 +186,8 @@ function FaqItem({ faq, isOpen, onToggle }: { faq: typeof FAQS[0]; isOpen: boole
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [openFaqs, setOpenFaqs] = useState<Set<number>>(new Set([0, 1, 2]))
+  const toggleFaq = (i: number) => setOpenFaqs(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s })
 
   return (
     <main className="min-h-screen bg-[#F5F0E8] overflow-hidden font-sans font-light">
@@ -761,8 +762,8 @@ export default function Home() {
               <FaqItem
                 key={i}
                 faq={faq}
-                isOpen={openFaq === i}
-                onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+                isOpen={openFaqs.has(i)}
+                onToggle={() => toggleFaq(i)}
               />
             ))}
           </div>
