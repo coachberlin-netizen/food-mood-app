@@ -294,6 +294,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 3b. CTA MICROBIOMA ──────────────────────────────────────────────── */}
+      <section aria-label="Empieza hoy" className="py-16 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-2xl mx-auto text-center space-y-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "rgba(107,39,55,0.4)" }}>
+            Tu microbioma se renueva en 90 días
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl font-black text-[#2d0f16] leading-tight">
+            Empieza hoy.
+          </h2>
+          <p className="text-base font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.6)" }}>
+            Tus hematíes, tu microbioma, tus hábitos neuronales — todo se renueva en 90 días. Es el ciclo biológico real del cambio.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-2">
+            <Link
+              href="/retos"
+              className="px-8 py-3.5 rounded-full text-sm font-bold text-[#2d0f16] transition-all hover:opacity-90 hover:scale-[1.02] shadow-md"
+              style={{ backgroundColor: "#C9A84C" }}
+            >
+              Ver los retos disponibles →
+            </Link>
+            <Link
+              href="/test"
+              className="text-sm font-light transition-colors hover:text-[#2d0f16]"
+              style={{ color: "rgba(45,15,22,0.4)" }}
+            >
+              O empieza con el test gratis →
+            </Link>
+          </div>
+          <p className="text-xs font-light" style={{ color: "rgba(45,15,22,0.3)" }}>
+            Desde 19€ · Sin suscripción oculta · Cancelas cuando quieras
+          </p>
+        </div>
+      </section>
+
       {/* ── 4. CÓMO FUNCIONA ────────────────────────────────────────────────── */}
       <section aria-label="Cómo funciona Food·Mood" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
         <div className="max-w-5xl mx-auto">
