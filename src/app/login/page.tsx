@@ -1,30 +1,17 @@
-"use client";
+import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
-import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense } from "react";
+export const metadata: Metadata = {
+  title: "Iniciar sesión — Food·Mood",
+  description: "Accede a tu cuenta Food·Mood.",
+  robots: { index: false, follow: true },
+};
 
-function LoginRedirect() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  useEffect(() => {
-    const redirect = searchParams.get("redirect") || "/dashboard";
-    // Pass the redirect parameter to the actual auth login page
-    router.replace(`/auth/login?redirect=${encodeURIComponent(redirect)}`);
-  }, [searchParams, router]);
-
-  return (
-    <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
-      <p className="text-aubergine-dark/60 font-light">Redirigiendo al login...</p>
-    </div>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[var(--background)]" />}>
-      <LoginRedirect />
-    </Suspense>
-  );
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: { redirect?: string; returnTo?: string };
+}) {
+  const dest = searchParams.redirect || searchParams.returnTo || "/dashboard";
+  redirect(`/auth/login?redirect=${encodeURIComponent(dest)}`);
 }
