@@ -51,6 +51,7 @@ const SAMPLE_RECIPES: Record<string, string[]> = {
   'mejora-tu-sueno':         ['Leche dorada con ashwagandha', 'Arroz integral con champiñones', 'Crema de boniato y nuez moscada'],
   'reset-antiinflamatorio':  ['Curry de lentejas con cúrcuma', 'Salmón al horno con limón', 'Ensalada de espinacas y nueces'],
   'equilibrio-hormonal-45':  ['Bol de linaza y frutos rojos', 'Tempeh salteado con brócoli', 'Infusión de maca y canela'],
+  'food-mood-reset':         ['Caldo de huesos con verduras fermentadas', 'Bol de kéfir con nueces y cacao puro', 'Lentejas rojas con cúrcuma y espinacas'],
 }
 
 const STATIC_CHALLENGES: Challenge[] = [
@@ -58,6 +59,7 @@ const STATIC_CHALLENGES: Challenge[] = [
   { id: 'static-2', slug: 'mejora-tu-sueno',         title: 'Mejora tu sueño en 4 semanas',            subtitle: 'Serotonina → melatonina. Magnesio, triptófano, fermentados nocturnos.',      description: null, category: 'sueño',      duration_days: 28, price_eur: 29, color: '#4A7AB5', emoji: '😴', recipe_count: 28, audio_count: 4  },
   { id: 'static-3', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio',                  subtitle: 'Cúrcuma, omega-3, fermentados. Reset completo en una semana.',               description: null, category: 'inflamación', duration_days: 7,  price_eur: 19, color: '#5A9B8A', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
   { id: 'static-4', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal — Protocolo de 28 días', subtitle: 'Perimenopausia, SOP, tiroides, estrés hormonal.',                        description: null, category: 'hormonas',   duration_days: 28, price_eur: 29, color: '#C04878', emoji: '🌸', recipe_count: 28, audio_count: 8  },
+  { id: 'static-5', slug: 'food-mood-reset',          title: '21 días para resetear tu mente',             subtitle: 'Protocolo Food-Mood Reset. Eje intestino-cerebro en práctica.',         description: null, category: 'salud mental', duration_days: 21, price_eur: 29, color: '#4A7AB5', emoji: '🧠', recipe_count: 21, audio_count: 21 },
 ]
 
 const CATEGORY_CONFIG: Record<string, { icon: React.ReactNode; dot: string }> = {
