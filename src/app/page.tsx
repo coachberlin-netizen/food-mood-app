@@ -76,7 +76,7 @@ const FAQS = [
   },
   {
     q: "¿Cuánto cuesta y hay suscripción oculta?",
-    a: "Los retos de 7 días empiezan en 19€. Los retos de 4 semanas, en 29€. Pago único, sin renovación automática. Cancelas cuando quieras si te suscribes al plan premium.",
+    a: "Los retos son pago único: 19€ (7 días) o 29€ (4 semanas). Acceso de por vida al contenido, sin renovación automática. El plan premium mensual/trimestral sí es suscripción — cancelas cuando quieras desde tu perfil.",
   },
   {
     q: "¿Cuándo empiezo a notar cambios?",
@@ -324,7 +324,7 @@ export default function Home() {
             </Link>
           </div>
           <p className="text-xs font-light" style={{ color: "rgba(45,15,22,0.3)" }}>
-            Desde 19€ · Sin suscripción oculta · Cancelas cuando quieras
+            Retos desde 19€ · Pago único · Acceso de por vida
           </p>
         </div>
       </section>
@@ -809,7 +809,7 @@ export default function Home() {
                 </Link>
               </div>
               <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.25)" }}>
-                Desde 19€ · Sin suscripción oculta · Cancelas cuando quieras
+                Retos desde 19€ · Pago único · Acceso de por vida · Planes premium: cancelas cuando quieras
               </p>
             </div>
           </motion.div>

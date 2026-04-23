@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Retos de transformación Food·Mood',
-    description: 'Energía, sueño, antiinflamación. Desde 19€. Sin suscripción oculta.',
+    description: 'Energía, sueño, antiinflamación. Desde 19€. Pago único, acceso de por vida.',
   },
 }
 
