@@ -93,7 +93,8 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-3"><Crown className="w-4 h-4 text-[#C9A84C]" /><span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">Mensual</span></div>
               <div className="flex items-end gap-1 mt-1 mb-2"><span className="text-5xl font-serif text-aubergine-dark">9€</span><span className="text-aubergine-dark/40 font-light text-sm mb-2">/mes</span></div>
-              <p className="text-sm text-aubergine-dark/45 font-light">Acceso completo a todas las recetas, el glosario científico, Fermentos del Mundo y tu paleta emocional personalizada.</p>
+              <p className="text-xs text-aubergine-dark/35 font-medium mb-1">Sin compromiso · Cancela en cualquier momento</p>
+              <p className="text-sm text-aubergine-dark/45 font-light">Ideal si quieres probar un mes antes de comprometerte. Mismo acceso completo que el trimestral.</p>
             </div>
             <ul className="space-y-3.5 mb-10 flex-1">
               {PREMIUM_FEATURES.map((f, i) => (
@@ -147,6 +148,26 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2 text-aubergine-dark/35"><item.icon className="w-4 h-4" /><span className="text-sm font-light">{item.text}</span></div>
           ))}
+        </motion.div>
+
+        {/* ── Retos como add-on ── */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}
+          className="max-w-3xl mx-auto mb-10 rounded-2xl border border-aubergine-dark/10 bg-cream overflow-hidden flex flex-col md:flex-row">
+          <div className="md:w-2 bg-[#C9A84C] shrink-0" />
+          <div className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 flex-1">
+            <div className="text-3xl select-none">⚡</div>
+            <div className="flex-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-1">Retos de transformación — pago único</p>
+              <h3 className="font-serif text-xl text-aubergine-dark mb-2">No son una suscripción</h3>
+              <p className="text-sm text-aubergine-dark/55 font-light leading-relaxed">
+                Los retos (7 días desde 19€, 28 días desde 29€) son programas intensivos de pago único.
+                Compras el reto una vez y tienes acceso de por vida a su contenido — independientemente de si tienes plan premium o no.
+              </p>
+            </div>
+            <Link href="/retos" className="shrink-0 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:opacity-90 whitespace-nowrap" style={{ backgroundColor: '#6B2737' }}>
+              Ver retos →
+            </Link>
+          </div>
         </motion.div>
 
         {/* ── Canal privado de Telegram ── */}

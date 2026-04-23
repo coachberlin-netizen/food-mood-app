@@ -53,6 +53,13 @@ const SAMPLE_RECIPES: Record<string, string[]> = {
   'equilibrio-hormonal-45':  ['Bol de linaza y frutos rojos', 'Tempeh salteado con brócoli', 'Infusión de maca y canela'],
 }
 
+const STATIC_CHALLENGES: Challenge[] = [
+  { id: 'static-1', slug: 'recupera-tu-energia',    title: 'Recupera tu energía en 7 días',           subtitle: 'Sin cafeína forzada, sin azúcares de rebote. Resultados medibles en 7 días.', description: null, category: 'energía',     duration_days: 7,  price_eur: 19, color: '#E8703A', emoji: '⚡', recipe_count: 7,  audio_count: 3  },
+  { id: 'static-2', slug: 'mejora-tu-sueno',         title: 'Mejora tu sueño en 4 semanas',            subtitle: 'Serotonina → melatonina. Magnesio, triptófano, fermentados nocturnos.',      description: null, category: 'sueño',      duration_days: 28, price_eur: 29, color: '#4A7AB5', emoji: '😴', recipe_count: 28, audio_count: 4  },
+  { id: 'static-3', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio',                  subtitle: 'Cúrcuma, omega-3, fermentados. Reset completo en una semana.',               description: null, category: 'inflamación', duration_days: 7,  price_eur: 19, color: '#5A9B8A', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
+  { id: 'static-4', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal — Protocolo de 28 días', subtitle: 'Perimenopausia, SOP, tiroides, estrés hormonal.',                        description: null, category: 'hormonas',   duration_days: 28, price_eur: 29, color: '#C04878', emoji: '🌸', recipe_count: 28, audio_count: 8  },
+]
+
 const CATEGORY_CONFIG: Record<string, { icon: React.ReactNode; dot: string }> = {
   'sueño':       { icon: <Moon     size={16} strokeWidth={1.5} />, dot: '#6B2737' },
   'energía':     { icon: <Zap      size={16} strokeWidth={1.5} />, dot: '#C9A84C' },
@@ -198,7 +205,9 @@ export default async function RetosPage() {
     supabase.auth.getUser(),
   ])
 
-  const challenges = (challengesData ?? []) as Challenge[]
+  const challenges = ((challengesData ?? []) as Challenge[]).length > 0
+    ? (challengesData as Challenge[])
+    : STATIC_CHALLENGES
 
   let enrollments: Enrollment[] = []
   if (user) {
