@@ -18,9 +18,9 @@ export function ConsentModal() {
   const [visible, setVisible]   = useState(false)
   const [saving, setSaving]     = useState(false)
   const [consent, setConsent]   = useState<ConsentState>({
-    consent_analytics:           false,
-    consent_newsletter:          false,
-    consent_aggregated_research: false,
+    consent_analytics:           true,
+    consent_newsletter:          true,
+    consent_aggregated_research: true,
   })
   const supabase = createClient()
 
@@ -66,7 +66,7 @@ export function ConsentModal() {
 
   return (
     <div
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9999] w-[calc(100%-2rem)] max-w-lg"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9999] w-[calc(100%-2rem)] max-w-sm"
       style={{ filter: "drop-shadow(0 8px 32px rgba(45,15,22,0.18))" }}
     >
       <div

@@ -4,8 +4,8 @@ import BuyRetoButton from '@/components/retos/BuyRetoButton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title:       'Recupera tu energía en una semana | Food·Mood',
-  description: 'Reset mitocondrial. Resultados medibles en 7 días. Basado en evidencia.',
+  title:       'Recupera tu energía en 7 días | Food·Mood',
+  description: 'Sin cafeína forzada, sin azúcares de rebote. Resultados medibles en 7 días. Basado en evidencia.',
 }
 
 const INCLUYE = [
@@ -82,7 +82,7 @@ export default async function RetoEnergiaPage() {
           </h1>
 
           <p className="text-base font-medium mb-2" style={{ color: '#6B2737' }}>
-            Reset mitocondrial.<br />Resultados medibles en 7 días.
+            Sin cafeína forzada, sin azúcares de rebote.<br />Resultados medibles en 7 días.
           </p>
 
           <p className="text-[13px] leading-snug" style={{ color: '#9e8080' }}>

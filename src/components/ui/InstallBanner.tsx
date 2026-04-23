@@ -32,23 +32,37 @@ export function InstallBanner() {
 
     const markShown = () => localStorage.setItem("pwa-prompt-shown-at", String(Date.now()));
 
-    // 4. Android/Chrome prompt listener
+    const showBanner = () => { markShown(); setIsVisible(true); };
+
+    // Show only when user reaches the bottom 20% of the page
+    const handleScroll = () => {
+      const scrolled = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (scrolled / total >= 0.80) {
+        showBanner();
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    // 4. Android/Chrome prompt listener — defer until scroll threshold
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      markShown();
-      setIsVisible(true);
+      window.addEventListener("scroll", handleScroll, { passive: true });
     };
 
     window.addEventListener("beforeinstallprompt", handler);
 
-    // 5. iOS fallback — show once per 7-day window
+    // 5. iOS fallback — show at scroll threshold
     if (isIOS) {
-      const timer = setTimeout(() => { markShown(); setIsVisible(true); }, 4000);
-      return () => clearTimeout(timer);
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      return () => window.removeEventListener("scroll", handleScroll);
     }
 
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleInstall = async () => {

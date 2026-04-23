@@ -78,8 +78,8 @@ VALUES
    'Un protocolo de 28 días para transformar tu calidad de sueño desde la bioquímica. Cada día una receta diseñada para el eje intestino-cerebro nocturno.',
    'sueño', 28, 29, '#4A7AB5', '😴', 28, 4),
   ('recupera-tu-energia',
-   'Recupera tu energía en una semana',
-   'Reset mitocondrial. Resultados medibles en 7 días.',
+   'Recupera tu energía en 7 días',
+   'Sin cafeína forzada, sin azúcares de rebote. Resultados medibles en 7 días.',
    'Siete días de reset energético con recetas y consejos diseñados para activar tus mitocondrias y romper el ciclo de fatiga crónica.',
    'energía', 7, 19, '#E8703A', '⚡', 30, 7),
   ('reset-antiinflamatorio',
@@ -88,8 +88,8 @@ VALUES
    'Siete días para reducir la inflamación sistémica con alimentos funcionales. Cúrcuma, omega-3 y fermentados como protagonistas.',
    'inflamación', 7, 19, '#5A9B8A', '🌿', 30, 7),
   ('equilibrio-hormonal-45',
-   'Equilibrio hormonal después de los 45',
-   'Estrobioma, fitoestrógenos, urolitinas.',
-   'Un programa de 28 días para equilibrar hormonas a través de la alimentación. Diseñado para mujeres en perimenopausia y menopausia.',
+   'Equilibrio hormonal — Protocolo de 28 días',
+   'Perimenopausia, SOP, tiroides, estrés hormonal. Estrobioma, fitoestrógenos, urolitinas.',
+   'Un programa de 28 días para equilibrar hormonas a través de la alimentación. Para la perimenopausia, desequilibrios por estrés crónico, SOP o tiroides.',
    'hormonas', 28, 29, '#C04878', '🌸', 28, 8)
 ON CONFLICT (slug) DO NOTHING;

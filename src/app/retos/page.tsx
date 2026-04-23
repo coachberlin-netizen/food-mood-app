@@ -46,6 +46,13 @@ interface Enrollment {
   paid:         boolean
 }
 
+const SAMPLE_RECIPES: Record<string, string[]> = {
+  'recupera-tu-energia':     ['Bol de quinoa con edamame y sésamo', 'Smoothie de remolacha y jengibre', 'Sopa miso con algas wakame'],
+  'mejora-tu-sueno':         ['Leche dorada con ashwagandha', 'Arroz integral con champiñones', 'Crema de boniato y nuez moscada'],
+  'reset-antiinflamatorio':  ['Curry de lentejas con cúrcuma', 'Salmón al horno con limón', 'Ensalada de espinacas y nueces'],
+  'equilibrio-hormonal-45':  ['Bol de linaza y frutos rojos', 'Tempeh salteado con brócoli', 'Infusión de maca y canela'],
+}
+
 const CATEGORY_CONFIG: Record<string, { icon: React.ReactNode; dot: string }> = {
   'sueño':       { icon: <Moon     size={16} strokeWidth={1.5} />, dot: '#6B2737' },
   'energía':     { icon: <Zap      size={16} strokeWidth={1.5} />, dot: '#C9A84C' },
@@ -119,6 +126,23 @@ function ChallengeCard({
         <span style={{ opacity: 0.3 }}>·</span>
         <span className="flex items-center gap-1"><BarChart2 size={13} strokeWidth={1.5} />tracking diario</span>
       </div>
+
+      {/* Recipe preview */}
+      {SAMPLE_RECIPES[challenge.slug] && (
+        <div className="rounded-xl p-3" style={{ background: 'rgba(107,39,55,0.04)', border: '1px solid rgba(107,39,55,0.08)' }}>
+          <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(107,39,55,0.4)' }}>
+            Muestra gratuita · 3 recetas de ejemplo
+          </p>
+          <ul className="space-y-1">
+            {SAMPLE_RECIPES[challenge.slug].map((r) => (
+              <li key={r} className="flex items-center gap-2 text-[11px]" style={{ color: 'rgba(45,15,22,0.65)' }}>
+                <span style={{ color: challenge.color }}>→</span>
+                {r}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {enrollment?.paid && !enrollment.completed ? (
         <div className="flex flex-col gap-2">

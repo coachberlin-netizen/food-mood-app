@@ -16,7 +16,7 @@ const RETOS = [
     color: "#C9A84C",
     duration: "7 días",
     title: "Recupera tu energía en 7 días",
-    subtitle: "Reset mitocondrial. Resultados medibles en una semana.",
+    subtitle: "Sin cafeína forzada, sin azúcares de rebote. Resultados medibles en una semana.",
     recipes: 7,
     audios: 3,
     price: 19,
