@@ -121,6 +121,68 @@ const SHORT_MILESTONES: Record<number, string> = {
 }
 
 
+const FAQS = [
+  {
+    q: '¿Qué recibo exactamente al comprar el reto?',
+    a: 'Acceso inmediato a todas las recetas funcionales, audios de apoyo, seguimiento diario con tu índice Food·Mood e informe personalizado al finalizar. Todo accesible desde esta misma página, día a día.',
+  },
+  {
+    q: '¿Necesito tener una dieta especial o ser vegano?',
+    a: 'No. Las recetas están diseñadas para ser flexibles — incluyen opciones para distintas preferencias. El objetivo es añadir alimentos funcionales, no eliminar nada.',
+  },
+  {
+    q: '¿Cuánto tiempo al día requiere?',
+    a: 'Entre 20 y 30 minutos. Cada día recibes una receta, un audio breve y un registro emocional de dos preguntas. Sin rituales complejos ni listas interminables.',
+  },
+  {
+    q: '¿Puedo empezar cuando quiera?',
+    a: 'Sí. El acceso es inmediato tras el pago y el reto empieza el día que tú decidas. No hay fechas fijas ni cohortes.',
+  },
+  {
+    q: '¿Hay política de reembolso?',
+    a: 'Puedes solicitar reembolso completo dentro de los 7 primeros días si no has accedido a más de 2 días de contenido. Escríbenos a hola@food-mood.app.',
+  },
+  {
+    q: '¿Tengo dudas o necesito ayuda?',
+    a: <>Puedes escribirnos en cualquier momento a <a href="mailto:hola@food-mood.app" style={{ color: 'inherit', textDecoration: 'underline' }}>hola@food-mood.app</a> o consultar los <Link href="/pricing" style={{ color: 'inherit', textDecoration: 'underline' }}>planes de suscripción</Link> si buscas acceso continuo a todas las recetas.</>,
+  },
+]
+
+function FAQSection({ accentColor }: { accentColor: string }) {
+  const [open, setOpen] = useState<number | null>(null)
+  return (
+    <section>
+      <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.5)' }}>
+        Preguntas frecuentes
+      </p>
+      <div className="divide-y" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
+        {FAQS.map((faq, i) => (
+          <div key={i}>
+            <button
+              onClick={() => setOpen(open === i ? null : i)}
+              className="w-full text-left py-4 flex items-center justify-between gap-4"
+              aria-expanded={open === i}
+            >
+              <span className="text-sm font-medium" style={{ color: '#2d0f16' }}>{faq.q}</span>
+              <span
+                className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white text-xs font-bold transition-transform"
+                style={{ backgroundColor: accentColor, transform: open === i ? 'rotate(45deg)' : 'none' }}
+              >
+                +
+              </span>
+            </button>
+            {open === i && (
+              <p className="pb-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.65)' }}>
+                {faq.a}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function hexToRgb(hex: string) {
   const r = parseInt(hex.slice(1, 3), 16)
   const g = parseInt(hex.slice(3, 5), 16)
@@ -597,9 +659,15 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           </section>
         )}
 
+        {/* ── FAQ ── */}
+        {!enrollment?.paid && (
+          <FAQSection accentColor={challenge.color} />
+        )}
+
         {/* ── CTA de compra ── */}
         {!enrollment?.paid && (
           <section
+            id="cta-compra"
             className="rounded-3xl p-8 md:p-10"
             style={{ backgroundColor: '#2d0f16' }}
           >
@@ -607,19 +675,14 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               className="text-[10px] font-bold uppercase tracking-widest mb-4"
               style={{ color: '#C9A84C' }}
             >
-              Únete ahora
+              {enrollment ? 'Completar pago' : 'Únete ahora'}
             </p>
-            <div className="flex items-end justify-between mb-6 flex-wrap gap-4">
-              <div>
-                <p className="font-serif text-5xl font-black" style={{ color: '#C9A84C' }}>
-                  {challenge.price_eur}€
-                </p>
-                <p className="text-xs font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  Acceso completo · {challenge.duration_days} días
-                </p>
-              </div>
-              <p className="text-xs font-light" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                Solo quedan algunas plazas esta semana
+            <div className="mb-6">
+              <p className="font-serif text-5xl font-black" style={{ color: '#C9A84C' }}>
+                {challenge.price_eur}€
+              </p>
+              <p className="text-xs font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                Acceso completo · {challenge.duration_days} días · Pago único
               </p>
             </div>
 
@@ -633,26 +696,12 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
               style={{ backgroundColor: challenge.color }}
             >
-              {isPending ? 'Procesando…' : `Empezar mi reto →`}
+              {isPending ? 'Procesando…' : enrollment ? 'Completar pago →' : 'Empezar mi reto →'}
             </button>
 
             <p className="text-xs font-light text-center mt-4" style={{ color: 'rgba(255,255,255,0.3)' }}>
               Pago seguro vía Stripe · Acceso inmediato al completar
             </p>
-          </section>
-        )}
-
-        {/* Pago pendiente */}
-        {enrollment && !enrollment.paid && (
-          <section className="text-center">
-            <button
-              onClick={handleCheckout}
-              disabled={isPending}
-              className="px-8 py-3 rounded-full text-sm font-bold text-white disabled:opacity-50"
-              style={{ backgroundColor: '#C9A84C' }}
-            >
-              {isPending ? 'Procesando…' : 'Completar pago →'}
-            </button>
           </section>
         )}
 
@@ -666,6 +715,22 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         </Link>
 
       </div>
+
+      {/* ── Sticky CTA móvil (solo no pagados) ── */}
+      {!enrollment?.paid && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden px-4 pb-4 pt-3"
+          style={{ background: 'linear-gradient(to top, #F5F0E8 70%, transparent)' }}>
+          <button
+            onClick={handleCheckout}
+            disabled={isPending}
+            className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50 shadow-lg"
+            style={{ backgroundColor: challenge.color }}
+          >
+            {isPending ? 'Procesando…' : `Empezar mi reto · ${challenge.price_eur}€ →`}
+          </button>
+        </div>
+      )}
+
     </main>
   )
 }
