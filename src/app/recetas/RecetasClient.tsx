@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, Star, ChefHat, SearchX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -259,7 +259,15 @@ function Pill({ active, isChef, onClick, children }: { active: boolean; isChef?:
   );
 }
 
-export default function RecetasClient({ initialIsPremium }: { initialIsPremium: boolean }) {
+export default function RecetasClient({
+  initialIsPremium,
+  initialRecetas = [],
+  initialTotal = 0,
+}: {
+  initialIsPremium: boolean;
+  initialRecetas?: Receta[];
+  initialTotal?: number;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -269,11 +277,14 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
   const [q, setQ] = useState<string>(searchParams.get("q") || "");
   const [page, setPage] = useState<number>(1);
 
-  const [recetas, setRecetas] = useState<Receta[]>([]);
-  const [total, setTotal] = useState(0);
+  const [recetas, setRecetas] = useState<Receta[]>(initialRecetas);
+  const [total, setTotal] = useState(initialTotal);
   const [totalPages, setTotalPages] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  // Skip skeleton on first render if we already have server-side data
+  const [isLoading, setIsLoading] = useState(initialRecetas.length === 0);
   const [error, setError] = useState<string | null>(null);
+  // Track first fetch so we don't flash skeleton when server data already shown
+  const suppressFirstSkeleton = useRef(initialRecetas.length > 0);
 
   // State for premium status, initialized from server-side prop
   const [isPremium, setIsPremium] = useState(initialIsPremium);
@@ -298,7 +309,10 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
   }, [initialIsPremium]);
 
   const fetchRecetas = useCallback(async () => {
-    setIsLoading(true);
+    // Don't flash skeleton on first fetch if server already sent initial recipes
+    const silent = suppressFirstSkeleton.current;
+    suppressFirstSkeleton.current = false;
+    if (!silent) setIsLoading(true);
     try {
       const params = new URLSearchParams();
       if (moodFilter) {
@@ -335,7 +349,7 @@ export default function RecetasClient({ initialIsPremium }: { initialIsPremium: 
     } finally {
       setIsLoading(false);
     }
-  }, [moodFilter, profileIdx, q, page]);
+  }, [moodFilter, profileIdx, q, page, suppressFirstSkeleton]);
 
   useEffect(() => { fetchRecetas(); }, [fetchRecetas]);
 
