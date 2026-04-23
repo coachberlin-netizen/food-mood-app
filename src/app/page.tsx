@@ -734,7 +734,7 @@ export default function Home() {
                 price: "9€",
                 cadence: "/mes",
                 features: ["200+ recetas completas", "Paleta emocional personalizada", "Historial de 90 días", "Glosario científico", "Canal privado de Telegram"],
-                cta: "Ver plan mensual",
+                cta: "Empezar — 9€/mes",
                 href: "/pricing",
                 highlight: false,
               },
