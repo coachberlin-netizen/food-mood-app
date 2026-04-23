@@ -209,8 +209,8 @@ export default function Home() {
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <HomeHero />
 
-      {/* ── 2. EL PROBLEMA ──────────────────────────────────────────────────── */}
-      <section aria-label="El problema con la alimentación emocional" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
+      {/* ── 2. ALEGRÍA + CONOCIMIENTO ───────────────────────────────────────── */}
+      <section aria-label="Más alegría, más conocimiento" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial="hidden"
@@ -220,23 +220,23 @@ export default function Home() {
             className="space-y-8"
           >
             <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-              El problema
+              Más alegría · más conocimiento
             </motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-[1.15]">
-              No es que no tengas fuerza de voluntad.{" "}
-              <span className="italic font-light">Es que comes con el cerebro equivocado.</span>
+              Comer bien{" "}
+              <span className="italic font-light">es el acto más placentero que puedes hacer por ti.</span>
             </motion.h2>
             <motion.div variants={fade} className="space-y-5 text-base md:text-lg font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.7)" }}>
               <p>
-                Cuando estás ansioso, tu cuerpo pide azúcar. Cuando estás bajo de energía, pide cafeína.
-                Y después te sientes peor.
+                Cuando comes con curiosidad y con conocimiento, algo cambia: más energía, más claridad,
+                más placer en cada plato. No es magia — es bioquímica a tu favor.
               </p>
               <p>
-                No es culpa tuya: es bioquímica. Lo que comes cambia cómo te sientes.
-                Y lo que sientes cambia lo que comes.
+                Lo que comes cambia cómo te sientes. Y lo que sientes cambia lo que comes.
+                Food·Mood te da las dos claves a la vez.
               </p>
               <p className="font-medium" style={{ color: "#6B2737" }}>
-                Hay una salida. Y no empieza por la fuerza de voluntad.
+                Placer y ciencia. Juntos. En cada receta.
               </p>
             </motion.div>
           </motion.div>

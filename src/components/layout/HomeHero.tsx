@@ -215,7 +215,7 @@ export default function HomeHero() {
       <section
         aria-label="Presentación"
         style={{ width: "100%", minHeight: "100svh", display: "grid", gridTemplateColumns: "1fr 1fr", background: BURG_DEEP, overflow: "hidden", position: "relative" }}
-        className="max-md:grid-cols-1 max-md:grid-rows-[45vw_1fr]"
+        className="max-md:grid-cols-1"
       >
 
         {/* ══ LEFT ══ */}
@@ -225,7 +225,7 @@ export default function HomeHero() {
           display: "flex", flexDirection: "column", justifyContent: "center",
           padding: "72px 64px", zIndex: 2, overflow: "hidden",
         }}
-          className="max-md:order-2 max-md:px-6 max-md:py-10 max-md:justify-start"
+          className="max-md:col-span-1 max-md:px-6 max-md:py-16 max-md:justify-center"
         >
           {/* Gold glow */}
           <div style={{ position:"absolute",inset:0,background:`radial-gradient(ellipse 70% 60% at 38% 48%, rgba(232,201,138,.10) 0%, transparent 70%)`,pointerEvents:"none" }} />
@@ -302,8 +302,8 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* ══ RIGHT — PHOTO ══ */}
-        <div style={{ position:"relative",overflow:"hidden",background:BURG_DEEP }} className="max-md:order-1">
+        {/* ══ RIGHT — PHOTO (desktop only) ══ */}
+        <div style={{ position:"relative",overflow:"hidden",background:BURG_DEEP }} className="max-md:hidden">
           {/* Photo */}
           <div ref={parallaxRef} style={{
             position:"absolute",inset:"-5%",
