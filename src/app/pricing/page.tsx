@@ -1,20 +1,23 @@
-import { Suspense } from "react";
 import { Metadata } from "next";
 import PricingClient from "./PricingClient";
 import { createClient } from "@/lib/supabase/server";
 import { getPremiumStatus } from "@/lib/premium";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Precios — Club Premium Food·Mood | Desde 5€/mes",
-  description: "Accede a 200+ recetas funcionales, canal privado de Telegram, comunidad WhatsApp y seguimiento personalizado. Sin compromiso — cancela cuando quieras.",
+  description:
+    "Accede a 200+ recetas funcionales, canal privado de Telegram, comunidad WhatsApp y seguimiento personalizado. Sin compromiso — cancela cuando quieras.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "Precios — Club Premium Food·Mood",
-    description: "Accede a 200+ recetas funcionales, Telegram privado, WhatsApp y seguimiento emocional desde 5€/mes.",
+    description:
+      "Accede a 200+ recetas funcionales, Telegram privado, WhatsApp y seguimiento emocional desde 5€/mes.",
     url: "https://www.food-mood.app/pricing",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Food·Mood Premium" }],
+    images: [
+      { url: "/og-image.png", width: 1200, height: 630, alt: "Food·Mood Premium" },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -65,16 +68,88 @@ const FAQ_SCHEMA = {
       name: "¿Cuánto cuesta el plan Premium?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "El plan mensual está disponible desde 5€/mes. También ofrecemos un plan trimestral con descuento.",
+        text: "El plan mensual cuesta 9€/mes. El plan trimestral cuesta 15€ cada 3 meses (equivale a 5€/mes). Ambos incluyen acceso completo a todas las funcionalidades premium.",
+      },
+    },
+  ],
+};
+
+const PRICING_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Planes Food·Mood",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "Product",
+        name: "Food·Mood Gratuito",
+        description: "Test emocional + paleta básica, sin coste.",
+        offers: {
+          "@type": "Offer",
+          price: "0.00",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+        },
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "Product",
+        name: "Food·Mood Premium Mensual",
+        description: "200+ recetas funcionales, paleta emocional personalizada, historial de 90 días, canal privado de Telegram.",
+        offers: {
+          "@type": "Offer",
+          price: "9.00",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: "9.00",
+            priceCurrency: "EUR",
+            unitCode: "MON",
+          },
+        },
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@type": "Product",
+        name: "Food·Mood Premium Trimestral",
+        description: "Todo el plan mensual + ahorro del 44%. 15€ cada 3 meses (equivale a 5€/mes).",
+        offers: {
+          "@type": "Offer",
+          price: "15.00",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: "15.00",
+            priceCurrency: "EUR",
+            unitCode: "MON",
+          },
+        },
       },
     },
   ],
 };
 
 export default async function PricingPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  const isPremium = user ? await getPremiumStatus(supabase, user.id) : false;
+  let isPremium = false;
+  let isAuthenticated = false;
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    isAuthenticated = !!user;
+    isPremium = user ? await getPremiumStatus(supabase, user.id) : false;
+  } catch {
+    // Fallback: render as unauthenticated
+  }
 
   return (
     <>
@@ -82,13 +157,30 @@ export default async function PricingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }}
       />
-      <Suspense fallback={
-        <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full border-2 border-aubergine-dark/10 border-t-aubergine-dark animate-spin" />
-        </div>
-      }>
-        <PricingClient initialIsPremium={isPremium} initialIsAuthenticated={!!user} />
-      </Suspense>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(PRICING_SCHEMA) }}
+      />
+
+      {/* Server-rendered pricing summary — visible to crawlers and screen readers */}
+      <div className="sr-only">
+        <h1>Precios — Club Premium Food·Mood</h1>
+        <p>Empieza gratis. Profundiza cuando quieras. Sin letra pequeña.</p>
+        <section>
+          <h2>Plan Gratuito — 0€</h2>
+          <p>Test emocional completo. Paleta emocional básica. 1 receta de muestra al día.</p>
+        </section>
+        <section>
+          <h2>Plan Premium Mensual — 9€/mes</h2>
+          <p>200+ recetas completas, paleta emocional personalizada, historial de 90 días, glosario científico, canal privado de Telegram. Sin compromiso, cancela cuando quieras.</p>
+        </section>
+        <section>
+          <h2>Plan Premium Trimestral — 15€ cada 3 meses (5€/mes)</h2>
+          <p>Todo lo del plan mensual más Fermentos del Mundo y descuento del 44%. Cancela cuando quieras.</p>
+        </section>
+      </div>
+
+      <PricingClient initialIsPremium={isPremium} initialIsAuthenticated={isAuthenticated} />
     </>
   );
 }
