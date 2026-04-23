@@ -138,15 +138,43 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   const [notifState,  setNotifState]  = useState<'idle' | 'loading' | 'done' | 'denied'>('idle')
 
   const isSuccess = searchParams.get('success') === 'true'
+  const [pollingPaid, setPollingPaid] = useState(false)
 
+  // When Stripe redirects back with ?success=true, the webhook may not have
+  // fired yet. Poll /api/retos/status every 2s until paid=true (max ~30s).
   useEffect(() => {
-    if (isSuccess && enrollment?.paid) {
+    if (!isSuccess) return
+
+    if (enrollment?.paid) {
       router.replace(`/retos/${challenge.slug}/dia/1`)
-    } else if (isSuccess) {
-      setShowSuccess(true)
-      const t = setTimeout(() => setShowSuccess(false), 6000)
-      return () => clearTimeout(t)
+      return
     }
+
+    setPollingPaid(true)
+    let attempts = 0
+    const maxAttempts = 15
+
+    const poll = setInterval(async () => {
+      attempts++
+      try {
+        const res = await fetch(`/api/retos/status?challenge_id=${challenge.id}`)
+        const data = await res.json()
+        if (data.paid) {
+          clearInterval(poll)
+          router.replace(`/retos/${challenge.slug}/dia/${data.current_day ?? 1}`)
+          return
+        }
+      } catch { /* keep polling */ }
+
+      if (attempts >= maxAttempts) {
+        clearInterval(poll)
+        setPollingPaid(false)
+        setShowSuccess(true)
+        setTimeout(() => setShowSuccess(false), 8000)
+      }
+    }, 2000)
+
+    return () => clearInterval(poll)
   }, [isSuccess]) // eslint-disable-line
 
   const rgb = hexToRgb(challenge.color)
@@ -371,6 +399,24 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             </p>
           )}
 
+        </div>
+      </main>
+    )
+  }
+
+  // Polling state: show a waiting screen while Stripe webhook is in-flight
+  if (pollingPaid) {
+    return (
+      <main className="min-h-screen flex flex-col items-center justify-center gap-6 px-6" style={{ backgroundColor: '#F5F0E8' }}>
+        <div
+          className="w-14 h-14 rounded-full border-4 border-t-transparent animate-spin"
+          style={{ borderColor: `${challenge.color}40`, borderTopColor: challenge.color }}
+        />
+        <div className="text-center space-y-2">
+          <p className="font-serif text-xl font-bold" style={{ color: '#2d0f16' }}>Confirmando tu pago…</p>
+          <p className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.55)' }}>
+            Estamos procesando la confirmación de Stripe. Esto tarda solo unos segundos.
+          </p>
         </div>
       </main>
     )
