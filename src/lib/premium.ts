@@ -17,10 +17,19 @@ import { SupabaseClient } from '@supabase/supabase-js'
  * @param userId - The UUID of the user to check
  * @returns Promise<boolean> - True if the user is premium
  */
+export function isAdminEmail(email: string | undefined): boolean {
+  if (!email) return false
+  const list = (process.env.ADMIN_EMAILS ?? '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean)
+  return list.includes(email.toLowerCase())
+}
+
 export async function getPremiumStatus(supabase: SupabaseClient, userId: string): Promise<boolean> {
   if (!userId) return false;
 
   try {
+    // 0. Admin / VIP email bypass — no DB write needed
+    const { data: { user } } = await supabase.auth.getUser()
+    if (isAdminEmail(user?.email)) return true
     // 1. Check subscriptions table (Stripe/Marketplace)
     const { data: subData } = await supabase
       .from('subscriptions')
