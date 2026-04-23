@@ -100,12 +100,19 @@ function ChallengeCard({
           {cat.icon}
           {challenge.category}
         </span>
-        <span
-          className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
-          style={{ backgroundColor: challenge.color }}
-        >
-          {challenge.duration_days === 7 ? '1 semana' : '4 semanas'}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-serif text-lg font-black" style={{ color: '#C9A84C' }}>
+            {challenge.price_eur}€
+          </span>
+          <span
+            className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
+            style={{ backgroundColor: challenge.color }}
+          >
+            {challenge.duration_days === 7 ? '1 semana'
+              : challenge.duration_days === 21 ? '3 semanas'
+              : `${Math.round(challenge.duration_days / 7)} semanas`}
+          </span>
+        </div>
       </div>
 
       <div>
@@ -171,18 +178,13 @@ function ChallengeCard({
           </Link>
         </div>
       ) : (
-        <div className="flex items-center justify-between">
-          <span className="font-serif text-2xl font-black" style={{ color: '#C9A84C' }}>
-            {challenge.price_eur}€
-          </span>
-          <Link
-            href={`/retos/${challenge.slug}`}
-            className="px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all hover:opacity-90"
-            style={{ backgroundColor: '#6B2737' }}
-          >
-            Empezar →
-          </Link>
-        </div>
+        <Link
+          href={`/retos/${challenge.slug}`}
+          className="block text-center py-3 rounded-full text-sm font-bold text-white transition-all hover:opacity-90 mt-auto"
+          style={{ backgroundColor: '#6B2737' }}
+        >
+          Ver contenido completo →
+        </Link>
       )}
     </article>
   )
