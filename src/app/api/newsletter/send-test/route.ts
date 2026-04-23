@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY)
 
   const { data, error } = await resend.emails.send({
-    from:    'Food·Mood <hola@food-mood.app>',
+    from:    'Food·Mood <onboarding@resend.dev>',
     to,
     subject: 'No eres dramática. Eres una mezcla que cambia cada día. 🌿',
     html:    NEWSLETTER_NO_DRAMATICA_HTML,
