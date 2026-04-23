@@ -486,6 +486,126 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 4c. ÍNDICE FOOD·MOOD — EJEMPLO ─────────────────────────────────── */}
+      <section aria-label="Qué es el índice Food·Mood" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+
+            {/* Texto */}
+            <motion.div
+              initial="hidden" whileInView="visible" viewport={{ once: true }}
+              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+              className="space-y-5"
+            >
+              <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
+                Tu índice Food·Mood
+              </motion.p>
+              <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
+                Un número que te dice<br />
+                <span className="italic font-light">cómo estás de verdad.</span>
+              </motion.h2>
+              <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
+                Cada día calculas tu índice (0-100) a partir de tus registros de comida, síntomas y estado emocional.
+                No es una báscula — es un espejo de tu eje intestino-cerebro.
+              </motion.p>
+              <motion.ul variants={fade} className="space-y-3">
+                {[
+                  "Ve en qué días comes mejor y cómo te afecta al día siguiente",
+                  "Detecta los alimentos que te suben o te bajan el índice",
+                  "Compara tu inicio vs. fin de cada reto en datos reales",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: "rgba(245,240,232,0.65)" }}>
+                    <span className="w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold text-[#2d0f16]" style={{ backgroundColor: "#C9A84C" }}>✓</span>
+                    {item}
+                  </li>
+                ))}
+              </motion.ul>
+            </motion.div>
+
+            {/* Tarjeta de ejemplo */}
+            <motion.div
+              initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
+              className="rounded-3xl p-7"
+              style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,76,0.7)" }}>Índice Food·Mood</p>
+                  <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.3)" }}>21 días · Reto antiinflamatorio</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-serif text-4xl font-black" style={{ color: "#C9A84C" }}>74</p>
+                  <p className="text-[10px] font-light" style={{ color: "rgba(201,168,76,0.5)" }}>/ 100</p>
+                </div>
+              </div>
+
+              {/* Mini gráfica SVG */}
+              <div className="mb-5">
+                <svg viewBox="0 0 280 80" className="w-full" preserveAspectRatio="none" aria-label="Evolución del índice Food·Mood en 21 días">
+                  {/* Grid lines */}
+                  {[20, 40, 60].map(y => (
+                    <line key={y} x1="0" y1={y} x2="280" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+                  ))}
+                  {/* Area fill */}
+                  <defs>
+                    <linearGradient id="fmGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#C9A84C" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M0,68 C20,66 30,60 50,55 C70,50 80,58 100,50 C120,42 130,38 150,35 C170,32 180,28 200,24 C220,20 240,18 260,12 L280,8 L280,80 L0,80 Z"
+                    fill="url(#fmGrad)"
+                  />
+                  {/* Line */}
+                  <path
+                    d="M0,68 C20,66 30,60 50,55 C70,50 80,58 100,50 C120,42 130,38 150,35 C170,32 180,28 200,24 C220,20 240,18 260,12 L280,8"
+                    fill="none" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round"
+                  />
+                  {/* End dot */}
+                  <circle cx="280" cy="8" r="4" fill="#C9A84C" />
+                </svg>
+                <div className="flex justify-between mt-1">
+                  <span className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.25)" }}>Día 1</span>
+                  <span className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.25)" }}>Día 21</span>
+                </div>
+              </div>
+
+              {/* Comparativa inicio/fin */}
+              <div className="grid grid-cols-3 gap-3">
+                <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                  <p className="text-[10px] font-light mb-1" style={{ color: "rgba(245,240,232,0.35)" }}>Inicio</p>
+                  <p className="font-serif text-2xl font-black" style={{ color: "rgba(201,168,76,0.45)" }}>37</p>
+                </div>
+                <div className="rounded-2xl p-4 text-center flex flex-col items-center justify-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                  <p className="font-serif text-xl font-black" style={{ color: "#C9A84C" }}>+37</p>
+                  <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(201,168,76,0.5)" }}>puntos</p>
+                </div>
+                <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)" }}>
+                  <p className="text-[10px] font-light mb-1" style={{ color: "rgba(201,168,76,0.6)" }}>Hoy</p>
+                  <p className="font-serif text-2xl font-black" style={{ color: "#C9A84C" }}>74</p>
+                </div>
+              </div>
+
+              {/* Insight */}
+              <div className="mt-4 rounded-2xl px-4 py-3" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.45)" }}>
+                  <span className="font-semibold" style={{ color: "rgba(245,240,232,0.7)" }}>Patrón detectado:</span>{" "}
+                  los días que comes chucrut o kéfir, tu índice sube una media de 8 puntos al día siguiente.
+                </p>
+              </div>
+
+              <p className="text-center text-[10px] font-light mt-5" style={{ color: "rgba(245,240,232,0.2)" }}>
+                Ejemplo basado en datos reales de usuarias del reto antiinflamatorio
+              </p>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── 4b. ECOSISTEMA / INTEGRACIONES ──────────────────────────────────── */}
       <section aria-label="Disponible en todos tus dispositivos" className="py-12 px-6 bg-white border-y" style={{ borderColor: "rgba(107,39,55,0.06)" }}>
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
