@@ -10,19 +10,27 @@ export async function POST(req: NextRequest) {
   const { challenge_id } = await req.json()
   if (!challenge_id) return NextResponse.json({ error: 'challenge_id requerido' }, { status: 400 })
 
-  const [{ data: enrollment }, { data: challenge }] = await Promise.all([
+  const [enrollmentResult, challengeResult] = await Promise.all([
     supabase
       .from('user_challenges')
       .select('*')
       .eq('user_id', user.id)
       .eq('challenge_id', challenge_id)
-      .single(),
+      .maybeSingle(),
     supabase
       .from('challenges')
       .select('id, title, duration_days, slug')
       .eq('id', challenge_id)
-      .single(),
+      .maybeSingle(),
   ])
+
+  if (enrollmentResult.error || challengeResult.error) {
+    console.error('complete-day DB error', enrollmentResult.error ?? challengeResult.error)
+    return NextResponse.json({ error: 'Error de base de datos' }, { status: 500 })
+  }
+
+  const enrollment = enrollmentResult.data
+  const challenge  = challengeResult.data
 
   if (!enrollment || !challenge) {
     return NextResponse.json({ error: 'Inscripción no encontrada' }, { status: 404 })
@@ -63,7 +71,7 @@ export async function POST(req: NextRequest) {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
   // Completion email (non-blocking)
-  if (isCompleted && user.email) {
+  if (isCompleted && user.email && process.env.RESEND_API_KEY) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY)
       const indexStart  = (enrollment.fm_index_start as number | null) ?? 0

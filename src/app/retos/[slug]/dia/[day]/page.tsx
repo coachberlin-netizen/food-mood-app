@@ -5,11 +5,12 @@ import DiaPageClient from './DiaPageClient'
 export const dynamic = 'force-dynamic'
 
 interface Props {
-  params: { slug: string; day: string }
+  params: Promise<{ slug: string; day: string }>
 }
 
 export default async function DiaPage({ params }: Props) {
-  const dayNumber = parseInt(params.day, 10)
+  const { slug, day } = await params
+  const dayNumber = parseInt(day, 10)
   if (isNaN(dayNumber) || dayNumber < 1) notFound()
 
   const supabase = await createClient()
@@ -19,8 +20,8 @@ export default async function DiaPage({ params }: Props) {
   const { data: challenge } = await supabase
     .from('challenges')
     .select('id, slug, title, color, emoji, duration_days')
-    .eq('slug', params.slug)
-    .single()
+    .eq('slug', slug)
+    .maybeSingle()
 
   if (!challenge) notFound()
 
@@ -31,12 +32,12 @@ export default async function DiaPage({ params }: Props) {
     .eq('challenge_id', challenge.id)
     .maybeSingle()
 
-  if (!enrollment?.paid) redirect(`/retos/${params.slug}`)
+  if (!enrollment?.paid) redirect(`/retos/${slug}`)
 
   const currentDay = enrollment.current_day as number
 
   if (dayNumber > currentDay) {
-    redirect(`/retos/${params.slug}/dia/${currentDay}`)
+    redirect(`/retos/${slug}/dia/${currentDay}`)
   }
 
   const { data: dayContent } = await supabase

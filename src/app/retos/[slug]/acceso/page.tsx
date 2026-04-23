@@ -5,11 +5,14 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
 interface Props {
-  params:       { slug: string }
-  searchParams: { session_id?: string }
+  params:       Promise<{ slug: string }>
+  searchParams: Promise<{ session_id?: string }>
 }
 
 export default async function AccesoPage({ params, searchParams }: Props) {
+  const { slug }       = await params
+  const { session_id } = await searchParams
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -18,8 +21,8 @@ export default async function AccesoPage({ params, searchParams }: Props) {
   const { data: reto } = await supabase
     .from('challenges')
     .select('id, title')
-    .eq('slug', params.slug)
-    .single()
+    .eq('slug', slug)
+    .maybeSingle()
 
   if (!reto) redirect('/retos')
 
@@ -31,12 +34,11 @@ export default async function AccesoPage({ params, searchParams }: Props) {
     .eq('status', 'active')
     .maybeSingle()
 
-  // Si el webhook aún no llegó, redirigir de vuelta con un delay
-  if (!purchase && searchParams.session_id) {
-    redirect(`/retos/${params.slug}/acceso/procesando?session_id=${searchParams.session_id}`)
+  if (!purchase && session_id) {
+    redirect(`/retos/${slug}/acceso/procesando?session_id=${session_id}`)
   }
 
-  if (!purchase) redirect(`/retos/${params.slug}`)
+  if (!purchase) redirect(`/retos/${slug}`)
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6"
@@ -67,7 +69,7 @@ export default async function AccesoPage({ params, searchParams }: Props) {
         </div>
 
         <Link
-          href={`/retos/${params.slug}`}
+          href={`/retos/${slug}`}
           className="block w-full py-3.5 rounded-xl text-[15px] font-semibold text-center no-underline"
           style={{ background: '#6B2737', color: '#F5F0E8' }}
         >

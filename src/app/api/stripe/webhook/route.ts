@@ -38,15 +38,15 @@ export async function POST(req: NextRequest) {
   }
 
   // Initialize Supabase Admin
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.RECETAS_SUPABASE_KEY
+  if (!serviceKey) {
+    console.error('❌ SUPABASE_SERVICE_ROLE_KEY not configured')
+    return NextResponse.json({ error: 'Configuration error' }, { status: 500 })
+  }
   const supabaseAdmin = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.RECETAS_SUPABASE_KEY!,
-    {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false
-      }
-    }
+    serviceKey,
+    { auth: { autoRefreshToken: false, persistSession: false } }
   )
 
   // Handle the event
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
         }
 
         // ── Telegram: generate one-time invite link ────────────────────────
-        if (isTelegramConfigured() && customerEmail && session.metadata?.type !== 'challenge') {
+        if (isTelegramConfigured() && customerEmail && session.metadata?.type !== 'challenge' && process.env.RESEND_API_KEY) {
           try {
             const inviteLink = await createInviteLink(`premium-${userId.slice(0, 8)}`)
             await supabaseAdmin
