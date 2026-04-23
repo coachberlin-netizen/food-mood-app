@@ -250,57 +250,60 @@ export default function ProfilePage() {
           </section>
 
           {/* BETA / ACCESO VIP */}
-          {betaStatus !== 'ok' && (
-            <section className="space-y-6">
-              <div className="flex items-center gap-4">
-                <Gift className="w-5 h-5 text-aubergine-dark/50" />
-                <h2 className="text-3xl font-serif text-aubergine-dark">Código de acceso</h2>
-              </div>
-              <div className="bg-cream rounded-xl p-8 shadow-luxury border border-aubergine-dark/20 space-y-5">
-                <p className="text-sm text-aubergine-dark/60 font-light leading-relaxed">
-                  ¿Tienes un código beta o de influencer? Introdúcelo aquí para activar el acceso premium.
-                </p>
-                <div className="flex gap-3">
-                  <input
-                    type="text"
-                    value={betaCode}
-                    onChange={e => setBetaCode(e.target.value)}
-                    placeholder="Introduce tu código"
-                    className="flex-1 border border-aubergine-dark/20 rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/40 uppercase tracking-widest"
-                  />
-                  <button
-                    disabled={betaStatus === 'loading' || !betaCode.trim()}
-                    onClick={async () => {
-                      setBetaStatus('loading'); setBetaMsg('');
-                      try {
-                        const res = await fetch('/api/beta/redeem', {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ code: betaCode }),
-                        });
-                        const json = await res.json();
-                        if (res.ok) {
-                          setBetaStatus('ok');
-                          setBetaMsg('¡Acceso premium activado! Recarga la página.');
-                        } else {
+          <section className="space-y-6">
+            <div className="flex items-center gap-4">
+              <Gift className="w-5 h-5 text-aubergine-dark/50" />
+              <h2 className="text-3xl font-serif text-aubergine-dark">Código de acceso</h2>
+            </div>
+            <div className="bg-cream rounded-xl p-8 shadow-luxury border border-aubergine-dark/20 space-y-5">
+              {betaStatus === 'ok' ? (
+                <p className="text-sm text-green-700 font-medium">✓ {betaMsg}</p>
+              ) : (
+                <>
+                  <p className="text-sm text-aubergine-dark/60 font-light leading-relaxed">
+                    ¿Tienes un código beta o de influencer? Introdúcelo aquí para activar el acceso premium.
+                  </p>
+                  <div className="flex gap-3">
+                    <input
+                      type="text"
+                      value={betaCode}
+                      onChange={e => setBetaCode(e.target.value)}
+                      placeholder="Introduce tu código"
+                      className="flex-1 border border-aubergine-dark/20 rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/40 uppercase tracking-widest"
+                    />
+                    <button
+                      disabled={betaStatus === 'loading' || !betaCode.trim()}
+                      onClick={async () => {
+                        setBetaStatus('loading'); setBetaMsg('');
+                        try {
+                          const res = await fetch('/api/beta/redeem', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ code: betaCode }),
+                          });
+                          const json = await res.json();
+                          if (res.ok) {
+                            setBetaStatus('ok');
+                            setBetaMsg('¡Acceso premium activado! Recarga la página.');
+                          } else {
+                            setBetaStatus('error');
+                            setBetaMsg(json.error ?? 'Error desconocido.');
+                          }
+                        } catch {
                           setBetaStatus('error');
-                          setBetaMsg(json.error ?? 'Error desconocido.');
+                          setBetaMsg('Error de conexión.');
                         }
-                      } catch {
-                        setBetaStatus('error');
-                        setBetaMsg('Error de conexión.');
-                      }
-                    }}
-                    className="px-5 py-3 rounded-full bg-[#6B2737] text-white text-sm font-semibold hover:bg-[#5a2030] transition-colors disabled:opacity-40 shrink-0"
-                  >
-                    {betaStatus === 'loading' ? '…' : 'Canjear'}
-                  </button>
-                </div>
-                {betaStatus === 'ok'    && <p className="text-sm text-green-700 font-medium">✓ {betaMsg}</p>}
-                {betaStatus === 'error' && <p className="text-sm text-red-600">{betaMsg}</p>}
-              </div>
-            </section>
-          )}
+                      }}
+                      className="px-5 py-3 rounded-full bg-[#6B2737] text-white text-sm font-semibold hover:bg-[#5a2030] transition-colors disabled:opacity-40 shrink-0"
+                    >
+                      {betaStatus === 'loading' ? '…' : 'Canjear'}
+                    </button>
+                  </div>
+                  {betaStatus === 'error' && <p className="text-sm text-red-600">{betaMsg}</p>}
+                </>
+              )}
+            </div>
+          </section>
 
           {/* 5b. WHATSAPP OPT-IN */}
           <section className="space-y-6">
