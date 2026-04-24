@@ -1,6 +1,8 @@
 import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
+import { isUserAdmin } from '@/lib/admin-config'
+import { getPremiumStatus } from '@/lib/premium'
 import { NextRequest, NextResponse } from 'next/server'
 
 /**
@@ -34,6 +36,17 @@ export async function POST(req: NextRequest) {
     const protocol = req.headers.get('x-forwarded-proto') || 'http'
     const host = req.headers.get('host') || 'localhost:3000'
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`
+
+    // Admin / beta / influencer bypass — activate premium directly without Stripe
+    if (user) {
+      const hasFreeAccess = isUserAdmin(user) || await getPremiumStatus(supabase, user.id)
+      if (hasFreeAccess) {
+        await supabase
+          .from('profiles')
+          .upsert({ id: user.id, is_premium: true, premium_level: 1, updated_at: new Date().toISOString() }, { onConflict: 'id' })
+        return NextResponse.json({ url: `${baseUrl}/dashboard` })
+      }
+    }
 
     // Build session params — works for both authenticated and guest users
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
