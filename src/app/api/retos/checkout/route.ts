@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
   const { data: challenge, error: challengeErr } = await supabase
     .from('challenges')
-    .select('id, slug, title, subtitle, price_eur')
+    .select('id, slug, title, subtitle, price_eur, stripe_price_id')
     .eq('id', challenge_id)
     .eq('is_active', true)
     .single()
@@ -31,10 +31,9 @@ export async function POST(req: NextRequest) {
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://food-mood.app'
 
-  const session = await stripe.checkout.sessions.create({
-    mode: 'payment',
-    line_items: [
-      {
+  const lineItem = challenge.stripe_price_id
+    ? { price: challenge.stripe_price_id, quantity: 1 }
+    : {
         price_data: {
           currency: 'eur',
           product_data: {
@@ -44,8 +43,11 @@ export async function POST(req: NextRequest) {
           unit_amount: Math.round((challenge.price_eur as number) * 100),
         },
         quantity: 1,
-      },
-    ],
+      }
+
+  const session = await stripe.checkout.sessions.create({
+    mode: 'payment',
+    line_items: [lineItem],
     success_url:           `${appUrl}/retos/${challenge.slug}?success=true`,
     cancel_url:            `${appUrl}/retos/${challenge.slug}`,
     client_reference_id:   user.id,
