@@ -12,9 +12,8 @@ export async function POST(req: NextRequest) {
 
   const received = (code ?? '').trim().toLowerCase()
   const expected = validCode.trim().toLowerCase()
-  console.log('[beta/redeem] received:', JSON.stringify(received), 'expected:', JSON.stringify(expected))
   if (!code || received !== expected) {
-    return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
+    return NextResponse.json({ error: `Código incorrecto. Recibido: "${received}" (${received.length} chars) · Esperado: ${expected.length} chars` }, { status: 400 })
   }
 
   const supabase = await createClient()
