@@ -25,7 +25,7 @@ export function Header() {
   }, [])
 
   const [isPremium, setIsPremium] = React.useState(false)
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+  const [isAuthenticated, setIsAuthenticated] = React.useState<boolean | null>(null)
 
   React.useEffect(() => {
     async function checkStatus() {
@@ -63,7 +63,7 @@ export function Header() {
         <div className="flex items-center justify-start flex-1">
           <MobileNav isAuthenticated={isAuthenticated} isPremium={isPremium} />
           {/* Authenticated nav: full feature set */}
-          {isAuthenticated ? (
+          {isAuthenticated === true ? (
             <nav className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
                 Home
@@ -152,7 +152,7 @@ export function Header() {
         </Link>
         
         <div className="flex flex-1 items-center justify-end gap-3">
-          {!isAuthenticated && (
+          {isAuthenticated === false && (
             <>
               <Link
                 href="/auth/login"
@@ -206,7 +206,7 @@ export function Header() {
                   boxShadow: "0 8px 32px rgba(0,0,0,0.45)"
                 }}
               >
-                {!isAuthenticated ? (
+                {isAuthenticated === false ? (
                   <div className="px-2 py-1">
                     <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}
                       className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors">
