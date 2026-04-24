@@ -10,10 +10,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Función no disponible.' }, { status: 503 })
   }
 
-  const received = (code ?? '').trim().toLowerCase()
-  const expected = validCode.trim().toLowerCase()
+  const received = (code ?? '').replace(/\s/g, '').toLowerCase()
+  const expected = validCode.replace(/\s/g, '').toLowerCase()
   if (!code || received !== expected) {
-    return NextResponse.json({ error: `Código incorrecto. Recibido: "${received}" (${received.length} chars) · Esperado: ${expected.length} chars` }, { status: 400 })
+    return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
 
   const supabase = await createClient()
