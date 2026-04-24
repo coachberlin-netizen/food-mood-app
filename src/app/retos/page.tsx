@@ -190,7 +190,7 @@ function ChallengeCard({
         <Link
           href={`/retos/${challenge.slug}`}
           className="block text-center py-3 rounded-full text-sm font-bold text-white transition-all hover:opacity-90 mt-auto"
-          style={{ backgroundColor: '#6B2737' }}
+          style={{ backgroundColor: '#E8703A' }}
         >
           Ver contenido completo →
         </Link>

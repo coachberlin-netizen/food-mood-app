@@ -241,6 +241,10 @@ function FAQSection({ accentColor, slug }: { accentColor: string; slug: string }
   )
 }
 
+// Warm amber-orange: high contrast on both dark (#2d0f16) and cream backgrounds,
+// signals immediate action without blending into the reto's own accent color.
+const CTA_BUY = '#E8703A'
+
 function hexToRgb(hex: string) {
   const r = parseInt(hex.slice(1, 3), 16)
   const g = parseInt(hex.slice(3, 5), 16)
@@ -817,7 +821,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               onClick={handleCheckout}
               disabled={isPending}
               className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
-              style={{ backgroundColor: challenge.color }}
+              style={{ backgroundColor: CTA_BUY }}
             >
               {isPending ? 'Procesando…' : enrollment ? 'Completar pago →' : 'Empezar mi reto →'}
             </button>
@@ -850,7 +854,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             onClick={handleCheckout}
             disabled={isPending}
             className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50 shadow-lg"
-            style={{ backgroundColor: challenge.color }}
+            style={{ backgroundColor: CTA_BUY }}
           >
             {isPending ? 'Procesando…' : `Empezar mi reto · ${challenge.price_eur}€ →`}
           </button>
