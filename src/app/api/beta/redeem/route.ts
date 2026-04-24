@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Función no disponible.' }, { status: 503 })
   }
 
-  const received = (code ?? '').replace(/\s/g, '').toLowerCase()
-  const expected = validCode.replace(/\s/g, '').toLowerCase()
+  const received = (code ?? '').replace(/[^a-z0-9]/gi, '').toLowerCase()
+  const expected = validCode.replace(/[^a-z0-9]/gi, '').toLowerCase()
   if (!code || received !== expected) {
     return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
