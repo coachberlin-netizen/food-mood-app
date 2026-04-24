@@ -30,7 +30,33 @@ const PREMIUM_FEATURES = [
 export default function PricingClient({ initialIsPremium, initialIsAuthenticated }: { initialIsPremium: boolean; initialIsAuthenticated: boolean }) {
   const [isPremium] = useState(initialIsPremium);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [betaCode,   setBetaCode]   = useState('');
+  const [betaStatus, setBetaStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
+  const [betaMsg,    setBetaMsg]    = useState('');
   const router = useRouter();
+
+  async function handleBetaRedeem() {
+    if (!initialIsAuthenticated) {
+      router.push('/auth/login?redirect=/pricing')
+      return
+    }
+    if (!betaCode.trim()) return
+    setBetaStatus('loading')
+    try {
+      const res = await fetch('/api/beta/redeem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: betaCode.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) { setBetaStatus('error'); setBetaMsg(data.error ?? 'Código incorrecto.'); return }
+      setBetaStatus('ok')
+      setBetaMsg('¡Acceso activado! Ya tienes acceso premium completo.')
+    } catch {
+      setBetaStatus('error')
+      setBetaMsg('Error de conexión. Inténtalo de nuevo.')
+    }
+  }
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
     const priceId = plan === "quarterly"
@@ -202,7 +228,51 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
           </div>
         </motion.div>
 
-        <div className="flex items-start gap-3 mt-16 text-aubergine-dark/25 text-xs max-w-2xl mx-auto"><BookOpen className="w-4 h-4 shrink-0 mt-0.5" /><p className="leading-relaxed font-light">Food·Mood recomienda recetas y alimentos funcionales basados en divulgación científica. No ofrece diagnóstico, tratamiento ni terapia.</p></div>
+        {/* ── Código beta / influencer ── */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}
+          className="max-w-md mx-auto mt-14 mb-6 text-center">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/30 mb-3">
+            ¿Tienes un código de acceso?
+          </p>
+          {betaStatus === 'ok' ? (
+            <p className="text-sm font-medium text-green-700">✓ {betaMsg}</p>
+          ) : (
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={betaCode}
+                onChange={e => setBetaCode(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && handleBetaRedeem()}
+                placeholder={initialIsAuthenticated ? 'Código beta o influencer' : 'Inicia sesión para canjear'}
+                disabled={!initialIsAuthenticated || betaStatus === 'loading'}
+                className="flex-1 px-4 py-2.5 rounded-xl border border-aubergine-dark/15 bg-cream text-sm text-aubergine-dark placeholder:text-aubergine-dark/25 focus:outline-none focus:border-aubergine-dark/35 disabled:opacity-50"
+              />
+              {initialIsAuthenticated ? (
+                <button
+                  type="button"
+                  onClick={handleBetaRedeem}
+                  disabled={betaStatus === 'loading' || !betaCode.trim()}
+                  className="px-4 py-2.5 rounded-xl bg-aubergine-dark text-cream text-sm font-semibold disabled:opacity-40 hover:bg-aubergine-dark/90 transition-colors whitespace-nowrap"
+                >
+                  {betaStatus === 'loading' ? '…' : 'Canjear'}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => router.push('/auth/login?redirect=/pricing')}
+                  className="px-4 py-2.5 rounded-xl bg-aubergine-dark text-cream text-sm font-semibold hover:bg-aubergine-dark/90 transition-colors whitespace-nowrap"
+                >
+                  Entrar →
+                </button>
+              )}
+            </div>
+          )}
+          {betaStatus === 'error' && (
+            <p className="text-xs text-red-600 mt-2">{betaMsg}</p>
+          )}
+        </motion.div>
+
+        <div className="flex items-start gap-3 mt-6 text-aubergine-dark/25 text-xs max-w-2xl mx-auto"><BookOpen className="w-4 h-4 shrink-0 mt-0.5" /><p className="leading-relaxed font-light">Food·Mood recomienda recetas y alimentos funcionales basados en divulgación científica. No ofrece diagnóstico, tratamiento ni terapia.</p></div>
       </div>
     </div>
   );
