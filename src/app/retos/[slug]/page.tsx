@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { isUserAdmin } from '@/lib/admin-config'
+import { getPremiumStatus } from '@/lib/premium'
 import RetoDetailClient from './RetoDetailClient'
 
 export const dynamic = 'force-dynamic'
@@ -91,12 +93,37 @@ export default async function RetoDetailPage({ params }: PageProps) {
 
     enrollment = en
 
-    if (en?.paid && !en.completed) {
+    // Admin and premium/influencer users get free access — auto-grant paid enrollment
+    if (!enrollment?.paid) {
+      const hasFreeAccess = isUserAdmin(user) || await getPremiumStatus(supabase, user.id)
+      if (hasFreeAccess) {
+        const today = new Date().toISOString().split('T')[0]
+        await supabase
+          .from('user_challenges')
+          .upsert(
+            {
+              user_id:     user.id,
+              challenge_id: challenge.id,
+              start_date:  today,
+              paid:        true,
+              current_day: enrollment?.current_day ?? 1,
+            },
+            { onConflict: 'user_id,challenge_id' }
+          )
+        enrollment = {
+          ...(enrollment ?? { id: '', completed: false, completed_at: null, fm_index_start: null, fm_index_end: null }),
+          paid:        true,
+          current_day: enrollment?.current_day ?? 1,
+        } as typeof enrollment
+      }
+    }
+
+    if (enrollment?.paid && !enrollment.completed) {
       const { data: day } = await supabase
         .from('challenge_days')
         .select('*')
         .eq('challenge_id', challenge.id)
-        .eq('day_number', en.current_day)
+        .eq('day_number', enrollment.current_day)
         .maybeSingle()
 
       todayContent = day

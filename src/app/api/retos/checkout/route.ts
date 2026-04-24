@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { isUserAdmin } from '@/lib/admin-config'
+import { getPremiumStatus } from '@/lib/premium'
 import { stripe } from '@/lib/stripe'
 
 export async function POST(req: NextRequest) {
@@ -21,15 +23,34 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Reto no encontrado' }, { status: 404 })
   }
 
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://food-mood.app'
+  const today  = new Date().toISOString().split('T')[0]
+
+  // Admin and premium/influencer users bypass Stripe — enroll directly
+  const hasFreeAccess = isUserAdmin(user) || await getPremiumStatus(supabase, user.id)
+  if (hasFreeAccess) {
+    const { data: existing } = await supabase
+      .from('user_challenges')
+      .select('current_day')
+      .eq('user_id', user.id)
+      .eq('challenge_id', challenge_id)
+      .maybeSingle()
+    await supabase
+      .from('user_challenges')
+      .upsert(
+        { user_id: user.id, challenge_id, start_date: today, paid: true, current_day: existing?.current_day ?? 1 },
+        { onConflict: 'user_id,challenge_id' }
+      )
+    return NextResponse.json({ url: `${appUrl}/retos/${challenge.slug}/dia/${existing?.current_day ?? 1}` })
+  }
+
   // Ensure enrollment exists (idempotent)
   await supabase
     .from('user_challenges')
     .upsert(
-      { user_id: user.id, challenge_id, start_date: new Date().toISOString().split('T')[0] },
+      { user_id: user.id, challenge_id, start_date: today },
       { onConflict: 'user_id,challenge_id', ignoreDuplicates: true }
     )
-
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://food-mood.app'
 
   const lineItem = challenge.stripe_price_id
     ? { price: challenge.stripe_price_id, quantity: 1 }
