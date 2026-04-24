@@ -10,7 +10,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Función no disponible.' }, { status: 503 })
   }
 
-  if (!code || code.trim().toLowerCase() !== validCode.trim().toLowerCase()) {
+  const received = (code ?? '').trim().toLowerCase()
+  const expected = validCode.trim().toLowerCase()
+  console.log('[beta/redeem] received:', JSON.stringify(received), 'expected:', JSON.stringify(expected))
+  if (!code || received !== expected) {
     return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
 
