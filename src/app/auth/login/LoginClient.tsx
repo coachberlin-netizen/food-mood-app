@@ -49,14 +49,21 @@ function LoginForm() {
 
       if (signInError) {
         if (signInError.message.includes("Email not confirmed")) {
-          setError(
-            "Revisa tu email para confirmar tu cuenta. ¿No lo recibiste? "
-          );
-          // Special case handled in the UI with a resend button
+          setError("Revisa tu email para confirmar tu cuenta. ¿No lo recibiste? ");
           setLoading(false);
           return;
         }
-        setError(signInError.message);
+        if (signInError.message.includes("Invalid login credentials") || signInError.message.includes("invalid_credentials")) {
+          setError("Email o contraseña incorrectos. ¿No tienes cuenta? Regístrate más abajo.");
+          setLoading(false);
+          return;
+        }
+        if (signInError.message.includes("Too many requests") || signInError.message.includes("rate limit")) {
+          setError("Demasiados intentos. Espera unos minutos y vuelve a intentarlo.");
+          setLoading(false);
+          return;
+        }
+        setError("Error al iniciar sesión. Inténtalo de nuevo.");
         setLoading(false);
         return;
       }
@@ -183,9 +190,10 @@ function LoginForm() {
             </button>
           </form>
 
-          <p className="text-center text-aubergine-dark/60 text-sm mt-8 border-t border-aubergine-dark/5 pt-8">
-            ¿No eres miembro? <Link href="/pricing" className="font-bold text-aubergine-dark hover:underline">Ver planes y acceder</Link>
-          </p>
+          <div className="mt-8 border-t border-aubergine-dark/5 pt-8 space-y-2 text-center text-sm text-aubergine-dark/60">
+            <p>¿No tienes cuenta? <Link href="/auth/register" className="font-bold text-aubergine-dark hover:underline">Crear cuenta gratis →</Link></p>
+            <p>¿Tienes un código beta? <Link href="/pricing#codigo" className="font-bold text-aubergine-dark hover:underline">Canjéalo en planes</Link></p>
+          </div>
         </div>
       </div>
     </div>
