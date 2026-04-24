@@ -1,14 +1,62 @@
 "use client";
 
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Suspense } from "react";
-import { Lock, Sparkles } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
-function RegisterGate() {
+function RegisterForm() {
+  const [email,    setEmail]    = useState("");
+  const [password, setPassword] = useState("");
+  const [name,     setName]     = useState("");
+  const [error,    setError]    = useState("");
+  const [success,  setSuccess]  = useState(false);
+  const [loading,  setLoading]  = useState(false);
+  const router      = useRouter();
+  const searchParams = useSearchParams();
+  const supabase    = createClient();
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    if (password.length < 6) {
+      setError("La contraseña debe tener al menos 6 caracteres.");
+      setLoading(false);
+      return;
+    }
+
+    const { error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { name: name || email.split("@")[0] },
+      },
+    });
+
+    if (signUpError) {
+      if (signUpError.message.includes("already registered") || signUpError.message.includes("User already registered")) {
+        setError("Este email ya tiene cuenta. ¿Olvidaste tu contraseña?");
+      } else {
+        setError("Error al crear la cuenta. Inténtalo de nuevo.");
+      }
+      setLoading(false);
+      return;
+    }
+
+    const redirect = searchParams.get("redirect") || "/pricing";
+    setSuccess(true);
+    setLoading(false);
+
+    // If email confirmation is disabled in Supabase, redirect directly
+    setTimeout(() => router.replace(redirect), 2000);
+  };
+
   return (
     <div className="min-h-screen bg-aubergine-dark flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C9A84C]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cream/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-cream/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
       <div className="w-full max-w-md z-10">
@@ -18,31 +66,79 @@ function RegisterGate() {
           </Link>
         </div>
 
-        <div className="bg-cream rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full text-center relative overflow-hidden">
-          <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#C9A84C]/40 via-[#C9A84C] to-[#C9A84C]/40" />
-          
-          <div className="flex justify-center mb-6">
-             <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 flex items-center justify-center border border-[#C9A84C]/20">
-               <Lock className="w-6 h-6 text-[#C9A84C]" />
-             </div>
-          </div>
+        <div className="bg-cream rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full">
+          <h1 className="text-2xl font-serif font-bold text-aubergine-dark mb-2 text-center">Crear cuenta</h1>
+          <p className="text-aubergine-dark/60 text-center text-sm mb-6">Empieza gratis. Profundiza cuando quieras.</p>
 
-          <h1 className="text-2xl font-serif font-bold text-aubergine-dark mb-4">Acceso Exclusivo</h1>
-          <p className="text-aubergine-dark/60 text-sm mb-8 leading-relaxed">
-            La creación de perfiles está reservada para miembros activos del Club Food·Mood. Para configurar tu cuenta y obtener tu recetario personalizado, primero debes adquirir un plan.
-          </p>
+          {success ? (
+            <div className="p-4 rounded-xl text-sm text-center bg-green-50 text-green-700 border border-green-100">
+              ✓ Cuenta creada. Redirigiendo…
+            </div>
+          ) : (
+            <>
+              {error && (
+                <div className="p-4 rounded-xl text-sm mb-6 text-center bg-red-50 text-red-600 border border-red-100">
+                  {error}
+                  {error.includes("contraseña") && (
+                    <Link href="/auth/forgot-password" className="block mt-2 font-bold underline">
+                      Recuperar contraseña →
+                    </Link>
+                  )}
+                </div>
+              )}
 
-          <Link href="/pricing" className="w-full bg-[#C9A84C] text-white hover:bg-[#b8953e] py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex justify-center items-center gap-2">
-             <Sparkles className="w-4 h-4" /> Ver Planes y Suscribirse
-          </Link>
+              <form onSubmit={handleRegister} className="space-y-5">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-2">Nombre (opcional)</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-aubergine/20 transition-all font-medium text-aubergine-dark"
+                    placeholder="Tu nombre"
+                  />
+                </div>
 
-          <p className="text-center text-aubergine-dark/40 text-[11px] mt-8 pt-6 border-t border-aubergine-dark/5">
-            ¿Acabas de pagar y no tienes contraseña? Revisa el enlace en tu correo electrónico de bienvenida.
-          </p>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-2">Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    required
+                    className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-aubergine/20 transition-all font-medium text-aubergine-dark"
+                    placeholder="tu@email.com"
+                  />
+                </div>
 
-          <p className="text-center text-aubergine-dark/60 text-sm mt-4">
-            ¿Ya tienes cuenta? <Link href="/auth/login" className="font-bold text-aubergine-dark hover:underline">Iniciar sesión</Link>
-          </p>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest text-aubergine-dark/50 mb-2">Contraseña</label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-aubergine/20 transition-all font-medium text-aubergine-dark"
+                    placeholder="Mínimo 6 caracteres"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-aubergine-dark text-white hover:bg-aubergine-dark/90 py-4 rounded-xl font-bold shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2 mt-4 disabled:opacity-70"
+                >
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Crear cuenta <ArrowRight className="w-4 h-4" /></>}
+                </button>
+              </form>
+
+              <div className="mt-8 border-t border-aubergine-dark/5 pt-8 space-y-2 text-center text-sm text-aubergine-dark/60">
+                <p>¿Ya tienes cuenta? <Link href="/auth/login" className="font-bold text-aubergine-dark hover:underline">Iniciar sesión</Link></p>
+                <p>¿Tienes código beta? <Link href="/pricing" className="font-bold text-aubergine-dark hover:underline">Canjéalo en planes</Link></p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -52,7 +148,7 @@ function RegisterGate() {
 export default function RegisterPage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-aubergine-dark" />}>
-      <RegisterGate />
+      <RegisterForm />
     </Suspense>
   );
 }
