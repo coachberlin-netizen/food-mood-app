@@ -151,7 +151,23 @@ export function Header() {
           </span>
         </Link>
         
-        <div className="flex flex-1 items-center justify-end">
+        <div className="flex flex-1 items-center justify-end gap-3">
+          {!isAuthenticated && (
+            <>
+              <Link
+                href="/auth/login"
+                className="hidden md:inline-flex text-sm font-medium text-cream/70 hover:text-cream transition-colors"
+              >
+                Entrar
+              </Link>
+              <Link
+                href="/auth/register"
+                className="hidden md:inline-flex px-4 py-2 rounded-full text-sm font-semibold text-aubergine-dark bg-cream hover:bg-cream/90 transition-colors"
+              >
+                Crear cuenta
+              </Link>
+            </>
+          )}
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -190,6 +206,19 @@ export function Header() {
                   boxShadow: "0 8px 32px rgba(0,0,0,0.45)"
                 }}
               >
+                {!isAuthenticated ? (
+                  <div className="px-2 py-1">
+                    <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors">
+                      Entrar
+                    </Link>
+                    <Link href="/auth/register" onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-[#C9A84C] hover:bg-white/5 transition-colors">
+                      Crear cuenta gratis →
+                    </Link>
+                  </div>
+                ) : (
+                <>
                 <div className="px-2 pb-2 mb-2 border-b border-[#C9A84C]/15">
                   <p className="text-[10px] uppercase tracking-widest text-cream/40 px-3 py-1">Mi cuenta</p>
                 </div>
@@ -232,6 +261,8 @@ export function Header() {
                   <LogOut className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
                   Cerrar sesión
                 </button>
+                </>
+                )}
               </div>
             )}
           </div>
