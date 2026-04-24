@@ -4,15 +4,24 @@ import { createClient as createAdmin } from '@supabase/supabase-js'
 
 export async function POST(req: NextRequest) {
   const { code } = await req.json()
+  if (!code?.trim()) return NextResponse.json({ error: 'Código vacío.' }, { status: 400 })
 
-  const validCode = process.env.BETA_ACCESS_CODE
+  const supabaseAdmin = createAdmin(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY!,
+    { auth: { autoRefreshToken: false, persistSession: false } }
+  )
+
+  // Validate against beta_codes table (case-insensitive, strips non-alphanumeric)
+  const normalized = code.replace(/[^a-z0-9]/gi, '').toUpperCase()
+  const { data: validCode } = await supabaseAdmin
+    .from('beta_codes')
+    .select('code')
+    .eq('active', true)
+    .ilike('code', normalized)
+    .maybeSingle()
+
   if (!validCode) {
-    return NextResponse.json({ error: 'Función no disponible.' }, { status: 503 })
-  }
-
-  const received = (code ?? '').replace(/[^a-z0-9]/gi, '').toLowerCase()
-  const expected = validCode.replace(/[^a-z0-9]/gi, '').toLowerCase()
-  if (!code || received !== expected) {
     return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
 
@@ -21,12 +30,6 @@ export async function POST(req: NextRequest) {
   if (!user) {
     return NextResponse.json({ error: 'Debes iniciar sesión primero.' }, { status: 401 })
   }
-
-  const supabaseAdmin = createAdmin(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } }
-  )
 
   const { error } = await supabaseAdmin
     .from('profiles')
