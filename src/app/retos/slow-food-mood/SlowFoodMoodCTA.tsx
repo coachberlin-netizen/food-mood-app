@@ -48,6 +48,7 @@ export default function SlowFoodMoodCTA({ challenge7dId, challenge21dId, isAuthe
       <div className="flex flex-col gap-3">
         {error && <p className="text-sm" style={{ color: '#b04040' }}>{error}</p>}
         <button
+          type="button"
           onClick={() => { setPlan('21d'); handleCheckout() }}
           disabled={isPending}
           className="w-full py-4 rounded-full text-base font-bold text-[#F5F0E8] transition-opacity hover:opacity-90 disabled:opacity-50"
@@ -56,6 +57,7 @@ export default function SlowFoodMoodCTA({ challenge7dId, challenge21dId, isAuthe
           {isPending && plan === '21d' ? 'Procesando…' : 'Empezar 21 días — 29€ →'}
         </button>
         <button
+          type="button"
           onClick={() => { setPlan('7d'); handleCheckout() }}
           disabled={isPending}
           className="w-full py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-50"
@@ -72,6 +74,7 @@ export default function SlowFoodMoodCTA({ challenge7dId, challenge21dId, isAuthe
       {/* Plan selector */}
       <div className="grid grid-cols-2 gap-3">
         <button
+          type="button"
           onClick={() => setPlan('21d')}
           className="py-4 px-5 rounded-2xl text-sm font-semibold transition-all"
           style={{
@@ -84,6 +87,7 @@ export default function SlowFoodMoodCTA({ challenge7dId, challenge21dId, isAuthe
           21 días · 29€
         </button>
         <button
+          type="button"
           onClick={() => setPlan('7d')}
           className="py-4 px-5 rounded-2xl text-sm font-semibold transition-all"
           style={{
@@ -104,6 +108,7 @@ export default function SlowFoodMoodCTA({ challenge7dId, challenge21dId, isAuthe
       )}
 
       <button
+        type="button"
         onClick={handleCheckout}
         disabled={isPending}
         className="w-full py-4 rounded-full text-base font-bold transition-all hover:opacity-90 disabled:opacity-50"

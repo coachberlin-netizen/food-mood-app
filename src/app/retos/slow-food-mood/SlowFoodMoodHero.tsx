@@ -41,6 +41,13 @@ const KEYFRAMES = `
     0%, 100% { text-shadow: none; }
     50%       { text-shadow: 0 0 28px rgba(201,168,76,0.25); }
   }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 `
 
 const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789·!?.,;'
