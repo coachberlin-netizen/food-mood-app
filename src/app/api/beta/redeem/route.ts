@@ -12,8 +12,9 @@ export async function POST(req: NextRequest) {
     { auth: { autoRefreshToken: false, persistSession: false } }
   )
 
-  // Validate against beta_codes table (case-insensitive, strips non-alphanumeric)
   const normalized = code.replace(/[^a-z0-9]/gi, '').toUpperCase()
+
+  // Check Supabase table first, then fall back to env var
   const { data: validCode } = await supabaseAdmin
     .from('beta_codes')
     .select('code')
@@ -21,7 +22,10 @@ export async function POST(req: NextRequest) {
     .ilike('code', normalized)
     .maybeSingle()
 
-  if (!validCode) {
+  const envCode = (process.env.BETA_ACCESS_CODE ?? '').replace(/[^a-z0-9]/gi, '').toUpperCase()
+  const isValid = !!validCode || (envCode.length > 0 && normalized === envCode)
+
+  if (!isValid) {
     return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
 
