@@ -33,9 +33,10 @@ interface Challenge {
   audio_count:  number
   // Optional DB fields — populated when set in Supabase
   incluye?:         string[] | null
-  hitos_landing?:   Record<string, string> | null
-  al_completar?:    string | null
+  hitos_landing?:   Record<string, unknown>[] | null
+  al_completar?:    string | { titulo?: string; subtitulo?: string; cta?: string; cta_slug?: string } | null
   stripe_price_id?: string | null
+  audiencia?:       string | null
 }
 
 interface Enrollment {
@@ -692,7 +693,11 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                 Al completar
               </p>
               <p className="text-sm font-light" style={{ color: '#2d0f16' }}>
-                {challenge.al_completar ?? 'Informe personalizado: índice inicio vs. fin, síntomas mejorados, siguiente reto recomendado.'}
+                {typeof challenge.al_completar === 'string'
+                  ? challenge.al_completar
+                  : typeof challenge.al_completar === 'object' && challenge.al_completar !== null
+                  ? (challenge.al_completar.subtitulo ?? challenge.al_completar.titulo ?? 'Informe personalizado al completar.')
+                  : 'Informe personalizado: índice inicio vs. fin, síntomas mejorados, siguiente reto recomendado.'}
               </p>
             </div>
           </div>
