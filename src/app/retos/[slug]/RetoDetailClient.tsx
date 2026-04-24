@@ -245,10 +245,11 @@ function FAQSection({ accentColor, slug }: { accentColor: string; slug: string }
 // signals immediate action without blending into the reto's own accent color.
 const CTA_BUY = '#E8703A'
 
-function hexToRgb(hex: string) {
-  const r = parseInt(hex.slice(1, 3), 16)
-  const g = parseInt(hex.slice(3, 5), 16)
-  const b = parseInt(hex.slice(5, 7), 16)
+function hexToRgb(hex: string | null | undefined) {
+  const h = (hex && hex.startsWith('#') && hex.length >= 7) ? hex : '#6B2737'
+  const r = parseInt(h.slice(1, 3), 16)
+  const g = parseInt(h.slice(3, 5), 16)
+  const b = parseInt(h.slice(5, 7), 16)
   return `${r},${g},${b}`
 }
 
@@ -303,12 +304,20 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
     return () => clearInterval(poll)
   }, [isSuccess]) // eslint-disable-line
 
-  const rgb = hexToRgb(challenge.color)
+  // Field defaults — guard against incomplete DB rows
+  const color      = challenge.color        || '#6B2737'
+  const emoji      = challenge.emoji        || '🌿'
+  const priceEur   = challenge.price_eur    ?? 19
+  const durationD  = challenge.duration_days ?? 7
+  const recipeCount = challenge.recipe_count ?? 0
+  const audioCount  = challenge.audio_count  ?? 0
+
+  const rgb = hexToRgb(color)
   const pct = enrollment
-    ? Math.min(100, ((enrollment.current_day - 1) / challenge.duration_days) * 100)
+    ? Math.min(100, ((enrollment.current_day - 1) / durationD) * 100)
     : 0
 
-  const milestones = challenge.duration_days <= 7 ? SHORT_MILESTONES : MILESTONES
+  const milestones = durationD <= 7 ? SHORT_MILESTONES : MILESTONES
 
   // Show sticky CTA after user scrolls past the 50% sentinel
   useEffect(() => {
@@ -376,14 +385,14 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   if (enrollment?.paid && !enrollment.completed) {
     const currentDay  = enrollment.current_day as number
     const weekNum     = Math.ceil(currentDay / 7)
-    const totalWeeks  = Math.ceil(challenge.duration_days / 7)
-    const progressPct = Math.min(100, ((currentDay - 1) / challenge.duration_days) * 100)
+    const totalWeeks  = Math.ceil(durationD / 7)
+    const progressPct = Math.min(100, ((currentDay - 1) / durationD) * 100)
 
     return (
       <main className="min-h-screen" style={{ background: '#F5F0E8' }}>
         {/* Nav */}
         <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
-          <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: challenge.color }}>
+          <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: color }}>
             ← Ver todos los retos
           </Link>
         </div>
@@ -394,9 +403,9 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           <div className="flex items-center gap-3 mb-2">
             <div
               className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
-              style={{ background: `${challenge.color}18` }}
+              style={{ background: `${color}18` }}
             >
-              <CategoryIcon emoji={challenge.emoji} size={28} />
+              <CategoryIcon emoji={emoji} size={28} />
             </div>
             <div>
               <p className="text-[11px] font-medium uppercase tracking-widest mb-0.5" style={{ color: 'rgba(107,39,55,0.45)' }}>
@@ -414,7 +423,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               <p className="text-[11px] font-medium uppercase tracking-widest" style={{ color: 'rgba(107,39,55,0.45)' }}>
                 Progreso
               </p>
-              <span className="text-[13px] font-bold" style={{ color: challenge.color }}>
+              <span className="text-[13px] font-bold" style={{ color: color }}>
                 Semana {weekNum} de {totalWeeks}
               </span>
             </div>
@@ -423,15 +432,15 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             <div className="w-full h-2 rounded-full mb-1.5" style={{ background: 'rgba(107,39,55,0.08)' }}>
               <div
                 className="h-2 rounded-full transition-all duration-700"
-                style={{ width: `${Math.max(3, progressPct)}%`, background: challenge.color }}
+                style={{ width: `${Math.max(3, progressPct)}%`, background: color }}
               />
             </div>
             <div className="flex justify-between">
               <span className="text-[11px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Día 1</span>
               <span className="text-[13px] font-bold" style={{ color: '#2d0f16' }}>
-                Día {currentDay} <span style={{ color: 'rgba(107,39,55,0.35)', fontWeight: 400 }}>/ {challenge.duration_days}</span>
+                Día {currentDay} <span style={{ color: 'rgba(107,39,55,0.35)', fontWeight: 400 }}>/ {durationD}</span>
               </span>
-              <span className="text-[11px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Día {challenge.duration_days}</span>
+              <span className="text-[11px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Día {durationD}</span>
             </div>
 
             {/* Grid de semanas */}
@@ -444,7 +453,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                   <div className="flex gap-1">
                     {Array.from({ length: 7 }, (_, d) => {
                       const dayN = w * 7 + d + 1
-                      if (dayN > challenge.duration_days) return <span key={d} className="w-5 h-5" />
+                      if (dayN > durationD) return <span key={d} className="w-5 h-5" />
                       const isDone    = dayN < currentDay
                       const isCurrent = dayN === currentDay
                       return (
@@ -453,10 +462,10 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                           href={isDone || isCurrent ? `/retos/${challenge.slug}/dia/${dayN}` : '#'}
                           className="w-5 h-5 rounded-full flex items-center justify-center no-underline transition-transform hover:scale-110"
                           style={{
-                            background:  isDone    ? challenge.color
+                            background:  isDone    ? color
                                        : isCurrent ? 'white'
                                        : 'rgba(107,39,55,0.08)',
-                            border:      isCurrent ? `2px solid ${challenge.color}` : 'none',
+                            border:      isCurrent ? `2px solid ${color}` : 'none',
                             cursor:      isDone || isCurrent ? 'pointer' : 'default',
                           }}
                           onClick={e => { if (!isDone && !isCurrent) e.preventDefault() }}
@@ -464,7 +473,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                           {isCurrent && (
                             <span
                               className="w-2 h-2 rounded-full"
-                              style={{ background: challenge.color }}
+                              style={{ background: color }}
                             />
                           )}
                         </Link>
@@ -504,9 +513,9 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           <Link
             href={`/retos/${challenge.slug}/dia/${currentDay}`}
             className="block w-full py-4 rounded-2xl text-[16px] font-bold text-center no-underline transition-opacity hover:opacity-90"
-            style={{ background: challenge.color, color: 'white' }}
+            style={{ background: color, color: 'white' }}
           >
-            {challenge.emoji} Ir al Día {currentDay} →
+            {emoji} Ir al Día {currentDay} →
           </Link>
 
           {/* Recordatorio diario */}
@@ -524,7 +533,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                 onClick={handleEnableReminder}
                 disabled={notifState === 'loading' || notifState === 'denied'}
                 className="px-4 py-2.5 rounded-full text-sm font-bold text-white shrink-0 disabled:opacity-50"
-                style={{ background: challenge.color }}
+                style={{ background: color }}
               >
                 {notifState === 'loading' ? '…' : notifState === 'denied' ? 'Sin permisos' : 'Activar'}
               </button>
@@ -547,7 +556,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
       <main className="min-h-screen flex flex-col items-center justify-center gap-6 px-6" style={{ backgroundColor: '#F5F0E8' }}>
         <div
           className="w-14 h-14 rounded-full border-4 border-t-transparent animate-spin"
-          style={{ borderColor: `${challenge.color}40`, borderTopColor: challenge.color }}
+          style={{ borderColor: `${color}40`, borderTopColor: color }}
         />
         <div className="text-center space-y-2">
           <p className="font-serif text-xl font-bold" style={{ color: '#2d0f16' }}>Confirmando tu pago…</p>
@@ -567,7 +576,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         <div className="fixed top-20 left-0 right-0 z-50 mx-auto max-w-lg px-4">
           <div
             className="rounded-2xl px-6 py-4 text-center shadow-lg text-white font-semibold"
-            style={{ backgroundColor: challenge.color }}
+            style={{ backgroundColor: color }}
           >
             ¡Pago confirmado! Tu reto ha comenzado. Día 1 te espera.
           </div>
@@ -593,9 +602,9 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         <div className="max-w-2xl mx-auto">
           <div
             className="flex items-center justify-center rounded-3xl mx-auto mb-4"
-            style={{ width: 80, height: 80, backgroundColor: `${challenge.color}18` }}
+            style={{ width: 80, height: 80, backgroundColor: `${color}18` }}
           >
-            <CategoryIcon emoji={challenge.emoji} size={44} />
+            <CategoryIcon emoji={emoji} size={44} />
           </div>
           <h1 className="font-serif text-4xl md:text-5xl font-black mb-3 leading-tight" style={{ color: '#2d0f16' }}>
             {challenge.title}
@@ -608,9 +617,9 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <span
               className="text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white"
-              style={{ backgroundColor: challenge.color }}
+              style={{ backgroundColor: color }}
             >
-              {challenge.duration_days} días
+              {durationD} días
             </span>
             <span className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.5)' }}>
               Basado en evidencia · Seguimiento real con tu índice Food·Mood
@@ -623,7 +632,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
         {/* ── Qué incluye ── */}
         <section className="bg-white rounded-2xl p-8 shadow-sm border border-aubergine-dark/5">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-6" style={{ color: challenge.color }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-6" style={{ color: color }}>
             Qué incluye
           </p>
           {challenge.description && (
@@ -635,8 +644,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             {(challenge.incluye && challenge.incluye.length > 0
               ? challenge.incluye
               : [
-                  { emoji: '📘', label: 'libro', text: `${challenge.recipe_count} recetas ${challenge.duration_days <= 7 ? 'de reset' : '— una por día'}` },
-                  { emoji: '🎧', label: 'auriculares', text: `${challenge.audio_count} audios de apoyo` },
+                  { emoji: '📘', label: 'libro', text: `${recipeCount} recetas ${durationD <= 7 ? 'de reset' : '— una por día'}` },
+                  { emoji: '🎧', label: 'auriculares', text: `${audioCount} audios de apoyo` },
                   { emoji: '💬', label: 'comunidad', text: 'Canal privado de Telegram + comunidad WhatsApp Premium' },
                   { emoji: '📊', label: 'seguimiento', text: 'Seguimiento diario con tu índice Food·Mood' },
                   { emoji: '📋', label: 'informe', text: 'Informe final personalizado al completar' },
@@ -649,7 +658,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               return (
                 <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
                   <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs text-white"
-                    style={{ backgroundColor: challenge.color }}>✓</span>
+                    style={{ backgroundColor: color }}>✓</span>
                   {emoji && <span role="img" aria-label={emojiLabels[emoji]}>{emoji}</span>}
                   {text}
                 </li>
@@ -669,8 +678,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             {Object.entries(milestones).map(([day, label]) => (
               <div key={day} className="relative mb-6 last:mb-0">
                 <div className="absolute -left-4 top-1 w-4 h-4 rounded-full border-2 border-white"
-                  style={{ backgroundColor: challenge.color }} />
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: challenge.color }}>
+                  style={{ backgroundColor: color }} />
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: color }}>
                   Día {day}
                 </p>
                 <p className="text-sm font-light" style={{ color: '#2d0f16' }}>{label}</p>
@@ -706,7 +715,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                 </p>
                 <footer className="flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
-                    style={{ backgroundColor: challenge.color }}>
+                    style={{ backgroundColor: color }}>
                     {t.nombre[0]}
                   </span>
                   <span className="text-[11px] font-medium" style={{ color: '#2d0f16' }}>{t.nombre}</span>
@@ -731,14 +740,14 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               ¡Reto completado!
             </p>
             <p className="text-xs font-light mb-5" style={{ color: 'rgba(107,39,55,0.45)' }}>
-              {challenge.duration_days} días · {challenge.duration_days} recetas · {challenge.duration_days / 7} semanas
+              {durationD} días · {durationD} recetas · {durationD / 7} semanas
             </p>
             {enrollment.fm_index_start != null && enrollment.fm_index_end != null && (
               <div
                 className="rounded-xl px-5 py-4 mb-5 text-left"
                 style={{ backgroundColor: 'white', border: `1px solid rgba(${rgb},0.15)` }}
               >
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: challenge.color }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: color }}>
                   Tu índice Food·Mood
                 </p>
                 <div className="flex items-center gap-3">
@@ -746,7 +755,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                     {enrollment.fm_index_start}
                   </span>
                   <span className="text-sm" style={{ color: 'rgba(107,39,55,0.3)' }}>→</span>
-                  <span className="font-serif text-2xl font-black" style={{ color: challenge.color }}>
+                  <span className="font-serif text-2xl font-black" style={{ color: color }}>
                     {enrollment.fm_index_end}
                   </span>
                   {enrollment.fm_index_end > enrollment.fm_index_start && (
@@ -761,7 +770,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               <Link
                 href="/retos"
                 className="block py-3 rounded-full text-sm font-bold text-white"
-                style={{ backgroundColor: challenge.color }}
+                style={{ backgroundColor: color }}
               >
                 Ver más retos →
               </Link>
@@ -775,7 +784,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                   }
                 }}
                 className="block w-full py-3 rounded-full text-sm font-bold border-2 transition-all hover:opacity-80"
-                style={{ borderColor: challenge.color, color: challenge.color }}
+                style={{ borderColor: color, color: color }}
               >
                 Compartir mi logro →
               </button>
@@ -788,7 +797,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
         {/* ── FAQ ── */}
         {!enrollment?.paid && (
-          <FAQSection accentColor={challenge.color} slug={challenge.slug} />
+          <FAQSection accentColor={color} slug={challenge.slug} />
         )}
 
         {/* ── CTA de compra ── */}
@@ -806,10 +815,10 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             </p>
             <div className="mb-6">
               <p className="font-serif text-5xl font-black" style={{ color: '#C9A84C' }}>
-                {challenge.price_eur}€
+                {priceEur}€
               </p>
               <p className="text-xs font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                Acceso completo · {challenge.duration_days} días · Pago único
+                Acceso completo · {durationD} días · Pago único
               </p>
             </div>
 
@@ -856,7 +865,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50 shadow-lg"
             style={{ backgroundColor: CTA_BUY }}
           >
-            {isPending ? 'Procesando…' : `Empezar mi reto · ${challenge.price_eur}€ →`}
+            {isPending ? 'Procesando…' : `Empezar mi reto · ${priceEur}€ →`}
           </button>
         </div>
       )}
