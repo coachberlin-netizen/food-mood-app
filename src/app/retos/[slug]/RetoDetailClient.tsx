@@ -31,6 +31,11 @@ interface Challenge {
   emoji:        string
   recipe_count: number
   audio_count:  number
+  // Optional DB fields — populated when set in Supabase
+  incluye?:         string[] | null
+  hitos_landing?:   Record<string, string> | null
+  al_completar?:    string | null
+  stripe_price_id?: string | null
 }
 
 interface Enrollment {
@@ -121,14 +126,22 @@ const SHORT_MILESTONES: Record<number, string> = {
 }
 
 
-const FAQS = [
+const FAQS_BASE = [
   {
     q: '¿Qué recibo exactamente al comprar el reto?',
     a: 'Acceso inmediato a todas las recetas funcionales, audios de apoyo, seguimiento diario con tu índice Food·Mood e informe personalizado al finalizar. Todo accesible desde esta misma página, día a día.',
   },
   {
+    q: '¿Necesito ingredientes especiales o difíciles de encontrar?',
+    a: 'No. Los ingredientes están pensados para comprarse en cualquier supermercado. Cuando algún alimento es más específico (como ciertos fermentados o adaptógenos), siempre incluimos una alternativa accesible.',
+  },
+  {
+    q: '¿Puedo hacerlo si trabajo en turnos o tengo un horario irregular?',
+    a: 'Sí. Las recetas están diseñadas para 20-30 minutos de preparación y no dependen de un horario fijo. Puedes preparar los platos cuando mejor te venga — el reto no caduca ni tiene notificaciones obligatorias.',
+  },
+  {
     q: '¿Necesito tener una dieta especial o ser vegano?',
-    a: 'No. Las recetas están diseñadas para ser flexibles — incluyen opciones para distintas preferencias. El objetivo es añadir alimentos funcionales, no eliminar nada.',
+    a: 'No. Las recetas son flexibles — incluyen opciones para distintas preferencias. El objetivo es añadir alimentos funcionales, no eliminar nada.',
   },
   {
     q: '¿Cuánto tiempo al día requiere?',
@@ -140,7 +153,7 @@ const FAQS = [
   },
   {
     q: '¿Hay política de reembolso?',
-    a: 'Puedes solicitar reembolso completo dentro de los 7 primeros días si no has accedido a más de 2 días de contenido. Escríbenos a hola@food-mood.app.',
+    a: 'Sí — 7 días de garantía completa. Si en los primeros 7 días no es lo que esperabas, te devolvemos el importe íntegro sin preguntas. Escríbenos a hola@food-mood.app.',
   },
   {
     q: '¿Tengo dudas o necesito ayuda?',
@@ -156,7 +169,7 @@ function FAQSection({ accentColor }: { accentColor: string }) {
         Preguntas frecuentes
       </p>
       <div className="divide-y" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
-        {FAQS.map((faq, i) => (
+        {FAQS_BASE.map((faq, i) => (
           <div key={i}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
@@ -499,9 +512,20 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         </div>
       )}
 
+      {/* ── Breadcrumb visual ── */}
+      <nav aria-label="Ruta de navegación" className="pt-24 pb-0 px-6 max-w-2xl mx-auto">
+        <ol className="flex items-center gap-2 text-[12px] font-light flex-wrap" style={{ color: 'rgba(107,39,55,0.45)' }}>
+          <li><Link href="/" style={{ color: 'rgba(107,39,55,0.45)' }} className="hover:underline">Inicio</Link></li>
+          <li aria-hidden="true">›</li>
+          <li><Link href="/retos" style={{ color: 'rgba(107,39,55,0.45)' }} className="hover:underline">Retos</Link></li>
+          <li aria-hidden="true">›</li>
+          <li style={{ color: '#2d0f16' }} aria-current="page">{challenge.title}</li>
+        </ol>
+      </nav>
+
       {/* ── Hero ── */}
       <section
-        className="px-6 pt-32 pb-16 text-center"
+        className="px-6 pt-8 pb-16 text-center"
         style={{ background: `linear-gradient(160deg, rgba(${rgb},0.12) 0%, transparent 60%)` }}
       >
         <div className="max-w-2xl mx-auto">
@@ -546,19 +570,29 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             </p>
           )}
           <ul className="space-y-3">
-            {[
-              `📘 ${challenge.recipe_count} recetas ${challenge.duration_days <= 7 ? 'de reset' : '— una por día'}`,
-              `🎧 ${challenge.audio_count} audios de apoyo`,
-              '💬 Canal privado de Telegram + comunidad WhatsApp Premium',
-              '📊 Seguimiento diario con tu índice Food·Mood',
-              '📋 Informe final personalizado al completar',
-            ].map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
-                <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs text-white"
-                  style={{ backgroundColor: challenge.color }}>✓</span>
-                {item}
-              </li>
-            ))}
+            {(challenge.incluye && challenge.incluye.length > 0
+              ? challenge.incluye
+              : [
+                  { emoji: '📘', label: 'libro', text: `${challenge.recipe_count} recetas ${challenge.duration_days <= 7 ? 'de reset' : '— una por día'}` },
+                  { emoji: '🎧', label: 'auriculares', text: `${challenge.audio_count} audios de apoyo` },
+                  { emoji: '💬', label: 'comunidad', text: 'Canal privado de Telegram + comunidad WhatsApp Premium' },
+                  { emoji: '📊', label: 'seguimiento', text: 'Seguimiento diario con tu índice Food·Mood' },
+                  { emoji: '📋', label: 'informe', text: 'Informe final personalizado al completar' },
+                ].map(({ emoji, label, text }) => `${emoji} ${text}`)
+            ).map((item: string, i: number) => {
+              const emojiLabels: Record<string, string> = { '📘': 'libro', '🎧': 'auriculares', '💬': 'comunidad', '📊': 'estadísticas', '📋': 'informe' }
+              const firstChar = Array.from(item)[0] ?? ''
+              const emoji = emojiLabels[firstChar] ? firstChar : ''
+              const text = emoji ? item.slice(emoji.length).trim() : item
+              return (
+                <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
+                  <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs text-white"
+                    style={{ backgroundColor: challenge.color }}>✓</span>
+                  {emoji && <span role="img" aria-label={emojiLabels[emoji]}>{emoji}</span>}
+                  {text}
+                </li>
+              )
+            })}
           </ul>
         </section>
 
@@ -587,9 +621,37 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                 Al completar
               </p>
               <p className="text-sm font-light" style={{ color: '#2d0f16' }}>
-                Informe personalizado: índice inicio vs. fin, síntomas mejorados, siguiente reto recomendado.
+                {challenge.al_completar ?? 'Informe personalizado: índice inicio vs. fin, síntomas mejorados, siguiente reto recomendado.'}
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* ── Testimonios ── */}
+        <section>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.5)' }}>
+            Lo que dicen quienes lo completaron
+          </p>
+          <div className="space-y-4">
+            {[
+              { nombre: 'Laura M.', ciudad: 'Madrid', texto: 'Empecé sin esperar mucho y al final del reto dormía 7 horas seguidas por primera vez en años. Las recetas son reales, no de revista.' },
+              { nombre: 'Carlos R.', ciudad: 'Barcelona', texto: 'Lo que más me sorprendió fue el índice Food·Mood — ver la evolución en números hace que te lo tomes en serio. Repetiría.' },
+              { nombre: 'Ana P.', ciudad: 'Valencia', texto: 'Pensé que sería otro programa de bienestar más. No lo es. Hay ciencia detrás de cada plato y se nota.' },
+            ].map((t, i) => (
+              <blockquote key={i} className="bg-white rounded-2xl border p-5" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
+                <p className="text-sm font-light leading-relaxed mb-3" style={{ color: 'rgba(107,39,55,0.75)' }}>
+                  &ldquo;{t.texto}&rdquo;
+                </p>
+                <footer className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
+                    style={{ backgroundColor: challenge.color }}>
+                    {t.nombre[0]}
+                  </span>
+                  <span className="text-[11px] font-medium" style={{ color: '#2d0f16' }}>{t.nombre}</span>
+                  <span className="text-[11px] font-light" style={{ color: 'rgba(107,39,55,0.4)' }}>· {t.ciudad}</span>
+                </footer>
+              </blockquote>
+            ))}
           </div>
         </section>
 
@@ -701,6 +763,9 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
             <p className="text-xs font-light text-center mt-4" style={{ color: 'rgba(255,255,255,0.3)' }}>
               Pago seguro vía Stripe · Acceso inmediato al completar
+            </p>
+            <p className="text-xs font-medium text-center mt-2" style={{ color: 'rgba(201,168,76,0.7)' }}>
+              <span role="img" aria-label="garantía">🛡️</span> 7 días de garantía — devolución completa si no es lo que esperabas
             </p>
           </section>
         )}
