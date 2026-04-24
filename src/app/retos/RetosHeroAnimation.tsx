@@ -753,10 +753,12 @@ function SceneLabel() {
 
 export default function RetosHeroAnimation() {
   const [time, setTime] = useState(0)
-  const startRef  = useRef<number | null>(null)
-  const rafRef    = useRef<number>(0)
+  const startRef   = useRef<number | null>(null)
+  const rafRef     = useRef<number>(0)
   const wrapperRef = useRef<HTMLDivElement>(null)
-  const [scale, setScale] = useState(1)
+  const [scale,      setScale]      = useState(1)
+  const [portrait,   setPortrait]   = useState(false)
+  const [wrapHeight, setWrapHeight] = useState<string>('100svh')
 
   useEffect(() => {
     function tick(now: number) {
@@ -772,21 +774,33 @@ export default function RetosHeroAnimation() {
     if (!wrapperRef.current) return
     const ro = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect
-      setScale(Math.max(width / W, height / H))
+      // Portrait = mobile (height > width): use contain so text stays visible
+      const isPortrait = height > width * 1.1
+      setPortrait(isPortrait)
+      if (isPortrait) {
+        // Fit full canvas width — height auto (aspect ratio)
+        setScale(width / W)
+        setWrapHeight(`${Math.round((width * H) / W)}px`)
+      } else {
+        // Desktop/landscape: cover fill
+        setScale(Math.max(width / W, height / H))
+        setWrapHeight('100svh')
+      }
     })
     ro.observe(wrapperRef.current)
     return () => ro.disconnect()
   }, [])
 
   return (
-    <div ref={wrapperRef} style={{ width: '100%', height: '100svh', position: 'relative', overflow: 'hidden' }}>
+    <div ref={wrapperRef} style={{ width: '100%', height: wrapHeight, position: 'relative', overflow: 'hidden', background: '#2a060f' }}>
       <TimeCtx.Provider value={time}>
         <div style={{
           position: 'absolute',
-          top: '50%', left: '50%',
+          top: portrait ? '0' : '50%',
+          left: portrait ? '0' : '50%',
           width: W, height: H,
-          transformOrigin: 'center center',
-          transform: `translate(-50%, -50%) scale(${scale})`,
+          transformOrigin: portrait ? 'top left' : 'center center',
+          transform: portrait ? `scale(${scale})` : `translate(-50%, -50%) scale(${scale})`,
           background: '#2a060f',
           overflow: 'hidden',
         }}>
