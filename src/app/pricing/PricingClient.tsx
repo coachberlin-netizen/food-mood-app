@@ -36,10 +36,6 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
   const router = useRouter();
 
   async function handleBetaRedeem() {
-    if (!initialIsAuthenticated) {
-      router.push('/auth/login?redirect=/pricing')
-      return
-    }
     if (!betaCode.trim()) return
     setBetaStatus('loading')
     try {
@@ -49,6 +45,10 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
         body: JSON.stringify({ code: betaCode.trim() }),
       })
       const data = await res.json()
+      if (res.status === 401) {
+        router.push('/auth/login?redirect=/pricing')
+        return
+      }
       if (!res.ok) { setBetaStatus('error'); setBetaMsg(data.error ?? 'Código incorrecto.'); return }
       setBetaStatus('ok')
       setBetaMsg('¡Acceso activado! Ya tienes acceso premium completo.')
