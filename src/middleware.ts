@@ -55,13 +55,6 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Redirect authenticated users from / to /dashboard
-  if (request.nextUrl.pathname === '/' && user) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
-  }
-
   // protected routes
   const pathname = request.nextUrl.pathname;
   const isProtectedRoute = pathname.startsWith('/perfil');
