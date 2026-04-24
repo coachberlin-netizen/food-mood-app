@@ -1,25 +1,118 @@
 "use client"
 import * as React from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 
 interface MobileNavProps {
-  isAuthenticated?: boolean;
-  isPremium?: boolean;
+  isAuthenticated?: boolean
+  isPremium?: boolean
 }
 
 export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [mounted, setMounted] = React.useState(false)
 
-  // Status is now passed from Header to avoid redundant fetches
-  React.useEffect(() => {
-    if (isOpen) {
-      // Optional: keep fetch if needed for some reason, but prop is better
-    }
-  }, [isOpen])
-  
+  React.useEffect(() => { setMounted(true) }, [])
+
+  const close = () => setIsOpen(false)
+
+  const panel = (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Overlay */}
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={close}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 9998,
+              background: 'rgba(0,0,0,0.65)',
+            }}
+          />
+
+          {/* Slide-in panel */}
+          <motion.div
+            key="panel"
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            id="mobile-nav-menu"
+            style={{
+              position: 'fixed', top: 0, left: 0, bottom: 0,
+              width: '75%', maxWidth: '320px',
+              zIndex: 9999,
+              background: '#F5F0E8',
+              borderRight: '1px solid rgba(107,39,55,0.15)',
+              boxShadow: '4px 0 40px rgba(0,0,0,0.25)',
+              overflowY: 'auto',
+              padding: '24px',
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+              <span style={{ fontFamily: 'Georgia, serif', fontSize: '22px', fontWeight: 700, color: '#3F1A22' }}>
+                Food<span style={{ color: '#C9A84C' }}>·</span>Mood
+              </span>
+              <button
+                onClick={close}
+                aria-label="Cerrar menú"
+                style={{ padding: '8px', color: 'rgba(107,39,55,0.6)', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Nav links */}
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {isAuthenticated ? (
+                <>
+                  <NavLink href="/"             label="Home"          close={close} />
+                  <NavLink href="/paleta"        label="Tus emociones" close={close} />
+                  <NavLink href="/dashboard"     label="Dashboard"     close={close} />
+                  <NavLink href="/test"          label="Test"          close={close} />
+                  <NavLink href="/bol"           label="Mi bol"        close={close} />
+                  <NavLink href="/viaje"         label="Mi viaje"      close={close} />
+                  <NavLink href="/semana"        label="Mi semana"     close={close} />
+                  <NavLink href="/diario"        label="Mi Diario"     close={close} />
+                  <NavLink href="/recetas"       label="Recetas"       close={close} />
+                  <NavLink href="/glosario"      label="Glosario"      close={close} />
+                  <NavLink href="/sintomas"      label="Síntomas"      close={close} />
+                  <NavLink href="/retos"         label="Retos"         close={close} />
+                  <NavLink href="/blog"          label="Newsletter"    close={close} />
+                  {!isPremium && <NavLink href="/pricing" label="Planes" close={close} gold />}
+                  <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
+                  <NavLink href="/perfil"        label="Mi Perfil"     close={close} />
+                </>
+              ) : (
+                <>
+                  <NavLink href="/"        label="Home"         close={close} />
+                  <NavLink href="/paleta"  label="Tus emociones" close={close} />
+                  <NavLink href="/test"    label="Test gratuito" close={close} />
+                  <NavLink href="/recetas" label="Recetas"       close={close} />
+                  <NavLink href="/glosario" label="Glosario"    close={close} />
+                  <NavLink href="/retos"   label="Retos"         close={close} />
+                  <NavLink href="/blog"    label="Newsletter"    close={close} />
+                  <NavLink href="/pricing" label="Planes"        close={close} gold />
+                </>
+              )}
+            </nav>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+
   return (
     <div className="md:hidden">
+      {/* Hamburger */}
       <button
         onClick={() => setIsOpen(true)}
         className="p-2 -ml-2 text-cream"
@@ -32,116 +125,31 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
         </svg>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
-              onClick={() => setIsOpen(false)}
-            />
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="fixed inset-y-0 left-0 z-50 w-3/4 max-w-sm bg-[#F5F0E8] border-r border-[#6B2737]/15 shadow-2xl p-6 overflow-y-auto"
-              id="mobile-nav-menu"
-            >
-              <div className="flex justify-between items-center mb-8">
-                <span className="font-serif text-2xl font-bold text-[#3F1A22]">
-                  Food<span className="text-[#C9A84C]">·</span>Mood
-                </span>
-                <button onClick={() => setIsOpen(false)} className="p-2 text-[#6B2737]/60 hover:text-[#6B2737]" aria-label="Cerrar menú">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <nav className="flex flex-col space-y-6">
-                {isAuthenticated ? (
-                  <>
-                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Home
-                    </Link>
-                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Tus emociones
-                    </Link>
-                    <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Dashboard
-                    </Link>
-                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Test
-                    </Link>
-
-                    <Link href="/bol" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Mi bol
-                    </Link>
-                    <Link href="/viaje" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Mi viaje
-                    </Link>
-                    <Link href="/semana" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Mi semana
-                    </Link>
-                    <Link href="/diario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Mi Diario
-                    </Link>
-                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Recetas
-                    </Link>
-                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Glosario
-                    </Link>
-                    <Link href="/sintomas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Síntomas
-                    </Link>
-                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Retos
-                    </Link>
-                    {!isPremium && (
-                      <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-bold text-[#C9A84C] hover:text-[#b8953e] transition-colors">
-                        Planes
-                      </Link>
-                    )}
-                    <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors border-t border-[#6B2737]/15 pt-6 mt-2">
-                      Perfil
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Home
-                    </Link>
-                    <Link href="/paleta" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Tus emociones
-                    </Link>
-                    <Link href="/test" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Test gratuito
-                    </Link>
-                    <Link href="/recetas" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Recetas
-                    </Link>
-                    <Link href="/glosario" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Glosario
-                    </Link>
-                    <Link href="/retos" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Retos
-                    </Link>
-                    <Link href="/blog" onClick={() => setIsOpen(false)} className="text-xl font-medium text-[#3F1A22] hover:text-[#C9A84C] transition-colors">
-                      Newsletter
-                    </Link>
-                    <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-xl font-bold text-[#C9A84C] hover:text-[#b8953e] transition-colors">
-                      Planes
-                    </Link>
-                  </>
-                )}
-              </nav>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Portal: renders directly in <body>, escaping all stacking contexts */}
+      {mounted && createPortal(panel, document.body)}
     </div>
+  )
+}
+
+function NavLink({ href, label, close, gold }: { href: string; label: string; close: () => void; gold?: boolean }) {
+  return (
+    <Link
+      href={href}
+      onClick={close}
+      style={{
+        display: 'block',
+        padding: '10px 8px',
+        fontSize: '17px',
+        fontWeight: gold ? 700 : 500,
+        color: gold ? '#C9A84C' : '#3F1A22',
+        textDecoration: 'none',
+        borderRadius: '8px',
+        transition: 'background 0.15s, color 0.15s',
+      }}
+      onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(107,39,55,0.06)' }}
+      onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent' }}
+    >
+      {label}
+    </Link>
   )
 }

@@ -778,9 +778,9 @@ export default function RetosHeroAnimation() {
       const isPortrait = height > width * 1.1
       setPortrait(isPortrait)
       if (isPortrait) {
-        // Fit full canvas width — height auto (aspect ratio)
-        setScale(width / W)
-        setWrapHeight(`${Math.round((width * H) / W)}px`)
+        // Cover full screen height; show the left portion of the canvas (where text lives)
+        setScale(height / H)
+        setWrapHeight('100svh')
       } else {
         // Desktop/landscape: cover fill
         setScale(Math.max(width / W, height / H))
