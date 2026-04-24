@@ -26,6 +26,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : `Reto de ${data.duration_days} días · ${data.price_eur}€ · ${rawDesc || 'Nutrición emocional basada en el eje intestino-cerebro.'}`
   const canonicalUrl = `https://www.food-mood.app/retos/${slug}`
 
+  const SLUG_KEYWORDS: Record<string, string[]> = {
+    'reset-antiinflamatorio':  ['reset antiinflamatorio', 'dieta antiinflamatoria', 'NF-kB alimentación', 'cúrcuma omega-3', 'fermentados antiinflamación'],
+    'mejora-tu-sueno':         ['mejorar sueño alimentación', 'serotonina melatonina dieta', 'triptófano alimentos', 'insomnio nutrición', 'magnesio sueño'],
+    'recupera-tu-energia':     ['recuperar energía sin cafeína', 'fatiga crónica alimentación', 'energía mitocondrial', 'hierro transporte energía'],
+    'equilibrio-hormonal-45':  ['equilibrio hormonal perimenopausia', 'alimentación SOP', 'fitoestrógenos dieta', 'estrobioma hormonal', 'tiroides nutrición'],
+    'food-mood-reset':         ['reset intestino cerebro', 'microbioma salud mental', 'psicobióticos', 'serotonina intestinal', 'food mood reset'],
+  }
+  const slugKeywords = SLUG_KEYWORDS[slug] ?? []
+
   return {
     title,
     description,
@@ -36,8 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       'nutrición emocional',
       'eje intestino-cerebro',
       'Food Mood',
-      'bienestar',
-      'recetas funcionales',
+      ...slugKeywords,
     ].filter(Boolean).join(', '),
     alternates: { canonical: canonicalUrl },
     openGraph: {

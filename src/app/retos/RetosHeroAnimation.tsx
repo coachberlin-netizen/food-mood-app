@@ -13,11 +13,11 @@ const CREAM_DIM = 'rgba(245,237,228,0.5)'
 const CREAM_FAINT = 'rgba(245,237,228,0.18)'
 
 const SCENES = [
-  { id: 'sueno',    bg: '#1a0825', accent: 'oklch(72% 0.22 275)', accentRgb: '142,108,230', label: 'SUEÑO',        slug: '/retos' },
+  { id: 'sueno',    bg: '#1a0825', accent: 'oklch(72% 0.22 275)', accentRgb: '142,108,230', label: 'SUEÑO',        slug: '/retos/mejora-tu-sueno' },
   { id: 'energia',  bg: '#2a1200', accent: 'oklch(78% 0.22 68)',  accentRgb: '240,168,40',  label: 'ENERGÍA',      slug: '/retos/recupera-tu-energia' },
-  { id: 'hormonal', bg: '#2e0820', accent: 'oklch(72% 0.22 355)', accentRgb: '235,100,148', label: 'HORMONAL',     slug: '/retos' },
+  { id: 'hormonal', bg: '#2e0820', accent: 'oklch(72% 0.22 355)', accentRgb: '235,100,148', label: 'HORMONAL',     slug: '/retos/equilibrio-hormonal-45' },
   { id: 'inflamac', bg: '#061a0c', accent: 'oklch(74% 0.22 148)', accentRgb: '80,210,120',  label: 'INFLAMACIÓN',  slug: '/retos/reset-antiinflamatorio' },
-  { id: 'mental',   bg: '#080a2e', accent: 'oklch(70% 0.22 300)', accentRgb: '175,110,240', label: 'SALUD MENTAL', slug: '/retos' },
+  { id: 'mental',   bg: '#080a2e', accent: 'oklch(70% 0.22 300)', accentRgb: '175,110,240', label: 'SALUD MENTAL', slug: '/retos/food-mood-reset' },
 ]
 
 // ── Easing & animate ──────────────────────────────────────────────────────

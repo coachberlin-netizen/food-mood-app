@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useTransition, useEffect } from 'react'
+import { useState, useTransition, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
@@ -126,6 +126,46 @@ const SHORT_MILESTONES: Record<number, string> = {
 }
 
 
+// FAQ extra por reto — se añaden después de las 3 primeras preguntas base
+const FAQS_BY_SLUG: Record<string, Array<{ q: string; a: string | React.ReactNode }>> = {
+  'reset-antiinflamatorio': [
+    {
+      q: '¿Es compatible con mi medicación?',
+      a: 'El reto se basa en alimentos naturales, no en suplementos ni dosis terapéuticas. Dicho esto, si tomas medicación anticoagulante (como warfarina) o inmunosupresores, consulta a tu médico antes de aumentar el consumo de cúrcuma y omega-3, ya que pueden interactuar a dosis altas.',
+    },
+    {
+      q: '¿Necesito comprar suplementos o proteínas en polvo?',
+      a: 'No. Todo el protocolo se basa en alimentos reales que encuentras en cualquier supermercado. La cúrcuma, el jengibre, el omega-3 del pescado azul y los fermentados son la base — sin pastillas, sin polvos, sin gasto extra.',
+    },
+  ],
+  'mejora-tu-sueno': [
+    {
+      q: '¿Funciona si tengo insomnio crónico diagnosticado?',
+      a: 'El reto actúa sobre la vía serotonina-melatonina a través de la alimentación. Muchas personas con insomnio crónico notan mejoras reales, pero no sustituye a un tratamiento médico si lo tienes. Funciona mejor como complemento.',
+    },
+    {
+      q: '¿Puedo tomar melatonina a la vez?',
+      a: 'Sí, son compatibles. El reto trabaja la síntesis endógena de melatonina — que es más sostenible a largo plazo — mientras que el suplemento cubre el corto plazo. Muchos participantes reducen la dosis de melatonina al terminar el reto.',
+    },
+  ],
+  'equilibrio-hormonal-45': [
+    {
+      q: '¿Es para perimenopausia o también para SOP y tiroides?',
+      a: 'Para todos. El protocolo trabaja el estrobioma, los fitoestrógenos y la inflamación de bajo grado — mecanismos comunes a la perimenopausia, el SOP y el hipotiroidismo subclínico. Si tienes diagnóstico específico, los resultados pueden variar.',
+    },
+    {
+      q: '¿Necesito hacerme análisis antes de empezar?',
+      a: 'No es obligatorio, pero sí recomendable si no tienes analíticas recientes (últimos 6 meses). Saber tus niveles de vitamina D, ferritina y TSH te permite medir el impacto real del protocolo al terminar.',
+    },
+  ],
+  'recupera-tu-energia': [
+    {
+      q: '¿Funciona sin dejar el café?',
+      a: 'Sí. No pedimos que elimines la cafeína — pedimos que cambies el contexto: cuándo, con qué y por qué la tomas. El reto trabaja la función mitocondrial y el transporte de hierro, que son las causas más frecuentes de fatiga real.',
+    },
+  ],
+}
+
 const FAQS_BASE = [
   {
     q: '¿Qué recibo exactamente al comprar el reto?',
@@ -161,23 +201,28 @@ const FAQS_BASE = [
   },
 ]
 
-function FAQSection({ accentColor }: { accentColor: string }) {
+function FAQSection({ accentColor, slug }: { accentColor: string; slug: string }) {
   const [open, setOpen] = useState<number | null>(null)
+  const extra = FAQS_BY_SLUG[slug] ?? []
+  // Insert slug-specific questions after the first 3 base questions
+  const faqs = [...FAQS_BASE.slice(0, 3), ...extra, ...FAQS_BASE.slice(3)]
   return (
     <section>
       <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.5)' }}>
         Preguntas frecuentes
       </p>
       <div className="divide-y" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
-        {FAQS_BASE.map((faq, i) => (
+        {faqs.map((faq, i) => (
           <div key={i}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
               className="w-full text-left py-4 flex items-center justify-between gap-4"
               aria-expanded={open === i}
+              aria-controls={`faq-answer-${i}`}
             >
               <span className="text-sm font-medium" style={{ color: '#2d0f16' }}>{faq.q}</span>
               <span
+                aria-hidden="true"
                 className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white text-xs font-bold transition-transform"
                 style={{ backgroundColor: accentColor, transform: open === i ? 'rotate(45deg)' : 'none' }}
               >
@@ -185,9 +230,9 @@ function FAQSection({ accentColor }: { accentColor: string }) {
               </span>
             </button>
             {open === i && (
-              <p className="pb-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.65)' }}>
+              <div id={`faq-answer-${i}`} className="pb-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.65)' }}>
                 {faq.a}
-              </p>
+              </div>
             )}
           </div>
         ))}
@@ -209,8 +254,10 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   const [enrollment,  setEnrollment]  = useState(initialEnrollment)
   const [checkoutErr, setCheckoutErr] = useState<string | null>(null)
   const [isPending,   startTransition] = useTransition()
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [notifState,  setNotifState]  = useState<'idle' | 'loading' | 'done' | 'denied'>('idle')
+  const [showSuccess,   setShowSuccess]   = useState(false)
+  const [notifState,    setNotifState]    = useState<'idle' | 'loading' | 'done' | 'denied'>('idle')
+  const [showStickyCta, setShowStickyCta] = useState(false)
+  const sentinelRef = useRef<HTMLDivElement>(null)
 
   const isSuccess = searchParams.get('success') === 'true'
   const [pollingPaid, setPollingPaid] = useState(false)
@@ -258,6 +305,17 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
     : 0
 
   const milestones = challenge.duration_days <= 7 ? SHORT_MILESTONES : MILESTONES
+
+  // Show sticky CTA after user scrolls past the 50% sentinel
+  useEffect(() => {
+    if (!sentinelRef.current) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyCta(!entry.isIntersecting),
+      { threshold: 0 }
+    )
+    observer.observe(sentinelRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   async function handleCheckout() {
     if (!isAuthenticated) {
@@ -721,9 +779,12 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           </section>
         )}
 
+        {/* Sentinel — sticky CTA aparece cuando este div sale de pantalla */}
+        <div ref={sentinelRef} aria-hidden="true" />
+
         {/* ── FAQ ── */}
         {!enrollment?.paid && (
-          <FAQSection accentColor={challenge.color} />
+          <FAQSection accentColor={challenge.color} slug={challenge.slug} />
         )}
 
         {/* ── CTA de compra ── */}
@@ -781,8 +842,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
       </div>
 
-      {/* ── Sticky CTA móvil (solo no pagados) ── */}
-      {!enrollment?.paid && (
+      {/* ── Sticky CTA móvil — aparece tras scroll 50% ── */}
+      {!enrollment?.paid && showStickyCta && (
         <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden px-4 pb-4 pt-3"
           style={{ background: 'linear-gradient(to top, #F5F0E8 70%, transparent)' }}>
           <button
