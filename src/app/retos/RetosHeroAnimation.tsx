@@ -771,20 +771,22 @@ export default function RetosHeroAnimation() {
   useEffect(() => {
     if (!wrapperRef.current) return
     const ro = new ResizeObserver(entries => {
-      setScale(entries[0].contentRect.width / W)
+      const { width, height } = entries[0].contentRect
+      setScale(Math.max(width / W, height / H))
     })
     ro.observe(wrapperRef.current)
     return () => ro.disconnect()
   }, [])
 
   return (
-    <div ref={wrapperRef} style={{ width: '100%', paddingBottom: `${(H / W) * 100}%`, position: 'relative' }}>
+    <div ref={wrapperRef} style={{ width: '100%', height: '100svh', position: 'relative', overflow: 'hidden' }}>
       <TimeCtx.Provider value={time}>
         <div style={{
-          position: 'absolute', top: 0, left: 0,
+          position: 'absolute',
+          top: '50%', left: '50%',
           width: W, height: H,
-          transformOrigin: 'top left',
-          transform: `scale(${scale})`,
+          transformOrigin: 'center center',
+          transform: `translate(-50%, -50%) scale(${scale})`,
           background: '#2a060f',
           overflow: 'hidden',
         }}>

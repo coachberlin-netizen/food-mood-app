@@ -56,15 +56,22 @@ export async function POST(req: NextRequest) {
 
       // ── Reto (one-time payment) ───────────────────────────────────────────
       if (session.metadata?.type === 'challenge') {
-        const { user_id, challenge_id } = session.metadata
+        const { user_id, challenge_id, challenge_slug } = session.metadata
         if (user_id && challenge_id) {
-          const { data: fmData } = await supabaseAdmin
-            .from('fm_index_log')
-            .select('index_value')
-            .eq('user_id', user_id)
-            .order('log_date', { ascending: false })
-            .limit(1)
-            .maybeSingle()
+          const [{ data: fmData }, { data: challengeData }] = await Promise.all([
+            supabaseAdmin
+              .from('fm_index_log')
+              .select('index_value')
+              .eq('user_id', user_id)
+              .order('log_date', { ascending: false })
+              .limit(1)
+              .maybeSingle(),
+            supabaseAdmin
+              .from('challenges')
+              .select('title, duration_days, price_eur')
+              .eq('id', challenge_id)
+              .single(),
+          ])
 
           // Registrar compra en reto_purchases
           await supabaseAdmin
@@ -92,6 +99,43 @@ export async function POST(req: NextRequest) {
               completed:         false,
               start_date:        new Date().toISOString().split('T')[0],
             }, { onConflict: 'user_id,challenge_id' })
+
+          // Email de confirmación del reto
+          const retoEmail = session.customer_details?.email || session.customer_email
+          if (retoEmail && process.env.RESEND_API_KEY && challengeData) {
+            try {
+              const resend = new Resend(process.env.RESEND_API_KEY)
+              const retoUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.food-mood.app'}/retos/${challenge_slug ?? challenge_id}`
+              await resend.emails.send({
+                from:    `Food·Mood <${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app'}>`,
+                to:      retoEmail,
+                subject: `Tu reto "${challengeData.title}" ha comenzado — Food·Mood`,
+                html: `
+                  <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2d0f16;padding:32px 24px">
+                    <h1 style="font-size:26px;font-weight:400;margin-bottom:8px;line-height:1.2">
+                      ¡Tu reto ha comenzado! 🎯
+                    </h1>
+                    <p style="font-size:15px;line-height:1.7;color:#6b4452;margin-bottom:24px">
+                      Has accedido a <strong>${challengeData.title}</strong> — ${challengeData.duration_days} días de nutrición emocional basada en el eje intestino-cerebro.
+                    </p>
+                    <p style="margin-bottom:28px">
+                      <a href="${retoUrl}/dia/1"
+                         style="display:inline-block;background:#6B2737;color:#F5F0E8;padding:14px 28px;border-radius:50px;text-decoration:none;font-size:14px;font-weight:600">
+                        Ir al Día 1 →
+                      </a>
+                    </p>
+                    <p style="font-size:13px;color:#b08090;line-height:1.6">
+                      Accede en cualquier momento desde <a href="${retoUrl}" style="color:#6B2737">${retoUrl}</a>.<br>
+                      Si tienes cualquier duda, responde a este correo.
+                    </p>
+                  </div>
+                `,
+              })
+              console.log(`✅ Reto confirmation email sent to ${retoEmail}`)
+            } catch (emailErr: any) {
+              console.error(`⚠️ Reto email failed (non-blocking): ${emailErr.message}`)
+            }
+          }
 
           console.log(`✅ Reto pagado: user=${user_id} challenge=${challenge_id}`)
         }
@@ -146,6 +190,42 @@ export async function POST(req: NextRequest) {
           console.error(`❌ Error updating profile for user ${userId}:`, error.message)
         } else {
           console.log(`✅ Profile updated (upsert): User ${userId} is now PREMIUM.`)
+        }
+
+        // ── Email de bienvenida premium ───────────────────────────────────
+        if (customerEmail && process.env.RESEND_API_KEY) {
+          try {
+            const resend = new Resend(process.env.RESEND_API_KEY)
+            const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.food-mood.app'
+            await resend.emails.send({
+              from:    `Food·Mood <${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app'}>`,
+              to:      customerEmail,
+              subject: '¡Bienvenida a Food·Mood Premium! ✨',
+              html: `
+                <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2d0f16;padding:32px 24px">
+                  <h1 style="font-size:26px;font-weight:400;margin-bottom:8px;line-height:1.2">
+                    ¡Ya eres parte de Food·Mood Premium! ✨
+                  </h1>
+                  <p style="font-size:15px;line-height:1.7;color:#6b4452;margin-bottom:8px">
+                    Tienes acceso completo a todas las recetas funcionales, el glosario científico, los retos de transformación y el seguimiento con tu índice Food·Mood.
+                  </p>
+                  <p style="font-size:15px;line-height:1.7;color:#6b4452;margin-bottom:28px">
+                    Empieza por donde más lo necesitas: ¿energía, sueño, calma o foco?
+                  </p>
+                  <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+                    <a href="${appUrl}/recetas" style="display:inline-block;background:#6B2737;color:#F5F0E8;padding:13px 24px;border-radius:50px;text-decoration:none;font-size:14px;font-weight:600">Ver todas las recetas →</a>
+                    <a href="${appUrl}/retos" style="display:inline-block;background:transparent;color:#6B2737;padding:13px 24px;border-radius:50px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid #6B2737">Explorar retos →</a>
+                  </div>
+                  <p style="font-size:12px;color:#b08090;line-height:1.6">
+                    ¿Alguna pregunta? Responde a este correo, estamos aquí.
+                  </p>
+                </div>
+              `,
+            })
+            console.log(`✅ Welcome email sent to ${customerEmail}`)
+          } catch (emailErr: any) {
+            console.error(`⚠️ Welcome email failed (non-blocking): ${emailErr.message}`)
+          }
         }
 
         // ── Telegram: generate one-time invite link ────────────────────────

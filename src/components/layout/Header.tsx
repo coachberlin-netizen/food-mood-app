@@ -181,60 +181,56 @@ export function Header() {
             </button>
 
             {isMenuOpen && (
-              <div 
+              <div
                 className="absolute top-full right-0 mt-3 w-56 py-2 z-50 overflow-hidden"
                 style={{
-                  backgroundColor: "#1A1A2E",
+                  backgroundColor: "#2d0f16",
                   borderRadius: "12px",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)"
+                  border: "1px solid rgba(201,168,76,0.2)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.45)"
                 }}
               >
-                <div className="px-2 pb-2 mb-2 border-b border-white/10">
-                  <p className="text-[10px] uppercase tracking-widest text-[#FAF9F6]/40 px-3 py-1">Usuario</p>
+                <div className="px-2 pb-2 mb-2 border-b border-[#C9A84C]/15">
+                  <p className="text-[10px] uppercase tracking-widest text-cream/40 px-3 py-1">Mi cuenta</p>
                 </div>
-                
-                <Link 
-                  href="/perfil" 
+
+                <Link
+                  href="/perfil"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                  style={{ color: "#FAF9F6" }}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group"
                 >
-                  <User className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                  <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Mi Perfil</span>
+                  <User className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
+                  Mi Perfil
                 </Link>
 
-                <Link 
-                  href="/dashboard" 
+                <Link
+                  href="/dashboard"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                  style={{ color: "#FAF9F6" }}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group"
                 >
-                  <PieChart className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                  <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Dashboard</span>
+                  <PieChart className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
+                  Dashboard
                 </Link>
 
                 {!isPremium && (
-                  <Link 
-                    href="/pricing" 
+                  <Link
+                    href="/pricing"
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group"
-                    style={{ color: "#FAF9F6" }}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-[#C9A84C] hover:bg-white/5 transition-colors group font-medium"
                   >
-                    <CreditCard className="w-4 h-4 opacity-70 group-hover:text-[#C9A84C]" />
-                    <span className="group-hover:text-[#C9A84C] group-hover:bg-white/[0.08] transition-all">Planes</span>
+                    <CreditCard className="w-4 h-4 shrink-0 opacity-80" />
+                    Planes Premium
                   </Link>
                 )}
 
-                <div className="h-px bg-white/10 my-2" />
+                <div className="h-px bg-cream/10 my-1.5" />
 
-                <button 
+                <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group text-left"
-                  style={{ color: "#FAF9F6" }}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-cream/60 hover:text-red-400 hover:bg-white/5 transition-colors group text-left"
                 >
-                  <LogOut className="w-4 h-4 opacity-70 group-hover:text-red-400" />
-                  <span className="group-hover:text-red-400 group-hover:bg-white/[0.08] transition-all">Cerrar sesión</span>
+                  <LogOut className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
+                  Cerrar sesión
                 </button>
               </div>
             )}
