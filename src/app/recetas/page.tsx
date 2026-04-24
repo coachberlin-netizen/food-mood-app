@@ -33,7 +33,13 @@ export default async function RecetasPage() {
     .limit(9)
     .order("nombre_es");
 
-  const recipes = initialRecetas ?? [];
+  const seen = new Set<string>();
+  const recipes = (initialRecetas ?? []).filter((r: any) => {
+    const key = r.nombre_es?.toLowerCase().trim();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
   const totalCount = count ?? 0;
 
   const recipeListSchema = {

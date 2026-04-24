@@ -349,7 +349,14 @@ export default function RecetasClient({
       }
 
       const data: ApiResponse = await res.json();
-      setRecetas(data.recetas || []);
+      const seen = new Set<string>();
+      const unique = (data.recetas || []).filter(r => {
+        const key = r.nombre_es?.toLowerCase().trim();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+      setRecetas(unique);
       setTotal(data.total || 0);
       setTotalPages(data.totalPages || 0);
       setError(null);
