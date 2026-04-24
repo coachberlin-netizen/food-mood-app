@@ -215,7 +215,7 @@ export default async function SlowFoodMoodPage() {
             className="border-l-4 pl-5 py-1 italic font-serif text-xl"
             style={{ borderColor: '#C9A84C', color: 'rgba(107,39,55,0.8)' }}
           >
-            "Tu sistema nervioso no se calma con información. Se calma con experiencia repetida, sensorial y encarnada."
+            &ldquo;Tu sistema nervioso no se calma con información. Se calma con experiencia repetida, sensorial y encarnada.&rdquo;
           </blockquote>
         </section>
 
