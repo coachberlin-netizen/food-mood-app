@@ -243,28 +243,18 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
                 value={betaCode}
                 onChange={e => setBetaCode(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleBetaRedeem()}
-                placeholder={initialIsAuthenticated ? 'Código beta o influencer' : 'Inicia sesión para canjear'}
-                disabled={!initialIsAuthenticated || betaStatus === 'loading'}
+                placeholder="Código beta o influencer"
+                disabled={betaStatus === 'loading'}
                 className="flex-1 px-4 py-2.5 rounded-xl border border-aubergine-dark/15 bg-cream text-sm text-aubergine-dark placeholder:text-aubergine-dark/25 focus:outline-none focus:border-aubergine-dark/35 disabled:opacity-50"
               />
-              {initialIsAuthenticated ? (
-                <button
-                  type="button"
-                  onClick={handleBetaRedeem}
-                  disabled={betaStatus === 'loading' || !betaCode.trim()}
-                  className="px-4 py-2.5 rounded-xl bg-aubergine-dark text-cream text-sm font-semibold disabled:opacity-40 hover:bg-aubergine-dark/90 transition-colors whitespace-nowrap"
-                >
-                  {betaStatus === 'loading' ? '…' : 'Canjear'}
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => router.push('/auth/login?redirect=/pricing')}
-                  className="px-4 py-2.5 rounded-xl bg-aubergine-dark text-cream text-sm font-semibold hover:bg-aubergine-dark/90 transition-colors whitespace-nowrap"
-                >
-                  Entrar →
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={handleBetaRedeem}
+                disabled={betaStatus === 'loading' || !betaCode.trim()}
+                className="px-4 py-2.5 rounded-xl bg-aubergine-dark text-cream text-sm font-semibold disabled:opacity-40 hover:bg-aubergine-dark/90 transition-colors whitespace-nowrap"
+              >
+                {betaStatus === 'loading' ? '…' : 'Canjear'}
+              </button>
             </div>
           )}
           {betaStatus === 'error' && (
