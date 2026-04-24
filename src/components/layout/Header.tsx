@@ -28,19 +28,19 @@ export function Header() {
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean | null>(null)
 
   React.useEffect(() => {
-    async function checkStatus() {
-      try {
-        const res = await fetch('/api/mi-tier')
-        if (res.ok) {
-          const data = await res.json()
-          setIsPremium(data.isPremium)
-          setIsAuthenticated(data.isAuthenticated)
-        }
-      } catch (err) {
-        console.error("Error checking premium status in header:", err)
-      }
-    }
-    checkStatus()
+    const supabase = createClient()
+
+    // Read session immediately from local storage — no network call needed
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAuthenticated(!!session)
+    })
+
+    // Keep in sync if session changes (login/logout in another tab)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(!!session)
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
   const handleLogout = async () => {
