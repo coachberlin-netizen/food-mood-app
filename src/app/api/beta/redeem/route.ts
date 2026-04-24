@@ -14,18 +14,27 @@ export async function POST(req: NextRequest) {
 
   const normalized = code.replace(/[^a-z0-9]/gi, '').toUpperCase()
 
-  // Check Supabase table first, then fall back to env var
-  const { data: validCode } = await supabaseAdmin
-    .from('beta_codes')
-    .select('code')
-    .eq('active', true)
-    .ilike('code', normalized)
-    .maybeSingle()
+  // 1. Hardcoded built-in codes (always work)
+  const BUILTIN_CODES = ['FOODMOOD2026']
+  const isBuiltin = BUILTIN_CODES.includes(normalized)
 
+  // 2. Env var fallback
   const envCode = (process.env.BETA_ACCESS_CODE ?? '').replace(/[^a-z0-9]/gi, '').toUpperCase()
-  const isValid = !!validCode || (envCode.length > 0 && normalized === envCode)
+  const isEnvMatch = envCode.length > 0 && normalized === envCode
 
-  if (!isValid) {
+  // 3. Supabase table (optional — only if table exists)
+  let isDbMatch = false
+  try {
+    const { data } = await supabaseAdmin
+      .from('beta_codes')
+      .select('code')
+      .eq('active', true)
+      .ilike('code', normalized)
+      .maybeSingle()
+    isDbMatch = !!data
+  } catch { /* table may not exist yet */ }
+
+  if (!isBuiltin && !isEnvMatch && !isDbMatch) {
     return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
 
