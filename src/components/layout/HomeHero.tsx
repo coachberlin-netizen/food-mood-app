@@ -214,8 +214,8 @@ export default function HomeHero() {
 
       <section
         aria-label="Presentación"
-        style={{ width: "100%", minHeight: "100svh", display: "grid", gridTemplateColumns: "1fr 1fr", background: BURG_DEEP, overflow: "hidden", position: "relative" }}
-        className="max-md:grid-cols-1"
+        style={{ width: "100%", minHeight: "100svh", background: BURG_DEEP, overflow: "hidden", position: "relative" }}
+        className="grid grid-cols-1 md:grid-cols-2"
       >
 
         {/* ══ LEFT ══ */}
