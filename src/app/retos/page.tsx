@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { Moon, Zap, Leaf, Activity, BookOpen, Headphones, BarChart2 } from 'lucide-react'
+import { Moon, Zap, Leaf, Activity, BookOpen, Headphones, BarChart2, Brain } from 'lucide-react'
 import RetosHeroAnimation from './RetosHeroAnimation'
 
 export const dynamic = 'force-dynamic'
@@ -47,11 +47,12 @@ interface Enrollment {
 }
 
 const SAMPLE_RECIPES: Record<string, string[]> = {
-  'recupera-tu-energia':     ['Bol de quinoa con edamame y sésamo', 'Smoothie de remolacha y jengibre', 'Sopa miso con algas wakame'],
-  'mejora-tu-sueno':         ['Leche dorada con ashwagandha', 'Arroz integral con champiñones', 'Crema de boniato y nuez moscada'],
-  'reset-antiinflamatorio':  ['Curry de lentejas con cúrcuma', 'Salmón al horno con limón', 'Ensalada de espinacas y nueces'],
-  'equilibrio-hormonal-45':  ['Bol de linaza y frutos rojos', 'Tempeh salteado con brócoli', 'Infusión de maca y canela'],
-  'food-mood-reset':         ['Caldo de huesos con verduras fermentadas', 'Bol de kéfir con nueces y cacao puro', 'Lentejas rojas con cúrcuma y espinacas'],
+  'recupera-tu-energia':    ['Bol de quinoa con edamame y sésamo', 'Smoothie de remolacha y jengibre', 'Sopa miso con algas wakame'],
+  'mejora-tu-sueno':        ['Leche dorada con ashwagandha', 'Arroz integral con champiñones', 'Crema de boniato y nuez moscada'],
+  'reset-antiinflamatorio': ['Curry de lentejas con cúrcuma', 'Salmón al horno con limón', 'Ensalada de espinacas y nueces'],
+  'equilibrio-hormonal-45': ['Desayuno de lino y frutos rojos', 'Tempeh salteado con brócoli y sésamo', 'Caldo de kombu con shiitake y miso'],
+  'food-mood-reset':        ['Caldo de huesos con verduras fermentadas', 'Bol de kéfir con nueces y cacao puro', 'Lentejas rojas con cúrcuma y espinacas'],
+  'slow-food-mood':         ['Agua viva de pepino, menta y jengibre (8h)', 'Yogur artesano casero (fermentación 10h)', 'Pan de espelta con levado lento (toda la noche)'],
 }
 
 const STATIC_CHALLENGES: Challenge[] = [
@@ -59,14 +60,17 @@ const STATIC_CHALLENGES: Challenge[] = [
   { id: 'static-2', slug: 'mejora-tu-sueno',         title: 'Mejora tu sueño en 4 semanas',            subtitle: 'Serotonina → melatonina. Magnesio, triptófano, fermentados nocturnos.',      description: null, category: 'sueño',      duration_days: 28, price_eur: 29, color: '#4A7AB5', emoji: '😴', recipe_count: 28, audio_count: 4  },
   { id: 'static-3', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio',                  subtitle: 'Cúrcuma, omega-3, fermentados. Reset completo en una semana.',               description: null, category: 'inflamación', duration_days: 7,  price_eur: 19, color: '#5A9B8A', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
   { id: 'static-4', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal — Protocolo de 28 días', subtitle: 'Perimenopausia, SOP, tiroides, estrés hormonal.',                        description: null, category: 'hormonas',   duration_days: 28, price_eur: 29, color: '#C04878', emoji: '🌸', recipe_count: 28, audio_count: 8  },
-  { id: 'static-5', slug: 'food-mood-reset',          title: '21 días para resetear tu mente',             subtitle: 'Protocolo Food-Mood Reset. Eje intestino-cerebro en práctica.',         description: null, category: 'salud mental', duration_days: 21, price_eur: 29, color: '#4A7AB5', emoji: '🧠', recipe_count: 21, audio_count: 21 },
+  { id: 'static-5', slug: 'food-mood-reset',    title: '21 días para resetear tu mente',              subtitle: 'Protocolo Food-Mood Reset. Eje intestino-cerebro en práctica.',                                           description: null, category: 'salud mental', duration_days: 21, price_eur: 29, color: '#4A7AB5', emoji: '🧠', recipe_count: 21, audio_count: 21 },
+  { id: 'static-6', slug: 'slow-food-mood',    title: 'Slow Food·Mood — 21 días para calmar la ansiedad', subtitle: 'Fast life. Slow Food·Mood. Fermentos, masas madre y caldos como práctica de regulación nerviosa.', description: null, category: 'ansiedad',    duration_days: 21, price_eur: 29, color: '#4A7B6B', emoji: '🍵', recipe_count: 21, audio_count: 7  },
 ]
 
 const CATEGORY_CONFIG: Record<string, { icon: React.ReactNode; dot: string }> = {
-  'sueño':       { icon: <Moon     size={16} strokeWidth={1.5} />, dot: '#6B2737' },
-  'energía':     { icon: <Zap      size={16} strokeWidth={1.5} />, dot: '#C9A84C' },
-  'inflamación': { icon: <Leaf     size={16} strokeWidth={1.5} />, dot: '#4A7C59' },
-  'hormonas':    { icon: <Activity size={16} strokeWidth={1.5} />, dot: '#8B5E83' },
+  'sueño':        { icon: <Moon     size={16} strokeWidth={1.5} />, dot: '#6B2737' },
+  'energía':      { icon: <Zap      size={16} strokeWidth={1.5} />, dot: '#C9A84C' },
+  'inflamación':  { icon: <Leaf     size={16} strokeWidth={1.5} />, dot: '#4A7C59' },
+  'hormonas':     { icon: <Activity size={16} strokeWidth={1.5} />, dot: '#8B5E83' },
+  'ansiedad':     { icon: <Brain    size={16} strokeWidth={1.5} />, dot: '#4A7B6B' },
+  'salud mental': { icon: <Brain    size={16} strokeWidth={1.5} />, dot: '#4A7AB5' },
 }
 
 function getCategoryConfig(category: string) {
