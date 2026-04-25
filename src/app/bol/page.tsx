@@ -38,6 +38,7 @@ interface FoodGroup {
 
 const GROUPS: FoodGroup[] = [
   { id: "protein",   key: "protein_count",    emoji: "🥩", label: "Proteína animal",   color: "#C4622D", light: "#F5E0D3" },
+  { id: "vprotein",  key: "vprotein_count",   emoji: "🫘", label: "Proteína vegetal",  color: "#6B8F4A", light: "#DFF0D0" },
   { id: "fish",      key: "fish_count",        emoji: "🐟", label: "Pescado",           color: "#4A90C4", light: "#D3E8F5" },
   { id: "vegs",      key: "vegetables_count",  emoji: "🥬", label: "Vegetales",         color: "#4A9B5A", light: "#D3F0DA" },
   { id: "fruit",     key: "fruits_count",      emoji: "🍊", label: "Frutas",            color: "#E08730", light: "#FAE7CD" },
