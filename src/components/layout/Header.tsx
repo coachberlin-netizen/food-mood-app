@@ -2,11 +2,82 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { MobileNav } from "./MobileNav"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/store/useAuthStore"
-import { LogOut, User, PieChart, CreditCard } from "lucide-react"
+import { LogOut, User, PieChart, CreditCard, ChevronDown } from "lucide-react"
+
+interface DropdownItem { label: string; href: string }
+
+function NavDropdown({ label, items }: { label: string; items: DropdownItem[] }) {
+  const [open, setOpen] = React.useState(false)
+  const ref = React.useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  const isActive = items.some(i => pathname?.startsWith(i.href))
+
+  React.useEffect(() => {
+    function outside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", outside)
+    return () => document.removeEventListener("mousedown", outside)
+  }, [])
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className={`flex items-center gap-1 text-sm font-light tracking-wide transition-colors ${
+          isActive ? "text-cream" : "text-cream/70 hover:text-cream"
+        }`}
+      >
+        {label}
+        <ChevronDown className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div
+          className="absolute top-full left-0 mt-2 w-44 py-1.5 z-50"
+          style={{
+            backgroundColor: "#2d0f16",
+            borderRadius: "10px",
+            border: "1px solid rgba(201,168,76,0.2)",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+          }}
+        >
+          {items.map(({ label: l, href }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2.5 text-sm text-cream/75 hover:text-[#C9A84C] hover:bg-white/5 transition-colors"
+            >
+              {l}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+const MI_ESPACIO: DropdownItem[] = [
+  { label: "Dashboard",  href: "/dashboard" },
+  { label: "Test",       href: "/test"      },
+  { label: "Mi bol",     href: "/bol"       },
+  { label: "Mi viaje",   href: "/viaje"     },
+  { label: "Mi semana",  href: "/semana"    },
+  { label: "Mi Diario",  href: "/diario"    },
+]
+
+const DESCUBRIR: DropdownItem[] = [
+  { label: "Glosario",   href: "/glosario"          },
+  { label: "Fermentos",  href: "/fermentos-del-mundo"},
+  { label: "Síntomas",   href: "/sintomas"           },
+  { label: "Newsletter", href: "/blog"               },
+]
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -29,17 +100,12 @@ export function Header() {
 
   React.useEffect(() => {
     const supabase = createClient()
-
-    // Read session immediately from local storage — no network call needed
     supabase.auth.getSession().then(({ data: { session } }) => {
       setIsAuthenticated(!!session)
     })
-
-    // Keep in sync if session changes (login/logout in another tab)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsAuthenticated(!!session)
     })
-
     return () => subscription.unsubscribe()
   }, [])
 
@@ -62,52 +128,23 @@ export function Header() {
       <div className="container mx-auto px-6 h-20 md:px-12 flex items-center justify-between gap-8">
         <div className="flex items-center justify-start flex-1">
           <MobileNav isAuthenticated={isAuthenticated ?? false} isPremium={isPremium} />
-          {/* Authenticated nav: full feature set */}
+
           {isAuthenticated === true ? (
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-7">
               <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
                 Home
               </Link>
               <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Tus emociones
-              </Link>
-              <Link href="/dashboard" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Dashboard
-              </Link>
-              <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Test
-              </Link>
-
-              <Link href="/bol" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mi bol
-              </Link>
-              <Link href="/viaje" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mi viaje
-              </Link>
-              <Link href="/semana" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mi semana
-              </Link>
-              <Link href="/diario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mi Diario
+                Mis emociones
               </Link>
               <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Recetas
               </Link>
-              <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Glosario
-              </Link>
-              <Link href="/fermentos-del-mundo" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Fermentos
-              </Link>
-              <Link href="/sintomas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Síntomas
-              </Link>
               <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Retos
               </Link>
-              <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Newsletter
-              </Link>
+              <NavDropdown label="Mi espacio" items={MI_ESPACIO} />
+              <NavDropdown label="Descubrir"  items={DESCUBRIR}  />
               {!isPremium && (
                 <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                   Planes
@@ -115,13 +152,12 @@ export function Header() {
               )}
             </nav>
           ) : (
-            /* Public nav: minimal — guide the visitor to the one key action */
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-7">
               <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
                 Home
               </Link>
               <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Tus emociones
+                Mis emociones
               </Link>
               <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Test gratuito
@@ -129,15 +165,10 @@ export function Header() {
               <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Recetas
               </Link>
-              <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Glosario
-              </Link>
               <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Retos
               </Link>
-              <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Newsletter
-              </Link>
+              <NavDropdown label="Descubrir" items={DESCUBRIR} />
               <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                 Planes
               </Link>
@@ -150,7 +181,7 @@ export function Header() {
             Food<span className="text-gold">·</span>Mood
           </span>
         </Link>
-        
+
         <div className="flex flex-1 items-center justify-end gap-3">
           {isAuthenticated === false && (
             <>
@@ -180,15 +211,15 @@ export function Header() {
               <div
                 style={{
                   width: 32, height: 32,
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(253,251,247,0.15)',
-                  border: '1px solid rgba(253,251,247,0.25)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#FDFBF7',
+                  borderRadius: "50%",
+                  backgroundColor: "rgba(253,251,247,0.15)",
+                  border: "1px solid rgba(253,251,247,0.25)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#FDFBF7",
                   fontSize: 12,
-                  fontFamily: 'var(--font-cormorant, serif)',
+                  fontFamily: "var(--font-cormorant, serif)",
                   fontWeight: 500,
                   flexShrink: 0,
                 }}
@@ -204,7 +235,7 @@ export function Header() {
                   backgroundColor: "#2d0f16",
                   borderRadius: "12px",
                   border: "1px solid rgba(201,168,76,0.2)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.45)"
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.45)",
                 }}
               >
                 {isAuthenticated === false ? (
@@ -219,50 +250,36 @@ export function Header() {
                     </Link>
                   </div>
                 ) : (
-                <>
-                <div className="px-2 pb-2 mb-2 border-b border-[#C9A84C]/15">
-                  <p className="text-[10px] uppercase tracking-widest text-cream/40 px-3 py-1">Mi cuenta</p>
-                </div>
-
-                <Link
-                  href="/perfil"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group"
-                >
-                  <User className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
-                  Mi Perfil
-                </Link>
-
-                <Link
-                  href="/dashboard"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group"
-                >
-                  <PieChart className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
-                  Dashboard
-                </Link>
-
-                {!isPremium && (
-                  <Link
-                    href="/pricing"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-sm text-[#C9A84C] hover:bg-white/5 transition-colors group font-medium"
-                  >
-                    <CreditCard className="w-4 h-4 shrink-0 opacity-80" />
-                    Planes Premium
-                  </Link>
-                )}
-
-                <div className="h-px bg-cream/10 my-1.5" />
-
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-cream/60 hover:text-red-400 hover:bg-white/5 transition-colors group text-left"
-                >
-                  <LogOut className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
-                  Cerrar sesión
-                </button>
-                </>
+                  <>
+                    <div className="px-2 pb-2 mb-2 border-b border-[#C9A84C]/15">
+                      <p className="text-[10px] uppercase tracking-widest text-cream/40 px-3 py-1">Mi cuenta</p>
+                    </div>
+                    <Link href="/perfil" onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group">
+                      <User className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
+                      Mi Perfil
+                    </Link>
+                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group">
+                      <PieChart className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
+                      Dashboard
+                    </Link>
+                    {!isPremium && (
+                      <Link href="/pricing" onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-[#C9A84C] hover:bg-white/5 transition-colors group font-medium">
+                        <CreditCard className="w-4 h-4 shrink-0 opacity-80" />
+                        Planes Premium
+                      </Link>
+                    )}
+                    <div className="h-px bg-cream/10 my-1.5" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-cream/60 hover:text-red-400 hover:bg-white/5 transition-colors group text-left"
+                    >
+                      <LogOut className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
+                      Cerrar sesión
+                    </button>
+                  </>
                 )}
               </div>
             )}
