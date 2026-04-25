@@ -54,6 +54,8 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
           <Mail className={`absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${dark ? 'text-cream/30' : 'text-aubergine-dark/30'}`} />
           <input
             type="email"
+            name="email"
+            autoComplete="email"
             value={nlEmail}
             onChange={(e) => setNlEmail(e.target.value)}
             placeholder="tu email"

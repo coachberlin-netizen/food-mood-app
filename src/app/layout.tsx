@@ -31,12 +31,16 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
-  title: "Food·Mood — Come según cómo te sientes | Retos de 7 y 30 días",
-  description: "Recetas diseñadas para tu estado emocional. Sin dietas, sin contar calorías. Basado en la ciencia del eje intestino-cerebro. Empieza tu reto de 7 días.",
+  title: "Food·Mood — Recetas para tu estado emocional",
+  description: "Recetas funcionales según cómo te sientes. Sin dietas, sin contar calorías. Basado en la ciencia del eje intestino-cerebro.",
   keywords: "recetas según estado de ánimo, neurociencia nutricional, psicobióticos, microbiota intestinal, alimentación emocional, recetas funcionales, eje intestino cerebro, bienestar emocional, longevidad alimentación",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
+    languages: {
+      'es': 'https://www.food-mood.app/',
+      'x-default': 'https://www.food-mood.app/',
+    },
   },
   appleWebApp: {
     statusBarStyle: "black-translucent",
