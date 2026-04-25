@@ -38,8 +38,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
 
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  // Accept token from Authorization header (client sends it explicitly)
+  // OR fall back to cookie-based session
+  const authHeader = req.headers.get('authorization')
+  const token = authHeader?.replace('Bearer ', '')
+  let user = null
+  if (token) {
+    const { data } = await supabaseAdmin.auth.getUser(token)
+    user = data.user
+  } else {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  }
   if (!user) {
     return NextResponse.json({ error: 'Debes iniciar sesión primero.' }, { status: 401 })
   }

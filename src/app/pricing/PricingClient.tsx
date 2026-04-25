@@ -39,16 +39,24 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
     if (!betaCode.trim()) return
     setBetaStatus('loading')
     try {
-      const res = await fetch('/api/beta/redeem', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: betaCode.trim() }),
-      })
-      const data = await res.json()
-      if (res.status === 401) {
+      const { createClient: createSupabase } = await import('@/lib/supabase/client')
+      const supabase = createSupabase()
+      const { data: { session } } = await supabase.auth.getSession()
+
+      if (!session) {
         router.push('/auth/login?redirect=/pricing')
         return
       }
+
+      const res = await fetch('/api/beta/redeem', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ code: betaCode.trim() }),
+      })
+      const data = await res.json()
       if (!res.ok) { setBetaStatus('error'); setBetaMsg(data.error ?? 'Código incorrecto.'); return }
       setBetaStatus('ok')
       setBetaMsg('¡Acceso activado! Ya tienes acceso premium completo.')
