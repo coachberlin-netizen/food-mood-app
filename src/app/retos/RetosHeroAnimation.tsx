@@ -774,15 +774,14 @@ export default function RetosHeroAnimation() {
     if (!wrapperRef.current) return
     const ro = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect
-      // Portrait = mobile (height > width): use contain so text stays visible
       const isPortrait = height > width * 1.1
       setPortrait(isPortrait)
       if (isPortrait) {
-        // Cover full screen height; show the left portion of the canvas (where text lives)
-        setScale(height / H)
-        setWrapHeight('100svh')
+        // Contain: scale so the full canvas fits within the viewport width
+        const fitScale = width / W
+        setScale(fitScale)
+        setWrapHeight(`${Math.ceil(fitScale * H)}px`)
       } else {
-        // Desktop/landscape: cover fill
         setScale(Math.max(width / W, height / H))
         setWrapHeight('100svh')
       }
@@ -796,11 +795,11 @@ export default function RetosHeroAnimation() {
       <TimeCtx.Provider value={time}>
         <div style={{
           position: 'absolute',
-          top: portrait ? '0' : '50%',
-          left: portrait ? '0' : '50%',
+          top: '50%',
+          left: '50%',
           width: W, height: H,
-          transformOrigin: portrait ? 'top left' : 'center center',
-          transform: portrait ? `scale(${scale})` : `translate(-50%, -50%) scale(${scale})`,
+          transformOrigin: 'center center',
+          transform: `translate(-50%, -50%) scale(${scale})`,
           background: '#2a060f',
           overflow: 'hidden',
         }}>
