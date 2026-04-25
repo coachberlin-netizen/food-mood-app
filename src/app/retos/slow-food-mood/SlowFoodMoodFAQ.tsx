@@ -24,10 +24,6 @@ const FAQS = [
     a: 'Inmediatamente. Al completar el pago recibes acceso directo en tu cuenta de Food·Mood. Cada día aparece la preparación correspondiente, el audio de ritual y el espacio de diario.',
   },
   {
-    q: '¿Hay garantía de devolución?',
-    a: 'Sí. Si en los primeros 7 días sientes que el reto no es para ti, te devolvemos el 100% del importe. Sin preguntas. Escríbenos a hola@food-mood.app.',
-  },
-  {
     q: '¿Es compatible con el Food·Mood Reset?',
     a: 'Son retos complementarios, no simultáneos. El Reset se centra en qué comes. El Slow Food·Mood se centra en cómo cocinas y el efecto que tiene eso sobre tu sistema nervioso. Muchas personas hacen primero el Reset y después el Slow Food·Mood.',
   },

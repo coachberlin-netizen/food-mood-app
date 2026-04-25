@@ -193,10 +193,6 @@ const FAQS_BASE = [
     a: 'Sí. El acceso es inmediato tras el pago y el reto empieza el día que tú decidas. No hay fechas fijas ni cohortes.',
   },
   {
-    q: '¿Hay política de reembolso?',
-    a: 'Sí — 7 días de garantía completa. Si en los primeros 7 días no es lo que esperabas, te devolvemos el importe íntegro sin preguntas. Escríbenos a hola@food-mood.app.',
-  },
-  {
     q: '¿Tengo dudas o necesito ayuda?',
     a: <>Puedes escribirnos en cualquier momento a <a href="mailto:hola@food-mood.app" style={{ color: 'inherit', textDecoration: 'underline' }}>hola@food-mood.app</a> o consultar los <Link href="/pricing" style={{ color: 'inherit', textDecoration: 'underline' }}>planes de suscripción</Link> si buscas acceso continuo a todas las recetas.</>,
   },
@@ -842,9 +838,6 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
             <p className="text-xs font-light text-center mt-4" style={{ color: 'rgba(255,255,255,0.3)' }}>
               Pago seguro vía Stripe · Acceso inmediato al completar
-            </p>
-            <p className="text-xs font-medium text-center mt-2" style={{ color: 'rgba(201,168,76,0.7)' }}>
-              <span role="img" aria-label="garantía">🛡️</span> 7 días de garantía — devolución completa si no es lo que esperabas
             </p>
           </section>
         )}

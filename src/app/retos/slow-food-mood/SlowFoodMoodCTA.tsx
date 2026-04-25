@@ -57,7 +57,7 @@ export default function SlowFoodMoodCTA({ challengeId, isAuthenticated, compact 
         {isPending ? 'Procesando…' : 'Empezar 21 días — 29€ →'}
       </button>
       <p className="text-xs text-center" style={{ color: 'rgba(107,39,55,0.4)' }}>
-        Pago seguro vía Stripe · Acceso inmediato · <span style={{ color: 'rgba(107,39,55,0.55)' }}>🛡️ 7 días de garantía</span>
+        Pago seguro vía Stripe · Acceso inmediato
       </p>
     </div>
   )

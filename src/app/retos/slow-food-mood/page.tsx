@@ -132,9 +132,7 @@ export default async function SlowFoodMoodPage() {
           <p className="text-lg font-light leading-relaxed mb-4" style={{ color: 'rgba(107,39,55,0.65)' }}>
             En 21 días, aprenderás que el tiempo no es el enemigo. Es la herramienta.
           </p>
-          <p className="text-sm font-semibold mb-10" style={{ color: '#C9A84C' }}>
-            🛡️ Garantía de 7 días — si no es para ti, te devolvemos el 100%
-          </p>
+
           <SlowFoodMoodCTA
             challengeId={challengeId}
             isAuthenticated={isAuthenticated}
@@ -329,9 +327,7 @@ export default async function SlowFoodMoodPage() {
             <p className="text-base font-light mb-6 leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
               21 días. Una preparación al día. Y la ansiedad empieza a tener otro ritmo.
             </p>
-            <p className="text-xs font-semibold mb-8" style={{ color: '#C9A84C' }}>
-              🛡️ Garantía de 7 días — si no es para ti, te devolvemos el 100%
-            </p>
+
             <SlowFoodMoodCTA
               challengeId={challengeId}
               isAuthenticated={isAuthenticated}
