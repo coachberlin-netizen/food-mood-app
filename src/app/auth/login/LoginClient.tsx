@@ -54,7 +54,7 @@ function LoginForm() {
           return;
         }
         if (signInError.message.includes("Invalid login credentials") || signInError.message.includes("invalid_credentials")) {
-          setError("Email o contraseña incorrectos. ¿No tienes cuenta? Regístrate más abajo.");
+          setError("Email o contraseña incorrectos — o puede que aún no hayas confirmado tu cuenta. Revisa tu bandeja de entrada.");
           setLoading(false);
           return;
         }
@@ -135,13 +135,13 @@ function LoginForm() {
                 : "bg-red-50 text-red-600 border border-red-100"
             }`}>
               {error}
-              {error.includes("confirmar tu cuenta") && (
+              {(error.includes("confirmar tu cuenta") || error.includes("confirmado")) && (
                 <button
                   onClick={handleResendEmail}
                   disabled={loading}
                   className="block w-full mt-2 font-bold underline hover:no-underline transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {loading ? "Enviando..." : "¿No lo recibiste? Reenviar email →"}
+                  {loading ? "Enviando..." : "Reenviar email de confirmación →"}
                 </button>
               )}
             </div>

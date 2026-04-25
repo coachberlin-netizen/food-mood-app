@@ -46,12 +46,8 @@ function RegisterForm() {
       return;
     }
 
-    const redirect = searchParams.get("redirect") || "/pricing";
     setSuccess(true);
     setLoading(false);
-
-    // If email confirmation is disabled in Supabase, redirect directly
-    setTimeout(() => router.replace(redirect), 2000);
   };
 
   return (
@@ -71,8 +67,9 @@ function RegisterForm() {
           <p className="text-aubergine-dark/60 text-center text-sm mb-6">Empieza gratis. Profundiza cuando quieras.</p>
 
           {success ? (
-            <div className="p-4 rounded-xl text-sm text-center bg-green-50 text-green-700 border border-green-100">
-              ✓ Cuenta creada. Redirigiendo…
+            <div className="p-4 rounded-xl text-sm text-center bg-green-50 text-green-700 border border-green-100 space-y-1">
+              <p className="font-bold">✓ Cuenta creada</p>
+              <p>Revisa tu email y confirma tu cuenta antes de iniciar sesión. Después vuelve aquí para entrar.</p>
             </div>
           ) : (
             <>
