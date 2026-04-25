@@ -39,11 +39,8 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
     if (!betaCode.trim()) return
     setBetaStatus('loading')
     try {
-      // Check auth client-side before making request
-      const { createClient: createSupabase } = await import('@/lib/supabase/client')
-      const supabase = createSupabase()
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
+      // Trust SSR auth check; if not authenticated redirect to login
+      if (!initialIsAuthenticated) {
         router.push('/auth/login?redirect=/pricing')
         return
       }
@@ -235,12 +232,20 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
 
         {/* ── Código beta / influencer ── */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}
+          id="codigo"
           className="max-w-md mx-auto mt-14 mb-6 text-center">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-aubergine-dark/30 mb-3">
             ¿Tienes un código de acceso?
           </p>
           {betaStatus === 'ok' ? (
             <p className="text-sm font-medium text-green-700">✓ {betaMsg}</p>
+          ) : !initialIsAuthenticated ? (
+            <p className="text-sm text-aubergine-dark/50">
+              <Link href="/auth/login?redirect=/pricing" className="font-semibold text-aubergine-dark underline underline-offset-2">Inicia sesión</Link>
+              {" "}o{" "}
+              <Link href="/auth/register?redirect=/pricing" className="font-semibold text-aubergine-dark underline underline-offset-2">crea una cuenta gratis</Link>
+              {" "}para canjear tu código.
+            </p>
           ) : (
             <div className="flex gap-2">
               <input

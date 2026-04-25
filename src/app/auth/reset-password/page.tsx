@@ -24,40 +24,34 @@ function ResetPasswordContent() {
       if (processedRef.current) return;
       processedRef.current = true;
 
-      // Check current session first
-      const { data: { session: existingSession } } = await supabase.auth.getSession();
-      
-      // If we already have a recovery session, we might be good
-      if (existingSession) {
-        setIsVerifying(false);
-        return;
-      }
-
-      // Try to get code from URL or hash (Supabase can use both)
       const code = searchParams.get('code');
-      
-      // Also check hash fragment just in case (Implicit flow fallback)
+
+      // Check hash fragment for implicit flow (access_token)
       const hash = typeof window !== 'undefined' ? window.location.hash : '';
       const hashParams = new URLSearchParams(hash.replace('#', '?'));
       const accessToken = hashParams.get('access_token');
+      const tokenType = hashParams.get('type');
 
       if (code) {
+        // PKCE flow — always exchange the code, even if there's an existing session
         const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
         if (exchangeError) {
-          console.error("Critical Exchange Error:", exchangeError);
-          setError(`El enlace es inválido o ha caducado. (Error: ${exchangeError.message})`);
+          setError(`El enlace es inválido o ha caducado. Solicita uno nuevo.`);
         }
-      } else if (accessToken) {
-        // If it was an implicit flow, Supabase Browser Client might have already picked it up
-        // but we verify session one last time
+      } else if (accessToken && tokenType === 'recovery') {
+        // Implicit flow — Supabase browser client picks up the hash automatically
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) {
-          setError("No se pudo establecer la sesión de recuperación. Intenta solicitar un nuevo enlace.");
+          setError("No se pudo establecer la sesión de recuperación. Solicita un nuevo enlace.");
         }
-      } else {
-        setError("No se encontró un código de acceso válido en el enlace.");
+      } else if (!code && !accessToken) {
+        // No token at all — check if there's already a valid recovery session
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          setError("Enlace inválido o expirado. Solicita un nuevo enlace de recuperación.");
+        }
       }
-      
+
       setIsVerifying(false);
     }
 
