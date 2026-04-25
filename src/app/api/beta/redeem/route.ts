@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
   const supabaseAdmin = createAdmin(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
     { auth: { autoRefreshToken: false, persistSession: false } }
   )
 
@@ -38,18 +38,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Código incorrecto.' }, { status: 400 })
   }
 
-  // Accept token from Authorization header (client sends it explicitly)
-  // OR fall back to cookie-based session
-  const authHeader = req.headers.get('authorization')
-  const token = authHeader?.replace('Bearer ', '')
+  // Auth: prefer cookie-based session (reliable with SSR); accept Bearer as fallback
   let user = null
-  if (token) {
-    const { data } = await supabaseAdmin.auth.getUser(token)
-    user = data.user
+  const supabase = await createClient()
+  const { data: cookieUser } = await supabase.auth.getUser()
+  if (cookieUser.user) {
+    user = cookieUser.user
   } else {
-    const supabase = await createClient()
-    const { data } = await supabase.auth.getUser()
-    user = data.user
+    const authHeader = req.headers.get('authorization')
+    const token = authHeader?.replace('Bearer ', '').trim()
+    if (token) {
+      const { data } = await supabaseAdmin.auth.getUser(token)
+      user = data.user
+    }
   }
   if (!user) {
     return NextResponse.json({ error: 'Debes iniciar sesión primero.' }, { status: 401 })

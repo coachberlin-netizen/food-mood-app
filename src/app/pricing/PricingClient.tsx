@@ -39,21 +39,18 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
     if (!betaCode.trim()) return
     setBetaStatus('loading')
     try {
+      // Check auth client-side before making request
       const { createClient: createSupabase } = await import('@/lib/supabase/client')
       const supabase = createSupabase()
-      const { data: { session } } = await supabase.auth.getSession()
-
-      if (!session) {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
         router.push('/auth/login?redirect=/pricing')
         return
       }
 
       const res = await fetch('/api/beta/redeem', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: betaCode.trim() }),
       })
       const data = await res.json()
