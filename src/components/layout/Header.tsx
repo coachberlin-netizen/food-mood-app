@@ -61,7 +61,7 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full bg-aubergine-dark/95 backdrop-blur-xl border-b border-cream/10 transition-all duration-300">
       <div className="container mx-auto px-6 h-20 md:px-12 flex items-center justify-between gap-8">
         <div className="flex items-center justify-start flex-1">
-          <MobileNav isAuthenticated={isAuthenticated} isPremium={isPremium} />
+          <MobileNav isAuthenticated={isAuthenticated ?? false} isPremium={isPremium} />
           {/* Authenticated nav: full feature set */}
           {isAuthenticated === true ? (
             <nav className="hidden md:flex items-center space-x-8">
