@@ -60,17 +60,14 @@ export default async function SlowFoodMoodPage() {
   const supabase = await createClient()
 
   const [
-    { data: ch21 },
-    { data: ch7  },
+    { data: ch },
     { data: { user } },
   ] = await Promise.all([
     supabase.from('challenges').select('id').eq('slug', 'slow-food-mood').eq('is_active', true).maybeSingle(),
-    supabase.from('challenges').select('id').eq('slug', 'slow-food-mood-7d').eq('is_active', true).maybeSingle(),
     supabase.auth.getUser(),
   ])
 
-  const challenge21dId = ch21?.id ?? null
-  const challenge7dId  = ch7?.id  ?? null
+  const challengeId     = ch?.id ?? null
   const isAuthenticated = !!user
 
   const productSchema = {
@@ -83,7 +80,6 @@ export default async function SlowFoodMoodPage() {
     brand: { '@type': 'Brand', name: 'Food·Mood' },
     offers: [
       { '@type': 'Offer', name: 'Slow Food·Mood — 21 días', price: 29, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
-      { '@type': 'Offer', name: 'Slow Food·Mood — 7 días',  price: 19, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
     ],
   }
 
@@ -140,8 +136,7 @@ export default async function SlowFoodMoodPage() {
             🛡️ Garantía de 7 días — si no es para ti, te devolvemos el 100%
           </p>
           <SlowFoodMoodCTA
-            challenge7dId={challenge7dId}
-            challenge21dId={challenge21dId}
+            challengeId={challengeId}
             isAuthenticated={isAuthenticated}
           />
         </section>
@@ -338,8 +333,7 @@ export default async function SlowFoodMoodPage() {
               🛡️ Garantía de 7 días — si no es para ti, te devolvemos el 100%
             </p>
             <SlowFoodMoodCTA
-              challenge7dId={challenge7dId}
-              challenge21dId={challenge21dId}
+              challengeId={challengeId}
               isAuthenticated={isAuthenticated}
               compact
             />
