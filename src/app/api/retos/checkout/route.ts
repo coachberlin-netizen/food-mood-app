@@ -9,8 +9,10 @@ export async function POST(req: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
 
-  const { challenge_id } = await req.json()
+  const body = await req.json()
+  const { challenge_id, consent } = body
   if (!challenge_id) return NextResponse.json({ error: 'challenge_id requerido' }, { status: 400 })
+  if (!consent) return NextResponse.json({ error: 'Debes aceptar las condiciones de compra de contenido digital.' }, { status: 400 })
 
   const { data: challenge, error: challengeErr } = await supabase
     .from('challenges')
@@ -25,6 +27,16 @@ export async function POST(req: NextRequest) {
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://food-mood.app'
   const today  = new Date().toISOString().split('T')[0]
+
+  // Guardar consentimiento (upsert — idempotente si repite)
+  await supabase.from('purchase_consents').upsert(
+    {
+      user_id:      user.id,
+      challenge_id,
+      user_agent:   req.headers.get('user-agent') ?? null,
+    },
+    { onConflict: 'user_id,challenge_id' }
+  )
 
   // Admin and premium/influencer users bypass Stripe — enroll directly
   const hasFreeAccess = isUserAdmin(user) || await getPremiumStatus(supabase, user.id)

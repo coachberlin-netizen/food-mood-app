@@ -9,6 +9,7 @@ import { getBowlColor } from "@/lib/bowl-color"
 
 type CountKey =
   | "protein_count"
+  | "vprotein_count"
   | "fish_count"
   | "vegetables_count"
   | "fruits_count"
@@ -21,7 +22,7 @@ type CountKey =
 type Counts = Record<CountKey, number>
 
 const EMPTY: Counts = {
-  protein_count: 0, fish_count: 0, vegetables_count: 0, fruits_count: 0,
+  protein_count: 0, vprotein_count: 0, fish_count: 0, vegetables_count: 0, fruits_count: 0,
   grains_count: 0, fermented_count: 0, nuts_count: 0, processed_count: 0, water_count: 0,
 }
 
@@ -362,6 +363,7 @@ export default function BolPage() {
         if (log) {
           const c: Counts = {
             protein_count:    log.protein_count    ?? 0,
+            vprotein_count:   log.vprotein_count   ?? 0,
             fish_count:       log.fish_count       ?? 0,
             vegetables_count: log.vegetables_count ?? 0,
             fruits_count:     log.fruits_count     ?? 0,
