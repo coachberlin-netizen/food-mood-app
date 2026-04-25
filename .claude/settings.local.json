@@ -35,7 +35,17 @@
       "Bash(curl -L -o \"C:/Users/coach/food-mood-app/public/hero/hero1.jpg\" \"https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=1280&q=85&auto=format&fit=crop\")",
       "Bash(curl -L -o \"C:/Users/coach/food-mood-app/public/hero/hero2.jpg\" \"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1280&q=85&auto=format&fit=crop\")",
       "Bash(curl -L -o \"C:/Users/coach/food-mood-app/public/hero/hero3.jpg\" \"https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1280&q=85&auto=format&fit=crop\")",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(grep -v \"^$\")",
+      "Bash(awk '/^  \\\\{/,/^  \\\\}/' scripts/seed-recetas.ts)",
+      "Bash(grep \"^  {$\" -A 50 src/data/recipes.ts)",
+      "Bash(python3 *)",
+      "Bash(grep -E \"^.*Error.*$\")",
+      "Bash(cp \"C:\\\\Users\\\\coach\\\\.claude\\\\projects\\\\C--Users-coach-food-mood-app\\\\4a752c4b-eaab-4b7c-a1f6-70e7286c93e2\\\\tool-results\\\\webfetch-1777115769483-utj22v.bin\" /tmp/bol.gz)",
+      "Bash(gunzip -f /tmp/bol.gz)",
+      "Bash(grep -v \"//.*<button\")",
+      "Bash(sed -i 's/ahorro del 44%/ahorro del 22%/g; s/descuento del 44%/descuento del 22%/g' src/app/pricing/page.tsx)",
+      "Bash(sed -i 's/\\(15€\\\\/3 meses\\)/\\(21€\\\\/3 meses\\)/g' \"src/app/sintomas/[slug]/page.tsx\")"
     ]
   }
 }

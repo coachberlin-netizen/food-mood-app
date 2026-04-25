@@ -97,7 +97,7 @@ export function UpsellBlock() {
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
                 Premium
               </span>
-              <span className="text-cream/40 text-sm font-light ml-auto">desde 5€/mes</span>
+              <span className="text-cream/40 text-sm font-light ml-auto">desde 7€/mes</span>
             </div>
             <ul className="space-y-3.5">
               {PREMIUM_FEATURES.map((f, i) => (
@@ -116,7 +116,7 @@ export function UpsellBlock() {
         <Link href="/pricing" className="w-full max-w-md">
           <button className="w-full py-4.5 px-8 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-base font-medium rounded-xl shadow-luxury hover:shadow-luxury-hover transition-all duration-300 flex items-center justify-center gap-3">
             <Sparkles className="w-5 h-5" />
-            Empieza tu variedad — desde 5€/mes
+            Empieza tu variedad — desde 7€/mes
             <ArrowRight className="w-4 h-4" />
           </button>
         </Link>

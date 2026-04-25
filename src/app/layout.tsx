@@ -107,7 +107,7 @@ export default function RootLayout({
               offers: [
                 { "@type": "Offer", name: "Plan Gratuito", price: "0", priceCurrency: "EUR" },
                 { "@type": "Offer", name: "Plan Mensual", price: "9.00", priceCurrency: "EUR" },
-                { "@type": "Offer", name: "Plan Trimestral", price: "15.00", priceCurrency: "EUR" },
+                { "@type": "Offer", name: "Plan Trimestral", price: "21.00", priceCurrency: "EUR" },
               ],
               aggregateRating: {
                 "@type": "AggregateRating",

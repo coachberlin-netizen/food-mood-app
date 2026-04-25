@@ -70,7 +70,7 @@ const FAQ_SCHEMA = {
     {
       "@type": "Question",
       "name": "¿Cuánto cuesta acceder a la paleta emocional?",
-      "acceptedAnswer": { "@type": "Answer", "text": "El test y el resultado básico de tu paleta emocional son gratuitos. Las recetas completas personalizadas y el historial de paletas están disponibles en el plan Premium desde 5€/mes." }
+      "acceptedAnswer": { "@type": "Answer", "text": "El test y el resultado básico de tu paleta emocional son gratuitos. Las recetas completas personalizadas y el historial de paletas están disponibles en el plan Premium desde 7€/mes." }
     },
   ],
 };

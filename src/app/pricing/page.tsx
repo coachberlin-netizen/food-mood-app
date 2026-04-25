@@ -6,14 +6,14 @@ import { getPremiumStatus } from "@/lib/premium";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Precios — Club Premium Food·Mood | Desde 5€/mes",
+  title: "Precios — Club Premium Food·Mood | Desde 7€/mes",
   description:
     "Accede a 200+ recetas funcionales, canal privado de Telegram, comunidad WhatsApp y seguimiento personalizado. Sin compromiso — cancela cuando quieras.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "Precios — Club Premium Food·Mood",
     description:
-      "Accede a 200+ recetas funcionales, Telegram privado, WhatsApp y seguimiento emocional desde 5€/mes.",
+      "Accede a 200+ recetas funcionales, Telegram privado, WhatsApp y seguimiento emocional desde 7€/mes.",
     url: "https://www.food-mood.app/pricing",
     images: [
       { url: "/og-image.png", width: 1200, height: 630, alt: "Food·Mood Premium" },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Precios — Club Premium Food·Mood",
-    description: "200+ recetas funcionales + canal Telegram privado + WhatsApp desde 5€/mes.",
+    description: "200+ recetas funcionales + canal Telegram privado + WhatsApp desde 7€/mes.",
     images: ["/og-image.png"],
   },
 };
@@ -68,7 +68,7 @@ const FAQ_SCHEMA = {
       name: "¿Cuánto cuesta el plan Premium?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "El plan mensual cuesta 9€/mes. El plan trimestral cuesta 15€ cada 3 meses (equivale a 5€/mes). Ambos incluyen acceso completo a todas las funcionalidades premium.",
+        text: "El plan mensual cuesta 9€/mes. El plan trimestral cuesta 21€ cada 3 meses (equivale a 7€/mes). Ambos incluyen acceso completo a todas las funcionalidades premium.",
       },
     },
   ],
@@ -121,15 +121,15 @@ const PRICING_SCHEMA = {
       item: {
         "@type": "Product",
         name: "Food·Mood Premium Trimestral",
-        description: "Todo el plan mensual + ahorro del 44%. 15€ cada 3 meses (equivale a 5€/mes).",
+        description: "Todo el plan mensual + ahorro del 22%. 21€ cada 3 meses (equivale a 7€/mes).",
         offers: {
           "@type": "Offer",
-          price: "15.00",
+          price: "21.00",
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
           priceSpecification: {
             "@type": "UnitPriceSpecification",
-            price: "15.00",
+            price: "21.00",
             priceCurrency: "EUR",
             unitCode: "MON",
           },
@@ -175,8 +175,8 @@ export default async function PricingPage() {
           <p>200+ recetas completas, paleta emocional personalizada, historial de 90 días, glosario científico, canal privado de Telegram. Sin compromiso, cancela cuando quieras.</p>
         </section>
         <section>
-          <h2>Plan Premium Trimestral — 15€ cada 3 meses (5€/mes)</h2>
-          <p>Todo lo del plan mensual más Fermentos del Mundo y descuento del 44%. Cancela cuando quieras.</p>
+          <h2>Plan Premium Trimestral — 21€ cada 3 meses (7€/mes)</h2>
+          <p>Todo lo del plan mensual más Fermentos del Mundo y descuento del 22%. Cancela cuando quieras.</p>
         </section>
       </div>
 

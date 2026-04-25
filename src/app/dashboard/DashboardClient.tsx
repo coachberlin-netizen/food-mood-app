@@ -470,7 +470,7 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
                   ))}
                 </ul>
                 <div className="flex flex-col items-start gap-3">
-                  <Link href="/pricing" className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9A84C] hover:bg-[#b8953e] text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"><Sparkles className="w-4 h-4" />Suscribirte — desde 5€/mes</Link>
+                  <Link href="/pricing" className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9A84C] hover:bg-[#b8953e] text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"><Sparkles className="w-4 h-4" />Suscribirte — desde 7€/mes</Link>
                   <p className="text-[11px] text-cream/50 font-light">Cancela cuando quieras · Sin permanencia</p>
                 </div>
               </div>

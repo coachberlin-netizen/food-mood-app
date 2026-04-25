@@ -113,7 +113,7 @@ function PreparacionPaywall() {
             className="block w-full py-2.5 rounded-xl text-sm font-semibold text-white text-center transition-all hover:opacity-90"
             style={{ backgroundColor: "#6B2737" }}
           >
-            Ver planes — desde 5€/mes
+            Ver planes — desde 7€/mes
           </Link>
           <Link
             href="/test"

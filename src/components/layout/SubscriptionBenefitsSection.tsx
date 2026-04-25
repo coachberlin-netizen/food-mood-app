@@ -142,7 +142,7 @@ export function SubscriptionBenefitsSection() {
                 className="text-sm font-light transition-colors hover:text-white"
                 style={{ color: 'rgba(245,240,232,0.45)' }}
               >
-                Desde 5€/mes — ver planes →
+                Desde 7€/mes — ver planes →
               </Link>
             </div>
           </div>

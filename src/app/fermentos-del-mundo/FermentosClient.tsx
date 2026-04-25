@@ -252,7 +252,7 @@ export default function FermentosClient({
                   href="/pricing"
                   className="w-full inline-flex items-center justify-center px-8 py-4 bg-[#C9A84C] text-white text-sm font-bold rounded-full shadow-lg hover:bg-[#b8953e] transition-colors"
                 >
-                  Explorar con Premium — Desde 5€/mes
+                  Explorar con Premium — Desde 7€/mes
                 </Link>
                 <button 
                   onClick={() => setShowPremiumModal(false)}

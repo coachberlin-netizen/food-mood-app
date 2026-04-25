@@ -741,8 +741,8 @@ export default function Home() {
               {
                 tier: "Premium trimestral",
                 price: "5€",
-                cadence: "/mes — 15€ cada 3 meses",
-                features: ["Todo lo del plan mensual", "Ahorra un 44%", "Fermentos del Mundo", "Canal privado de Telegram", "Cancela cuando quieras"],
+                cadence: "/mes — 21€ cada 3 meses",
+                features: ["Todo lo del plan mensual", "Ahorra un 22%", "Fermentos del Mundo", "Canal privado de Telegram", "Cancela cuando quieras"],
                 cta: "Mejor precio →",
                 href: "/pricing",
                 highlight: true,
@@ -892,7 +892,7 @@ export default function Home() {
                 </Link>
               </div>
               <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.25)" }}>
-                Retos desde 19€ · Planes premium desde 5€/mes · Cancelas cuando quieras
+                Retos desde 19€ · Planes premium desde 7€/mes · Cancelas cuando quieras
               </p>
             </div>
           </motion.div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Planes Food·Mood — Empieza gratis | Suscripción desde 5 €/mes",
-  description: "Accede a todas las recetas funcionales de Food·Mood. Plan gratuito disponible. Suscripción mensual 9 €/mes o trimestral 15 €/3 meses. Cancela cuando quieras.",
+  description: "Accede a todas las recetas funcionales de Food·Mood. Plan gratuito disponible. Suscripción mensual 9 €/mes o trimestral 21 €/3 meses. Cancela cuando quieras.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "Planes Food·Mood — Empieza gratis",

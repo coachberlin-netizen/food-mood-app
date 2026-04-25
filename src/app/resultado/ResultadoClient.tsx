@@ -399,7 +399,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
                   className="flex-1 px-8 py-4.5 bg-[#C9A84C] text-white rounded-2xl text-sm font-semibold hover:bg-[#b8953e] transition-all shadow-lg flex flex-col gap-0.5 items-center justify-center group"
                 >
                   <span>{isAuthenticated ? "Suscribirme ahora" : "Plan Trimestral"}</span>
-                  <span className="text-[10px] opacity-80 group-hover:opacity-100 uppercase tracking-wider">Sólo 5€/mes</span>
+                  <span className="text-[10px] opacity-80 group-hover:opacity-100 uppercase tracking-wider">Sólo 7€/mes</span>
                 </button>
                 <button 
                   onClick={() => {

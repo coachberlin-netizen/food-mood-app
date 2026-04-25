@@ -15,7 +15,7 @@ WITH ranked AS (
           (CASE WHEN contexto_es    IS NOT NULL THEN 1 ELSE 0 END) +
           (CASE WHEN nota_food_mood_es IS NOT NULL THEN 1 ELSE 0 END) +
           (CASE WHEN chef_inspiracion IS NOT NULL THEN 1 ELSE 0 END) +
-          (CASE WHEN array_length(ingredientes_es, 1) > 0 THEN 1 ELSE 0 END)
+          (CASE WHEN jsonb_array_length(ingredientes_es) > 0 THEN 1 ELSE 0 END)
         ) DESC,
         id ASC
     ) AS rn

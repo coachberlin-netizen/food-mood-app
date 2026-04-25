@@ -143,7 +143,7 @@ function RecipeCard({ receta, locked = false, isFree = false, onLockedClick }: {
               onClick={e => { e.preventDefault(); onLockedClick?.(); }}
               className="px-4 py-2 bg-[#C9A84C] text-white text-[11px] font-bold rounded-lg shadow-sm hover:bg-[#b8953e] hover:scale-105 transition-all"
             >
-              Desbloquear — desde 5€/mes
+              Desbloquear — desde 7€/mes
             </button>
           </div>
         </div>
@@ -218,7 +218,7 @@ function ExclusivaCard({ receta, locked = false, isFree = false, onLockedClick }
               onClick={e => { e.preventDefault(); onLockedClick?.(); }}
               className="px-4 py-2 bg-[#C9A84C] text-white text-[11px] font-bold rounded-lg shadow-[0_4px_12px_rgba(201,168,76,0.3)] hover:bg-[#b8953e] hover:scale-105 transition-all"
             >
-              Desbloquear — desde 5€/mes
+              Desbloquear — desde 7€/mes
             </button>
           </div>
         </div>
@@ -575,7 +575,7 @@ export default function RecetasClient({
                   href="/pricing"
                   className="inline-block px-8 py-3.5 rounded-full bg-[#C9A84C] text-aubergine-dark text-sm font-bold hover:bg-[#b8953e] transition-all hover:scale-105"
                 >
-                  Ver planes — desde 5€/mes
+                  Ver planes — desde 7€/mes
                 </Link>
               </motion.div>
             )}

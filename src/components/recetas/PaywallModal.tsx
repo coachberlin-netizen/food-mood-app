@@ -117,7 +117,7 @@ export function PaywallModal({ receta, onClose }: Props) {
                 style={{ backgroundColor: "#C9A84C" }}
               >
                 <Sparkles size={15} />
-                Desbloquear — desde 5€/mes
+                Desbloquear — desde 7€/mes
               </Link>
 
               {/* Secondary */}
