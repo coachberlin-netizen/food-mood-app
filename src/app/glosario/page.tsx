@@ -99,7 +99,7 @@ export default async function GlosarioPage() {
 
       {/* Server-rendered glossary for crawlers */}
       <div className="sr-only">
-        <h1>Glosario de ingredientes funcionales — Food·Mood</h1>
+        <h1 aria-hidden="true">Glosario de ingredientes funcionales — Food·Mood</h1>
         <p>
           Más de 50 ingredientes explicados: qué son, qué compuestos activos tienen y cómo
           afectan tu estado emocional y tu microbiota.

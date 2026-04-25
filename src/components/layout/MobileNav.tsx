@@ -60,6 +60,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                 Food<span style={{ color: '#C9A84C' }}>·</span>Mood
               </span>
               <button
+                type="button"
                 onClick={close}
                 aria-label="Cerrar menú"
                 style={{ padding: '8px', color: 'rgba(107,39,55,0.6)', background: 'none', border: 'none', cursor: 'pointer' }}
@@ -114,6 +115,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
     <div className="md:hidden">
       {/* Hamburger */}
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
         className="p-2 -ml-2 text-cream"
         aria-label="Abrir menú"

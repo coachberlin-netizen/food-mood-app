@@ -228,7 +228,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
                         const isOpen = openMonth === m.id;
                         return (
                             <div key={m.id} className="bg-white rounded-3xl overflow-hidden border border-[#6B2D3E]/5 shadow-sm">
-                                <button onClick={() => setOpenMonth(isOpen ? null : m.id)} className="w-full p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
+                                <button type="button" onClick={() => setOpenMonth(isOpen ? null : m.id)} className="w-full p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
                                     <div className="flex items-center gap-8"><span className="font-sans text-lg font-bold text-[#6B2D3E] capitalize w-48">{m.name}</span><div className="hidden md:flex w-40 h-2 rounded-full overflow-hidden bg-gray-100">{Object.entries(m.distribution).map(([mid, count]: [string, any]) => <div key={mid} style={{ width: `${(count / 30) * 100}%`, backgroundColor: MOOD_COLORS[mid] }} />)}</div></div>
                                     {isOpen ? <ChevronUp className="text-gray-400" /> : <ChevronDown className="text-gray-400" />}
                                 </button>

@@ -27,3 +27,9 @@ body {
     text-wrap: balance;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+}

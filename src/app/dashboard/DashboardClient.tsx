@@ -377,7 +377,7 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
                   </p>
                   {!isPremium && (
                     <Link href="/pricing">
-                      <button className="px-6 py-2 rounded-full border border-aubergine-dark/20 text-aubergine-dark/60 text-xs font-medium hover:bg-aubergine-dark hover:text-white transition-all">
+                      <button type="button" className="px-6 py-2 rounded-full border border-aubergine-dark/20 text-aubergine-dark/60 text-xs font-medium hover:bg-aubergine-dark hover:text-white transition-all">
                         Ver Planes
                       </button>
                     </Link>
@@ -521,7 +521,7 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-aubergine-dark/80 backdrop-blur-sm" onClick={handleCloseWelcome} />
             <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative w-full max-w-2xl bg-gradient-to-br from-[#1a1118] via-[#2a1825] to-[#1a1118] rounded-[2rem] p-8 md:p-12 shadow-2xl border border-[#C9A84C]/20 overflow-hidden">
-              <button onClick={handleCloseWelcome} className="absolute top-6 right-6 text-cream/40 hover:text-cream transition-colors z-20"><X className="w-6 h-6" /></button>
+              <button type="button" aria-label="Cerrar bienvenida" onClick={handleCloseWelcome} className="absolute top-6 right-6 text-cream/40 hover:text-cream transition-colors z-20"><X className="w-6 h-6" aria-hidden="true" /></button>
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-[80px]" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#C2714F]/10 rounded-full blur-[60px]" />
               <div className="relative flex flex-col items-center text-center gap-6 z-10">

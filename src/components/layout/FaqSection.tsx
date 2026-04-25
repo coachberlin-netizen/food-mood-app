@@ -35,6 +35,7 @@ function FaqItem({ faq, isOpen, onClick }: { faq: typeof FAQs[0], isOpen: boolea
   return (
     <div className="border-b border-aubergine-dark/10">
       <button
+        type="button"
         onClick={onClick}
         className="w-full flex items-center justify-between py-6 text-left group"
       >

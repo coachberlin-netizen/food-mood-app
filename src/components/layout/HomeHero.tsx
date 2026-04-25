@@ -342,6 +342,7 @@ export default function HomeHero() {
 
         {/* ══ MUSIC BUTTON ══ */}
         <button
+          type="button"
           onClick={toggleMusic}
           className="hero-fade-up-8"
           style={{ position:"absolute",bottom:"30px",right:"36px",zIndex:10,display:"flex",alignItems:"center",gap:"10px",cursor:"pointer",background:"none",border:"none",padding:0,color:musicOn ? GOLD_LIGHT : "rgba(245,237,224,.55)",transition:"color .3s" }}

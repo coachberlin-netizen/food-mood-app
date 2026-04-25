@@ -170,6 +170,7 @@ export function Header() {
           )}
           <div className="relative" ref={menuRef}>
             <button
+              type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="transition-opacity hover:opacity-80 flex items-center focus:outline-none"
               aria-label="Mi perfil"
