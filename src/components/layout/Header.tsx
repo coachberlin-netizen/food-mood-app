@@ -208,23 +208,11 @@ export function Header() {
               aria-expanded={isMenuOpen}
               aria-haspopup="menu"
             >
-              <div
-                style={{
-                  width: 32, height: 32,
-                  borderRadius: "50%",
-                  backgroundColor: "rgba(253,251,247,0.15)",
-                  border: "1px solid rgba(253,251,247,0.25)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#FDFBF7",
-                  fontSize: 12,
-                  fontFamily: "var(--font-cormorant, serif)",
-                  fontWeight: 500,
-                  flexShrink: 0,
-                }}
-              >
-                U
+              <div className="relative flex items-center justify-center" style={{ width: 32, height: 32 }}>
+                {/* anillo exterior pulsante */}
+                <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: '#C9A84C', opacity: 0.2 }} />
+                {/* destello central */}
+                <span className="relative rounded-full" style={{ width: 10, height: 10, backgroundColor: '#C9A84C', boxShadow: '0 0 6px 2px rgba(201,168,76,0.5)' }} />
               </div>
             </button>
 
