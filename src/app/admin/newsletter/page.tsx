@@ -6,6 +6,7 @@ import {
   deleteNewsletterItemAction,
   getNewsletterItemsByWeek,
   getNewsletterQueue,
+  resendEditionAction,
 } from './actions';
 
 const CATEGORIES = [
@@ -73,9 +74,11 @@ export default function AdminNewsletterPage() {
   const [url,       setUrl]          = useState('');
   const [items,     setItems]        = useState<Item[]>([]);
   const [queue,     setQueue]        = useState<Edition[]>([]);
-  const [error,     setError]        = useState<string | null>(null);
-  const [success,   setSuccess]      = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [error,       setError]        = useState<string | null>(null);
+  const [success,     setSuccess]      = useState(false);
+  const [resendMsg,   setResendMsg]    = useState<string | null>(null);
+  const [isPending,   startTransition] = useTransition();
+  const [isResending, setIsResending]  = useState(false);
 
   useEffect(() => { loadAll() }, [weekStart]);
 
@@ -114,6 +117,20 @@ export default function AdminNewsletterPage() {
         setTimeout(() => setSuccess(false), 3000);
       } catch (err: any) { setError(err.message ?? 'Error desconocido'); }
     });
+  }
+
+  async function handleResend() {
+    if (!confirm(`¿Reenviar la edición del ${fmtWeek(weekStart)} a los suscriptores que aún no la recibieron?`)) return;
+    setIsResending(true);
+    setResendMsg(null);
+    try {
+      const result = await resendEditionAction(weekStart);
+      setResendMsg(result.message ?? `✓ ${result.sent} enviados, ${result.errors} errores`);
+    } catch (err: any) {
+      setResendMsg(`Error: ${err.message}`);
+    } finally {
+      setIsResending(false);
+    }
   }
 
   async function handleDelete(id: string) {
@@ -175,12 +192,27 @@ export default function AdminNewsletterPage() {
 
       {/* ── Formulario ── */}
       {isSent ? (
-        <div className="bg-green-50 border border-green-200 rounded-2xl p-6 text-sm text-green-800">
-          Esta edición ya fue enviada el{' '}
-          {queue.find(e => e.week_start === weekStart)?.sent_at
-            ? new Date(queue.find(e => e.week_start === weekStart)!.sent_at!).toLocaleString('es-ES')
-            : '—'}
-          . No puede modificarse.
+        <div className="bg-green-50 border border-green-200 rounded-2xl p-6 text-sm text-green-800 space-y-3">
+          <p>
+            Esta edición ya fue enviada el{' '}
+            {queue.find(e => e.week_start === weekStart)?.sent_at
+              ? new Date(queue.find(e => e.week_start === weekStart)!.sent_at!).toLocaleString('es-ES')
+              : '—'}
+            . No puede modificarse.
+          </p>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={isResending}
+              className="px-4 py-2 rounded-full text-xs font-bold border border-green-600 text-green-800 hover:bg-green-100 transition-colors disabled:opacity-50"
+            >
+              {isResending ? 'Reenviando…' : '↩ Reenviar a nuevos suscriptores'}
+            </button>
+            {resendMsg && (
+              <span className="text-xs font-medium">{resendMsg}</span>
+            )}
+          </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 border border-aubergine-dark/8 shadow-sm space-y-6">

@@ -76,6 +76,29 @@ export async function getNewsletterItemsByWeek(weekStart: string) {
   return data ?? [];
 }
 
+export async function resendEditionAction(weekStart: string): Promise<{ sent: number; errors: number; message?: string }> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!isUserAdmin(user)) throw new Error('Acceso denegado.');
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://food-mood.app';
+  const res = await fetch(`${appUrl}/api/newsletter/resend`, {
+    method:  'POST',
+    headers: {
+      'Content-Type':  'application/json',
+      'Authorization': `Bearer ${process.env.CRON_SECRET}`,
+    },
+    body: JSON.stringify({ week_start: weekStart }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error ?? `Error ${res.status}`);
+  }
+
+  return res.json();
+}
+
 // Vista de cola: todas las ediciones ordenadas por semana
 export async function getNewsletterQueue() {
   const supabase = await createClient();
