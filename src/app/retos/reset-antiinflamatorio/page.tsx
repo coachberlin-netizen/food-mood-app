@@ -3,9 +3,29 @@ import Link from 'next/link'
 import BuyRetoButton from '@/components/retos/BuyRetoButton'
 import type { Metadata } from 'next'
 
+const CANONICAL = 'https://www.food-mood.app/retos/reset-antiinflamatorio'
+
 export const metadata: Metadata = {
   title:       'Reset antiinflamatorio en una semana | Food·Mood',
-  description: 'Cúrcuma, omega-3, fermentados. Seis vías antiinflamatorias en 7 días. Basado en evidencia.',
+  description: 'Cúrcuma, omega-3, fermentados y polifenoles. Seis vías antiinflamatorias en 7 días con seguimiento real. Basado en evidencia. 19€.',
+  keywords:    'reset antiinflamatorio, dieta antiinflamatoria 7 días, cúrcuma omega-3 alimentación, NF-kB inhibición, fermentados inflamación, polifenoles Nrf2, sulforafano antiinflamatorio, ayuno nocturno autofagia',
+  alternates: {
+    canonical: CANONICAL,
+    languages: { es: CANONICAL },
+  },
+  openGraph: {
+    title:       'Reset antiinflamatorio en una semana | Food·Mood',
+    description: 'Seis vías antiinflamatorias en 7 días. Cúrcuma, omega-3, fermentados, polifenoles, sulforafano y ayuno nocturno. Desde 19€.',
+    url:         CANONICAL,
+    type:        'website',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Reset antiinflamatorio — Food·Mood' }],
+  },
+  twitter: {
+    card:        'summary_large_image',
+    title:       'Reset antiinflamatorio en una semana | Food·Mood',
+    description: 'Seis vías antiinflamatorias en 7 días. Cúrcuma, omega-3, fermentados y más. Desde 19€.',
+    images:      ['/og-image.png'],
+  },
 }
 
 const INCLUYE = [
@@ -46,18 +66,42 @@ export default async function RetoAntiinflamatorioPage() {
 
     if (reto) {
       const { data: purchase } = await supabase
-        .from('reto_purchases')
+        .from('user_challenges')
         .select('id')
         .eq('user_id', user.id)
         .eq('challenge_id', reto.id)
-        .eq('status', 'active')
+        .eq('paid', true)
         .maybeSingle()
 
       yaComprado = !!purchase
     }
   }
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Reset antiinflamatorio en una semana',
+    description: 'Seis vías antiinflamatorias en 7 días. Cúrcuma, omega-3, fermentados, polifenoles, sulforafano y ayuno nocturno.',
+    url: CANONICAL,
+    image: 'https://www.food-mood.app/og-image.png',
+    brand: { '@type': 'Brand', name: 'Food·Mood' },
+    offers: { '@type': 'Offer', price: 19, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
+      { '@type': 'ListItem', position: 2, name: 'Retos', item: 'https://www.food-mood.app/retos' },
+      { '@type': 'ListItem', position: 3, name: 'Reset antiinflamatorio', item: CANONICAL },
+    ],
+  }
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     <main className="min-h-screen font-[inherit]" style={{ background: '#F5F0E8' }}>
 
       {/* Nav */}
@@ -175,5 +219,6 @@ export default async function RetoAntiinflamatorioPage() {
 
       </div>
     </main>
+    </>
   )
 }

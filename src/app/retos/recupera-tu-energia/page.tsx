@@ -3,9 +3,29 @@ import Link from 'next/link'
 import BuyRetoButton from '@/components/retos/BuyRetoButton'
 import type { Metadata } from 'next'
 
+const CANONICAL = 'https://www.food-mood.app/retos/recupera-tu-energia'
+
 export const metadata: Metadata = {
   title:       'Recupera tu energía en 7 días | Food·Mood',
-  description: 'Sin cafeína forzada, sin azúcares de rebote. Resultados medibles en 7 días. Basado en evidencia.',
+  description: 'Sin cafeína forzada, sin azúcares de rebote. CoQ10, magnesio, hierro y adaptógenos. Protocolo mitocondrial de 7 días basado en evidencia. 19€.',
+  keywords:    'recuperar energía sin cafeína, fatiga crónica alimentación, energía mitocondrial, CoQ10 alimentos, hierro transporte energía, magnesio fatiga, adaptógenos cortisol, reto energía 7 días',
+  alternates: {
+    canonical: CANONICAL,
+    languages: { es: CANONICAL },
+  },
+  openGraph: {
+    title:       'Recupera tu energía en 7 días | Food·Mood',
+    description: 'Protocolo mitocondrial de 7 días. CoQ10, magnesio, hierro y adaptógenos. Sin cafeína forzada. Resultados medibles desde 19€.',
+    url:         CANONICAL,
+    type:        'website',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Recupera tu energía en 7 días — Food·Mood' }],
+  },
+  twitter: {
+    card:        'summary_large_image',
+    title:       'Recupera tu energía en 7 días | Food·Mood',
+    description: 'Protocolo mitocondrial de 7 días. CoQ10, magnesio, hierro y adaptógenos. Desde 19€.',
+    images:      ['/og-image.png'],
+  },
 }
 
 const INCLUYE = [
@@ -46,18 +66,42 @@ export default async function RetoEnergiaPage() {
 
     if (reto) {
       const { data: purchase } = await supabase
-        .from('reto_purchases')
+        .from('user_challenges')
         .select('id')
         .eq('user_id', user.id)
         .eq('challenge_id', reto.id)
-        .eq('status', 'active')
+        .eq('paid', true)
         .maybeSingle()
 
       yaComprado = !!purchase
     }
   }
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Recupera tu energía en 7 días',
+    description: 'Protocolo mitocondrial de 7 días para recuperar la energía sin cafeína forzada ni azúcares de rebote.',
+    url: CANONICAL,
+    image: 'https://www.food-mood.app/og-image.png',
+    brand: { '@type': 'Brand', name: 'Food·Mood' },
+    offers: { '@type': 'Offer', price: 19, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
+      { '@type': 'ListItem', position: 2, name: 'Retos', item: 'https://www.food-mood.app/retos' },
+      { '@type': 'ListItem', position: 3, name: 'Recupera tu energía', item: CANONICAL },
+    ],
+  }
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     <main className="min-h-screen font-[inherit]" style={{ background: '#F5F0E8' }}>
 
       {/* Nav */}
@@ -175,5 +219,6 @@ export default async function RetoEnergiaPage() {
 
       </div>
     </main>
+    </>
   )
 }

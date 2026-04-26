@@ -9,8 +9,14 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props) {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('challenges')
+    .select('title')
+    .eq('slug', params.slug)
+    .maybeSingle()
   return {
-    title: `Lista de la compra — ${params.slug} | Food·Mood`,
+    title: `Lista de la compra — ${data?.title ?? params.slug} | Food·Mood`,
     robots: { index: false },
   }
 }

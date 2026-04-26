@@ -6,17 +6,30 @@ import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
 
+const CANONICAL = 'https://www.food-mood.app/retos/equilibrio-hormonal-45'
+
 export const metadata: Metadata = {
   title: 'Equilibrio hormonal después de los 45 — 28 días | Food·Mood',
   description:
     'Programa de 28 días de alimentación y hábitos para apoyar la salud hormonal en perimenopausia, SOP y estrés crónico. Basado en evidencia. 39€, acceso de por vida.',
-  alternates: { canonical: 'https://www.food-mood.app/retos/equilibrio-hormonal-45' },
+  keywords: 'equilibrio hormonal perimenopausia, alimentación SOP, fitoestrógenos dieta, estrobioma hormonal, microbiota estrógenos, crucíferas DIM sulforafano, cronobiología mujer 45, triptófano melatonina menopausia, cortisol mujer programa',
+  alternates: {
+    canonical: CANONICAL,
+    languages: { es: CANONICAL },
+  },
   openGraph: {
     title: 'Equilibrio hormonal después de los 45 | Food·Mood',
     description:
-      'Protocolo de 28 días de alimentación, microbiota y hábitos para acompañar la perimenopausia y el SOP. Basado en evidencia.',
-    url: 'https://www.food-mood.app/retos/equilibrio-hormonal-45',
-    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+      'Protocolo de 28 días de alimentación, microbiota y hábitos para acompañar la perimenopausia y el SOP. Basado en evidencia. 39€.',
+    url: CANONICAL,
+    type: 'website',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Equilibrio hormonal después de los 45 — Food·Mood' }],
+  },
+  twitter: {
+    card:        'summary_large_image',
+    title:       'Equilibrio hormonal después de los 45 | Food·Mood',
+    description: '28 días de alimentación y hábitos para perimenopausia y SOP. Microbiota, fitoestrógenos, cronobiología. Desde 39€.',
+    images:      ['/og-image.png'],
   },
 }
 
@@ -129,8 +142,31 @@ export default async function EquilibrioHormonalPage() {
     }
   }
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Equilibrio hormonal después de los 45',
+    description: 'Programa de 28 días de alimentación y hábitos para la salud hormonal en perimenopausia, SOP y estrés crónico.',
+    url: CANONICAL,
+    image: 'https://www.food-mood.app/og-image.png',
+    brand: { '@type': 'Brand', name: 'Food·Mood' },
+    offers: { '@type': 'Offer', price: 39, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
+      { '@type': 'ListItem', position: 2, name: 'Retos', item: 'https://www.food-mood.app/retos' },
+      { '@type': 'ListItem', position: 3, name: 'Equilibrio hormonal después de los 45', item: CANONICAL },
+    ],
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }}
