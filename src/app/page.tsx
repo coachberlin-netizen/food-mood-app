@@ -740,7 +740,7 @@ export default function Home() {
               },
               {
                 tier: "Premium trimestral",
-                price: "5€",
+                price: "7€",
                 cadence: "/mes — 21€ cada 3 meses",
                 features: ["Todo lo del plan mensual", "Ahorra un 22%", "Fermentos del Mundo", "Canal privado de Telegram", "Cancela cuando quieras"],
                 cta: "Mejor precio →",
