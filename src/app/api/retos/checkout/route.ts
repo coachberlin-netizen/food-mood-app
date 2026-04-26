@@ -41,7 +41,9 @@ export async function POST(req: NextRequest) {
         { user_id: user.id, challenge_id, start_date: today, paid: true, current_day: existing?.current_day ?? 1 },
         { onConflict: 'user_id,challenge_id' }
       )
-    return NextResponse.json({ url: `${appUrl}/retos/${challenge.slug}/dia/${existing?.current_day ?? 1}` })
+    const day = existing?.current_day ?? 1
+    const dest = day === 1 ? `${appUrl}/retos/${challenge.slug}/lista-compra` : `${appUrl}/retos/${challenge.slug}/dia/${day}`
+    return NextResponse.json({ url: dest })
   }
 
   // Ensure enrollment exists (idempotent)
@@ -69,7 +71,7 @@ export async function POST(req: NextRequest) {
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
     line_items: [lineItem],
-    success_url:           `${appUrl}/retos/${challenge.slug}?success=true`,
+    success_url:           `${appUrl}/retos/${challenge.slug}/lista-compra`,
     cancel_url:            `${appUrl}/retos/${challenge.slug}`,
     client_reference_id:   user.id,
     customer_email:        user.email ?? undefined,
