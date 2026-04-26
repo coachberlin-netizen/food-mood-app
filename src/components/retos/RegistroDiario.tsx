@@ -98,7 +98,7 @@ export default function RegistroDiario({ challengeId, dayNumber, preguntas }: Pr
   return (
     <div className="rounded-2xl border border-[#e8ddd5] bg-white p-5">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-3">
         <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0"
           style={{ backgroundColor: '#f5eaec' }}>📓</div>
         <div>
@@ -109,6 +109,13 @@ export default function RegistroDiario({ challengeId, dayNumber, preguntas }: Pr
             Observación sin juicio
           </p>
         </div>
+      </div>
+
+      {/* Hint */}
+      <div className="rounded-lg px-3 py-2 mb-4" style={{ backgroundColor: '#f5eaec' }}>
+        <p className="text-[11px] leading-relaxed" style={{ color: '#6B2737' }}>
+          Rellena los 3 momentos del día — mañana, tarde y noche — para construir tu perfil completo al final del reto.
+        </p>
       </div>
 
       {/* Scores */}
