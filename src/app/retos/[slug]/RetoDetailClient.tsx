@@ -256,7 +256,6 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   const [enrollment,  setEnrollment]  = useState(initialEnrollment)
   const [checkoutErr,    setCheckoutErr]    = useState<string | null>(null)
   const [isPending,      startTransition]   = useTransition()
-  const [consentChecked, setConsentChecked] = useState(false)
   const [showSuccess,   setShowSuccess]   = useState(false)
   const [notifState,    setNotifState]    = useState<'idle' | 'loading' | 'done' | 'denied'>('idle')
   const [showStickyCta, setShowStickyCta] = useState(false)
@@ -340,7 +339,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         const res = await fetch('/api/retos/checkout', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ challenge_id: challenge.id, consent: consentChecked }),
+          body:    JSON.stringify({ challenge_id: challenge.id }),
         })
         const data = await res.json()
         if (!res.ok) { setCheckoutErr(data.error ?? 'Error al procesar el pago'); return }
@@ -828,22 +827,10 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               <p className="text-red-400 text-sm mb-4">{checkoutErr}</p>
             )}
 
-            <label className="flex items-start gap-3 cursor-pointer mb-4">
-              <input
-                type="checkbox"
-                checked={consentChecked}
-                onChange={e => setConsentChecked(e.target.checked)}
-                className="mt-0.5 shrink-0 w-4 h-4 accent-[#C9A84C]"
-              />
-              <span className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                Al iniciar el acceso al contenido digital, acepto que pierdo mi derecho de desistimiento de 14 días conforme al art. 16(m) de la Directiva 2011/83/UE.
-              </span>
-            </label>
-
             <button
               onClick={handleCheckout}
-              disabled={isPending || !consentChecked}
-              className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isPending}
+              className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
               style={{ backgroundColor: CTA_BUY }}
             >
               {isPending ? 'Procesando…' : enrollment ? 'Completar pago →' : 'Empezar mi reto →'}
@@ -870,21 +857,10 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
       {!enrollment?.paid && showStickyCta && (
         <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden px-4 pb-4 pt-3"
           style={{ background: 'linear-gradient(to top, #F5F0E8 70%, transparent)' }}>
-          <label className="flex items-start gap-2 mb-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={consentChecked}
-              onChange={e => setConsentChecked(e.target.checked)}
-              className="mt-0.5 shrink-0 w-4 h-4 accent-[#C9A84C]"
-            />
-            <span className="text-[11px] leading-relaxed" style={{ color: 'rgba(45,15,22,0.5)' }}>
-              Acepto la renuncia al derecho de desistimiento al acceder al contenido digital (art. 16m Dir. 2011/83/UE).
-            </span>
-          </label>
           <button
             onClick={handleCheckout}
-            disabled={isPending || !consentChecked}
-            className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            disabled={isPending}
+            className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50 shadow-lg"
             style={{ backgroundColor: CTA_BUY }}
           >
             {isPending ? 'Procesando…' : `Empezar mi reto · ${priceEur}€ →`}
