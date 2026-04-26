@@ -1,0 +1,22 @@
+{
+  "name": "food-mood-qa",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "audit":   "ts-node audit.ts",
+    "compare": "ts-node compare.ts",
+    "notify":  "ts-node notify.ts",
+    "test":    "npm run audit && npm run compare && npm run notify"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.43.0",
+    "nodemailer":       "^6.9.0",
+    "playwright":       "^1.43.0",
+    "ts-node":          "^10.9.0",
+    "typescript":       "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/node":       "^20.0.0",
+    "@types/nodemailer": "^6.4.0"
+  }
+}

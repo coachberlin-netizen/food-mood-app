@@ -1,0 +1,79 @@
+name: Weekly QA Audit
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'   # Lunes 07:00 UTC = 09:00 CEST
+  workflow_dispatch:
+    inputs:
+      force_email:
+        description: 'Forzar envío de email aunque no haya regresiones'
+        required: false
+        default: 'false'
+
+jobs:
+  qa-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: qa
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        working-directory: qa
+        run: npx playwright install chromium
+
+      - name: Download previous results
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: qa-results-latest
+          path: qa/previous
+
+      - name: Run audit
+        working-directory: qa
+        continue-on-error: true
+        env:
+          BASE_URL: https://food-mood.app
+
+        run: npx ts-node audit.ts
+
+      - name: Run comparison
+        working-directory: qa
+        continue-on-error: true
+        env:
+          PREVIOUS_RESULTS_DIR: ./previous
+        run: npx ts-node compare.ts
+
+      - name: Upload latest results
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-results-latest
+          path: qa/results/
+          retention-days: 30
+          overwrite: true
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-screenshots-${{ github.run_number }}
+          path: qa/screenshots/
+          retention-days: 14
+
+      - name: Send notification
+        working-directory: qa
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+          GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          FORCE_EMAIL: ${{ github.event.inputs.force_email }}
+        run: npx ts-node notify.ts
