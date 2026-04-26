@@ -52,11 +52,13 @@ interface RecipeData {
     duracion?:    string
   }
   receta?: {
-    titulo:       string
-    descripcion?: string
-    opcion_a?:    { nombre: string; habitos: string[] }
-    opcion_b?:    { nombre: string; habitos: string[] }
-    por_que?:     string
+    titulo:        string
+    descripcion?:  string
+    ingredientes?: string[]
+    pasos?:        string[]
+    opcion_a?:     { nombre: string; habitos: string[] }
+    opcion_b?:     { nombre: string; habitos: string[] }
+    por_que?:      string
   }
   psicobiotico?: {
     titulo:            string
@@ -573,13 +575,31 @@ function RecetaOpciones({ receta, color }: { receta: NonNullable<RecipeData['rec
   return (
     <div className="rounded-xl bg-white border border-[#e8ddd5] p-4 space-y-3">
       <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
-        Tu protocolo permanente
+        {receta.opcion_a || receta.opcion_b ? 'Tu protocolo permanente' : 'Receta del día'}
       </p>
       <p className="text-sm font-semibold" style={{ color: '#2d0f16' }}>{receta.titulo}</p>
       {receta.descripcion && (
         <p className="text-[13px] font-light" style={{ color: 'rgba(107,39,55,0.65)' }}>
           {receta.descripcion}
         </p>
+      )}
+      {receta.ingredientes && receta.ingredientes.length > 0 && (
+        <ul className="space-y-1">
+          {receta.ingredientes.map((ing, i) => (
+            <li key={i} className="text-sm font-light flex gap-2" style={{ color: 'rgba(107,39,55,0.75)' }}>
+              <span style={{ color }}>·</span> {ing}
+            </li>
+          ))}
+        </ul>
+      )}
+      {receta.pasos && receta.pasos.length > 0 && (
+        <ol className="space-y-1.5">
+          {receta.pasos.map((paso, i) => (
+            <li key={i} className="text-sm font-light flex gap-2" style={{ color: 'rgba(107,39,55,0.75)' }}>
+              <span className="font-semibold shrink-0" style={{ color }}>{i + 1}.</span> {paso}
+            </li>
+          ))}
+        </ol>
       )}
       {receta.opcion_a && receta.opcion_b && (
         <>
