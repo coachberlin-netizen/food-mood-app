@@ -55,16 +55,18 @@ export default async function RetoAntiinflamatorioPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  let yaComprado = false
+  let yaComprado  = false
+  let challengeId = ''
 
-  if (user) {
-    const { data: reto } = await supabase
-      .from('challenges')
-      .select('id')
-      .eq('slug', 'reset-antiinflamatorio')
-      .single()
+  const { data: reto } = await supabase
+    .from('challenges')
+    .select('id')
+    .eq('slug', 'reset-antiinflamatorio')
+    .single()
 
-    if (reto) {
+  if (reto) {
+    challengeId = reto.id
+    if (user) {
       const { data: purchase } = await supabase
         .from('user_challenges')
         .select('id')
@@ -214,7 +216,7 @@ export default async function RetoAntiinflamatorioPage() {
           <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
             Solo quedan algunas plazas esta semana
           </p>
-          <BuyRetoButton slug="reset-antiinflamatorio" precio={19} yaComprado={yaComprado} />
+          <BuyRetoButton slug="reset-antiinflamatorio" challengeId={challengeId} precio={19} yaComprado={yaComprado} />
         </div>
 
       </div>

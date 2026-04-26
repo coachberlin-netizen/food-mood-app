@@ -1,22 +1,21 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 interface Props {
   slug:        string
+  challengeId: string
   precio:      number
   yaComprado?: boolean
 }
 
-export default function BuyRetoButton({ slug, precio, yaComprado = false }: Props) {
+export default function BuyRetoButton({ slug, challengeId, precio, yaComprado = false }: Props) {
   const [loading, setLoading] = useState(false)
   const [error,   setError]   = useState<string | null>(null)
-  const router = useRouter()
 
   async function handleBuy() {
     if (yaComprado) {
-      router.push(`/retos/${slug}`)
+      window.location.href = `/retos/${slug}/lista-compra`
       return
     }
 
@@ -24,10 +23,10 @@ export default function BuyRetoButton({ slug, precio, yaComprado = false }: Prop
     setError(null)
 
     try {
-      const res  = await fetch('/api/stripe/create-checkout', {
+      const res  = await fetch('/api/retos/checkout', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ slug }),
+        body:    JSON.stringify({ challenge_id: challengeId }),
       })
       const data = await res.json()
 
@@ -59,7 +58,7 @@ export default function BuyRetoButton({ slug, precio, yaComprado = false }: Prop
         }}
       >
         {loading
-          ? 'Redirigiendo al pago...'
+          ? 'Redirigiendo…'
           : yaComprado
           ? 'Continuar mi reto →'
           : `Empezar mi reto → ${precio}€`}

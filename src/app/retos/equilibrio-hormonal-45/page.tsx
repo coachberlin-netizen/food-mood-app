@@ -120,16 +120,18 @@ export default async function EquilibrioHormonalPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  let yaComprado = false
+  let yaComprado   = false
+  let challengeId  = ''
 
-  if (user) {
-    const { data: reto } = await supabase
-      .from('challenges')
-      .select('id')
-      .eq('slug', 'equilibrio-hormonal-45')
-      .single()
+  const { data: reto } = await supabase
+    .from('challenges')
+    .select('id')
+    .eq('slug', 'equilibrio-hormonal-45')
+    .single()
 
-    if (reto) {
+  if (reto) {
+    challengeId = reto.id
+    if (user) {
       const { data: purchase } = await supabase
         .from('user_challenges')
         .select('id')
@@ -330,7 +332,7 @@ export default async function EquilibrioHormonalPage() {
             <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
               Pago único · Acceso de por vida
             </p>
-            <BuyRetoButton slug="equilibrio-hormonal-45" precio={39} yaComprado={yaComprado} />
+            <BuyRetoButton slug="equilibrio-hormonal-45" challengeId={challengeId} precio={39} yaComprado={yaComprado} />
           </div>
 
           {/* Base científica — acordeón */}
@@ -394,7 +396,7 @@ export default async function EquilibrioHormonalPage() {
             <p className="text-[13px] text-center mb-4 leading-relaxed" style={{ color: '#9e8080' }}>
               28 días. Estructura clara. Evidencia real.
             </p>
-            <BuyRetoButton slug="equilibrio-hormonal-45" precio={39} yaComprado={yaComprado} />
+            <BuyRetoButton slug="equilibrio-hormonal-45" challengeId={challengeId} precio={39} yaComprado={yaComprado} />
           </div>
 
         </div>
