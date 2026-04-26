@@ -80,7 +80,7 @@ export default function SlowFoodMoodNewsletter() {
                 fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
                 letterSpacing: '0.16em', color: GOLD, display: 'block',
               }}>
-                Newsletter · Edición especial
+                Newsletter · Nº 01
               </span>
               <span style={{ fontSize: 12, color: MUTED, marginTop: 2, display: 'block' }}>
                 Mayo 2026
