@@ -181,10 +181,10 @@ export default function PanDeMasaMadreNewsletter() {
               fontSize: 'clamp(19px, 3vw, 24px)', lineHeight: 1.5,
               color: BURG, margin: '0 0 20px',
             }}>
-              "Una masa madre bien cuidada<br />
+              &ldquo;Una masa madre bien cuidada<br />
               puede vivir más de 100 años.<br />
               Hay panaderías en San Francisco<br />
-              con masa madre de <span style={{ color: GOLD }}>1849.</span>"
+              con masa madre de <span style={{ color: GOLD }}>1849.</span>&rdquo;
             </p>
             <p style={{ fontSize: 12, fontStyle: 'italic', color: MUTED, margin: 0 }}>
               Dato verificable — Boudin Bakery, SF, fundada 1849
@@ -270,8 +270,8 @@ export default function PanDeMasaMadreNewsletter() {
               fontSize: 'clamp(20px, 3.5vw, 26px)', lineHeight: 1.45,
               color: BURG, margin: 0,
             }}>
-              "Hacer pan de masa madre no es un hobby de gente rara.<br />
-              Es la cosa más antigua y más sensata del mundo."
+              &ldquo;Hacer pan de masa madre no es un hobby de gente rara.<br />
+              Es la cosa más antigua y más sensata del mundo.&rdquo;
             </p>
           </div>
         </section>

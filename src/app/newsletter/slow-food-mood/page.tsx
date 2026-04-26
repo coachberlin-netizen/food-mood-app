@@ -205,7 +205,7 @@ export default function SlowFoodMoodNewsletter() {
 
           <Body>
             El GABA es el neurotransmisor que le dice al sistema nervioso:{' '}
-            <em style={{ fontFamily: 'Georgia, serif', color: BURG }}>"Para. Todo está bien. No hay peligro."</em>
+            <em style={{ fontFamily: 'Georgia, serif', color: BURG }}>&ldquo;Para. Todo está bien. No hay peligro.&rdquo;</em>
           </Body>
 
           <Body>
@@ -391,8 +391,8 @@ export default function SlowFoodMoodNewsletter() {
             margin: '0 0 24px',
             fontStyle: 'italic',
           }}>
-            "No necesitas más información sobre la ansiedad.<br />
-            Necesitas cocinar algo que no puedas hacer en diez minutos."
+            &ldquo;No necesitas más información sobre la ansiedad.<br />
+            Necesitas cocinar algo que no puedas hacer en diez minutos.&rdquo;
           </blockquote>
           <p style={{ fontSize: 13, color: MUTED, letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600 }}>
             — Food·Mood

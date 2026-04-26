@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 import { EDITORIAL_NEWSLETTERS } from '@/lib/editorial-newsletters'
 
@@ -48,8 +48,9 @@ export async function POST(req: NextRequest) {
 
   const subscriberIds = new Set(profiles.map((p: { id: string }) => p.id))
 
-  const { data: { users }, error: usersErr } = await supabase.auth.admin.listUsers({ perPage: 1000 })
-  if (usersErr) return NextResponse.json({ error: usersErr.message }, { status: 500 })
+  const usersRes = await supabase.auth.admin.listUsers({ perPage: 1000 })
+  if (usersRes.error) return NextResponse.json({ error: usersRes.error.message }, { status: 500 })
+  const users = usersRes.data.users
 
   const subscribers = users.filter(u => u.email && subscriberIds.has(u.id))
 
@@ -121,7 +122,7 @@ export async function POST(req: NextRequest) {
 }
 
 async function markSent(
-  supabase: ReturnType<typeof createClient<any>>,
+  supabase: SupabaseClient,
   numero: number,
   sentCount: number,
 ) {
