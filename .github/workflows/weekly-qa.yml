@@ -58,6 +58,7 @@ jobs:
 
       - name: Upload latest results
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: qa-results-latest
           path: qa/results/
@@ -66,6 +67,7 @@ jobs:
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: qa-screenshots-${{ github.run_number }}
           path: qa/screenshots/
@@ -73,6 +75,7 @@ jobs:
 
       - name: Send notification
         working-directory: qa
+        continue-on-error: true
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
