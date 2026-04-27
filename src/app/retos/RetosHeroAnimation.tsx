@@ -78,8 +78,8 @@ function MobileHero() {
               <span style={{ fontSize: 28 }}>{r.emoji}</span>
               <span style={{
                 fontFamily: HV, fontSize: 12, fontWeight: 700,
-                color, textTransform: 'uppercase', letterSpacing: '0.08em',
-              } as any}>{r.label}</span>
+                color: r.color, textTransform: 'uppercase', letterSpacing: '0.08em',
+              }}>{r.label}</span>
               <span style={{
                 fontFamily: 'Georgia, serif', fontSize: 18, fontWeight: 700,
                 color: '#C9A84C',
