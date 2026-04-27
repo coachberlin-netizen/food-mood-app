@@ -20,6 +20,85 @@ const SCENES = [
   { id: 'mental',   bg: '#080a2e', accent: 'oklch(70% 0.22 300)', accentRgb: '175,110,240', label: 'SALUD MENTAL', slug: '/retos/food-mood-reset' },
 ]
 
+// ── Static mobile hero ────────────────────────────────────────────────────
+
+const MOBILE_RETOS = [
+  { emoji: '😴', label: 'Sueño',        color: 'oklch(72% 0.22 275)', slug: '/retos/mejora-tu-sueno',         price: 29 },
+  { emoji: '⚡', label: 'Energía',      color: 'oklch(78% 0.22 68)',  slug: '/retos/recupera-tu-energia',     price: 19 },
+  { emoji: '🌸', label: 'Hormonal',     color: 'oklch(72% 0.22 355)', slug: '/retos/equilibrio-hormonal-45',  price: 29 },
+  { emoji: '🌿', label: 'Inflamación',  color: 'oklch(74% 0.22 148)', slug: '/retos/reset-antiinflamatorio',  price: 19 },
+  { emoji: '🧠', label: 'Salud mental', color: 'oklch(70% 0.22 300)', slug: '/retos/food-mood-reset',         price: 29 },
+  { emoji: '🍵', label: 'Ansiedad',     color: 'oklch(68% 0.18 165)', slug: '/retos/slow-food-mood',          price: 29 },
+]
+
+function MobileHero() {
+  return (
+    <div style={{
+      background: '#1a040b',
+      padding: '48px 20px 40px',
+      textAlign: 'center',
+    }}>
+      <p style={{
+        fontFamily: HV, fontSize: 11, fontWeight: 700,
+        textTransform: 'uppercase', letterSpacing: '0.22em',
+        color: CREAM_FAINT, marginBottom: 20,
+      }}>
+        Retos de alimentación
+      </p>
+      <h2 style={{
+        fontFamily: HV, fontSize: 38, fontWeight: 900,
+        color: CREAM, lineHeight: 1.0, letterSpacing: '-0.04em',
+        marginBottom: 6,
+      }}>
+        food
+      </h2>
+      <h2 style={{
+        fontFamily: HV, fontSize: 38, fontWeight: 900,
+        color: 'oklch(72% 0.22 355)', fontStyle: 'italic',
+        lineHeight: 1.0, letterSpacing: '-0.04em',
+        marginBottom: 32,
+      }}>
+        mood
+      </h2>
+
+      <div style={{
+        display: 'grid', gridTemplateColumns: '1fr 1fr',
+        gap: 10, maxWidth: 360, margin: '0 auto',
+      }}>
+        {MOBILE_RETOS.map(r => (
+          <Link key={r.slug} href={r.slug} style={{ textDecoration: 'none' }}>
+            <div style={{
+              background: 'rgba(255,255,255,0.06)',
+              border: `1px solid rgba(255,255,255,0.1)`,
+              borderRadius: 14,
+              padding: '16px 12px',
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', gap: 8,
+            }}>
+              <span style={{ fontSize: 28 }}>{r.emoji}</span>
+              <span style={{
+                fontFamily: HV, fontSize: 12, fontWeight: 700,
+                color, textTransform: 'uppercase', letterSpacing: '0.08em',
+              } as any}>{r.label}</span>
+              <span style={{
+                fontFamily: 'Georgia, serif', fontSize: 18, fontWeight: 700,
+                color: '#C9A84C',
+              }}>{r.price}€</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <p style={{
+        fontFamily: HV, fontSize: 13, color: CREAM_FAINT,
+        marginTop: 28, letterSpacing: '0.06em',
+      }}>
+        Un objetivo. Un tiempo. Un camino con datos reales.
+      </p>
+    </div>
+  )
+}
+
 // ── Easing & animate ──────────────────────────────────────────────────────
 
 function clamp(v: number, lo: number, hi: number) { return Math.max(lo, Math.min(hi, v)) }
@@ -725,7 +804,7 @@ function BgLayer() {
   )
 }
 
-// ── Scene label ───────────────────────────────────────────────────────────
+// ── SceneLabel ────────────────────────────────────────────────────────────
 
 function SceneLabel() {
   const time = useTime()
@@ -749,15 +828,14 @@ function SceneLabel() {
   )
 }
 
-// ── Main export ───────────────────────────────────────────────────────────
+// ── Desktop animation ─────────────────────────────────────────────────────
 
-export default function RetosHeroAnimation() {
+function DesktopAnimation() {
   const [time, setTime] = useState(0)
   const startRef   = useRef<number | null>(null)
   const rafRef     = useRef<number>(0)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [scale,      setScale]      = useState(1)
-  const [portrait,   setPortrait]   = useState(false)
   const [wrapHeight, setWrapHeight] = useState<string>('100svh')
 
   useEffect(() => {
@@ -774,17 +852,8 @@ export default function RetosHeroAnimation() {
     if (!wrapperRef.current) return
     const ro = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect
-      const isPortrait = height > width * 1.1
-      setPortrait(isPortrait)
-      if (isPortrait) {
-        // Contain: scale so the full canvas fits within the viewport width
-        const fitScale = width / W
-        setScale(fitScale)
-        setWrapHeight(`${Math.ceil(fitScale * H)}px`)
-      } else {
-        setScale(Math.max(width / W, height / H))
-        setWrapHeight('100svh')
-      }
+      setScale(Math.max(width / W, height / H))
+      setWrapHeight('100svh')
     })
     ro.observe(wrapperRef.current)
     return () => ro.disconnect()
@@ -795,8 +864,7 @@ export default function RetosHeroAnimation() {
       <TimeCtx.Provider value={time}>
         <div style={{
           position: 'absolute',
-          top: '50%',
-          left: '50%',
+          top: '50%', left: '50%',
           width: W, height: H,
           transformOrigin: 'center center',
           transform: `translate(-50%, -50%) scale(${scale})`,
@@ -816,4 +884,23 @@ export default function RetosHeroAnimation() {
       </TimeCtx.Provider>
     </div>
   )
+}
+
+// ── Main export ───────────────────────────────────────────────────────────
+
+export default function RetosHeroAnimation() {
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
+  // SSR / first paint: render nothing to avoid hydration mismatch
+  if (isMobile === null) return <div style={{ background: '#1a040b', height: 320 }} />
+  if (isMobile) return <MobileHero />
+  return <DesktopAnimation />
 }

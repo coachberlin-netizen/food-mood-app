@@ -2,16 +2,24 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Qué es el pan de masa madre (y por qué huele así de bien) | Food·Mood',
+  title: 'Qué es el pan de masa madre (y por qué huele así de bien) | Food·Mood Newsletter Nº 02',
   description:
-    'La historia más corta y más apetecible sobre el pan de masa madre: qué es, por qué fermenta, y cómo afecta a tu cuerpo y tu humor.',
+    'La historia más corta y más apetecible sobre el pan de masa madre: qué es, por qué fermenta, y cómo afecta a tu cuerpo y tu humor. Newsletter Nº 02 de Food·Mood.',
+  keywords: 'pan masa madre beneficios, fermentación lenta pan, índice glucémico pan, gluten fermentado digestión, ácido láctico pan, GABA fermentación pan, masa madre 1849',
   alternates: { canonical: 'https://www.food-mood.app/newsletter/pan-de-masa-madre' },
   openGraph: {
     title:       'Hay pan. Y luego hay PAN.',
     description: 'Todo lo que siempre quisiste saber sobre la masa madre — explicado sin aburrirte.',
     url:         'https://www.food-mood.app/newsletter/pan-de-masa-madre',
     type:        'article',
-    images:      [{ url: '/og-image.png', width: 1200, height: 630 }],
+    siteName:    'Food·Mood',
+    images:      [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter Food·Mood — Pan de Masa Madre' }],
+  },
+  twitter: {
+    card:        'summary_large_image',
+    title:       'Hay pan. Y luego hay PAN.',
+    description: 'Por qué el pan de masa madre huele así, digiere mejor y baja el índice glucémico. Newsletter Nº 02.',
+    images:      ['/og-image.png'],
   },
 }
 
@@ -62,6 +70,12 @@ function Label({ children }: { children: string }) {
 export default function PanDeMasaMadreNewsletter() {
   return (
     <main style={{ backgroundColor: CREAM, minHeight: '100vh' }}>
+      {/* Snippet de preview — visible en listas de correo y buscadores */}
+      <div style={{ padding: '12px 20px', borderBottom: `1px solid rgba(107,39,55,0.08)`, backgroundColor: '#faf6f0' }}>
+        <p style={{ fontSize: 13, color: MUTED, margin: 0, fontStyle: 'italic', textAlign: 'center' }}>
+          Nº 02 · Por qué el pan de masa madre huele distinto, digiere diferente y baja el índice glucémico — explicado sin aburrirte.
+        </p>
+      </div>
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 20px 120px' }}>
 
         {/* ── Cabecera ──────────────────────────────────────────────────── */}

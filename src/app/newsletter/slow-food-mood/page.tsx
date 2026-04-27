@@ -2,16 +2,24 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Por qué cocinar despacio calma la ansiedad | Slow Food·Mood Newsletter',
+  title: 'Por qué cocinar despacio calma la ansiedad | Food·Mood Newsletter Nº 01',
   description:
-    'La ciencia detrás de cocinar despacio: cómo los fermentos, los caldos largos y el tiempo biológico regulan el sistema nervioso ansioso.',
+    'La ciencia detrás de cocinar despacio: cómo los fermentos, los caldos largos y el tiempo biológico regulan el sistema nervioso ansioso. Newsletter Nº 01 de Food·Mood.',
+  keywords: 'cocina lenta ansiedad, fermentos sistema nervioso, masa madre GABA, caldo huesos glicina, serotonina intestino, hábitos alimentación consciencia',
   alternates: { canonical: 'https://www.food-mood.app/newsletter/slow-food-mood' },
   openGraph: {
     title:       'Fast life. Slow Food·Mood.',
     description: 'Lo que la neurociencia sabe sobre el tiempo, los fermentos y la ansiedad. Y cómo aplicarlo en tu cocina.',
     url:         'https://www.food-mood.app/newsletter/slow-food-mood',
     type:        'article',
-    images:      [{ url: '/og-image.png', width: 1200, height: 630 }],
+    siteName:    'Food·Mood',
+    images:      [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter Food·Mood — Slow Food·Mood' }],
+  },
+  twitter: {
+    card:        'summary_large_image',
+    title:       'Fast life. Slow Food·Mood.',
+    description: 'Fermentos, caldos y cocina lenta para calmar el sistema nervioso. Newsletter Nº 01 de Food·Mood.',
+    images:      ['/og-image.png'],
   },
 }
 
@@ -65,6 +73,12 @@ const APRENDE_ITEMS = [
 export default function SlowFoodMoodNewsletter() {
   return (
     <main style={{ backgroundColor: CREAM, minHeight: '100vh' }}>
+      {/* Snippet de preview — visible en listas de correo y buscadores */}
+      <div style={{ padding: '12px 20px', borderBottom: `1px solid rgba(107,39,55,0.08)`, backgroundColor: '#faf6f0' }}>
+        <p style={{ fontSize: 13, color: MUTED, margin: 0, fontStyle: 'italic', textAlign: 'center' }}>
+          Nº 01 · La ciencia detrás de cocinar despacio y por qué calma el sistema nervioso ansioso más que cualquier técnica de respiración.
+        </p>
+      </div>
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 20px 120px' }}>
 
         {/* ── Cabecera ──────────────────────────────────────────────────── */}
