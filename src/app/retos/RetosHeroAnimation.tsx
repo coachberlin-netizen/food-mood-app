@@ -23,75 +23,86 @@ const SCENES = [
 // ── Static mobile hero ────────────────────────────────────────────────────
 
 const MOBILE_RETOS = [
-  { emoji: '😴', label: 'Sueño',        color: 'oklch(72% 0.22 275)', slug: '/retos/mejora-tu-sueno',         price: 29 },
-  { emoji: '⚡', label: 'Energía',      color: 'oklch(78% 0.22 68)',  slug: '/retos/recupera-tu-energia',     price: 19 },
-  { emoji: '🌸', label: 'Hormonal',     color: 'oklch(72% 0.22 355)', slug: '/retos/equilibrio-hormonal-45',  price: 29 },
-  { emoji: '🌿', label: 'Inflamación',  color: 'oklch(74% 0.22 148)', slug: '/retos/reset-antiinflamatorio',  price: 19 },
-  { emoji: '🧠', label: 'Salud mental', color: 'oklch(70% 0.22 300)', slug: '/retos/food-mood-reset',         price: 29 },
-  { emoji: '🍵', label: 'Ansiedad',     color: 'oklch(68% 0.18 165)', slug: '/retos/slow-food-mood',          price: 29 },
+  { icon: '🫐', label: 'Sueño',        sub: '4 semanas',  color: 'oklch(72% 0.22 275)', slug: '/retos/mejora-tu-sueno',         price: 29 },
+  { icon: '⚡',  label: 'Energía',      sub: '7 días',     color: 'oklch(78% 0.22 68)',  slug: '/retos/recupera-tu-energia',     price: 19 },
+  { icon: '🌸', label: 'Hormonal',     sub: '4 semanas',  color: 'oklch(72% 0.22 355)', slug: '/retos/equilibrio-hormonal-45',  price: 29 },
+  { icon: '🌿', label: 'Inflamación',  sub: '7 días',     color: 'oklch(74% 0.22 148)', slug: '/retos/reset-antiinflamatorio',  price: 19 },
+  { icon: '✨', label: 'Salud mental', sub: '21 días',    color: 'oklch(70% 0.22 300)', slug: '/retos/food-mood-reset',         price: 29 },
+  { icon: '🍵', label: 'Slow',         sub: '20 días',    color: 'oklch(68% 0.18 165)', slug: '/retos/slow-food-mood',          price: 29 },
 ]
 
 function MobileHero() {
   return (
     <div style={{
       background: '#1a040b',
-      padding: '48px 20px 40px',
+      padding: '44px 20px 36px',
       textAlign: 'center',
     }}>
       <p style={{
-        fontFamily: HV, fontSize: 11, fontWeight: 700,
-        textTransform: 'uppercase', letterSpacing: '0.22em',
-        color: CREAM_FAINT, marginBottom: 20,
+        fontFamily: HV, fontSize: 10, fontWeight: 600,
+        textTransform: 'uppercase', letterSpacing: '0.26em',
+        color: CREAM_FAINT, marginBottom: 18,
       }}>
         Retos de alimentación
       </p>
-      <h2 style={{
-        fontFamily: HV, fontSize: 38, fontWeight: 900,
-        color: CREAM, lineHeight: 1.0, letterSpacing: '-0.04em',
-        marginBottom: 6,
-      }}>
-        food
-      </h2>
-      <h2 style={{
-        fontFamily: HV, fontSize: 38, fontWeight: 900,
-        color: 'oklch(72% 0.22 355)', fontStyle: 'italic',
-        lineHeight: 1.0, letterSpacing: '-0.04em',
-        marginBottom: 32,
-      }}>
-        mood
-      </h2>
+      <div style={{ marginBottom: 36 }}>
+        <span style={{
+          fontFamily: HV, fontSize: 42, fontWeight: 900,
+          color: CREAM, lineHeight: 1.0, letterSpacing: '-0.04em',
+        }}>food</span>
+        <span style={{
+          fontFamily: HV, fontSize: 42, fontWeight: 900,
+          color: 'oklch(72% 0.22 355)', fontStyle: 'italic',
+          lineHeight: 1.0, letterSpacing: '-0.04em',
+        }}>·mood</span>
+      </div>
 
       <div style={{
         display: 'grid', gridTemplateColumns: '1fr 1fr',
-        gap: 10, maxWidth: 360, margin: '0 auto',
+        gap: 8, maxWidth: 360, margin: '0 auto',
       }}>
-        {MOBILE_RETOS.map(r => (
-          <Link key={r.slug} href={r.slug} style={{ textDecoration: 'none' }}>
-            <div style={{
-              background: 'rgba(255,255,255,0.06)',
-              border: `1px solid rgba(255,255,255,0.1)`,
-              borderRadius: 14,
-              padding: '16px 12px',
-              display: 'flex', flexDirection: 'column',
-              alignItems: 'center', gap: 8,
-            }}>
-              <span style={{ fontSize: 28 }}>{r.emoji}</span>
-              <span style={{
-                fontFamily: HV, fontSize: 12, fontWeight: 700,
-                color: r.color, textTransform: 'uppercase', letterSpacing: '0.08em',
-              }}>{r.label}</span>
-              <span style={{
-                fontFamily: 'Georgia, serif', fontSize: 18, fontWeight: 700,
-                color: '#C9A84C',
-              }}>{r.price}€</span>
-            </div>
-          </Link>
-        ))}
+        {MOBILE_RETOS.map(r => {
+          const iconFn = FRUIT_ICONS[r.icon]
+          return (
+            <Link key={r.slug} href={r.slug} style={{ textDecoration: 'none' }}>
+              <div style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: `1px solid rgba(255,255,255,0.08)`,
+                borderTop: `2px solid ${r.color}`,
+                borderRadius: 12,
+                padding: '18px 12px 14px',
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', gap: 10,
+              }}>
+                {iconFn
+                  ? <svg width={34} height={34} viewBox="0 0 60 60" style={{ opacity: 0.85 }}>
+                      {iconFn(r.color, 2.2)}
+                    </svg>
+                  : null
+                }
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+                  <span style={{
+                    fontFamily: HV, fontSize: 11, fontWeight: 700,
+                    color: r.color, textTransform: 'uppercase', letterSpacing: '0.1em',
+                  }}>{r.label}</span>
+                  <span style={{
+                    fontFamily: HV, fontSize: 10, fontWeight: 400,
+                    color: CREAM_FAINT, letterSpacing: '0.06em',
+                  }}>{r.sub}</span>
+                </div>
+                <span style={{
+                  fontFamily: 'Georgia, serif', fontSize: 15, fontWeight: 700,
+                  color: '#C9A84C', letterSpacing: '-0.01em',
+                }}>{r.price}€</span>
+              </div>
+            </Link>
+          )
+        })}
       </div>
 
       <p style={{
-        fontFamily: HV, fontSize: 13, color: CREAM_FAINT,
-        marginTop: 28, letterSpacing: '0.06em',
+        fontFamily: HV, fontSize: 11, color: CREAM_FAINT,
+        marginTop: 24, letterSpacing: '0.06em',
       }}>
         Un objetivo. Un tiempo. Un camino con datos reales.
       </p>

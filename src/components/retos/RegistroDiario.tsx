@@ -111,13 +111,6 @@ export default function RegistroDiario({ challengeId, dayNumber, preguntas }: Pr
         </div>
       </div>
 
-      {/* Hint */}
-      <div className="rounded-lg px-3 py-2 mb-4" style={{ backgroundColor: '#f5eaec' }}>
-        <p className="text-[11px] leading-relaxed" style={{ color: '#6B2737' }}>
-          Rellena los 3 momentos del día — mañana, tarde y noche — para construir tu perfil completo al final del reto.
-        </p>
-      </div>
-
       {/* Scores */}
       <div className="space-y-2 mb-4">
         {([
