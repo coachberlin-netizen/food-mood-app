@@ -76,7 +76,7 @@ const INCLUYE = [
   { icono: '📘', texto: '28 días de protocolo con recetas funcionales' },
   { icono: '🎧', texto: '4 audios de apoyo (cronobiología, estrés, sueño, microbiota)' },
   { icono: '📊', texto: 'Seguimiento diario de síntomas, energía y bienestar' },
-  { icono: '📋', texto: 'Informe personalizado al completar' },
+  { icono: '📋', texto: 'Seguimiento de progreso inicio vs. fin' },
   { icono: '♾️', texto: 'Acceso de por vida al contenido' },
 ]
 
@@ -111,7 +111,7 @@ const HITOS = [
   {
     dia: '22–28',
     titulo: 'Semana 4 — consolidación',
-    desc: 'Protocolo permanente. Informe personalizado.',
+    desc: 'Protocolo permanente. Consolidación del equilibrio hormonal.',
     color: '#C9A84C',
   },
 ]
@@ -308,8 +308,7 @@ export default async function EquilibrioHormonalPage() {
                 Al completar
               </p>
               <p className="text-[13px] leading-snug" style={{ color: '#4a3a3e' }}>
-                Informe personalizado: índice de bienestar inicio vs. fin, patrones detectados,
-                protocolo permanente recomendado para ti.
+                Protocolo permanente personalizado para mantener tu equilibrio hormonal.
               </p>
             </div>
           </div>
