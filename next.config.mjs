@@ -49,6 +49,11 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: '/retos/slow-food-mood-7d',
+        destination: '/retos/slow-food-mood',
+        permanent: true,
+      },
+      {
         source: '/planes',
         destination: '/pricing',
         permanent: true,
