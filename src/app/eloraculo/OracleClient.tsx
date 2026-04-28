@@ -515,9 +515,18 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         {/* CTAs */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95 }} className="space-y-3 pt-2">
           {saved ? (
-            <div className="flex items-center justify-center gap-2 py-3 text-sm" style={{ color: accentColor }}>
-              <CheckCircle2 className="w-4 h-4" />
-              Lectura guardada en tu historial
+            <div className="space-y-3">
+              <div className="flex items-center justify-center gap-2 py-3 text-sm" style={{ color: accentColor }}>
+                <CheckCircle2 className="w-4 h-4" />
+                Lectura guardada en tu historial
+              </div>
+              <Link
+                href="/eloraculo/historial"
+                className="w-full flex items-center justify-center gap-2 rounded-2xl py-3 text-sm font-medium border transition-colors hover:bg-white/5"
+                style={{ color: 'rgba(245,240,232,0.5)', borderColor: 'rgba(245,240,232,0.1)' }}
+              >
+                Ver mi historial →
+              </Link>
             </div>
           ) : (
             <button

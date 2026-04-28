@@ -102,13 +102,22 @@ export function OracleWidget() {
         <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
           ✦ El Oráculo · Hoy
         </p>
-        <Link
-          href="/eloraculo"
-          className="text-[10px] transition-opacity hover:opacity-80"
-          style={{ color: 'rgba(245,240,232,0.35)' }}
-        >
-          Nueva lectura →
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/eloraculo/historial"
+            className="text-[10px] transition-opacity hover:opacity-80"
+            style={{ color: 'rgba(245,240,232,0.25)' }}
+          >
+            Historial
+          </Link>
+          <Link
+            href="/eloraculo"
+            className="text-[10px] transition-opacity hover:opacity-80"
+            style={{ color: 'rgba(245,240,232,0.35)' }}
+          >
+            Nueva →
+          </Link>
+        </div>
       </div>
 
       <div className="flex items-center gap-2 mb-3 flex-wrap">
