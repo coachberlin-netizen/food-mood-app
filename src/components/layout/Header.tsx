@@ -69,7 +69,6 @@ const MI_ESPACIO: DropdownItem[] = [
   { label: "Mi bol",     href: "/bol"       },
   { label: "Mi viaje",   href: "/viaje"     },
   { label: "Mi semana",  href: "/semana"    },
-  { label: "Mi Diario",  href: "/diario"    },
 ]
 
 const DESCUBRIR: DropdownItem[] = [

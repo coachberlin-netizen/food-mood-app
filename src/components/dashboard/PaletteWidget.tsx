@@ -64,13 +64,6 @@ export function PaletteWidget() {
                   <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </button>
               </Link>
-              <Link 
-                href="/diario" 
-                className="text-[13px] font-sans hover:opacity-80 transition-opacity flex items-center gap-1 z-10"
-                style={{ color: currentPalette.colorMezclado }}
-              >
-                Ver mi historial de colores →
-              </Link>
             </div>
       </motion.div>
     );

@@ -44,6 +44,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/diario',
+        destination: '/paleta',
+        permanent: false,
+      },
+      {
         source: '/planes',
         destination: '/pricing',
         permanent: true,
