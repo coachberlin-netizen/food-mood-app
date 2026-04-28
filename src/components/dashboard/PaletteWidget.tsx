@@ -57,10 +57,10 @@ export function PaletteWidget() {
         </div>
 
             <div className="flex flex-col items-center md:items-end gap-2">
-              <Link href="/eloraculo" className="z-10 group">
+              <Link href="/paleta" className="z-10 group">
                 <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-aubergine-dark/10 text-aubergine-dark/60 text-sm font-medium hover:bg-aubergine-dark hover:text-white transition-all">
                   <Palette className="w-4 h-4" />
-                  Nueva lectura
+                  Actualizar mezcla
                   <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </button>
               </Link>
@@ -97,9 +97,9 @@ export function PaletteWidget() {
         </div>
       </div>
 
-      <Link href="/eloraculo">
+      <Link href="/paleta">
         <button className="bg-[#6B2737] text-white px-8 py-3 rounded-full text-sm font-semibold shadow-luxury hover:bg-[#5a212e] transition-colors">
-          Hacer mi lectura
+          Empezar mezcla
         </button>
       </Link>
     </motion.div>

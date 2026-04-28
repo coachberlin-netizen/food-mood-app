@@ -44,16 +44,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/paleta',
-        destination: '/eloraculo',
-        permanent: true,
-      },
-      {
-        source: '/paleta/:path*',
-        destination: '/eloraculo',
-        permanent: true,
-      },
-      {
         source: '/planes',
         destination: '/pricing',
         permanent: true,
