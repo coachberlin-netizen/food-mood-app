@@ -77,6 +77,8 @@ function ConfidenceBadge({ value }: { value?: string }) {
 
 // ── WeekMosaic ────────────────────────────────────────────────────────────────
 
+const EXAMPLE_COLORS = ["#FFB000", "#00D1FF", "#FF6B00", "#00DD80", "#FF2D55", "#9D00FF", "#FFB000"]
+
 function WeekMosaic({
   weekStart,
   dayEntries,
@@ -84,33 +86,41 @@ function WeekMosaic({
   weekStart: string
   dayEntries: DayEntry[]
 }) {
+  const isExample = dayEntries.length === 0
   const colorByDate = new Map(dayEntries.map(e => [e.log_date, e.color_hex]))
   const today = new Date().toISOString().split("T")[0]
   const days  = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
   return (
-    <div className="grid grid-cols-7 gap-2">
-      {days.map((date, i) => {
-        const color   = colorByDate.get(date)
-        const isToday = date === today
-        return (
-          <div key={date} className="flex flex-col items-center gap-1.5">
-            <div
-              className="w-full rounded-lg"
-              style={{
-                aspectRatio: "1",
-                backgroundColor: color ?? "#e8e0d0",
-                opacity: date > today ? 0.35 : 1,
-                outline: isToday ? "2px solid #C9A84C" : "none",
-                outlineOffset: "2px",
-              }}
-            />
-            <span className="text-[9px] font-medium" style={{ color: "rgba(107,39,55,0.45)" }}>
-              {DAY_LABELS[i]}
-            </span>
-          </div>
-        )
-      })}
+    <div>
+      <div className="grid grid-cols-7 gap-2">
+        {days.map((date, i) => {
+          const color   = isExample ? EXAMPLE_COLORS[i] : colorByDate.get(date)
+          const isToday = date === today
+          return (
+            <div key={date} className="flex flex-col items-center gap-1.5">
+              <div
+                className="w-full rounded-lg"
+                style={{
+                  aspectRatio: "1",
+                  backgroundColor: color ?? "#e8e0d0",
+                  opacity: isExample ? 0.45 : date > today ? 0.35 : 1,
+                  outline: isToday && !isExample ? "2px solid #C9A84C" : "none",
+                  outlineOffset: "2px",
+                }}
+              />
+              <span className="text-[9px] font-medium" style={{ color: "rgba(107,39,55,0.45)" }}>
+                {DAY_LABELS[i]}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+      {isExample && (
+        <p className="text-[11px] text-center mt-3" style={{ color: "rgba(107,39,55,0.4)" }}>
+          Haz tu test diario para ver tu semana en colores reales
+        </p>
+      )}
     </div>
   )
 }
@@ -395,7 +405,7 @@ export default function SemanaPage() {
                 style={{ backgroundColor: "white", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}
               >
                 <p className="text-sm" style={{ color: "rgba(107,39,55,0.5)" }}>
-                  El equipo está curating el contenido de esta semana. Vuelve el domingo.
+                  El equipo está seleccionando el contenido de esta semana. Vuelve el domingo.
                 </p>
               </div>
             ) : (
