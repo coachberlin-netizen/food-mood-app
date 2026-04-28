@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, Loader2, CheckCircle2, ArrowRight, BookOpen, Sparkles } from 'lucide-react'
 import Link from 'next/link'
@@ -8,6 +8,7 @@ import { moods } from '@/data/moods'
 import { SYMPTOMS } from '@/data/symptoms'
 import { createClient } from '@/lib/supabase/client'
 import { calculatePalette, mixColors } from '@/lib/emotional-palette'
+import { scoreCheckin } from '@/lib/oracle-scoring'
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -83,39 +84,6 @@ function getMixedSliders(emotions: string[]) {
     claridad:  Math.round((a.claridad  + b.claridad)  / 2),
     conexion:  Math.round((a.conexion  + b.conexion)  / 2),
   }
-}
-
-function generateReading(data: OracleData): string {
-  const moodA = moods.find(m => m.id === data.emotions[0])
-  const moodB = data.emotions[1] ? moods.find(m => m.id === data.emotions[1]) : null
-  if (!moodA) return ''
-
-  const lines: string[] = []
-
-  if (moodB) {
-    lines.push(`Tu mezcla de hoy combina ${moodA.descripcion_corta.toLowerCase()} con ${moodB.descripcion_corta.toLowerCase()}.`)
-  } else {
-    lines.push(`Tu estado apunta a ${moodA.descripcion_corta.toLowerCase()}.`)
-  }
-
-  if (data.energyLevel <= 3) {
-    lines.push('Tu energía parece pedir pausa — nutrición profunda, no impulso.')
-  } else if (data.energyLevel >= 8) {
-    lines.push('Tu vitalidad está en un momento alto — propicio para actuar y construir.')
-  }
-
-  if (data.sleepQuality <= 2) {
-    lines.push('El descanso de anoche ha sido escaso — apoyar la recuperación hoy podría marcar la diferencia.')
-  } else if (data.sleepQuality >= 4) {
-    lines.push('Un descanso reparador. Tu sistema nervioso llega bien a este día.')
-  }
-
-  const symptom = data.primarySymptom ? SYMPTOMS.find(s => s.slug === data.primarySymptom) : null
-  if (symptom) {
-    lines.push(`Tu cuerpo también señala ${symptom.titulo.toLowerCase()} — ${symptom.subtitulo.toLowerCase()}.`)
-  }
-
-  return lines.join(' ')
 }
 
 // ── Shared card style ────────────────────────────────────────────────
@@ -349,28 +317,27 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
 
+  const score = useMemo(() => scoreCheckin(data), [data])
+
   const moodA = moods.find(m => m.id === data.emotions[0])
   const moodB = data.emotions[1] ? moods.find(m => m.id === data.emotions[1]) : null
-  const symptom = data.primarySymptom ? SYMPTOMS.find(s => s.slug === data.primarySymptom) : null
-  const reading = generateReading(data)
-  const nutritionFocus = symptom?.nutritionFocus ?? (moodA?.ingredientes.slice(0, 4) ?? [])
-  const ritual = moodA?.ritualSugerido
+  const recipeMood = moods.find(m => m.id === score.recipeQuery.moodId)
 
   const accentColor = moodA && moodB
     ? mixColors(moodA.color, moodB.color, 0.5)
     : moodA?.color ?? '#C9A84C'
 
   useEffect(() => {
-    if (!moodA) return
+    if (!recipeMood) return
     const supabase = createClient()
     supabase
       .from('recetas')
       .select('id, nombre_es, tiempo_preparacion_min, tipo_plato')
-      .eq('mood_es', moodA.nombre)
+      .eq('mood_es', recipeMood.nombre)
       .limit(1)
       .maybeSingle()
       .then(({ data: r }) => { if (r) setRecipe(r) })
-  }, [moodA])
+  }, [recipeMood])
 
   const handleSave = useCallback(async () => {
     const supabase = createClient()
@@ -391,8 +358,13 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         craving_state:     data.cravingState,
         cycle_phase:       data.cyclePhase,
         notes:             data.notes || null,
-        oracle_reading:    reading,
-        suggested_action:  nutritionFocus.length ? { focus: nutritionFocus, ritual } : null,
+        oracle_reading:    score.reading,
+        suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual },
+        emotional_mix: {
+          emotions:    data.emotions,
+          weights:     Object.fromEntries(data.emotions.map((e, i) => [e, i === 0 ? 1.0 : 0.4])),
+          mixed_color: accentColor,
+        },
       })
 
       if (data.emotions[0]) {
@@ -412,7 +384,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
     } finally {
       setSaving(false)
     }
-  }, [data, reading, nutritionFocus, ritual, recipe])
+  }, [data, score, accentColor, recipe])
 
   if (!moodA) return null
 
@@ -484,35 +456,44 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         {/* Oracle reading */}
         <FadeCard delay={0.45}>
           <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que estamos observando</p>
-          <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{reading}</p>
+          <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{score.reading}</p>
         </FadeCard>
 
-        {/* Nutrition focus */}
-        {nutritionFocus.length > 0 && (
+        {/* Pattern insight — only when a cross-signal pattern is detected */}
+        {score.insight && (
           <FadeCard delay={0.55}>
-            <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que podría ayudarte hoy</p>
-            <ul className="space-y-2">
-              {nutritionFocus.map((f, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-[#F5F0E8]/75">
-                  <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-start gap-3">
+              <div className="w-1 self-stretch rounded-full shrink-0" style={{ background: accentColor + '80' }} />
+              <div>
+                <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-2">Patrón detectado</p>
+                <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{score.insight}</p>
+              </div>
+            </div>
           </FadeCard>
         )}
 
+        {/* Nutrition focus */}
+        <FadeCard delay={0.65}>
+          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que podría ayudarte hoy</p>
+          <ul className="space-y-2">
+            {score.nutritionPriority.map((f, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-[#F5F0E8]/75">
+                <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+        </FadeCard>
+
         {/* Ritual */}
-        {ritual && (
-          <FadeCard delay={0.65}>
-            <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-2">Tu siguiente pequeño paso</p>
-            <p className="text-[#F5F0E8]/75 text-sm">{ritual}</p>
-          </FadeCard>
-        )}
+        <FadeCard delay={0.75}>
+          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-2">Tu siguiente pequeño paso</p>
+          <p className="text-[#F5F0E8]/75 text-sm">{score.ritual}</p>
+        </FadeCard>
 
         {/* Recipe */}
         {recipe && (
-          <FadeCard delay={0.75}>
+          <FadeCard delay={0.85}>
             <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Tu recomendación Food·Mood</p>
             <p className="text-[#F5F0E8] font-medium text-sm mb-1">{recipe.nombre_es}</p>
             <p className="text-[#F5F0E8]/40 text-xs mb-4">{recipe.tiempo_preparacion_min} min · {recipe.tipo_plato}</p>
@@ -529,7 +510,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         )}
 
         {/* CTAs */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.85 }} className="space-y-3 pt-2">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95 }} className="space-y-3 pt-2">
           {saved ? (
             <div className="flex items-center justify-center gap-2 py-3 text-sm" style={{ color: accentColor }}>
               <CheckCircle2 className="w-4 h-4" />
