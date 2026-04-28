@@ -76,7 +76,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
               {isAuthenticated ? (
                 <>
                   <NavLink href="/"             label="Home"          close={close} />
-                  <NavLink href="/paleta"        label="Tus emociones" close={close} />
+                  <NavLink href="/eloraculo"        label="Mi lectura" close={close} />
                   <NavLink href="/dashboard"     label="Dashboard"     close={close} />
                   <NavLink href="/test"          label="Test"          close={close} />
                   <NavLink href="/bol"           label="Mi bol"        close={close} />
@@ -95,7 +95,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
               ) : (
                 <>
                   <NavLink href="/"        label="Home"         close={close} />
-                  <NavLink href="/paleta"  label="Tus emociones" close={close} />
+                  <NavLink href="/eloraculo"  label="Mi lectura" close={close} />
                   <NavLink href="/test"    label="Test gratuito" close={close} />
                   <NavLink href="/recetas" label="Recetas"       close={close} />
                   <NavLink href="/glosario" label="Glosario"    close={close} />

@@ -134,8 +134,8 @@ export function Header() {
               <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
                 Home
               </Link>
-              <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mis emociones
+              <Link href="/eloraculo" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Mi lectura
               </Link>
               <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Recetas
@@ -156,8 +156,8 @@ export function Header() {
               <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
                 Home
               </Link>
-              <Link href="/paleta" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mis emociones
+              <Link href="/eloraculo" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Mi lectura
               </Link>
               <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Test gratuito
