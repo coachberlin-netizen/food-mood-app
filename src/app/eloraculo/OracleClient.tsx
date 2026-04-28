@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, Loader2, CheckCircle2, ArrowRight, BookOpen, Sparkles } from 'lucide-react'
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import { moods } from '@/data/moods'
 import { SYMPTOMS } from '@/data/symptoms'
 import { createClient } from '@/lib/supabase/client'
 import { calculatePalette, mixColors } from '@/lib/emotional-palette'
-import { scoreCheckin } from '@/lib/oracle-scoring'
+import { scoreCheckin, type EmotionalMix } from '@/lib/oracle-scoring'
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -317,7 +317,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
 
-  const score = useMemo(() => scoreCheckin(data), [data])
+  const score = scoreCheckin(data)
 
   const moodA = moods.find(m => m.id === data.emotions[0])
   const moodB = data.emotions[1] ? moods.find(m => m.id === data.emotions[1]) : null
@@ -361,10 +361,11 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         oracle_reading:    score.reading,
         suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual },
         emotional_mix: {
-          emotions:    data.emotions,
-          weights:     Object.fromEntries(data.emotions.map((e, i) => [e, i === 0 ? 1.0 : 0.4])),
-          mixed_color: accentColor,
-        },
+          emotions:      data.emotions,
+          weights:       Object.fromEntries(data.emotions.map((e, i) => [e, i === 0 ? 1.0 : 0.4])),
+          mixed_color:   accentColor,
+          dominant_need: score.dominantNeed,
+        } satisfies EmotionalMix,
       })
 
       if (data.emotions[0]) {
@@ -384,7 +385,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
     } finally {
       setSaving(false)
     }
-  }, [data, score, accentColor, recipe])
+  }, [data, accentColor, recipe])
 
   if (!moodA) return null
 

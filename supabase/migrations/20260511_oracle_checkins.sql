@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS public.oracle_checkins (
   cycle_phase       text,
   notes             text,
   oracle_reading    text,
-  emotional_mix     jsonb,   -- { emotions: string[], weights: Record<string,number>, mixed_color: string }
+  emotional_mix     jsonb,   -- EmotionalMix: { emotions: string[], weights: Record<string,number>, mixed_color: string, dominant_need: MoodId }
   suggested_action  jsonb    -- { focus: string[], ritual: string }
 );
 
