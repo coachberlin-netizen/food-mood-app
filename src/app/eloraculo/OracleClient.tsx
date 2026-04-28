@@ -8,7 +8,7 @@ import { moods } from '@/data/moods'
 import { SYMPTOMS } from '@/data/symptoms'
 import { createClient } from '@/lib/supabase/client'
 import { calculatePalette, mixColors } from '@/lib/emotional-palette'
-import { scoreCheckin, type EmotionalMix } from '@/lib/oracle-scoring'
+import { scoreCheckin, type EmotionalMix, type OracleSuggestedAction } from '@/lib/oracle-scoring'
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -359,13 +359,15 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         cycle_phase:       data.cyclePhase,
         notes:             data.notes || null,
         oracle_reading:    score.reading,
-        suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual },
+        recipe_mood_id:    score.recipeQuery.moodId,
+        suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual } satisfies OracleSuggestedAction,
         emotional_mix: {
           emotions:      data.emotions,
           weights:       Object.fromEntries(data.emotions.map((e, i) => [e, i === 0 ? 1.0 : 0.4])),
           mixed_color:   accentColor,
           dominant_need: score.dominantNeed,
         } satisfies EmotionalMix,
+        engine_output: score,
       })
 
       if (data.emotions[0]) {
