@@ -8,3 +8,6 @@ export type {
 } from './types'
 
 export { scoreCheckin } from './scoreCheckin'
+
+export type { CheckinForCorrelation, CorrelationInsight } from './correlations'
+export { detectCorrelations } from './correlations'

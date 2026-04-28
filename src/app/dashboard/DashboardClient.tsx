@@ -14,6 +14,7 @@ import { InspirationSection } from "@/components/dashboard/InspirationSection";
 import { PushNotificationBanner } from "@/components/dashboard/PushNotificationBanner";
 import { PaletteWidget } from "@/components/dashboard/PaletteWidget";
 import { OracleWidget } from "@/components/dashboard/OracleWidget";
+import { OracleCorrelations } from "@/components/dashboard/OracleCorrelations";
 import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 import { FoodMoodIndex } from "@/components/FoodMoodIndex";
@@ -337,8 +338,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
           <FoodMoodIndex />
         </div>
 
-        {/* ── Oracle widget ── */}
+        {/* ── Oracle widget + correlaciones ── */}
         {isAuthenticated && <OracleWidget />}
+        {isAuthenticated && <OracleCorrelations />}
 
         {/* ── Journey card ── */}
         {isAuthenticated && <JourneyCard />}
