@@ -338,6 +338,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
           <FoodMoodIndex />
         </div>
 
+        {/* ── Paleta emocional ── */}
+        <PaletteWidget />
+
         {/* ── Oracle widget + correlaciones ── */}
         {isAuthenticated && <OracleWidget />}
         {isAuthenticated && <OracleCorrelations />}
@@ -352,7 +355,6 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
         {isAuthenticated && <WeeklyCard />}
 
         <div className="flex flex-col gap-6">
-          <PaletteWidget />
           {isAuthenticated && (
             <div className="bg-white rounded-[2rem] p-8 border border-aubergine-dark/5 shadow-sm">
               <h4 className="font-sans text-[14px] font-medium text-[#6B2737] mb-6">Tu semana en colores</h4>
