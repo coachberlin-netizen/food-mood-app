@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, Loader2, CheckCircle2, ArrowRight, BookOpen } from 'lucide-react'
+import { ChevronLeft, Loader2, CheckCircle2, ArrowRight, BookOpen, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import { moods } from '@/data/moods'
 import { SYMPTOMS } from '@/data/symptoms'
 import { createClient } from '@/lib/supabase/client'
-import { calculatePalette } from '@/lib/emotional-palette'
+import { calculatePalette, mixColors } from '@/lib/emotional-palette'
 
 // ── Types ────────────────────────────────────────────────────────────
 
 interface OracleData {
-  primaryEmotion: string | null
+  emotions: string[]        // up to 2, index 0 = dominant
   energyLevel: number
   sleepQuality: number
   primarySymptom: string | null
@@ -26,12 +26,12 @@ type Screen = 'hero' | 'wizard' | 'result'
 // ── Static data ──────────────────────────────────────────────────────
 
 const STEPS = [
-  { n: 1, label: 'Abrimos tu mapa emocional',   question: '¿Qué hay más presente en ti ahora mismo?' },
-  { n: 2, label: 'Leemos tu energía',            question: '¿Cómo está tu energía hoy?' },
-  { n: 3, label: 'Escuchamos tu descanso',       question: '¿Cómo has descansado esta noche?' },
-  { n: 4, label: 'Observamos tu cuerpo',         question: '¿Hay algo que notes en tu cuerpo hoy?' },
-  { n: 5, label: 'Detectamos lo que necesitas',  question: '¿Qué te está pidiendo el cuerpo?' },
-  { n: 6, label: 'Afinamos tu lectura',          question: 'Añade contexto si quieres (opcional)' },
+  { n: 1, label: 'Mapa emocional',      question: '¿Qué hay más presente en ti ahora mismo?' },
+  { n: 2, label: 'Nivel de energía',    question: '¿Cómo está tu energía hoy?' },
+  { n: 3, label: 'Descanso',            question: '¿Cómo has descansado esta noche?' },
+  { n: 4, label: 'Señales del cuerpo',  question: '¿Hay algo que notes en tu cuerpo hoy?' },
+  { n: 5, label: 'Lo que necesitas',    question: '¿Qué te está pidiendo el cuerpo?' },
+  { n: 6, label: 'Contexto',            question: 'Añade contexto si quieres (opcional)' },
 ]
 
 const SLEEP_OPTIONS = [
@@ -60,7 +60,6 @@ const CYCLE_OPTIONS = [
   { id: 'skip',      label: 'No indicar',     desc: '' },
 ]
 
-// Mapping primaryEmotion → approximate 4-slider values for emotional_palettes compatibility
 const EMOTION_TO_SLIDERS: Record<string, { energia: number; serenidad: number; claridad: number; conexion: number }> = {
   activacion: { energia: 8, serenidad: 3, claridad: 6, conexion: 5 },
   calma:      { energia: 3, serenidad: 8, claridad: 5, conexion: 6 },
@@ -70,20 +69,39 @@ const EMOTION_TO_SLIDERS: Record<string, { energia: number; serenidad: number; c
   confort:    { energia: 4, serenidad: 7, claridad: 4, conexion: 6 },
 }
 
-// ── Oracle reading generator ─────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────
+
+function getMixedSliders(emotions: string[]) {
+  const fallback = { energia: 5, serenidad: 5, claridad: 5, conexion: 5 }
+  if (emotions.length === 0) return fallback
+  if (emotions.length === 1) return EMOTION_TO_SLIDERS[emotions[0]] ?? fallback
+  const a = EMOTION_TO_SLIDERS[emotions[0]] ?? fallback
+  const b = EMOTION_TO_SLIDERS[emotions[1]] ?? fallback
+  return {
+    energia:   Math.round((a.energia   + b.energia)   / 2),
+    serenidad: Math.round((a.serenidad + b.serenidad) / 2),
+    claridad:  Math.round((a.claridad  + b.claridad)  / 2),
+    conexion:  Math.round((a.conexion  + b.conexion)  / 2),
+  }
+}
 
 function generateReading(data: OracleData): string {
-  const mood = moods.find(m => m.id === data.primaryEmotion)
-  const symptom = data.primarySymptom ? SYMPTOMS.find(s => s.slug === data.primarySymptom) : null
-  if (!mood) return ''
+  const moodA = moods.find(m => m.id === data.emotions[0])
+  const moodB = data.emotions[1] ? moods.find(m => m.id === data.emotions[1]) : null
+  if (!moodA) return ''
 
   const lines: string[] = []
-  lines.push(`Tu estado apunta a ${mood.descripcion_corta.toLowerCase()}.`)
+
+  if (moodB) {
+    lines.push(`Tu mezcla de hoy combina ${moodA.descripcion_corta.toLowerCase()} con ${moodB.descripcion_corta.toLowerCase()}.`)
+  } else {
+    lines.push(`Tu estado apunta a ${moodA.descripcion_corta.toLowerCase()}.`)
+  }
 
   if (data.energyLevel <= 3) {
     lines.push('Tu energía parece pedir pausa — nutrición profunda, no impulso.')
   } else if (data.energyLevel >= 8) {
-    lines.push('Tu vitalidad está en un momento alto — un estado propicio para actuar y construir.')
+    lines.push('Tu vitalidad está en un momento alto — propicio para actuar y construir.')
   }
 
   if (data.sleepQuality <= 2) {
@@ -92,6 +110,7 @@ function generateReading(data: OracleData): string {
     lines.push('Un descanso reparador. Tu sistema nervioso llega bien a este día.')
   }
 
+  const symptom = data.primarySymptom ? SYMPTOMS.find(s => s.slug === data.primarySymptom) : null
   if (symptom) {
     lines.push(`Tu cuerpo también señala ${symptom.titulo.toLowerCase()} — ${symptom.subtitulo.toLowerCase()}.`)
   }
@@ -107,22 +126,73 @@ const cardSelected = 'border-[#C9A84C] bg-[#C9A84C]/10'
 
 // ── Step components ──────────────────────────────────────────────────
 
-function StepEmocion({ value, onChange }: { value: string | null; onChange: (v: string) => void }) {
+function StepEmocion({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) {
+  const toggle = (id: string) => {
+    if (value.includes(id)) {
+      onChange(value.filter(v => v !== id))
+    } else if (value.length < 2) {
+      onChange([...value, id])
+    } else {
+      onChange([value[1], id]) // rotate: drop oldest, add new
+    }
+  }
+
+  const mixColor = value.length === 2
+    ? mixColors(
+        moods.find(m => m.id === value[0])?.color ?? '#6B2737',
+        moods.find(m => m.id === value[1])?.color ?? '#6B2737',
+        0.5,
+      )
+    : null
+
   return (
-    <div className="grid grid-cols-2 gap-3">
-      {moods.map(m => (
-        <button
-          key={m.id}
-          onClick={() => onChange(m.id)}
-          className={`${cardBase} ${value === m.id ? cardSelected : cardIdle}`}
-        >
-          <div className="w-3 h-3 rounded-full mb-2 mt-0.5" style={{ background: m.color }} />
-          <p className="text-[#F5F0E8] font-medium text-sm">{m.nombre}</p>
-          <p className="text-[#F5F0E8]/40 text-xs mt-0.5 leading-snug line-clamp-2">
-            {m.descripcion_corta.split('.')[0]}
-          </p>
-        </button>
-      ))}
+    <div>
+      <AnimatePresence>
+        {value.length === 2 && mixColor && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-4 flex items-center gap-2 rounded-xl px-3 py-2 bg-white/5"
+          >
+            <div className="w-4 h-4 rounded-full shrink-0" style={{ background: mixColor }} />
+            <p className="text-[#F5F0E8]/60 text-xs">
+              Mezcla activa — toca una para cambiarla
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <div className="grid grid-cols-2 gap-3">
+        {moods.map(m => {
+          const isSelected = value.includes(m.id)
+          const idx = value.indexOf(m.id)
+          return (
+            <button
+              key={m.id}
+              onClick={() => toggle(m.id)}
+              className={`${cardBase} ${isSelected ? cardSelected : cardIdle}`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="w-3 h-3 rounded-full" style={{ background: m.color }} />
+                {isSelected && (
+                  <span className="text-[9px] font-medium text-[#C9A84C] uppercase tracking-wider">
+                    {idx === 0 ? 'Principal' : 'Secundaria'}
+                  </span>
+                )}
+              </div>
+              <p className="text-[#F5F0E8] font-medium text-sm">{m.nombre}</p>
+              <p className="text-[#F5F0E8]/40 text-xs mt-0.5 leading-snug line-clamp-2">
+                {m.descripcion_corta.split('.')[0]}
+              </p>
+            </button>
+          )
+        })}
+      </div>
+      <p className="text-center text-[#F5F0E8]/25 text-xs mt-4">
+        {value.length === 0 && 'Selecciona hasta 2 estados'}
+        {value.length === 1 && 'Puedes añadir un segundo estado si hay mezcla'}
+        {value.length === 2 && '✓ Mezcla registrada'}
+      </p>
     </div>
   )
 }
@@ -261,32 +331,46 @@ function StepNota({
 
 // ── Result screen ────────────────────────────────────────────────────
 
-function OracleResult({
-  data, isPremium, onReset,
-}: {
-  data: OracleData; isPremium: boolean; onReset: () => void
-}) {
+function FadeCard({ delay = 0, children }: { delay?: number; children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.35, ease: 'easeOut' }}
+      className="bg-white/5 rounded-2xl p-5 border border-white/8"
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremium: boolean; onReset: () => void }) {
   const [recipe, setRecipe] = useState<{ id: string; nombre_es: string; tiempo_preparacion_min: number; tipo_plato: string } | null>(null)
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
 
-  const mood = moods.find(m => m.id === data.primaryEmotion)
+  const moodA = moods.find(m => m.id === data.emotions[0])
+  const moodB = data.emotions[1] ? moods.find(m => m.id === data.emotions[1]) : null
   const symptom = data.primarySymptom ? SYMPTOMS.find(s => s.slug === data.primarySymptom) : null
   const reading = generateReading(data)
-  const nutritionFocus = symptom?.nutritionFocus ?? (mood?.ingredientes.slice(0, 4) ?? [])
-  const ritual = mood?.ritualSugerido
+  const nutritionFocus = symptom?.nutritionFocus ?? (moodA?.ingredientes.slice(0, 4) ?? [])
+  const ritual = moodA?.ritualSugerido
+
+  const accentColor = moodA && moodB
+    ? mixColors(moodA.color, moodB.color, 0.5)
+    : moodA?.color ?? '#C9A84C'
 
   useEffect(() => {
-    if (!mood) return
+    if (!moodA) return
     const supabase = createClient()
     supabase
       .from('recetas')
       .select('id, nombre_es, tiempo_preparacion_min, tipo_plato')
-      .eq('mood_es', mood.nombre)
+      .eq('mood_es', moodA.nombre)
       .limit(1)
       .maybeSingle()
       .then(({ data: r }) => { if (r) setRecipe(r) })
-  }, [mood])
+  }, [moodA])
 
   const handleSave = useCallback(async () => {
     const supabase = createClient()
@@ -298,28 +382,28 @@ function OracleResult({
     setSaving(true)
     try {
       await supabase.from('oracle_checkins').insert({
-        user_id:         user.id,
-        primary_emotion: data.primaryEmotion,
-        energy_level:    data.energyLevel,
-        sleep_quality:   data.sleepQuality,
-        primary_symptom: data.primarySymptom,
-        craving_state:   data.cravingState,
-        cycle_phase:     data.cyclePhase,
-        notes:           data.notes || null,
-        oracle_reading:  reading,
-        suggested_action: nutritionFocus.length ? { focus: nutritionFocus, ritual } : null,
+        user_id:           user.id,
+        primary_emotion:   data.emotions[0] ?? null,
+        secondary_emotion: data.emotions[1] ?? null,
+        energy_level:      data.energyLevel,
+        sleep_quality:     data.sleepQuality,
+        primary_symptom:   data.primarySymptom,
+        craving_state:     data.cravingState,
+        cycle_phase:       data.cyclePhase,
+        notes:             data.notes || null,
+        oracle_reading:    reading,
+        suggested_action:  nutritionFocus.length ? { focus: nutritionFocus, ritual } : null,
       })
 
-      // Also save to emotional_palettes for dashboard PaletteWidget compatibility
-      if (data.primaryEmotion && EMOTION_TO_SLIDERS[data.primaryEmotion]) {
-        const sliders = EMOTION_TO_SLIDERS[data.primaryEmotion]
+      if (data.emotions[0]) {
+        const sliders = getMixedSliders(data.emotions)
         const palette = calculatePalette(sliders)
         await supabase.from('emotional_palettes').insert({
-          user_id:          user.id,
+          user_id:           user.id,
           ...sliders,
-          mood_dominante:   palette.moodDominante,
-          mood_secundario:  palette.moodSecundario,
-          color_resultado:  palette.colorMezclado,
+          mood_dominante:    palette.moodDominante,
+          mood_secundario:   palette.moodSecundario,
+          color_resultado:   palette.colorMezclado,
           recetas_sugeridas: recipe ? [recipe.id] : [],
         })
       }
@@ -330,114 +414,143 @@ function OracleResult({
     }
   }, [data, reading, nutritionFocus, ritual, recipe])
 
-  if (!mood) return null
+  if (!moodA) return null
 
   return (
-    <motion.div
-      key="result"
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-[#1A0A0E] px-5 py-12 max-w-md mx-auto"
-    >
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[#C9A84C]/20">
-          <CheckCircle2 className="w-4 h-4 text-[#C9A84C]" />
-        </div>
-        <div>
-          <p className="text-[#C9A84C] text-xs font-medium tracking-widest uppercase">Lectura completada</p>
-          <p className="text-[#F5F0E8]/40 text-[10px]">Cada registro afina tu mapa bioemocional</p>
-        </div>
-      </div>
-
-      {/* Mood chip */}
-      <div
-        className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6"
-        style={{ background: mood.color + '20', border: `1px solid ${mood.color}40` }}
+    <div className="min-h-screen bg-[#1A0A0E] px-5 pb-12 max-w-md mx-auto">
+      {/* Celebratory header */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="py-10 text-center"
       >
-        <div className="w-2 h-2 rounded-full" style={{ background: mood.color }} />
-        <span className="text-sm font-medium" style={{ color: mood.color }}>{mood.nombre}</span>
-        <span className="text-[#F5F0E8]/40 text-xs">· Emoción principal de hoy</span>
-      </div>
-
-      {/* Oracle reading */}
-      <div className="bg-white/5 rounded-2xl p-5 mb-5 border border-white/8">
-        <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que estamos observando</p>
-        <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{reading}</p>
-      </div>
-
-      {/* Nutrition focus */}
-      {nutritionFocus.length > 0 && (
-        <div className="bg-white/5 rounded-2xl p-5 mb-5 border border-white/8">
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que podría ayudarte hoy</p>
-          <ul className="space-y-2">
-            {nutritionFocus.map((f, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-[#F5F0E8]/75">
-                <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
-                {f}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Ritual */}
-      {ritual && (
-        <div className="bg-white/5 rounded-2xl p-5 mb-5 border border-white/8">
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-2">Tu siguiente pequeño paso</p>
-          <p className="text-[#F5F0E8]/75 text-sm">{ritual}</p>
-        </div>
-      )}
-
-      {/* Recipe */}
-      {recipe && (
-        <div className="bg-white/5 rounded-2xl p-5 mb-8 border border-white/8">
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Tu recomendación Food·Mood</p>
-          <p className="text-[#F5F0E8] font-medium text-sm mb-1">{recipe.nombre_es}</p>
-          <p className="text-[#F5F0E8]/40 text-xs mb-4">{recipe.tiempo_preparacion_min} min · {recipe.tipo_plato}</p>
-          {isPremium ? (
-            <Link
-              href={`/recetas/${recipe.id}`}
-              className="inline-flex items-center gap-2 text-xs font-semibold text-[#C9A84C] hover:text-[#C9A84C]/80 transition-colors"
-            >
-              Ver receta completa <ArrowRight className="w-3 h-3" />
-            </Link>
-          ) : (
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 text-xs font-semibold text-[#F5F0E8]/50 hover:text-[#F5F0E8] transition-colors"
-            >
-              Hazte Premium para ver la receta <ArrowRight className="w-3 h-3" />
-            </Link>
-          )}
-        </div>
-      )}
-
-      {/* CTAs */}
-      <div className="space-y-3">
-        {saved ? (
-          <div className="flex items-center justify-center gap-2 py-3 text-[#C9A84C] text-sm">
-            <CheckCircle2 className="w-4 h-4" />
-            Lectura guardada en tu historial
-          </div>
-        ) : (
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="w-full flex items-center justify-center gap-2 bg-[#6B2737] text-[#F5F0E8] rounded-2xl py-4 text-sm font-semibold hover:bg-[#5a212e] transition-colors disabled:opacity-60"
-          >
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <BookOpen className="w-4 h-4" />}
-            Guardar lectura de hoy
-          </button>
-        )}
-        <button
-          onClick={onReset}
-          className="w-full py-3 text-[#F5F0E8]/40 text-sm hover:text-[#F5F0E8]/70 transition-colors"
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 20 }}
+          className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center"
+          style={{ background: accentColor + '25', border: `1px solid ${accentColor}40` }}
         >
-          Nueva lectura
-        </button>
+          <Sparkles className="w-6 h-6" style={{ color: accentColor }} />
+        </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="text-[#F5F0E8] font-serif text-2xl font-light mb-1"
+        >
+          Lectura completada
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.35 }}
+          className="text-[#F5F0E8]/35 text-xs"
+        >
+          Hoy has sumado una nueva señal a tu mapa bioemocional
+        </motion.p>
+      </motion.div>
+
+      {/* Emotion mix chips */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="flex items-center gap-2 mb-6 flex-wrap"
+      >
+        <div
+          className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+          style={{ background: moodA.color + '20', border: `1px solid ${moodA.color}40` }}
+        >
+          <div className="w-2 h-2 rounded-full" style={{ background: moodA.color }} />
+          <span className="text-sm font-medium" style={{ color: moodA.color }}>{moodA.nombre}</span>
+        </div>
+        {moodB && (
+          <>
+            <span className="text-[#F5F0E8]/30 text-xs">+</span>
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+              style={{ background: moodB.color + '20', border: `1px solid ${moodB.color}40` }}
+            >
+              <div className="w-2 h-2 rounded-full" style={{ background: moodB.color }} />
+              <span className="text-sm font-medium" style={{ color: moodB.color }}>{moodB.nombre}</span>
+            </div>
+          </>
+        )}
+      </motion.div>
+
+      <div className="space-y-4">
+        {/* Oracle reading */}
+        <FadeCard delay={0.45}>
+          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que estamos observando</p>
+          <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{reading}</p>
+        </FadeCard>
+
+        {/* Nutrition focus */}
+        {nutritionFocus.length > 0 && (
+          <FadeCard delay={0.55}>
+            <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que podría ayudarte hoy</p>
+            <ul className="space-y-2">
+              {nutritionFocus.map((f, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-[#F5F0E8]/75">
+                  <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </FadeCard>
+        )}
+
+        {/* Ritual */}
+        {ritual && (
+          <FadeCard delay={0.65}>
+            <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-2">Tu siguiente pequeño paso</p>
+            <p className="text-[#F5F0E8]/75 text-sm">{ritual}</p>
+          </FadeCard>
+        )}
+
+        {/* Recipe */}
+        {recipe && (
+          <FadeCard delay={0.75}>
+            <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Tu recomendación Food·Mood</p>
+            <p className="text-[#F5F0E8] font-medium text-sm mb-1">{recipe.nombre_es}</p>
+            <p className="text-[#F5F0E8]/40 text-xs mb-4">{recipe.tiempo_preparacion_min} min · {recipe.tipo_plato}</p>
+            {isPremium ? (
+              <Link href={`/recetas/${recipe.id}`} className="inline-flex items-center gap-2 text-xs font-semibold text-[#C9A84C] hover:text-[#C9A84C]/80 transition-colors">
+                Ver receta completa <ArrowRight className="w-3 h-3" />
+              </Link>
+            ) : (
+              <Link href="/pricing" className="inline-flex items-center gap-2 text-xs font-semibold text-[#F5F0E8]/50 hover:text-[#F5F0E8] transition-colors">
+                Hazte Premium para ver la receta <ArrowRight className="w-3 h-3" />
+              </Link>
+            )}
+          </FadeCard>
+        )}
+
+        {/* CTAs */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.85 }} className="space-y-3 pt-2">
+          {saved ? (
+            <div className="flex items-center justify-center gap-2 py-3 text-sm" style={{ color: accentColor }}>
+              <CheckCircle2 className="w-4 h-4" />
+              Lectura guardada en tu historial
+            </div>
+          ) : (
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="w-full flex items-center justify-center gap-2 bg-[#6B2737] text-[#F5F0E8] rounded-2xl py-4 text-sm font-semibold hover:bg-[#5a212e] transition-colors disabled:opacity-60"
+            >
+              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <BookOpen className="w-4 h-4" />}
+              Guardar lectura de hoy
+            </button>
+          )}
+          <button onClick={onReset} className="w-full py-3 text-[#F5F0E8]/35 text-sm hover:text-[#F5F0E8]/60 transition-colors">
+            Nueva lectura
+          </button>
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -454,7 +567,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
   const [step, setStep] = useState(0)
   const [dir, setDir] = useState(1)
   const [data, setData] = useState<OracleData>({
-    primaryEmotion: null,
+    emotions: [],
     energyLevel: 5,
     sleepQuality: 0,
     primarySymptom: null,
@@ -468,45 +581,27 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
   }, [])
 
   const canAdvance = [
-    data.primaryEmotion !== null,    // step 0
-    true,                            // step 1 — energy always valid
-    data.sleepQuality > 0,           // step 2
-    true,                            // step 3 — null = no symptoms
-    true,                            // step 4 — null = no craving
-    true,                            // step 5 — optional
+    data.emotions.length > 0,
+    true,
+    data.sleepQuality > 0,
+    true,
+    true,
+    true,
   ][step]
 
   const next = () => {
-    if (step < STEPS.length - 1) {
-      setDir(1)
-      setStep(s => s + 1)
-    } else {
-      setScreen('result')
-    }
+    if (step < STEPS.length - 1) { setDir(1); setStep(s => s + 1) }
+    else setScreen('result')
   }
 
   const back = () => {
-    if (step === 0) {
-      setScreen('hero')
-    } else {
-      setDir(-1)
-      setStep(s => s - 1)
-    }
+    if (step === 0) setScreen('hero')
+    else { setDir(-1); setStep(s => s - 1) }
   }
 
   const reset = () => {
-    setScreen('hero')
-    setStep(0)
-    setDir(1)
-    setData({
-      primaryEmotion: null,
-      energyLevel: 5,
-      sleepQuality: 0,
-      primarySymptom: null,
-      cravingState: null,
-      cyclePhase: null,
-      notes: '',
-    })
+    setScreen('hero'); setStep(0); setDir(1)
+    setData({ emotions: [], energyLevel: 5, sleepQuality: 0, primarySymptom: null, cravingState: null, cyclePhase: null, notes: '' })
   }
 
   if (screen === 'result') {
@@ -521,11 +616,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
         animate={{ opacity: 1 }}
         className="min-h-screen bg-[#1A0A0E] flex flex-col items-center justify-center px-6 py-16 text-center"
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.3em] uppercase mb-6">
             Food·Mood · Check-in diario
           </p>
@@ -553,30 +644,36 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
 
   return (
     <div className="min-h-screen bg-[#1A0A0E] flex flex-col">
-      {/* Progress bar */}
-      <div className="h-0.5 bg-white/5 w-full">
-        <motion.div
-          className="h-full bg-[#C9A84C]"
-          animate={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
-          transition={{ duration: 0.4, ease: 'easeInOut' }}
-        />
-      </div>
-
-      {/* Top nav */}
-      <div className="flex items-center justify-between px-5 py-4">
-        <button
-          onClick={back}
-          className="flex items-center gap-1.5 text-[#F5F0E8]/40 hover:text-[#F5F0E8]/70 transition-colors text-sm"
-        >
-          <ChevronLeft className="w-4 h-4" /> Atrás
-        </button>
-        <span className="text-[#F5F0E8]/30 text-xs">
-          {step + 1} / {STEPS.length}
-        </span>
+      {/* Stepper header */}
+      <div className="px-5 pt-5 pb-4 max-w-md mx-auto w-full">
+        <div className="flex items-center justify-between mb-2">
+          <button
+            onClick={back}
+            className="flex items-center gap-1 text-[#F5F0E8]/40 hover:text-[#F5F0E8]/70 transition-colors text-sm"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div className="text-center flex-1 px-4">
+            <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.2em] uppercase">
+              Paso {currentStep.n} de {STEPS.length}
+            </p>
+            <p className="text-[#F5F0E8]/50 text-xs mt-0.5">{currentStep.label}</p>
+          </div>
+          <div className="w-8" />
+        </div>
+        {/* Progress bar */}
+        <div className="h-1 bg-white/8 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full rounded-full"
+            style={{ background: '#C9A84C' }}
+            animate={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+          />
+        </div>
       </div>
 
       {/* Step content */}
-      <div className="flex-1 px-5 max-w-md mx-auto w-full py-4 overflow-y-auto">
+      <div className="flex-1 px-5 max-w-md mx-auto w-full py-2 overflow-y-auto">
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div
             key={step}
@@ -585,34 +682,16 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            transition={{ duration: 0.22, ease: 'easeInOut' }}
           >
-            {/* Step label */}
-            <div className="mb-6">
-              <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.2em] uppercase mb-2">
-                Paso {currentStep.n} de {STEPS.length} — {currentStep.label}
-              </p>
-              <h2 className="font-serif text-2xl text-[#F5F0E8] font-light leading-snug">
-                {currentStep.question}
-              </h2>
-            </div>
-
-            {/* Step body */}
-            {step === 0 && (
-              <StepEmocion value={data.primaryEmotion} onChange={v => update('primaryEmotion', v)} />
-            )}
-            {step === 1 && (
-              <StepEnergia value={data.energyLevel} onChange={v => update('energyLevel', v)} />
-            )}
-            {step === 2 && (
-              <StepSueno value={data.sleepQuality} onChange={v => update('sleepQuality', v)} />
-            )}
-            {step === 3 && (
-              <StepSintoma value={data.primarySymptom} onChange={v => update('primarySymptom', v)} />
-            )}
-            {step === 4 && (
-              <StepCraving value={data.cravingState} onChange={v => update('cravingState', v)} />
-            )}
+            <h2 className="font-serif text-2xl text-[#F5F0E8] font-light leading-snug mb-6">
+              {currentStep.question}
+            </h2>
+            {step === 0 && <StepEmocion value={data.emotions} onChange={v => update('emotions', v)} />}
+            {step === 1 && <StepEnergia value={data.energyLevel} onChange={v => update('energyLevel', v)} />}
+            {step === 2 && <StepSueno value={data.sleepQuality} onChange={v => update('sleepQuality', v)} />}
+            {step === 3 && <StepSintoma value={data.primarySymptom} onChange={v => update('primarySymptom', v)} />}
+            {step === 4 && <StepCraving value={data.cravingState} onChange={v => update('cravingState', v)} />}
             {step === 5 && (
               <StepNota
                 notes={data.notes}
@@ -635,10 +714,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
           {step === STEPS.length - 1 ? 'Ver mi lectura →' : 'Continuar →'}
         </button>
         {step >= 3 && (
-          <button
-            onClick={next}
-            className="w-full mt-2 py-2.5 text-[#F5F0E8]/30 text-xs hover:text-[#F5F0E8]/50 transition-colors"
-          >
+          <button onClick={next} className="w-full mt-2 py-2.5 text-[#F5F0E8]/30 text-xs hover:text-[#F5F0E8]/50 transition-colors">
             Omitir este paso
           </button>
         )}
