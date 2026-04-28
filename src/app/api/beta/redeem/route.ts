@@ -56,14 +56,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Debes iniciar sesión primero.' }, { status: 401 })
   }
 
-  const { error } = await supabaseAdmin
-    .from('profiles')
-    .upsert({
-      id: user.id,
-      is_premium: true,
-      premium_level: 1,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: 'id' })
+  // Use RPC (SECURITY DEFINER) to avoid service-role key dependency
+  const { error } = await supabase.rpc('activate_beta_premium')
 
   if (error) {
     return NextResponse.json({ error: `Error activando acceso: ${error.message}` }, { status: 500 })
