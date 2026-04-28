@@ -316,6 +316,8 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
   const [recipe, setRecipe] = useState<{ id: string; nombre_es: string; tiempo_preparacion_min: number; tipo_plato: string } | null>(null)
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [claudeReading, setClaudeReading] = useState<string | null>(null)
+  const [loadingClaude, setLoadingClaude] = useState(false)
 
   const score = scoreCheckin(data)
 
@@ -328,16 +330,30 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
     : moodA?.color ?? '#C9A84C'
 
   useEffect(() => {
-    if (!recipeMood) return
-    const supabase = createClient()
-    supabase
-      .from('recetas')
-      .select('id, nombre_es, tiempo_preparacion_min, tipo_plato')
-      .eq('mood_es', recipeMood.nombre)
-      .limit(1)
-      .maybeSingle()
-      .then(({ data: r }) => { if (r) setRecipe(r) })
-  }, [recipeMood])
+    if (recipeMood) {
+      const supabase = createClient()
+      supabase
+        .from('recetas')
+        .select('id, nombre_es, tiempo_preparacion_min, tipo_plato')
+        .eq('mood_es', recipeMood.nombre)
+        .limit(1)
+        .maybeSingle()
+        .then(({ data: r }) => { if (r) setRecipe(r) })
+    }
+
+    if (isPremium) {
+      setLoadingClaude(true)
+      fetch('/api/oracle/reading', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ input: data }),
+      })
+        .then(r => r.ok ? r.json() : null)
+        .then(json => { if (json?.reading) setClaudeReading(json.reading) })
+        .finally(() => setLoadingClaude(false))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleSave = useCallback(async () => {
     const supabase = createClient()
@@ -358,7 +374,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         craving_state:     data.cravingState,
         cycle_phase:       data.cyclePhase,
         notes:             data.notes || null,
-        oracle_reading:    score.reading,
+        oracle_reading:    claudeReading ?? score.reading,
         recipe_mood_id:    score.recipeQuery.moodId,
         suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual } satisfies OracleSuggestedAction,
         emotional_mix: {
@@ -387,7 +403,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
     } finally {
       setSaving(false)
     }
-  }, [data, accentColor, recipe])
+  }, [data, accentColor, recipe, claudeReading, score])
 
   if (!moodA) return null
 
@@ -456,8 +472,35 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
       </motion.div>
 
       <div className="space-y-4">
-        {/* Oracle reading */}
-        <FadeCard delay={0.45}>
+        {/* Claude premium reading */}
+        {isPremium && (loadingClaude || claudeReading) && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.35 }}
+            className="rounded-2xl p-5 border"
+            style={{ borderColor: accentColor + '30', background: accentColor + '08' }}
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-3 h-3" style={{ color: accentColor }} />
+              <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: accentColor }}>
+                Lectura personalizada
+              </p>
+            </div>
+            {loadingClaude && !claudeReading ? (
+              <div className="space-y-2 animate-pulse">
+                <div className="h-3 rounded bg-white/8 w-full" />
+                <div className="h-3 rounded bg-white/8 w-5/6" />
+                <div className="h-3 rounded bg-white/8 w-4/6" />
+              </div>
+            ) : (
+              <p className="text-[#F5F0E8]/90 text-sm leading-relaxed">{claudeReading}</p>
+            )}
+          </motion.div>
+        )}
+
+        {/* Rule-based oracle reading */}
+        <FadeCard delay={isPremium ? 0.55 : 0.45}>
           <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que estamos observando</p>
           <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{score.reading}</p>
         </FadeCard>
