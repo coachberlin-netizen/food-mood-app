@@ -40,7 +40,17 @@ const nextConfig = {
       },
       {
         source: '/emociones',
-        destination: '/paleta',
+        destination: '/eloraculo',
+        permanent: true,
+      },
+      {
+        source: '/paleta',
+        destination: '/eloraculo',
+        permanent: true,
+      },
+      {
+        source: '/paleta/:path*',
+        destination: '/eloraculo',
         permanent: true,
       },
       {

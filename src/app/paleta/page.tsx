@@ -1,5 +1,4 @@
-import { permanentRedirect } from 'next/navigation'
-
+// Redirect handled by next.config.mjs → /eloraculo
 export default function PaletaPage() {
-  permanentRedirect('/eloraculo')
+  return null
 }

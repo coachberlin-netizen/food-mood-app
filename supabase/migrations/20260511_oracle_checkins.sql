@@ -15,8 +15,25 @@ CREATE TABLE IF NOT EXISTS public.oracle_checkins (
 
 ALTER TABLE public.oracle_checkins ENABLE ROW LEVEL SECURITY;
 
-DROP POLICY IF EXISTS "oracle_checkins_own" ON public.oracle_checkins;
-CREATE POLICY "oracle_checkins_own"
+DROP POLICY IF EXISTS "oracle_checkins_select" ON public.oracle_checkins;
+DROP POLICY IF EXISTS "oracle_checkins_insert" ON public.oracle_checkins;
+DROP POLICY IF EXISTS "oracle_checkins_delete" ON public.oracle_checkins;
+DROP POLICY IF EXISTS "oracle_checkins_own"    ON public.oracle_checkins;
+
+-- SELECT: solo el propio usuario ve sus registros
+CREATE POLICY "oracle_checkins_select"
   ON public.oracle_checkins
-  USING (auth.uid() = user_id)
+  FOR SELECT
+  USING (auth.uid() = user_id);
+
+-- INSERT: solo puede insertar filas con su propio user_id
+CREATE POLICY "oracle_checkins_insert"
+  ON public.oracle_checkins
+  FOR INSERT
   WITH CHECK (auth.uid() = user_id);
+
+-- DELETE: solo puede borrar sus propios registros
+CREATE POLICY "oracle_checkins_delete"
+  ON public.oracle_checkins
+  FOR DELETE
+  USING (auth.uid() = user_id);
