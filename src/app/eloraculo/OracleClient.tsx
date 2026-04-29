@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, Loader2, CheckCircle2, ArrowRight, BookOpen, Sparkles } from 'lucide-react'
 import Link from 'next/link'
@@ -317,7 +317,8 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
   const [claudeReading, setClaudeReading] = useState<string | null>(null)
-  const [loadingClaude, setLoadingClaude] = useState(false)
+  const [loadingClaude, setLoadingClaude] = useState(isPremium) // starts true for premium; prevents race condition
+  const autoSavedRef = useRef(false)
 
   const score = scoreCheckin(data)
 
@@ -342,7 +343,6 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
     }
 
     if (isPremium) {
-      setLoadingClaude(true)
       fetch('/api/oracle/reading', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -404,6 +404,15 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
       setSaving(false)
     }
   }, [data, accentColor, recipe, claudeReading, score])
+
+  // Auto-save: non-premium immediately on mount, premium after AI reading arrives
+  useEffect(() => {
+    if (autoSavedRef.current || saved) return
+    if (isPremium && loadingClaude) return  // wait until AI reading is ready
+    autoSavedRef.current = true
+    handleSave()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingClaude])
 
   if (!moodA) return null
 
@@ -571,16 +580,12 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
                 Ver mi historial →
               </Link>
             </div>
-          ) : (
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="w-full flex items-center justify-center gap-2 bg-[#6B2737] text-[#F5F0E8] rounded-2xl py-4 text-sm font-semibold hover:bg-[#5a212e] transition-colors disabled:opacity-60"
-            >
-              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <BookOpen className="w-4 h-4" />}
-              Guardar lectura de hoy
-            </button>
-          )}
+          ) : saving ? (
+            <div className="flex items-center justify-center gap-2 py-4 text-sm" style={{ color: 'rgba(245,240,232,0.35)' }}>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Guardando lectura…
+            </div>
+          ) : null}
           <button onClick={onReset} className="w-full py-3 text-[#F5F0E8]/35 text-sm hover:text-[#F5F0E8]/60 transition-colors">
             Nueva lectura
           </button>
