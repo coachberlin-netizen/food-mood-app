@@ -210,41 +210,7 @@ export default function Home() {
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <HomeHero />
 
-      {/* ── 2. ALEGRÍA + CONOCIMIENTO ───────────────────────────────────────── */}
-      <section aria-label="Más alegría, más conocimiento" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
-            className="space-y-8"
-          >
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-              Más alegría · más conocimiento
-            </motion.p>
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-[1.15]">
-              Comer bien{" "}
-              <span className="italic font-light">es el acto más placentero que puedes hacer por ti.</span>
-            </motion.h2>
-            <motion.div variants={fade} className="space-y-5 text-base md:text-lg font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.7)" }}>
-              <p>
-                Cuando comes con curiosidad y con conocimiento, algo cambia: más energía, más claridad,
-                más placer en cada plato. No es magia — es bioquímica a tu favor.
-              </p>
-              <p>
-                Lo que comes cambia cómo te sientes. Y lo que sientes cambia lo que comes.
-                Food·Mood te da las dos claves a la vez.
-              </p>
-              <p className="font-medium" style={{ color: "#6B2737" }}>
-                Placer y ciencia. Juntos. En cada receta.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── 3. LA CIENCIA ───────────────────────────────────────────────────── */}
+      {/* ── 2. LA CIENCIA ───────────────────────────────────────────────────── */}
       <section aria-label="La ciencia del eje intestino-cerebro" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
@@ -295,8 +261,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 4. CÓMO FUNCIONA ────────────────────────────────────────────────── */}
-      <section aria-label="Cómo funciona Food·Mood" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
+      {/* ── 3. CÓMO FUNCIONA ────────────────────────────────────────────────── */}
+      <section id="como-funciona" aria-label="Cómo funciona Food·Mood" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "rgba(107,39,55,0.4)" }}>
