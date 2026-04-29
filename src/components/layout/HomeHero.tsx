@@ -263,35 +263,59 @@ export default function HomeHero() {
 
           {/* Content */}
           <div style={{ position:"relative",zIndex:5 }}>
-            <p className="hero-fade-up-1" style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"10px",letterSpacing:"0.32em",color:GOLD_LIGHT,textTransform:"uppercase",marginBottom:"26px" }}>
-              Neurociencia Nutricional · Eje Intestino–Cerebro
-            </p>
-            <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontStyle:"italic",fontWeight:400,fontSize:"clamp(42px,5vw,72px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
-              Recetas que te<br />cambian el<br />
-              <em style={{ fontStyle:"normal",color:GOLD_LIGHT,fontWeight:500 }}>humor.</em>
+            {/* Eyebrow */}
+            <div className="hero-fade-up-1" style={{ display:"inline-flex",alignItems:"center",gap:"10px",marginBottom:"28px" }}>
+              <span style={{ width:"6px",height:"6px",borderRadius:"50%",background:GOLD_LIGHT,display:"inline-block",flexShrink:0 }} />
+              <span style={{ fontFamily:"sans-serif",fontWeight:400,fontSize:"11px",letterSpacing:"0.28em",color:GOLD_LIGHT,textTransform:"uppercase" }}>
+                Test gratuito · 2 minutos
+              </span>
+            </div>
+
+            {/* H1 */}
+            <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontWeight:400,fontSize:"clamp(40px,5vw,68px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
+              ¿Comes por estrés?<br />
+              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>Hay un plato para eso.</em>
             </h1>
+
+            {/* Divider */}
             <div className="hero-fade-up-3" style={{ width:"48px",height:"1px",background:`linear-gradient(90deg,${GOLD},transparent)`,margin:"26px 0" }} />
-            <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.68)",maxWidth:"370px" }}>
-              Cada plato está diseñado para cómo te sientes hoy —<br className="max-md:hidden" />
-              no para un número en la báscula.
+
+            {/* Sub */}
+            <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"380px" }}>
+              Food·Mood identifica cómo te sientes y te recomienda
+              exactamente qué comer hoy.
             </p>
-            <div className="hero-fade-up-5" style={{ marginTop:"36px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap" }}>
+
+            {/* CTAs */}
+            <div className="hero-fade-up-5" style={{ marginTop:"36px",display:"flex",flexDirection:"column",gap:"14px",alignItems:"flex-start" }}>
               <Link
-                href="/retos"
-                style={{ fontFamily:"sans-serif",fontWeight:300,fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase",color:BURG_DEEP,background:GOLD_LIGHT,border:"none",padding:"14px 30px",display:"inline-block",textDecoration:"none",transition:"opacity .3s" }}
+                href="/test"
+                style={{ fontFamily:"sans-serif",fontWeight:500,fontSize:"13px",letterSpacing:"0.18em",textTransform:"uppercase",color:BURG_DEEP,background:GOLD_LIGHT,padding:"16px 36px",display:"inline-block",textDecoration:"none",transition:"background .25s",borderRadius:"2px" }}
                 onMouseEnter={e => (e.currentTarget.style.background = CREAM)}
                 onMouseLeave={e => (e.currentTarget.style.background = GOLD_LIGHT)}
               >
-                Empieza tu reto de 7 días →
+                Descubre tu estado ahora →
               </Link>
-              <Link
-                href="/paleta"
-                style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",letterSpacing:"0.18em",textTransform:"uppercase",color:CREAM,opacity:.55,textDecoration:"none",display:"flex",alignItems:"center",gap:"8px",transition:"opacity .3s" }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-                onMouseLeave={e => (e.currentTarget.style.opacity = ".55")}
+              <a
+                href="#como-funciona"
+                style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(245,237,224,.4)",textDecoration:"none",display:"flex",alignItems:"center",gap:"6px",transition:"color .25s" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,237,224,.75)")}
+                onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,237,224,.4)")}
               >
-                Descubre tu paleta emocional →
-              </Link>
+                Ver cómo funciona ↓
+              </a>
+            </div>
+
+            {/* Social proof */}
+            <div className="hero-fade-up-6 max-md:hidden" style={{ marginTop:"40px",display:"flex",alignItems:"center",gap:"10px" }}>
+              <div style={{ display:"flex",gap:"-4px" }}>
+                {["#C9A84C","#8E2535","#4A7C59","#4A7AB5"].map((c,i) => (
+                  <div key={i} style={{ width:"24px",height:"24px",borderRadius:"50%",background:c,border:`1.5px solid ${BURG_DEEP}`,marginLeft: i===0 ? 0 : "-6px" }} />
+                ))}
+              </div>
+              <p style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",color:"rgba(245,237,224,.45)",letterSpacing:"0.06em" }}>
+                +1.200 personas ya conocen su Food·Mood
+              </p>
             </div>
           </div>
 
