@@ -366,8 +366,9 @@ export default function Home() {
               </motion.h2>
               <motion.p variants={fade} className="text-base md:text-lg font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
                 No en tu cabeza. Por eso un plato bien elegido puede calmar la ansiedad antes de que tu mente
-                lo procese. En Food·Mood traducimos neurociencia en recetas reales, con ingredientes que encuentras
-                en cualquier supermercado.
+                lo procese. Y el mecanismo no es la disciplina — es el placer. Cuando comes lo que tu cuerpo
+                necesita y lo disfrutas, activas el mismo circuito que hace que quieras repetirlo.
+                Eso es lo que construye hábitos duraderos.
               </motion.p>
               <motion.p variants={fade} className="text-sm font-light italic" style={{ color: "rgba(245,240,232,0.35)" }}>
                 Basado en la investigación de Lisa Feldman Barrett y el trabajo de Cryan et al. sobre el eje microbiota-intestino-cerebro.
@@ -576,12 +577,17 @@ export default function Home() {
             className="rounded-2xl p-8 md:p-10 mb-12 text-center"
             style={{ backgroundColor: "#2d0f16" }}
           >
-            <p className="font-serif text-xl md:text-2xl font-light leading-relaxed text-white mb-3">
-              &ldquo;Los hábitos no se crean con disciplina.{" "}
-              <span style={{ color: "#C9A84C" }}>Se crean con placer.&rdquo;</span>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(201,168,76,0.55)" }}>
+              La neurociencia lo confirma
+            </p>
+            <p className="font-serif text-xl md:text-2xl font-light leading-relaxed text-white mb-4">
+              Los hábitos duraderos no se crean con disciplina.{" "}
+              <span style={{ color: "#C9A84C" }}>Se crean con placer.</span>
             </p>
             <p className="text-sm font-light max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.5)" }}>
-              Cuando algo te hace sentir bien, tu cerebro lo pide de nuevo. Food·Mood hace que comer bien sea lo más fácil — y lo más agradable — del día.
+              Tu intestino produce el 95% de tu serotonina — el neurotransmisor del bienestar y la recompensa.
+              Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo.
+              Eso es lo que crea el hábito. No el esfuerzo.
             </p>
           </motion.div>
 
