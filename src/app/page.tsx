@@ -184,6 +184,143 @@ function FaqItem({ faq, isOpen, onToggle }: { faq: typeof FAQS[0]; isOpen: boole
   )
 }
 
+// ─── Phone screen components ──────────────────────────────────────────────────
+function TestScreen() {
+  return (
+    <div className="h-full flex flex-col p-4" style={{ backgroundColor: "#F5F0E8" }}>
+      <div className="flex justify-between items-center text-[8px] font-medium pt-8 pb-4" style={{ color: "rgba(45,15,22,0.3)" }}>
+        <span>9:41</span><span>●●●</span>
+      </div>
+      <div className="flex gap-0.5 mb-5">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="h-0.5 flex-1 rounded-full" style={{ backgroundColor: i < 2 ? "#C9A84C" : "rgba(107,39,55,0.12)" }} />
+        ))}
+      </div>
+      <p className="text-[8px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(107,39,55,0.35)" }}>Pregunta 2 de 8</p>
+      <h3 className="font-serif text-xs font-bold leading-snug mb-4" style={{ color: "#2d0f16" }}>¿Cómo te sientes ahora mismo?</h3>
+      <div className="flex flex-col gap-1.5">
+        {[
+          { e: "⚡", l: "Activo y con energía", s: true },
+          { e: "🌿", l: "Tranquilo y en calma", s: false },
+          { e: "😰", l: "Con ansiedad", s: false },
+          { e: "😔", l: "Sin energía", s: false },
+        ].map(o => (
+          <div key={o.l} className="flex items-center gap-2 px-3 py-2 rounded-xl text-[9px] font-medium"
+            style={o.s ? { backgroundColor: "#C9A84C", color: "#2d0f16" } : { backgroundColor: "rgba(107,39,55,0.06)", color: "rgba(107,39,55,0.65)" }}>
+            <span>{o.e}</span><span>{o.l}</span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-auto pt-3">
+        <div className="w-full py-2.5 rounded-xl text-[9px] font-bold text-center text-white" style={{ backgroundColor: "#6B2737" }}>Siguiente →</div>
+      </div>
+    </div>
+  )
+}
+
+function PaletaScreen() {
+  return (
+    <div className="h-full flex flex-col p-4" style={{ backgroundColor: "#1e0d12" }}>
+      <div className="flex justify-between items-center text-[8px] font-medium pt-8 pb-4" style={{ color: "rgba(245,240,232,0.25)" }}>
+        <span>9:41</span><span>●●●</span>
+      </div>
+      <p className="text-[8px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(201,168,76,0.5)" }}>Tu paleta de hoy</p>
+      <h3 className="font-serif text-xs font-bold text-white leading-snug mb-5">
+        Estado dominante: <span style={{ color: "#C9A84C" }}>Calma</span>
+      </h3>
+      <div className="flex flex-col gap-3 mb-4">
+        {[
+          { label: "Calma", pct: 68, color: "#5A9B8A" },
+          { label: "Focus", pct: 32, color: "#4A7AB5" },
+          { label: "Energía", pct: 18, color: "#C9A84C" },
+        ].map(b => (
+          <div key={b.label}>
+            <div className="flex justify-between text-[8px] mb-1">
+              <span style={{ color: "rgba(245,240,232,0.4)" }}>{b.label}</span>
+              <span style={{ color: b.color }}>{b.pct}%</span>
+            </div>
+            <div className="w-full h-1 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
+              <div className="h-full rounded-full" style={{ width: `${b.pct}%`, backgroundColor: b.color }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-1 mb-5">
+        {["#5A9B8A","#5A9B8A","#5A9B8A","#4A7AB5","#4A7AB5","#C9A84C"].map((c, i) => (
+          <div key={i} className="flex-1 h-5 rounded" style={{ backgroundColor: c, opacity: 0.75 }} />
+        ))}
+      </div>
+      <div className="mt-auto">
+        <div className="w-full py-2.5 rounded-xl text-[9px] font-bold text-center" style={{ backgroundColor: "#C9A84C", color: "#1e0d12" }}>Ver receta del día →</div>
+      </div>
+    </div>
+  )
+}
+
+function RecetaScreen() {
+  return (
+    <div className="h-full flex flex-col" style={{ backgroundColor: "#F5F0E8" }}>
+      <div className="h-24 flex flex-col items-center justify-end pb-3 relative" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="absolute top-0 left-0 right-0 flex justify-between items-center text-[8px] font-medium pt-8 px-4" style={{ color: "rgba(245,240,232,0.3)" }}>
+          <span>9:41</span><span>●●●</span>
+        </div>
+        <div className="px-2 py-0.5 rounded-full text-[7px] font-bold uppercase tracking-widest mb-1" style={{ backgroundColor: "rgba(90,155,138,0.25)", color: "#5A9B8A" }}>Calma</div>
+        <p className="font-serif text-[10px] font-bold text-white text-center px-4 leading-tight">Bowl de miso y aguacate</p>
+      </div>
+      <div className="flex flex-col flex-1 p-3 gap-2">
+        <p className="text-[8px] font-light" style={{ color: "rgba(107,39,55,0.45)" }}>Para tu estado de hoy</p>
+        <div className="flex flex-col gap-1">
+          {["Triptófano → serotonina","Omega-3 antiinflamatorio","Magnesio nervioso central"].map(item => (
+            <div key={item} className="flex items-start gap-1.5 text-[8px]" style={{ color: "rgba(107,39,55,0.65)" }}>
+              <span style={{ color: "#C9A84C" }}>·</span>{item}
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-1 flex-wrap">
+          {["🥑 Aguacate","🍶 Miso","🌿 Cilantro"].map(ing => (
+            <span key={ing} className="text-[7px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(107,39,55,0.07)", color: "rgba(107,39,55,0.55)" }}>{ing}</span>
+          ))}
+        </div>
+        <div className="flex gap-2 text-[7px]" style={{ color: "rgba(107,39,55,0.35)" }}>
+          <span>⏱ 20 min</span><span>🌱 Vegano</span>
+        </div>
+        <div className="mt-auto">
+          <div className="w-full py-2 rounded-xl text-[8px] font-bold text-center text-white" style={{ backgroundColor: "#6B2737" }}>Ver receta completa →</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PhoneMockup({ screen, featured = false, dimmed = false }: {
+  screen: "test" | "paleta" | "receta"
+  featured?: boolean
+  dimmed?: boolean
+}) {
+  return (
+    <div
+      className="relative mx-auto rounded-[2.5rem] overflow-hidden"
+      style={{
+        width: "100%",
+        aspectRatio: "9/19",
+        border: `${featured ? "2" : "1.5"}px solid ${featured ? "rgba(201,168,76,0.35)" : "rgba(255,255,255,0.07)"}`,
+        boxShadow: featured
+          ? "0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.08)"
+          : "0 20px 40px rgba(0,0,0,0.4)",
+        opacity: dimmed ? 0.55 : 1,
+        backgroundColor: "#111",
+      }}
+    >
+      <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 h-3.5 rounded-full z-10" style={{ backgroundColor: "#000" }} />
+      <div className="absolute inset-[2px] rounded-[2.4rem] overflow-hidden">
+        {screen === "test" && <TestScreen />}
+        {screen === "paleta" && <PaletaScreen />}
+        {screen === "receta" && <RecetaScreen />}
+      </div>
+    </div>
+  )
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Home() {
   const [openFaqs, setOpenFaqs] = useState<Set<number>>(new Set())
@@ -415,6 +552,148 @@ export default function Home() {
               Descubre tu paleta emocional <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ── 3b. BENEFICIOS ──────────────────────────────────────────────────── */}
+      <section aria-label="Beneficios de Food·Mood" className="py-20 md:py-28 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Lo que cambia
+            </p>
+            <h2 className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-tight">
+              Sin esfuerzo. Sin culpa.{" "}
+              <span className="italic font-light">Sin dieta.</span>
+            </h2>
+          </div>
+
+          {/* Bloque diferencial */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-2xl p-8 md:p-10 mb-12 text-center"
+            style={{ backgroundColor: "#2d0f16" }}
+          >
+            <p className="font-serif text-xl md:text-2xl font-light leading-relaxed text-white mb-3">
+              &ldquo;Los hábitos no se crean con disciplina.{" "}
+              <span style={{ color: "#C9A84C" }}>Se crean con placer.&rdquo;</span>
+            </p>
+            <p className="text-sm font-light max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Cuando algo te hace sentir bien, tu cerebro lo pide de nuevo. Food·Mood hace que comer bien sea lo más fácil — y lo más agradable — del día.
+            </p>
+          </motion.div>
+
+          {/* Grid de beneficios */}
+          <div className="grid md:grid-cols-2 gap-5">
+            {[
+              {
+                icon: <Leaf size={20} />,
+                title: "Comes mejor sin sentirte a dieta",
+                body: "No restricción. No control. Un plato que te da placer y te hace sentir bien. Sin culpa incluida.",
+                iconBg: "rgba(107,39,55,0.06)",
+                iconColor: "#6B2737",
+              },
+              {
+                icon: <Activity size={20} />,
+                title: "Reduces la ansiedad con comida que disfrutas",
+                body: "Sin el ciclo de restricción → ansiedad → abandono. La comida como solución, no como problema.",
+                iconBg: "rgba(201,168,76,0.09)",
+                iconColor: "#C9A84C",
+              },
+              {
+                icon: <Zap size={20} />,
+                title: "Creas hábitos de forma natural",
+                body: "Cuando algo te da placer, tu cerebro lo repite solo. Sin fuerza de voluntad ni disciplina rígida.",
+                iconBg: "rgba(107,39,55,0.06)",
+                iconColor: "#6B2737",
+              },
+              {
+                icon: <Brain size={20} />,
+                title: "Reconectas con tu cuerpo",
+                body: "Aprendes a escuchar lo que te pide el cuerpo. Food·Mood traduce esa señal en un plato concreto.",
+                iconBg: "rgba(201,168,76,0.09)",
+                iconColor: "#C9A84C",
+              },
+            ].map((b, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="flex items-start gap-5 p-6 rounded-2xl"
+                style={{ border: "1px solid rgba(107,39,55,0.08)" }}
+              >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: b.iconBg, color: b.iconColor }}>
+                  {b.icon}
+                </div>
+                <div>
+                  <h3 className="font-serif text-base font-bold mb-1.5" style={{ color: "#2d0f16" }}>{b.title}</h3>
+                  <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>{b.body}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3c. DEMOSTRACIÓN VISUAL ─────────────────────────────────────────── */}
+      <section aria-label="Pantallas de la aplicación Food·Mood" className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "#C9A84C" }}>La app</p>
+            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
+              Simple. Personal.{" "}
+              <span className="italic font-light">Tuya.</span>
+            </h2>
+            <p className="text-base font-light mt-5 max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Sin curva de aprendizaje. En 30 segundos ya tienes tu receta del día.
+            </p>
+          </div>
+
+          <div className="flex items-end justify-center gap-4 md:gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 16 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="hidden md:block shrink-0"
+              style={{ width: 188 }}
+            >
+              <PhoneMockup screen="test" dimmed />
+              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.3)" }}>Test emocional</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="shrink-0"
+              style={{ width: 210 }}
+            >
+              <PhoneMockup screen="paleta" featured />
+              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.5)" }}>Tu paleta emocional</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 16 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="hidden md:block shrink-0"
+              style={{ width: 188 }}
+            >
+              <PhoneMockup screen="receta" dimmed />
+              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.3)" }}>Receta del día</p>
+            </motion.div>
+          </div>
+
+          <p className="text-center text-[10px] font-light mt-10" style={{ color: "rgba(245,240,232,0.15)" }}>
+            Interfaz real de la app · Sin filtros · Sin montajes
+          </p>
         </div>
       </section>
 
