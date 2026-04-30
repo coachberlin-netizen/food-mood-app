@@ -71,5 +71,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages, ...recipePages, ...symptomPages];
+  // Reto landing pages
+  const { data: challenges } = await supabase
+    .from('challenges')
+    .select('slug, updated_at')
+    .eq('is_active', true)
+
+  const retoPages = (challenges || []).map((ch) => ({
+    url: `${baseUrl}/retos/${ch.slug}`,
+    lastModified: ch.updated_at ? new Date(ch.updated_at) : new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }))
+
+  return [...staticPages, ...blogPages, ...recipePages, ...symptomPages, ...retoPages];
 }

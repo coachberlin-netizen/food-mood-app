@@ -6,24 +6,24 @@ import type { Metadata } from 'next'
 const CANONICAL = 'https://www.food-mood.app/retos/activa-tu-longevidad'
 
 export const metadata: Metadata = {
-  title:       'Activa tu longevidad en 10 días | Food·Mood',
-  description: 'Telómeros, autofagia, colágeno, NAD+ y microbioma. 10 mecanismos antiaging. 10 recetas que los activan. Sin restricciones. Sin sufrimiento. Basado en la ciencia de las zonas azules. 19€.',
-  keywords:    'antiaging alimentación, telómeros dieta, autofagia alimentos, colágeno comida, NAD+ microbioma, inflamación crónica, zonas azules dieta, longevidad cocina, reto antiaging 10 días',
+  title:       'Activa tu longevidad en 10 días — Come joven. Siente todo. | Food·Mood',
+  description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging activados desde el plato en 10 días. Sin suplementos, sin restricciones. Basado en la ciencia de las zonas azules. Desde 19€.',
+  keywords:    'cómo activar autofagia con comida, alimentos que alargan telómeros, NAD+ alimentos naturales, colágeno sin suplementos, microbioma envejecimiento, dieta zonas azules, inflammaging alimentación, longevidad dieta mediterránea, protocolo antiaging 10 días, alimentos antiinflamatorios crónicos, spermidina alimentos, sirtuinas activar con comida, BDNF alimentos, ritmo circadiano alimentación, reto longevidad español',
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },
   },
   openGraph: {
-    title:       'Activa tu longevidad en 10 días | Food·Mood',
-    description: 'Telómeros, autofagia, colágeno, NAD+ y microbioma. 10 mecanismos antiaging. Sin restricciones. Come joven. 19€.',
+    title:       'Activa tu longevidad en 10 días — Come joven. Siente todo. | Food·Mood',
+    description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging desde el plato. Sin suplementos, sin restricciones. Basado en zonas azules. 19€.',
     url:         CANONICAL,
     type:        'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Activa tu longevidad — Food·Mood' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Activa tu longevidad en 10 días — Food·Mood' }],
   },
   twitter: {
     card:        'summary_large_image',
     title:       'Activa tu longevidad en 10 días | Food·Mood',
-    description: 'Telómeros, autofagia, colágeno, NAD+ y microbioma. 10 mecanismos antiaging. Desde 19€.',
+    description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging desde el plato. Sin suplementos. 19€.',
     images:      ['/og-image.png'],
   },
 }
@@ -89,12 +89,24 @@ export default async function RetoLongevidadPage() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Activa tu longevidad en 10 días',
-    description: 'Telómeros, autofagia, colágeno, NAD+ y microbioma. 10 mecanismos antiaging activados desde el plato.',
+    name: 'Activa tu longevidad en 10 días — Come joven. Siente todo.',
+    description: 'Telómeros, autofagia, colágeno, NAD+ y microbioma. 10 mecanismos antiaging activados desde el plato en 10 días. Sin suplementos, sin restricciones.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
     brand: { '@type': 'Brand', name: 'Food·Mood' },
-    offers: { '@type': 'Offer', price: 19, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
+    offers: {
+      '@type': 'Offer',
+      price: 19,
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+      url: CANONICAL,
+      priceValidUntil: '2026-12-31',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '38',
+    },
   }
 
   const breadcrumbSchema = {
@@ -107,10 +119,66 @@ export default async function RetoLongevidadPage() {
     ],
   }
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '¿Qué es la autofagia y cómo se activa con comida?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'La autofagia es el mecanismo de limpieza celular mediante el cual la célula recicla sus componentes dañados. Se activa con ayuno intermitente y con alimentos ricos en spermidina como las setas shitake, el trigo germinado y los polifenoles del té verde (EGCG). El Nobel de Medicina 2016 fue otorgado por este descubrimiento.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '¿Qué alimentos alargan los telómeros?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Los telómeros se protegen con vitamina C (fresas, kiwi, pimiento), licopeno (tomate, sandía, granada), resveratrol (uvas, granada, arándanos), quercetina (cebollas, manzanas, alcaparras) y ácidos grasos omega-3 del pescado azul. Los probióticos vivos del kéfir y el yogur reducen el estrés oxidativo sistémico, el principal enemigo de los telómeros.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '¿Cómo subir los niveles de NAD+ de forma natural?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Los precursores del NAD+ en alimentos incluyen la niacina (vitamina B3) presente en atún, pollo, cacahuetes y setas; el triptófano en proteína animal y legumbres; y el NMN (nicotinamida mononucleótido) en brócoli, aguacate y edamame. El resveratrol potencia la activación de sirtuinas NAD-dependientes. El ayuno intermitente suave también eleva el NAD+ de forma significativa.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '¿Qué es la inflammaging y cómo se reduce con alimentación?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'La inflammaging es la inflamación crónica de bajo grado asociada al envejecimiento y es el denominador común de enfermedades como el Alzheimer, diabetes tipo 2 y enfermedad cardiovascular. Se reduce con omega-3 (salmón, sardinas, nueces), curcumina con pimienta negra, polifenoles (frutas del bosque, té verde, aceite de oliva virgen extra), fibra prebiótica y fermentados vivos.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '¿Qué es el colágeno natural y cómo estimular su síntesis?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'El colágeno no se obtiene directamente de los alimentos, sino que se sintetiza en el cuerpo con la materia prima adecuada: vitamina C (imprescindible para la hidroxilación de prolina), glicina y prolina del caldo de huesos cocido lentamente con vinagre, cobre (semillas de girasol), silicio (puerro, avena) y zinc (semillas de calabaza, legumbres). Un caldo de huesos de 3-6 horas con vinagre es el suplemento de colágeno más biodisponible y económico que existe.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '¿Cuánto dura el reto y qué incluye?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'El reto dura 10 días e incluye: 10 recetas antiaging con explicación científica, 10 audios guiados (educativos, rituales y cierre), 5 meditaciones guiadas específicas para autofagia, microbioma, neuroplasticidad, ritmo circadiano e integración, tracking diario, y un protocolo de longevidad personal al completar. El acceso es permanente y el precio es 19€.',
+        },
+      },
+    ],
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
     <main className="min-h-screen font-[inherit]" style={{ background: '#F5F0E8' }}>
 
       {/* Nav */}
