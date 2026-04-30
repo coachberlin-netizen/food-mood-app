@@ -82,6 +82,7 @@ export default async function RetoDetailPage({ params }: PageProps) {
 
   let enrollment = null
   let todayContent = null
+  let isPremium = false
 
   if (user) {
     const { data: en } = await supabase
@@ -96,6 +97,7 @@ export default async function RetoDetailPage({ params }: PageProps) {
     // Admin and premium/influencer users get free access — auto-grant paid enrollment
     if (!enrollment?.paid) {
       const hasFreeAccess = isUserAdmin(user) || await getPremiumStatus(supabase, user.id)
+      isPremium = hasFreeAccess
       if (hasFreeAccess) {
         const today = new Date().toISOString().split('T')[0]
         await supabase
@@ -116,6 +118,8 @@ export default async function RetoDetailPage({ params }: PageProps) {
           current_day: enrollment?.current_day ?? 1,
         } as typeof enrollment
       }
+    } else {
+      isPremium = true  // already paid = already has access
     }
 
     if (enrollment?.paid && !enrollment.completed) {
@@ -178,6 +182,7 @@ export default async function RetoDetailPage({ params }: PageProps) {
           enrollment={enrollment}
           todayContent={todayContent}
           isAuthenticated={!!user}
+          isPremium={isPremium}
         />
       </Suspense>
     </>
