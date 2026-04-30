@@ -148,7 +148,7 @@ export default function AudioPlayer({ titulo, descripcion, duracion_min, tipo, a
           <div>
             <p className="text-xs font-semibold" style={{ color: '#6B2737' }}>Audio disponible próximamente</p>
             <p className="text-[11px] font-light" style={{ color: 'rgba(107,39,55,0.5)' }}>
-              {duracion_min} min · {label}
+              {label}
             </p>
           </div>
         </div>
@@ -192,7 +192,6 @@ export default function AudioPlayer({ titulo, descripcion, duracion_min, tipo, a
             </div>
           </div>
 
-          <span className="text-[11px] shrink-0" style={{ color: 'rgba(107,39,55,0.4)' }}>{duracion_min}m</span>
         </div>
       )}
     </div>

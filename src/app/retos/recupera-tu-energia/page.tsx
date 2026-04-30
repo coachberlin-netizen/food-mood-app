@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 const INCLUYE = [
   { icono: '📘', texto: '7 días de protocolo mitocondrial con evidencia' },
-  { icono: '🎧', texto: '3 audios de apoyo (10-12 min)' },
+  { icono: '🎧', texto: '7 audios de apoyo — uno por día' },
   { icono: '📊', texto: 'Seguimiento diario de energía y ánimo' },
   { icono: '📋', texto: 'Informe personalizado al completar' },
   { icono: '♾️', texto: 'Acceso de por vida al contenido' },
