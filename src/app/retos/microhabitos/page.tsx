@@ -1,29 +1,29 @@
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
-import ResetHedonicoCTA from './ResetHedonicoCTA'
+import MicrohabitosCTA from './MicrohabitosCTA'
 
 export const dynamic = 'force-dynamic'
 
-const CANONICAL = 'https://www.food-mood.app/retos/reset-hedonico'
+const CANONICAL = 'https://www.food-mood.app/retos/microhabitos'
 
 export const metadata: Metadata = {
-  title: 'Reset Hedónico — 21 días para crear hábitos con placer | Food·Mood',
+  title: 'Microhábitos — 21 días para crear hábitos con placer | Food·Mood',
   description: 'Crea hábitos reales usando el placer como motor de cambio. 21 días de micro-hábitos, psicología del comportamiento y bebidas funcionales fermentadas. Sin fuerza de voluntad. Desde 29€.',
-  keywords: 'hábitos saludables sin esfuerzo, psicología hábitos, tiny habits español, cambio hábitos placer, bebidas funcionales fermentadas, kéfir hábitos, neurociencia hábitos, ancla hedónica, reset hedónico, microhábitos alimentación',
+  keywords: 'microhábitos, hábitos saludables sin esfuerzo, psicología hábitos, tiny habits español, cambio hábitos placer, bebidas funcionales fermentadas, kéfir hábitos, neurociencia hábitos, ancla hedónica, microhábitos alimentación',
   alternates: {
     canonical: CANONICAL,
     languages: { 'es': CANONICAL },
   },
   openGraph: {
-    title: 'Reset Hedónico — 21 días para crear hábitos con placer',
+    title: 'Microhábitos — 21 días para crear hábitos con placer',
     description: 'Crea hábitos reales usando el placer como motor de cambio. 21 días de psicología y bebidas funcionales. Desde 29€.',
     url: CANONICAL,
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Reset Hedónico — 21 días para crear hábitos con placer' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Microhábitos — 21 días para crear hábitos con placer' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Reset Hedónico — 21 días para crear hábitos con placer',
+    title: 'Microhábitos — 21 días para crear hábitos con placer',
     description: 'Micro-hábitos + psicología del comportamiento + bebidas funcionales fermentadas. Sin fuerza de voluntad.',
     images: ['/og-image.png'],
   },
@@ -111,7 +111,7 @@ const FAQ = [
   },
   {
     q: '¿En qué se diferencia del Food·Mood Reset o del Slow Food·Mood?',
-    a: 'Food·Mood Reset trabaja el eje intestino-cerebro desde la nutrición. Slow Food·Mood trabaja la ansiedad desde la cocina lenta. El Reset Hedónico trabaja los hábitos — cómo crearlos, fijarlos y hacerlos automáticos. Son complementarios.',
+    a: 'Food·Mood Reset trabaja el eje intestino-cerebro desde la nutrición. Slow Food·Mood trabaja la ansiedad desde la cocina lenta. Microhábitos trabaja los hábitos — cómo crearlos, fijarlos y hacerlos automáticos. Son complementarios.',
   },
   {
     q: '¿Funciona si ya he intentado cambiar hábitos antes sin éxito?',
@@ -125,14 +125,14 @@ const FAQ = [
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 
-export default async function ResetHedonicoPage() {
+export default async function MicrohabitosPage() {
   const supabase = await createClient()
 
   const [
     { data: ch },
     { data: { user } },
   ] = await Promise.all([
-    supabase.from('challenges').select('id').eq('slug', 'reset-hedonico').eq('is_active', true).maybeSingle(),
+    supabase.from('challenges').select('id').eq('slug', 'microhabitos').eq('is_active', true).maybeSingle(),
     supabase.auth.getUser(),
   ])
 
@@ -142,13 +142,13 @@ export default async function ResetHedonicoPage() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Reset Hedónico — 21 días',
+    name: 'Microhábitos — 21 días',
     description: 'Crea hábitos reales usando el placer como motor de cambio. 21 días de micro-hábitos, psicología del comportamiento y bebidas funcionales fermentadas.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
     brand: { '@type': 'Brand', name: 'Food·Mood' },
     offers: [
-      { '@type': 'Offer', name: 'Reset Hedónico — 21 días', price: 29, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
+      { '@type': 'Offer', name: 'Microhábitos — 21 días', price: 29, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
     ],
   }
 
@@ -158,7 +158,7 @@ export default async function ResetHedonicoPage() {
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
       { '@type': 'ListItem', position: 2, name: 'Retos',     item: 'https://www.food-mood.app/retos' },
-      { '@type': 'ListItem', position: 3, name: 'Reset Hedónico', item: CANONICAL },
+      { '@type': 'ListItem', position: 3, name: 'Microhábitos', item: CANONICAL },
     ],
   }
 
@@ -181,9 +181,8 @@ export default async function ResetHedonicoPage() {
         <section
           className="relative overflow-hidden"
           style={{ backgroundColor: '#1a0a0d', minHeight: '92vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
-          aria-labelledby="rh-h1"
+          aria-labelledby="mh-h1"
         >
-          {/* Fondo decorativo */}
           <div
             aria-hidden="true"
             className="absolute inset-0 pointer-events-none"
@@ -192,7 +191,6 @@ export default async function ResetHedonicoPage() {
             }}
           />
 
-          {/* Etiqueta flotante */}
           <div className="absolute top-8 left-6 right-6 flex justify-between items-center">
             <span
               className="text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full"
@@ -203,20 +201,18 @@ export default async function ResetHedonicoPage() {
             <span className="text-xl" aria-hidden="true">✨</span>
           </div>
 
-          {/* Bebidas flotantes — decoración */}
           <div aria-hidden="true" className="absolute top-20 right-6 flex flex-col gap-2 opacity-40">
             {['🍋', '🫐', '🌿', '🥭', '🌺'].map((e, i) => (
               <span key={i} className="text-2xl">{e}</span>
             ))}
           </div>
 
-          {/* Copy */}
           <div className="relative z-10 max-w-2xl mx-auto px-6 pb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-5" style={{ color: 'rgba(201,168,76,0.6)' }}>
               Hábitos · Placer · Neurociencia
             </p>
             <h1
-              id="rh-h1"
+              id="mh-h1"
               className="font-serif font-black leading-[1.05] mb-6"
               style={{ fontSize: 'clamp(2.4rem, 8vw, 4rem)', color: '#F5F0E8' }}
             >
@@ -228,7 +224,7 @@ export default async function ResetHedonicoPage() {
               21 días para crear un hábito real sin fuerza de voluntad. Un micro-hábito + una teoría psicológica + una bebida funcional como ancla hedónica. Cada día.
             </p>
 
-            <ResetHedonicoCTA challengeId={challengeId} isAuthenticated={isAuthenticated} />
+            <MicrohabitosCTA challengeId={challengeId} isAuthenticated={isAuthenticated} />
 
             <div className="flex items-center gap-6 mt-8">
               <div className="text-center">
@@ -250,10 +246,10 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── EL PROBLEMA ── */}
-        <section className="max-w-2xl mx-auto px-6 py-20" aria-labelledby="rh-problema">
+        <section className="max-w-2xl mx-auto px-6 py-20" aria-labelledby="mh-problema">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>El problema real</p>
-            <h2 id="rh-problema" className="font-serif text-2xl md:text-3xl font-bold mb-6 leading-tight" style={{ color: '#F5F0E8' }}>
+            <h2 id="mh-problema" className="font-serif text-2xl md:text-3xl font-bold mb-6 leading-tight" style={{ color: '#F5F0E8' }}>
               La fuerza de voluntad<br />no es la solución.
             </h2>
             <p className="text-base font-light leading-relaxed mb-4" style={{ color: 'rgba(245,240,232,0.65)' }}>
@@ -266,9 +262,9 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── EL MECANISMO ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="rh-mecanismo">
+        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-mecanismo">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>La diferencia</p>
-          <h2 id="rh-mecanismo" className="font-serif text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: '#2d0f16' }}>
+          <h2 id="mh-mecanismo" className="font-serif text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: '#2d0f16' }}>
             El ancla hedónica:<br />por qué funciona.
           </h2>
           <p className="text-base font-light leading-relaxed mb-6" style={{ color: 'rgba(107,39,55,0.65)' }}>
@@ -283,9 +279,9 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── 8 MECANISMOS ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="rh-ciencia">
+        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-ciencia">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>Psicología real</p>
-          <h2 id="rh-ciencia" className="font-serif text-2xl md:text-3xl font-bold mb-10 leading-tight" style={{ color: '#2d0f16' }}>
+          <h2 id="mh-ciencia" className="font-serif text-2xl md:text-3xl font-bold mb-10 leading-tight" style={{ color: '#2d0f16' }}>
             8 mecanismos psicológicos.<br />21 días para instalarlos.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -308,9 +304,9 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── 3 FASES ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="rh-fases">
+        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-fases">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>El proceso</p>
-          <h2 id="rh-fases" className="font-serif text-2xl md:text-3xl font-bold mb-10 leading-tight" style={{ color: '#2d0f16' }}>
+          <h2 id="mh-fases" className="font-serif text-2xl md:text-3xl font-bold mb-10 leading-tight" style={{ color: '#2d0f16' }}>
             Tres fases, un hábito<br />permanente.
           </h2>
           <div className="space-y-6">
@@ -352,10 +348,10 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── 21 BEBIDAS ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="rh-bebidas">
+        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-bebidas">
           <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: '#2d0f16' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>Las 21 anclas</p>
-            <h2 id="rh-bebidas" className="font-serif text-2xl font-bold mb-2 leading-tight" style={{ color: '#F5F0E8' }}>
+            <h2 id="mh-bebidas" className="font-serif text-2xl font-bold mb-2 leading-tight" style={{ color: '#F5F0E8' }}>
               21 bebidas funcionales fermentadas.
             </h2>
             <p className="text-sm font-light mb-8" style={{ color: 'rgba(245,240,232,0.5)' }}>
@@ -363,10 +359,7 @@ export default async function ResetHedonicoPage() {
             </p>
             <ol className="space-y-2.5" role="list">
               {BEBIDAS.map(({ dia, nombre }) => (
-                <li
-                  key={dia}
-                  className="flex items-baseline gap-3 text-sm"
-                >
+                <li key={dia} className="flex items-baseline gap-3 text-sm">
                   <span
                     className="text-[10px] font-black shrink-0 w-5 text-right"
                     style={{ color: 'rgba(201,168,76,0.45)' }}
@@ -386,10 +379,10 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── QUÉ INCLUYE ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="rh-incluye">
+        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-incluye">
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm">
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#6B2737' }}>Contenido</p>
-            <h2 id="rh-incluye" className="font-serif text-2xl font-bold mb-8 leading-tight" style={{ color: '#2d0f16' }}>
+            <h2 id="mh-incluye" className="font-serif text-2xl font-bold mb-8 leading-tight" style={{ color: '#2d0f16' }}>
               Lo que vas a encontrar dentro
             </h2>
             <ul className="space-y-4" role="list">
@@ -415,10 +408,10 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── PARA QUIÉN ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="rh-paraquien">
+        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-paraquien">
           <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.2)' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>¿Es para ti?</p>
-            <h2 id="rh-paraquien" className="font-serif text-xl font-bold mb-6 leading-tight" style={{ color: '#2d0f16' }}>
+            <h2 id="mh-paraquien" className="font-serif text-xl font-bold mb-6 leading-tight" style={{ color: '#2d0f16' }}>
               Este reto es para ti si…
             </h2>
             <ul className="space-y-3" role="list">
@@ -440,9 +433,9 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── FAQ ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="rh-faq">
+        <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-faq">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>Dudas frecuentes</p>
-          <h2 id="rh-faq" className="font-serif text-2xl md:text-3xl font-bold mb-8 leading-tight" style={{ color: '#2d0f16' }}>
+          <h2 id="mh-faq" className="font-serif text-2xl md:text-3xl font-bold mb-8 leading-tight" style={{ color: '#2d0f16' }}>
             Preguntas frecuentes
           </h2>
           <div className="bg-white rounded-2xl divide-y divide-[rgba(107,39,55,0.06)]" style={{ border: '1px solid rgba(107,39,55,0.08)' }}>
@@ -468,16 +461,13 @@ export default async function ResetHedonicoPage() {
         </section>
 
         {/* ── CTA FINAL ── */}
-        <section className="max-w-2xl mx-auto px-6 pb-24" aria-labelledby="rh-cta" id="cta-compra">
+        <section className="max-w-2xl mx-auto px-6 pb-24" aria-labelledby="mh-cta" id="cta-compra">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#1a0a0d' }}>
-            <p
-              className="text-[10px] font-bold uppercase tracking-[0.22em] mb-5"
-              style={{ color: '#C9A84C' }}
-            >
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-5" style={{ color: '#C9A84C' }}>
               El placer como arquitecto
             </p>
             <h2
-              id="rh-cta"
+              id="mh-cta"
               className="font-serif font-black leading-tight mb-4"
               style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', color: '#F5F0E8' }}
             >
@@ -488,7 +478,7 @@ export default async function ResetHedonicoPage() {
               Sin fuerza de voluntad. Sin restricción. Sin culpa.<br />
               Solo placer bien diseñado, repetido 21 veces.
             </p>
-            <ResetHedonicoCTA challengeId={challengeId} isAuthenticated={isAuthenticated} compact />
+            <MicrohabitosCTA challengeId={challengeId} isAuthenticated={isAuthenticated} compact />
           </div>
         </section>
 

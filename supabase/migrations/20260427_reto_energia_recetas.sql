@@ -135,7 +135,7 @@ UPDATE public.challenge_days SET
         'Agrega el tamari, mezcla bien y retira del fuego.',
         'Sirve sobre una base de arroz integral.'
       ),
-      'por_que', 'Las setas shiitake son la fuente más rica en ergotioneína, el antioxidante más potente para las mitocondrias. El pollo aporta niacin (B3) precursor del NAD+. El jengibre activa la AMPK, la enzima reguladora del metabolismo energético.'
+      'por_que', 'Las setas shiitake son la fuente más rica en ergotioneína, el antioxidante más potente para las mitocondrias. El pollo aporta niacina (B3) precursor del NAD+. El jengibre activa la AMPK, la enzima reguladora del metabolismo energético.'
     )
   )
 WHERE challenge_id = (SELECT id FROM public.challenges WHERE slug = 'recupera-tu-energia')

@@ -63,6 +63,11 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      {
+        source: '/retos/reset-hedonico',
+        destination: '/retos/microhabitos',
+        permanent: true,
+      },
     ]
   },
 };

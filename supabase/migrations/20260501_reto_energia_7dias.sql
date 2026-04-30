@@ -187,13 +187,13 @@ SELECT c.id, 5,
     'fase', 'activar',
     'idea_clara', jsonb_build_object(
       'titulo',        'NAD+ — el combustible de las sirtuinas',
-      'texto',         'El NAD+ (Nicotinamida Adenina Dinucleótido) es la molécula central del metabolismo energético. Activa las sirtuinas (SIRT1-7), los genes de la longevidad celular. Con la edad, los niveles de NAD+ caen hasta un 50%. El niacin (vitamina B3) es el precursor directo. Las setas, el pollo y el atún son las fuentes más densas.',
+      'texto',         'El NAD+ (Nicotinamida Adenina Dinucleótido) es la molécula central del metabolismo energético. Activa las sirtuinas (SIRT1-7), los genes de la longevidad celular. Con la edad, los niveles de NAD+ caen hasta un 50%. La niacina (vitamina B3) es el precursor directo. Las setas, el pollo y el atún son las fuentes más densas.',
       'concepto_clave', 'Sirtuinas y senescencia celular'
     ),
     'cambio_del_dia', jsonb_build_object(
       'titulo', 'Salteado de setas shiitake con pollo y arroz integral',
       'descripcion', 'Pechugas de pollo en tiras salteadas con setas shiitake + champiñones portobello a fuego alto. Ajo, jengibre fresco, tamari (sin gluten). Servir sobre arroz integral.',
-      'por_que', 'Las setas shiitake son la fuente más rica en ergotioneína, el antioxidante más potente conocido para las mitocondrias. El pollo aporta niacin (B3) biodisponible. El jengibre activa la AMPK, la enzima que regula el metabolismo energético.'
+      'por_que', 'Las setas shiitake son la fuente más rica en ergotioneína, el antioxidante más potente conocido para las mitocondrias. El pollo aporta niacina (B3) biodisponible. El jengibre activa la AMPK, la enzima que regula el metabolismo energético.'
     ),
     'registro_diario', jsonb_build_object(
       'pregunta_manana', '¿Has notado cambios en tu nivel de energía matutina esta semana?',

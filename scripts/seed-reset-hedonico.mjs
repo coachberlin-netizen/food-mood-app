@@ -12,8 +12,8 @@ const supabase = createClient(
 // ── Challenge metadata ────────────────────────────────────────────────────────
 
 const CHALLENGE = {
-  slug:          'reset-hedonico',
-  title:         'Reset Hedónico — 21 días',
+  slug:          'microhabitos',
+  title:         'Microhábitos — 21 días',
   subtitle:      'Crea un hábito real usando el placer como motor de cambio',
   description:   'Un programa de 21 días basado en psicología de hábitos y neurociencia del placer. Cada día: un micro-hábito, una teoría psicológica breve, una práctica rápida y una bebida funcional placentera que actúa como ancla hedónica. El placer no es la recompensa — es el mecanismo.',
   category:      'hábitos',

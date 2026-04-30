@@ -45,7 +45,8 @@
       "Bash(gunzip -f /tmp/bol.gz)",
       "Bash(grep -v \"//.*<button\")",
       "Bash(sed -i 's/ahorro del 44%/ahorro del 22%/g; s/descuento del 44%/descuento del 22%/g' src/app/pricing/page.tsx)",
-      "Bash(sed -i 's/\\(15€\\\\/3 meses\\)/\\(21€\\\\/3 meses\\)/g' \"src/app/sintomas/[slug]/page.tsx\")"
+      "Bash(sed -i 's/\\(15€\\\\/3 meses\\)/\\(21€\\\\/3 meses\\)/g' \"src/app/sintomas/[slug]/page.tsx\")",
+      "Bash(python *)"
     ]
   }
 }
