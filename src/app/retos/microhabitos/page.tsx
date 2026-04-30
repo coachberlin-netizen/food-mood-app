@@ -7,24 +7,24 @@ export const dynamic = 'force-dynamic'
 const CANONICAL = 'https://www.food-mood.app/retos/microhabitos'
 
 export const metadata: Metadata = {
-  title: 'Microhábitos — 21 días para crear hábitos con placer | Food·Mood',
-  description: 'Crea hábitos reales usando el placer como motor de cambio. 21 días de micro-hábitos, psicología del comportamiento y bebidas funcionales fermentadas. Sin fuerza de voluntad. Desde 29€.',
-  keywords: 'microhábitos, hábitos saludables sin esfuerzo, psicología hábitos, tiny habits español, cambio hábitos placer, bebidas funcionales fermentadas, kéfir hábitos, neurociencia hábitos, ancla hedónica, microhábitos alimentación',
+  title: 'Microhábitos — 21 días para crear hábitos sin fuerza de voluntad | Food·Mood',
+  description: 'Crea hábitos que duran con Tiny Habits, ancla hedónica y bebidas fermentadas. 21 días de psicología del comportamiento. Sin disciplina. Desde 29€.',
+  keywords: 'microhábitos programa español, cómo crear hábitos duraderos, tiny habits BJ Fogg español, ancla hedónica neurociencia, hábitos sin fuerza de voluntad, cambio de hábitos con placer, psicología del comportamiento hábitos, bebidas funcionales fermentadas kéfir, neurociencia hábitos dopamina, por qué no consigo mantener hábitos, reto hábitos 21 días, diseño de hábitos alimentación, dopamine loop hábitos, tiny habits alimentación',
   alternates: {
     canonical: CANONICAL,
     languages: { 'es': CANONICAL },
   },
   openGraph: {
-    title: 'Microhábitos — 21 días para crear hábitos con placer',
-    description: 'Crea hábitos reales usando el placer como motor de cambio. 21 días de psicología y bebidas funcionales. Desde 29€.',
+    title: 'Microhábitos — 21 días para crear hábitos sin fuerza de voluntad',
+    description: 'Tiny Habits, ancla hedónica y bebidas fermentadas como motor de cambio real. 21 días. Sin disciplina. Desde 29€.',
     url: CANONICAL,
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Microhábitos — 21 días para crear hábitos con placer' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Microhábitos Food·Mood — 21 días para crear hábitos sin fuerza de voluntad' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Microhábitos — 21 días para crear hábitos con placer',
-    description: 'Micro-hábitos + psicología del comportamiento + bebidas funcionales fermentadas. Sin fuerza de voluntad.',
+    title: 'Microhábitos — 21 días para crear hábitos sin fuerza de voluntad',
+    description: 'Tiny Habits + ancla hedónica + bebidas funcionales fermentadas. Psicología real del comportamiento. 21 días, 29€.',
     images: ['/og-image.png'],
   },
 }
@@ -123,6 +123,117 @@ const FAQ = [
   },
 ]
 
+// ── Structured data ──────────────────────────────────────────────────────────
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Necesito experiencia previa con fermentados o kéfir para hacer el reto Microhábitos?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Las bebidas son sencillas — la más compleja tarda 5 minutos. Muchos ingredientes ya están en tu nevera. Si no encuentras kéfir, damos alternativas para cada receta.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto tiempo necesito cada día para el reto de microhábitos?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Menos de 10 minutos diarios. El micro-hábito principal son 30 segundos a 5 minutos. La bebida, 2-5 minutos de preparación. El diario, 3-5 minutos.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué pasa si me salto un día del reto?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Nada. El reto incluye específicamente el módulo "never miss twice" y una versión mínima de cada día para cuando la vida se complica. El hábito imperfecto que ocurre gana al perfecto que no pasa.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿En qué se diferencia Microhábitos del Food·Mood Reset o del Slow Food·Mood?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Food·Mood Reset trabaja el eje intestino-cerebro desde la nutrición. Slow Food·Mood trabaja la ansiedad desde la cocina lenta. Microhábitos trabaja los hábitos — cómo crearlos, fijarlos y hacerlos automáticos usando el placer como mecanismo.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Funciona si ya he intentado cambiar hábitos antes y he fracasado?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Especialmente para ti. Este programa parte de que los intentos anteriores fallaron por diseño, no por falta de voluntad. El placer como mecanismo — no como recompensa — activa el circuito dopaminérgico de forma diferente al enfoque basado en disciplina.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué es el ancla hedónica y por qué funciona para crear hábitos?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El ancla hedónica es un estímulo placentero (en este caso una bebida funcional fermentada) que se asocia repetidamente a un micro-hábito. Cada vez que el cerebro experimenta placer, libera dopamina y graba la ruta neural que llevó a ese placer. Después de 21 repeticiones, el hábito ocurre de forma automática.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Tengo acceso permanente al contenido del reto?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí. Una vez comprado, el contenido es tuyo para siempre. Puedes repetir el reto, revisitar días, o usarlo como referencia cuando necesites reinstalar un hábito. Precio único de 29€.',
+      },
+    },
+  ],
+}
+
+const COURSE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'Microhábitos — 21 días para crear hábitos con placer',
+  description: 'Programa de 21 días basado en psicología del comportamiento (Tiny Habits, Environment Design, Hedonic Anchoring) para crear hábitos duraderos usando el placer como mecanismo neurológico, no como recompensa.',
+  url: CANONICAL,
+  image: 'https://www.food-mood.app/og-image.png',
+  provider: { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
+  educationalLevel: 'Beginner',
+  inLanguage: 'es',
+  timeRequired: 'P21D',
+  courseMode: 'online',
+  offers: {
+    '@type': 'Offer',
+    price: 29,
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    url: CANONICAL,
+  },
+  hasCourseInstance: [
+    {
+      '@type': 'CourseInstance',
+      name: 'Fase 1 — Preparar (días 1–7)',
+      description: 'Tiny Habits, diseño de entorno, ancla hedónica, identidad basada en hábitos, anticipación de dopamina y autocompasión como motor de persistencia.',
+    },
+    {
+      '@type': 'CourseInstance',
+      name: 'Fase 2 — Reforzar (días 8–14)',
+      description: 'Protocolo de obstáculos (WOOP), regla del "never miss twice", señales múltiples, flexibilidad cognitiva y refuerzo inmediato en ventana de 90 segundos.',
+    },
+    {
+      '@type': 'CourseInstance',
+      name: 'Fase 3 — Integrar (días 15–21)',
+      description: 'Automaticidad, conexión con el yo futuro, consolidación de identidad, resiliencia ante el estrés, ancla sensorial y plan de continuidad post-reto.',
+    },
+  ],
+}
+
+const ORG_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Food·Mood',
+  url: 'https://www.food-mood.app',
+  contactPoint: { '@type': 'ContactPoint', email: 'hola@food-mood.app', contactType: 'customer service' },
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function MicrohabitosPage() {
@@ -174,6 +285,9 @@ export default async function MicrohabitosPage() {
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(COURSE_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }} />
 
       <main id="main-content" style={{ backgroundColor: '#F5F0E8' }}>
 
