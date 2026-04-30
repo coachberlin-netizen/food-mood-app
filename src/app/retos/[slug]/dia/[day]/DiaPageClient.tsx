@@ -72,6 +72,13 @@ interface RecipeData {
     tipo:         string
     archivo:      string
   }
+  meditacion?: {
+    titulo:       string
+    descripcion:  string
+    duracion_min: number
+    tipo:         string
+    archivo:      string
+  }
   lectura?: {
     titulo: string
     texto:  string
@@ -354,6 +361,17 @@ export default function DiaPageClient({ challenge, enrollment, dayContent, dayNu
           ) : dayContent.audio_url ? (
             <audio controls src={dayContent.audio_url} className="w-full rounded-lg" />
           ) : null}
+
+          {/* Meditación */}
+          {rd?.meditacion && (
+            <AudioPlayer
+              titulo={rd.meditacion.titulo}
+              descripcion={rd.meditacion.descripcion}
+              duracion_min={rd.meditacion.duracion_min}
+              tipo={rd.meditacion.tipo}
+              archivo={rd.meditacion.archivo}
+            />
+          )}
 
           {/* Lectura */}
           {rd?.lectura && <LecturaCard titulo={rd.lectura.titulo} texto={rd.lectura.texto} />}
