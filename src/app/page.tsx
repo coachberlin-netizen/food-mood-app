@@ -3,61 +3,21 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { ChevronDown, BookOpen, Headphones, BarChart2, Moon, Zap, Leaf, Activity, Brain, ArrowRight, Check } from "lucide-react"
+import { ChevronDown, Moon, Zap, Leaf, Activity, Brain, ArrowRight, Check } from "lucide-react"
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
 import HomeHero from "@/components/layout/HomeHero"
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
 const RETOS = [
-  {
-    emoji: "⚡",
-    category: "Energía",
-    color: "#C9A84C",
-    duration: "7 días",
-    title: "Recupera tu energía en 7 días",
-    subtitle: "Sin cafeína forzada, sin azúcares de rebote. Resultados medibles en una semana.",
-    recipes: 7,
-    audios: 3,
-    price: 19,
-    slug: "recupera-tu-energia",
-  },
-  {
-    emoji: "😴",
-    category: "Sueño",
-    color: "#6B2737",
-    duration: "4 semanas",
-    title: "Mejora tu sueño en 4 semanas",
-    subtitle: "Serotonina → melatonina. Magnesio, triptófano, fermentados nocturnos.",
-    recipes: 28,
-    audios: 4,
-    price: 29,
-    slug: null,
-  },
-  {
-    emoji: "🌿",
-    category: "Inflamación",
-    color: "#4A7C59",
-    duration: "7 días",
-    title: "Reset antiinflamatorio",
-    subtitle: "Cúrcuma, omega-3, fermentados. Reset completo en una semana.",
-    recipes: 7,
-    audios: 7,
-    price: 19,
-    slug: "reset-antiinflamatorio",
-  },
-  {
-    emoji: "🧠",
-    category: "Salud mental",
-    color: "#4A7AB5",
-    duration: "21 días",
-    title: "21 días para resetear tu mente",
-    subtitle: "Protocolo Food-Mood Reset. Eje intestino-cerebro en práctica.",
-    recipes: 21,
-    audios: 21,
-    price: 29,
-    slug: null,
-  },
+  { emoji: "⚡", category: "Energía",      color: "#E8703A", duration: "7 días",    title: "Recupera tu energía",         price: 19, slug: "recupera-tu-energia"    },
+  { emoji: "🌿", category: "Inflamación",  color: "#5A9B8A", duration: "7 días",    title: "Reset antiinflamatorio",      price: 19, slug: "reset-antiinflamatorio" },
+  { emoji: "🌱", category: "Longevidad",   color: "#2D6B55", duration: "10 días",   title: "Activa tu longevidad",        price: 19, slug: "activa-tu-longevidad"   },
+  { emoji: "✨", category: "Hábitos",      color: "#C9A84C", duration: "21 días",   title: "Microhábitos",                price: 29, slug: "microhabitos"           },
+  { emoji: "🍵", category: "Ansiedad",     color: "#4A7B6B", duration: "21 días",   title: "Slow Food·Mood",              price: 29, slug: "slow-food-mood"         },
+  { emoji: "🧠", category: "Salud mental", color: "#4A7AB5", duration: "21 días",   title: "Food·Mood Reset",             price: 29, slug: "food-mood-reset"        },
+  { emoji: "🌸", category: "Hormonas",     color: "#C04878", duration: "28 días",   title: "Equilibrio hormonal 45+",     price: 29, slug: "equilibrio-hormonal-45" },
+  { emoji: "😴", category: "Sueño",        color: "#4A7AB5", duration: "4 semanas", title: "Mejora tu sueño",             price: 29, slug: "mejora-tu-sueno"        },
 ]
 
 // ─── FAQ data ────────────────────────────────────────────────────────────────
@@ -102,49 +62,27 @@ const FAQ_SCHEMA = {
 const fade = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 
 function RetoCard({ reto }: { reto: typeof RETOS[0] }) {
-  const href = reto.slug ? `/retos/${reto.slug}` : "/retos"
+  const href = `/retos/${reto.slug}`
   return (
-    <div
-      className="bg-white rounded-2xl p-6 border-l-4 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4"
+    <Link
+      href={href}
+      className="group bg-white rounded-xl border-l-[3px] px-4 py-3.5 flex items-center gap-3 hover:shadow-sm transition-shadow no-underline"
       style={{ borderLeftColor: reto.color }}
     >
-      <div className="flex items-center justify-between">
-        <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: reto.color }}>
-          {reto.category}
-        </span>
-        <span
-          className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
-          style={{ backgroundColor: reto.color }}
-        >
-          {reto.duration}
-        </span>
-      </div>
-      <div>
-        <h3 className="font-serif text-xl font-bold leading-snug mb-1" style={{ color: "#2d0f16" }}>
+      <span className="text-xl shrink-0">{reto.emoji}</span>
+      <div className="flex-1 min-w-0">
+        <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: reto.color }}>
+          {reto.category} · {reto.duration}
+        </p>
+        <p className="text-sm font-semibold truncate" style={{ color: "#2d0f16" }}>
           {reto.title}
-        </h3>
-        <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.65)" }}>
-          {reto.subtitle}
         </p>
       </div>
-      <div className="flex items-center gap-3 flex-wrap text-xs" style={{ color: "rgba(107,39,55,0.5)" }}>
-        <span className="flex items-center gap-1"><BookOpen size={13} strokeWidth={1.5} />{reto.recipes} recetas</span>
-        <span style={{ opacity: 0.3 }}>·</span>
-        <span className="flex items-center gap-1"><Headphones size={13} strokeWidth={1.5} />{reto.audios} audios</span>
-        <span style={{ opacity: 0.3 }}>·</span>
-        <span className="flex items-center gap-1"><BarChart2 size={13} strokeWidth={1.5} />tracking diario</span>
+      <div className="flex items-center gap-2 shrink-0">
+        <span className="font-serif text-base font-black" style={{ color: "#C9A84C" }}>{reto.price}€</span>
+        <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: reto.color }} />
       </div>
-      <div className="flex items-center justify-between mt-auto">
-        <span className="font-serif text-2xl font-black" style={{ color: "#C9A84C" }}>{reto.price}€</span>
-        <Link
-          href={href}
-          className="px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all hover:opacity-90"
-          style={{ backgroundColor: "#6B2737" }}
-        >
-          Empezar →
-        </Link>
-      </div>
-    </div>
+    </Link>
   )
 }
 
@@ -882,9 +820,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-10">
             {RETOS.map((reto) => (
-              <RetoCard key={reto.title} reto={reto} />
+              <RetoCard key={reto.slug} reto={reto} />
             ))}
           </div>
 
