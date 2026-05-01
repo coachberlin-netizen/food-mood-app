@@ -267,6 +267,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   const [betaError,    setBetaError]    = useState<string | null>(null)
   const [showBetaBox,  setShowBetaBox]  = useState(false)
 
+  const [restartState, setRestartState] = useState<'idle' | 'loading' | 'error'>('idle')
+
   const isSuccess = searchParams.get('success') === 'true'
   const [pollingPaid, setPollingPaid] = useState(false)
 
@@ -354,6 +356,23 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         setCheckoutErr('Error de conexión. Inténtalo de nuevo.')
       }
     })
+  }
+
+  async function handleRestart() {
+    setRestartState('loading')
+    try {
+      const res = await fetch('/api/retos/restart', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ challenge_id: challenge.id }),
+      })
+      if (!res.ok) { setRestartState('error'); return }
+      setEnrollment(prev => prev ? { ...prev, current_day: 1, completed: false, completed_at: null, fm_index_end: null } : prev)
+      setRestartState('idle')
+      router.push(`/retos/${challenge.slug}/dia/1`)
+    } catch {
+      setRestartState('error')
+    }
   }
 
   // Auto-apply beta_code param after login redirect
@@ -836,16 +855,29 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               </div>
             )}
             <div className="flex flex-col gap-3">
+              <button
+                onClick={handleRestart}
+                disabled={restartState === 'loading'}
+                className="block w-full py-3 rounded-full text-sm font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
+                style={{ backgroundColor: color }}
+              >
+                {restartState === 'loading' ? 'Reiniciando…' : 'Empezar de nuevo →'}
+              </button>
+              {restartState === 'error' && (
+                <p className="text-xs text-center" style={{ color: '#c0392b' }}>
+                  Error al reiniciar. Inténtalo de nuevo.
+                </p>
+              )}
               <Link
                 href="/retos"
-                className="block py-3 rounded-full text-sm font-bold text-white"
-                style={{ backgroundColor: color }}
+                className="block py-3 rounded-full text-sm font-bold text-center border-2 transition-all hover:opacity-80"
+                style={{ borderColor: color, color: color }}
               >
                 Ver más retos →
               </Link>
               <button
                 onClick={() => {
-                  const text = `Acabo de completar el reto "${challenge.title}" en 28 días con Food·Mood. El eje intestino-cerebro es real. 🏆`
+                  const text = `Acabo de completar el reto "${challenge.title}" en ${durationD} días con Food·Mood. El eje intestino-cerebro es real. 🏆`
                   if (navigator.share) {
                     navigator.share({ text, url: window.location.href }).catch(() => {})
                   } else {
@@ -853,7 +885,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                   }
                 }}
                 className="block w-full py-3 rounded-full text-sm font-bold border-2 transition-all hover:opacity-80"
-                style={{ borderColor: color, color: color }}
+                style={{ borderColor: 'rgba(107,39,55,0.2)', color: 'rgba(107,39,55,0.45)' }}
               >
                 Compartir mi logro →
               </button>
