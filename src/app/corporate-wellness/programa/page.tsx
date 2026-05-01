@@ -265,11 +265,11 @@ export default async function CorporateWellnessProgramaPage() {
           Documento interno Food·Mood · No distribuir públicamente
         </p>
         <a
-          href="mailto:hola@food-mood.app?subject=Propuesta%20Corporate%20Wellness"
+          href="mailto:info@food-mood.app?subject=Propuesta%20Corporate%20Wellness"
           className="inline-flex items-center gap-2 text-sm font-bold transition-all hover:opacity-80"
           style={{ color: '#4A7B6B' }}
         >
-          hola@food-mood.app <ArrowRight size={14} />
+          info@food-mood.app <ArrowRight size={14} />
         </a>
       </div>
 

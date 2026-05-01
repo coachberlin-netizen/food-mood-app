@@ -20,7 +20,7 @@ export default function SlowFoodMoodCTA({ challengeId, isAuthenticated, compact 
       return
     }
     if (!challengeId) {
-      setError('Este reto estará disponible muy pronto. Escríbenos a hola@food-mood.app para acceso anticipado.')
+      setError('Este reto estará disponible muy pronto. Escríbenos a info@food-mood.app para acceso anticipado.')
       return
     }
     setError(null)

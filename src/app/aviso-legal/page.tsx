@@ -63,8 +63,8 @@ export default function AvisoLegalPage() {
             </p>
             <p>
               <strong className="font-semibold text-aubergine-dark">Correo electrónico:</strong>{" "}
-              <a href="mailto:hola@food-mood.app" className="text-aubergine underline hover:opacity-70 transition-opacity">
-                hola@food-mood.app
+              <a href="mailto:info@food-mood.app" className="text-aubergine underline hover:opacity-70 transition-opacity">
+                info@food-mood.app
               </a>
             </p>
             <p>

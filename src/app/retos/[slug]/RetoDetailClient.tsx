@@ -195,7 +195,7 @@ const FAQS_BASE = [
   },
   {
     q: '¿Tengo dudas o necesito ayuda?',
-    a: <>Puedes escribirnos en cualquier momento a <a href="mailto:hola@food-mood.app" style={{ color: 'inherit', textDecoration: 'underline' }}>hola@food-mood.app</a> o consultar los <Link href="/pricing" style={{ color: 'inherit', textDecoration: 'underline' }}>planes de suscripción</Link> si buscas acceso continuo a todas las recetas.</>,
+    a: <>Puedes escribirnos en cualquier momento a <a href="mailto:info@food-mood.app" style={{ color: 'inherit', textDecoration: 'underline' }}>info@food-mood.app</a> o consultar los <Link href="/pricing" style={{ color: 'inherit', textDecoration: 'underline' }}>planes de suscripción</Link> si buscas acceso continuo a todas las recetas.</>,
   },
 ]
 

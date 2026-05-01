@@ -98,7 +98,7 @@ export default async function SlowFoodMoodPage() {
     '@type': 'Organization',
     name: 'Food·Mood',
     url: 'https://www.food-mood.app',
-    contactPoint: { '@type': 'ContactPoint', email: 'hola@food-mood.app', contactType: 'customer service' },
+    contactPoint: { '@type': 'ContactPoint', email: 'info@food-mood.app', contactType: 'customer service' },
   }
 
   return (

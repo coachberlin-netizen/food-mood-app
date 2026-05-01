@@ -158,7 +158,7 @@ export default function CorporateWellnessPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:hola@food-mood.app?subject=Piloto%20Corporate%20Wellness"
+              href="mailto:info@food-mood.app?subject=Piloto%20Corporate%20Wellness"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90"
               style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
             >
@@ -282,7 +282,7 @@ export default function CorporateWellnessPage() {
           </div>
           <div className="mt-10 text-center">
             <a
-              href="mailto:hola@food-mood.app?subject=Solicito%20programa%20completo%20Corporate%20Wellness"
+              href="mailto:info@food-mood.app?subject=Solicito%20programa%20completo%20Corporate%20Wellness"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold transition-all hover:opacity-90"
               style={{ backgroundColor: '#4A7B6B', color: 'white' }}
             >
@@ -383,7 +383,7 @@ export default function CorporateWellnessPage() {
                   {plan.desc}
                 </p>
                 <a
-                  href={`mailto:hola@food-mood.app?subject=${encodeURIComponent(plan.cta + ' — ' + plan.name)}`}
+                  href={`mailto:info@food-mood.app?subject=${encodeURIComponent(plan.cta + ' — ' + plan.name)}`}
                   className="block w-full py-3 rounded-full text-sm font-bold text-center transition-all hover:opacity-90"
                   style={{
                     backgroundColor: plan.highlight ? '#C9A84C' : 'transparent',
@@ -433,7 +433,7 @@ export default function CorporateWellnessPage() {
             Escríbenos y preparamos una propuesta adaptada a tu equipo en 48 horas.
           </p>
           <a
-            href="mailto:hola@food-mood.app?subject=Quiero%20un%20piloto%20Food·Mood%20for%20Work"
+            href="mailto:info@food-mood.app?subject=Quiero%20un%20piloto%20Food·Mood%20for%20Work"
             className="inline-flex items-center gap-2 px-10 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90"
             style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
           >
@@ -466,7 +466,7 @@ export default function CorporateWellnessPage() {
                 '@type': 'Organization',
                 name: 'Food·Mood',
                 url: 'https://www.food-mood.app',
-                email: 'hola@food-mood.app',
+                email: 'info@food-mood.app',
               },
               serviceType: 'Corporate Wellness',
               areaServed: { '@type': 'Country', name: 'Spain' },
