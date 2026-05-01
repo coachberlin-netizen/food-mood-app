@@ -33,7 +33,6 @@ const COLOR = '#2D6B55'
 const INCLUYE = [
   { icono: '🧬', texto: '10 recetas antiaging con mecanismo científico integrado' },
   { icono: '🎧', texto: '10 audios guiados — educativos, rituales y cierre' },
-  { icono: '🧘', texto: '5 meditaciones guiadas (autofagia, microbioma, cerebro, circadiano, integración)' },
   { icono: '📊', texto: 'Tracking diario de energía, piel y bienestar' },
   { icono: '📋', texto: 'Protocolo de longevidad personal al completar' },
   { icono: '♾️', texto: 'Acceso permanente al contenido' },
@@ -168,7 +167,7 @@ export default async function RetoLongevidadPage() {
         name: '¿Cuánto dura el reto y qué incluye?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El reto dura 10 días e incluye: 10 recetas antiaging con explicación científica, 10 audios guiados (educativos, rituales y cierre), 5 meditaciones guiadas específicas para autofagia, microbioma, neuroplasticidad, ritmo circadiano e integración, tracking diario, y un protocolo de longevidad personal al completar. El acceso es permanente y el precio es 19€.',
+          text: 'El reto dura 10 días e incluye: 10 recetas antiaging con explicación científica, 10 audios guiados (educativos, rituales y cierre), tracking diario, y un protocolo de longevidad personal al completar. El acceso es permanente y el precio es 19€.',
         },
       },
     ],

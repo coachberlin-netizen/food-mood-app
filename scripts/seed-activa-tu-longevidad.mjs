@@ -20,12 +20,11 @@ const CHALLENGE = {
   color:         '#2D6B55',
   emoji:         '🌿',
   recipe_count:  10,
-  audio_count:   15,
+  audio_count:   10,
   is_active:     true,
   incluye: [
     '10 recetas antiaging con explicación científica integrada',
     '10 audios guiados — educativos, rituales y cierre',
-    '5 meditaciones guiadas (autofagia, microbioma, neuroplasticidad, circadiano, integración)',
     '10 consejos científicos diarios — el mecanismo del día',
     'Tracking diario de cómo te sientes y qué notas',
     'Acceso permanente al contenido'
@@ -237,13 +236,6 @@ const DAYS = [
         tipo: 'educativo',
         archivo: 'audio/antiaging/dia02-autofagia-limpieza.mp3',
       },
-      meditacion: {
-        titulo: 'Soltar para renovar',
-        descripcion: 'Visualización de liberación celular. Imaginas pequeñas estructuras de reciclaje activándose en cada célula mientras bebes el caldo. Respiración 4-7-8. Cierre: "Mi cuerpo sabe limpiar. Le doy espacio esta noche."',
-        duracion_min: 10,
-        tipo: 'meditacion',
-        archivo: 'audio/antiaging/dia02-meditacion-soltar.mp3',
-      },
       registro_diario: {
         pregunta_manana: '¿Cuántas horas pasaron desde tu última comida hasta levantarte?',
         pregunta_tarde:  '¿Has sentido el caldo de esta noche como algo distinto a una cena normal?',
@@ -400,13 +392,6 @@ const DAYS = [
         tipo: 'educativo',
         archivo: 'audio/antiaging/dia05-microbioma-joven.mp3',
       },
-      meditacion: {
-        titulo: 'El jardín interior',
-        descripcion: 'Visualización del intestino como un jardín vivo y diverso. Con cada bocado fermentado, imaginas semillas cayendo en tierra fértil. Respiración abdominal profunda. Cierre: "Soy el jardín y el jardinero."',
-        duracion_min: 8,
-        tipo: 'meditacion',
-        archivo: 'audio/antiaging/dia05-meditacion-jardin.mp3',
-      },
       registro_diario: {
         pregunta_manana: '¿Cuántos tipos diferentes de fermentados tienes en casa?',
         pregunta_tarde:  '¿Cómo ha sentado el intestino después de la ensalada?',
@@ -516,13 +501,6 @@ const DAYS = [
         tipo: 'ritual',
         archivo: 'audio/antiaging/dia07-cerebro-neuroplasticidad.mp3',
       },
-      meditacion: {
-        titulo: 'Redes que brillan',
-        descripcion: 'Visualización de redes neuronales iluminándose y formando nuevas conexiones con cada respiración. La sensación de claridad mental como experiencia física. Respiración 4-4-4-4 (box breathing). Cierre: "Mi cerebro crece. Mi mente se expande."',
-        duracion_min: 9,
-        tipo: 'meditacion',
-        archivo: 'audio/antiaging/dia07-meditacion-redes.mp3',
-      },
       registro_diario: {
         pregunta_manana: '¿Hay alguna habilidad mental que sientes que ha cambiado en los últimos años?',
         pregunta_tarde:  '¿Cómo ha sido tu concentración y claridad mental hoy?',
@@ -627,13 +605,6 @@ const DAYS = [
         tipo: 'educativo',
         archivo: 'audio/antiaging/dia09-ritmo-circadiano.mp3',
       },
-      meditacion: {
-        titulo: 'Sincronía',
-        descripcion: 'Sincroniza la respiración con ritmos naturales (día/noche). Práctica de cierre del día: revisión sensorial, suelta consciente de lo que no se necesita llevar a la noche. Respiración 4-8 (inhala 4, exhala 8 — activa parasimpático). Cierre: "Soy ritmo. Soy ciclo. Descanso para renovarme."',
-        duracion_min: 12,
-        tipo: 'meditacion',
-        archivo: 'audio/antiaging/dia09-meditacion-sinconia.mp3',
-      },
       registro_diario: {
         pregunta_manana: '¿A qué hora sueles tomar tu primera y última comida del día?',
         pregunta_tarde:  '¿Pudiste cenar antes de las 20h hoy? ¿Qué dificultades encontraste?',
@@ -686,13 +657,6 @@ const DAYS = [
         duracion_min: 10,
         tipo: 'cierre',
         archivo: 'audio/antiaging/dia10-protocolo-longevidad.mp3',
-      },
-      meditacion: {
-        titulo: 'El cuerpo que eres ahora',
-        descripcion: 'Scan corporal completo con gratitud. Revisión de los 10 días: qué has sentido, qué ha cambiado, qué quieres mantener. Conexión entre tu cuerpo y tu futuro. Respiración larga y expansiva. Cierre: "Elegí bien estos 10 días. Voy a seguir eligiendo."',
-        duracion_min: 15,
-        tipo: 'integracion',
-        archivo: 'audio/antiaging/dia10-meditacion-integracion.mp3',
       },
       hito: {
         titulo: '10 mecanismos antiaging activados',
