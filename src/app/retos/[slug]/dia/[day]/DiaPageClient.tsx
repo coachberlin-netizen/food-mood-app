@@ -93,6 +93,27 @@ interface RecipeData {
   beneficio_sueno?: string
   momento?:         string
   tiempo_min?:      number
+  snack_am?: {
+    nombre:       string
+    ingredientes: string[]
+    pasos:        string[]
+    por_que:      string
+    tiempo_min:   number
+    dificultad:   string
+  }
+  snack_pm?: {
+    nombre:       string
+    ingredientes: string[]
+    pasos:        string[]
+    por_que:      string
+    tiempo_min:   number
+    dificultad:   string
+  }
+  micro_habito?: {
+    titulo:      string
+    instruccion: string
+    duracion:    string
+  }
 }
 
 interface ChallengeDay {
@@ -376,6 +397,37 @@ export default function DiaPageClient({ challenge, enrollment, dayContent, dayNu
           {/* Lectura */}
           {rd?.lectura && <LecturaCard titulo={rd.lectura.titulo} texto={rd.lectura.texto} />}
 
+          {/* Snack AM (corporate wellness) */}
+          {rd?.snack_am && (
+            <SnackCard snack={rd.snack_am} label="Snack de mañana" color={challenge.color} />
+          )}
+
+          {/* Snack PM (corporate wellness) */}
+          {rd?.snack_pm && (
+            <SnackCard snack={rd.snack_pm} label="Snack de tarde" color={challenge.color} />
+          )}
+
+          {/* Micro-hábito (corporate wellness) */}
+          {rd?.micro_habito && (
+            <div
+              className="rounded-xl p-4 space-y-2"
+              style={{ background: `${challenge.color}0d`, border: `1px solid ${challenge.color}28` }}
+            >
+              <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: challenge.color }}>
+                Micro-hábito de hoy
+              </p>
+              <p className="text-sm font-semibold" style={{ color: '#2d0f16' }}>
+                {rd.micro_habito.titulo}
+              </p>
+              <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.75)' }}>
+                {rd.micro_habito.instruccion}
+              </p>
+              <p className="text-[10px] font-medium" style={{ color: 'rgba(107,39,55,0.45)' }}>
+                ⏱ {rd.micro_habito.duracion}
+              </p>
+            </div>
+          )}
+
           {/* Registro diario */}
           {rd?.registro_diario && (
             <RegistroDiario
@@ -585,6 +637,46 @@ function CompleteAndNav({
 }
 
 // ── RecetaOpciones ────────────────────────────────────────────────────────────
+
+function SnackCard({ snack, label, color }: {
+  snack: NonNullable<RecipeData['snack_am']>
+  label: string
+  color: string
+}) {
+  return (
+    <div className="rounded-xl bg-white border border-[#e8ddd5] p-4 space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
+          {label}
+        </p>
+        <span className="text-[10px] font-light" style={{ color: 'rgba(107,39,55,0.4)' }}>
+          {snack.tiempo_min} min · {snack.dificultad}
+        </span>
+      </div>
+      <p className="text-sm font-semibold" style={{ color: '#2d0f16' }}>{snack.nombre}</p>
+      <ul className="space-y-1">
+        {snack.ingredientes.map((ing, i) => (
+          <li key={i} className="text-sm font-light flex gap-2" style={{ color: 'rgba(107,39,55,0.75)' }}>
+            <span style={{ color }}>·</span> {ing}
+          </li>
+        ))}
+      </ul>
+      {snack.pasos.length > 0 && (
+        <ol className="space-y-1.5">
+          {snack.pasos.map((paso, i) => (
+            <li key={i} className="text-sm font-light flex gap-2" style={{ color: 'rgba(107,39,55,0.75)' }}>
+              <span className="font-semibold shrink-0" style={{ color }}>{i + 1}.</span>
+              {paso}
+            </li>
+          ))}
+        </ol>
+      )}
+      <p className="text-xs italic" style={{ color: 'rgba(107,39,55,0.5)' }}>
+        ¿Por qué? {snack.por_que}
+      </p>
+    </div>
+  )
+}
 
 function RecetaOpciones({ receta, color }: { receta: NonNullable<RecipeData['receta']>; color: string }) {
   const [tab, setTab] = useState<'a' | 'b'>('a')
