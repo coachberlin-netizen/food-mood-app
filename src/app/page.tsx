@@ -851,6 +851,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 5b. CORPORATE WELLNESS ──────────────────────────────────────────── */}
+      <section aria-label="Food·Mood for Work — Corporate Wellness" className="py-14 px-6 bg-white border-t" style={{ borderColor: 'rgba(107,39,55,0.06)' }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="rounded-3xl overflow-hidden grid md:grid-cols-2" style={{ backgroundColor: '#2d0f16' }}>
+            <div className="p-8 md:p-10 flex flex-col justify-center">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C9A84C' }}>
+                Food·Mood for Work
+              </p>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3" style={{ color: '#F5F0E8' }}>
+                Alimenta el foco<br />
+                <span className="italic font-light">de tu equipo.</span>
+              </h2>
+              <p className="text-sm font-light leading-relaxed mb-6" style={{ color: 'rgba(245,240,232,0.55)' }}>
+                Programa de bienestar corporativo de 7 días: snacks funcionales, micro-hábitos y tracking para mejorar el foco, la energía y el bienestar en la jornada laboral.
+              </p>
+              <Link
+                href="/corporate-wellness"
+                className="inline-flex items-center gap-2 self-start px-7 py-3 rounded-full text-sm font-bold transition-all hover:opacity-90"
+                style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+              >
+                Ver el programa <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="p-8 md:p-10 border-t md:border-t-0 md:border-l" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(245,240,232,0.3)' }}>
+                Incluye
+              </p>
+              <ul className="space-y-3">
+                {[
+                  '7 días · 14 snacks funcionales',
+                  'Lista de compra semanal',
+                  'Check-in diario: energía, foco, ánimo',
+                  'Audios de 2–3 min: foco y pausa consciente',
+                  'Informe agregado para RRHH',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2.5 text-sm font-light" style={{ color: 'rgba(245,240,232,0.6)' }}>
+                    <Check className="w-3.5 h-3.5 shrink-0" style={{ color: '#C9A84C' }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-xs font-light" style={{ color: 'rgba(245,240,232,0.25)' }}>
+                Desde 490€ · Piloto hasta 25 personas · Factura incluida
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── 6. PRUEBA SOCIAL ────────────────────────────────────────────────── */}
       <section aria-label="Testimonios de usuarios" className="py-16 md:py-20 px-6 bg-[#F5F0E8]">
         <div className="max-w-4xl mx-auto">

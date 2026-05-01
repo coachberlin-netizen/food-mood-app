@@ -29,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/fermentos-del-mundo', priority: 0.7, freq: 'monthly' },
     { route: '/quienes-somos',      priority: 0.6, freq: 'monthly' },
     { route: '/saber-mas',          priority: 0.6, freq: 'monthly' },
+    { route: '/corporate-wellness', priority: 0.8, freq: 'monthly' },
   ];
 
   const staticPages = staticRoutes.map(({ route, priority, freq }) => ({
