@@ -3,20 +3,31 @@ import Link from 'next/link'
 import { ArrowRight, Check, Users, BarChart2, ShoppingBag, Headphones, FileText, Zap } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Food·Mood for Work — Corporate Wellness | Nutrición para equipos',
+  title: 'Programa de Bienestar Corporativo | Food·Mood for Work — Nutrición para equipos',
   description:
-    'Programa de bienestar corporativo de 7 días. Snacks funcionales, listas de compra y micro-hábitos para mejorar el foco, la energía y el bienestar de tu equipo. Sin dietas complejas.',
+    'Programa de bienestar laboral de 7 días basado en neurociencia nutricional. Snacks funcionales, tracking de bienestar e informe para RRHH. Mejora el foco, la energía y el rendimiento de tu equipo desde el eje intestino-cerebro. Piloto desde 490€.',
   keywords: [
-    'bienestar corporativo', 'wellness empresas', 'nutrición laboral',
-    'foco en el trabajo', 'snacks saludables oficina', 'programa wellness equipos',
-    'corporate wellness España', 'salud laboral', 'nutrición funcional empresa',
+    'programa bienestar corporativo empresas',
+    'corporate wellness España',
+    'nutrición laboral equipos',
+    'bienestar empleados productividad',
+    'programa salud laboral RRHH',
+    'snacks funcionales oficina foco',
+    'mejorar rendimiento cognitivo trabajo',
+    'reducir fatiga mental empleados',
+    'eje intestino cerebro rendimiento laboral',
+    'programa wellness piloto empresa',
+    'bienestar laboral pyme',
+    'nutrición funcional trabajo',
   ],
   openGraph: {
-    title: 'Food·Mood for Work — 7-Day Focus Snack Challenge',
-    description: 'Alimenta el foco de tu equipo. Un reto de 7 días con snacks funcionales, listas de compra y micro-hábitos para equipos.',
+    title: 'Food·Mood for Work — Programa de bienestar corporativo basado en neurociencia',
+    description: 'Alimenta el foco de tu equipo. 7 días de snacks funcionales, micro-hábitos y tracking de bienestar. Informe agregado para RRHH. Piloto desde 490€.',
     url: 'https://www.food-mood.app/corporate-wellness',
+    type: 'website',
   },
   alternates: { canonical: 'https://www.food-mood.app/corporate-wellness' },
+  robots: { index: true, follow: true },
 }
 
 const DAYS = [
@@ -440,6 +451,52 @@ export default function CorporateWellnessPage() {
           ← Volver a Food·Mood
         </Link>
       </div>
+
+      {/* ── Structured data ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Service',
+              name: 'Food·Mood for Work — Programa de Bienestar Corporativo',
+              description: 'Programa de bienestar laboral de 7 días basado en neurociencia nutricional para equipos de empresa. Snacks funcionales, micro-hábitos, tracking de bienestar e informe agregado para RRHH.',
+              provider: {
+                '@type': 'Organization',
+                name: 'Food·Mood',
+                url: 'https://www.food-mood.app',
+                email: 'hola@food-mood.app',
+              },
+              serviceType: 'Corporate Wellness',
+              areaServed: { '@type': 'Country', name: 'Spain' },
+              offers: [
+                {
+                  '@type': 'Offer',
+                  name: 'Pilot Team',
+                  price: '490',
+                  priceCurrency: 'EUR',
+                  description: 'Hasta 25 empleados · 7 días · materiales digitales · informe básico',
+                },
+                {
+                  '@type': 'Offer',
+                  name: 'Company Challenge',
+                  description: 'Desde 25 empleados · tracking individual · informe agregado · personalización con logo',
+                },
+              ],
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: FAQ.map(({ q, a }) => ({
+                '@type': 'Question',
+                name: q,
+                acceptedAnswer: { '@type': 'Answer', text: a },
+              })),
+            },
+          ]),
+        }}
+      />
 
     </main>
   )

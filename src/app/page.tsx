@@ -1074,10 +1074,10 @@ export default function Home() {
                   <div>
                     <p className="text-xs font-semibold mb-1" style={{ color: '#C9A84C' }}>La ciencia detrás</p>
                     <p className="text-xs font-light leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
-                      Los garbanzos son una de las fuentes vegetales más ricas en triptófano, el aminoácido precursor de la serotonina. La curcumina de la cúrcuma inhibe la enzima IDO — la misma que el estrés crónico activa para desviar el triptófano hacia la ruta del kynurenino, alejándolo de la serotonina. Combinarlos no es casualidad: es bioquímica aplicada al plato.
+                      Los garbanzos son una de las fuentes vegetales más ricas en triptófano, el aminoácido precursor de la serotonina. La curcumina de la cúrcuma inhibe la enzima IDO — la misma que el estrés crónico activa para desviar el triptófano hacia la ruta de la quinurenina, alejándolo de la serotonina. Combinarlos no es casualidad: es bioquímica aplicada al plato.
                     </p>
                     <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#C9A84C' }}>
-                      Triptófano · Curcumina · IDO
+                      Triptófano · Curcumina · Quinurenina
                     </span>
                   </div>
                 </div>
