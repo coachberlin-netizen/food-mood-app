@@ -240,7 +240,7 @@ export default function CorporateWellnessPage() {
 
       {/* ── Los 7 días ── */}
       <section id="programa" className="py-20 md:py-28 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
               Programa día a día
@@ -249,45 +249,37 @@ export default function CorporateWellnessPage() {
               Diseñado para oficinas reales.
             </h2>
           </div>
-          <div className="grid gap-4">
+          <div className="divide-y" style={{ borderColor: 'rgba(107,39,55,0.07)' }}>
             {DAYS.map((d) => (
-              <div
-                key={d.day}
-                className="rounded-2xl border p-6"
-                style={{ borderColor: 'rgba(107,39,55,0.08)', backgroundColor: '#FEFBF4' }}
-              >
-                <div className="flex items-start gap-4">
-                  <span
-                    className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-serif text-sm font-black text-white"
-                    style={{ backgroundColor: '#4A7B6B' }}
-                  >
-                    {d.day}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-base mb-0.5" style={{ color: '#2d0f16' }}>
-                      Día {d.day} — {d.title}
-                    </p>
-                    <p className="text-xs font-light mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>
-                      {d.goal}
-                    </p>
-                    <div className="grid sm:grid-cols-3 gap-2 text-xs">
-                      <div className="rounded-lg px-3 py-2" style={{ backgroundColor: 'white', border: '1px solid rgba(107,39,55,0.07)' }}>
-                        <span className="font-semibold block mb-0.5" style={{ color: '#4A7B6B' }}>Snack AM</span>
-                        <span style={{ color: 'rgba(107,39,55,0.65)' }}>{d.am}</span>
-                      </div>
-                      <div className="rounded-lg px-3 py-2" style={{ backgroundColor: 'white', border: '1px solid rgba(107,39,55,0.07)' }}>
-                        <span className="font-semibold block mb-0.5" style={{ color: '#4A7B6B' }}>Snack PM</span>
-                        <span style={{ color: 'rgba(107,39,55,0.65)' }}>{d.pm}</span>
-                      </div>
-                      <div className="rounded-lg px-3 py-2" style={{ backgroundColor: 'white', border: '1px solid rgba(107,39,55,0.07)' }}>
-                        <span className="font-semibold block mb-0.5" style={{ color: '#C9A84C' }}>Micro-hábito</span>
-                        <span style={{ color: 'rgba(107,39,55,0.65)' }}>{d.habit}</span>
-                      </div>
-                    </div>
-                  </div>
+              <div key={d.day} className="flex items-center gap-4 py-4">
+                <span
+                  className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-serif text-sm font-black text-white"
+                  style={{ backgroundColor: '#4A7B6B' }}
+                >
+                  {d.day}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold" style={{ color: '#2d0f16' }}>
+                    {d.title}
+                  </p>
+                  <p className="text-xs font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
+                    {d.goal}
+                  </p>
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-10 text-center">
+            <a
+              href="mailto:hola@food-mood.app?subject=Solicito%20programa%20completo%20Corporate%20Wellness"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold transition-all hover:opacity-90"
+              style={{ backgroundColor: '#4A7B6B', color: 'white' }}
+            >
+              Solicitar programa completo <ArrowRight className="w-4 h-4" />
+            </a>
+            <p className="mt-3 text-xs font-light" style={{ color: 'rgba(107,39,55,0.35)' }}>
+              El detalle de recetas, audios y materiales se envía con la propuesta para empresa.
+            </p>
           </div>
         </div>
       </section>
