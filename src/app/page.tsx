@@ -3,21 +3,21 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { ChevronDown, Moon, Zap, Leaf, Activity, Brain, ArrowRight, Check } from "lucide-react"
+import { ChevronDown, Moon, Zap, Leaf, Activity, Brain, ArrowRight, Check, Flame, Sprout, Sparkles, Wind, Flower2, FlaskConical } from "lucide-react"
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
 import HomeHero from "@/components/layout/HomeHero"
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
 const RETOS = [
-  { emoji: "⚡", category: "Energía",      color: "#E8703A", duration: "7 días",    title: "Recupera tu energía",         price: 19, slug: "recupera-tu-energia"    },
-  { emoji: "🌿", category: "Inflamación",  color: "#5A9B8A", duration: "7 días",    title: "Reset antiinflamatorio",      price: 19, slug: "reset-antiinflamatorio" },
-  { emoji: "🌱", category: "Longevidad",   color: "#2D6B55", duration: "10 días",   title: "Activa tu longevidad",        price: 19, slug: "activa-tu-longevidad"   },
-  { emoji: "✨", category: "Hábitos",      color: "#C9A84C", duration: "21 días",   title: "Microhábitos",                price: 29, slug: "microhabitos"           },
-  { emoji: "🍵", category: "Ansiedad",     color: "#4A7B6B", duration: "21 días",   title: "Slow Food·Mood",              price: 29, slug: "slow-food-mood"         },
-  { emoji: "🧠", category: "Salud mental", color: "#4A7AB5", duration: "21 días",   title: "Food·Mood Reset",             price: 29, slug: "food-mood-reset"        },
-  { emoji: "🌸", category: "Hormonas",     color: "#C04878", duration: "28 días",   title: "Equilibrio hormonal 45+",     price: 29, slug: "equilibrio-hormonal-45" },
-  { emoji: "😴", category: "Sueño",        color: "#4A7AB5", duration: "4 semanas", title: "Mejora tu sueño",             price: 29, slug: "mejora-tu-sueno"        },
+  { Icon: Zap,         category: "Energía",      color: "#E8703A", duration: "7 días",    title: "Recupera tu energía",         price: 19, slug: "recupera-tu-energia"    },
+  { Icon: Flame,       category: "Inflamación",  color: "#5A9B8A", duration: "7 días",    title: "Reset antiinflamatorio",      price: 19, slug: "reset-antiinflamatorio" },
+  { Icon: Sprout,      category: "Longevidad",   color: "#2D6B55", duration: "10 días",   title: "Activa tu longevidad",        price: 19, slug: "activa-tu-longevidad"   },
+  { Icon: Sparkles,    category: "Hábitos",      color: "#C9A84C", duration: "21 días",   title: "Microhábitos",                price: 29, slug: "microhabitos"           },
+  { Icon: Wind,        category: "Ansiedad",     color: "#4A7B6B", duration: "21 días",   title: "Slow Food·Mood",              price: 29, slug: "slow-food-mood"         },
+  { Icon: Brain,       category: "Salud mental", color: "#4A7AB5", duration: "21 días",   title: "Food·Mood Reset",             price: 29, slug: "food-mood-reset"        },
+  { Icon: Flower2,     category: "Hormonas",     color: "#C04878", duration: "28 días",   title: "Equilibrio hormonal 45+",     price: 29, slug: "equilibrio-hormonal-45" },
+  { Icon: Moon,        category: "Sueño",        color: "#4A7AB5", duration: "4 semanas", title: "Mejora tu sueño",             price: 29, slug: "mejora-tu-sueno"        },
 ]
 
 // ─── FAQ data ────────────────────────────────────────────────────────────────
@@ -69,7 +69,12 @@ function RetoCard({ reto }: { reto: typeof RETOS[0] }) {
       className="group bg-white rounded-xl border-l-[3px] px-4 py-3.5 flex items-center gap-3 hover:shadow-sm transition-shadow no-underline"
       style={{ borderLeftColor: reto.color }}
     >
-      <span className="text-xl shrink-0">{reto.emoji}</span>
+      <span
+        className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center"
+        style={{ backgroundColor: `${reto.color}15` }}
+      >
+        <reto.Icon size={14} strokeWidth={1.75} style={{ color: reto.color }} />
+      </span>
       <div className="flex-1 min-w-0">
         <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: reto.color }}>
           {reto.category} · {reto.duration}
@@ -852,30 +857,30 @@ export default function Home() {
       </section>
 
       {/* ── 5b. CORPORATE WELLNESS ──────────────────────────────────────────── */}
-      <section aria-label="Food·Mood for Work — Corporate Wellness" className="py-14 px-6 bg-white border-t" style={{ borderColor: 'rgba(107,39,55,0.06)' }}>
+      <section aria-label="Food·Mood for Work — Corporate Wellness" className="py-14 px-6" style={{ backgroundColor: '#FF5500' }}>
         <div className="max-w-5xl mx-auto">
-          <div className="rounded-3xl overflow-hidden grid md:grid-cols-2" style={{ backgroundColor: '#2d0f16' }}>
+          <div className="rounded-3xl overflow-hidden grid md:grid-cols-2 bg-white">
             <div className="p-8 md:p-10 flex flex-col justify-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C9A84C' }}>
-                Food·Mood for Work
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#FF5500' }}>
+                Food·Mood for Work · Corporate Wellness
               </p>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3" style={{ color: '#F5F0E8' }}>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3" style={{ color: '#2d0f16' }}>
                 Alimenta el foco<br />
                 <span className="italic font-light">de tu equipo.</span>
               </h2>
-              <p className="text-sm font-light leading-relaxed mb-6" style={{ color: 'rgba(245,240,232,0.55)' }}>
-                Programa de bienestar corporativo de 7 días: snacks funcionales, micro-hábitos y tracking para mejorar el foco, la energía y el bienestar en la jornada laboral.
+              <p className="text-sm font-light leading-relaxed mb-6" style={{ color: 'rgba(107,39,55,0.6)' }}>
+                Programa corporativo de 7 días: snacks funcionales, micro-hábitos y tracking para mejorar el foco, la energía y el bienestar en la jornada laboral.
               </p>
               <Link
                 href="/corporate-wellness"
                 className="inline-flex items-center gap-2 self-start px-7 py-3 rounded-full text-sm font-bold transition-all hover:opacity-90"
-                style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+                style={{ backgroundColor: '#FF5500', color: 'white' }}
               >
                 Ver el programa <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-            <div className="p-8 md:p-10 border-t md:border-t-0 md:border-l" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(245,240,232,0.3)' }}>
+            <div className="p-8 md:p-10 border-t md:border-t-0 md:border-l" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.35)' }}>
                 Incluye
               </p>
               <ul className="space-y-3">
@@ -886,13 +891,13 @@ export default function Home() {
                   'Audios de 2–3 min: foco y pausa consciente',
                   'Informe agregado para RRHH',
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-2.5 text-sm font-light" style={{ color: 'rgba(245,240,232,0.6)' }}>
-                    <Check className="w-3.5 h-3.5 shrink-0" style={{ color: '#C9A84C' }} />
+                  <li key={item} className="flex items-center gap-2.5 text-sm font-light" style={{ color: 'rgba(107,39,55,0.7)' }}>
+                    <Check className="w-3.5 h-3.5 shrink-0" style={{ color: '#FF5500' }} />
                     {item}
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-xs font-light" style={{ color: 'rgba(245,240,232,0.25)' }}>
+              <p className="mt-6 text-xs font-light" style={{ color: 'rgba(107,39,55,0.35)' }}>
                 Desde 490€ · Piloto hasta 25 personas · Factura incluida
               </p>
             </div>
@@ -1033,37 +1038,119 @@ export default function Home() {
       </section>
 
       {/* ── 7. NEWSLETTER / LEAD MAGNET ─────────────────────────────────────── */}
-      <section aria-label="Suscripción al newsletter" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
-        <div className="max-w-2xl mx-auto text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-            className="space-y-6"
-          >
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "rgba(107,39,55,0.4)" }}>
+      <section aria-label="Receta anti-ansiedad gratuita" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
               No compres aún si no estás seguro
-            </motion.p>
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-[#2d0f16] leading-tight">
-              Recibe las 5 recetas anti-ansiedad.{" "}
-              <span className="italic font-light">Gratis.</span>
-            </motion.h2>
-            <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>
-              El newsletter semanal de Food·Mood incluye correlaciones, recetas funcionales y novedades de la ciencia del eje intestino-cerebro. Sin spam. Cancelas cuando quieras.
-            </motion.p>
-            <motion.div variants={fade} className="flex justify-center pt-2">
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[#2d0f16] leading-tight">
+              Prueba antes.{" "}
+              <span className="italic font-light">Una receta anti-ansiedad, gratis.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+
+            {/* ── Tarjeta receta ── */}
+            <div className="rounded-3xl overflow-hidden shadow-sm" style={{ backgroundColor: '#2d0f16' }}>
+              {/* Header receta */}
+              <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(74,123,107,0.25)', color: '#7BBFAA' }}>
+                    Anti-ansiedad
+                  </span>
+                  <span className="text-[10px] font-light" style={{ color: 'rgba(245,240,232,0.3)' }}>· 20 min · fácil</span>
+                </div>
+                <p className="font-serif text-xl font-bold leading-snug" style={{ color: '#F5F0E8' }}>
+                  Curry suave de garbanzos con espinacas y cúrcuma
+                </p>
+              </div>
+
+              {/* Snippet científico */}
+              <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                <div className="flex items-start gap-2.5">
+                  <FlaskConical size={14} strokeWidth={1.5} className="shrink-0 mt-0.5" style={{ color: '#C9A84C' }} />
+                  <div>
+                    <p className="text-xs font-semibold mb-1" style={{ color: '#C9A84C' }}>La ciencia detrás</p>
+                    <p className="text-xs font-light leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
+                      Los garbanzos son una de las fuentes vegetales más ricas en triptófano, el aminoácido precursor de la serotonina. La curcumina de la cúrcuma inhibe la enzima IDO — la misma que el estrés crónico activa para desviar el triptófano hacia la ruta del kynurenino, alejándolo de la serotonina. Combinarlos no es casualidad: es bioquímica aplicada al plato.
+                    </p>
+                    <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#C9A84C' }}>
+                      Triptófano · Curcumina · IDO
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lista de compra */}
+              <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(245,240,232,0.3)' }}>
+                  Lista de compra
+                </p>
+                <ul className="space-y-1.5">
+                  {[
+                    '400 g de garbanzos cocidos (bote o remojados)',
+                    '100 g de espinacas frescas o baby',
+                    '1 lata de leche de coco (400 ml)',
+                    '1 cebolla · 3 dientes de ajo · jengibre fresco',
+                    '1 cdta de cúrcuma · 1 cdta de comino · pimienta negra',
+                    'Aceite de oliva · sal · arroz integral para acompañar',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-xs font-light" style={{ color: 'rgba(245,240,232,0.55)' }}>
+                      <span style={{ color: '#4A7B6B' }} className="shrink-0">·</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* CTA Slow Food·Mood */}
+              <div className="px-6 py-5">
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(245,240,232,0.3)' }}>
+                  ¿Te gusta este estilo?
+                </p>
+                <p className="text-sm font-semibold mb-1" style={{ color: '#F5F0E8' }}>
+                  Slow Food·Mood — 21 días de recetas como esta
+                </p>
+                <p className="text-xs font-light mb-4" style={{ color: 'rgba(245,240,232,0.5)' }}>
+                  21 recetas funcionales para la ansiedad · audios de contexto científico · tracking emocional diario · informe final personalizado.
+                </p>
+                <Link
+                  href="/retos/slow-food-mood"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold transition-all hover:opacity-80"
+                  style={{ color: '#7BBFAA' }}
+                >
+                  Ver el reto — 29€ pago único <ArrowRight size={12} />
+                </Link>
+              </div>
+            </div>
+
+            {/* ── Formulario newsletter ── */}
+            <div className="flex flex-col justify-center gap-6">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: "rgba(107,39,55,0.4)" }}>
+                  Newsletter semanal
+                </p>
+                <p className="font-serif text-2xl md:text-3xl font-bold leading-snug mb-3" style={{ color: '#2d0f16' }}>
+                  Una receta como esta en tu correo cada semana.
+                </p>
+                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>
+                  Correlaciones entre alimentos y estado de ánimo, ciencia del eje intestino-cerebro y recetas funcionales. Sin spam, sin ruido.
+                </p>
+              </div>
               <NewsletterForm source="home-lead-magnet" dark={false} />
-            </motion.div>
-            <motion.div variants={fade} className="flex items-center justify-center gap-6 pt-2">
-              {["Sin spam", "Cancelas cuando quieras", "Un email a la semana"].map((item) => (
-                <span key={item} className="flex items-center gap-1.5 text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
-                  <Check className="w-3 h-3" style={{ color: "#C9A84C" }} />
-                  {item}
-                </span>
-              ))}
-            </motion.div>
-          </motion.div>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                {["Sin spam", "Cancelas cuando quieras", "Un email a la semana"].map((item) => (
+                  <span key={item} className="flex items-center gap-1.5 text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
+                    <Check className="w-3 h-3" style={{ color: "#C9A84C" }} />
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
