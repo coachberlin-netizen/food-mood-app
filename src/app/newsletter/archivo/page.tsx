@@ -67,6 +67,13 @@ const NEWSLETTERS = [
     description: 'Sarcopenia, resistencia anabólica y el protocolo de leucina para mantener músculo después de los 45.',
     tag:         'Músculo · Sarcopenia',
   },
+  {
+    numero:      '09',
+    slug:        'colageno-huesos-menopausia',
+    subject:     'La ventana que no se repite. Colágeno y huesos en la menopausia.',
+    description: 'Cómo el descenso de estrógenos acelera la pérdida de colágeno y masa ósea, y los cofactores clave para frenarla en la ventana crítica de 5 años.',
+    tag:         'Colágeno · Huesos',
+  },
 ]
 
 function NewsletterList() {
@@ -86,7 +93,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 5 ediciones
+            Archivo editorial · 9 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters
