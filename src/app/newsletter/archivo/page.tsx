@@ -95,6 +95,13 @@ const NEWSLETTERS = [
     description: 'El mosaico cromático que revela patrones emocionales que la introspección no puede ver: EMA, efecto peak-end, metacognición y la conexión bidireccional humor-alimentación.',
     tag:         'Emociones · Patrones',
   },
+  {
+    numero:      '13',
+    slug:        'lactobacillus-ph-vaginal',
+    subject:     'Estrógeno, Lactobacillus y pH vaginal. La conexión que nadie te explicó.',
+    description: 'Cómo el descenso de estrógenos rompe la cadena glucógeno→Lactobacillus→pH ácido, y por qué el kéfir oral, el lino molido y los arándanos pueden restaurarla.',
+    tag:         'Microbioma · Salud íntima',
+  },
 ]
 
 function NewsletterList() {
@@ -114,7 +121,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 12 ediciones
+            Archivo editorial · 13 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters
