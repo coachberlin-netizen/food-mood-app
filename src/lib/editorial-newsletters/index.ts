@@ -4,6 +4,7 @@ import { buildHtml as html03 } from './03-salsa-de-tomate-fermentada'
 import { buildHtml as html04 } from './04-recupera-tu-energia'
 import { buildHtml as html05 } from './05-microhabitos'
 import { buildHtml as html06 } from './06-estrobioma'
+import { buildHtml as html07 } from './07-legumbres-menopausia'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -21,4 +22,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 4, slug: 'recupera-tu-energia',        subject: 'El cansancio que no se va con dormir ⚡',                  buildHtml: html04 },
   { numero: 5, slug: 'microhabitos',               subject: 'El hábito que no necesita fuerza de voluntad. ✨',         buildHtml: html05 },
   { numero: 6, slug: 'estrobioma',                 subject: 'Tus bacterias gestionan el estrógeno. Empieza aquí. 🌸',   buildHtml: html06 },
+  { numero: 7, slug: 'legumbres-menopausia',       subject: 'El alimento más completo para tus hormonas. 🫘',             buildHtml: html07 },
 ]

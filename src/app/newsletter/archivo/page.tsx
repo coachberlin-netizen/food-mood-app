@@ -53,6 +53,13 @@ const NEWSLETTERS = [
     description: 'El estrobioma, la β-glucuronidasa y cómo el lino molido y los fermentados equilibran tus hormonas.',
     tag:         'Hormonas · Estrobioma',
   },
+  {
+    numero:      '07',
+    slug:        'legumbres-menopausia',
+    subject:     'El alimento más completo para tus hormonas.',
+    description: 'Legumbres y menopausia: seis mecanismos hormonales en una ración — fitoestrógenos, fibra, proteína, hierro, zinc y folato.',
+    tag:         'Hormonas · Fitoestrógenos',
+  },
 ]
 
 function NewsletterList() {
