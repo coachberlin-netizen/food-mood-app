@@ -81,6 +81,13 @@ const NEWSLETTERS = [
     description: 'Estrógenos, serotonina y los 6 nutrientes clave después de los 45. Los 4 patrones de comer emocional y la técnica de los 30 segundos para romper el piloto automático.',
     tag:         'Emociones · Menopausia',
   },
+  {
+    numero:      '11',
+    slug:        'fermentos-del-mundo',
+    subject:     'De Japón a Perú. Lo que seis civilizaciones aprendieron sobre el eje intestino-cerebro.',
+    description: 'Natto de garbanzos, el triángulo coreano, injera etíope, borscht con kéfir, tepache y nukazuke: la convergencia microbiana de seis culturas y su impacto documentado en el cerebro.',
+    tag:         'Fermentos · Microbiota',
+  },
 ]
 
 function NewsletterList() {
@@ -100,7 +107,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 10 ediciones
+            Archivo editorial · 11 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters
