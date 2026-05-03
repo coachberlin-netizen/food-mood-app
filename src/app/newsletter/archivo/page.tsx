@@ -46,6 +46,13 @@ const NEWSLETTERS = [
     description: 'Neurociencia del comportamiento: cómo construir rutinas automáticas sin depender de motivación.',
     tag:         'Hábitos · Neurociencia',
   },
+  {
+    numero:      '06',
+    slug:        'estrobioma',
+    subject:     'Tus bacterias gestionan el estrógeno.',
+    description: 'El estrobioma, la β-glucuronidasa y cómo el lino molido y los fermentados equilibran tus hormonas.',
+    tag:         'Hormonas · Estrobioma',
+  },
 ]
 
 function NewsletterList() {
