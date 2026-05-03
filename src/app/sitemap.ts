@@ -85,5 +85,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }))
 
-  return [...staticPages, ...blogPages, ...recipePages, ...symptomPages, ...retoPages];
+  // Editorial newsletter pages
+  const newsletterEditorialPages = [
+    { slug: 'slow-food-mood',             date: '2026-04-27' },
+    { slug: 'pan-de-masa-madre',          date: '2026-05-04' },
+    { slug: 'salsa-de-tomate-fermentada', date: '2026-05-11' },
+    { slug: 'recupera-tu-energia',        date: '2026-05-18' },
+    { slug: 'microhabitos',               date: '2026-05-25' },
+    { slug: 'estrobioma',                 date: '2026-05-03' },
+  ].map(nl => ({
+    url:             `${baseUrl}/newsletter/${nl.slug}`,
+    lastModified:    new Date(nl.date),
+    changeFrequency: 'monthly' as const,
+    priority:        0.7,
+  }))
+
+  const newsletterIndexPage = {
+    url:             `${baseUrl}/newsletter`,
+    lastModified:    new Date(),
+    changeFrequency: 'weekly' as const,
+    priority:        0.75,
+  }
+
+  return [...staticPages, ...blogPages, ...recipePages, ...symptomPages, ...retoPages, newsletterIndexPage, ...newsletterEditorialPages];
 }

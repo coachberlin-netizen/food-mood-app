@@ -67,9 +67,40 @@ function Label({ children }: { children: string }) {
   )
 }
 
+const LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type':            'NewsArticle',
+      headline:           'Qué es el pan de masa madre (y por qué huele así de bien)',
+      description:        'La historia más corta y más apetecible sobre el pan de masa madre: qué es, por qué fermenta, y cómo afecta a tu cuerpo y tu humor.',
+      url:                'https://www.food-mood.app/newsletter/pan-de-masa-madre',
+      datePublished:      '2026-05-04',
+      dateModified:       '2026-05-04',
+      inLanguage:         'es',
+      image:              'https://www.food-mood.app/og-image.png',
+      author:             { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
+      publisher:          { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app',
+                            logo: { '@type': 'ImageObject', url: 'https://www.food-mood.app/og-image.png' } },
+      mainEntityOfPage:   { '@type': 'WebPage', '@id': 'https://www.food-mood.app/newsletter/pan-de-masa-madre' },
+      isPartOf:           { '@type': 'Periodical', name: 'Newsletter Food·Mood', url: 'https://www.food-mood.app/newsletter' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Food·Mood',  item: 'https://www.food-mood.app' },
+        { '@type': 'ListItem', position: 2, name: 'Newsletter', item: 'https://www.food-mood.app/newsletter' },
+        { '@type': 'ListItem', position: 3, name: 'Pan de masa madre', item: 'https://www.food-mood.app/newsletter/pan-de-masa-madre' },
+      ],
+    },
+  ],
+}
+
 export default function PanDeMasaMadreNewsletter() {
   return (
-    <main style={{ backgroundColor: CREAM, minHeight: '100vh' }}>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(LD) }} />
+      <main style={{ backgroundColor: CREAM, minHeight: '100vh' }}>
       {/* Snippet de preview — visible en listas de correo y buscadores */}
       <div style={{ padding: '12px 20px', borderBottom: `1px solid rgba(107,39,55,0.08)`, backgroundColor: '#faf6f0' }}>
         <p style={{ fontSize: 13, color: MUTED, margin: 0, fontStyle: 'italic', textAlign: 'center' }}>
@@ -509,5 +540,6 @@ export default function PanDeMasaMadreNewsletter() {
 
       </div>
     </main>
+    </>
   )
 }

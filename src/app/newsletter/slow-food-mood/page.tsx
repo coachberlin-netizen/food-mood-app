@@ -70,9 +70,40 @@ const APRENDE_ITEMS = [
   { n: '07', title: 'La glicina del caldo de huesos y el sueño', sub: 'lo que un estudio de 2023 encontró' },
 ]
 
+const LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type':            'NewsArticle',
+      headline:           'Por qué cocinar despacio calma la ansiedad',
+      description:        'La ciencia detrás de cocinar despacio: cómo los fermentos, los caldos largos y el tiempo biológico regulan el sistema nervioso ansioso.',
+      url:                'https://www.food-mood.app/newsletter/slow-food-mood',
+      datePublished:      '2026-04-27',
+      dateModified:       '2026-04-27',
+      inLanguage:         'es',
+      image:              'https://www.food-mood.app/og-image.png',
+      author:             { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
+      publisher:          { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app',
+                            logo: { '@type': 'ImageObject', url: 'https://www.food-mood.app/og-image.png' } },
+      mainEntityOfPage:   { '@type': 'WebPage', '@id': 'https://www.food-mood.app/newsletter/slow-food-mood' },
+      isPartOf:           { '@type': 'Periodical', name: 'Newsletter Food·Mood', url: 'https://www.food-mood.app/newsletter' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Food·Mood',  item: 'https://www.food-mood.app' },
+        { '@type': 'ListItem', position: 2, name: 'Newsletter', item: 'https://www.food-mood.app/newsletter' },
+        { '@type': 'ListItem', position: 3, name: 'Slow Food·Mood', item: 'https://www.food-mood.app/newsletter/slow-food-mood' },
+      ],
+    },
+  ],
+}
+
 export default function SlowFoodMoodNewsletter() {
   return (
-    <main style={{ backgroundColor: CREAM, minHeight: '100vh' }}>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(LD) }} />
+      <main style={{ backgroundColor: CREAM, minHeight: '100vh' }}>
       {/* Snippet de preview — visible en listas de correo y buscadores */}
       <div style={{ padding: '12px 20px', borderBottom: `1px solid rgba(107,39,55,0.08)`, backgroundColor: '#faf6f0' }}>
         <p style={{ fontSize: 13, color: MUTED, margin: 0, fontStyle: 'italic', textAlign: 'center' }}>
@@ -452,6 +483,7 @@ export default function SlowFoodMoodNewsletter() {
 
       </div>
     </main>
+    </>
   )
 }
 

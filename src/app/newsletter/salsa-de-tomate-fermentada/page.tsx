@@ -119,9 +119,39 @@ const css = `
   }
 `
 
+const LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type':            'NewsArticle',
+      headline:           'Salsa de tomate fermentada: neuroprotección en tarro',
+      description:        'Por qué el tomate fermentado 24-48h produce licopeno bioacesible que cruza la barrera hematoencefálica y protege las neuronas. Receta completa.',
+      url:                'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada',
+      datePublished:      '2026-05-11',
+      dateModified:       '2026-05-11',
+      inLanguage:         'es',
+      image:              'https://www.food-mood.app/og-image.png',
+      author:             { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
+      publisher:          { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app',
+                            logo: { '@type': 'ImageObject', url: 'https://www.food-mood.app/og-image.png' } },
+      mainEntityOfPage:   { '@type': 'WebPage', '@id': 'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada' },
+      isPartOf:           { '@type': 'Periodical', name: 'Newsletter Food·Mood', url: 'https://www.food-mood.app/newsletter' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Food·Mood',  item: 'https://www.food-mood.app' },
+        { '@type': 'ListItem', position: 2, name: 'Newsletter', item: 'https://www.food-mood.app/newsletter' },
+        { '@type': 'ListItem', position: 3, name: 'Salsa de tomate fermentada', item: 'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada' },
+      ],
+    },
+  ],
+}
+
 export default function SalsaTomateFermentadaNewsletter() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(LD) }} />
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
