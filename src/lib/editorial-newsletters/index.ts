@@ -7,6 +7,7 @@ import { buildHtml as html06 } from './06-estrobioma'
 import { buildHtml as html07 } from './07-legumbres-menopausia'
 import { buildHtml as html08 } from './08-proteina-musculo'
 import { buildHtml as html09 } from './09-colageno-huesos'
+import { buildHtml as html10 } from './10-emociones-menopausia'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -27,4 +28,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 7, slug: 'legumbres-menopausia',       subject: 'El alimento más completo para tus hormonas. 🫘',             buildHtml: html07 },
   { numero: 8, slug: 'proteina-musculo-menopausia', subject: 'La menopausia se come el músculo. La proteína lo frena. 💪', buildHtml: html08 },
   { numero: 9, slug: 'colageno-huesos-menopausia', subject: 'La ventana que no se repite. Colágeno y huesos en la menopausia. 🦴', buildHtml: html09 },
+  { numero: 10, slug: 'emociones-menopausia', subject: 'No es la edad. Es tu cerebro pidiendo lo que tus hormonas ya no le dan. 🧠', buildHtml: html10 },
 ]

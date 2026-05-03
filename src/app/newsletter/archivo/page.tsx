@@ -74,6 +74,13 @@ const NEWSLETTERS = [
     description: 'Cómo el descenso de estrógenos acelera la pérdida de colágeno y masa ósea, y los cofactores clave para frenarla en la ventana crítica de 5 años.',
     tag:         'Colágeno · Huesos',
   },
+  {
+    numero:      '10',
+    slug:        'emociones-menopausia',
+    subject:     'No es la edad. Es tu cerebro pidiendo lo que tus hormonas ya no le dan.',
+    description: 'Estrógenos, serotonina y los 6 nutrientes clave después de los 45. Los 4 patrones de comer emocional y la técnica de los 30 segundos para romper el piloto automático.',
+    tag:         'Emociones · Menopausia',
+  },
 ]
 
 function NewsletterList() {
@@ -93,7 +100,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 9 ediciones
+            Archivo editorial · 10 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters

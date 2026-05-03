@@ -96,6 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { slug: 'legumbres-menopausia',         date: '2026-05-11' },
     { slug: 'proteina-musculo-menopausia',  date: '2026-05-18' },
     { slug: 'colageno-huesos-menopausia',   date: '2026-05-25' },
+    { slug: 'emociones-menopausia',          date: '2026-06-01' },
   ].map(nl => ({
     url:             `${baseUrl}/newsletter/${nl.slug}`,
     lastModified:    new Date(nl.date),
