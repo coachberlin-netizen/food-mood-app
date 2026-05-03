@@ -88,6 +88,13 @@ const NEWSLETTERS = [
     description: 'Natto de garbanzos, el triángulo coreano, injera etíope, borscht con kéfir, tepache y nukazuke: la convergencia microbiana de seis culturas y su impacto documentado en el cerebro.',
     tag:         'Fermentos · Microbiota',
   },
+  {
+    numero:      '12',
+    slug:        'mosaico-emocional',
+    subject:     'Tu semana tiene un color. ¿Sabes cuál es?',
+    description: 'El mosaico cromático que revela patrones emocionales que la introspección no puede ver: EMA, efecto peak-end, metacognición y la conexión bidireccional humor-alimentación.',
+    tag:         'Emociones · Patrones',
+  },
 ]
 
 function NewsletterList() {
@@ -107,7 +114,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 11 ediciones
+            Archivo editorial · 12 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters

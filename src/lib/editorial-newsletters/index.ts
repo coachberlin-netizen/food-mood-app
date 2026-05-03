@@ -9,6 +9,7 @@ import { buildHtml as html08 } from './08-proteina-musculo'
 import { buildHtml as html09 } from './09-colageno-huesos'
 import { buildHtml as html10 } from './10-emociones-menopausia'
 import { buildHtml as html11 } from './11-fermentos-del-mundo'
+import { buildHtml as html12 } from './12-mosaico-emocional'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -31,4 +32,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 9, slug: 'colageno-huesos-menopausia', subject: 'La ventana que no se repite. Colágeno y huesos en la menopausia. 🦴', buildHtml: html09 },
   { numero: 10, slug: 'emociones-menopausia', subject: 'No es la edad. Es tu cerebro pidiendo lo que tus hormonas ya no le dan. 🧠', buildHtml: html10 },
   { numero: 11, slug: 'fermentos-del-mundo', subject: 'De Japón a Perú. Lo que seis civilizaciones aprendieron sobre el eje intestino-cerebro. 🌍', buildHtml: html11 },
+  { numero: 12, slug: 'mosaico-emocional', subject: 'Tu semana tiene un color. ¿Sabes cuál es? 🎨', buildHtml: html12 },
 ]

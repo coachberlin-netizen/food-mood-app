@@ -98,6 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { slug: 'colageno-huesos-menopausia',   date: '2026-05-25' },
     { slug: 'emociones-menopausia',          date: '2026-06-01' },
     { slug: 'fermentos-del-mundo',            date: '2026-06-08' },
+    { slug: 'mosaico-emocional',               date: '2026-06-15' },
   ].map(nl => ({
     url:             `${baseUrl}/newsletter/${nl.slug}`,
     lastModified:    new Date(nl.date),
