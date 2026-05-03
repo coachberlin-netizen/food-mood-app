@@ -5,6 +5,7 @@ import { buildHtml as html04 } from './04-recupera-tu-energia'
 import { buildHtml as html05 } from './05-microhabitos'
 import { buildHtml as html06 } from './06-estrobioma'
 import { buildHtml as html07 } from './07-legumbres-menopausia'
+import { buildHtml as html08 } from './08-proteina-musculo'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -23,4 +24,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 5, slug: 'microhabitos',               subject: 'El hábito que no necesita fuerza de voluntad. ✨',         buildHtml: html05 },
   { numero: 6, slug: 'estrobioma',                 subject: 'Tus bacterias gestionan el estrógeno. Empieza aquí. 🌸',   buildHtml: html06 },
   { numero: 7, slug: 'legumbres-menopausia',       subject: 'El alimento más completo para tus hormonas. 🫘',             buildHtml: html07 },
+  { numero: 8, slug: 'proteina-musculo-menopausia', subject: 'La menopausia se come el músculo. La proteína lo frena. 💪', buildHtml: html08 },
 ]

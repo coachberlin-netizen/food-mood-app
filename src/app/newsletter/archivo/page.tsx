@@ -60,6 +60,13 @@ const NEWSLETTERS = [
     description: 'Legumbres y menopausia: seis mecanismos hormonales en una ración — fitoestrógenos, fibra, proteína, hierro, zinc y folato.',
     tag:         'Hormonas · Fitoestrógenos',
   },
+  {
+    numero:      '08',
+    slug:        'proteina-musculo-menopausia',
+    subject:     'La menopausia se come el músculo. La proteína lo frena.',
+    description: 'Sarcopenia, resistencia anabólica y el protocolo de leucina para mantener músculo después de los 45.',
+    tag:         'Músculo · Sarcopenia',
+  },
 ]
 
 function NewsletterList() {
