@@ -143,8 +143,33 @@ export default async function NewsletterArchivePage() {
             </div>
           )}
 
+          {/* CTA Archivo editorial */}
+          <div
+            className="mt-14 rounded-3xl p-8 flex flex-col sm:flex-row sm:items-center gap-6"
+            style={{ backgroundColor: '#6B2737' }}
+          >
+            <div className="flex-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(201,168,76,0.8)' }}>
+                5 ediciones disponibles
+              </p>
+              <h2 className="font-serif text-xl font-bold leading-snug mb-1" style={{ color: '#F5F0E8' }}>
+                Accede a todas las newsletters
+              </h2>
+              <p className="text-sm font-light" style={{ color: 'rgba(245,240,232,0.55)' }}>
+                Fermentos, energía, microhábitos y más — con suscripción o código beta.
+              </p>
+            </div>
+            <Link
+              href="/newsletter/archivo"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-opacity hover:opacity-90 whitespace-nowrap"
+              style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+            >
+              Ver archivo →
+            </Link>
+          </div>
+
           {/* Suscripción */}
-          <div className="mt-14 rounded-3xl p-10" style={{ backgroundColor: '#2d0f16' }}>
+          <div className="mt-6 rounded-3xl p-10" style={{ backgroundColor: '#2d0f16' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
               Únete
             </p>
