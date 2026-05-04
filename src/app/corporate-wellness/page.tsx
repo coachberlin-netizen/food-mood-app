@@ -221,8 +221,79 @@ export default function CorporateWellnessPage() {
         </div>
       </section>
 
-      {/* ── Qué incluye ── */}
+      {/* ── Activos propietarios / Moat ── */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#FEFBF4' }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+              Por qué no existe en ningún otro sitio
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#2d0f16' }}>
+              Dos activos que no tiene<br />
+              <span className="italic font-light">ningún competidor genérico.</span>
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Audio library */}
+            <div
+              className="rounded-2xl p-8 flex flex-col gap-4"
+              style={{ backgroundColor: 'white', border: '1px solid rgba(107,39,55,0.1)' }}
+            >
+              <div className="flex items-center gap-3">
+                <Headphones className="w-5 h-5 shrink-0" style={{ color: '#C9A84C' }} strokeWidth={1.5} />
+                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+                  Biblioteca de audio propietaria
+                </p>
+              </div>
+              <h3 className="font-serif text-xl font-bold leading-tight" style={{ color: '#2d0f16' }}>
+                7 audios de neurociencia aplicada al contexto laboral
+              </h3>
+              <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.6)' }}>
+                No son podcasts genéricos de meditación. Son protocolos sonoros diseñados específicamente
+                para el día de trabajo: foco entre reuniones, respiración bajo presión, reset de media tarde.
+                Contenido propietario que no existe en ningún programa de corporate wellness del mercado.
+              </p>
+              <div
+                className="mt-auto rounded-lg px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-center"
+                style={{ backgroundColor: 'rgba(201,168,76,0.08)', color: 'rgba(107,39,55,0.5)' }}
+              >
+                IP defensible · Barrera de entrada real
+              </div>
+            </div>
+
+            {/* Food·Mood Index */}
+            <div
+              className="rounded-2xl p-8 flex flex-col gap-4"
+              style={{ backgroundColor: 'white', border: '1px solid rgba(107,39,55,0.1)' }}
+            >
+              <div className="flex items-center gap-3">
+                <BarChart2 className="w-5 h-5 shrink-0" style={{ color: '#C9A84C' }} strokeWidth={1.5} />
+                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+                  Índice Food·Mood
+                </p>
+              </div>
+              <h3 className="font-serif text-xl font-bold leading-tight" style={{ color: '#2d0f16' }}>
+                7 días de datos generan un patrón personal único
+              </h3>
+              <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.6)' }}>
+                Cada check-in diario correlaciona lo que comió el empleado, el momento del día,
+                el nivel de estrés y el estado de ánimo. Al terminar el reto, cada persona tiene
+                su propio mapa de energía y foco. A escala, esto permite personalización predictiva
+                que ninguna app de recetas genérica puede ofrecer.
+              </p>
+              <div
+                className="mt-auto rounded-lg px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-center"
+                style={{ backgroundColor: 'rgba(201,168,76,0.08)', color: 'rgba(107,39,55,0.5)' }}
+              >
+                Dataset propietario · Motor de recomendación futuro
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Qué incluye ── */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'white' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
