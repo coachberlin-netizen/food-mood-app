@@ -178,12 +178,14 @@ function InvestorDeck() {
         </div>
 
         <SectionLabel>Business Model</SectionLabel>
+        <p style={{ fontSize: 9.5, color: '#6B6358', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
+          Challenge-first acquisition → subscription retention. Two distinct revenue streams that reinforce each other: challenges drive the first payment and completion; subscriptions capture the retained LTV.
+        </p>
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, marginTop: 6 }}>
           {[
-            ['Transformation Challenges (primary revenue driver):', '7–28 day guided programs at €19–€29, with daily tracking, audio content, and rewards. High conversion, recurring purchases.'],
-            ['Premium Subscription:', '€9/month for full recipe library, mood history, personalised plans, and challenge access.'],
-            ['Corporate Wellness:', 'B2B healthy habits programs — group challenges, team tracking, employer-sponsored subscriptions.'],
-            ['Future revenue (post-Seed):', 'Fully GDPR-compliant, aggregated and anonymised behavioural insights for public health research and nutraceutical innovation.'],
+            ['1. Transformation Challenges (acquisition engine):', '7–28 day outcome-specific programs at €19–€29. The primary entry point: low barrier, high intent, clear promise (energy / focus / hormonal reset / sleep). Users complete a challenge, experience results, and convert to subscription. Recurring by nature — users return for different challenges as their needs evolve throughout the year.'],
+            ['2. Premium Subscription (recurring revenue base):', '€9/month (or €7/month quarterly) for full recipe library, personalised emotional palette, 90-day history, and ongoing challenge access. The MRR engine. Challenge-to-subscription is the core conversion funnel; the 18-month subscriber milestone is the output of that funnel.'],
+            ['3. Corporate Wellness (B2B, high-ticket):', 'Group challenges and team tracking for companies — pilot from €490, per-employee from €12/employee. One mid-size corporate contract equals the revenue of 50+ monthly subscribers in a single transaction.'],
           ].map(([label, text]) => (
             <li key={label} style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.55, paddingLeft: 14, position: 'relative' }}>
               <span style={{ position: 'absolute', left: 0, color: '#3A8C62', fontWeight: 700 }}>·</span>
@@ -224,8 +226,8 @@ function InvestorDeck() {
         <SectionLabel>18-Month Milestones</SectionLabel>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: 6 }}>
           {[
-            { date: 'Q3 2026', items: ['200 paying subscribers', 'All 8 challenges live', 'Corporate Wellness pilot launch'] },
-            { date: 'Q1 2027', items: ['500 paying subscribers', '2,500 paid challenge purchases', '2 Corporate Wellness pilots', '€8K–12K MRR equivalent', 'AI coaching module launch'] },
+            { date: 'Q3 2026', items: ['All 8 challenges live', '200 active subscribers (retained from challenge funnel)', 'Corporate Wellness pilot launch'] },
+            { date: 'Q1 2027', items: ['2,500 challenge purchases (acquisition)', '500 active subscribers (retained base)', '2 Corporate Wellness pilots', '€8K–12K MRR equivalent', 'AI coaching module launch'] },
             { date: 'Q3 2027', items: ['EU + LATAM expansion', 'Seed round', 'Data licensing pipeline live'] },
           ].map(({ date, items }) => (
             <div key={date} style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 16, padding: '9px 0', borderBottom: '1px solid #F0EDE4', alignItems: 'start' }}>
