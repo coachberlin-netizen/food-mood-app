@@ -224,7 +224,9 @@ export default function ServiciosPage() {
 
                 {/* CTA */}
                 <a
-                  href="mailto:info@food-mood.app?subject=Reserva%20Sesión%201%3A1%20Food%C2%B7Mood"
+                  href="https://calendly.com/coachberlin/new-meeting"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-auto block text-center bg-aubergine-dark hover:bg-[#5C1320] text-cream font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-lg"
                 >
                   Reservar mi sesión →
@@ -299,7 +301,9 @@ export default function ServiciosPage() {
 
                 {/* CTA */}
                 <a
-                  href="mailto:info@food-mood.app?subject=Reserva%20Protocolo%204%20Semanas%20Food%C2%B7Mood"
+                  href="https://calendly.com/coachberlin/new-meeting"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-auto block text-center bg-gold hover:bg-[#b8953e] text-aubergine-dark font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-lg"
                 >
                   Quiero mi protocolo →
