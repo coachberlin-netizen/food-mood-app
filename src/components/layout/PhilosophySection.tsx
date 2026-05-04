@@ -7,7 +7,7 @@ export function PhilosophySection() {
   const nodes = [
     {
       label: "Serotonina",
-      title: "El 95% de tu serotonina la produce tu intestino.",
+      title: "El 90% de tu serotonina la produce tu intestino.",
       text: "No tu cerebro. Por eso lo que comes cambia cómo te sientes — antes de que lo decidas conscientemente.",
       color: "#E30B5D",
       watercolor: "/images/textures/watercolor-raspberry.png",

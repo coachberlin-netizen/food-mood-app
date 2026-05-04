@@ -309,7 +309,7 @@ export default function Home() {
                 La ciencia
               </motion.p>
               <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-[1.15]">
-                El 95% de tu serotonina nace en el intestino.
+                El 90% de tu serotonina nace en el intestino.
               </motion.h2>
               <motion.p variants={fade} className="text-base md:text-lg font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
                 No en tu cabeza. Por eso un plato bien elegido puede calmar la ansiedad antes de que tu mente
@@ -324,7 +324,7 @@ export default function Home() {
 
             <dl className="grid grid-cols-2 gap-4">
               {[
-                { number: "95%", label: "de tu serotonina se produce en el intestino" },
+                { number: "90%", label: "de tu serotonina se produce en el intestino" },
                 { number: "90 días", label: "el ciclo real de cambio del microbioma" },
                 { number: "20 min", label: "de media por receta — nada complicado" },
                 { number: "7 días", label: "para sentir los primeros cambios" },
@@ -643,7 +643,7 @@ export default function Home() {
               <span style={{ color: "#C9A84C" }}>Se crean con placer.</span>
             </p>
             <p className="text-sm font-light max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.5)" }}>
-              Tu intestino produce el 95% de tu serotonina — el neurotransmisor del bienestar y la recompensa.
+              Tu intestino produce el 90% de tu serotonina — el neurotransmisor del bienestar y la recompensa.
               Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo.
               Eso es lo que crea el hábito. No el esfuerzo.
             </p>
