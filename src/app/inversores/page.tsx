@@ -195,6 +195,51 @@ function InvestorDeck() {
           ))}
         </ul>
 
+        <SectionLabel>Competitive Landscape</SectionLabel>
+        <p style={{ fontSize: 9.5, color: '#6B6358', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
+          No direct competitor operates at the intersection of Spanish-language, gut-brain science, and women 45+. The market is fragmented between English-first trackers and generic wellness apps.
+        </p>
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 6, fontSize: 9.5 }}>
+          <thead>
+            <tr>
+              {['App', 'Language', 'Gut-brain science', 'Women 45+', 'Spanish market', 'Model', '€/mo'].map(h => (
+                <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#B8B0A4', padding: '0 8px 6px 0', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Noom',          'EN only',     '✗', '✗', '✗', 'Subscription',  '$60+'],
+              ['Lifesum',       'EN / multi',  '✗', '✗', '✗', 'Subscription',  '€4–9'],
+              ['MyFitnessPal',  'EN only',     '✗', '✗', '✗', 'Freemium',      '€10+'],
+              ['Yazio',         'EN / DE',     '✗', '✗', '✗', 'Subscription',  '€4–8'],
+              ['Elektra Health','EN only',     '△', '✓', '✗', 'Subscription',  '$15+'],
+            ].map(([app, lang, gut, w45, es, model, price]) => (
+              <tr key={app} style={{ borderBottom: '1px solid #F0EDE4' }}>
+                <td style={{ padding: '6px 8px 6px 0', color: '#4A4540', fontSize: 9.5 }}>{app}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: '#6B6358', fontSize: 9 }}>{lang}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: gut === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{gut}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: w45 === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{w45}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: es === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{es}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: '#6B6358', fontSize: 9 }}>{model}</td>
+                <td style={{ padding: '6px 0', color: '#6B6358', fontSize: 9, fontFamily: 'monospace' }}>{price}</td>
+              </tr>
+            ))}
+            <tr style={{ background: '#F0EDE4' }}>
+              <td style={{ padding: '7px 8px 7px 0', color: '#1A1612', fontWeight: 700, fontSize: 9.5 }}>Food·Mood</td>
+              <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>ES global</td>
+              <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>✓</td>
+              <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>✓</td>
+              <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>✓</td>
+              <td style={{ padding: '7px 8px 7px 0', color: '#1A1612', fontWeight: 700, fontSize: 9 }}>Challenge + Sub</td>
+              <td style={{ padding: '7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9, fontFamily: 'monospace' }}>€7–9</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style={{ fontSize: 8.5, color: '#B8B0A4', marginTop: 6, fontStyle: 'italic', lineHeight: 1.5 }}>
+          △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for perimenopause/menopause.
+        </p>
+
         <SectionLabel>Use of Funds</SectionLabel>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 6, fontSize: 10 }}>
           <thead>
@@ -224,12 +269,15 @@ function InvestorDeck() {
           Operations includes founder minimum salary of €1,500/month (€27K over 18 months) plus fixed costs. Full compensation to be normalised at Seed stage.
         </p>
 
-        <SectionLabel>18-Month Milestones</SectionLabel>
+        <SectionLabel>Milestones (post-close)</SectionLabel>
+        <p style={{ fontSize: 9.5, color: '#6B6358', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
+          Dates are relative to funding close. Round expected to close H2 2026.
+        </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: 6 }}>
           {[
-            { date: 'Q3 2026', items: ['All 8 challenges live', '200 active subscribers (retained from challenge funnel)', 'Corporate Wellness pilot launch'] },
-            { date: 'Q1 2027', items: ['2,500 challenge purchases (acquisition)', '500 active subscribers (retained base)', '2 Corporate Wellness pilots', '€8K–12K MRR equivalent', 'AI coaching module launch'] },
-            { date: 'Q3 2027', items: ['EU + LATAM expansion', 'Seed round', 'Data licensing pipeline live'] },
+            { date: 'Q1 2027', items: ['All 8 challenges live', '200 active subscribers (retained from challenge funnel)', 'Corporate Wellness pilot launch', 'Book publication'] },
+            { date: 'Q3 2027', items: ['2,500 challenge purchases (acquisition)', '500 active subscribers (retained base)', '2 Corporate Wellness pilots', '€8K–12K MRR equivalent', 'AI coaching module launch'] },
+            { date: 'Q1 2028', items: ['LATAM + US Hispanic expansion', 'Seed round', '€25K+ MRR · 1,500+ active subscribers'] },
           ].map(({ date, items }) => (
             <div key={date} style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 16, padding: '9px 0', borderBottom: '1px solid #F0EDE4', alignItems: 'start' }}>
               <div style={{ fontFamily: 'monospace', fontSize: 8, color: '#3A8C62', letterSpacing: '0.06em', fontWeight: 500, paddingTop: 1 }}>{date}</div>
