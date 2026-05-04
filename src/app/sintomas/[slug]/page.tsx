@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import Link from "next/link"
@@ -9,7 +10,60 @@ export const dynamic = 'force-dynamic'
 import { SYMPTOMS } from "@/data/symptoms"
 import { BookOpen, AlertCircle } from "lucide-react"
 
-export default async function SymptomDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+// ─── Per-slug keyword map ─────────────────────────────────────────────────────
+const SLUG_KEYWORDS: Record<string, string[]> = {
+  'ansiedad':              ['recetas para ansiedad', 'alimentos que calman la ansiedad', 'dieta para ansiedad', 'triptófano ansiedad alimentación', 'GABA alimentos naturales', 'fermentados ansiedad microbiota', 'qué comer para calmar el sistema nervioso', 'psicobióticos ansiedad'],
+  'insomnio':              ['qué comer para dormir mejor', 'alimentos para el insomnio', 'dieta para dormir bien', 'triptófano melatonina alimentos', 'magnesio sueño nocturno', 'GABA natural alimentos', 'recetas para dormir bien', 'alimentación y calidad del sueño'],
+  'cansancio':             ['alimentos para el cansancio', 'qué comer cuando estás cansado', 'recetas para recuperar energía', 'dieta para fatiga crónica', 'hierro biodisponible alimentos', 'CoQ10 alimentación energía', 'adaptógenos cansancio', 'fatiga crónica nutrición'],
+  'niebla-mental':         ['alimentos para la concentración', 'dieta para claridad mental', 'omega-3 cerebro foco', 'DHA alimentación cognición', 'recetas para niebla mental', 'L-teanina matcha concentración', 'qué comer para pensar mejor', 'neuroinflamación alimentación'],
+  'hambre-constante':      ['alimentos saciantes', 'recetas para controlar el hambre', 'dieta anti-antojos', 'fibra saciante prebiótica', 'estabilizar glucosa antojos', 'leptina grelina alimentación', 'qué comer para no tener hambre', 'control apetito nutrición'],
+  'inflamacion-silenciosa':['dieta antiinflamatoria', 'alimentos antiinflamatorios', 'recetas para inflamación', 'polifenoles inflamación', 'curcumina cúrcuma NF-kB', 'omega-3 antiinflamatorio alimentación', 'inflammaging dieta', 'inflamación crónica intestino'],
+  'digestion-pesada':      ['recetas para la digestión pesada', 'alimentos para el hinchazón', 'dieta para mejorar digestión', 'enzimas digestivas naturales alimentos', 'fibra soluble intestino', 'prebióticos digestión', 'qué comer para digestión lenta', 'hinchazón abdominal alimentación'],
+  'irritabilidad':         ['alimentos para el estrés', 'dieta para irritabilidad', 'recetas para calmar el estrés', 'magnesio estrés crónico', 'adaptógenos cortisol alimentación', 'vitaminas B estrés nervioso', 'qué comer cuando estás irritado', 'eje HPA alimentación estrés'],
+}
+
+type PageProps = { params: Promise<{ slug: string }> }
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const info = SYMPTOMS.find(s => s.slug === slug)
+  if (!info) return { title: 'Síntomas — Food·Mood' }
+
+  const canonicalUrl = `https://www.food-mood.app/sintomas/${slug}`
+  const title = `${info.titulo} y alimentación — Recetas funcionales | Food·Mood`
+  const description = `${info.subtitulo}. ${info.explicacion_cientifica.slice(0, 130)}… Recetas específicas basadas en la ciencia del eje intestino-cerebro.`
+  const keywords = [
+    ...(SLUG_KEYWORDS[slug] ?? []),
+    info.titulo.toLowerCase(),
+    'nutrición emocional',
+    'eje intestino cerebro',
+    'recetas funcionales',
+    'Food Mood',
+  ].join(', ')
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: 'article',
+      siteName: 'Food·Mood',
+      images: [{ url: '/og-image.png', width: 1200, height: 630, alt: `${info.titulo} — Food·Mood` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/og-image.png'],
+    },
+  }
+}
+
+export default async function SymptomDetailPage({ params }: PageProps) {
   const { slug } = await params
   const info = SYMPTOMS.find(s => s.slug === slug)
 
@@ -50,7 +104,34 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
         .order('premium_level', { ascending: true })
     : { data: [] }
 
+  const canonicalUrl = `https://www.food-mood.app/sintomas/${slug}`
+  const ldJson = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'MedicalWebPage',
+      name: info.titulo,
+      description: info.subtitulo,
+      url: canonicalUrl,
+      inLanguage: 'es',
+      about: { '@type': 'MedicalCondition', name: info.titulo },
+      audience: { '@type': 'Patient' },
+      publisher: { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
+      mainContentOfPage: { '@type': 'WebPageElement', cssSelector: 'main' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
+        { '@type': 'ListItem', position: 2, name: 'Síntomas', item: 'https://www.food-mood.app/sintomas' },
+        { '@type': 'ListItem', position: 3, name: info.titulo, item: canonicalUrl },
+      ],
+    },
+  ]
+
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
     <main className="min-h-screen bg-[var(--background)] pt-32 pb-24">
       <div className="max-w-5xl mx-auto px-6">
         <Link href="/sintomas" className="inline-flex items-center gap-2 text-aubergine-dark/40 hover:text-aubergine-dark transition-colors mb-12 group">
@@ -202,5 +283,6 @@ export default async function SymptomDetailPage({ params }: { params: Promise<{ 
         )}
       </div>
     </main>
+    </>
   )
 }
