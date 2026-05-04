@@ -198,7 +198,7 @@ export function buildHtml(): string {
         </div>
         <div class="dt-comida">
           <div class="dt-hora">21:00h</div>
-          <div><div>Onza de chocolate negro &gt;85% con un puñado de nueces</div><div class="dt-proteina">magnesio · teobromina · sistema nervioso en modo noche</div></div>
+          <div><div>20 g de chocolate negro &gt;85% con un puñado de nueces</div><div class="dt-proteina">magnesio · teobromina · sistema nervioso en modo noche</div></div>
         </div>
       </div>
     </div>
@@ -243,7 +243,7 @@ export function buildHtml(): string {
     <p class="cta-desc">Si el foco es la energía y el metabolismo — empieza por el reset de 7 días. Si quieres el protocolo completo de alimentación emocional — el Food·Mood Reset de 21 días.</p>
     <div class="cta-doble">
       <a href="https://www.food-mood.app/retos/recupera-tu-energia" class="cta-btn-a">Reset energético · 7 días · 19€ →</a>
-      <a href="https://www.food-mood.app/retos/slow-food-mood" class="cta-btn-b">Food·Mood Reset · 21 días · Gratis</a>
+      <a href="https://www.food-mood.app/retos/slow-food-mood" class="cta-btn-b">Food·Mood Reset · 21 días · 29€</a>
     </div>
     <p class="cta-precio">Acceso inmediato · Pago seguro vía Stripe</p>
   </div>
