@@ -29,7 +29,7 @@ const DAYS = [
     pm: { nombre: 'Palitos de zanahoria con hummus y aceite de oliva', ingredientes: ['100 g de zanahorias baby', '3 cucharadas de hummus', '1 chorrito de aceite de oliva', '1 pizca de pimentón ahumado'], tiempo: '2 min' },
     habito: '3 respiraciones lentas antes del primer café (4-4-6). Reduce el cortisol matutino.',
     audio: 'La glucosa que no ves pero que decide tu tarde (6 min)',
-    audioFile: null,
+    audioFile: 'dia01-glucosa-energia.mp3',
   },
   {
     day: 2, title: 'Focus limpio sin sobredosis de cafeína',
