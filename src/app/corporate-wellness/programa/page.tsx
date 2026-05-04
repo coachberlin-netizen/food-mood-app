@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 
-const PASSWORD = 'FOODMOOD202'
+const PASSWORD = 'FOODMOOD2026'
 const COOKIE   = 'cw_programa_auth'
 
 async function verifyPassword(formData: FormData) {
