@@ -29,6 +29,7 @@ const DAYS = [
     pm: { nombre: 'Palitos de zanahoria con hummus y aceite de oliva', ingredientes: ['100 g de zanahorias baby', '3 cucharadas de hummus', '1 chorrito de aceite de oliva', '1 pizca de pimentón ahumado'], tiempo: '2 min' },
     habito: '3 respiraciones lentas antes del primer café (4-4-6). Reduce el cortisol matutino.',
     audio: 'La glucosa que no ves pero que decide tu tarde (6 min)',
+    audioFile: null,
   },
   {
     day: 2, title: 'Focus limpio sin sobredosis de cafeína',
@@ -39,6 +40,7 @@ const DAYS = [
     pm: { nombre: 'Nueces con chocolate negro 85%', ingredientes: ['25–30 g de nueces', '2–3 onzas de chocolate negro 85%'], tiempo: '1 min' },
     habito: '25 minutos de trabajo en monotarea sin notificaciones (técnica Pomodoro con base neurocientífica).',
     audio: 'La trampa de la cafeína y cómo salir de ella (7 min)',
+    audioFile: 'dia02-cafeina-focus.mp3',
   },
   {
     day: 3, title: 'Calma bajo presión de reuniones y deadlines',
@@ -49,6 +51,7 @@ const DAYS = [
     pm: { nombre: 'Tostada de centeno con aguacate y limón', ingredientes: ['1–2 crackers de centeno', '½ aguacate maduro', 'Zumo de ½ limón', 'Sal marina y pimienta'], tiempo: '3 min' },
     habito: 'Pausa de 90 segundos antes de responder mensajes difíciles. La neurociencia muestra que una emoción dura ~90 segundos si no la alimentamos con pensamiento rumiativo.',
     audio: 'Qué le pasa a tu cerebro en un deadline (8 min)',
+    audioFile: 'dia03-estres-cortisol.mp3',
   },
   {
     day: 4, title: 'El anti-bajón de las 16:00',
@@ -59,6 +62,7 @@ const DAYS = [
     pm: { nombre: 'Kéfir bebible con canela y semillas de calabaza', ingredientes: ['150 ml de kéfir bebible', '1 cucharada de semillas de calabaza', '1 pizca de canela'], tiempo: '2 min' },
     habito: 'Caminar 5 minutos después de comer. Reduce el pico glucémico posprandial hasta un 30% y acelera el retorno al foco.',
     audio: 'Por qué las 16:00 son el enemigo y cómo ganarles (7 min)',
+    audioFile: 'dia04-bajon-tarde-circadiano.mp3',
   },
   {
     day: 5, title: 'Creatividad y ánimo: el cerebro en modo flujo',
@@ -69,6 +73,7 @@ const DAYS = [
     pm: { nombre: 'Bowl de frutos rojos con semillas de calabaza y cacao', ingredientes: ['100 g de frutos rojos', '1 cucharada de semillas de calabaza', '1 cdta de cacao puro en polvo', '1 pizca de canela'], tiempo: '2 min' },
     habito: 'Escribir una idea antes de revisar el correo. El acto de generar antes de consumir activa el modo creativo del cerebro durante las horas siguientes.',
     audio: 'La química del estado de flujo en el trabajo (8 min)',
+    audioFile: 'dia05-flujo-creatividad.mp3',
   },
   {
     day: 6, title: 'Recuperación: bajar la carga mental acumulada',
@@ -79,6 +84,7 @@ const DAYS = [
     pm: { nombre: 'Aceitunas con queso fresco y orégano', ingredientes: ['10–12 aceitunas negras o verdes', '60 g de queso fresco', '1 chorrito de aceite de oliva', 'Orégano y pimienta negra'], tiempo: '2 min' },
     habito: 'Cerrar el día con dos frases: "qué me drenó hoy" y "qué me dio energía hoy". Reduce la rumiación nocturna y mejora la calidad del sueño.',
     audio: 'Cómo limpiar tu cerebro sin dormir: la ciencia del descanso activo (7 min)',
+    audioFile: 'dia06-recuperacion-cerebro.mp3',
   },
   {
     day: 7, title: 'Reset inteligente: detecta tus patrones',
@@ -89,8 +95,12 @@ const DAYS = [
     pm: { nombre: 'Edamame o garbanzos tostados con especias', ingredientes: ['100 g de edamame descongelado o garbanzos cocidos', '1 cdta de aceite de oliva', 'Sal, comino y pimentón ahumado'], tiempo: '5 min' },
     habito: 'Revisar el índice Food·Mood de la semana: ¿qué días puntúas más alto? ¿qué tenían en común? ¿qué micro-hábito cumpliste más días?',
     audio: 'Tu protocolo personal: qué aprendiste esta semana (10 min)',
+    audioFile: 'dia07-patron-personal.mp3',
   },
 ]
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const AUDIO_BASE = `${SUPABASE_URL}/storage/v1/object/public/retos-audio/audio/corporate`
 
 const LISTA_COMPRA = {
   'Base fresca': ['Kéfir bebible o yogur natural (500 ml)', 'Frutos rojos frescos o congelados (300 g)', 'Manzanas (4–5)', 'Plátanos (3–4)', 'Zanahorias baby (200 g)', 'Pepino (1)', 'Tomates cherry (200 g)', 'Aguacate maduro (2)', 'Espinacas baby (100 g)', 'Limones (3)', 'Jengibre fresco (1 trozo)'],
@@ -246,12 +256,27 @@ export default async function CorporateWellnessProgramaPage() {
                   </p>
                 </div>
                 <div className="px-6 py-4 border-t sm:border-t-0" style={{ borderColor: 'rgba(107,39,55,0.07)' }}>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: 'rgba(107,39,55,0.35)' }}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(107,39,55,0.35)' }}>
                     Audio del día
                   </p>
-                  <p className="text-xs font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.6)' }}>
+                  <p className="text-xs font-light mb-3 leading-snug" style={{ color: 'rgba(107,39,55,0.6)' }}>
                     {d.audio}
                   </p>
+                  {d.audioFile ? (
+                    <audio
+                      controls
+                      preload="none"
+                      src={`${AUDIO_BASE}/${d.audioFile}`}
+                      className="w-full"
+                      style={{ height: 36, accentColor: '#4A7B6B' }}
+                    >
+                      Tu navegador no soporta audio HTML5.
+                    </audio>
+                  ) : (
+                    <p className="text-[10px] italic" style={{ color: 'rgba(107,39,55,0.3)' }}>
+                      Audio próximamente disponible
+                    </p>
+                  )}
                 </div>
               </div>
 
