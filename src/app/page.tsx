@@ -7,6 +7,7 @@ import { ChevronDown, Moon, Zap, Leaf, Activity, Brain, ArrowRight, Check, Flame
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
 import HomeHero from "@/components/layout/HomeHero"
+import { AppDemo } from "@/components/layout/AppDemo"
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
 const RETOS = [
@@ -289,6 +290,9 @@ export default function Home() {
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <HomeHero />
+
+      {/* ── 1b. DEMO INTERACTIVA ─────────────────────────────────────────────── */}
+      <AppDemo />
 
       {/* ── 2. LA CIENCIA ───────────────────────────────────────────────────── */}
       <section aria-label="La ciencia del eje intestino-cerebro" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>

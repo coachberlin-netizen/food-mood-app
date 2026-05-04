@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Check, X, Crown, Sparkles, ArrowRight, Zap, BookOpen,
-  ShieldCheck, RefreshCcw, Lock, Loader2,
+  ShieldCheck, RefreshCcw, Lock, Loader2, ChevronDown,
 } from "lucide-react";
 
 const FREE_FEATURES = [
@@ -33,6 +33,7 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
   const [betaCode,   setBetaCode]   = useState('');
   const [betaStatus, setBetaStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
   const [betaMsg,    setBetaMsg]    = useState('');
+  const [faqOpen,    setFaqOpen]    = useState<number | null>(null);
   const router = useRouter();
 
   async function handleBetaRedeem() {
@@ -225,7 +226,20 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
               { q: "¿Las recetas sirven para todos en casa?", a: "Totalmente. Hemos estructurado la arquitectura Premium para que funcione con ingredientes y preparaciones que todos pueden disfrutar." },
               { q: "¿Es seguro el pago y cancelable?", a: "Operamos con pasarela encriptada Stripe y puedes cancelar en 1 solo clic desde tu perfil." },
             ].map((faq, i) => (
-              <div key={i} className="border-b border-aubergine-dark/8 pb-6"><h3 className="text-base font-medium text-aubergine-dark mb-2">{faq.q}</h3><p className="text-sm text-aubergine-dark/50 font-light leading-relaxed">{faq.a}</p></div>
+              <div key={i} className="border-b border-aubergine-dark/8">
+                <button
+                  type="button"
+                  onClick={() => setFaqOpen(faqOpen === i ? null : i)}
+                  className="w-full flex items-center justify-between py-5 text-left gap-4 group"
+                  aria-expanded={faqOpen === i}
+                >
+                  <span className="text-base font-medium text-aubergine-dark group-hover:text-[#6B2737] transition-colors">{faq.q}</span>
+                  <ChevronDown className={`w-4 h-4 text-aubergine-dark/40 shrink-0 transition-transform duration-300 ${faqOpen === i ? 'rotate-180' : ''}`} />
+                </button>
+                {faqOpen === i && (
+                  <p className="pb-5 text-sm text-aubergine-dark/50 font-light leading-relaxed">{faq.a}</p>
+                )}
+              </div>
             ))}
           </div>
         </motion.div>
