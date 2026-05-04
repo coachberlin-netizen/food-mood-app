@@ -1,0 +1,315 @@
+import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
+import { revalidatePath } from 'next/cache'
+
+export const metadata: Metadata = {
+  title: 'Inversores · Food·Mood Pre-Seed 2026',
+  description: 'Información confidencial para inversores. Acceso restringido.',
+  robots: { index: false, follow: false },
+}
+
+const PASSWORD = 'FOODMOOD2026'
+const COOKIE   = 'inv_auth'
+
+async function verifyPassword(formData: FormData) {
+  'use server'
+  if (formData.get('password') === PASSWORD) {
+    const cookieStore = await cookies()
+    cookieStore.set(COOKIE, 'true', {
+      httpOnly: true,
+      secure:   process.env.NODE_ENV === 'production',
+      maxAge:   60 * 60 * 24 * 7,
+    })
+    revalidatePath('/inversores')
+  }
+}
+
+function Gate({ wrong }: { wrong: boolean }) {
+  return (
+    <main style={{ minHeight: '100vh', backgroundColor: '#0f0608', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+      <div style={{ width: '100%', maxWidth: 400, textAlign: 'center' }}>
+        <div style={{ marginBottom: 32 }}>
+          <p style={{ fontFamily: 'serif', fontSize: 28, color: '#F5F0E8', fontWeight: 700, marginBottom: 6 }}>
+            Food<span style={{ color: '#C9A84C' }}>·</span>Mood
+          </p>
+          <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', marginBottom: 24 }}>
+            Pre-Seed · Acceso para inversores
+          </p>
+          <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.5)', lineHeight: 1.6 }}>
+            Este área es confidencial. Introduce la clave de acceso que has recibido.
+          </p>
+        </div>
+
+        <form action={verifyPassword} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <input
+            name="password"
+            type="password"
+            placeholder="Clave de acceso"
+            autoComplete="off"
+            required
+            style={{
+              width: '100%',
+              padding: '14px 18px',
+              borderRadius: 12,
+              border: wrong ? '1.5px solid #c0392b' : '1.5px solid rgba(201,168,76,0.25)',
+              backgroundColor: 'rgba(245,240,232,0.05)',
+              color: '#F5F0E8',
+              fontSize: 15,
+              outline: 'none',
+              textAlign: 'center',
+              letterSpacing: '0.08em',
+            }}
+          />
+          {wrong && (
+            <p style={{ fontSize: 12, color: '#e74c3c', marginTop: -4 }}>
+              Clave incorrecta. Verifica y vuelve a intentarlo.
+            </p>
+          )}
+          <button
+            type="submit"
+            style={{
+              backgroundColor: '#C9A84C',
+              color: '#0f0608',
+              fontWeight: 700,
+              fontSize: 14,
+              padding: '14px 24px',
+              borderRadius: 12,
+              border: 'none',
+              cursor: 'pointer',
+              letterSpacing: '0.04em',
+            }}
+          >
+            Acceder →
+          </button>
+        </form>
+
+        <p style={{ marginTop: 28, fontSize: 11, color: 'rgba(245,240,232,0.2)' }}>
+          ¿Sin clave? Escribe a info@food-mood.app
+        </p>
+      </div>
+    </main>
+  )
+}
+
+function InvestorDeck() {
+  return (
+    <main style={{ backgroundColor: '#F9F7F2', minHeight: '100vh' }}>
+
+      {/* Top bar */}
+      <div style={{ backgroundColor: '#0f0608', padding: '14px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <p style={{ fontFamily: 'serif', fontSize: 20, color: '#F5F0E8', fontWeight: 700 }}>
+          Food<span style={{ color: '#C9A84C' }}>·</span>Mood
+        </p>
+        <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)' }}>
+          Pre-Seed Investment Brief · Confidential · May 2026
+        </span>
+      </div>
+
+      {/* Pitch Deck CTA block */}
+      <div style={{ backgroundColor: '#2d0f16', padding: '36px 40px', textAlign: 'center' }}>
+        <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 12 }}>
+          Pitch Deck · Pre-Seed 2026
+        </p>
+        <p style={{ fontFamily: 'serif', fontSize: 26, color: '#F5F0E8', fontWeight: 700, marginBottom: 8, lineHeight: 1.2 }}>
+          Food·Mood — The Full Picture
+        </p>
+        <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.55)', marginBottom: 24, maxWidth: 480, margin: '0 auto 24px' }}>
+          Descarga el Pitch Deck completo: modelo de negocio, métricas, roadmap y estructura de la ronda Pre-Seed.
+        </p>
+        <a
+          href="/pitch-deck-pre-seed-2026.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            backgroundColor: '#C9A84C',
+            color: '#0f0608',
+            fontWeight: 700,
+            fontSize: 14,
+            padding: '13px 28px',
+            borderRadius: 30,
+            textDecoration: 'none',
+            letterSpacing: '0.03em',
+          }}
+        >
+          📄 Ver / Descargar Pitch Deck (PDF)
+        </a>
+        <p style={{ marginTop: 12, fontSize: 11, color: 'rgba(245,240,232,0.25)' }}>
+          Documento confidencial · No distribuir sin autorización
+        </p>
+      </div>
+
+      {/* Investment Brief */}
+      <div style={{ maxWidth: 740, margin: '0 auto', padding: '48px 40px 64px', fontFamily: "'DM Sans', sans-serif", fontSize: 10.5, lineHeight: 1.65, color: '#1A1612' }}>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1.5px solid #1A1612', paddingBottom: 12, marginBottom: 28 }}>
+          <div style={{ fontFamily: 'serif', fontSize: 24, fontWeight: 700, letterSpacing: '-0.03em', color: '#1A1612', lineHeight: 1 }}>
+            Food<span style={{ color: '#3A8C62' }}>·</span>Mood
+          </div>
+          <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.12em', color: '#6B6358', textTransform: 'uppercase', textAlign: 'right', lineHeight: 1.7 }}>
+            Pre-Seed Investment Brief<br />
+            May 2026 · WomenInvestEU Femtech · Confidential
+          </div>
+        </div>
+
+        <h1 style={{ fontFamily: 'serif', fontSize: 16, fontWeight: 700, color: '#1A1612', marginBottom: 5 }}>The Ask</h1>
+        <p style={{ fontSize: 10.5, color: '#6B6358', marginBottom: 16 }}>
+          Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> pre-seed — 18-month runway to 500 paying subscribers.
+        </p>
+
+        {/* Two-col */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 8 }}>
+          <div>
+            <SectionLabel>What We Do</SectionLabel>
+            <p style={bodyP}>Food·Mood is a psychobiotic nutrition platform designed for women&apos;s hormonal health — starting with the 180 million women aged 45+ in the EU navigating perimenopause and menopause with zero personalised nutritional support.</p>
+            <p style={bodyP}>The app maps emotional and hormonal state to evidence-based functional nutrition: daily psychobiotic recipes, guided transformation challenges (7–28 days), audio content, and habit tracking — making preventive health engaging and accessible through gamification.</p>
+            <p style={bodyP}>90% of serotonin is produced in the gut, yet no existing app integrates gut-brain science into daily nutrition. Calorie trackers count macros. Mental health apps offer meditation. Food·Mood connects the dots: what you eat shapes how you feel.</p>
+          </div>
+          <div>
+            <SectionLabel>Market Opportunity</SectionLabel>
+            <p style={bodyP}>The global femtech market is valued at <strong style={{ color: '#1A1612' }}>€47 billion</strong>, growing 15% year-over-year. The psychobiotics subcategory alone is a $2.5B emerging segment — largely underserved.</p>
+            <p style={bodyP}><strong style={{ color: '#1A1612' }}>Primary target:</strong> 180M women 45+ in the EU facing hormonal transitions. <strong style={{ color: '#1A1612' }}>Secondary market:</strong> 60M+ Spanish-speaking women in LATAM and the USA.</p>
+            <SectionLabel>Why Now</SectionLabel>
+            <p style={bodyP}>Women 45+ are the fastest-growing digital health consumer segment in Europe, yet existing solutions focus on fertility tracking or symptom logging — not nutrition. Psychobiotic research has matured enough to build evidence-based consumer products, and the EU regulatory environment (GDPR, Digital Health Act) favours privacy-first European platforms over US incumbents.</p>
+          </div>
+        </div>
+
+        <SectionLabel>Business Model</SectionLabel>
+        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, marginTop: 6 }}>
+          {[
+            ['Transformation Challenges (primary revenue driver):', '7–28 day guided programs at €19–€29, with daily tracking, audio content, and rewards. High conversion, recurring purchases.'],
+            ['Premium Subscription:', '€9/month for full recipe library, mood history, personalised plans, and challenge access.'],
+            ['Corporate Wellness:', 'B2B healthy habits programs — group challenges, team tracking, employer-sponsored subscriptions.'],
+            ['Future revenue (post-Seed):', 'Fully GDPR-compliant, aggregated and anonymised behavioural insights for public health research and nutraceutical innovation.'],
+          ].map(([label, text]) => (
+            <li key={label} style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.55, paddingLeft: 14, position: 'relative' }}>
+              <span style={{ position: 'absolute', left: 0, color: '#3A8C62', fontWeight: 700 }}>·</span>
+              <strong style={{ color: '#1A1612' }}>{label}</strong>{' '}{text}
+            </li>
+          ))}
+        </ul>
+
+        <SectionLabel>Use of Funds</SectionLabel>
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 6, fontSize: 10 }}>
+          <thead>
+            <tr>
+              {['Category', 'Amount', '%', 'Note'].map(h => (
+                <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#B8B0A4', padding: '0 0 6px', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Product & Tech', '€50,000', '36%', 'AI coaching, content engine'],
+              ['Growth & Marketing', '€35,000', '25%', 'Paid acquisition, PR'],
+              ['Scientific Validation', '€20,000', '14%', 'Pilot studies, advisory board'],
+              ['Operations & Founder Salary', '€35,000', '25%', '€1,500/mo founder salary'],
+            ].map(([cat, amt, pct, note]) => (
+              <tr key={cat} style={{ borderBottom: '1px solid #F0EDE4' }}>
+                <td style={{ padding: '7px 0', color: '#1A1612', fontSize: 10 }}>{cat}</td>
+                <td style={{ padding: '7px 16px 7px 0', fontFamily: 'monospace', fontSize: 9.5, color: '#3A8C62', fontWeight: 500, textAlign: 'right' }}>{amt}</td>
+                <td style={{ padding: '7px 16px 7px 0', textAlign: 'right', fontSize: 9.5, color: '#6B6358' }}>{pct}</td>
+                <td style={{ fontSize: 9, color: '#B8B0A4', fontStyle: 'italic' }}>{note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p style={{ fontSize: 8.5, color: '#B8B0A4', marginTop: 8, fontStyle: 'italic', lineHeight: 1.5 }}>
+          Operations includes founder minimum salary of €1,500/month (€27K over 18 months) plus fixed costs. Full compensation to be normalised at Seed stage.
+        </p>
+
+        <SectionLabel>18-Month Milestones</SectionLabel>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: 6 }}>
+          {[
+            { date: 'Q3 2026', items: ['200 paying subscribers', 'All 8 challenges live', 'Corporate Wellness pilot launch'] },
+            { date: 'Q1 2027', items: ['500 paying subscribers', '2,500 paid challenge purchases', '2 Corporate Wellness pilots', '€8K–12K MRR equivalent', 'AI coaching module launch'] },
+            { date: 'Q3 2027', items: ['EU + LATAM expansion', 'Seed round', 'Data licensing pipeline live'] },
+          ].map(({ date, items }) => (
+            <div key={date} style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 16, padding: '9px 0', borderBottom: '1px solid #F0EDE4', alignItems: 'start' }}>
+              <div style={{ fontFamily: 'monospace', fontSize: 8, color: '#3A8C62', letterSpacing: '0.06em', fontWeight: 500, paddingTop: 1 }}>{date}</div>
+              <div style={{ fontSize: 10, color: '#1A1612', lineHeight: 1.55 }}>
+                {items.join(' · ')}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <SectionLabel>The Founder</SectionLabel>
+        <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 8, padding: '20px 24px', marginTop: 8 }}>
+          <div style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', marginBottom: 3 }}>Susana Ferreras Diez</div>
+          <div style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.1em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 10 }}>CEO &amp; Founder</div>
+          <p style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.65 }}>
+            Psychologist · MSc Food Biotechnology · MSc Gerontology · Creator of a kombucha brand and gut-health practitioner. Full-stack developer who built the entire Food·Mood MVP herself: Next.js, Supabase, Stripe, Vercel. Author of <em>&quot;Food·Mood: El placer de estar bien&quot;</em> (2026, pre-publication).
+          </p>
+          <p style={{ fontFamily: 'serif', fontSize: 10.5, fontStyle: 'italic', color: '#6B6358', marginTop: 10, lineHeight: 1.55, borderLeft: '2px solid #3A8C62', paddingLeft: 12 }}>
+            &quot;This is not a founder who hired a team to build her vision. This is a founder who is the product — the science, the code, the content, and the community.&quot;
+          </p>
+        </div>
+
+        <SectionLabel>Current Status</SectionLabel>
+        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 5, marginTop: 6 }}>
+          {[
+            'Functional PWA live at food-mood.app with payment infrastructure ready',
+            'Active newsletter + WhatsApp & Telegram community channels',
+            'Book written (pre-publication); audio content in production',
+            '3 transformation challenges built; 5 more in development pipeline',
+            "Concept validated via founder's expert coaching practice and Umyko wellness community",
+            'First investor matchmaking: WomenInvestEU Femtech — June 2026',
+          ].map(item => (
+            <li key={item} style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.5, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3A8C62', flexShrink: 0, marginTop: 5, display: 'inline-block' }} />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div style={{ marginTop: 28, paddingTop: 12, borderTop: '1px solid #E0EDE6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+          <div style={{ fontFamily: 'monospace', fontSize: 7.5, color: '#3A8C62', letterSpacing: '0.08em', lineHeight: 1.7 }}>
+            Susana Ferreras Diez · CEO &amp; Founder<br />
+            www.food-mood.app
+          </div>
+          <div style={{ fontSize: 7, color: '#B8B0A4', textAlign: 'right', maxWidth: 340, lineHeight: 1.5 }}>
+            This document is confidential and intended solely for the recipient. All projections are forward-looking estimates and not guarantees of future performance.
+          </div>
+        </div>
+      </div>
+    </main>
+  )
+}
+
+const bodyP: React.CSSProperties = { fontSize: 10, color: '#4A4540', lineHeight: 1.68, marginTop: 8 }
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{
+      fontFamily: 'monospace',
+      fontSize: 7,
+      letterSpacing: '0.18em',
+      textTransform: 'uppercase',
+      color: '#3A8C62',
+      marginTop: 22,
+      marginBottom: 10,
+      paddingBottom: 4,
+      borderBottom: '1px solid #E0EDE6',
+    }}>
+      {children}
+    </div>
+  )
+}
+
+export default async function InversoresPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const cookieStore = await cookies()
+  const auth = cookieStore.get(COOKIE)?.value === 'true'
+
+  const params = await searchParams
+  const wrong  = params.error === '1'
+
+  if (!auth) return <Gate wrong={wrong} />
+  return <InvestorDeck />
+}
