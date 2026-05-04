@@ -275,9 +275,9 @@ function InvestorDeck() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: 6 }}>
           {[
-            { date: 'Q1 2027', items: ['All 8 challenges live', '200 active subscribers (retained from challenge funnel)', 'Corporate Wellness pilot launch', 'Book publication'] },
-            { date: 'Q3 2027', items: ['2,500 challenge purchases (acquisition)', '500 active subscribers (retained base)', '2 Corporate Wellness pilots', '€8K–12K MRR equivalent', 'AI coaching module launch'] },
-            { date: 'Q1 2028', items: ['LATAM + US Hispanic expansion', 'Seed round', '€25K+ MRR · 1,500+ active subscribers'] },
+            { date: 'Q1 2027', items: ['All 8 challenges live', '200 active subscribers', 'Book publication', 'Corporate Wellness pipeline active — first proposals sent'] },
+            { date: 'Q3 2027', items: ['2,500 challenge purchases (acquisition)', '500 active subscribers (retained base)', 'First Corporate Wellness pilot closed', '€8K–12K MRR equivalent', 'AI coaching module launch'] },
+            { date: 'Q1 2028', items: ['LATAM + US Hispanic expansion', 'Seed round', '€25K+ MRR · 1,500+ active subscribers', '2–3 Corporate Wellness clients'] },
           ].map(({ date, items }) => (
             <div key={date} style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 16, padding: '9px 0', borderBottom: '1px solid #F0EDE4', alignItems: 'start' }}>
               <div style={{ fontFamily: 'monospace', fontSize: 8, color: '#3A8C62', letterSpacing: '0.06em', fontWeight: 500, paddingTop: 1 }}>{date}</div>
@@ -287,6 +287,10 @@ function InvestorDeck() {
             </div>
           ))}
         </div>
+
+        <p style={{ fontSize: 8.5, color: '#B8B0A4', marginTop: 10, fontStyle: 'italic', lineHeight: 1.6, borderLeft: '2px solid #E0EDE6', paddingLeft: 10 }}>
+          Series A horizon (not factored into this round): at 10,000+ active users, GDPR-compliant aggregated behavioural data — correlating food, mood, hormonal phase, and habit — becomes a licensable asset for public health research and nutraceutical innovation. The dataset Food·Mood is building has no equivalent in Spanish-language women&apos;s health.
+        </p>
 
         <SectionLabel>The Founder</SectionLabel>
         <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 8, padding: '20px 24px', marginTop: 8 }}>
