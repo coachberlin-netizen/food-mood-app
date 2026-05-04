@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 
 const PASSWORD = 'FOODMOOD202'
@@ -7,15 +7,16 @@ const COOKIE   = 'cw_programa_auth'
 
 async function verifyPassword(formData: FormData) {
   'use server'
+  const cookieStore = await cookies()
   if (formData.get('password') === PASSWORD) {
-    const cookieStore = await cookies()
     cookieStore.set(COOKIE, 'true', {
       httpOnly: true,
       secure:   process.env.NODE_ENV === 'production',
-      maxAge:   60 * 60 * 24 * 7, // 7 días
+      maxAge:   60 * 60 * 24 * 7,
     })
-    revalidatePath('/corporate-wellness/programa')
+    redirect('/corporate-wellness/programa')
   }
+  redirect('/corporate-wellness/programa?error=1')
 }
 
 const DAYS = [
