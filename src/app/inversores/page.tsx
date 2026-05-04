@@ -164,9 +164,9 @@ function InvestorDeck() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 8 }}>
           <div>
             <SectionLabel>What We Do</SectionLabel>
-            <p style={bodyP}>Food·Mood is a psychobiotic nutrition platform for <strong style={{ color: '#1A1612' }}>Spanish-speaking women aged 45+</strong> navigating perimenopause, menopause, and midlife transitions — a population of ~95 million across Spain, Latin America, and Hispanic USA with zero personalised nutritional support in their language.</p>
-            <p style={bodyP}>The app maps emotional and hormonal state to evidence-based functional nutrition: daily psychobiotic recipes, guided transformation challenges (7–28 days), audio content, and habit tracking — making preventive health engaging and accessible through gamification.</p>
-            <p style={bodyP}>90% of serotonin is produced in the gut, yet no existing app integrates gut-brain science into daily nutrition for this demographic. Calorie trackers count macros. Mental health apps offer meditation. Food·Mood connects the dots: what you eat shapes how you feel.</p>
+            <p style={bodyP}>Food·Mood is a <strong style={{ color: '#1A1612' }}>habit formation engine</strong> that uses the sensory pleasure of functional food as the behavioral anchor — for <strong style={{ color: '#1A1612' }}>Spanish-speaking women aged 45+</strong> across Spain, Latin America, and Hispanic USA (~95M people with zero personalised nutritional support in their language).</p>
+            <p style={bodyP}>The core insight: lasting habits form when anchored to pleasure, not willpower. The mechanism is biological — 90% of serotonin is produced in the gut. When you eat the right food for your emotional state and enjoy it, you activate the reward circuit that makes you want to repeat it. That is how sustainable habits are built: not through discipline, but through sensory experience.</p>
+            <p style={bodyP}>The product: expert-curated psychobiotic recipes mapped to emotional state, guided transformation challenges (7–28 days), daily habit tracking, and a proprietary Food·Mood Index that shows each user how their food choices correlate with their mood, energy, and focus over time. No calorie counting. No guilt. No willpower required.</p>
           </div>
           <div>
             <SectionLabel>Market Opportunity</SectionLabel>

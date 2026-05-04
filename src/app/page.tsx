@@ -306,19 +306,20 @@ export default function Home() {
               className="space-y-6"
             >
               <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-                La ciencia
+                Hábitos · No disciplina
               </motion.p>
               <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-[1.15]">
-                El 90% de tu serotonina nace en el intestino.
+                Los hábitos que duran se anclan al placer,
+                <em className="font-light italic"> no a la fuerza de voluntad.</em>
               </motion.h2>
               <motion.p variants={fade} className="text-base md:text-lg font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
-                No en tu cabeza. Por eso un plato bien elegido puede calmar la ansiedad antes de que tu mente
-                lo procese. Y el mecanismo no es la disciplina — es el placer. Cuando comes lo que tu cuerpo
-                necesita y lo disfrutas, activas el mismo circuito que hace que quieras repetirlo.
-                Eso es lo que construye hábitos duraderos.
+                Cada receta de Food·Mood es un micro-hábito diseñado para repetirse porque se disfruta.
+                El mecanismo es biológico: el 90% de tu serotonina se produce en el intestino.
+                Cuando comes lo que tu cuerpo necesita y lo saboreas, activas el circuito de recompensa
+                que hace que quieras repetirlo — sin esfuerzo, sin culpa.
               </motion.p>
               <motion.p variants={fade} className="text-sm font-light italic" style={{ color: "rgba(245,240,232,0.35)" }}>
-                Basado en la investigación de Lisa Feldman Barrett y el trabajo de Cryan et al. sobre el eje microbiota-intestino-cerebro.
+                Basado en BJ Fogg (Tiny Habits) y el trabajo de Cryan et al. sobre el eje microbiota-intestino-cerebro.
               </motion.p>
             </motion.div>
 

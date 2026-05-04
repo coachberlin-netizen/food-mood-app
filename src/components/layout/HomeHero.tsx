@@ -283,8 +283,9 @@ export default function HomeHero() {
 
             {/* Sub */}
             <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"380px" }}>
-              Food·Mood identifica cómo te sientes y te recomienda
-              exactamente qué comer hoy.
+              Food·Mood identifica cómo te sientes y te sugiere exactamente
+              qué comer — para anclar hábitos saludables al placer de comer,
+              no a la disciplina.
             </p>
 
             {/* CTAs */}
