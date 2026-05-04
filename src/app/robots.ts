@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/dashboard/', '/test/preguntas', '/perfil/', '/auth/setup'],
+      disallow: ['/api/', '/dashboard/', '/test/preguntas', '/perfil/', '/auth/setup', '/inversores'],
     },
     sitemap: 'https://www.food-mood.app/sitemap.xml',
   };

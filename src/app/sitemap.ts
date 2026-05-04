@@ -110,7 +110,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   const newsletterIndexPage = {
-    url:             `${baseUrl}/newsletter`,
+    url:             `${baseUrl}/newsletter/archivo`,
     lastModified:    new Date(),
     changeFrequency: 'weekly' as const,
     priority:        0.75,

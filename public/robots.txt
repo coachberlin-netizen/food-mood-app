@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /dashboard
-Disallow: /checkout
-Disallow: /login
-Disallow: /api/
-Disallow: /fermentos-del-mundo/
-Sitemap: https://www.food-mood.app/sitemap.xml

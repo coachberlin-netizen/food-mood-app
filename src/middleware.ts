@@ -20,6 +20,18 @@ function corsHeaders(origin: string | null) {
 
 export async function middleware(request: NextRequest) {
   const origin = request.headers.get('origin')
+  const host   = request.headers.get('host') ?? ''
+
+  // Canonical www redirect: food-mood.app → www.food-mood.app (skip Vercel previews + localhost)
+  if (
+    host === 'food-mood.app' &&
+    !host.includes('localhost') &&
+    !host.includes('vercel.app')
+  ) {
+    const url = request.nextUrl.clone()
+    url.host = 'www.food-mood.app'
+    return NextResponse.redirect(url, { status: 301 })
+  }
 
   // Handle CORS preflight for API routes
   if (request.method === 'OPTIONS' && request.nextUrl.pathname.startsWith('/api/')) {
