@@ -164,16 +164,17 @@ function InvestorDeck() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 8 }}>
           <div>
             <SectionLabel>What We Do</SectionLabel>
-            <p style={bodyP}>Food·Mood is a psychobiotic nutrition platform designed for women&apos;s hormonal health — starting with the 180 million women aged 45+ in the EU navigating perimenopause and menopause with zero personalised nutritional support.</p>
+            <p style={bodyP}>Food·Mood is a psychobiotic nutrition platform for <strong style={{ color: '#1A1612' }}>Spanish-speaking women aged 45+</strong> navigating perimenopause, menopause, and midlife transitions — a population of ~95 million across Spain, Latin America, and Hispanic USA with zero personalised nutritional support in their language.</p>
             <p style={bodyP}>The app maps emotional and hormonal state to evidence-based functional nutrition: daily psychobiotic recipes, guided transformation challenges (7–28 days), audio content, and habit tracking — making preventive health engaging and accessible through gamification.</p>
-            <p style={bodyP}>90% of serotonin is produced in the gut, yet no existing app integrates gut-brain science into daily nutrition. Calorie trackers count macros. Mental health apps offer meditation. Food·Mood connects the dots: what you eat shapes how you feel.</p>
+            <p style={bodyP}>90% of serotonin is produced in the gut, yet no existing app integrates gut-brain science into daily nutrition for this demographic. Calorie trackers count macros. Mental health apps offer meditation. Food·Mood connects the dots: what you eat shapes how you feel.</p>
           </div>
           <div>
             <SectionLabel>Market Opportunity</SectionLabel>
-            <p style={bodyP}>The global femtech market is valued at <strong style={{ color: '#1A1612' }}>€47 billion</strong>, growing 15% year-over-year. The psychobiotics subcategory alone is a $2.5B emerging segment — largely underserved.</p>
-            <p style={bodyP}><strong style={{ color: '#1A1612' }}>Primary target:</strong> 180M women 45+ in the EU facing hormonal transitions. <strong style={{ color: '#1A1612' }}>Secondary market:</strong> 60M+ Spanish-speaking women in LATAM and the USA.</p>
+            <p style={bodyP}><strong style={{ color: '#1A1612' }}>TAM — ~95M Spanish-speaking women 45+ globally:</strong> Spain (11M) · Latin America (75M) · Hispanic USA (9M). Every major wellness app is English-first or lacks the scientific depth for this life stage. No competitor has established a gut-brain nutrition brand in Spanish.</p>
+            <p style={bodyP}><strong style={{ color: '#1A1612' }}>SAM — ~10M paying-capable digital wellness users</strong> within that TAM. Paid app penetration: ~20% in Spain, 8–15% across LATAM, ~25% in US Hispanic market (Sensor Tower, 2024).</p>
+            <p style={bodyP}><strong style={{ color: '#1A1612' }}>SOM (18-month):</strong> 2,500 challenge purchases + 500 active subscribers → ~€116K annual revenue run rate. At 1% of the Spanish SAM: 22,000 subscribers = <strong style={{ color: '#1A1612' }}>€2.4M ARR</strong>. The psychobiotics subcategory is a $2.5B emerging segment — Food·Mood is positioned as its first Spanish-language consumer brand.</p>
             <SectionLabel>Why Now</SectionLabel>
-            <p style={bodyP}>Women 45+ are the fastest-growing digital health consumer segment in Europe, yet existing solutions focus on fertility tracking or symptom logging — not nutrition. Psychobiotic research has matured enough to build evidence-based consumer products, and the EU regulatory environment (GDPR, Digital Health Act) favours privacy-first European platforms over US incumbents.</p>
+            <p style={bodyP}>Smartphone penetration in LATAM crossed 70% in 2024. App spending among women 40+ grew 34% in 2023 (Sensor Tower). Yet every evidence-based gut-brain wellness app is English-only. Psychobiotic research has matured for consumer products, and the EU regulatory environment (GDPR, Digital Health Act) favours privacy-first European platforms. The window to become the category-defining Spanish-language app for women 45+ is open — and uncontested.</p>
           </div>
         </div>
 
