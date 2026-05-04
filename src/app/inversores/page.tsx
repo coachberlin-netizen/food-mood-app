@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
-import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Inversores · Food·Mood Pre-Seed 2026',
@@ -13,15 +13,16 @@ const COOKIE   = 'inv_auth'
 
 async function verifyPassword(formData: FormData) {
   'use server'
+  const cookieStore = await cookies()
   if (formData.get('password') === PASSWORD) {
-    const cookieStore = await cookies()
     cookieStore.set(COOKIE, 'true', {
       httpOnly: true,
       secure:   process.env.NODE_ENV === 'production',
       maxAge:   60 * 60 * 24 * 7,
     })
-    revalidatePath('/inversores')
+    redirect('/inversores')
   }
+  redirect('/inversores?error=1')
 }
 
 function Gate({ wrong }: { wrong: boolean }) {

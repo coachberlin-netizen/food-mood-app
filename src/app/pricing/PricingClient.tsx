@@ -8,6 +8,7 @@ import {
   Check, X, Crown, Sparkles, ArrowRight, Zap, BookOpen,
   ShieldCheck, RefreshCcw, Lock, Loader2, ChevronDown,
 } from "lucide-react";
+import { trackEvent } from "@/components/analytics/AnalyticsProvider";
 
 const FREE_FEATURES = [
   { text: "Inspiración diaria (lectura)", included: true },
@@ -62,6 +63,7 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
   }
 
   const handleCheckout = async (plan: "monthly" | "quarterly") => {
+    trackEvent({ name: "checkout_started", properties: { plan } });
     const priceId = plan === "quarterly"
       ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_QUARTERLY || "price_1THqhMKAfsMmyDlfzjeoWoSw"
       : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY || "price_1THUGfKAfsMmyDlfym8JQTiC";

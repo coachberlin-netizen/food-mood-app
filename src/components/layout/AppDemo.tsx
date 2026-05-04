@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight, CheckCircle } from "lucide-react";
+import { trackEvent } from "@/components/analytics/AnalyticsProvider";
 
 const MOODS = [
   { label: "Ansiedad", color: "#8E4A8C", emoji: "🌀" },
@@ -40,6 +41,7 @@ export function AppDemo() {
 
   function handleMoodClick(i: number) {
     setSelected(i);
+    trackEvent({ name: "demo_step", properties: { step: 1, mood: MOODS[i].label } });
     setTimeout(() => setStep(1), 420);
   }
 

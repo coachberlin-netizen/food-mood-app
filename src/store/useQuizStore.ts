@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { MoodId } from '@/lib/types';
 import { OptionPoint, quizData } from '@/data/quiz';
 import { createClient } from '@/lib/supabase/client';
+import { trackEvent } from '@/components/analytics/AnalyticsProvider';
 
 export interface MoodEntry {
   id: string;
@@ -121,11 +122,14 @@ export const useQuizStore = create<QuizState>()(
       answerQuestion: (points) => {
         let finalMoodVal: MoodId | null = null;
         let isDone = false;
-        
+
         set((state) => {
+          if (state.currentStep === 0) trackEvent({ name: "quiz_started" });
+          trackEvent({ name: "quiz_step", properties: { step: state.currentStep + 1 } });
+
           const newSelections = [...state.selections];
           newSelections[state.currentStep] = points;
-          
+
           const newStep = state.currentStep + 1;
           isDone = newStep >= quizData.length;
           
@@ -156,6 +160,7 @@ export const useQuizStore = create<QuizState>()(
         });
 
         if (isDone && finalMoodVal) {
+          trackEvent({ name: "quiz_completed", properties: { resultMood: finalMoodVal } });
           (async () => {
             const supabase = createClient();
             const { data: { session } } = await supabase.auth.getSession();

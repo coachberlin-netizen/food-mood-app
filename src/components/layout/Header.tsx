@@ -134,17 +134,17 @@ export function Header() {
               <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
                 Home
               </Link>
-              <Link href="/eloraculo" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mi lectura
-              </Link>
               <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Recetas
               </Link>
               <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Retos
               </Link>
+              <Link href="/glosario" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Glosario
+              </Link>
               <NavDropdown label="Mi espacio" items={MI_ESPACIO} />
-              <NavDropdown label="Descubrir"  items={DESCUBRIR}  />
+              <NavDropdown label="Más"        items={DESCUBRIR}  />
               {!isPremium && (
                 <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                   Planes
