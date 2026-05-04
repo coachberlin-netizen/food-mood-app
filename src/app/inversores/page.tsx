@@ -156,9 +156,34 @@ function InvestorDeck() {
         </div>
 
         <h1 style={{ fontFamily: 'serif', fontSize: 16, fontWeight: 700, color: '#1A1612', marginBottom: 5 }}>The Ask</h1>
-        <p style={{ fontSize: 10.5, color: '#6B6358', marginBottom: 16 }}>
-          Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> pre-seed — 18-month runway to 500 paying subscribers.
-        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 16 }}>
+          <div>
+            <p style={{ fontSize: 10.5, color: '#6B6358', lineHeight: 1.65 }}>
+              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>post-money SAFE</strong> — <strong style={{ color: '#1A1612' }}>€1.4M valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>. Standard European pre-seed terms. The SAFE avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
+            </p>
+            <p style={{ fontSize: 10, color: '#6B6358', lineHeight: 1.65, marginTop: 8 }}>
+              Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At a €1.4M cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
+            </p>
+          </div>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 16px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3A8C62', marginBottom: 8 }}>Round structure</p>
+            {[
+              ['Instrument', 'Post-money SAFE'],
+              ['Raise', '€140,000'],
+              ['Valuation cap', '€1,400,000'],
+              ['Discount', '20% at Seed conversion'],
+              ['Use of funds', '18-month focused launch'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F0EDE4', padding: '5px 0', fontSize: 9 }}>
+                <span style={{ color: '#9A9088' }}>{k}</span>
+                <span style={{ color: '#1A1612', fontWeight: 600, fontFamily: 'monospace' }}>{v}</span>
+              </div>
+            ))}
+            <p style={{ fontSize: 8, color: '#B8B0A4', marginTop: 10, fontStyle: 'italic', lineHeight: 1.5 }}>
+              The risk is not &quot;can we build this&quot; — the product is already built. It is &quot;can we launch and scale it the right way.&quot; That is exactly what this round funds.
+            </p>
+          </div>
+        </div>
 
         {/* Two-col */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 8 }}>
@@ -307,11 +332,12 @@ function InvestorDeck() {
         <SectionLabel>Current Status</SectionLabel>
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 5, marginTop: 6 }}>
           {[
-            'Functional PWA live at food-mood.app with payment infrastructure ready',
-            'Active newsletter + WhatsApp & Telegram community channels',
-            'Book written (pre-publication); audio content in production',
-            '3 transformation challenges built; 5 more in development pipeline',
-            "Concept validated via founder's expert coaching practice and Umyko wellness community",
+            'MVP fully built and live at food-mood.app — payments integrated, content stack ready, infrastructure tested',
+            'Intentionally pre-launch on users: scaling starts after close, to do it right — not to chase messy early traction',
+            'Active newsletter + WhatsApp & Telegram community channels — warm audience ready to onboard',
+            'Book written (pre-publication 2026); 7-episode proprietary audio library complete',
+            '3 transformation challenges live; 5 more in pipeline — all 8 ready by Q1 2027',
+            'Demand validated through founder coaching practice and Umyko wellness community (paying clients)',
             'First investor matchmaking: WomenInvestEU Femtech — June 2026',
           ].map(item => (
             <li key={item} style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.5, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
@@ -324,11 +350,29 @@ function InvestorDeck() {
         <div style={{ marginTop: 28, paddingTop: 12, borderTop: '1px solid #E0EDE6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <div style={{ fontFamily: 'monospace', fontSize: 7.5, color: '#3A8C62', letterSpacing: '0.08em', lineHeight: 1.7 }}>
             Susana Ferreras Diez · CEO &amp; Founder<br />
-            www.food-mood.app
+            www.food-mood.app · info@food-mood.app
           </div>
           <div style={{ fontSize: 7, color: '#B8B0A4', textAlign: 'right', maxWidth: 340, lineHeight: 1.5 }}>
             This document is confidential and intended solely for the recipient. All projections are forward-looking estimates and not guarantees of future performance.
           </div>
+        </div>
+
+        {/* Download */}
+        <div style={{ marginTop: 20, display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a
+            href="/pitch-deck-pre-seed-2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#3A8C62', border: '1px solid #E0EDE6', borderRadius: 4, padding: '7px 14px', textDecoration: 'none' }}
+          >
+            ↓ Pitch Deck PDF
+          </a>
+          <a
+            href="mailto:info@food-mood.app?subject=Food·Mood Pre-Seed — Interés inversor"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F9F7F2', background: '#1A1612', borderRadius: 4, padding: '7px 14px', textDecoration: 'none' }}
+          >
+            → Contactar fundadora
+          </a>
         </div>
       </div>
     </main>
