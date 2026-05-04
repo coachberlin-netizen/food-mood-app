@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 const BURG       = "#7B1D2A";
@@ -331,12 +332,19 @@ export default function HomeHero() {
           {/* Photo */}
           <div ref={parallaxRef} style={{
             position:"absolute",inset:"-5%",
-            backgroundImage:`url('${PHOTOS[photoIdx]}')`,
-            backgroundSize:"cover",backgroundPosition:"center",
             transition:"opacity 1.2s ease",
             opacity: photoFade ? 1 : 0,
             animation:"heroDrift 28s ease-in-out infinite",
-          }} />
+          }}>
+            <Image
+              src={PHOTOS[photoIdx]}
+              alt=""
+              fill
+              style={{ objectFit:"cover", objectPosition:"center" }}
+              priority={photoIdx === 0}
+              sizes="50vw"
+            />
+          </div>
           {/* Overlays */}
           <div style={{ position:"absolute",inset:0,background:`linear-gradient(135deg,rgba(92,19,32,.68) 0%,rgba(123,29,42,.42) 45%,rgba(142,37,53,.28) 100%)`,mixBlendMode:"multiply",zIndex:1 }} />
           <div style={{ position:"absolute",inset:0,background:`radial-gradient(ellipse 65% 55% at 50% 44%, rgba(201,169,110,.14) 0%, transparent 70%)`,zIndex:2 }} />
