@@ -83,6 +83,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                   <NavLink href="/viaje"         label="Mi viaje"      close={close} />
                   <NavLink href="/semana"        label="Mi semana"     close={close} />
                   <NavLink href="/recetas"       label="Recetas"       close={close} />
+                  <NavLink href="/servicios"    label="Sesiones 1:1"  close={close} />
                   <NavLink href="/glosario"      label="Glosario"      close={close} />
                   <NavLink href="/sintomas"      label="Síntomas"      close={close} />
                   <NavLink href="/retos"         label="Retos"         close={close} />
@@ -97,6 +98,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                   <NavLink href="/eloraculo"  label="Mi lectura" close={close} />
                   <NavLink href="/test"    label="Test gratuito" close={close} />
                   <NavLink href="/recetas" label="Recetas"       close={close} />
+                  <NavLink href="/servicios" label="Sesiones 1:1" close={close} />
                   <NavLink href="/glosario" label="Glosario"    close={close} />
                   <NavLink href="/retos"   label="Retos"         close={close} />
                   <NavLink href="/blog"    label="Newsletter"    close={close} />

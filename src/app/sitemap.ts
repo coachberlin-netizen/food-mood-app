@@ -30,6 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/quienes-somos',      priority: 0.6, freq: 'monthly' },
     { route: '/saber-mas',          priority: 0.6, freq: 'monthly' },
     { route: '/corporate-wellness', priority: 0.8, freq: 'monthly' },
+    { route: '/servicios',          priority: 0.8, freq: 'monthly' },
   ];
 
   const staticPages = staticRoutes.map(({ route, priority, freq }) => ({

@@ -72,10 +72,11 @@ const MI_ESPACIO: DropdownItem[] = [
 ]
 
 const DESCUBRIR: DropdownItem[] = [
-  { label: "Glosario",   href: "/glosario"          },
-  { label: "Fermentos",  href: "/fermentos-del-mundo"},
-  { label: "Síntomas",   href: "/sintomas"           },
-  { label: "Newsletter", href: "/blog"               },
+  { label: "Sesiones 1:1",href: "/servicios"         },
+  { label: "Glosario",    href: "/glosario"          },
+  { label: "Fermentos",   href: "/fermentos-del-mundo"},
+  { label: "Síntomas",    href: "/sintomas"           },
+  { label: "Newsletter",  href: "/blog"               },
 ]
 
 export function Header() {
