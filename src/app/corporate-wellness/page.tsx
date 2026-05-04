@@ -249,6 +249,64 @@ export default function CorporateWellnessPage() {
         </div>
       </section>
 
+      {/* ── Impacto medible ── */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d0f16' }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+              Impacto medible
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#F5F0E8' }}>
+              Nutrición que se nota<br />
+              <span className="italic font-light">en los números.</span>
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
+            {[
+              {
+                metric: '66%',
+                label: 'Más probabilidad de pérdida de productividad en empleados con dieta de bajo valor nutricional',
+                source: 'WHO / British Journal of Nutrition',
+              },
+              {
+                metric: '2.500€',
+                label: 'Coste anual medio por empleado de absentismo relacionado con fatiga y burnout',
+                source: 'EU-OSHA, 2022',
+              },
+              {
+                metric: '↓23%',
+                label: 'Reducción de errores cognitivos al estabilizar la glucemia postprandial con snacks de bajo IG',
+                source: 'Nutrition Reviews, 2021',
+              },
+              {
+                metric: '3:1',
+                label: 'ROI medio por cada euro invertido en programas de nutrición y bienestar corporativo',
+                source: 'Harvard Business Review, 2019',
+              },
+            ].map((stat) => (
+              <div
+                key={stat.metric}
+                className="rounded-2xl p-6 flex flex-col gap-3"
+                style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(201,168,76,0.15)' }}
+              >
+                <p className="font-serif text-4xl font-black" style={{ color: '#C9A84C' }}>
+                  {stat.metric}
+                </p>
+                <p className="text-sm font-light leading-relaxed flex-1" style={{ color: 'rgba(245,240,232,0.7)' }}>
+                  {stat.label}
+                </p>
+                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: 'rgba(245,240,232,0.25)' }}>
+                  {stat.source}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs font-light mt-10 max-w-xl mx-auto" style={{ color: 'rgba(245,240,232,0.3)' }}>
+            No prometemos resultados médicos. Sí un programa diseñado con evidencia para crear hábitos que mejoran la energía, el foco y el bienestar percibido durante la jornada laboral.
+          </p>
+        </div>
+      </section>
+
       {/* ── Los 7 días ── */}
       <section id="programa" className="py-20 md:py-28 px-6 bg-white">
         <div className="max-w-2xl mx-auto">
@@ -476,12 +534,27 @@ export default function CorporateWellnessPage() {
                   name: 'Pilot Team',
                   price: '490',
                   priceCurrency: 'EUR',
-                  description: 'Hasta 25 empleados · 7 días · materiales digitales · informe básico',
+                  description: 'Hasta 25 empleados · 7 días · materiales digitales · lista de compra · informe básico',
                 },
                 {
                   '@type': 'Offer',
                   name: 'Company Challenge',
-                  description: 'Desde 25 empleados · tracking individual · informe agregado · personalización con logo',
+                  price: '12',
+                  priceCurrency: 'EUR',
+                  description: 'Desde 25 empleados · 12€/empleado · tracking individual · informe agregado · personalización con logo',
+                  priceSpecification: {
+                    '@type': 'UnitPriceSpecification',
+                    price: '12',
+                    priceCurrency: 'EUR',
+                    unitText: 'empleado',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  name: 'Premium Corporate',
+                  price: '1500',
+                  priceCurrency: 'EUR',
+                  description: 'Reto completo + sesión online con Food·Mood + adaptación por tipo de equipo: creativo, ventas, dirección, alta presión',
                 },
               ],
             },
