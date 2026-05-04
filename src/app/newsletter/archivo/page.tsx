@@ -102,6 +102,13 @@ const NEWSLETTERS = [
     description: 'Cómo el descenso de estrógenos rompe la cadena glucógeno→Lactobacillus→pH ácido, y por qué el kéfir oral, el lino molido y los arándanos pueden restaurarla.',
     tag:         'Microbioma · Salud íntima',
   },
+  {
+    numero:      '14',
+    slug:        'metabolismo-35',
+    subject:     'Tu metabolismo ya no tiene 25. Pero tampoco necesita dieta.',
+    description: 'Los tres cambios metabólicos a partir de los 35 (músculo, glucosa, cortisol) y el protocolo con evidencia: 30 g de proteína por toma, desayuno proteico y 10 minutos caminando tras comer.',
+    tag:         'Metabolismo · Energía',
+  },
 ]
 
 function NewsletterList() {
@@ -121,7 +128,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 13 ediciones
+            Archivo editorial · 14 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters

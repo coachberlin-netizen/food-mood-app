@@ -11,6 +11,7 @@ import { buildHtml as html10 } from './10-emociones-menopausia'
 import { buildHtml as html11 } from './11-fermentos-del-mundo'
 import { buildHtml as html12 } from './12-mosaico-emocional'
 import { buildHtml as html13 } from './13-lactobacillus-ph-vaginal'
+import { buildHtml as html14 } from './14-metabolismo-35'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -35,4 +36,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 11, slug: 'fermentos-del-mundo', subject: 'De Japón a Perú. Lo que seis civilizaciones aprendieron sobre el eje intestino-cerebro. 🌍', buildHtml: html11 },
   { numero: 12, slug: 'mosaico-emocional', subject: 'Tu semana tiene un color. ¿Sabes cuál es? 🎨', buildHtml: html12 },
   { numero: 13, slug: 'lactobacillus-ph-vaginal', subject: 'El kéfir del desayuno llega donde nadie te dijo que llegaba. 🌸', buildHtml: html13 },
+  { numero: 14, slug: 'metabolismo-35', subject: 'Tu metabolismo ya no tiene 25. Pero tampoco necesita dieta. ⚡', buildHtml: html14 },
 ]
