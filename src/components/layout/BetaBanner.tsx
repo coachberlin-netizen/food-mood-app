@@ -39,7 +39,7 @@ export function BetaBanner() {
             lineHeight: 1.4,
           }}
         >
-          Plataforma en acceso anticipado · Versión en construcción activa
+          Plataforma en acceso anticipado
         </span>
       </div>
 
