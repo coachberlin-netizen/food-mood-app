@@ -109,6 +109,13 @@ const NEWSLETTERS = [
     description: 'Los tres cambios metabólicos a partir de los 35 (músculo, glucosa, cortisol) y el protocolo con evidencia: 30 g de proteína por toma, desayuno proteico y 10 minutos caminando tras comer.',
     tag:         'Metabolismo · Energía',
   },
+  {
+    numero:      '15',
+    slug:        'reset-mitocondrial',
+    subject:     'El cansancio que no se va con dormir. CoQ10, magnesio y omega-3.',
+    description: 'La fatiga crónica como problema de bioquímica mitocondrial: CoQ10 cae un 50% entre los 20 y los 50 años, el ATP necesita magnesio para activarse y las membranas necesitan DHA para ser eficientes.',
+    tag:         'Energía · Mitocondrias',
+  },
 ]
 
 function NewsletterList() {
@@ -128,7 +135,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 14 ediciones
+            Archivo editorial · 15 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters

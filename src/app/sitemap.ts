@@ -101,6 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { slug: 'mosaico-emocional',               date: '2026-06-15' },
     { slug: 'lactobacillus-ph-vaginal',         date: '2026-06-22' },
     { slug: 'metabolismo-35',                    date: '2026-06-29' },
+    { slug: 'reset-mitocondrial',                date: '2026-07-06' },
   ].map(nl => ({
     url:             `${baseUrl}/newsletter/${nl.slug}`,
     lastModified:    new Date(nl.date),
