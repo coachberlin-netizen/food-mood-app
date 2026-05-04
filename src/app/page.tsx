@@ -342,6 +342,117 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 2b. TRANQUILIDAD — plato concreto ──────────────────────────────── */}
+      <section aria-label="Un plato para la tranquilidad" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+
+          {/* Texto */}
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.11 } } }}
+            className="space-y-6"
+          >
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Estado · Calma
+            </motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-[1.1]">
+              ¿Más tranquilidad?{" "}
+              <span className="italic font-light" style={{ color: "#6B2737" }}>Hay un plato para eso.</span>
+            </motion.h2>
+            <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>
+              El miso aporta GABA — el neurotransmisor inhibidor que frena el exceso de activación. El aguacate completa con magnesio, el mineral que el sistema nervioso consume primero cuando hay tensión. El sésamo cierra el triángulo con glicina, que ralentiza las señales de alerta.
+            </motion.p>
+            <motion.p variants={fade} className="text-sm font-light italic" style={{ color: "rgba(107,39,55,0.35)" }}>
+              No es intuición. Es bioquímica que ya existe en tu nevera.
+            </motion.p>
+            <motion.div variants={fade}>
+              <Link
+                href="/test"
+                className="inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:opacity-70"
+                style={{ color: "#6B2737" }}
+              >
+                Descubre tu plato de hoy — 30 segundos <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Tarjeta receta */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="rounded-3xl overflow-hidden shadow-sm"
+            style={{ border: "1px solid rgba(107,39,55,0.09)" }}
+          >
+            {/* Header */}
+            <div className="px-7 pt-7 pb-5" style={{ backgroundColor: "#2d0f16" }}>
+              <div className="flex items-center gap-2 mb-4">
+                <span
+                  className="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
+                  style={{ backgroundColor: "rgba(90,155,138,0.22)", color: "#7BBFAA" }}
+                >
+                  Calma
+                </span>
+                <span className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.3)" }}>· 15 min · fácil</span>
+              </div>
+              <p className="font-serif text-xl font-bold leading-snug" style={{ color: "#F5F0E8" }}>
+                Bol de miso, aguacate y sésamo
+              </p>
+              <p className="text-xs font-light mt-2" style={{ color: "rgba(245,240,232,0.45)" }}>
+                GABA · Magnesio · Glicina — el triángulo de la calma
+              </p>
+            </div>
+
+            {/* Mecanismos */}
+            <div className="px-7 py-5 border-b" style={{ backgroundColor: "white", borderColor: "rgba(107,39,55,0.07)" }}>
+              <div className="flex flex-col gap-3">
+                {[
+                  { mol: "GABA", fuente: "Miso (fermentado)", efecto: "Inhibe la sobreactivación neuronal. Mismo mecanismo que los ansiolíticos, sin receta." },
+                  { mol: "Magnesio", fuente: "Aguacate", efecto: "Cofactor de más de 300 reacciones nerviosas. El estrés lo depleta primero." },
+                  { mol: "Glicina", fuente: "Sésamo tostado", efecto: "Aminoácido inhibidor que ralentiza las señales de alerta en el tálamo." },
+                ].map(({ mol, fuente, efecto }) => (
+                  <div key={mol} className="flex items-start gap-3">
+                    <span
+                      className="shrink-0 mt-0.5 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                      style={{ backgroundColor: "rgba(90,155,138,0.1)", color: "#4A7B6B" }}
+                    >
+                      {mol}
+                    </span>
+                    <div>
+                      <span className="text-[10px] font-semibold" style={{ color: "rgba(107,39,55,0.5)" }}>{fuente} · </span>
+                      <span className="text-[11px] font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.65)" }}>{efecto}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Ingredientes rápidos */}
+            <div className="px-7 py-5" style={{ backgroundColor: "#FAFAF5" }}>
+              <p className="text-[9px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(107,39,55,0.3)" }}>
+                Lo que necesitas
+              </p>
+              <div className="flex flex-wrap gap-2 mb-5">
+                {["🥑 Aguacate", "🍶 Pasta de miso", "🌿 Edamame", "⚪ Sésamo tostado", "🍋 Limón", "🫚 AOVE"].map(i => (
+                  <span key={i} className="text-[11px] px-2.5 py-1 rounded-full font-light" style={{ backgroundColor: "rgba(107,39,55,0.06)", color: "rgba(107,39,55,0.6)" }}>
+                    {i}
+                  </span>
+                ))}
+              </div>
+              <Link
+                href="/paleta/calma"
+                className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
+                style={{ color: "#4A7B6B" }}
+              >
+                Ver recetas para la calma <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* ── 3. CÓMO FUNCIONA ────────────────────────────────────────────────── */}
       <section id="como-funciona" aria-label="Cómo funciona Food·Mood" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
         <div className="max-w-5xl mx-auto">
