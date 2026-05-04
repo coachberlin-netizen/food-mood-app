@@ -62,7 +62,7 @@ export function BetaBanner() {
           flexShrink: 0,
         }}
       >
-        Pre-Seed · €140K abierto
+        Inversores · Pre-Seed abierto
         <span style={{ fontSize: 13 }}>→</span>
       </Link>
     </div>
