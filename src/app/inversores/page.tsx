@@ -149,7 +149,7 @@ function InvestorDeck() {
           <div style={{ fontFamily: 'serif', fontSize: 24, fontWeight: 700, letterSpacing: '-0.03em', color: '#1A1612', lineHeight: 1 }}>
             Food<span style={{ color: '#3A8C62' }}>·</span>Mood
           </div>
-          <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.12em', color: '#6B6358', textTransform: 'uppercase', textAlign: 'right', lineHeight: 1.7 }}>
+          <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.12em', color: '#3D3028', textTransform: 'uppercase', textAlign: 'right', lineHeight: 1.7 }}>
             Pre-Seed Investment Brief<br />
             May 2026 · WomenInvestEU Femtech · Confidential
           </div>
@@ -158,10 +158,10 @@ function InvestorDeck() {
         <h1 style={{ fontFamily: 'serif', fontSize: 16, fontWeight: 700, color: '#1A1612', marginBottom: 5 }}>The Ask</h1>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 16 }}>
           <div>
-            <p style={{ fontSize: 10.5, color: '#6B6358', lineHeight: 1.65 }}>
+            <p style={{ fontSize: 10.5, color: '#3D3028', lineHeight: 1.65 }}>
               Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>post-money SAFE</strong> — <strong style={{ color: '#1A1612' }}>€1.4M valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>. Standard European pre-seed terms. The SAFE avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
             </p>
-            <p style={{ fontSize: 10, color: '#6B6358', lineHeight: 1.65, marginTop: 8 }}>
+            <p style={{ fontSize: 10, color: '#3D3028', lineHeight: 1.65, marginTop: 8 }}>
               Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At a €1.4M cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
             </p>
           </div>
@@ -175,11 +175,11 @@ function InvestorDeck() {
               ['Use of funds', '18-month focused launch'],
             ].map(([k, v]) => (
               <div key={k} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F0EDE4', padding: '5px 0', fontSize: 9 }}>
-                <span style={{ color: '#9A9088' }}>{k}</span>
+                <span style={{ color: '#4A3E38' }}>{k}</span>
                 <span style={{ color: '#1A1612', fontWeight: 600, fontFamily: 'monospace' }}>{v}</span>
               </div>
             ))}
-            <p style={{ fontSize: 8, color: '#B8B0A4', marginTop: 10, fontStyle: 'italic', lineHeight: 1.5 }}>
+            <p style={{ fontSize: 8, color: '#5A4E48', marginTop: 10, fontStyle: 'italic', lineHeight: 1.5 }}>
               The risk is not &quot;can we build this&quot; — the product is already built. It is &quot;can we launch and scale it the right way.&quot; That is exactly what this round funds.
             </p>
           </div>
@@ -204,7 +204,7 @@ function InvestorDeck() {
         </div>
 
         <SectionLabel>Business Model</SectionLabel>
-        <p style={{ fontSize: 9.5, color: '#6B6358', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
+        <p style={{ fontSize: 9.5, color: '#3D3028', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
           Challenge-first acquisition → subscription retention. Two distinct revenue streams that reinforce each other: challenges drive the first payment and completion; subscriptions capture the retained LTV.
         </p>
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, marginTop: 6 }}>
@@ -213,7 +213,7 @@ function InvestorDeck() {
             ['2. Premium Subscription (recurring revenue base):', '€9/month (or €7/month quarterly) for full recipe library, personalised emotional palette, 90-day history, and ongoing challenge access. The MRR engine. Challenge-to-subscription is the core conversion funnel; the 18-month subscriber milestone is the output of that funnel.'],
             ['3. Corporate Wellness (B2B, high-ticket):', 'Group challenges and team tracking for companies — pilot from €490, per-employee from €12/employee. One mid-size corporate contract equals the revenue of 50+ monthly subscribers in a single transaction.'],
           ].map(([label, text]) => (
-            <li key={label} style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.55, paddingLeft: 14, position: 'relative' }}>
+            <li key={label} style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.55, paddingLeft: 14, position: 'relative' }}>
               <span style={{ position: 'absolute', left: 0, color: '#3A8C62', fontWeight: 700 }}>·</span>
               <strong style={{ color: '#1A1612' }}>{label}</strong>{' '}{text}
             </li>
@@ -221,14 +221,14 @@ function InvestorDeck() {
         </ul>
 
         <SectionLabel>Competitive Landscape</SectionLabel>
-        <p style={{ fontSize: 9.5, color: '#6B6358', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
+        <p style={{ fontSize: 9.5, color: '#3D3028', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
           No direct competitor operates at the intersection of Spanish-language, gut-brain science, and women 45+. The market is fragmented between English-first trackers and generic wellness apps.
         </p>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 6, fontSize: 9.5 }}>
           <thead>
             <tr>
               {['App', 'Language', 'Gut-brain science', 'Women 45+', 'Spanish market', 'Model', '€/mo'].map(h => (
-                <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#B8B0A4', padding: '0 8px 6px 0', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
+                <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5A4E48', padding: '0 8px 6px 0', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -241,13 +241,13 @@ function InvestorDeck() {
               ['Elektra Health','EN only',     '△', '✓', '✗', 'Subscription',  '$15+'],
             ].map(([app, lang, gut, w45, es, model, price]) => (
               <tr key={app} style={{ borderBottom: '1px solid #F0EDE4' }}>
-                <td style={{ padding: '6px 8px 6px 0', color: '#4A4540', fontSize: 9.5 }}>{app}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: '#6B6358', fontSize: 9 }}>{lang}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: '#2A2218', fontSize: 9.5 }}>{app}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: '#3D3028', fontSize: 9 }}>{lang}</td>
                 <td style={{ padding: '6px 8px 6px 0', color: gut === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{gut}</td>
                 <td style={{ padding: '6px 8px 6px 0', color: w45 === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{w45}</td>
                 <td style={{ padding: '6px 8px 6px 0', color: es === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{es}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: '#6B6358', fontSize: 9 }}>{model}</td>
-                <td style={{ padding: '6px 0', color: '#6B6358', fontSize: 9, fontFamily: 'monospace' }}>{price}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: '#3D3028', fontSize: 9 }}>{model}</td>
+                <td style={{ padding: '6px 0', color: '#3D3028', fontSize: 9, fontFamily: 'monospace' }}>{price}</td>
               </tr>
             ))}
             <tr style={{ background: '#F0EDE4' }}>
@@ -261,7 +261,7 @@ function InvestorDeck() {
             </tr>
           </tbody>
         </table>
-        <p style={{ fontSize: 8.5, color: '#B8B0A4', marginTop: 6, fontStyle: 'italic', lineHeight: 1.5 }}>
+        <p style={{ fontSize: 8.5, color: '#5A4E48', marginTop: 6, fontStyle: 'italic', lineHeight: 1.5 }}>
           △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for perimenopause/menopause.
         </p>
 
@@ -270,7 +270,7 @@ function InvestorDeck() {
           <thead>
             <tr>
               {['Category', 'Amount', '%', 'Note'].map(h => (
-                <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#B8B0A4', padding: '0 0 6px', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
+                <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5A4E48', padding: '0 0 6px', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -284,18 +284,18 @@ function InvestorDeck() {
               <tr key={cat} style={{ borderBottom: '1px solid #F0EDE4' }}>
                 <td style={{ padding: '7px 0', color: '#1A1612', fontSize: 10 }}>{cat}</td>
                 <td style={{ padding: '7px 16px 7px 0', fontFamily: 'monospace', fontSize: 9.5, color: '#3A8C62', fontWeight: 500, textAlign: 'right' }}>{amt}</td>
-                <td style={{ padding: '7px 16px 7px 0', textAlign: 'right', fontSize: 9.5, color: '#6B6358' }}>{pct}</td>
-                <td style={{ fontSize: 9, color: '#B8B0A4', fontStyle: 'italic' }}>{note}</td>
+                <td style={{ padding: '7px 16px 7px 0', textAlign: 'right', fontSize: 9.5, color: '#3D3028' }}>{pct}</td>
+                <td style={{ fontSize: 9, color: '#5A4E48', fontStyle: 'italic' }}>{note}</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <p style={{ fontSize: 8.5, color: '#B8B0A4', marginTop: 8, fontStyle: 'italic', lineHeight: 1.5 }}>
+        <p style={{ fontSize: 8.5, color: '#5A4E48', marginTop: 8, fontStyle: 'italic', lineHeight: 1.5 }}>
           Operations includes founder minimum salary of €1,500/month (€27K over 18 months) plus fixed costs. Full compensation to be normalised at Seed stage.
         </p>
 
         <SectionLabel>Milestones (post-close)</SectionLabel>
-        <p style={{ fontSize: 9.5, color: '#6B6358', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
+        <p style={{ fontSize: 9.5, color: '#3D3028', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
           Dates are relative to funding close. Round expected to close H2 2026.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: 6 }}>
@@ -313,7 +313,7 @@ function InvestorDeck() {
           ))}
         </div>
 
-        <p style={{ fontSize: 8.5, color: '#B8B0A4', marginTop: 10, fontStyle: 'italic', lineHeight: 1.6, borderLeft: '2px solid #E0EDE6', paddingLeft: 10 }}>
+        <p style={{ fontSize: 8.5, color: '#5A4E48', marginTop: 10, fontStyle: 'italic', lineHeight: 1.6, borderLeft: '2px solid #E0EDE6', paddingLeft: 10 }}>
           Series A horizon (not factored into this round): at 10,000+ active users, GDPR-compliant aggregated behavioural data — correlating food, mood, hormonal phase, and habit — becomes a licensable asset for public health research and nutraceutical innovation. The dataset Food·Mood is building has no equivalent in Spanish-language women&apos;s health.
         </p>
 
@@ -321,10 +321,10 @@ function InvestorDeck() {
         <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 8, padding: '20px 24px', marginTop: 8 }}>
           <div style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', marginBottom: 3 }}>Susana Ferreras Diez</div>
           <div style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.1em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 10 }}>CEO &amp; Founder</div>
-          <p style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.65 }}>
+          <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>
             Psychologist · MSc Food Biotechnology · MSc Gerontology · Creator of a kombucha brand and gut-health practitioner. Full-stack developer who built the entire Food·Mood MVP herself: Next.js, Supabase, Stripe, Vercel. Author of <em>&quot;Food·Mood: El placer de estar bien&quot;</em> (2026, pre-publication).
           </p>
-          <p style={{ fontFamily: 'serif', fontSize: 10.5, fontStyle: 'italic', color: '#6B6358', marginTop: 10, lineHeight: 1.55, borderLeft: '2px solid #3A8C62', paddingLeft: 12 }}>
+          <p style={{ fontFamily: 'serif', fontSize: 10.5, fontStyle: 'italic', color: '#3D3028', marginTop: 10, lineHeight: 1.55, borderLeft: '2px solid #3A8C62', paddingLeft: 12 }}>
             &quot;This is not a founder who hired a team to build her vision. This is a founder who is the product — the science, the code, the content, and the community.&quot;
           </p>
         </div>
@@ -340,7 +340,7 @@ function InvestorDeck() {
             'Demand validated through founder coaching practice and Umyko wellness community (paying clients)',
             'First investor matchmaking: WomenInvestEU Femtech — June 2026',
           ].map(item => (
-            <li key={item} style={{ fontSize: 10, color: '#4A4540', lineHeight: 1.5, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+            <li key={item} style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.5, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3A8C62', flexShrink: 0, marginTop: 5, display: 'inline-block' }} />
               {item}
             </li>
@@ -352,7 +352,7 @@ function InvestorDeck() {
             Susana Ferreras Diez · CEO &amp; Founder<br />
             www.food-mood.app · info@food-mood.app
           </div>
-          <div style={{ fontSize: 7, color: '#B8B0A4', textAlign: 'right', maxWidth: 340, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 7, color: '#5A4E48', textAlign: 'right', maxWidth: 340, lineHeight: 1.5 }}>
             This document is confidential and intended solely for the recipient. All projections are forward-looking estimates and not guarantees of future performance.
           </div>
         </div>
@@ -379,7 +379,7 @@ function InvestorDeck() {
   )
 }
 
-const bodyP: React.CSSProperties = { fontSize: 10, color: '#4A4540', lineHeight: 1.68, marginTop: 8 }
+const bodyP: React.CSSProperties = { fontSize: 10.5, color: '#1A1612', lineHeight: 1.72, marginTop: 8 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
