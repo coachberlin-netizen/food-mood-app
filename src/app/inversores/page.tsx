@@ -265,6 +265,110 @@ function InvestorDeck() {
           △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for perimenopause/menopause.
         </p>
 
+        {/* Noom deep-dive */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginTop: 18, marginBottom: 8 }}>Noom: Proof of Category — and the Gap They Left</p>
+        <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 10 }}>
+          <strong style={{ color: '#1A1612' }}>Noom has raised over $657M and reached ~$1B ARR</strong> by combining psychology, nutrition, and technology. They proved the category is massive. They also proved where the model stops — and the map of what they never built.
+        </p>
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 10, fontSize: 9.5 }}>
+          <thead>
+            <tr>
+              {['Dimension', 'Noom', 'Food·Mood'].map((h, i) => (
+                <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: i === 2 ? '#3A8C62' : '#5A4E48', padding: '0 10px 6px 0', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Language', 'English-first', 'Native Spanish, globally — 95M women 45+ Noom does not serve'],
+              ['Focus', 'Weight-loss centric', 'Emotional wellbeing — no scales, no calorie counting, no guilt'],
+              ['Price', '$17–70 / month', '€7–9 / month — accessible across Spain, LATAM, US Hispanic'],
+              ['Coaching model', '3,000+ human coaches (high fixed cost)', 'AI coaching — scalable from day one'],
+              ['Science', 'Behavioural psychology (CBT)', 'Gut-brain neuroscience + psychobiotics — the next frontier'],
+              ['Core product', 'Generic meal tracking', 'Psychobiotic recipes mapped to mood + proprietary Food·Mood Index'],
+            ].map(([dim, noom, fm]) => (
+              <tr key={dim} style={{ borderBottom: '1px solid #F0EDE4' }}>
+                <td style={{ padding: '6px 10px 6px 0', color: '#5A4E48', fontSize: 8, fontFamily: 'monospace', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{dim}</td>
+                <td style={{ padding: '6px 10px 6px 0', color: '#3D3028', fontSize: 9, lineHeight: 1.5 }}>{noom}</td>
+                <td style={{ padding: '6px 0', color: '#1A1612', fontSize: 9, lineHeight: 1.5, fontWeight: 500 }}>{fm}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* GLP-1 callout */}
+        <div style={{ background: '#FFF8EE', border: '1px solid #E8D9B0', borderRadius: 5, padding: '10px 14px', marginBottom: 12 }}>
+          <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 5 }}>Market shift · GLP-1 agonists (Ozempic, Wegovy)</p>
+          <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65 }}>
+            GLP-1 agonists producing 15–20% body weight reduction are rapidly displacing behavioral weight-management apps for high-intent users. Noom&apos;s core value proposition is under structural pressure from pharmaceutical substitution. <strong style={{ color: '#1A1612' }}>Food·Mood operates in a different lane</strong> — emotional wellbeing, gut-brain health, and quality of life are not replaceable by a prescription. As GLP-1 adoption grows, demand for a quality-of-life anchor (not just a number on a scale) will increase.
+          </p>
+        </div>
+
+        <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 4, fontStyle: 'italic' }}>
+          Noom built a $3.7B company serving English-speaking women who want to lose weight.<br />
+          <strong style={{ color: '#1A1612' }}>Food·Mood is building the first company for Spanish-speaking women 45+ who want to feel better.</strong>
+        </p>
+        <p style={{ fontSize: 9, color: '#5A4E48', lineHeight: 1.6, fontStyle: 'italic' }}>
+          At an €800K cap, this is not a bet against a giant. It is a bet on the beach they left empty.
+        </p>
+
+        {/* Psychological framework — collapsible */}
+        <details style={{ marginTop: 16, marginBottom: 4 }}>
+          <summary style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3A8C62', padding: '10px 14px', background: '#F0EDE4', borderRadius: 4, cursor: 'pointer', border: '1px solid #E0EDE6', userSelect: 'none' }}>
+            Scientific &amp; Psychological Foundation — 6 Theoretical Pillars · Click to expand
+          </summary>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderTop: 'none', borderRadius: '0 0 4px 4px', padding: '18px 20px' }}>
+            <p style={{ fontSize: 9.5, color: '#3D3028', lineHeight: 1.65, marginBottom: 14, fontStyle: 'italic' }}>
+              Food·Mood is not built on a single theory. It is an interdisciplinary ecosystem where six established frameworks converge — each one mapping directly to a feature of the product.
+            </p>
+
+            {/* Module → theory mapping table */}
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 18, fontSize: 9 }}>
+              <thead>
+                <tr>
+                  {['App Module', 'Theory', 'Key Author'].map(h => (
+                    <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5A4E48', padding: '0 10px 6px 0', textAlign: 'left', borderBottom: '1px solid #E0EDE6', fontWeight: 400 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Emotional palette + granularity', 'Theory of Constructed Emotion', 'Lisa Feldman Barrett'],
+                  ['Emotional triads', 'Evolutionary Theory of Emotions', 'Robert Plutchik'],
+                  ['Food → mood response', 'Somatic Marker Hypothesis', 'Antonio Damasio'],
+                  ['Sensory stress modulation', 'Two-Factor Theory of Emotion', 'Schachter &amp; Singer'],
+                  ['Food habit formation', 'Behaviourism / Conditioning', 'Pavlov · Skinner · Mowrer'],
+                  ['Gut-brain axis', 'Extended Embodied Cognition', 'Varela · Damasio · current research'],
+                ].map(([mod, theory, author]) => (
+                  <tr key={mod} style={{ borderBottom: '1px solid #F0EDE4' }}>
+                    <td style={{ padding: '6px 10px 6px 0', color: '#1A1612', fontSize: 9, fontWeight: 500 }} dangerouslySetInnerHTML={{ __html: mod }} />
+                    <td style={{ padding: '6px 10px 6px 0', color: '#3A8C62', fontSize: 9 }} dangerouslySetInnerHTML={{ __html: theory }} />
+                    <td style={{ padding: '6px 0', color: '#5A4E48', fontSize: 9, fontFamily: 'monospace' }} dangerouslySetInnerHTML={{ __html: author }} />
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Theory summaries */}
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 10 }}>Macro frame — Embodied Cognition</p>
+            <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 14 }}>The mind does not exist in isolation from the body. Gut states, posture, and the senses co-construct cognitive and emotional experience. Eating is not just nutrition — it is an act of embodied emotional regulation. The &quot;gut feeling&quot; literally acts as a background modulator for all decision-making. This is the scientific legitimacy for everything Food·Mood does.</p>
+
+            {[
+              ['Theory of Constructed Emotion (Barrett)', 'Emotions are not universal and fixed. The brain constructs them predictively in the moment, using learned concepts and prior experience. Emotional granularity — the ability to differentiate emotions precisely — directly improves wellbeing and stress management. Training users to name specific emotional states (the Food·Mood palette) is a therapeutically validated intervention.'],
+              ['Somatic Marker Hypothesis (Damasio)', 'Somatic markers are bodily signals — tension, nausea, warmth, fullness — that the brain associates with past situations and outcomes, guiding future decisions consciously and non-consciously. This gives scientific grounding to the core claim: certain foods generate learned emotional responses that influence behaviour.'],
+              ['Two-Factor Theory (Schachter & Singer)', 'Emotion results from two factors: physiological arousal + the cognitive label the person assigns to that arousal. Applied to Food·Mood: stress generates physical arousal that users can learn to re-label through the sensory experience of eating, modulating the resulting emotional state.'],
+              ['Behaviourism & Conditioning (Pavlov · Skinner · Mowrer)', 'Habits form through stimulus-response-reward associations. Food·Mood creates new pleasurable conditionings between specific foods and positive emotional states. Mowrer\'s two-factor theory explains habit persistence — why the challenge model works: completion generates emotional reward that drives return behaviour.'],
+              ['Plutchik\'s Wheel of Emotions', '8 basic emotions organised by similarity, polarity, and intensity. Complex emotions are combinations of the basics — giving logical structure to the emotional palette and triads. This positions Food·Mood within the Evolutionary Psychology of Emotions, a well-established academic tradition.'],
+              ['Applied Sensory Neuroscience', 'Within 3 seconds of tasting a food, the brain reaches peak emotional activation. The interplay between the amygdala (emotions) and the gustatory cortex explains why the same food &quot;tastes different&quot; depending on prior emotional state — and vice versa. This validates the bidirectionality of the food-mood model.'],
+            ].map(([title, text]) => (
+              <div key={title} style={{ marginBottom: 12, paddingLeft: 10, borderLeft: '2px solid #E0EDE6' }}>
+                <p style={{ fontSize: 9.5, color: '#1A1612', fontWeight: 600, marginBottom: 3 }}>{title}</p>
+                <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65 }} dangerouslySetInnerHTML={{ __html: text }} />
+              </div>
+            ))}
+          </div>
+        </details>
+
         <SectionLabel>Use of Funds</SectionLabel>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 6, fontSize: 10 }}>
           <thead>
