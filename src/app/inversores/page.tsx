@@ -348,34 +348,156 @@ function InvestorDeck() {
         </ul>
 
         <SectionLabel>Due Diligence Q&amp;A</SectionLabel>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 8 }}>
-          {[
-            {
-              q: 'Is the founder fully committed? The €1,500/month salary suggests other income sources.',
-              a: 'The €1,500/month salary for the first 18 months is the minimum viable amount to maintain exclusive focus on Food·Mood without burning personal reserves. This reflects capital discipline — 87% of the round goes directly to product, growth, and validation — not lack of commitment. Unlike founders who pay themselves €4–5K/month at pre-seed and burn runway in 12 months, this structure maximises runway length. Full market-rate compensation will normalise at Seed stage.',
-            },
-            {
-              q: 'Is this a solo-founder risk?',
-              a: 'No. I have a co-founder / partner handling administration, operations, and compliance. My role covers product, science, technology, and content; theirs covers the operational infrastructure that allows me to build. This division mitigates "bus factor" risk — the company does not depend on a single person to function.',
-            },
-            {
-              q: "What is the founder's prior financial track record? Was the kombucha brand profitable?",
-              a: 'The kombucha brand was highly profitable. We sold the recipes and operations to pivot to digital — a deliberate strategic exit, not a failure shutdown. I remain a food tech consultant specialising in kombucha (recipes, operations, admin, scaling, and food safety), which provides supplementary income that enables the minimum salary at Food·Mood without distracting from the core focus. This background is an asset: it demonstrates the ability to build profitable food/wellness businesses, execute exits, and maintain industry relationships that can open doors for the B2B Corporate Wellness channel.',
-            },
-            {
-              q: 'Why is the valuation cap set at €800K?',
-              a: 'Lowering the cap to €800,000 is a deliberate strategic choice, not a sign of weakness. In the European pre-seed market (2025–2026), deals with an MVP but no user traction typically close between €600K–€1.0M. At €800K with a 20% discount, we are offering early investors an attractive entry point into a category with no established competitor, clear upside at Seed conversion (€800K effective pre-money vs. a potential Seed valuation of €3–5M), and aligned incentives: I prefer higher dilution now and a committed investor table, rather than an inflated cap that delays closing or creates down-round tension later.',
-            },
-          ].map(({ q, a }) => (
-            <div key={q} style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
-              <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>
-                Q — {q}
-              </p>
-              <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>
-                {a}
-              </p>
+
+        {/* Founder & Terms */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginTop: 14, marginBottom: 8 }}>Founder &amp; Terms</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 18 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Is the founder fully committed? The €1,500/month salary suggests other income sources.</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>The €1,500/month salary for the first 18 months is the minimum viable amount to maintain exclusive focus on Food·Mood without burning personal reserves. This reflects capital discipline — 87% of the round goes directly to product, growth, and validation — not lack of commitment. Unlike founders who pay themselves €4–5K/month at pre-seed and burn runway in 12 months, this structure maximises runway length. Full market-rate compensation will normalise at Seed stage.</p>
+          </div>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Is this a solo-founder risk?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>No. I have a co-founder / partner handling administration, operations, and compliance. My role covers product, science, technology, and content; theirs covers the operational infrastructure that allows me to build. This division mitigates &quot;bus factor&quot; risk — the company does not depend on a single person to function.</p>
+          </div>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — What is the founder&apos;s prior financial track record? Was the kombucha brand profitable?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>The kombucha brand was highly profitable. We sold the recipes and operations to pivot to digital — a deliberate strategic exit, not a failure shutdown. I remain a food tech consultant specialising in kombucha (recipes, operations, admin, scaling, and food safety), which provides supplementary income that enables the minimum salary at Food·Mood without distracting from the core focus. This background is an asset: it demonstrates the ability to build profitable food/wellness businesses, execute exits, and maintain industry relationships that can open doors for the B2B Corporate Wellness channel.</p>
+          </div>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Why is the valuation cap set at €800K?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>Lowering the cap to €800,000 is a deliberate strategic choice, not a sign of weakness. In the European pre-seed market (2025–2026), deals with an MVP but no user traction typically close between €600K–€1.0M. At €800K with a 20% discount, we are offering early investors an attractive entry point into a category with no established competitor, clear upside at Seed conversion (€800K effective pre-money vs. a potential Seed valuation of €3–5M), and aligned incentives: I prefer higher dilution now and a committed investor table, rather than an inflated cap that delays closing or creates down-round tension later.</p>
+          </div>
+        </div>
+
+        {/* Traction & Validation */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Traction &amp; Validation</p>
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Why don&apos;t you have users yet? &quot;Intentional pre-launch&quot; sounds like an excuse for having no traction.</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>The MVP is built, technically tested, and payments-integrated. The decision not to open to mass users yet is deliberate: I prefer to launch with the round closed so I can execute growth with dedicated budget (€35K), validated scientific content (€20K), and capacity to respond to feedback quickly. Launching &quot;just to launch&quot; with limited resources generates messy traction that does not convert.</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 8 }}>What does exist: an active community across newsletter, WhatsApp, and Telegram; demand validated through the founder coaching practice and Umyko wellness community (paying clients); and 3 challenges built with closed beta tester feedback. We are not starting from zero — we are starting from qualitative validation, not product metrics yet.</p>
+            <p style={{ fontSize: 10, color: '#1A1612', lineHeight: 1.65, marginTop: 8, fontWeight: 600 }}>Post-close metrics (90 days): 100 paying users · D7 retention &gt;40% · NPS &gt;50.</p>
+          </div>
+        </div>
+
+        {/* Market & Target Segment */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Market &amp; Target Segment</p>
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Why such a specific niche? Isn&apos;t women 45+ too small?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 8 }}>It is not small — it is huge and underserved. ~95M Spanish-speaking women 45+ globally, with zero personalised nutritional support in their language. This segment has:</p>
+            {[
+              'High relative purchasing power (independent children, paid-off homes, available time)',
+              'High health payment motivation (perimenopause, menopause, longevity)',
+              'Low digital competition — no Spanish-language wellness app addresses the gut-brain axis for this life stage',
+            ].map(item => (
+              <div key={item} style={{ display: 'flex', gap: 8, marginBottom: 4 }}>
+                <span style={{ color: '#3A8C62', fontWeight: 700, flexShrink: 0, fontSize: 10 }}>·</span>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.55, margin: 0 }}>{item}</p>
+              </div>
+            ))}
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 10, fontStyle: 'italic' }}>This is not a narrow niche. It is an empty beach where we will be the first footprint.</p>
+          </div>
+        </div>
+
+        {/* Competition & Moat */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Competition &amp; Moat</p>
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — What prevents Noom or Lifesum from copying this tomorrow?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 10 }}>Three barriers:</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
+                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>1. Spanish-language scientific content</p>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Replicable, but requires 18–24 months of curation. We already have 3 challenges, 7 audio library episodes, and a book in pre-publication.</p>
+              </div>
+              <div style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
+                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>2. The founder as product</p>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Noom cannot copy a psychologist + food biotechnologist + gerontologist + full-stack developer who lives this message. Authenticity does not scale easily.</p>
+              </div>
+              <div style={{ paddingLeft: 12, borderLeft: '2px solid #3A8C62' }}>
+                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>3. The Food·Mood Dataset</p>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>At 10,000+ users, our correlated food, mood, hormonal phase, and habit data (GDPR-compliant, aggregated) becomes a licensable asset for public health research and nutraceutical innovation. This dataset has no equivalent in Spanish-language women&apos;s health. Barrier #3 is what transforms us from an app into a data platform — it is not on any competitor&apos;s current roadmap.</p>
+              </div>
             </div>
-          ))}
+          </div>
+        </div>
+
+        {/* Business Model & Unit Economics */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Business Model &amp; Unit Economics</p>
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — €9/month sounds cheap. How do you reach €2.4M ARR at those prices?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 8 }}>€9/month is the retention anchor, not the growth engine. The model is challenge-first acquisition → subscription retention:</p>
+            {[
+              'Challenge €19–29: low-friction entry point, high intent, clear promise (energy, focus, hormonal reset, sleep)',
+              'Challenge → subscription conversion: target 15% (wellness app benchmark)',
+              'Subscription retention: target 85% at 3 months · 70% at 12 months',
+              'Corporate Wellness: €490 pilot / €12 per employee — one mid-size contract = 50+ B2C subscribers in a single transaction',
+            ].map(item => (
+              <div key={item} style={{ display: 'flex', gap: 8, marginBottom: 4 }}>
+                <span style={{ color: '#3A8C62', fontWeight: 700, flexShrink: 0, fontSize: 10 }}>·</span>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.55, margin: 0 }}>{item}</p>
+              </div>
+            ))}
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 10 }}>The path to €2.4M ARR is not €9 × 22,000 pure subscribers. It is 22,000 subscribers who entered through challenges, completed transformations, and stayed because the Food·Mood Index demonstrates measurable value. Estimated LTV: <strong style={{ color: '#1A1612' }}>€150–200</strong> vs. target CAC: <strong style={{ color: '#1A1612' }}>&lt;€40</strong>.</p>
+          </div>
+        </div>
+
+        {/* Use of Funds & Runway */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Use of Funds &amp; Runway</p>
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — €140K for 18 months seems tight. What happens if you don&apos;t hit Q3 2027 milestones?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 8 }}>The runway is designed with buffers:</p>
+            {[
+              'Conservative scenario: If we only reach 1,000 challenges and 200 subscribers at 18 months, we generate ~€45K revenue — extending runway by 3–4 additional months.',
+              'Pivot option: If B2C does not scale as expected, Corporate Wellness has shorter sales cycles and higher ticket size. A single B2B pilot at €490 = 16 B2C subscriber equivalents.',
+              'Cost structure: 75% of costs are variable or reducible — marketing is pausable, content is founder-generated, infrastructure is serverless on Vercel / Supabase.',
+            ].map(item => (
+              <div key={item} style={{ display: 'flex', gap: 8, marginBottom: 4 }}>
+                <span style={{ color: '#3A8C62', fontWeight: 700, flexShrink: 0, fontSize: 10 }}>·</span>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.55, margin: 0 }}>{item}</p>
+              </div>
+            ))}
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 10 }}>We do not need to hit Q3 2027 milestones to survive. We need to hit them to raise Seed on strong terms. If we miss, we have extension options without burning the cap table.</p>
+          </div>
+        </div>
+
+        {/* Risk Transparency */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Risk Transparency</p>
+        <div style={{ marginBottom: 4 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — What are the real risks that could kill this business?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 10 }}>Full transparency:</p>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 9 }}>
+              <thead>
+                <tr>
+                  {['Risk', 'Probability', 'Impact', 'Mitigation'].map(h => (
+                    <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5A4E48', padding: '0 8px 6px 0', textAlign: 'left', borderBottom: '1px solid #E0EDE6', fontWeight: 400 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Founder burnout', 'Medium', 'High', 'Co-founder alleviates ops; hire #1 technical planned for Q1 2027'],
+                  ['CAC higher than €40', 'Medium', 'High', '70% of growth budget on organic/community/PR; paid only as accelerator'],
+                  ['Subscriber churn >10%/month', 'Low', 'High', 'Challenge-first model pre-qualifies high-intent users; Food·Mood Index increases engagement'],
+                  ['EU Digital Health Act restrictions', 'Low', 'Medium', 'GDPR-first by design; no medical claims; clear disclaimer'],
+                  ['Big Tech Spanish localization', 'Low', 'Medium', '18–24 month content head start; dataset as long-term moat'],
+                ].map(([risk, prob, impact, mit]) => (
+                  <tr key={risk} style={{ borderBottom: '1px solid #F0EDE4' }}>
+                    <td style={{ padding: '6px 8px 6px 0', color: '#1A1612', fontSize: 9, fontWeight: 500 }}>{risk}</td>
+                    <td style={{ padding: '6px 8px 6px 0', color: prob === 'Medium' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{prob}</td>
+                    <td style={{ padding: '6px 8px 6px 0', color: impact === 'High' ? '#B85450' : '#C9A84C', fontSize: 9 }}>{impact}</td>
+                    <td style={{ padding: '6px 0', color: '#3D3028', fontSize: 9, lineHeight: 1.5 }}>{mit}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 12 }}>The #1 real risk is founder time — which is why the use of funds includes €50K in Product &amp; Tech to delegate development and free the founder&apos;s time for growth and content.</p>
+          </div>
         </div>
 
         <div style={{ marginTop: 28, paddingTop: 12, borderTop: '1px solid #E0EDE6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
