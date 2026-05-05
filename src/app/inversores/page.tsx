@@ -159,10 +159,10 @@ function InvestorDeck() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 16 }}>
           <div>
             <p style={{ fontSize: 10.5, color: '#3D3028', lineHeight: 1.65 }}>
-              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>post-money SAFE</strong> — <strong style={{ color: '#1A1612' }}>€1.4M valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>. Standard European pre-seed terms. The SAFE avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
+              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>post-money SAFE</strong> — <strong style={{ color: '#1A1612' }}>€800K valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>. Standard European pre-seed terms. The SAFE avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
             </p>
             <p style={{ fontSize: 10, color: '#3D3028', lineHeight: 1.65, marginTop: 8 }}>
-              Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At a €1.4M cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
+              Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At a €800K cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
             </p>
           </div>
           <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 16px' }}>
@@ -170,7 +170,7 @@ function InvestorDeck() {
             {[
               ['Instrument', 'Post-money SAFE'],
               ['Raise', '€140,000'],
-              ['Valuation cap', '€1,400,000'],
+              ['Valuation cap', '€800,000'],
               ['Discount', '20% at Seed conversion'],
               ['Use of funds', '18-month focused launch'],
             ].map(([k, v]) => (
