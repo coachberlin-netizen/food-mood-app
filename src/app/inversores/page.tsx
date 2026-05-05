@@ -102,7 +102,7 @@ function InvestorDeck() {
           Food<span style={{ color: '#C9A84C' }}>·</span>Mood
         </p>
         <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C' }}>
-          Pre-Seed Investment Brief · Confidential · May 2026
+          Pre-Seed Investment Brief · Confidential · 2026
         </span>
       </div>
 
@@ -195,11 +195,11 @@ function InvestorDeck() {
           </div>
           <div>
             <SectionLabel>Market Opportunity</SectionLabel>
-            <p style={bodyP}><strong style={{ color: '#1A1612' }}>TAM — ~95M Spanish-speaking women 45+ globally:</strong> Spain (11M) · Latin America (75M) · Hispanic USA (9M). Every major wellness app is English-first or lacks the scientific depth for this life stage. No competitor has established a gut-brain nutrition brand in Spanish.</p>
+            <p style={bodyP}><strong style={{ color: '#1A1612' }}>TAM — ~95M Spanish-speaking adults 45+ globally:</strong> Spain (11M) · Latin America (75M) · Hispanic USA (9M). Every major wellness app is English-first or lacks the scientific depth for this life stage. No competitor has established a gut-brain nutrition brand in Spanish.</p>
             <p style={bodyP}><strong style={{ color: '#1A1612' }}>SAM — ~10M paying-capable digital wellness users</strong> within that TAM. Paid app penetration: ~20% in Spain, 8–15% across LATAM, ~25% in US Hispanic market (Sensor Tower, 2024).</p>
             <p style={bodyP}><strong style={{ color: '#1A1612' }}>SOM (18-month):</strong> 2,500 challenge purchases + 500 active subscribers → ~€116K annual revenue run rate. At 1% of the Spanish SAM: 22,000 subscribers = <strong style={{ color: '#1A1612' }}>€2.4M ARR</strong>. The psychobiotics subcategory is a $2.5B emerging segment — Food·Mood is positioned as its first Spanish-language consumer brand.</p>
             <SectionLabel>Why Now</SectionLabel>
-            <p style={bodyP}>Smartphone penetration in LATAM crossed 70% in 2024. App spending among women 40+ grew 34% in 2023 (Sensor Tower). Yet every evidence-based gut-brain wellness app is English-only. Psychobiotic research has matured for consumer products, and the EU regulatory environment (GDPR, Digital Health Act) favours privacy-first European platforms. The window to become the category-defining Spanish-language app for women 45+ is open — and uncontested.</p>
+            <p style={bodyP}>Smartphone penetration in LATAM crossed 70% in 2024. App spending among adults 40+ grew 34% in 2023 (Sensor Tower). Yet every evidence-based gut-brain wellness app is English-only. Psychobiotic research has matured for consumer products, and the EU regulatory environment (GDPR, Digital Health Act) favours privacy-first European platforms. The window to become the category-defining Spanish-language app for adults navigating midlife is open — and uncontested.</p>
           </div>
         </div>
 
@@ -222,12 +222,12 @@ function InvestorDeck() {
 
         <SectionLabel>Competitive Landscape</SectionLabel>
         <p style={{ fontSize: 9.5, color: '#3D3028', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
-          No direct competitor operates at the intersection of Spanish-language, gut-brain science, and women 45+. The market is fragmented between English-first trackers and generic wellness apps.
+          No direct competitor operates at the intersection of Spanish-language, gut-brain science, and the 45+ adult cohort. The market is fragmented between English-first trackers and generic wellness apps.
         </p>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 6, fontSize: 9.5 }}>
           <thead>
             <tr>
-              {['App', 'Language', 'Gut-brain science', 'Women 45+', 'Spanish market', 'Model', '€/mo'].map(h => (
+              {['App', 'Language', 'Gut-brain science', '45+ focus', 'Spanish market', 'Model', '€/mo'].map(h => (
                 <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5A4E48', padding: '0 8px 6px 0', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
               ))}
             </tr>
@@ -262,7 +262,7 @@ function InvestorDeck() {
           </tbody>
         </table>
         <p style={{ fontSize: 8.5, color: '#5A4E48', marginTop: 6, fontStyle: 'italic', lineHeight: 1.5 }}>
-          △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for perimenopause/menopause.
+          △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for adults in midlife transition.
         </p>
 
         <SectionLabel>Use of Funds</SectionLabel>
@@ -314,7 +314,7 @@ function InvestorDeck() {
         </div>
 
         <p style={{ fontSize: 8.5, color: '#5A4E48', marginTop: 10, fontStyle: 'italic', lineHeight: 1.6, borderLeft: '2px solid #E0EDE6', paddingLeft: 10 }}>
-          Series A horizon (not factored into this round): at 10,000+ active users, GDPR-compliant aggregated behavioural data — correlating food, mood, hormonal phase, and habit — becomes a licensable asset for public health research and nutraceutical innovation. The dataset Food·Mood is building has no equivalent in Spanish-language women&apos;s health.
+          Series A horizon (not factored into this round): at 10,000+ active users, GDPR-compliant aggregated behavioural data — correlating food, mood, life phase, and habit — becomes a licensable asset for public health research and nutraceutical innovation. The dataset Food·Mood is building has no equivalent in Spanish-language preventive health.
         </p>
 
         <SectionLabel>The Founder</SectionLabel>
@@ -338,7 +338,7 @@ function InvestorDeck() {
             'Book written (pre-publication 2026); 7-episode proprietary audio library complete',
             '3 transformation challenges live; 5 more in pipeline — all 8 ready by Q1 2027',
             'Demand validated through founder coaching practice and Umyko wellness community (paying clients)',
-            'First investor matchmaking: WomenInvestEU Femtech — June 2026',
+            'First investor matchmaking event — June 2026',
           ].map(item => (
             <li key={item} style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.5, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3A8C62', flexShrink: 0, marginTop: 5, display: 'inline-block' }} />
