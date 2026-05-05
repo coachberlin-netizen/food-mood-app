@@ -322,6 +322,28 @@ function InvestorDeck() {
               Food·Mood is not built on a single theory. It is an interdisciplinary ecosystem where six established frameworks converge — each one mapping directly to a feature of the product.
             </p>
 
+            {/* Umbrella naming */}
+            <div style={{ background: '#F0EDE4', border: '1px solid #E0EDE6', borderLeft: '3px solid #3A8C62', borderRadius: '0 4px 4px 0', padding: '14px 16px', marginBottom: 18 }}>
+              <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#3A8C62', marginBottom: 8 }}>How We Name the Framework</p>
+              <p style={{ fontSize: 10, color: '#1A1612', lineHeight: 1.65, marginBottom: 8 }}>
+                The umbrella concept that integrates all six theories is <strong>Affective Embodied Psychology</strong> — or, for academic contexts, <strong>Neuropsychology of Nutritional Wellbeing</strong>. Food·Mood&apos;s approach sits at the intersection of three established fields:
+              </p>
+              {[
+                ['Positive Psychology (Seligman)', 'wellbeing, flourishing, and strengths-based interventions'],
+                ['Affective Neuroscience (Panksepp)', 'the biological architecture of emotion; bottom-up feeling states that originate in the body, not the cortex'],
+                ['Behavioural Health Psychology', 'habit formation, conditioned responses, and behaviour change at scale'],
+              ].map(([field, desc]) => (
+                <div key={field} style={{ display: 'flex', gap: 8, marginBottom: 5 }}>
+                  <span style={{ color: '#3A8C62', fontWeight: 700, flexShrink: 0, fontSize: 10 }}>·</span>
+                  <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.55, margin: 0 }}><strong style={{ color: '#1A1612' }}>{field}</strong> — {desc}</p>
+                </div>
+              ))}
+              <p style={{ fontFamily: 'serif', fontSize: 11, fontStyle: 'italic', color: '#3D3028', marginTop: 12, lineHeight: 1.6, borderTop: '1px solid #E0EDE6', paddingTop: 10 }}>
+                &quot;The science of how your body builds your emotions — and how food can rewrite them.&quot;
+              </p>
+              <p style={{ fontFamily: 'monospace', fontSize: 7.5, color: '#5A4E48', marginTop: 4, letterSpacing: '0.06em' }}>Consumer-facing summary · used in app, book, and marketing</p>
+            </div>
+
             {/* Module → theory mapping table */}
             <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 18, fontSize: 9 }}>
               <thead>
