@@ -3,8 +3,8 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Inversores · Food·Mood Pre-Seed 2026',
-  description: 'Información confidencial para inversores. Acceso restringido.',
+  title: 'Investors · Food·Mood Pre-Seed 2026',
+  description: 'Confidential information for investors. Restricted access.',
   robots: { index: false, follow: false },
 }
 
@@ -34,10 +34,10 @@ function Gate({ wrong }: { wrong: boolean }) {
             Food<span style={{ color: '#C9A84C' }}>·</span>Mood
           </p>
           <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', marginBottom: 24 }}>
-            Pre-Seed · Acceso para inversores
+            Pre-Seed · Investor Access
           </p>
           <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.5)', lineHeight: 1.6 }}>
-            Este área es confidencial. Introduce la clave de acceso que has recibido.
+            This area is confidential. Enter the access key you received.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ function Gate({ wrong }: { wrong: boolean }) {
           <input
             name="password"
             type="password"
-            placeholder="Clave de acceso"
+            placeholder="Access key"
             autoComplete="off"
             required
             style={{
@@ -63,7 +63,7 @@ function Gate({ wrong }: { wrong: boolean }) {
           />
           {wrong && (
             <p style={{ fontSize: 12, color: '#e74c3c', marginTop: -4 }}>
-              Clave incorrecta. Verifica y vuelve a intentarlo.
+              Incorrect key. Please verify and try again.
             </p>
           )}
           <button
@@ -80,12 +80,12 @@ function Gate({ wrong }: { wrong: boolean }) {
               letterSpacing: '0.04em',
             }}
           >
-            Acceder →
+            Access →
           </button>
         </form>
 
         <p style={{ marginTop: 28, fontSize: 11, color: 'rgba(245,240,232,0.2)' }}>
-          ¿Sin clave? Escribe a info@food-mood.app
+          No key? Contact info@food-mood.app
         </p>
       </div>
     </main>
@@ -115,7 +115,7 @@ function InvestorDeck() {
           Food·Mood — The Full Picture
         </p>
         <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.85)', marginBottom: 24, maxWidth: 480, margin: '0 auto 24px' }}>
-          Descarga el Pitch Deck completo: modelo de negocio, métricas, roadmap y estructura de la ronda Pre-Seed.
+          Download the full Pitch Deck: business model, metrics, roadmap and Pre-Seed round structure.
         </p>
         <a
           href="/pitch-deck-pre-seed-2026.pdf"
@@ -135,10 +135,10 @@ function InvestorDeck() {
             letterSpacing: '0.03em',
           }}
         >
-          📄 Ver / Descargar Pitch Deck (PDF)
+          📄 View / Download Pitch Deck (PDF)
         </a>
         <p style={{ marginTop: 12, fontSize: 11, color: 'rgba(245,240,232,0.55)' }}>
-          Documento confidencial · No distribuir sin autorización
+          Confidential document · Do not distribute without authorisation
         </p>
       </div>
 
@@ -151,7 +151,7 @@ function InvestorDeck() {
           </div>
           <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.12em', color: '#3D3028', textTransform: 'uppercase', textAlign: 'right', lineHeight: 1.7 }}>
             Pre-Seed Investment Brief<br />
-            May 2026 · WomenInvestEU Femtech · Confidential
+            May 2026 · Confidential
           </div>
         </div>
 
@@ -368,10 +368,10 @@ function InvestorDeck() {
             ↓ Pitch Deck PDF
           </a>
           <a
-            href="mailto:info@food-mood.app?subject=Food·Mood Pre-Seed — Interés inversor"
+            href="mailto:info@food-mood.app?subject=Food·Mood Pre-Seed — Investor Interest"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F9F7F2', background: '#1A1612', borderRadius: 4, padding: '7px 14px', textDecoration: 'none' }}
           >
-            → Contactar fundadora
+            → Contact the founder
           </a>
         </div>
       </div>
