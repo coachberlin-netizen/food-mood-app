@@ -159,10 +159,10 @@ function InvestorDeck() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 16 }}>
           <div>
             <p style={{ fontSize: 10.5, color: '#3D3028', lineHeight: 1.65 }}>
-              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>post-money SAFE</strong> — <strong style={{ color: '#1A1612' }}>€800K valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>. Standard European pre-seed terms. The SAFE avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
+              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>post-money SAFE</strong> — <strong style={{ color: '#1A1612' }}>€800K valuation cap</strong> (~17.5% implied dilution), <strong style={{ color: '#1A1612' }}>20% discount</strong>. Standard European pre-seed terms. The SAFE avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
             </p>
             <p style={{ fontSize: 10, color: '#3D3028', lineHeight: 1.65, marginTop: 8 }}>
-              Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At a €800K cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
+              Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At an €800K cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
             </p>
           </div>
           <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 16px' }}>
@@ -205,7 +205,7 @@ function InvestorDeck() {
 
         <SectionLabel>Business Model</SectionLabel>
         <p style={{ fontSize: 9.5, color: '#3D3028', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
-          Challenge-first acquisition → subscription retention. Two distinct revenue streams that reinforce each other: challenges drive the first payment and completion; subscriptions capture the retained LTV.
+          Challenge-first acquisition → subscription retention. Three distinct revenue streams that reinforce each other: challenges drive the first payment and completion; subscriptions capture the retained LTV; corporate contracts compress revenue per transaction.
         </p>
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, marginTop: 6 }}>
           {[
@@ -346,6 +346,37 @@ function InvestorDeck() {
             </li>
           ))}
         </ul>
+
+        <SectionLabel>Due Diligence Q&amp;A</SectionLabel>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 8 }}>
+          {[
+            {
+              q: 'Is the founder fully committed? The €1,500/month salary suggests other income sources.',
+              a: 'The €1,500/month salary for the first 18 months is the minimum viable amount to maintain exclusive focus on Food·Mood without burning personal reserves. This reflects capital discipline — 87% of the round goes directly to product, growth, and validation — not lack of commitment. Unlike founders who pay themselves €4–5K/month at pre-seed and burn runway in 12 months, this structure maximises runway length. Full market-rate compensation will normalise at Seed stage.',
+            },
+            {
+              q: 'Is this a solo-founder risk?',
+              a: 'No. I have a co-founder / partner handling administration, operations, and compliance. My role covers product, science, technology, and content; theirs covers the operational infrastructure that allows me to build. This division mitigates "bus factor" risk — the company does not depend on a single person to function.',
+            },
+            {
+              q: "What is the founder's prior financial track record? Was the kombucha brand profitable?",
+              a: 'The kombucha brand was highly profitable. We sold the recipes and operations to pivot to digital — a deliberate strategic exit, not a failure shutdown. I remain a food tech consultant specialising in kombucha (recipes, operations, admin, scaling, and food safety), which provides supplementary income that enables the minimum salary at Food·Mood without distracting from the core focus. This background is an asset: it demonstrates the ability to build profitable food/wellness businesses, execute exits, and maintain industry relationships that can open doors for the B2B Corporate Wellness channel.',
+            },
+            {
+              q: 'Why is the valuation cap set at €800K?',
+              a: 'Lowering the cap to €800,000 is a deliberate strategic choice, not a sign of weakness. In the European pre-seed market (2025–2026), deals with an MVP but no user traction typically close between €600K–€1.0M. At €800K with a 20% discount, we are offering early investors an attractive entry point into a category with no established competitor, clear upside at Seed conversion (€800K effective pre-money vs. a potential Seed valuation of €3–5M), and aligned incentives: I prefer higher dilution now and a committed investor table, rather than an inflated cap that delays closing or creates down-round tension later.',
+            },
+          ].map(({ q, a }) => (
+            <div key={q} style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+              <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>
+                Q — {q}
+              </p>
+              <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>
+                {a}
+              </p>
+            </div>
+          ))}
+        </div>
 
         <div style={{ marginTop: 28, paddingTop: 12, borderTop: '1px solid #E0EDE6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <div style={{ fontFamily: 'monospace', fontSize: 7.5, color: '#3A8C62', letterSpacing: '0.08em', lineHeight: 1.7 }}>
