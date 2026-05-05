@@ -6,48 +6,89 @@ import { ChevronRight, CheckCircle } from "lucide-react";
 import { trackEvent } from "@/components/analytics/AnalyticsProvider";
 
 const MOODS = [
-  { label: "Ansiedad", color: "#8E4A8C", emoji: "🌀" },
-  { label: "Cansancio", color: "#4A7AB5", emoji: "🌊" },
-  { label: "Estrés",   color: "#C9623A", emoji: "🔥" },
-  { label: "Calma",    color: "#4A7C59", emoji: "🌿" },
+  {
+    label: "Ansiedad",
+    emoji: "🌀",
+    color: "#8E4A8C",
+    pantone: "Pantone 519 C",
+    colorName: "Violeta Nervioso",
+    description: "Exceso de cortisol y activación del eje HPA. El sistema nervioso entérico reduce la síntesis de GABA y eleva la histamina intestinal.",
+    action: "Priorizar GABA (fermentados), magnesio (semillas de calabaza) y triptófano (huevo, queso fresco).",
+    compounds: ["GABA", "Cortisol", "Histamina", "Triptófano"],
+  },
+  {
+    label: "Cansancio",
+    emoji: "🌊",
+    color: "#4A7AB5",
+    pantone: "Pantone 285 C",
+    colorName: "Azul Agotado",
+    description: "Déficit de dopamina y noradrenalina. Bajo ATP celular. La microbiota reduce la producción de B12 y folato disponibles.",
+    action: "Activar con tirosina (legumbre, huevo), hierro no hemo (verduras de hoja oscura) y vitamina B12.",
+    compounds: ["Dopamina", "ATP", "B12", "Tirosina"],
+  },
+  {
+    label: "Estrés",
+    emoji: "🔥",
+    color: "#C9623A",
+    pantone: "Pantone 1655 C",
+    colorName: "Naranja Tensión",
+    description: "Cortisol elevado con respuesta simpática activa. La permeabilidad intestinal aumenta, comprometiendo la barrera protectora.",
+    action: "Reducir inflamación con omega-3 (nueces, lino), adaptógenos (jengibre) y probióticos para reparar la barrera intestinal.",
+    compounds: ["Cortisol", "Omega-3", "Probióticos", "Adaptógenos"],
+  },
+  {
+    label: "Calma",
+    emoji: "🌿",
+    color: "#4A7C59",
+    pantone: "Pantone 356 C",
+    colorName: "Verde Equilibrio",
+    description: "Serotonina y GABA en niveles óptimos. Actividad parasimpática dominante. Microbiota diversa y estable.",
+    action: "Mantener con prebióticos (fibra variada), fermentados diarios y AGCC (legumbre, plátano verde).",
+    compounds: ["Serotonina", "GABA", "Prebióticos", "AGCC"],
+  },
 ];
 
 const STEPS = [
-  {
-    id: "quiz",
-    label: "1 · Test",
-    title: "¿Cómo te sientes ahora mismo?",
-    subtitle: "Elige tu estado más cercano",
-  },
-  {
-    id: "result",
-    label: "2 · Paleta",
-    title: "Tu paleta de hoy",
-    subtitle: "Basada en tu eje intestino-cerebro",
-  },
-  {
-    id: "recipe",
-    label: "3 · Receta",
-    title: "Tu receta para hoy",
-    subtitle: "Diseñada para tu estado emocional",
-  },
+  { id: "quiz",   label: "1 · Test" },
+  { id: "result", label: "2 · Paleta" },
+  { id: "recipe", label: "3 · Receta" },
 ];
 
-export function AppDemo() {
-  const [step, setStep]         = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
+const RECIPE = {
+  name: "Bol de miso, aguacate y sésamo",
+  desc: "Rico en probióticos, magnesio y glicina — los tres activos clave para regular el estado emocional desde el intestino.",
+  ingredients: [
+    "Pasta de miso blanca (probióticos + GABA)",
+    "Aguacate maduro (magnesio + grasas saludables)",
+    "Sésamo tostado (glicina + zinc)",
+    "Edamame (isoflavonas + proteína completa)",
+  ],
+};
 
-  const chosenMood = selected !== null ? MOODS[selected] : MOODS[3];
+export function AppDemo() {
+  const [step, setStep]           = useState(0);
+  const [selected, setSelected]   = useState<number | null>(null);
+  const [paletteIdx, setPaletteIdx] = useState<number>(3);
+
+  const activeMood = step === 0
+    ? (selected !== null ? MOODS[selected] : null)
+    : MOODS[paletteIdx];
 
   function handleMoodClick(i: number) {
     setSelected(i);
-    trackEvent({ name: "demo_step", properties: { step: 1, mood: MOODS[i].label } });
-    setTimeout(() => setStep(1), 420);
+    setPaletteIdx(i);
+    try { trackEvent({ name: "demo_step", properties: { step: 1, mood: MOODS[i].label } }); } catch {}
+  }
+
+  function goToPalette() {
+    if (selected === null) return;
+    setStep(1);
   }
 
   function reset() {
     setStep(0);
     setSelected(null);
+    setPaletteIdx(3);
   }
 
   return (
@@ -58,7 +99,7 @@ export function AppDemo() {
     >
       <div className="max-w-4xl mx-auto">
 
-        {/* Encabezado */}
+        {/* Header */}
         <div className="text-center mb-12">
           <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold/60">
             Pruébalo ahora · sin registro
@@ -71,22 +112,21 @@ export function AppDemo() {
           </p>
         </div>
 
-        {/* Progress bar */}
-        <div className="flex items-center justify-center gap-0 mb-10" role="tablist" aria-label="Pasos del demo">
+        {/* Progress tabs */}
+        <div className="flex items-center justify-center gap-0 mb-10" role="tablist">
           {STEPS.map((s, i) => (
             <div key={s.id} className="flex items-center">
               <button
                 type="button"
                 role="tab"
                 aria-selected={step === i}
-                aria-controls={`demo-panel-${s.id}`}
-                onClick={() => i <= step ? setStep(i) : undefined}
+                onClick={() => i < step ? setStep(i) : undefined}
                 className={`text-[11px] font-medium uppercase tracking-[0.18em] px-4 py-2 rounded-full transition-all duration-300 ${
                   step === i
-                    ? 'bg-gold text-aubergine-dark'
+                    ? "bg-gold text-aubergine-dark"
                     : i < step
-                    ? 'text-gold/70 cursor-pointer hover:text-gold'
-                    : 'text-cream/20 cursor-default'
+                    ? "text-gold/70 cursor-pointer hover:text-gold"
+                    : "text-cream/20 cursor-default"
                 }`}
               >
                 {s.label}
@@ -104,22 +144,17 @@ export function AppDemo() {
           style={{ backgroundColor: "#0f0608", minHeight: 340 }}
         >
 
-          {/* STEP 0 — Quiz */}
+          {/* ── STEP 0 · Test ── */}
           {step === 0 && (
-            <div
-              id="demo-panel-quiz"
-              role="tabpanel"
-              aria-labelledby="tab-quiz"
-              className="p-8 md:p-12"
-            >
+            <div className="p-8 md:p-12">
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/30 mb-6">
                 Paso 1 de 3 · Tu estado emocional
               </p>
               <h3 className="text-2xl md:text-3xl font-serif text-cream mb-2">
-                {STEPS[0].title}
+                ¿Cómo te sientes ahora mismo?
               </h3>
               <p className="text-cream/40 text-sm font-light mb-10">
-                {STEPS[0].subtitle}
+                Elige tu estado más cercano
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {MOODS.map((mood, i) => (
@@ -127,73 +162,128 @@ export function AppDemo() {
                     key={mood.label}
                     type="button"
                     onClick={() => handleMoodClick(i)}
-                    className="group flex flex-col items-center gap-3 p-5 rounded-2xl border border-cream/8 hover:border-cream/25 transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    className="group flex flex-col items-center gap-3 p-5 rounded-2xl border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                     style={{
-                      backgroundColor: selected === i ? `${mood.color}22` : 'transparent',
-                      borderColor: selected === i ? `${mood.color}66` : undefined,
+                      backgroundColor: selected === i ? `${mood.color}28` : "transparent",
+                      borderColor: selected === i ? `${mood.color}80` : "rgba(245,237,224,0.08)",
+                      transform: selected === i ? "translateY(-2px)" : undefined,
                     }}
                     aria-pressed={selected === i}
                   >
-                    <span className="text-3xl" aria-hidden="true">{mood.emoji}</span>
+                    <span className="text-3xl">{mood.emoji}</span>
                     <span
                       className="text-xs font-medium uppercase tracking-[0.15em]"
-                      style={{ color: selected === i ? mood.color : 'rgba(245,237,224,0.5)' }}
+                      style={{ color: selected === i ? mood.color : "rgba(245,237,224,0.5)" }}
                     >
                       {mood.label}
                     </span>
                   </button>
                 ))}
               </div>
-              <p className="text-center text-cream/20 text-xs mt-8 font-light">
-                Elige uno para continuar
-              </p>
+
+              <div className="flex justify-center mt-10">
+                <button
+                  type="button"
+                  onClick={goToPalette}
+                  disabled={selected === null}
+                  className="inline-flex items-center gap-2 font-bold text-sm px-8 py-3 rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-30 disabled:cursor-not-allowed"
+                  style={{
+                    backgroundColor: selected !== null ? "#C9A84C" : "rgba(201,168,76,0.3)",
+                    color: "#0f0608",
+                  }}
+                >
+                  Ver mi paleta →
+                </button>
+              </div>
             </div>
           )}
 
-          {/* STEP 1 — Resultado */}
-          {step === 1 && (
-            <div
-              id="demo-panel-result"
-              role="tabpanel"
-              aria-labelledby="tab-result"
-              className="p-8 md:p-12"
-            >
+          {/* ── STEP 1 · Paleta ── */}
+          {step === 1 && activeMood && (
+            <div className="p-8 md:p-12">
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/30 mb-6">
-                Paso 2 de 3 · Tu resultado
+                Paso 2 de 3 · Tu paleta emocional
               </p>
               <div className="flex flex-col md:flex-row gap-8 items-start">
-                {/* Color card */}
-                <div
-                  className="w-full md:w-64 shrink-0 rounded-2xl p-8 flex flex-col items-center justify-center gap-4 text-center"
-                  style={{ backgroundColor: `${chosenMood.color}22`, border: `1px solid ${chosenMood.color}44` }}
-                  aria-label={`Estado seleccionado: ${chosenMood.label}`}
-                >
-                  <span className="text-5xl" aria-hidden="true">{chosenMood.emoji}</span>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/40 mb-1">
-                      Tu estado hoy
+
+                {/* Columna izquierda — color + swatches */}
+                <div className="shrink-0 flex flex-col items-center gap-4 w-full md:w-48">
+                  {/* Esfera de color */}
+                  <div
+                    className="w-32 h-32 rounded-full transition-all duration-500"
+                    style={{
+                      backgroundColor: activeMood.color,
+                      boxShadow: `0 0 48px ${activeMood.color}55, 0 0 16px ${activeMood.color}33`,
+                    }}
+                  />
+                  {/* Datos del color */}
+                  <div className="text-center">
+                    <p className="text-cream text-sm font-semibold">{activeMood.colorName}</p>
+                    <p className="text-cream/35 text-[10px] font-mono mt-0.5">{activeMood.pantone}</p>
+                    <p className="text-cream/25 text-[10px] font-mono">{activeMood.color}</p>
+                  </div>
+
+                  {/* Swatches — cambia según tu ánimo */}
+                  <div className="w-full">
+                    <p className="text-cream/25 text-[9px] uppercase tracking-widest text-center mb-2">
+                      Cambia según tu ánimo
                     </p>
-                    <p className="text-2xl font-serif" style={{ color: chosenMood.color }}>
-                      {chosenMood.label}
-                    </p>
+                    <div className="flex justify-center gap-2">
+                      {MOODS.map((m, i) => (
+                        <button
+                          key={m.label}
+                          type="button"
+                          onClick={() => setPaletteIdx(i)}
+                          title={m.label}
+                          className="transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-full"
+                          style={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: "50%",
+                            backgroundColor: m.color,
+                            border: paletteIdx === i
+                              ? `2px solid rgba(245,237,224,0.8)`
+                              : `2px solid transparent`,
+                            transform: paletteIdx === i ? "scale(1.2)" : "scale(1)",
+                            boxShadow: paletteIdx === i ? `0 0 8px ${m.color}88` : "none",
+                          }}
+                          aria-label={m.label}
+                          aria-pressed={paletteIdx === i}
+                        />
+                      ))}
+                    </div>
+                    <div className="flex justify-center mt-1.5">
+                      <p className="text-[10px] font-medium" style={{ color: activeMood.color }}>
+                        {activeMood.emoji} {activeMood.label}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                {/* Explicación */}
+
+                {/* Columna derecha — descripción factual */}
                 <div className="flex-1 space-y-4">
-                  <h3 className="text-xl font-serif text-cream">
-                    Tu eje intestino-cerebro está procesando {chosenMood.label.toLowerCase()}
-                  </h3>
-                  <p className="text-cream/50 text-sm font-light leading-relaxed">
-                    La microbiota intestinal produce el 90% de la serotonina del cuerpo.
-                    Cuando sientes {chosenMood.label.toLowerCase()}, los fermentados, el magnesio
-                    y ciertos adaptógenos pueden modularlo directamente desde el plato.
-                  </p>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {["Microbiota", "Cortisol", "GABA", "Magnesio"].map(tag => (
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/30 mb-1">
+                      Qué ocurre en tu intestino
+                    </p>
+                    <p className="text-cream/70 text-sm font-light leading-relaxed">
+                      {activeMood.description}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/30 mb-1">
+                      Acción nutricional recomendada
+                    </p>
+                    <p className="text-cream/70 text-sm font-light leading-relaxed">
+                      {activeMood.action}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {activeMood.compounds.map(tag => (
                       <span
                         key={tag}
-                        className="text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full"
-                        style={{ backgroundColor: `${chosenMood.color}18`, color: chosenMood.color }}
+                        className="text-[10px] font-bold uppercase tracking-[0.12em] px-3 py-1.5 rounded-full"
+                        style={{ backgroundColor: `${activeMood.color}1A`, color: activeMood.color }}
                       >
                         {tag}
                       </span>
@@ -201,57 +291,45 @@ export function AppDemo() {
                   </div>
                   <button
                     type="button"
-                    onClick={() => setStep(2)}
-                    className="mt-4 inline-flex items-center gap-2 bg-gold hover:bg-[#b8953e] text-aubergine-dark font-bold text-sm px-6 py-3 rounded-xl transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    onClick={() => {
+                      try { trackEvent({ name: "demo_step", properties: { step: 2 } }); } catch {}
+                      setStep(2);
+                    }}
+                    className="mt-2 inline-flex items-center gap-2 font-bold text-sm px-6 py-3 rounded-xl transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    style={{ backgroundColor: "#C9A84C", color: "#0f0608" }}
                   >
-                    Ver mi receta →
+                    Ver mi receta para {activeMood.label.toLowerCase()} →
                   </button>
                 </div>
               </div>
             </div>
           )}
 
-          {/* STEP 2 — Receta */}
-          {step === 2 && (
-            <div
-              id="demo-panel-recipe"
-              role="tabpanel"
-              aria-labelledby="tab-recipe"
-              className="p-8 md:p-12"
-            >
+          {/* ── STEP 2 · Receta ── */}
+          {step === 2 && activeMood && (
+            <div className="p-8 md:p-12">
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/30 mb-6">
                 Paso 3 de 3 · Tu receta
               </p>
               <div className="flex flex-col md:flex-row gap-8">
-                {/* Receta card */}
                 <div className="flex-1 space-y-5">
                   <div>
                     <span
                       className="text-[10px] font-bold uppercase tracking-[0.2em] px-2 py-1 rounded"
-                      style={{ backgroundColor: `${chosenMood.color}18`, color: chosenMood.color }}
+                      style={{ backgroundColor: `${activeMood.color}1A`, color: activeMood.color }}
                     >
-                      Para tu {chosenMood.label.toLowerCase()}
+                      Para tu {activeMood.label.toLowerCase()}
                     </span>
-                    <h3 className="text-2xl font-serif text-cream mt-3">
-                      Bol de miso, aguacate y sésamo
-                    </h3>
-                    <p className="text-cream/40 text-sm font-light mt-2">
-                      Rico en probióticos, magnesio y glicina — los tres activos clave
-                      para regular tu estado emocional desde el intestino.
-                    </p>
+                    <h3 className="text-2xl font-serif text-cream mt-3">{RECIPE.name}</h3>
+                    <p className="text-cream/40 text-sm font-light mt-2">{RECIPE.desc}</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-cream/30 mb-3">
                       Ingredientes clave
                     </p>
                     <ul className="space-y-2">
-                      {[
-                        "Pasta de miso blanca (probióticos + GABA)",
-                        "Aguacate (magnesio + grasas saludables)",
-                        "Sésamo tostado (glicina + zinc)",
-                        "Edamame (isoflavonas + proteína completa)",
-                      ].map((ing, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-cream/60 font-light">
+                      {RECIPE.ingredients.map((ing) => (
+                        <li key={ing} className="flex items-start gap-2 text-sm text-cream/60 font-light">
                           <CheckCircle className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" aria-hidden="true" />
                           {ing}
                         </li>
@@ -259,10 +337,9 @@ export function AppDemo() {
                     </ul>
                   </div>
                 </div>
-                {/* CTA */}
                 <div
                   className="md:w-56 shrink-0 rounded-2xl p-6 flex flex-col gap-4 text-center border"
-                  style={{ backgroundColor: '#1a1118', borderColor: 'rgba(201,168,76,0.2)' }}
+                  style={{ backgroundColor: "#1a1118", borderColor: "rgba(201,168,76,0.2)" }}
                 >
                   <p className="text-cream/40 text-xs font-light leading-relaxed">
                     Esta receta incluye preparación completa, variaciones y notas
@@ -270,14 +347,15 @@ export function AppDemo() {
                   </p>
                   <Link
                     href="/auth/register"
-                    className="block bg-gold hover:bg-[#b8953e] text-aubergine-dark font-bold text-sm py-3 px-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    className="block font-bold text-sm py-3 px-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    style={{ backgroundColor: "#C9A84C", color: "#0f0608" }}
                   >
                     Crear cuenta gratis
                   </Link>
                   <button
                     type="button"
                     onClick={reset}
-                    className="text-cream/25 hover:text-cream/50 text-xs font-light transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
+                    className="text-cream/25 hover:text-cream/50 text-xs font-light transition-colors focus:outline-none"
                   >
                     Volver al inicio del demo
                   </button>
@@ -285,8 +363,8 @@ export function AppDemo() {
               </div>
             </div>
           )}
-        </div>
 
+        </div>
       </div>
     </section>
   );
