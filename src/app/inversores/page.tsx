@@ -101,7 +101,7 @@ function InvestorDeck() {
         <p style={{ fontFamily: 'serif', fontSize: 20, color: '#F5F0E8', fontWeight: 700 }}>
           Food<span style={{ color: '#C9A84C' }}>·</span>Mood
         </p>
-        <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)' }}>
+        <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C' }}>
           Pre-Seed Investment Brief · Confidential · May 2026
         </span>
       </div>
@@ -114,7 +114,7 @@ function InvestorDeck() {
         <p style={{ fontFamily: 'serif', fontSize: 26, color: '#F5F0E8', fontWeight: 700, marginBottom: 8, lineHeight: 1.2 }}>
           Food·Mood — The Full Picture
         </p>
-        <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.55)', marginBottom: 24, maxWidth: 480, margin: '0 auto 24px' }}>
+        <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.85)', marginBottom: 24, maxWidth: 480, margin: '0 auto 24px' }}>
           Descarga el Pitch Deck completo: modelo de negocio, métricas, roadmap y estructura de la ronda Pre-Seed.
         </p>
         <a
@@ -137,7 +137,7 @@ function InvestorDeck() {
         >
           📄 Ver / Descargar Pitch Deck (PDF)
         </a>
-        <p style={{ marginTop: 12, fontSize: 11, color: 'rgba(245,240,232,0.25)' }}>
+        <p style={{ marginTop: 12, fontSize: 11, color: 'rgba(245,240,232,0.55)' }}>
           Documento confidencial · No distribuir sin autorización
         </p>
       </div>
@@ -189,7 +189,7 @@ function InvestorDeck() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 8 }}>
           <div>
             <SectionLabel>What We Do</SectionLabel>
-            <p style={bodyP}>Food·Mood is a <strong style={{ color: '#1A1612' }}>habit formation engine</strong> that uses the sensory pleasure of functional food as the behavioral anchor — for <strong style={{ color: '#1A1612' }}>Spanish-speaking women aged 45+</strong> across Spain, Latin America, and Hispanic USA (~95M people with zero personalised nutritional support in their language).</p>
+            <p style={bodyP}>Food·Mood is a <strong style={{ color: '#1A1612' }}>habit formation engine</strong> that uses the sensory pleasure of functional food as the behavioral anchor — for the <strong style={{ color: '#1A1612' }}>95M+ Spanish-speaking adults</strong> across Spain, Latin America, and Hispanic USA who lack personalised nutritional support in their language.</p>
             <p style={bodyP}>The core insight: lasting habits form when anchored to pleasure, not willpower. The mechanism is biological — 90% of serotonin is produced in the gut. When you eat the right food for your emotional state and enjoy it, you activate the reward circuit that makes you want to repeat it. That is how sustainable habits are built: not through discipline, but through sensory experience.</p>
             <p style={bodyP}>The product: expert-curated psychobiotic recipes mapped to emotional state, guided transformation challenges (7–28 days), daily habit tracking, and a proprietary Food·Mood Index that shows each user how their food choices correlate with their mood, energy, and focus over time. No calorie counting. No guilt. No willpower required.</p>
           </div>
