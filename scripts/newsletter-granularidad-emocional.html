@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food·Mood Newsletter — No estás mal. Estás hambrienta.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --burgundy: #6B2737;
+    --cream: #F5F0E8;
+    --gold: #C9A84C;
+    --dark: #2C1810;
+    --muted: #8B7355;
+
+    --activacion: #E8A838;
+    --calma: #7BA7BC;
+    --focus: #5B8C5A;
+    --social: #C97B84;
+    --reset: #9B8EC4;
+    --confort: #D4956A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #E8E2D8;
+    font-family: 'Jost', sans-serif;
+    color: var(--dark);
+  }
+
+  .email-wrapper {
+    max-width: 620px;
+    margin: 40px auto;
+    background: var(--cream);
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--dark);
+    padding: 30px 48px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--gold); }
+
+  .header-meta {
+    text-align: right;
+  }
+  .header-meta .label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+  }
+  .header-meta .date {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.4);
+    letter-spacing: 1px;
+  }
+
+  /* HERO — split layout */
+  .hero {
+    background: var(--burgundy);
+    padding: 56px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 140px;
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(245, 240, 232, 0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .kicker {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 50px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.65);
+    line-height: 1.8;
+    max-width: 440px;
+    border-left: 2px solid var(--gold);
+    padding-left: 18px;
+  }
+
+  /* BODY */
+  .body {
+    padding: 48px 48px 0;
+  }
+
+  .intro-drop {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 23px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--burgundy);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(107, 39, 55, 0.15);
+  }
+
+  .body p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: #3A2A1E;
+    margin-bottom: 18px;
+  }
+
+  .body p strong {
+    font-weight: 500;
+    color: var(--burgundy);
+  }
+
+  /* BARRETT BOX — definición científica */
+  .barrett-box {
+    border: 1px solid rgba(107, 39, 55, 0.2);
+    padding: 28px 30px;
+    margin: 30px 0;
+    position: relative;
+    background: #F0EBE2;
+  }
+
+  .barrett-box::before {
+    content: 'TEORÍA CIENTÍFICA';
+    position: absolute;
+    top: -9px; left: 20px;
+    background: var(--burgundy);
+    color: var(--cream);
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    padding: 2px 10px;
+  }
+
+  .barrett-box .author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .barrett-box h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--burgundy);
+    margin-bottom: 12px;
+  }
+
+  .barrett-box p {
+    font-size: 14px;
+    margin-bottom: 0;
+    line-height: 1.75;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--burgundy);
+    margin: 40px 0 6px;
+    line-height: 1.2;
+  }
+  .section-title em { font-style: italic; }
+  .gold-rule {
+    width: 40px;
+    height: 1.5px;
+    background: var(--gold);
+    margin-bottom: 22px;
+  }
+
+  /* REALISMO AFECTIVO — el bloque central */
+  .realismo-block {
+    background: var(--dark);
+    margin: 0 -48px;
+    padding: 48px 48px;
+  }
+
+  .realismo-block .kicker {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .realismo-block h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .realismo-block h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .realismo-block .intro {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.65);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .emotion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 28px;
+  }
+
+  .emotion-tile {
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .emotion-tile .feel {
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .emotion-tile .reality {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .emotion-tile .truth {
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.45);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .realismo-block .insight {
+    border-left: 3px solid var(--gold);
+    padding: 18px 22px;
+    background: rgba(245,240,232,0.05);
+  }
+
+  .realismo-block .insight p {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.8;
+    margin-bottom: 0;
+  }
+
+  .realismo-block .insight p strong {
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    text-align: center;
+    padding: 36px 0;
+    border-top: 1px solid rgba(107,39,55,0.15);
+    border-bottom: 1px solid rgba(107,39,55,0.15);
+    margin: 36px 0;
+  }
+
+  .pull-quote blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 27px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--burgundy);
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+
+  .pull-quote cite {
+    font-size: 9.5px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  /* GRANULARIDAD — emociones específicas */
+  .gran-section {
+    padding: 0 48px;
+    padding-bottom: 0;
+  }
+
+  .gran-intro {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: #3A2A1E;
+    margin-bottom: 24px;
+  }
+
+  .gran-intro strong { color: var(--burgundy); font-weight: 500; }
+
+  .emotion-spectrum {
+    margin: 24px 0 32px;
+    border: 1px solid rgba(107,39,55,0.15);
+  }
+
+  .spectrum-header {
+    background: rgba(107,39,55,0.06);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .spectrum-header span {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .spectrum-header span:last-child {
+    color: var(--burgundy);
+  }
+
+  .spectrum-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(107,39,55,0.08);
+    gap: 16px;
+  }
+
+  .spectrum-row:last-child { border-bottom: none; }
+
+  .spectrum-vague {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    min-width: 80px;
+    font-style: italic;
+  }
+
+  .spectrum-arrow {
+    color: rgba(107,39,55,0.25);
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+
+  .spectrum-precise {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--burgundy);
+    min-width: 130px;
+    text-align: right;
+  }
+
+  .spectrum-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* LA COMIDA COMO REGULADOR */
+  .food-regulator {
+    background: var(--burgundy);
+    padding: 44px 48px;
+    margin: 40px 0 0;
+  }
+
+  .food-regulator .kicker { margin-bottom: 16px; }
+
+  .food-regulator h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .food-regulator h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .food-regulator p {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.72);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .food-regulator p strong {
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .mood-food-pairs {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pair-row {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .pair-mood {
+    padding: 14px 16px;
+    min-width: 160px;
+    flex-shrink: 0;
+  }
+
+  .pair-mood .mood-name {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dark);
+    margin-bottom: 3px;
+    display: block;
+  }
+
+  .pair-mood .mood-desc {
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(44,24,16,0.65);
+    font-style: italic;
+  }
+
+  .pair-food {
+    flex: 1;
+    background: rgba(245,240,232,0.08);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+  }
+
+  .pair-food p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  /* RECIPE */
+  .recipe-block {
+    background: #EDE8DF;
+    margin: 0 -0px;
+    padding: 40px 48px;
+  }
+
+  .recipe-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .recipe-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--burgundy);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .recipe-block .mood-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--reset);
+    color: white;
+    padding: 3px 10px;
+    margin-bottom: 16px;
+  }
+
+  .recipe-block .recipe-note {
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 18px;
+    border-left: 2px solid var(--gold);
+    padding-left: 14px;
+  }
+
+  .recipe-ingredients {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .recipe-ingredients li {
+    background: var(--cream);
+    border: 1px solid rgba(107,39,55,0.2);
+    font-size: 12px;
+    color: var(--burgundy);
+    padding: 4px 12px;
+    letter-spacing: 0.3px;
+    font-weight: 400;
+  }
+
+  .recipe-why {
+    font-size: 13px;
+    font-weight: 300;
+    color: #3A2A1E;
+    line-height: 1.75;
+    padding-top: 16px;
+    border-top: 1px solid rgba(107,39,55,0.12);
+  }
+
+  .recipe-why strong { color: var(--burgundy); font-weight: 500; }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 48px 48px 40px;
+  }
+
+  .cta-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--burgundy);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .cta-section p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--dark);
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 14px 34px;
+  }
+
+  .cta-sub {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+    margin-top: 16px;
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--dark);
+    padding: 22px 48px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-url { font-size: 10px; color: rgba(245,240,232,0.3); letter-spacing: 1px; }
+  .footer-copy { margin-top: 8px; font-size: 10px; color: rgba(245,240,232,0.15); }
+</style>
+</head>
+<body>
+<div class="email-wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">Food<span>·</span>Mood</div>
+    <div class="header-meta">
+      <span class="label">Psicología &amp; Emociones</span>
+      <span class="date">Mayo 2026</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-text">sentir</div>
+    <div class="kicker">Granularidad Emocional · Barrett Lab</div>
+    <h1>No estás "mal".<br><em>Estás hambrienta.</em></h1>
+    <p class="hero-sub">Tu cerebro construye las emociones en tiempo real. Y lo que has comido —o no comido— hoy es parte de los datos con los que las fabrica.</p>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="intro-drop">Antes de decidir que tienes un problema, pregúntate cuándo comiste por última vez.</p>
+
+    <p>Hay una idea que llevamos en el núcleo de Food·Mood desde el principio: <strong>el cuerpo no es el recipiente de las emociones. El cuerpo es donde las emociones ocurren.</strong> Pero hasta hace poco, la ciencia académica no tenía un framework lo suficientemente sólido para explicarlo bien.</p>
+
+    <p>Hoy lo tiene. Y se llama la <strong>Teoría de la Emoción Construida</strong>, de la neurocientífica Lisa Feldman Barrett. Es la base psicológica de todo lo que hacemos aquí.</p>
+
+    <div class="barrett-box">
+      <div class="author">Lisa Feldman Barrett — Theory of Constructed Emotion</div>
+      <h4>Las emociones no se descubren. Se construyen.</h4>
+      <p>Las emociones no son respuestas fijas y universales grabadas en el cerebro. El cerebro las <em>construye</em> en cada momento, usando predicciones basadas en experiencias pasadas, el estado actual del cuerpo, y los conceptos emocionales que conocemos. Cuantos más conceptos emocionales precisos tenemos —es decir, cuanto mayor es nuestra <strong>granularidad emocional</strong>— más finamente puede el cerebro regular el estado interno. La precisión emocional no es sensiblería. Es salud.</p>
+    </div>
+
+    <p>Lo que esto significa para ti, en la práctica: cuando sientes "algo raro", tu cerebro está haciendo una búsqueda en su base de datos interna. Intenta encontrar el mejor concepto que explique lo que el cuerpo está señalando. Y si solo tiene etiquetas genéricas —"estoy mal", "estoy rara", "estoy agotada"— el diagnóstico que construye es borroso, impreciso, a menudo catastrófico.</p>
+
+    <p>Pero si tienes etiquetas precisas —"estoy ansiosa-anticipatoria", "estoy en modo alerta sin objeto concreto", "siento bajón post-esfuerzo"— el cerebro puede construir una respuesta mucho más ajustada. Y ajustada significa manejable.</p>
+
+  </div>
+
+  <!-- REALISMO AFECTIVO — BLOQUE OSCURO -->
+  <div class="realismo-block">
+    <span class="kicker">El concepto más importante</span>
+    <h2>Realismo afectivo:<br>cuando crees que <em>sientes<br>la realidad</em></h2>
+    <p class="intro">Barrett describe algo que, una vez que lo lees, no puedes dejar de verlo en todas partes. Lo llama <em>realismo afectivo</em>: la tendencia del cerebro a presentar el estado emocional como si fuera la realidad objetiva.</p>
+
+    <div class="emotion-grid">
+      <div class="emotion-tile" style="background: rgba(155,142,196,0.15);">
+        <div class="feel">Sientes ansiedad</div>
+        <div class="reality">"Todo es urgente<br>y podría salir mal"</div>
+        <div class="truth">Quizá: hipoglucemia + poco sueño</div>
+      </div>
+      <div class="emotion-tile" style="background: rgba(107,39,55,0.2);">
+        <div class="feel">Sientes tristeza</div>
+        <div class="reality">"El futuro parece<br>completamente cerrado"</div>
+        <div class="truth">Quizá: déficit de triptófano + inflamación</div>
+      </div>
+      <div class="emotion-tile" style="background: rgba(201,168,76,0.12);">
+        <div class="feel">Sientes irritación</div>
+        <div class="reality">"La otra persona<br>es definitivamente culpable"</div>
+        <div class="truth">Quizá: cortisol elevado + microbioma alterado</div>
+      </div>
+      <div class="emotion-tile" style="background: rgba(91,140,90,0.15);">
+        <div class="feel">Sientes bloqueo</div>
+        <div class="reality">"No soy capaz<br>de hacer nada"</div>
+        <div class="truth">Quizá: fatiga adrenal + glucosa inestable</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <p><strong>El punto clave:</strong> muchas veces no estás viendo el mundo tal como es. Estás viendo el mundo filtrado por tu estado corporal. Una mala noche de sueño, hambre, inflamación o estrés crónico puede cambiar por completo cómo interpretas una conversación, una crítica o una decisión. <strong>A veces crees que tienes un problema existencial. Pero tu cerebro está interpretando el mundo desde un cuerpo que necesita comer.</strong></p>
+    </div>
+  </div>
+
+  <!-- GRANULARIDAD -->
+  <div class="gran-section body" style="padding-top: 44px;">
+
+    <div class="section-title">De lo borroso<br>a lo <em>preciso</em></div>
+    <div class="gold-rule"></div>
+
+    <p class="gran-intro">La granularidad emocional —el concepto central de Barrett— es la capacidad de distinguir y nombrar estados emocionales con precisión. Cuanto más específico el nombre, más ajustada la respuesta del cerebro. No es una habilidad "soft". Los estudios muestran que <strong>mayor granularidad emocional se asocia directamente con menor reactividad al estrés, mejor regulación del cortisol y mejores hábitos de salud.</strong></p>
+
+    <div class="emotion-spectrum">
+      <div class="spectrum-header">
+        <span>Etiqueta vaga</span>
+        <span>Etiqueta precisa (Food·Mood)</span>
+      </div>
+      <div class="spectrum-row">
+        <span class="spectrum-vague">"Estoy mal"</span>
+        <span class="spectrum-arrow">— — — →</span>
+        <span class="spectrum-precise">Ansiedad anticipatoria</span>
+        <div class="spectrum-dot" style="background: var(--reset);"></div>
+      </div>
+      <div class="spectrum-row">
+        <span class="spectrum-vague">"Estoy rara"</span>
+        <span class="spectrum-arrow">— — — →</span>
+        <span class="spectrum-precise">Fatiga mental sin causa</span>
+        <div class="spectrum-dot" style="background: var(--calma);"></div>
+      </div>
+      <div class="spectrum-row">
+        <span class="spectrum-vague">"Estoy agotada"</span>
+        <span class="spectrum-arrow">— — — →</span>
+        <span class="spectrum-precise">Bajón post-esfuerzo sostenido</span>
+        <div class="spectrum-dot" style="background: var(--confort);"></div>
+      </div>
+      <div class="spectrum-row">
+        <span class="spectrum-vague">"No tengo ganas"</span>
+        <span class="spectrum-arrow">— — — →</span>
+        <span class="spectrum-precise">Déficit de activación dopaminérgica</span>
+        <div class="spectrum-dot" style="background: var(--activacion);"></div>
+      </div>
+      <div class="spectrum-row">
+        <span class="spectrum-vague">"Estoy tensa"</span>
+        <span class="spectrum-arrow">— — — →</span>
+        <span class="spectrum-precise">Alerta sin objeto — modo vigilancia</span>
+        <div class="spectrum-dot" style="background: var(--focus);"></div>
+      </div>
+    </div>
+
+    <p>Esto es exactamente lo que hacemos en el quiz de Food·Mood. No preguntamos "¿cómo estás?" en abstracto. Preguntamos por estados corporales concretos, por sensaciones físicas, por el tipo de tensión que sientes. <strong>Porque cada uno de esos estados tiene un mecanismo bioquímico detrás. Y ese mecanismo responde a lo que comes.</strong></p>
+
+    <div class="pull-quote">
+      <blockquote>"No estás experimentando la realidad. Estás experimentando una predicción que tu cerebro construyó con los datos que tenía disponibles. Y el estado de tu cuerpo es el dato más potente de todos."</blockquote>
+      <cite>— Basado en Barrett, Theory of Constructed Emotion (2017)</cite>
+    </div>
+
+  </div>
+
+  <!-- COMIDA COMO REGULADOR EMOCIONAL -->
+  <div class="food-regulator">
+    <span class="kicker">Food·Mood en acción</span>
+    <h2>La comida es<br><em>datos para tu cerebro</em></h2>
+    <p>Tu cerebro construye emociones usando el estado actual del cuerpo como input principal. El azúcar en sangre, la inflamación intestinal, los neurotransmisores, la temperatura corporal — todo es señal. <strong>Comer bien no es una virtud. Es darle a tu cerebro los datos correctos para que construya emociones más ajustadas a la realidad.</strong></p>
+
+    <div class="mood-food-pairs">
+      <div class="pair-row">
+        <div class="pair-mood" style="background: rgba(155,142,196,0.25);">
+          <span class="mood-name" style="color: #9B8EC4;">Reset</span>
+          <span class="mood-desc">ansiosa, en alerta</span>
+        </div>
+        <div class="pair-food">
+          <p>Magnesio (cacao puro, semillas de calabaza), GABA (fermentados), triptófano (huevo, plátano). El eje intestino-cerebro baja el tono simpático.</p>
+        </div>
+      </div>
+      <div class="pair-row">
+        <div class="pair-mood" style="background: rgba(232,168,56,0.25);">
+          <span class="mood-name" style="color: #C9A84C;">Activación</span>
+          <span class="mood-desc">sin energía, plana</span>
+        </div>
+        <div class="pair-food">
+          <p>Tirosina (proteína de calidad), hierro (legumbres + vitamina C), B12 (sardinas, huevo). El sustrato de la dopamina empieza en el plato.</p>
+        </div>
+      </div>
+      <div class="pair-row">
+        <div class="pair-mood" style="background: rgba(91,140,90,0.25);">
+          <span class="mood-name" style="color: #5B8C5A;">Focus</span>
+          <span class="mood-desc">bloqueada, bruma mental</span>
+        </div>
+        <div class="pair-food">
+          <p>Grasas de calidad (aguacate, AOVE, nueces), polifenoles (té verde, cacao), glucosa estable (avena + proteína). El cerebro funciona en grasa y glucosa regulada.</p>
+        </div>
+      </div>
+      <div class="pair-row">
+        <div class="pair-mood" style="background: rgba(201,123,132,0.25);">
+          <span class="mood-name" style="color: #C97B84;">Confort</span>
+          <span class="mood-desc">vacía, triste, desconectada</span>
+        </div>
+        <div class="pair-food">
+          <p>Caldos lentos, raíces, fermentados cálidos. El nervio vago responde al calor, la textura lenta, los aminoácidos del colágeno. Cocinarse es cuidarse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE -->
+  <div class="recipe-block">
+    <span class="recipe-label">Receta del número</span>
+    <h3>Cacao con miso, tahini y vinagre de manzana</h3>
+    <span class="mood-tag">Reset · Ansiedad</span>
+    <p class="recipe-note">Para cuando crees que el problema es enorme. Antes de decidir nada, tómate esto. Cinco minutos. Luego decides.</p>
+    <ul class="recipe-ingredients">
+      <li>Cacao puro sin azúcar</li>
+      <li>Miso blanco (½ cdta)</li>
+      <li>Tahini</li>
+      <li>Vinagre de manzana</li>
+      <li>Leche de avena caliente</li>
+      <li>Miel cruda</li>
+      <li>Pizca de sal marina</li>
+    </ul>
+    <p class="recipe-why">El cacao aporta <strong>magnesio y teobromina</strong>, suave vasodilatador que reduce la sensación de tensión. El miso introduce <strong>probióticos vivos</strong> que modulan el eje intestino-cerebro. El vinagre activa el nervio vago. El tahini suma triptófano. En conjunto: <strong>le estás dando a tu cerebro datos más tranquilos para que construya una emoción más tranquila.</strong> No es magia. Es bioquímica del estado de ánimo.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h3>¿Qué está construyendo tu cerebro ahora mismo?</h3>
+    <p>El quiz de Food·Mood identifica tu estado emocional con precisión — no "bien o mal", sino qué tipo de activación, calma o reset necesitas hoy. Y te da la receta que habla directamente a ese estado.</p>
+    <a href="https://food-mood.app" class="cta-btn">Haz el quiz ahora</a>
+    <span class="cta-sub">Suscríbete y únete a nuestro club de WhatsApp Premium — contenido curado de verdad y contrastado por nuestros expertos.</span>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-logo">Food<span>·</span>Mood</div>
+    <div class="footer-url">food-mood.app</div>
+    <div class="footer-copy">© 2026 Food·Mood</div>
+  </div>
+
+</div>
+</body>
+</html>
