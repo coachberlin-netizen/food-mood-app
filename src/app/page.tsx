@@ -339,7 +339,7 @@ export default function Home() {
                   style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
                 >
                   <dt className="font-serif text-3xl font-black" style={{ color: "#C9A84C" }}>{number}</dt>
-                  <dd className="text-xs font-light leading-snug" style={{ color: "rgba(245,240,232,0.45)" }}>{label}</dd>
+                  <dd className="text-xs font-light leading-snug" style={{ color: "rgba(245,240,232,0.78)" }}>{label}</dd>
                 </motion.div>
               ))}
             </dl>
@@ -808,12 +808,12 @@ export default function Home() {
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,76,0.7)" }}>Índice Food·Mood</p>
-                  <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.3)" }}>21 días · Reto antiinflamatorio</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,76,0.95)" }}>Índice Food·Mood</p>
+                  <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.72)" }}>21 días · Reto antiinflamatorio</p>
                 </div>
                 <div className="text-right">
                   <p className="font-serif text-4xl font-black" style={{ color: "#C9A84C" }}>74</p>
-                  <p className="text-[10px] font-light" style={{ color: "rgba(201,168,76,0.5)" }}>/ 100</p>
+                  <p className="text-[10px] font-light" style={{ color: "rgba(201,168,76,0.85)" }}>/ 100</p>
                 </div>
               </div>
 
@@ -844,36 +844,36 @@ export default function Home() {
                   <circle cx="280" cy="8" r="4" fill="#C9A84C" />
                 </svg>
                 <div className="flex justify-between mt-1">
-                  <span className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.25)" }}>Día 1</span>
-                  <span className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.25)" }}>Día 21</span>
+                  <span className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.62)" }}>Día 1</span>
+                  <span className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.62)" }}>Día 21</span>
                 </div>
               </div>
 
               {/* Comparativa inicio/fin */}
               <div className="grid grid-cols-3 gap-3">
                 <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
-                  <p className="text-[10px] font-light mb-1" style={{ color: "rgba(245,240,232,0.35)" }}>Inicio</p>
-                  <p className="font-serif text-2xl font-black" style={{ color: "rgba(201,168,76,0.45)" }}>37</p>
+                  <p className="text-[10px] font-light mb-1" style={{ color: "rgba(245,240,232,0.72)" }}>Inicio</p>
+                  <p className="font-serif text-2xl font-black" style={{ color: "rgba(201,168,76,0.85)" }}>37</p>
                 </div>
                 <div className="rounded-2xl p-4 text-center flex flex-col items-center justify-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
                   <p className="font-serif text-xl font-black" style={{ color: "#C9A84C" }}>+37</p>
-                  <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(201,168,76,0.5)" }}>puntos</p>
+                  <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(201,168,76,0.85)" }}>puntos</p>
                 </div>
                 <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)" }}>
-                  <p className="text-[10px] font-light mb-1" style={{ color: "rgba(201,168,76,0.6)" }}>Hoy</p>
+                  <p className="text-[10px] font-light mb-1" style={{ color: "rgba(201,168,76,0.92)" }}>Hoy</p>
                   <p className="font-serif text-2xl font-black" style={{ color: "#C9A84C" }}>74</p>
                 </div>
               </div>
 
               {/* Insight */}
               <div className="mt-4 rounded-2xl px-4 py-3" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
-                <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.45)" }}>
-                  <span className="font-semibold" style={{ color: "rgba(245,240,232,0.7)" }}>Patrón detectado:</span>{" "}
+                <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.8)" }}>
+                  <span className="font-semibold" style={{ color: "#F5F0E8" }}>Patrón detectado:</span>{" "}
                   los días que comes chucrut o kéfir, tu índice sube una media de 8 puntos al día siguiente.
                 </p>
               </div>
 
-              <p className="text-center text-[10px] font-light mt-5" style={{ color: "rgba(245,240,232,0.2)" }}>
+              <p className="text-center text-[10px] font-light mt-5" style={{ color: "rgba(245,240,232,0.62)" }}>
                 Ejemplo basado en datos reales de usuarias del reto antiinflamatorio
               </p>
             </motion.div>
@@ -958,7 +958,7 @@ export default function Home() {
               Los retos son el único formato donde la intención se convierte en acción sostenida.
               Porque tienen principio, medio y fin.
             </p>
-            <p className="text-sm font-light" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="text-sm font-light" style={{ color: "rgba(255,255,255,0.72)" }}>
               Inicio · Tracking diario con tu índice Food·Mood · Informe final
             </p>
             <Link
@@ -1116,17 +1116,17 @@ export default function Home() {
                 }}
               >
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: plan.highlight ? "#C9A84C" : "rgba(245,240,232,0.35)" }}>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: plan.highlight ? "#C9A84C" : "rgba(245,240,232,0.72)" }}>
                     {plan.tier}
                   </span>
                   <div className="flex items-end gap-1 mt-2">
                     <span className="text-3xl font-serif font-black text-white">{plan.price}</span>
-                    <span className="text-xs font-light pb-1 ml-0.5" style={{ color: "rgba(245,240,232,0.4)" }}>{plan.cadence}</span>
+                    <span className="text-xs font-light pb-1 ml-0.5" style={{ color: "rgba(245,240,232,0.75)" }}>{plan.cadence}</span>
                   </div>
                 </div>
                 <ul className="flex flex-col gap-2 flex-1">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-xs font-light" style={{ color: "rgba(245,240,232,0.6)" }}>
+                    <li key={f} className="flex items-start gap-2 text-xs font-light" style={{ color: "rgba(245,240,232,0.88)" }}>
                       <Check className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#C9A84C" }} />
                       {f}
                     </li>
@@ -1138,7 +1138,7 @@ export default function Home() {
                   style={
                     plan.highlight
                       ? { backgroundColor: "#C9A84C", color: "#2d0f16" }
-                      : { backgroundColor: "rgba(255,255,255,0.08)", color: "rgba(245,240,232,0.7)" }
+                      : { backgroundColor: "rgba(255,255,255,0.1)", color: "rgba(245,240,232,0.92)" }
                   }
                 >
                   {plan.cta}
@@ -1147,7 +1147,7 @@ export default function Home() {
             ))}
           </div>
 
-          <p className="text-center text-xs font-light" style={{ color: "rgba(245,240,232,0.2)" }}>
+          <p className="text-center text-xs font-light" style={{ color: "rgba(245,240,232,0.62)" }}>
             Los retos de transformación (7–30 días) son pago único desde 19€ · Sin renovación automática
           </p>
         </div>
@@ -1176,7 +1176,7 @@ export default function Home() {
                   <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(74,123,107,0.25)', color: '#7BBFAA' }}>
                     Anti-ansiedad
                   </span>
-                  <span className="text-[10px] font-light" style={{ color: 'rgba(245,240,232,0.3)' }}>· 20 min · fácil</span>
+                  <span className="text-[10px] font-light" style={{ color: 'rgba(245,240,232,0.72)' }}>· 20 min · fácil</span>
                 </div>
                 <p className="font-serif text-xl font-bold leading-snug" style={{ color: '#F5F0E8' }}>
                   Curry suave de garbanzos con espinacas y cúrcuma
@@ -1201,7 +1201,7 @@ export default function Home() {
 
               {/* Lista de compra */}
               <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(245,240,232,0.3)' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(245,240,232,0.65)' }}>
                   Lista de compra
                 </p>
                 <ul className="space-y-1.5">
@@ -1213,7 +1213,7 @@ export default function Home() {
                     '1 cdta de cúrcuma · 1 cdta de comino · pimienta negra',
                     'Aceite de oliva · sal · arroz integral para acompañar',
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-xs font-light" style={{ color: 'rgba(245,240,232,0.55)' }}>
+                    <li key={item} className="flex items-start gap-2 text-xs font-light" style={{ color: 'rgba(245,240,232,0.82)' }}>
                       <span style={{ color: '#4A7B6B' }} className="shrink-0">·</span>
                       {item}
                     </li>
@@ -1223,13 +1223,13 @@ export default function Home() {
 
               {/* CTA Slow Food·Mood */}
               <div className="px-6 py-5">
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(245,240,232,0.3)' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(245,240,232,0.65)' }}>
                   ¿Te gusta este estilo?
                 </p>
                 <p className="text-sm font-semibold mb-1" style={{ color: '#F5F0E8' }}>
                   Slow Food·Mood — 21 días de recetas como esta
                 </p>
-                <p className="text-xs font-light mb-4" style={{ color: 'rgba(245,240,232,0.5)' }}>
+                <p className="text-xs font-light mb-4" style={{ color: 'rgba(245,240,232,0.82)' }}>
                   21 recetas funcionales para la ansiedad · audios de contexto científico · tracking emocional diario · informe final personalizado.
                 </p>
                 <Link
@@ -1312,7 +1312,7 @@ export default function Home() {
               <h2 className="font-serif text-3xl md:text-5xl font-black text-white leading-tight">
                 Empieza hoy.
               </h2>
-              <p className="font-serif italic text-lg md:text-xl font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.55)" }}>
+              <p className="font-serif italic text-lg md:text-xl font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
                 Tus hematíes, tu microbioma, tus hábitos neuronales — todo se renueva en 90 días.
                 Es el ciclo biológico real del cambio.
               </p>
@@ -1327,12 +1327,12 @@ export default function Home() {
                 <Link
                   href="/test"
                   className="text-sm font-light transition-colors hover:text-white"
-                  style={{ color: "rgba(245,240,232,0.4)" }}
+                  style={{ color: "rgba(245,240,232,0.72)" }}
                 >
                   O empieza con el test gratis →
                 </Link>
               </div>
-              <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.25)" }}>
+              <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.62)" }}>
                 Retos desde 19€ · Planes premium desde 7€/mes · Cancelas cuando quieras
               </p>
             </div>
