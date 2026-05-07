@@ -191,6 +191,9 @@ export function Header() {
               >
                 Entrar
               </Link>
+              <span className="hidden lg:inline text-[10px] font-light tracking-wider uppercase" style={{ color: "rgba(245,240,232,0.30)" }}>
+                PWA · Sin app
+              </span>
               <Link
                 href="/auth/register"
                 className="hidden md:inline-flex px-4 py-2 rounded-full text-sm font-semibold text-aubergine-dark bg-cream hover:bg-cream/90 transition-colors"

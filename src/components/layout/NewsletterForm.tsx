@@ -42,7 +42,7 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
         }`}
       >
         <CheckCircle2 className="w-5 h-5" />
-        <span>¡Suscrito con éxito!</span>
+        <span>{source === 'home-lead-magnet' ? '¡Receta en camino! Revisa tu correo.' : '¡Suscrito con éxito!'}</span>
       </motion.div>
     )
   }

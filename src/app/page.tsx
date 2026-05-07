@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { ChevronDown, Moon, Zap, Leaf, Activity, Brain, ArrowRight, Check, Flame, Sprout, Sparkles, Wind, Flower2, FlaskConical } from "lucide-react"
+import { ChevronDown, Moon, Zap, Brain, ArrowRight, Check, Flame, Sprout, Sparkles, Wind, Flower2, FlaskConical } from "lucide-react"
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
 import HomeHero from "@/components/layout/HomeHero"
@@ -616,91 +616,71 @@ export default function Home() {
       </section>
 
       {/* ── 3b. BENEFICIOS ──────────────────────────────────────────────────── */}
-      <section aria-label="Beneficios de Food·Mood" className="py-20 md:py-28 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "rgba(107,39,55,0.4)" }}>
-              Lo que cambia
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-tight">
-              Sin esfuerzo. Sin culpa.{" "}
-              <span className="italic font-light">Sin dieta.</span>
-            </h2>
-          </div>
+      <section aria-label="Beneficios de Food·Mood" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 md:gap-20 items-start">
 
-          {/* Bloque diferencial */}
+          {/* Neurociencia — izquierda */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl p-8 md:p-10 mb-12 text-center"
-            style={{ backgroundColor: "#2d0f16" }}
+            initial="hidden" whileInView="visible" viewport={{ once: true }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+            className="space-y-6"
           >
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(201,168,76,0.55)" }}>
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
               La neurociencia lo confirma
-            </p>
-            <p className="font-serif text-xl md:text-2xl font-light leading-relaxed text-white mb-4">
+            </motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-[1.15]">
               Los hábitos duraderos no se crean con disciplina.{" "}
-              <span style={{ color: "#C9A84C" }}>Se crean con placer.</span>
-            </p>
-            <p className="text-sm font-light max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.5)" }}>
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Se crean con placer.</em>
+            </motion.h2>
+            <motion.p variants={fade} className="text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.82)" }}>
               Tu intestino produce el 90% de tu serotonina — el neurotransmisor del bienestar y la recompensa.
               Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo.
               Eso es lo que crea el hábito. No el esfuerzo.
-            </p>
+            </motion.p>
+            <motion.p variants={fade} className="text-xs font-light italic" style={{ color: "rgba(245,240,232,0.45)" }}>
+              BJ Fogg · Tiny Habits · Cryan et al. — eje microbiota-intestino-cerebro
+            </motion.p>
           </motion.div>
 
-          {/* Grid de beneficios */}
-          <div className="grid md:grid-cols-2 gap-5">
+          {/* Beneficios — derecha */}
+          <div className="flex flex-col gap-6 md:pt-2">
             {[
               {
-                icon: <Leaf size={20} />,
                 title: "Comes mejor sin sentirte a dieta",
                 body: "No restricción. No control. Un plato que te da placer y te hace sentir bien. Sin culpa incluida.",
-                iconBg: "rgba(107,39,55,0.06)",
-                iconColor: "#6B2737",
+                accent: "#C9A84C",
               },
               {
-                icon: <Activity size={20} />,
                 title: "Reduces la ansiedad con comida que disfrutas",
                 body: "Sin el ciclo de restricción → ansiedad → abandono. La comida como solución, no como problema.",
-                iconBg: "rgba(201,168,76,0.09)",
-                iconColor: "#C9A84C",
+                accent: "#5A9B8A",
               },
               {
-                icon: <Zap size={20} />,
                 title: "Creas hábitos de forma natural",
                 body: "Cuando algo te da placer, tu cerebro lo repite solo. Sin fuerza de voluntad ni disciplina rígida.",
-                iconBg: "rgba(107,39,55,0.06)",
-                iconColor: "#6B2737",
+                accent: "#C9A84C",
               },
               {
-                icon: <Brain size={20} />,
                 title: "Reconectas con tu cuerpo",
                 body: "Aprendes a escuchar lo que te pide el cuerpo. Food·Mood traduce esa señal en un plato concreto.",
-                iconBg: "rgba(201,168,76,0.09)",
-                iconColor: "#C9A84C",
+                accent: "#5A9B8A",
               },
             ].map((b, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-start gap-5 p-6 rounded-2xl"
-                style={{ border: "1px solid rgba(107,39,55,0.08)" }}
+                className="pl-4"
+                style={{ borderLeft: `2px solid ${b.accent}44` }}
               >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: b.iconBg, color: b.iconColor }}>
-                  {b.icon}
-                </div>
-                <div>
-                  <h3 className="font-serif text-base font-bold mb-1.5" style={{ color: "#2d0f16" }}>{b.title}</h3>
-                  <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>{b.body}</p>
-                </div>
+                <h3 className="font-serif text-base font-semibold mb-1.5" style={{ color: "#F5F0E8" }}>{b.title}</h3>
+                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>{b.body}</p>
               </motion.div>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -878,49 +858,6 @@ export default function Home() {
               </p>
             </motion.div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4b. ECOSISTEMA / INTEGRACIONES ──────────────────────────────────── */}
-      <section aria-label="Disponible en todos tus dispositivos" className="py-12 px-6 bg-white border-y" style={{ borderColor: "rgba(107,39,55,0.06)" }}>
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div className="flex flex-col gap-2 max-w-sm">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em]" style={{ color: "#C9A84C" }}>Plataforma</p>
-            <h3 className="font-serif text-2xl md:text-3xl text-[#2d0f16] leading-snug">
-              Sin app que instalar.<br />
-              <span className="italic font-light">En cualquier dispositivo.</span>
-            </h3>
-            <p className="text-sm font-light leading-relaxed mt-1" style={{ color: "rgba(107,39,55,0.6)" }}>
-              Food·Mood es una PWA — se instala desde el navegador en iOS, Android y desktop. Sin App Store. Funciona offline.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-wrap gap-2">
-              {[
-                { label: "iOS", available: true },
-                { label: "Android", available: true },
-                { label: "Desktop", available: true },
-              ].map((item) => (
-                <span
-                  key={item.label}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
-                  style={
-                    item.available
-                      ? { backgroundColor: "#2d0f16", color: "#F5F0E8" }
-                      : { backgroundColor: "rgba(107,39,55,0.06)", color: "rgba(107,39,55,0.35)", border: "1px dashed rgba(107,39,55,0.18)" }
-                  }
-                >
-                  {item.label}
-                  {!item.available && (
-                    <span className="text-[8px] uppercase tracking-widest font-bold" style={{ color: "#C9A84C" }}>prox.</span>
-                  )}
-                </span>
-              ))}
-            </div>
-            <p className="text-[10px] font-light" style={{ color: "rgba(107,39,55,0.3)" }}>
-              Push notifications · Acceso offline · Sin actualizaciones manuales
-            </p>
           </div>
         </div>
       </section>

@@ -170,7 +170,19 @@ export function AppDemo() {
                     }}
                     aria-pressed={selected === i}
                   >
-                    <span className="text-3xl">{mood.emoji}</span>
+                    <div
+                      style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: "50%",
+                        backgroundColor: mood.color,
+                        boxShadow: selected === i
+                          ? `0 0 22px ${mood.color}80, 0 0 8px ${mood.color}55`
+                          : `0 0 10px ${mood.color}44`,
+                        transition: "all 0.25s",
+                        flexShrink: 0,
+                      }}
+                    />
                     <span
                       className="text-xs font-medium uppercase tracking-[0.15em]"
                       style={{ color: selected === i ? mood.color : "rgba(245,237,224,0.5)" }}
@@ -254,7 +266,7 @@ export function AppDemo() {
                     </div>
                     <div className="flex justify-center mt-1.5">
                       <p className="text-[10px] font-medium" style={{ color: activeMood.color }}>
-                        {activeMood.emoji} {activeMood.label}
+                        {activeMood.label}
                       </p>
                     </div>
                   </div>
