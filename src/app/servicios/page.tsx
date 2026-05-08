@@ -137,8 +137,8 @@ export default function ServiciosPage() {
             </h1>
 
             <p className="text-xl text-cream/60 font-light leading-relaxed max-w-2xl mx-auto mb-4">
-              Sesiones y protocolos de nutrición emocional supervisados por expertos
-              universitarios en psicología, psicología de la alimentación y longevidad.
+              Sesiones y protocolos de nutrición emocional con psicólogas,
+              gerontólogas y expertas en longevidad.
             </p>
             <p className="text-base text-cream/40 font-light max-w-xl mx-auto">
               Una orientación rigurosa, humana y basada en conocimiento actualizado —
@@ -146,18 +146,6 @@ export default function ServiciosPage() {
             </p>
           </div>
         </section>
-
-        {/* ── BADGE DE SUPERVISIÓN ── */}
-        <div className="bg-[#2d0f16] border-y border-gold/10 py-6 px-6">
-          <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-            <GraduationCap className="w-8 h-8 text-gold shrink-0" />
-            <p className="text-sm text-cream/70 font-light leading-relaxed">
-              <span className="text-cream font-medium">Food·Mood es una propuesta supervisada por expertos universitarios</span>{' '}
-              en psicología, psicología de la alimentación y longevidad, para ofrecer una
-              orientación rigurosa, humana y basada en conocimiento actualizado.
-            </p>
-          </div>
-        </div>
 
         {/* ── CARDS DE SERVICIO ── */}
         <section className="py-24 px-6 bg-[#F5F0E8]">
@@ -218,7 +206,7 @@ export default function ServiciosPage() {
                     <Clock className="w-3.5 h-3.5" /> 75 minutos · online
                   </div>
                   <div className="flex items-center gap-2 text-xs text-aubergine-dark/40 font-light">
-                    <GraduationCap className="w-3.5 h-3.5" /> Supervisada por expertos
+                    <GraduationCap className="w-3.5 h-3.5" /> Psicología · Longevidad
                   </div>
                 </div>
 
@@ -295,7 +283,7 @@ export default function ServiciosPage() {
                     <Calendar className="w-3.5 h-3.5" /> 4 semanas · online
                   </div>
                   <div className="flex items-center gap-2 text-xs text-aubergine-dark/40 font-light">
-                    <GraduationCap className="w-3.5 h-3.5" /> Supervisado por expertos
+                    <GraduationCap className="w-3.5 h-3.5" /> Psicología · Gerontología
                   </div>
                 </div>
 
@@ -319,8 +307,7 @@ export default function ServiciosPage() {
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <GraduationCap className="w-10 h-10 text-gold mx-auto" />
             <h2 className="text-3xl md:text-4xl font-serif text-cream leading-tight">
-              Supervisado por expertos universitarios en psicología,
-              psicología de la alimentación y longevidad
+              Psicólogas · Gerontólogas · Expertas en longevidad
             </h2>
             <p className="text-cream/50 font-light text-lg leading-relaxed">
               Una propuesta que integra la mirada emocional, conductual y nutricional en un

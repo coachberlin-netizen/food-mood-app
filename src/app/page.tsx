@@ -269,6 +269,8 @@ function PhoneMockup({ screen, featured = false, dimmed = false }: {
 export default function Home() {
   const [openFaqs, setOpenFaqs] = useState<Set<number>>(new Set())
   const toggleFaq = (i: number) => setOpenFaqs(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s })
+  const [neurocienciaOpen, setNeurocienciaOpen] = useState(false)
+  const [testimoniosOpen, setTestimoniosOpen] = useState(false)
 
   return (
     <main className="min-h-screen bg-[#F5F0E8] overflow-hidden font-sans font-light">
@@ -293,6 +295,64 @@ export default function Home() {
 
       {/* ── 1b. DEMO INTERACTIVA ─────────────────────────────────────────────── */}
       <AppDemo />
+
+      {/* ── 1c. DEMOSTRACIÓN VISUAL ─────────────────────────────────────────── */}
+      <section aria-label="Pantallas de la aplicación Food·Mood" className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "#C9A84C" }}>La app</p>
+            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
+              Simple. Personal.{" "}
+              <span className="italic font-light">Tuya.</span>
+            </h2>
+            <p className="text-base font-light mt-5 max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.82)" }}>
+              Sin curva de aprendizaje. En 30 segundos ya tienes tu receta del día.
+            </p>
+          </div>
+
+          <div className="flex items-end justify-center gap-4 md:gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 16 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="hidden md:block shrink-0"
+              style={{ width: 188 }}
+            >
+              <PhoneMockup screen="test" dimmed />
+              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.65)" }}>Test emocional</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="shrink-0"
+              style={{ width: 210 }}
+            >
+              <PhoneMockup screen="paleta" featured />
+              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.82)" }}>Tu paleta emocional</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 16 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="hidden md:block shrink-0"
+              style={{ width: 188 }}
+            >
+              <PhoneMockup screen="receta" dimmed />
+              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.65)" }}>Receta del día</p>
+            </motion.div>
+          </div>
+
+          <p className="text-center text-[10px] font-light mt-10" style={{ color: "rgba(245,240,232,0.45)" }}>
+            Interfaz real de la app · Sin filtros · Sin montajes
+          </p>
+        </div>
+      </section>
 
       {/* ── 2. LA CIENCIA ───────────────────────────────────────────────────── */}
       <section aria-label="La ciencia del eje intestino-cerebro" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
@@ -615,130 +675,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3b. BENEFICIOS ──────────────────────────────────────────────────── */}
-      <section aria-label="Beneficios de Food·Mood" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 md:gap-20 items-start">
-
-          {/* Neurociencia — izquierda */}
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-            className="space-y-6"
-          >
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-              La neurociencia lo confirma
-            </motion.p>
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-[1.15]">
-              Los hábitos duraderos no se crean con disciplina.{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Se crean con placer.</em>
-            </motion.h2>
-            <motion.p variants={fade} className="text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.82)" }}>
-              Tu intestino produce el 90% de tu serotonina — el neurotransmisor del bienestar y la recompensa.
-              Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo.
-              Eso es lo que crea el hábito. No el esfuerzo.
-            </motion.p>
-            <motion.p variants={fade} className="text-xs font-light italic" style={{ color: "rgba(245,240,232,0.45)" }}>
-              BJ Fogg · Tiny Habits · Cryan et al. — eje microbiota-intestino-cerebro
-            </motion.p>
-          </motion.div>
-
-          {/* Beneficios — derecha */}
-          <div className="flex flex-col gap-6 md:pt-2">
-            {[
-              {
-                title: "Comes mejor sin sentirte a dieta",
-                body: "No restricción. No control. Un plato que te da placer y te hace sentir bien. Sin culpa incluida.",
-                accent: "#C9A84C",
-              },
-              {
-                title: "Reduces la ansiedad con comida que disfrutas",
-                body: "Sin el ciclo de restricción → ansiedad → abandono. La comida como solución, no como problema.",
-                accent: "#5A9B8A",
-              },
-              {
-                title: "Creas hábitos de forma natural",
-                body: "Cuando algo te da placer, tu cerebro lo repite solo. Sin fuerza de voluntad ni disciplina rígida.",
-                accent: "#C9A84C",
-              },
-              {
-                title: "Reconectas con tu cuerpo",
-                body: "Aprendes a escuchar lo que te pide el cuerpo. Food·Mood traduce esa señal en un plato concreto.",
-                accent: "#5A9B8A",
-              },
-            ].map((b, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="pl-4"
-                style={{ borderLeft: `2px solid ${b.accent}44` }}
-              >
-                <h3 className="font-serif text-base font-semibold mb-1.5" style={{ color: "#F5F0E8" }}>{b.title}</h3>
-                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>{b.body}</p>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 3c. DEMOSTRACIÓN VISUAL ─────────────────────────────────────────── */}
-      <section aria-label="Pantallas de la aplicación Food·Mood" className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: "#2d0f16" }}>
+      {/* ── 3b. NEUROCIENCIA ────────────────────────────────────────────────── */}
+      <section aria-label="La neurociencia lo confirma" className="py-12 md:py-16 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "#C9A84C" }}>La app</p>
-            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              Simple. Personal.{" "}
-              <span className="italic font-light">Tuya.</span>
-            </h2>
-            <p className="text-base font-light mt-5 max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.82)" }}>
-              Sin curva de aprendizaje. En 30 segundos ya tienes tu receta del día.
-            </p>
-          </div>
+          <button
+            type="button"
+            onClick={() => setNeurocienciaOpen(o => !o)}
+            className="w-full flex items-start md:items-center justify-between gap-6 text-left group"
+            aria-expanded={neurocienciaOpen}
+          >
+            <div className="space-y-3">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
+                La neurociencia lo confirma
+              </p>
+              <h2 className="font-serif text-2xl md:text-3xl text-white leading-[1.15]">
+                Los hábitos duraderos no se crean con disciplina.{" "}
+                <em className="font-light italic" style={{ color: "#C9A84C" }}>Se crean con placer.</em>
+              </h2>
+            </div>
+            <ChevronDown
+              className="w-6 h-6 shrink-0 transition-transform duration-300 mt-1 group-hover:opacity-80"
+              style={{ color: "#C9A84C", transform: neurocienciaOpen ? "rotate(180deg)" : undefined }}
+            />
+          </button>
 
-          <div className="flex items-end justify-center gap-4 md:gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 16 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="hidden md:block shrink-0"
-              style={{ width: 188 }}
-            >
-              <PhoneMockup screen="test" dimmed />
-              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.65)" }}>Test emocional</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="shrink-0"
-              style={{ width: 210 }}
-            >
-              <PhoneMockup screen="paleta" featured />
-              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.82)" }}>Tu paleta emocional</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 16 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden md:block shrink-0"
-              style={{ width: 188 }}
-            >
-              <PhoneMockup screen="receta" dimmed />
-              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.65)" }}>Receta del día</p>
-            </motion.div>
-          </div>
-
-          <p className="text-center text-[10px] font-light mt-10" style={{ color: "rgba(245,240,232,0.45)" }}>
-            Interfaz real de la app · Sin filtros · Sin montajes
-          </p>
+          <AnimatePresence initial={false}>
+            {neurocienciaOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="grid md:grid-cols-2 gap-14 md:gap-20 items-start mt-10">
+                  <div className="space-y-5">
+                    <p className="text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.82)" }}>
+                      Tu intestino produce el 90% de tu serotonina — el neurotransmisor del bienestar y la recompensa.
+                      Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo.
+                      Eso es lo que crea el hábito. No el esfuerzo.
+                    </p>
+                    <p className="text-xs font-light italic" style={{ color: "rgba(245,240,232,0.45)" }}>
+                      BJ Fogg · Tiny Habits · Cryan et al. — eje microbiota-intestino-cerebro
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-6">
+                    {[
+                      { title: "Comes mejor sin sentirte a dieta", body: "No restricción. No control. Un plato que te da placer y te hace sentir bien. Sin culpa incluida.", accent: "#C9A84C" },
+                      { title: "Reduces la ansiedad con comida que disfrutas", body: "Sin el ciclo de restricción → ansiedad → abandono. La comida como solución, no como problema.", accent: "#5A9B8A" },
+                      { title: "Creas hábitos de forma natural", body: "Cuando algo te da placer, tu cerebro lo repite solo. Sin fuerza de voluntad ni disciplina rígida.", accent: "#C9A84C" },
+                      { title: "Reconectas con tu cuerpo", body: "Aprendes a escuchar lo que te pide el cuerpo. Food·Mood traduce esa señal en un plato concreto.", accent: "#5A9B8A" },
+                    ].map((b, i) => (
+                      <div key={i} className="pl-4" style={{ borderLeft: `2px solid ${b.accent}44` }}>
+                        <h3 className="font-serif text-base font-semibold mb-1.5" style={{ color: "#F5F0E8" }}>{b.title}</h3>
+                        <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>{b.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -959,45 +956,71 @@ export default function Home() {
       </section>
 
       {/* ── 6. PRUEBA SOCIAL ────────────────────────────────────────────────── */}
-      <section aria-label="Testimonios de usuarios" className="py-16 md:py-20 px-6 bg-[#F5F0E8]">
+      <section aria-label="Testimonios de usuarios" className="py-8 md:py-10 px-6 bg-[#F5F0E8]">
         <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                quote: "Día 4 del reto de energía. No me lo podía creer — sin cafeína desde las 3pm y sin el bajón de siempre.",
-                name: "Sofía M.",
-                tag: "Reto Energía · 7 días",
-              },
-              {
-                quote: "El índice Food·Mood me hizo ver que mi peor semana coincidía justo con una semana sin fermentados. Dato objetivo. No intuición.",
-                name: "Carlos R.",
-                tag: "Usuario desde enero",
-              },
-              {
-                quote: "Pensaba que era cosa de bienestar genérico. Cuando vi mis correlaciones propias al final del reto entendí por qué funciona.",
-                name: "Laura P.",
-                tag: "Reto Sueño · 4 semanas",
-              },
-            ].map((t, i) => (
+          <button
+            type="button"
+            onClick={() => setTestimoniosOpen(o => !o)}
+            className="w-full flex items-center justify-between gap-4 py-3 group"
+            aria-expanded={testimoniosOpen}
+          >
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-1.5">
+              {[
+                { name: "Sofía M.", tag: "Reto Energía · 7 días" },
+                { name: "Carlos R.", tag: "Usuario desde enero" },
+                { name: "Laura P.", tag: "Reto Sueño · 4 semanas" },
+              ].map((t, i) => (
+                <span key={i} className="flex items-center gap-2">
+                  <span className="text-sm font-semibold" style={{ color: "#2d0f16" }}>{t.name}</span>
+                  <span className="text-[10px] font-light" style={{ color: "rgba(107,39,55,0.38)" }}>{t.tag}</span>
+                </span>
+              ))}
+            </div>
+            <span className="flex items-center gap-1.5 shrink-0 text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
+              {testimoniosOpen ? "Ocultar" : "Ver opiniones"}
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${testimoniosOpen ? "rotate-180" : ""}`}
+                style={{ color: "#C9A84C" }}
+              />
+            </span>
+          </button>
+
+          <AnimatePresence initial={false}>
+            {testimoniosOpen && (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="rounded-2xl p-7 flex flex-col gap-4"
-                style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.08)" }}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                className="overflow-hidden"
               >
-                <p className="text-sm font-light leading-relaxed italic" style={{ color: "rgba(107,39,55,0.75)" }}>
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div>
-                  <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>{t.name}</p>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mt-0.5" style={{ color: "#C9A84C" }}>{t.tag}</p>
+                <div className="grid md:grid-cols-3 gap-6 pt-6">
+                  {[
+                    { quote: "Día 4 del reto de energía. No me lo podía creer — sin cafeína desde las 3pm y sin el bajón de siempre.", name: "Sofía M.", tag: "Reto Energía · 7 días" },
+                    { quote: "El índice Food·Mood me hizo ver que mi peor semana coincidía justo con una semana sin fermentados. Dato objetivo. No intuición.", name: "Carlos R.", tag: "Usuario desde enero" },
+                    { quote: "Pensaba que era cosa de bienestar genérico. Cuando vi mis correlaciones propias al final del reto entendí por qué funciona.", name: "Laura P.", tag: "Reto Sueño · 4 semanas" },
+                  ].map((t, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="rounded-2xl p-7 flex flex-col gap-4"
+                      style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.08)" }}
+                    >
+                      <p className="text-sm font-light leading-relaxed italic" style={{ color: "rgba(107,39,55,0.75)" }}>
+                        &ldquo;{t.quote}&rdquo;
+                      </p>
+                      <div>
+                        <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>{t.name}</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest mt-0.5" style={{ color: "#C9A84C" }}>{t.tag}</p>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
-            ))}
-          </div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
