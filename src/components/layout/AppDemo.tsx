@@ -147,13 +147,13 @@ export function AppDemo() {
           {/* ── STEP 0 · Test ── */}
           {step === 0 && (
             <div className="p-8 md:p-12">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/30 mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-6" style={{ color: "rgba(201,168,76,0.85)" }}>
                 Paso 1 de 3 · Tu estado emocional
               </p>
               <h3 className="text-2xl md:text-3xl font-serif text-cream mb-2">
                 ¿Cómo te sientes ahora mismo?
               </h3>
-              <p className="text-cream/40 text-sm font-light mb-10">
+              <p className="text-sm font-light mb-10" style={{ color: "rgba(245,237,224,0.75)" }}>
                 Elige tu estado más cercano
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -185,7 +185,7 @@ export function AppDemo() {
                     />
                     <span
                       className="text-xs font-medium uppercase tracking-[0.15em]"
-                      style={{ color: selected === i ? mood.color : "rgba(245,237,224,0.5)" }}
+                      style={{ color: selected === i ? mood.color : "rgba(245,237,224,0.88)" }}
                     >
                       {mood.label}
                     </span>
@@ -200,8 +200,8 @@ export function AppDemo() {
                   disabled={selected === null}
                   className="inline-flex items-center gap-2 font-bold text-sm px-8 py-3 rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-30 disabled:cursor-not-allowed"
                   style={{
-                    backgroundColor: selected !== null ? "#C9A84C" : "rgba(201,168,76,0.3)",
-                    color: "#0f0608",
+                    backgroundColor: selected !== null ? MOODS[selected].color : "rgba(245,237,224,0.08)",
+                    color: selected !== null ? "#0f0608" : "rgba(245,237,224,0.25)",
                   }}
                 >
                   Ver mi paleta →
@@ -213,7 +213,7 @@ export function AppDemo() {
           {/* ── STEP 1 · Paleta ── */}
           {step === 1 && activeMood && (
             <div className="p-8 md:p-12">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/30 mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/65 mb-6">
                 Paso 2 de 3 · Tu paleta emocional
               </p>
               <div className="flex flex-col md:flex-row gap-8 items-start">
@@ -275,7 +275,7 @@ export function AppDemo() {
                 {/* Columna derecha — descripción factual */}
                 <div className="flex-1 space-y-4">
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/30 mb-1">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/65 mb-1">
                       Qué ocurre en tu intestino
                     </p>
                     <p className="text-cream/70 text-sm font-light leading-relaxed">
@@ -283,7 +283,7 @@ export function AppDemo() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/30 mb-1">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/65 mb-1">
                       Acción nutricional recomendada
                     </p>
                     <p className="text-cream/70 text-sm font-light leading-relaxed">
@@ -320,7 +320,7 @@ export function AppDemo() {
           {/* ── STEP 2 · Receta ── */}
           {step === 2 && activeMood && (
             <div className="p-8 md:p-12">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/30 mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cream/65 mb-6">
                 Paso 3 de 3 · Tu receta
               </p>
               <div className="flex flex-col md:flex-row gap-8">
@@ -333,15 +333,15 @@ export function AppDemo() {
                       Para tu {activeMood.label.toLowerCase()}
                     </span>
                     <h3 className="text-2xl font-serif text-cream mt-3">{RECIPE.name}</h3>
-                    <p className="text-cream/40 text-sm font-light mt-2">{RECIPE.desc}</p>
+                    <p className="text-sm font-light mt-2" style={{ color: "rgba(245,237,224,0.72)" }}>{RECIPE.desc}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-cream/30 mb-3">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-cream/65 mb-3">
                       Ingredientes clave
                     </p>
                     <ul className="space-y-2">
                       {RECIPE.ingredients.map((ing) => (
-                        <li key={ing} className="flex items-start gap-2 text-sm text-cream/60 font-light">
+                        <li key={ing} className="flex items-start gap-2 text-sm font-light" style={{ color: "rgba(245,237,224,0.85)" }}>
                           <CheckCircle className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" aria-hidden="true" />
                           {ing}
                         </li>
@@ -353,7 +353,7 @@ export function AppDemo() {
                   className="md:w-56 shrink-0 rounded-2xl p-6 flex flex-col gap-4 text-center border"
                   style={{ backgroundColor: "#1a1118", borderColor: "rgba(201,168,76,0.2)" }}
                 >
-                  <p className="text-cream/40 text-xs font-light leading-relaxed">
+                  <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,237,224,0.72)" }}>
                     Esta receta incluye preparación completa, variaciones y notas
                     científicas en la versión Premium.
                   </p>
