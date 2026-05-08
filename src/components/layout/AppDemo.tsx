@@ -147,13 +147,13 @@ export function AppDemo() {
           {/* ── STEP 0 · Test ── */}
           {step === 0 && (
             <div className="p-8 md:p-12">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-6" style={{ color: "rgba(201,168,76,0.85)" }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-6" style={{ color: "#C9A84C" }}>
                 Paso 1 de 3 · Tu estado emocional
               </p>
               <h3 className="text-2xl md:text-3xl font-serif text-cream mb-2">
                 ¿Cómo te sientes ahora mismo?
               </h3>
-              <p className="text-sm font-light mb-10" style={{ color: "rgba(245,237,224,0.75)" }}>
+              <p className="text-sm font-light mb-10" style={{ color: "rgba(245,237,224,0.90)" }}>
                 Elige tu estado más cercano
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -198,10 +198,11 @@ export function AppDemo() {
                   type="button"
                   onClick={goToPalette}
                   disabled={selected === null}
-                  className="inline-flex items-center gap-2 font-bold text-sm px-8 py-3 rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 font-bold text-sm px-8 py-3 rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{
-                    backgroundColor: selected !== null ? MOODS[selected].color : "rgba(245,237,224,0.08)",
-                    color: selected !== null ? "#0f0608" : "rgba(245,237,224,0.25)",
+                    backgroundColor: selected !== null ? MOODS[selected].color : "rgba(245,237,224,0.12)",
+                    color: "#F5F0E8",
+                    textShadow: "0 1px 3px rgba(0,0,0,0.4)",
                   }}
                 >
                   Ver mi paleta →

@@ -293,10 +293,7 @@ export default function Home() {
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <HomeHero />
 
-      {/* ── 1b. DEMO INTERACTIVA ─────────────────────────────────────────────── */}
-      <AppDemo />
-
-      {/* ── 1c. DEMOSTRACIÓN VISUAL ─────────────────────────────────────────── */}
+      {/* ── 1b. LA APP — PANTALLAS ──────────────────────────────────────────── */}
       <section aria-label="Pantallas de la aplicación Food·Mood" className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
@@ -353,6 +350,9 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* ── 1c. DEMO INTERACTIVA ────────────────────────────────────────────── */}
+      <AppDemo />
 
       {/* ── 2. LA CIENCIA ───────────────────────────────────────────────────── */}
       <section aria-label="La ciencia del eje intestino-cerebro" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
@@ -1223,6 +1223,32 @@ export default function Home() {
                     {item}
                   </span>
                 ))}
+              </div>
+
+              {/* Ediciones pasadas */}
+              <div className="rounded-2xl p-5" style={{ backgroundColor: "rgba(107,39,55,0.05)", border: "1px solid rgba(107,39,55,0.08)" }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: "#C9A84C" }}>
+                  16 ediciones ya disponibles · Te llegará el archivo completo
+                </p>
+                <div className="flex flex-col gap-1.5">
+                  {[
+                    "Hábitos duraderos: neurociencia del placer",
+                    "Reset mitocondrial — CoQ10, magnesio y omega-3",
+                    "Tu metabolismo después de los 35",
+                    "Lactobacillus y pH vaginal",
+                    "Estrobioma: tus bacterias y el estrógeno",
+                    "Fermentos del mundo — 6 civilizaciones",
+                    "Legumbres y menopausia",
+                  ].map((topic, i) => (
+                    <span key={i} className="flex items-start gap-2 text-xs font-light leading-snug" style={{ color: "rgba(107,39,55,0.65)" }}>
+                      <span style={{ color: "#C9A84C", flexShrink: 0 }}>·</span>
+                      {topic}
+                    </span>
+                  ))}
+                  <Link href="/newsletter/archivo" className="text-xs font-semibold mt-1 transition-opacity hover:opacity-70" style={{ color: "#6B2737" }}>
+                    Ver todas las ediciones →
+                  </Link>
+                </div>
               </div>
             </div>
 
