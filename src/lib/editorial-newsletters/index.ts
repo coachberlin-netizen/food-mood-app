@@ -13,6 +13,7 @@ import { buildHtml as html12 } from './12-mosaico-emocional'
 import { buildHtml as html13 } from './13-lactobacillus-ph-vaginal'
 import { buildHtml as html14 } from './14-metabolismo-35'
 import { buildHtml as html15 } from './15-reset-mitocondrial'
+import { buildHtml as html16 } from './16-habitos-con-placer'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -39,4 +40,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 13, slug: 'lactobacillus-ph-vaginal', subject: 'El kéfir del desayuno llega donde nadie te dijo que llegaba. 🌸', buildHtml: html13 },
   { numero: 14, slug: 'metabolismo-35', subject: 'Tu metabolismo ya no tiene 25. Pero tampoco necesita dieta. ⚡', buildHtml: html14 },
   { numero: 15, slug: 'reset-mitocondrial', subject: 'El cansancio que no se va con dormir. CoQ10, magnesio y omega-3. ⚡', buildHtml: html15 },
+  { numero: 16, slug: 'habitos-con-placer', subject: 'Los hábitos duraderos no se crean con disciplina. Se crean con placer. ✨', buildHtml: html16 },
 ]

@@ -116,6 +116,13 @@ const NEWSLETTERS = [
     description: 'La fatiga crónica como problema de bioquímica mitocondrial: CoQ10 cae un 50% entre los 20 y los 50 años, el ATP necesita magnesio para activarse y las membranas necesitan DHA para ser eficientes.',
     tag:         'Energía · Mitocondrias',
   },
+  {
+    numero:      '16',
+    slug:        'habitos-con-placer',
+    subject:     'Los hábitos duraderos no se crean con disciplina. Se crean con placer.',
+    description: 'Dopamina, ganglios basales y el circuito de recompensa: por qué el placer crea hábitos donde la fuerza de voluntad siempre falla. Tirosina, el bol del desayuno y la neurociencia del hábito real.',
+    tag:         'Hábitos · Dopamina',
+  },
 ]
 
 function NewsletterList() {
@@ -135,7 +142,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 15 ediciones
+            Archivo editorial · 16 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters

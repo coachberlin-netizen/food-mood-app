@@ -95,6 +95,32 @@ export default async function NewsletterArchivePage() {
             </p>
           </div>
 
+          {/* CTA suscripción — acceso a ediciones pasadas */}
+          <div
+            className="mb-10 rounded-3xl p-8 flex flex-col sm:flex-row sm:items-center gap-6"
+            style={{ background: 'linear-gradient(135deg, #2d0f16 0%, #1E1A0E 100%)', border: '1px solid rgba(201,168,76,0.15)' }}
+          >
+            <div className="flex-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3" style={{ color: '#C9A84C' }}>
+                16 ediciones · Neurociencia aplicada
+              </p>
+              <h2 className="font-serif text-xl font-bold leading-snug mb-2" style={{ color: '#F5F0E8' }}>
+                Come con placer. Crea hábitos.<br />
+                <em className="font-serif font-normal" style={{ fontStyle: 'italic', color: '#E8C45A' }}>Siéntete mejor.</em>
+              </h2>
+              <p className="text-sm font-light leading-relaxed max-w-sm" style={{ color: 'rgba(245,240,232,0.58)' }}>
+                Suscríbete y accede a todas las ediciones: fermentos, hormonas, energía, hábitos y mucho más — sin ruido, solo ciencia que puedes comer.
+              </p>
+            </div>
+            <Link
+              href="/auth/login"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-opacity hover:opacity-90 whitespace-nowrap"
+              style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+            >
+              Acceder a las 16 ediciones →
+            </Link>
+          </div>
+
           {editions.length === 0 ? (
             <div className="bg-white rounded-2xl p-10 text-center" style={{ border: '1px solid rgba(45,15,22,0.06)' }}>
               <p className="text-sm font-light" style={{ color: 'rgba(45,15,22,0.4)' }}>
