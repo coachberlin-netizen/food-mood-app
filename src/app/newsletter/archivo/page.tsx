@@ -123,6 +123,13 @@ const NEWSLETTERS = [
     description: 'Dopamina, ganglios basales y el circuito de recompensa: por qué el placer crea hábitos donde la fuerza de voluntad siempre falla. Tirosina, el bol del desayuno y la neurociencia del hábito real.',
     tag:         'Hábitos · Dopamina',
   },
+  {
+    numero:      '17',
+    slug:        'tiroides-postmenopausia',
+    subject:     'Tu tiroides no está rota. Quizá solo tiene frío.',
+    description: 'Hipotiroidismo subclínico en postmenopausia: selenio (nueces de Brasil), yodo, zinc, vitamina A y omega-3. Los 5 nutrientes clave y los alimentos que los aportan — con la receta de sardinas al AOVE con boniato y semillas de calabaza.',
+    tag:         'Tiroides · Hormonas',
+  },
 ]
 
 function NewsletterList() {
@@ -142,7 +149,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 16 ediciones
+            Archivo editorial · 17 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters
