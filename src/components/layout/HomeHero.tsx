@@ -274,8 +274,8 @@ export default function HomeHero() {
 
             {/* H1 */}
             <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontWeight:400,fontSize:"clamp(40px,5vw,68px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
-              Come con placer. Crea hábitos.<br />
-              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>Siéntete mejor.</em>
+              El hábito más fácil de crear:<br />
+              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>comer rico y sentirte mejor.</em>
             </h1>
 
             {/* Divider */}
@@ -283,7 +283,7 @@ export default function HomeHero() {
 
             {/* Sub */}
             <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"380px" }}>
-              Food·Mood te guía con recetas funcionales y retos diarios para convertir la comida en una herramienta sencilla de bienestar, energía y equilibrio emocional.
+              Comida funcional para el eje intestino-cerebro. Cada receta nutre y actúa — sobre tu energía, tu estado de ánimo y tus hábitos. Sin esfuerzo. Solo placer.
             </p>
 
             {/* CTAs */}
