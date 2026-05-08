@@ -159,7 +159,7 @@ function InvestorDeck() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 16 }}>
           <div>
             <p style={{ fontSize: 10.5, color: '#3D3028', lineHeight: 1.65 }}>
-              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>post-money SAFE</strong> — <strong style={{ color: '#1A1612' }}>€800K valuation cap</strong> (~17.5% implied dilution), <strong style={{ color: '#1A1612' }}>20% discount</strong>. Standard European pre-seed terms. The SAFE avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
+              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>SAFE-style convertible</strong> — <strong style={{ color: '#1A1612' }}>€800K valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>, ~17.5% implied dilution. Standard European pre-seed terms via a SAFE-style post-money convertible instrument, subject to Spanish/EU legal structuring. The instrument avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
             </p>
             <p style={{ fontSize: 10, color: '#3D3028', lineHeight: 1.65, marginTop: 8 }}>
               Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At an €800K cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
@@ -168,11 +168,12 @@ function InvestorDeck() {
           <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 16px' }}>
             <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3A8C62', marginBottom: 8 }}>Round structure</p>
             {[
-              ['Instrument', 'Post-money SAFE'],
+              ['Instrument', 'SAFE-style convertible'],
               ['Raise', '€140,000'],
               ['Valuation cap', '€800,000'],
-              ['Discount', '20% at Seed conversion'],
-              ['Use of funds', '18-month focused launch'],
+              ['Discount', '20% at Seed'],
+              ['Implied dilution', '~17.5%'],
+              ['Legal structure', 'Subject to counsel'],
             ].map(([k, v]) => (
               <div key={k} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F0EDE4', padding: '5px 0', fontSize: 9 }}>
                 <span style={{ color: '#4A3E38' }}>{k}</span>
@@ -227,32 +228,32 @@ function InvestorDeck() {
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 6, fontSize: 9.5 }}>
           <thead>
             <tr>
-              {['App', 'Language', 'Gut-brain science', 'Women 45+', 'Spanish market', 'Model', '€/mo'].map(h => (
+              {['App', 'Spanish-first', 'Gut-brain focus', 'Women 45+ focus', 'Habit formation', 'Model', '€/mo'].map(h => (
                 <th key={h} style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5A4E48', padding: '0 8px 6px 0', textAlign: 'left', borderBottom: '1px solid #F0EDE4', fontWeight: 400 }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {[
-              ['Noom',          'EN only',     '✗', '✗', '✗', 'Subscription',  '$60+'],
-              ['Lifesum',       'EN / multi',  '✗', '✗', '✗', 'Subscription',  '€4–9'],
-              ['MyFitnessPal',  'EN only',     '✗', '✗', '✗', 'Freemium',      '€10+'],
-              ['Yazio',         'EN / DE',     '✗', '✗', '✗', 'Subscription',  '€4–8'],
-              ['Elektra Health','EN only',     '△', '✓', '✗', 'Subscription',  '$15+'],
-            ].map(([app, lang, gut, w45, es, model, price]) => (
+              ['Noom',          '✗', '✗', '✗', '△', 'Subscription',  '$60+'],
+              ['Lifesum',       '△', '✗', '✗', '✗', 'Subscription',  '€4–9'],
+              ['MyFitnessPal',  '△', '✗', '✗', '✗', 'Freemium',      '€10+'],
+              ['Yazio',         '△', '✗', '✗', '✗', 'Subscription',  '€4–8'],
+              ['Elektra Health','✗', '△', '✓', '✗', 'Subscription',  '$15+'],
+            ].map(([app, es, gut, w45, habit, model, price]) => (
               <tr key={app} style={{ borderBottom: '1px solid #F0EDE4' }}>
                 <td style={{ padding: '6px 8px 6px 0', color: '#2A2218', fontSize: 9.5 }}>{app}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: '#3D3028', fontSize: 9 }}>{lang}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: gut === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{gut}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: w45 === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{w45}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: es === '✗' ? '#C0B8B0' : '#3A8C62', fontSize: 9 }}>{es}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: es === '✗' ? '#C0B8B0' : es === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{es}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: gut === '✗' ? '#C0B8B0' : gut === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{gut}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: w45 === '✗' ? '#C0B8B0' : w45 === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{w45}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: habit === '✗' ? '#C0B8B0' : habit === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{habit}</td>
                 <td style={{ padding: '6px 8px 6px 0', color: '#3D3028', fontSize: 9 }}>{model}</td>
                 <td style={{ padding: '6px 0', color: '#3D3028', fontSize: 9, fontFamily: 'monospace' }}>{price}</td>
               </tr>
             ))}
             <tr style={{ background: '#F0EDE4' }}>
               <td style={{ padding: '7px 8px 7px 0', color: '#1A1612', fontWeight: 700, fontSize: 9.5 }}>Food·Mood</td>
-              <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>ES global</td>
+              <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>✓</td>
               <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>✓</td>
               <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>✓</td>
               <td style={{ padding: '7px 8px 7px 0', color: '#3A8C62', fontWeight: 700, fontSize: 9 }}>✓</td>
@@ -262,13 +263,13 @@ function InvestorDeck() {
           </tbody>
         </table>
         <p style={{ fontSize: 8.5, color: '#5A4E48', marginTop: 6, fontStyle: 'italic', lineHeight: 1.5 }}>
-          △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for perimenopause/menopause.
+          △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for perimenopause/menopause. Food·Mood is the first.
         </p>
 
         {/* Noom deep-dive */}
         <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginTop: 18, marginBottom: 8 }}>Noom: Proof of Category — and the Gap They Left</p>
         <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 10 }}>
-          <strong style={{ color: '#1A1612' }}>Noom has raised over $657M and reached ~$1B ARR</strong> by combining psychology, nutrition, and technology. They proved the category is massive. They also proved where the model stops — and the map of what they never built.
+          <strong style={{ color: '#1A1612' }}>Noom raised over $650M and reached a reported $3.7B valuation</strong> by combining psychology, nutrition, and technology. They proved the category. They also proved where the model stops — and the map of what they never built.
         </p>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 10, fontSize: 9.5 }}>
           <thead>
@@ -280,12 +281,12 @@ function InvestorDeck() {
           </thead>
           <tbody>
             {[
-              ['Language', 'English-first', 'Native Spanish, globally — 95M women 45+ Noom does not serve'],
-              ['Focus', 'Weight-loss centric', 'Emotional wellbeing — no scales, no calorie counting, no guilt'],
-              ['Price', '$17–70 / month', '€7–9 / month — accessible across Spain, LATAM, US Hispanic'],
-              ['Coaching model', '3,000+ human coaches (high fixed cost)', 'AI coaching — scalable from day one'],
+              ['Language', 'English-first', 'Native Spanish, globally — 95M women 45+'],
+              ['Focus', 'Weight-loss centric', 'Emotional wellbeing — no scales, no calories, no guilt'],
+              ['Price', '$17–70 / month', '€7–9 / month — accessible across all Spanish markets'],
+              ['Coaching', '3,000+ human coaches (high fixed cost)', 'AI coaching — scalable from day one'],
               ['Science', 'Behavioural psychology (CBT)', 'Gut-brain neuroscience + psychobiotics — the next frontier'],
-              ['Core product', 'Generic meal tracking', 'Psychobiotic recipes mapped to mood + proprietary Food·Mood Index'],
+              ['Core', 'Generic meal tracking', 'Psychobiotic recipes mapped to mood + Food·Mood Index'],
             ].map(([dim, noom, fm]) => (
               <tr key={dim} style={{ borderBottom: '1px solid #F0EDE4' }}>
                 <td style={{ padding: '6px 10px 6px 0', color: '#5A4E48', fontSize: 8, fontFamily: 'monospace', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{dim}</td>
@@ -300,7 +301,7 @@ function InvestorDeck() {
         <div style={{ background: '#FFF8EE', border: '1px solid #E8D9B0', borderRadius: 5, padding: '10px 14px', marginBottom: 12 }}>
           <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 5 }}>Market shift · GLP-1 agonists (Ozempic, Wegovy)</p>
           <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65 }}>
-            GLP-1 agonists producing 15–20% body weight reduction are rapidly displacing behavioral weight-management apps for high-intent users. Noom&apos;s core value proposition is under structural pressure from pharmaceutical substitution. <strong style={{ color: '#1A1612' }}>Food·Mood operates in a different lane</strong> — emotional wellbeing, gut-brain health, and quality of life are not replaceable by a prescription. As GLP-1 adoption grows, demand for a quality-of-life anchor (not just a number on a scale) will increase.
+            GLP-1 agonists (Ozempic, Wegovy) producing 15–20% body weight reduction are reshaping behavioral weight-management. Incumbents are pivoting toward GLP-1 companion programs; the legacy calorie / behavior-tracking model is under structural pressure. <strong style={{ color: '#1A1612' }}>Food·Mood operates in a different lane</strong> — emotional wellbeing, menopausal wellbeing and gut-brain habit formation are complementary to, not replaceable by, a prescription.
           </p>
         </div>
 
@@ -339,7 +340,7 @@ function InvestorDeck() {
                 </div>
               ))}
               <p style={{ fontFamily: 'serif', fontSize: 11, fontStyle: 'italic', color: '#3D3028', marginTop: 12, lineHeight: 1.6, borderTop: '1px solid #E0EDE6', paddingTop: 10 }}>
-                &quot;The science of how your body builds your emotions — and how food can rewrite them.&quot;
+                &quot;The science of how your body builds your emotions — and how food can influence the body signals that shape mood, energy and emotional regulation.&quot;
               </p>
               <p style={{ fontFamily: 'monospace', fontSize: 7.5, color: '#5A4E48', marginTop: 4, letterSpacing: '0.06em' }}>Consumer-facing summary · used in app, book, and marketing</p>
             </div>
@@ -610,7 +611,7 @@ function InvestorDeck() {
                   ['Founder burnout', 'Medium', 'High', 'Co-founder alleviates ops; hire #1 technical planned for Q1 2027'],
                   ['CAC higher than €40', 'Medium', 'High', '70% of growth budget on organic/community/PR; paid only as accelerator'],
                   ['Subscriber churn >10%/month', 'Low', 'High', 'Challenge-first model pre-qualifies high-intent users; Food·Mood Index increases engagement'],
-                  ['EU Digital Health Act restrictions', 'Low', 'Medium', 'GDPR-first by design; no medical claims; clear disclaimer'],
+                  ['EU health-data / AI / medical-claims regulation', 'Low', 'Medium', 'GDPR-first architecture; wellness positioning; no diagnosis, treatment or medical claims; legal review before AI coaching expansion'],
                   ['Big Tech Spanish localization', 'Low', 'Medium', '18–24 month content head start; dataset as long-term moat'],
                 ].map(([risk, prob, impact, mit]) => (
                   <tr key={risk} style={{ borderBottom: '1px solid #F0EDE4' }}>
