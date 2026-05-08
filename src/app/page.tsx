@@ -271,6 +271,10 @@ export default function Home() {
   const toggleFaq = (i: number) => setOpenFaqs(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s })
   const [neurocienciaOpen, setNeurocienciaOpen] = useState(false)
   const [testimoniosOpen, setTestimoniosOpen] = useState(false)
+  const [corporateOpen, setCorporateOpen] = useState(false)
+  const [planesOpen, setPlanesOpen] = useState(false)
+  const [pruebaAntesOpen, setPruebaAntesOpen] = useState(false)
+  const [curryOpen, setCurryOpen] = useState(false)
 
   return (
     <main className="min-h-screen bg-[#F5F0E8] overflow-hidden font-sans font-light">
@@ -907,51 +911,84 @@ export default function Home() {
       </section>
 
       {/* ── 5b. CORPORATE WELLNESS ──────────────────────────────────────────── */}
-      <section aria-label="Food·Mood for Work — Corporate Wellness" className="py-14 px-6" style={{ backgroundColor: '#FF5500' }}>
+      <section aria-label="Food·Mood for Work — Corporate Wellness" className="px-6 py-6" style={{ backgroundColor: '#FF5500' }}>
         <div className="max-w-5xl mx-auto">
-          <div className="rounded-3xl overflow-hidden grid md:grid-cols-2 bg-white">
-            <div className="p-8 md:p-10 flex flex-col justify-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#FF5500' }}>
-                Food·Mood for Work · Corporate Wellness
-              </p>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3" style={{ color: '#2d0f16' }}>
-                Alimenta el foco<br />
-                <span className="italic font-light">de tu equipo.</span>
-              </h2>
-              <p className="text-sm font-light leading-relaxed mb-6" style={{ color: 'rgba(107,39,55,0.6)' }}>
-                Programa corporativo de 7 días: snacks funcionales, micro-hábitos y tracking para mejorar el foco, la energía y el bienestar en la jornada laboral.
-              </p>
-              <Link
-                href="/corporate-wellness"
-                className="inline-flex items-center gap-2 self-start px-7 py-3 rounded-full text-sm font-bold transition-all hover:opacity-90"
-                style={{ backgroundColor: '#FF5500', color: 'white' }}
+          <button
+            type="button"
+            onClick={() => setCorporateOpen(o => !o)}
+            className="w-full flex items-center justify-between gap-4 py-2 group"
+            aria-expanded={corporateOpen}
+          >
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span className="font-serif text-xl font-bold text-white">Food·Mood for Work</span>
+              <span className="text-sm font-light" style={{ color: 'rgba(255,255,255,0.75)' }}>
+                · Alimenta el foco de tu equipo
+              </span>
+            </div>
+            <ChevronDown
+              className="w-5 h-5 shrink-0 transition-transform duration-300"
+              style={{ color: 'rgba(255,255,255,0.8)', transform: corporateOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            />
+          </button>
+
+          <AnimatePresence initial={false}>
+            {corporateOpen && (
+              <motion.div
+                key="corporate-content"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
               >
-                Ver el programa <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-            <div className="p-8 md:p-10 border-t md:border-t-0 md:border-l" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.35)' }}>
-                Incluye
-              </p>
-              <ul className="space-y-3">
-                {[
-                  '7 días · 14 snacks funcionales',
-                  'Lista de compra semanal',
-                  'Check-in diario: energía, foco, ánimo',
-                  'Audios de 2–3 min: foco y pausa consciente',
-                  'Informe agregado para RRHH',
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2.5 text-sm font-light" style={{ color: 'rgba(107,39,55,0.7)' }}>
-                    <Check className="w-3.5 h-3.5 shrink-0" style={{ color: '#FF5500' }} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-xs font-light" style={{ color: 'rgba(107,39,55,0.35)' }}>
-                Desde 490€ · Piloto hasta 25 personas · Factura incluida
-              </p>
-            </div>
-          </div>
+                <div className="pt-4 pb-2">
+                  <div className="rounded-3xl overflow-hidden grid md:grid-cols-2 bg-white">
+                    <div className="p-8 md:p-10 flex flex-col justify-center">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#FF5500' }}>
+                        Food·Mood for Work · Corporate Wellness
+                      </p>
+                      <h2 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3" style={{ color: '#2d0f16' }}>
+                        Alimenta el foco<br />
+                        <span className="italic font-light">de tu equipo.</span>
+                      </h2>
+                      <p className="text-sm font-light leading-relaxed mb-6" style={{ color: 'rgba(107,39,55,0.6)' }}>
+                        Programa corporativo de 7 días: snacks funcionales, micro-hábitos y tracking para mejorar el foco, la energía y el bienestar en la jornada laboral.
+                      </p>
+                      <Link
+                        href="/corporate-wellness"
+                        className="inline-flex items-center gap-2 self-start px-7 py-3 rounded-full text-sm font-bold transition-all hover:opacity-90"
+                        style={{ backgroundColor: '#FF5500', color: 'white' }}
+                      >
+                        Ver el programa <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                    <div className="p-8 md:p-10 border-t md:border-t-0 md:border-l" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
+                      <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.35)' }}>
+                        Incluye
+                      </p>
+                      <ul className="space-y-3">
+                        {[
+                          '7 días · 14 snacks funcionales',
+                          'Lista de compra semanal',
+                          'Check-in diario: energía, foco, ánimo',
+                          'Audios de 2–3 min: foco y pausa consciente',
+                          'Informe agregado para RRHH',
+                        ].map((item) => (
+                          <li key={item} className="flex items-center gap-2.5 text-sm font-light" style={{ color: 'rgba(107,39,55,0.7)' }}>
+                            <Check className="w-3.5 h-3.5 shrink-0" style={{ color: '#FF5500' }} />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="mt-6 text-xs font-light" style={{ color: 'rgba(107,39,55,0.35)' }}>
+                        Desde 490€ · Piloto hasta 25 personas · Factura incluida
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -1025,181 +1062,251 @@ export default function Home() {
       </section>
 
       {/* ── 6b. MODELO DE NEGOCIO / PRICING ─────────────────────────────────── */}
-      <section aria-label="Precios y modelo de acceso" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
+      <section aria-label="Precios y modelo de acceso" className="px-6 py-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "#C9A84C" }}>
-              Sin letra pequeña
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              Empieza gratis.{" "}
-              <span className="italic font-light">Profundiza cuando quieras.</span>
-            </h2>
-          </div>
+          <button
+            type="button"
+            onClick={() => setPlanesOpen(o => !o)}
+            className="w-full flex items-center justify-between gap-4 py-2 group"
+            aria-expanded={planesOpen}
+          >
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span className="font-serif text-xl font-bold text-white">Planes</span>
+              <span className="text-sm font-light" style={{ color: 'rgba(245,240,232,0.6)' }}>
+                · Empieza gratis. Profundiza cuando quieras.
+              </span>
+              <span className="text-xs font-light" style={{ color: '#C9A84C' }}>0€ · 9€/mes · 7€/mes</span>
+            </div>
+            <ChevronDown
+              className="w-5 h-5 shrink-0 transition-transform duration-300"
+              style={{ color: 'rgba(245,240,232,0.6)', transform: planesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            />
+          </button>
 
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
-            {([
-              {
-                tier: "Gratuito",
-                price: "0€",
-                cadence: "para siempre",
-                features: ["Test emocional completo", "Paleta emocional básica", "1 receta de muestra al día"],
-                cta: "Empezar gratis",
-                href: "/test",
-                highlight: false,
-              },
-              {
-                tier: "Premium mensual",
-                price: "9€",
-                cadence: "/mes",
-                features: ["200+ recetas completas", "Paleta emocional personalizada", "Historial de 90 días", "Glosario científico", "Canal privado de Telegram"],
-                cta: "Empezar — 9€/mes",
-                href: "/pricing",
-                highlight: false,
-              },
-              {
-                tier: "Premium trimestral",
-                price: "7€",
-                cadence: "/mes — 21€ cada 3 meses",
-                features: ["Todo lo del plan mensual", "Ahorra un 22%", "Fermentos del Mundo", "Canal privado de Telegram", "Cancela cuando quieras"],
-                cta: "Mejor precio →",
-                href: "/pricing",
-                highlight: true,
-              },
-            ] as const).map((plan) => (
-              <div
-                key={plan.tier}
-                className="rounded-2xl p-6 flex flex-col gap-5"
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  border: plan.highlight ? "2px solid rgba(201,168,76,0.6)" : "1px solid rgba(255,255,255,0.08)",
-                }}
+          <AnimatePresence initial={false}>
+            {planesOpen && (
+              <motion.div
+                key="planes-content"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
               >
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: plan.highlight ? "#C9A84C" : "rgba(245,240,232,0.72)" }}>
-                    {plan.tier}
-                  </span>
-                  <div className="flex items-end gap-1 mt-2">
-                    <span className="text-3xl font-serif font-black text-white">{plan.price}</span>
-                    <span className="text-xs font-light pb-1 ml-0.5" style={{ color: "rgba(245,240,232,0.75)" }}>{plan.cadence}</span>
+                <div className="pt-8 pb-4">
+                  <div className="grid md:grid-cols-3 gap-4 mb-8">
+                    {([
+                      {
+                        tier: "Gratuito",
+                        price: "0€",
+                        cadence: "para siempre",
+                        features: ["Test emocional completo", "Paleta emocional básica", "1 receta de muestra al día"],
+                        cta: "Empezar gratis",
+                        href: "/test",
+                        highlight: false,
+                      },
+                      {
+                        tier: "Premium mensual",
+                        price: "9€",
+                        cadence: "/mes",
+                        features: ["200+ recetas completas", "Paleta emocional personalizada", "Historial de 90 días", "Glosario científico", "Canal privado de Telegram"],
+                        cta: "Empezar — 9€/mes",
+                        href: "/pricing",
+                        highlight: false,
+                      },
+                      {
+                        tier: "Premium trimestral",
+                        price: "7€",
+                        cadence: "/mes — 21€ cada 3 meses",
+                        features: ["Todo lo del plan mensual", "Ahorra un 22%", "Fermentos del Mundo", "Canal privado de Telegram", "Cancela cuando quieras"],
+                        cta: "Mejor precio →",
+                        href: "/pricing",
+                        highlight: true,
+                      },
+                    ] as const).map((plan) => (
+                      <div
+                        key={plan.tier}
+                        className="rounded-2xl p-6 flex flex-col gap-5"
+                        style={{
+                          backgroundColor: "rgba(255,255,255,0.05)",
+                          border: plan.highlight ? "2px solid rgba(201,168,76,0.6)" : "1px solid rgba(255,255,255,0.08)",
+                        }}
+                      >
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: plan.highlight ? "#C9A84C" : "rgba(245,240,232,0.72)" }}>
+                            {plan.tier}
+                          </span>
+                          <div className="flex items-end gap-1 mt-2">
+                            <span className="text-3xl font-serif font-black text-white">{plan.price}</span>
+                            <span className="text-xs font-light pb-1 ml-0.5" style={{ color: "rgba(245,240,232,0.75)" }}>{plan.cadence}</span>
+                          </div>
+                        </div>
+                        <ul className="flex flex-col gap-2 flex-1">
+                          {plan.features.map((f) => (
+                            <li key={f} className="flex items-start gap-2 text-xs font-light" style={{ color: "rgba(245,240,232,0.88)" }}>
+                              <Check className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#C9A84C" }} />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <Link
+                          href={plan.href}
+                          className="text-center py-3 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
+                          style={
+                            plan.highlight
+                              ? { backgroundColor: "#C9A84C", color: "#2d0f16" }
+                              : { backgroundColor: "rgba(255,255,255,0.1)", color: "rgba(245,240,232,0.92)" }
+                          }
+                        >
+                          {plan.cta}
+                        </Link>
+                      </div>
+                    ))}
                   </div>
-                </div>
-                <ul className="flex flex-col gap-2 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-xs font-light" style={{ color: "rgba(245,240,232,0.88)" }}>
-                      <Check className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#C9A84C" }} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={plan.href}
-                  className="text-center py-3 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
-                  style={
-                    plan.highlight
-                      ? { backgroundColor: "#C9A84C", color: "#2d0f16" }
-                      : { backgroundColor: "rgba(255,255,255,0.1)", color: "rgba(245,240,232,0.92)" }
-                  }
-                >
-                  {plan.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
 
-          <p className="text-center text-xs font-light" style={{ color: "rgba(245,240,232,0.62)" }}>
-            Los retos de transformación (7–30 días) son pago único desde 19€ · Sin renovación automática
-          </p>
+                  <p className="text-center text-xs font-light" style={{ color: "rgba(245,240,232,0.62)" }}>
+                    Los retos de transformación (7–30 días) son pago único desde 19€ · Sin renovación automática
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
       {/* ── 7. NEWSLETTER / LEAD MAGNET ─────────────────────────────────────── */}
-      <section aria-label="Receta anti-ansiedad gratuita" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
+      <section aria-label="Receta anti-ansiedad gratuita" className="px-6 py-6" style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
-              No compres aún si no estás seguro
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl text-[#2d0f16] leading-tight">
-              Prueba antes.{" "}
-              <span className="italic font-light">Una receta anti-ansiedad, gratis.</span>
-            </h2>
-          </div>
+          <button
+            type="button"
+            onClick={() => setPruebaAntesOpen(o => !o)}
+            className="w-full flex items-center justify-between gap-4 py-2 group"
+            aria-expanded={pruebaAntesOpen}
+          >
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span className="font-serif text-xl font-bold" style={{ color: '#2d0f16' }}>Prueba antes</span>
+              <span className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.55)' }}>
+                · Una receta anti-ansiedad, gratis.
+              </span>
+            </div>
+            <ChevronDown
+              className="w-5 h-5 shrink-0 transition-transform duration-300"
+              style={{ color: 'rgba(107,39,55,0.4)', transform: pruebaAntesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            />
+          </button>
 
+          <AnimatePresence initial={false}>
+            {pruebaAntesOpen && (
+              <motion.div
+                key="prueba-antes-content"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+              >
+          <div className="pt-8 pb-4">
           <div className="grid md:grid-cols-2 gap-6 items-start">
 
             {/* ── Tarjeta receta ── */}
             <div className="rounded-3xl overflow-hidden shadow-sm" style={{ backgroundColor: '#2d0f16' }}>
-              {/* Header receta */}
-              <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(74,123,107,0.25)', color: '#7BBFAA' }}>
-                    Anti-ansiedad
-                  </span>
-                  <span className="text-[10px] font-light" style={{ color: 'rgba(245,240,232,0.72)' }}>· 20 min · fácil</span>
-                </div>
-                <p className="font-serif text-xl font-bold leading-snug" style={{ color: '#F5F0E8' }}>
-                  Curry suave de garbanzos con espinacas y cúrcuma
-                </p>
-              </div>
-
-              {/* Snippet científico */}
-              <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-                <div className="flex items-start gap-2.5">
-                  <FlaskConical size={14} strokeWidth={1.5} className="shrink-0 mt-0.5" style={{ color: '#C9A84C' }} />
+              {/* Header receta — siempre visible, actúa como toggle */}
+              <button
+                type="button"
+                onClick={() => setCurryOpen(o => !o)}
+                className="w-full text-left px-6 pt-6 pb-4 border-b"
+                style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+                aria-expanded={curryOpen}
+              >
+                <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold mb-1" style={{ color: '#C9A84C' }}>La ciencia detrás</p>
-                    <p className="text-xs font-light leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
-                      Los garbanzos son una de las fuentes vegetales más ricas en triptófano, el aminoácido precursor de la serotonina. La curcumina de la cúrcuma inhibe la enzima IDO — la misma que el estrés crónico activa para desviar el triptófano hacia la ruta de la quinurenina, alejándolo de la serotonina. Combinarlos no es casualidad: es bioquímica aplicada al plato.
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(74,123,107,0.25)', color: '#7BBFAA' }}>
+                        Anti-ansiedad
+                      </span>
+                      <span className="text-[10px] font-light" style={{ color: 'rgba(245,240,232,0.72)' }}>· 20 min · fácil</span>
+                    </div>
+                    <p className="font-serif text-xl font-bold leading-snug" style={{ color: '#F5F0E8' }}>
+                      Curry suave de garbanzos con espinacas y cúrcuma
                     </p>
-                    <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#C9A84C' }}>
-                      Triptófano · Curcumina · Quinurenina
-                    </span>
                   </div>
+                  <ChevronDown
+                    className="w-4 h-4 shrink-0 transition-transform duration-300"
+                    style={{ color: 'rgba(245,240,232,0.4)', transform: curryOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                  />
                 </div>
-              </div>
+              </button>
 
-              {/* Lista de compra */}
-              <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(245,240,232,0.65)' }}>
-                  Lista de compra
-                </p>
-                <ul className="space-y-1.5">
-                  {[
-                    '400 g de garbanzos cocidos (bote o remojados)',
-                    '100 g de espinacas frescas o baby',
-                    '1 lata de leche de coco (400 ml)',
-                    '1 cebolla · 3 dientes de ajo · jengibre fresco',
-                    '1 cdta de cúrcuma · 1 cdta de comino · pimienta negra',
-                    'Aceite de oliva · sal · arroz integral para acompañar',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-xs font-light" style={{ color: 'rgba(245,240,232,0.82)' }}>
-                      <span style={{ color: '#4A7B6B' }} className="shrink-0">·</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <AnimatePresence initial={false}>
+                {curryOpen && (
+                  <motion.div
+                    key="curry-content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    {/* Snippet científico */}
+                    <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                      <div className="flex items-start gap-2.5">
+                        <FlaskConical size={14} strokeWidth={1.5} className="shrink-0 mt-0.5" style={{ color: '#C9A84C' }} />
+                        <div>
+                          <p className="text-xs font-semibold mb-1" style={{ color: '#C9A84C' }}>La ciencia detrás</p>
+                          <p className="text-xs font-light leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
+                            Los garbanzos son una de las fuentes vegetales más ricas en triptófano, el aminoácido precursor de la serotonina. La curcumina de la cúrcuma inhibe la enzima IDO — la misma que el estrés crónico activa para desviar el triptófano hacia la ruta de la quinurenina, alejándolo de la serotonina. Combinarlos no es casualidad: es bioquímica aplicada al plato.
+                          </p>
+                          <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#C9A84C' }}>
+                            Triptófano · Curcumina · Quinurenina
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
-              {/* CTA Slow Food·Mood */}
-              <div className="px-6 py-5">
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(245,240,232,0.65)' }}>
-                  ¿Te gusta este estilo?
-                </p>
-                <p className="text-sm font-semibold mb-1" style={{ color: '#F5F0E8' }}>
-                  Slow Food·Mood — 21 días de recetas como esta
-                </p>
-                <p className="text-xs font-light mb-4" style={{ color: 'rgba(245,240,232,0.82)' }}>
-                  21 recetas funcionales para la ansiedad · audios de contexto científico · tracking emocional diario · informe final personalizado.
-                </p>
-                <Link
-                  href="/retos/slow-food-mood"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold transition-all hover:opacity-80"
-                  style={{ color: '#7BBFAA' }}
-                >
-                  Ver el reto — 29€ pago único <ArrowRight size={12} />
-                </Link>
-              </div>
+                    {/* Lista de compra */}
+                    <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                      <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(245,240,232,0.65)' }}>
+                        Lista de compra
+                      </p>
+                      <ul className="space-y-1.5">
+                        {[
+                          '400 g de garbanzos cocidos (bote o remojados)',
+                          '100 g de espinacas frescas o baby',
+                          '1 lata de leche de coco (400 ml)',
+                          '1 cebolla · 3 dientes de ajo · jengibre fresco',
+                          '1 cdta de cúrcuma · 1 cdta de comino · pimienta negra',
+                          'Aceite de oliva · sal · arroz integral para acompañar',
+                        ].map((item) => (
+                          <li key={item} className="flex items-start gap-2 text-xs font-light" style={{ color: 'rgba(245,240,232,0.82)' }}>
+                            <span style={{ color: '#4A7B6B' }} className="shrink-0">·</span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* CTA Slow Food·Mood */}
+                    <div className="px-6 py-5">
+                      <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(245,240,232,0.65)' }}>
+                        ¿Te gusta este estilo?
+                      </p>
+                      <p className="text-sm font-semibold mb-1" style={{ color: '#F5F0E8' }}>
+                        Slow Food·Mood — 21 días de recetas como esta
+                      </p>
+                      <p className="text-xs font-light mb-4" style={{ color: 'rgba(245,240,232,0.82)' }}>
+                        21 recetas funcionales para la ansiedad · audios de contexto científico · tracking emocional diario · informe final personalizado.
+                      </p>
+                      <Link
+                        href="/retos/slow-food-mood"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold transition-all hover:opacity-80"
+                        style={{ color: '#7BBFAA' }}
+                      >
+                        Ver el reto — 29€ pago único <ArrowRight size={12} />
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* ── Formulario newsletter ── */}
@@ -1253,6 +1360,10 @@ export default function Home() {
             </div>
 
           </div>
+          </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
