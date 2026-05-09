@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "recipe-search",
+      "type": "skill-md",
+      "description": "Search Food·Mood functional recipes by emotional state or ingredient. Each recipe is grounded in gut-brain science.",
+      "url": "https://www.food-mood.app/.well-known/agent-skills/recipe-search/SKILL.md",
+      "digest": "sha256:b2a8211e4e3aa4efcc8ff1437ddab649ae02ad08a1c694727252adee2165714e"
+    },
+    {
+      "name": "newsletter-subscribe",
+      "type": "skill-md",
+      "description": "Subscribe an email address to the Food·Mood weekly editorial on gut-brain science, ferments, longevity and functional recipes.",
+      "url": "https://www.food-mood.app/.well-known/agent-skills/newsletter-subscribe/SKILL.md",
+      "digest": "sha256:6ab1b3231836d5c9a33d25d61cd32016263ff4213c355795e07bca25a4456526"
+    },
+    {
+      "name": "mood-test",
+      "type": "skill-md",
+      "description": "Navigate the user to the Food·Mood 30-second emotional quiz that recommends personalised functional recipes.",
+      "url": "https://www.food-mood.app/.well-known/agent-skills/mood-test/SKILL.md",
+      "digest": "sha256:02b08c017f57720e4596fdbbe97141b54863e0b44b81f86bc314cbc4e14f3703"
+    }
+  ]
+}
