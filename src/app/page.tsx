@@ -363,6 +363,81 @@ export default function Home() {
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <HomeHero />
 
+      {/* ── 1a. FOOD-MOOD GUIDE — asistente IA ──────────────────────────────── */}
+      <section aria-label="FOOD-MOOD Guide — Asistente IA premium" className="py-16 md:py-20 px-6" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+
+          {/* Left: chat preview */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}
+            className="relative rounded-2xl overflow-hidden p-5 space-y-3"
+            style={{ backgroundColor: "#F5F0E8", border: "1px solid rgba(201,168,76,0.15)" }}
+          >
+            <div className="flex items-center gap-2 pb-3 border-b" style={{ borderColor: "rgba(45,15,22,0.08)" }}>
+              <div className="w-7 h-7 rounded-full flex items-center justify-center font-serif text-[10px] font-black shrink-0" style={{ backgroundColor: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.25)", color: "#C9A84C" }}>FM</div>
+              <span className="text-xs font-semibold" style={{ color: "#2d0f16" }}>FOOD-MOOD Guide</span>
+              <span className="ml-auto w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "#5A9B8A" }} />
+            </div>
+            {[
+              { role: "user",      text: "Llevo semanas con ansiedad y no sé qué comer." },
+              { role: "assistant", text: "Tiene sentido que la ansiedad te descoloque el hambre — es uno de los primeros sistemas que se activan cuando el eje intestino-cerebro está bajo carga. ¿Noto que el impulso aparece más antes de comer, durante o después?" },
+              { role: "user",      text: "Más bien por las tardes, después de comer." },
+              { role: "assistant", text: "Tardes post-comida con impulso ansioso. Ese patrón suele tener que ver con la caída de glucosa y cortisol combinados. ¿Qué suele haber en tu almuerzo?" },
+            ].map((m, i) => (
+              <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                {m.role === "assistant" && (
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center font-serif text-[8px] font-black shrink-0 mr-1.5 mt-0.5" style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C" }}>FM</div>
+                )}
+                <div
+                  className="max-w-[78%] rounded-xl px-3 py-2 text-[11px] font-light leading-relaxed"
+                  style={m.role === "user"
+                    ? { backgroundColor: "#6B2737", color: "#F5F0E8", borderRadius: "12px 12px 3px 12px" }
+                    : { backgroundColor: "#fff", color: "rgba(45,15,22,0.8)", border: "1px solid rgba(45,15,22,0.07)", borderRadius: "12px 12px 12px 3px" }
+                  }
+                >
+                  {m.text}
+                </div>
+              </div>
+            ))}
+            <p className="text-[9px] text-center pt-1" style={{ color: "rgba(45,15,22,0.25)" }}>Solo informativo · No sustituye atención profesional</p>
+          </motion.div>
+
+          {/* Right: description + CTA */}
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+            className="space-y-6"
+          >
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
+              Asistente IA · Solo premium
+            </motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-[1.15]">
+              FOOD-MOOD Guide.
+              <br />
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Responde a lo que sientes, no solo a lo que preguntas.</em>
+            </motion.h2>
+            <motion.div variants={fade} className="grid grid-cols-2 gap-2">
+              {["Psicología alimentaria", "Nutrición de precisión", "Ciencia del comportamiento", "Longevidad aplicada"].map(l => (
+                <div key={l} className="rounded-xl px-3 py-2.5" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.12)" }}>
+                  <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.55)" }}>{l}</p>
+                </div>
+              ))}
+            </motion.div>
+            <motion.div variants={fade} className="flex flex-col items-start gap-2">
+              <Link
+                href="/asistente"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
+                style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+              >
+                Hablar con FOOD-MOOD Guide <ArrowRight className="w-4 h-4" />
+              </Link>
+              <p className="text-[10px]" style={{ color: "rgba(245,240,232,0.22)" }}>Incluido en los planes mensual y trimestral</p>
+            </motion.div>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* ── 1b. LA APP — PANTALLAS ──────────────────────────────────────────── */}
       <section aria-label="Pantallas de la aplicación Food·Mood" className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
@@ -424,56 +499,78 @@ export default function Home() {
       {/* ── 1c. DEMO INTERACTIVA ────────────────────────────────────────────── */}
       <AppDemo />
 
-      {/* ── 2. LA CIENCIA ───────────────────────────────────────────────────── */}
-      <section aria-label="La ciencia del eje intestino-cerebro" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
+      {/* ── 2. NEUROCIENCIA — accordion ─────────────────────────────────────── */}
+      <section aria-label="La neurociencia lo confirma" className="py-12 md:py-16 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
-              className="space-y-6"
-            >
-              <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-                Hábitos · No disciplina
-              </motion.p>
-              <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-[1.15]">
-                Los hábitos que duran se anclan al placer,
-                <em className="font-light italic"> no a la fuerza de voluntad.</em>
-              </motion.h2>
-              <motion.p variants={fade} className="text-base md:text-lg font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
-                Cada receta de Food·Mood es un micro-hábito diseñado para repetirse porque se disfruta.
-                El mecanismo es biológico: el 90% de tu serotonina se produce en el intestino.
-                Cuando comes lo que tu cuerpo necesita y lo saboreas, activas el circuito de recompensa
-                que hace que quieras repetirlo — sin esfuerzo, sin culpa.
-              </motion.p>
-              <motion.p variants={fade} className="text-sm font-light italic" style={{ color: "rgba(245,240,232,0.35)" }}>
-                Basado en BJ Fogg (Tiny Habits) y el trabajo de Cryan et al. sobre el eje microbiota-intestino-cerebro.
-              </motion.p>
-            </motion.div>
+          <button
+            type="button"
+            onClick={() => setNeurocienciaOpen(o => !o)}
+            className="w-full flex items-start md:items-center justify-between gap-6 text-left group"
+            aria-expanded={neurocienciaOpen}
+          >
+            <div className="space-y-3">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
+                La neurociencia lo confirma
+              </p>
+              <h2 className="font-serif text-2xl md:text-3xl text-white leading-[1.15]">
+                Los hábitos duraderos no se crean con disciplina.{" "}
+                <em className="font-light italic" style={{ color: "#C9A84C" }}>Se crean con placer.</em>
+              </h2>
+            </div>
+            <ChevronDown
+              className="w-6 h-6 shrink-0 transition-transform duration-300 mt-1 group-hover:opacity-80"
+              style={{ color: "#C9A84C", transform: neurocienciaOpen ? "rotate(180deg)" : undefined }}
+            />
+          </button>
 
-            <dl className="grid grid-cols-2 gap-4">
-              {[
-                { number: "90%", label: "de tu serotonina se produce en el intestino" },
-                { number: "90 días", label: "el ciclo real de cambio del microbioma" },
-                { number: "20 min", label: "de media por receta — nada complicado" },
-                { number: "7 días", label: "para sentir los primeros cambios" },
-              ].map(({ number, label }) => (
-                <motion.div
-                  key={number}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  className="rounded-2xl p-5 flex flex-col gap-2"
-                  style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
-                >
-                  <dt className="font-serif text-3xl font-black" style={{ color: "#C9A84C" }}>{number}</dt>
-                  <dd className="text-xs font-light leading-snug" style={{ color: "rgba(245,240,232,0.78)" }}>{label}</dd>
-                </motion.div>
-              ))}
-            </dl>
-          </div>
+          <AnimatePresence initial={false}>
+            {neurocienciaOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="grid md:grid-cols-2 gap-14 md:gap-20 items-start mt-10">
+                  <div className="space-y-6">
+                    <p className="text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.82)" }}>
+                      Tu intestino produce el 90% de tu serotonina. Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo. Eso es lo que crea el hábito. No el esfuerzo.
+                    </p>
+                    <dl className="grid grid-cols-2 gap-3">
+                      {[
+                        { number: "90%", label: "de tu serotonina se produce en el intestino" },
+                        { number: "90 días", label: "el ciclo real de cambio del microbioma" },
+                        { number: "20 min", label: "de media por receta" },
+                        { number: "7 días", label: "para sentir los primeros cambios" },
+                      ].map(({ number, label }) => (
+                        <div key={number} className="rounded-2xl p-4 flex flex-col gap-1.5" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                          <dt className="font-serif text-2xl font-black" style={{ color: "#C9A84C" }}>{number}</dt>
+                          <dd className="text-xs font-light leading-snug" style={{ color: "rgba(245,240,232,0.78)" }}>{label}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <p className="text-xs font-light italic" style={{ color: "rgba(245,240,232,0.35)" }}>
+                      BJ Fogg · Tiny Habits · Cryan et al. — eje microbiota-intestino-cerebro
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-5">
+                    {[
+                      { title: "Comes mejor sin sentirte a dieta", body: "No restricción. No control. Un plato que te da placer y te hace sentir bien. Sin culpa incluida.", accent: "#C9A84C" },
+                      { title: "Reduces la ansiedad con comida que disfrutas", body: "Sin el ciclo de restricción → ansiedad → abandono. La comida como solución, no como problema.", accent: "#5A9B8A" },
+                      { title: "Creas hábitos de forma natural", body: "Cuando algo te da placer, tu cerebro lo repite solo. Sin fuerza de voluntad ni disciplina rígida.", accent: "#C9A84C" },
+                      { title: "Reconectas con tu cuerpo", body: "Aprendes a escuchar lo que te pide el cuerpo. Food·Mood traduce esa señal en un plato concreto.", accent: "#5A9B8A" },
+                    ].map((b, i) => (
+                      <div key={i} className="pl-4" style={{ borderLeft: `2px solid ${b.accent}44` }}>
+                        <h3 className="font-serif text-base font-semibold mb-1" style={{ color: "#F5F0E8" }}>{b.title}</h3>
+                        <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>{b.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -742,139 +839,6 @@ export default function Home() {
               Descubre tu paleta emocional <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ── 3b. FOOD-MOOD GUIDE — asistente IA ─────────────────────────────── */}
-      <section aria-label="FOOD-MOOD Guide — Asistente IA premium" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
-        <div className="max-w-3xl mx-auto text-center">
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="text-[10px] font-bold uppercase tracking-[0.35em] mb-6"
-            style={{ color: "#C9A84C" }}
-          >
-            Asistente IA · Solo premium
-          </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }}
-            className="font-serif text-3xl md:text-5xl text-white leading-[1.1] mb-6"
-          >
-            FOOD-MOOD Guide.<br />
-            <em className="font-light italic" style={{ color: "#C9A84C" }}>Responde como un chat especializado en psicología alimentaria, nutrición de precisión, hábitos y longevidad.</em>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.14 }}
-            className="text-base md:text-lg font-light leading-relaxed mb-10"
-            style={{ color: "rgba(245,240,232,0.65)" }}
-          >
-            Integra psicología alimentaria, nutrición de precisión cotidiana, ciencia del comportamiento y longevidad aplicada para leer patrones, no solo preguntas.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-left"
-          >
-            {[
-              { label: "Psicología\nalimentaria" },
-              { label: "Nutrición de\nprecisión cotidiana" },
-              { label: "Ciencia del\ncomportamiento" },
-              { label: "Longevidad\naplicada" },
-            ].map(({ label }) => (
-              <div
-                key={label}
-                className="rounded-xl p-4"
-                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.15)" }}
-              >
-                <p className="text-xs font-light leading-snug whitespace-pre-line" style={{ color: "rgba(245,240,232,0.55)" }}>
-                  {label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.26 }}
-            className="flex flex-col items-center gap-3"
-          >
-            <Link
-              href="/asistente"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-              style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
-            >
-              Hablar con FOOD-MOOD Guide <ArrowRight className="w-4 h-4" />
-            </Link>
-            <p className="text-[10px]" style={{ color: "rgba(245,240,232,0.22)" }}>
-              Incluido en los planes mensual y trimestral
-            </p>
-          </motion.div>
-
-        </div>
-      </section>
-
-      {/* ── 3c. NEUROCIENCIA ────────────────────────────────────────────────── */}
-      <section aria-label="La neurociencia lo confirma" className="py-12 md:py-16 px-6" style={{ backgroundColor: "#2d0f16" }}>
-        <div className="max-w-5xl mx-auto">
-          <button
-            type="button"
-            onClick={() => setNeurocienciaOpen(o => !o)}
-            className="w-full flex items-start md:items-center justify-between gap-6 text-left group"
-            aria-expanded={neurocienciaOpen}
-          >
-            <div className="space-y-3">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-                La neurociencia lo confirma
-              </p>
-              <h2 className="font-serif text-2xl md:text-3xl text-white leading-[1.15]">
-                Los hábitos duraderos no se crean con disciplina.{" "}
-                <em className="font-light italic" style={{ color: "#C9A84C" }}>Se crean con placer.</em>
-              </h2>
-            </div>
-            <ChevronDown
-              className="w-6 h-6 shrink-0 transition-transform duration-300 mt-1 group-hover:opacity-80"
-              style={{ color: "#C9A84C", transform: neurocienciaOpen ? "rotate(180deg)" : undefined }}
-            />
-          </button>
-
-          <AnimatePresence initial={false}>
-            {neurocienciaOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="grid md:grid-cols-2 gap-14 md:gap-20 items-start mt-10">
-                  <div className="space-y-5">
-                    <p className="text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.82)" }}>
-                      Tu intestino produce el 90% de tu serotonina — el neurotransmisor del bienestar y la recompensa.
-                      Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo.
-                      Eso es lo que crea el hábito. No el esfuerzo.
-                    </p>
-                    <p className="text-xs font-light italic" style={{ color: "rgba(245,240,232,0.45)" }}>
-                      BJ Fogg · Tiny Habits · Cryan et al. — eje microbiota-intestino-cerebro
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-6">
-                    {[
-                      { title: "Comes mejor sin sentirte a dieta", body: "No restricción. No control. Un plato que te da placer y te hace sentir bien. Sin culpa incluida.", accent: "#C9A84C" },
-                      { title: "Reduces la ansiedad con comida que disfrutas", body: "Sin el ciclo de restricción → ansiedad → abandono. La comida como solución, no como problema.", accent: "#5A9B8A" },
-                      { title: "Creas hábitos de forma natural", body: "Cuando algo te da placer, tu cerebro lo repite solo. Sin fuerza de voluntad ni disciplina rígida.", accent: "#C9A84C" },
-                      { title: "Reconectas con tu cuerpo", body: "Aprendes a escuchar lo que te pide el cuerpo. Food·Mood traduce esa señal en un plato concreto.", accent: "#5A9B8A" },
-                    ].map((b, i) => (
-                      <div key={i} className="pl-4" style={{ borderLeft: `2px solid ${b.accent}44` }}>
-                        <h3 className="font-serif text-base font-semibold mb-1.5" style={{ color: "#F5F0E8" }}>{b.title}</h3>
-                        <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>{b.body}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </section>
 

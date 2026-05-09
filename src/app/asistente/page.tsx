@@ -1,9 +1,8 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
-import { Send, Loader2, ChefHat, Lock, Sparkles } from "lucide-react"
+import { Send, Loader2, Lock, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { useQuizStore } from "@/store/useQuizStore"
 
 type AccessState = "idle" | "loading" | "unauthenticated" | "no-subscription" | "subscribed"
 
@@ -20,7 +19,6 @@ export default function AsistentePage() {
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
   const [messagesRemaining, setMessagesRemaining] = useState<number | null>(null)
-  const { resultMood } = useQuizStore()
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -41,15 +39,6 @@ export default function AsistentePage() {
       .catch(() => setAccessState("unauthenticated"))
   }, [])
 
-  // Greeting when subscribed
-  useEffect(() => {
-    if (accessState !== "subscribed" || messages.length > 0) return
-    const moodLabel = typeof resultMood === "string" ? resultMood : null
-    const greeting = moodLabel
-      ? `Hola. Veo que tu estado de hoy es ${moodLabel}. ¿Quieres que te oriente con una receta, un hábito o simplemente hablamos de cómo te encuentras?`
-      : "Hola. Soy tu asistente Food·Mood. ¿Cómo te encuentras hoy? Cuéntame y te oriento."
-    setMessages([{ role: "assistant", content: greeting }])
-  }, [accessState, resultMood])
 
   // Auto-scroll
   useEffect(() => {
@@ -175,7 +164,7 @@ export default function AsistentePage() {
       {/* Page header */}
       <div className="shrink-0 border-b px-6 py-4 flex items-center gap-3" style={{ backgroundColor: "#2d0f16", borderColor: "rgba(201,168,76,0.15)" }}>
         <div className="w-9 h-9 rounded-full flex items-center justify-center border shrink-0" style={{ backgroundColor: "rgba(201,168,76,0.15)", borderColor: "rgba(201,168,76,0.3)" }}>
-          <ChefHat className="w-4 h-4" style={{ color: "#C9A84C" }} />
+          <Sparkles className="w-4 h-4" style={{ color: "#C9A84C" }} />
         </div>
         <div className="flex-1 min-w-0">
           <h1 className="text-sm font-bold" style={{ color: "#F5F0E8" }}>Asistente Food·Mood</h1>
@@ -193,11 +182,41 @@ export default function AsistentePage() {
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 space-y-4" style={{ scrollbarWidth: "none" }}>
         <div className="max-w-2xl mx-auto space-y-4">
+
+          {/* Empty state */}
+          {messages.length === 0 && !loading && (
+            <div className="flex flex-col items-center justify-center h-full pt-16 pb-8 text-center px-6 space-y-5">
+              <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)" }}>
+                <Sparkles className="w-6 h-6" style={{ color: "#C9A84C" }} />
+              </div>
+              <div className="space-y-2 max-w-xs">
+                <p className="font-serif text-lg font-semibold" style={{ color: "#2d0f16" }}>FOOD-MOOD Guide</p>
+                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.5)" }}>
+                  Cuéntame cómo te encuentras hoy — energía, ánimo, lo que has comido, lo que te preocupa. Te oriento desde la psicología alimentaria y la ciencia del comportamiento.
+                </p>
+              </div>
+              {[
+                "Últimamente como por ansiedad y no sé cómo parar.",
+                "Me siento sin energía aunque duermo bien.",
+                "Quiero mejorar mi microbiota, ¿por dónde empiezo?",
+              ].map(s => (
+                <button
+                  key={s}
+                  onClick={() => setInput(s)}
+                  className="block w-full max-w-xs text-left text-sm px-4 py-3 rounded-2xl transition-all hover:shadow-sm"
+                  style={{ backgroundColor: "#fff", border: "1px solid rgba(107,39,55,0.1)", color: "rgba(45,15,22,0.65)" }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               {msg.role === "assistant" && (
-                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)" }}>
-                  <ChefHat className="w-3.5 h-3.5" style={{ color: "#C9A84C" }} />
+                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1 font-serif text-[10px] font-black" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)", color: "#C9A84C" }}>
+                  FM
                 </div>
               )}
               <div
@@ -214,8 +233,8 @@ export default function AsistentePage() {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)" }}>
-                <ChefHat className="w-3.5 h-3.5" style={{ color: "#C9A84C" }} />
+              <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1 font-serif text-[10px] font-black" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)", color: "#C9A84C" }}>
+                FM
               </div>
               <div className="rounded-2xl px-5 py-3.5" style={{ backgroundColor: "#fff", border: "1px solid rgba(45,15,22,0.07)", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
                 <div className="flex gap-1 items-center h-5">
