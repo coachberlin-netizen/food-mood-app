@@ -20,6 +20,7 @@ const FREE_FEATURES = [
 
 const PREMIUM_FEATURES = [
   { text: "Todo lo gratuito, más:", included: true },
+  { text: "FOOD-MOOD Guide — asistente IA especializado en nutrición funcional y hábitos (hasta 20 conversaciones diarias)", included: true },
   { text: "Tu Paleta Emocional personalizada — descubre tu color cada día", included: true },
   { text: "Recetas adaptadas a tu mezcla emocional, no a una categoría genérica", included: true },
   { text: "Historial de colores — observa tus patrones emocionales semanales", included: true },
@@ -223,8 +224,8 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
           <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-aubergine-dark/30 text-center mb-8">Preguntas frecuentes</h2>
           <div className="space-y-6">
             {[
-              { q: "¿El test es totalmente gratis?", a: "Sí. Puedes usar el Test visual o charlar libremente con nuestra IA sin coste alguno." },
-              { q: "¿Qué incluye exactamente mi Premium?", a: "Desbloquea instantáneamente el mapa Food·Mood al 100%: Recetas Completas, glosario, Fermentos del Mundo e Historial." },
+              { q: "¿El test es totalmente gratis?", a: "Sí. El test de mood y la Paleta Emocional básica son gratuitos. El asistente IA FOOD-MOOD Guide y las recetas completas están incluidos en el plan premium." },
+              { q: "¿Qué incluye exactamente mi Premium?", a: "Desbloquea el asistente IA FOOD-MOOD Guide (hasta 20 conversaciones diarias), el mapa Food·Mood al 100% con recetas completas, glosario, Fermentos del Mundo, historial emocional y canal privado de Telegram." },
               { q: "¿Las recetas sirven para todos en casa?", a: "Totalmente. Hemos estructurado la arquitectura Premium para que funcione con ingredientes y preparaciones que todos pueden disfrutar." },
               { q: "¿Es seguro el pago y cancelable?", a: "Operamos con pasarela encriptada Stripe y puedes cancelar en 1 solo clic desde tu perfil." },
             ].map((faq, i) => (
