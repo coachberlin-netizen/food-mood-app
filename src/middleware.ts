@@ -38,6 +38,16 @@ export async function middleware(request: NextRequest) {
     return new NextResponse(null, { status: 204, headers: corsHeaders(origin) })
   }
 
+  // Markdown content negotiation (RFC 8288): agents requesting text/markdown get a markdown snapshot
+  if (
+    request.nextUrl.pathname === '/' &&
+    request.headers.get('accept')?.includes('text/markdown')
+  ) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/api/homepage-md'
+    return NextResponse.rewrite(url)
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   })
