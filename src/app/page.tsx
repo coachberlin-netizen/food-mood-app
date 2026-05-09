@@ -8,6 +8,7 @@ import { ConstellationBackground } from "@/components/layout/ConstellationBackgr
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
 import HomeHero from "@/components/layout/HomeHero"
 import { AppDemo } from "@/components/layout/AppDemo"
+import { RetosAnimation } from "@/components/retos/RetosAnimation"
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
 const RETOS = [
@@ -978,10 +979,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-10">
-            {RETOS.map((reto) => (
-              <RetoCard key={reto.slug} reto={reto} />
-            ))}
+          <div className="mb-10 rounded-2xl overflow-hidden shadow-lg">
+            <RetosAnimation />
           </div>
 
           <div
