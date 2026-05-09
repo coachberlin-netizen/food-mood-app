@@ -1,0 +1,268 @@
+"use client"
+
+import { useState, useEffect, useRef, useCallback } from "react"
+import { Send, Loader2, ChefHat, Lock, Sparkles } from "lucide-react"
+import Link from "next/link"
+import { useQuizStore } from "@/store/useQuizStore"
+
+type AccessState = "idle" | "loading" | "unauthenticated" | "no-subscription" | "subscribed"
+
+const DAILY_LIMIT = 20
+
+interface Message {
+  role: "assistant" | "user"
+  content: string
+}
+
+export default function AsistentePage() {
+  const [accessState, setAccessState] = useState<AccessState>("idle")
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [messagesRemaining, setMessagesRemaining] = useState<number | null>(null)
+  const { resultMood } = useQuizStore()
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Entitlement check on mount
+  useEffect(() => {
+    setAccessState("loading")
+    fetch("/api/ai/entitlement")
+      .then(async res => {
+        if (res.status === 401) { setAccessState("unauthenticated"); return }
+        const data = await res.json()
+        if (data.canUseAI) {
+          setAccessState("subscribed")
+          setMessagesRemaining(data.messagesRemaining ?? DAILY_LIMIT)
+        } else {
+          setAccessState("no-subscription")
+        }
+      })
+      .catch(() => setAccessState("unauthenticated"))
+  }, [])
+
+  // Greeting when subscribed
+  useEffect(() => {
+    if (accessState !== "subscribed" || messages.length > 0) return
+    const moodLabel = typeof resultMood === "string" ? resultMood : null
+    const greeting = moodLabel
+      ? `Hola. Veo que tu estado de hoy es ${moodLabel}. ¿Quieres que te oriente con una receta, un hábito o simplemente hablamos de cómo te encuentras?`
+      : "Hola. Soy tu asistente Food·Mood. ¿Cómo te encuentras hoy? Cuéntame y te oriento."
+    setMessages([{ role: "assistant", content: greeting }])
+  }, [accessState, resultMood])
+
+  // Auto-scroll
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    }
+  }, [messages, loading])
+
+  const handleSend = useCallback(async () => {
+    if (!input.trim() || loading || accessState !== "subscribed") return
+    if (messagesRemaining !== null && messagesRemaining <= 0) return
+
+    const userMsg = input.trim()
+    const newMessages: Message[] = [...messages, { role: "user", content: userMsg }]
+    setMessages(newMessages)
+    setInput("")
+    setLoading(true)
+    inputRef.current?.focus()
+
+    try {
+      const res = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      })
+
+      if (res.status === 401) { setAccessState("unauthenticated"); return }
+      if (res.status === 403) { setAccessState("no-subscription"); return }
+
+      if (res.status === 429) {
+        setMessagesRemaining(0)
+        setMessages(prev => [...prev, {
+          role: "assistant",
+          content: "Has alcanzado tu límite de 20 mensajes diarios. Vuelve mañana para continuar. 🌙",
+        }])
+        return
+      }
+
+      const data = await res.json()
+      if (typeof data.messagesRemaining === "number") setMessagesRemaining(data.messagesRemaining)
+      if (data.reply) setMessages(prev => [...prev, { role: "assistant", content: data.reply }])
+    } catch {
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: "Ha habido un problema de conexión. Por favor, inténtalo de nuevo.",
+      }])
+    } finally {
+      setLoading(false)
+    }
+  }, [input, loading, accessState, messages, messagesRemaining])
+
+  const limitReached = messagesRemaining !== null && messagesRemaining <= 0
+
+  /* ── Loading ── */
+  if (accessState === "loading" || accessState === "idle") {
+    return (
+      <div className="min-h-[calc(100svh-80px)] flex items-center justify-center" style={{ backgroundColor: "#F5F0E8" }}>
+        <Loader2 className="w-7 h-7 animate-spin" style={{ color: "rgba(107,39,55,0.25)" }} />
+      </div>
+    )
+  }
+
+  /* ── Unauthenticated ── */
+  if (accessState === "unauthenticated") {
+    return (
+      <div className="min-h-[calc(100svh-80px)] flex items-center justify-center p-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-sm w-full text-center space-y-6">
+          <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center" style={{ backgroundColor: "rgba(107,39,55,0.06)" }}>
+            <Lock className="w-7 h-7" style={{ color: "rgba(107,39,55,0.3)" }} />
+          </div>
+          <div className="space-y-3">
+            <h1 className="font-serif text-2xl font-black" style={{ color: "#2d0f16" }}>
+              Entra para usar tu asistente Food·Mood
+            </h1>
+            <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.55)" }}>
+              Crea tu cuenta o inicia sesión para acceder a tu espacio Food·Mood.
+            </p>
+          </div>
+          <Link
+            href="/auth/login"
+            className="inline-flex px-8 py-3.5 rounded-2xl text-sm font-bold transition-all hover:brightness-105"
+            style={{ backgroundColor: "#2d0f16", color: "#F5F0E8" }}
+          >
+            Iniciar sesión
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  /* ── No subscription ── */
+  if (accessState === "no-subscription") {
+    return (
+      <div className="min-h-[calc(100svh-80px)] flex items-center justify-center p-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-sm w-full text-center space-y-6">
+          <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center border" style={{ backgroundColor: "rgba(201,168,76,0.08)", borderColor: "rgba(201,168,76,0.25)" }}>
+            <Sparkles className="w-7 h-7" style={{ color: "#C9A84C" }} />
+          </div>
+          <div className="space-y-3">
+            <h1 className="font-serif text-2xl font-black" style={{ color: "#2d0f16" }}>
+              Desbloquea tu asistente Food·Mood
+            </h1>
+            <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.55)" }}>
+              El asistente IA está incluido en la suscripción Food·Mood. Suscríbete para recibir orientación personalizada sobre recetas, hábitos y bienestar emocional.
+            </p>
+          </div>
+          <Link
+            href="/pricing"
+            className="inline-flex px-8 py-3.5 rounded-2xl text-sm font-bold transition-all hover:brightness-105"
+            style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+          >
+            Suscribirme
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  /* ── Subscribed: full chat ── */
+  return (
+    <div className="flex flex-col" style={{ height: "calc(100svh - 80px)", backgroundColor: "#F5F0E8" }}>
+
+      {/* Page header */}
+      <div className="shrink-0 border-b px-6 py-4 flex items-center gap-3" style={{ backgroundColor: "#2d0f16", borderColor: "rgba(201,168,76,0.15)" }}>
+        <div className="w-9 h-9 rounded-full flex items-center justify-center border shrink-0" style={{ backgroundColor: "rgba(201,168,76,0.15)", borderColor: "rgba(201,168,76,0.3)" }}>
+          <ChefHat className="w-4 h-4" style={{ color: "#C9A84C" }} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h1 className="text-sm font-bold" style={{ color: "#F5F0E8" }}>Asistente Food·Mood</h1>
+          <p className="text-[10px] uppercase tracking-widest" style={{ color: "rgba(245,240,232,0.4)" }}>
+            IA especializada · gut-brain nutrition
+          </p>
+        </div>
+        {messagesRemaining !== null && (
+          <span className="text-[10px] font-medium shrink-0" style={{ color: limitReached ? "#C9A84C" : "rgba(245,240,232,0.35)" }}>
+            {limitReached ? "Límite alcanzado" : `${messagesRemaining}/${DAILY_LIMIT} hoy`}
+          </span>
+        )}
+      </div>
+
+      {/* Messages */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 space-y-4" style={{ scrollbarWidth: "none" }}>
+        <div className="max-w-2xl mx-auto space-y-4">
+          {messages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              {msg.role === "assistant" && (
+                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)" }}>
+                  <ChefHat className="w-3.5 h-3.5" style={{ color: "#C9A84C" }} />
+                </div>
+              )}
+              <div
+                className="max-w-[80%] rounded-2xl px-5 py-3.5 text-sm font-light leading-relaxed whitespace-pre-wrap"
+                style={msg.role === "user"
+                  ? { backgroundColor: "#6B2737", color: "#F5F0E8", borderRadius: "18px 18px 4px 18px" }
+                  : { backgroundColor: "#fff", color: "rgba(45,15,22,0.82)", border: "1px solid rgba(45,15,22,0.07)", boxShadow: "0 1px 4px rgba(0,0,0,0.05)", borderRadius: "18px 18px 18px 4px" }
+                }
+              >
+                {msg.content}
+              </div>
+            </div>
+          ))}
+
+          {loading && (
+            <div className="flex justify-start">
+              <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)" }}>
+                <ChefHat className="w-3.5 h-3.5" style={{ color: "#C9A84C" }} />
+              </div>
+              <div className="rounded-2xl px-5 py-3.5" style={{ backgroundColor: "#fff", border: "1px solid rgba(45,15,22,0.07)", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+                <div className="flex gap-1 items-center h-5">
+                  {[0, 1, 2].map(i => (
+                    <span key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ backgroundColor: "rgba(107,39,55,0.25)", animationDelay: `${i * 0.15}s` }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Input */}
+      <div className="shrink-0 border-t px-4 py-4" style={{ backgroundColor: "#fff", borderColor: "rgba(45,15,22,0.08)" }}>
+        <div className="max-w-2xl mx-auto">
+          <div className="flex gap-3 items-end">
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder={limitReached ? "Límite diario alcanzado — vuelve mañana" : "¿Cómo te encuentras hoy?"}
+              className="flex-1 px-4 py-3 rounded-2xl text-sm font-light focus:outline-none transition-all disabled:opacity-40"
+              style={{ backgroundColor: "#F5F0E8", border: "1px solid rgba(107,39,55,0.12)", color: "#2d0f16" }}
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && !e.shiftKey && handleSend()}
+              maxLength={1000}
+              disabled={limitReached}
+              autoFocus
+            />
+            <button
+              onClick={handleSend}
+              disabled={!input.trim() || loading || limitReached}
+              className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all hover:brightness-110 disabled:opacity-30"
+              style={{ backgroundColor: "#6B2737", color: "#F5F0E8" }}
+            >
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+            </button>
+          </div>
+          <p className="text-[9px] text-center mt-2.5 uppercase tracking-[0.15em]" style={{ color: "rgba(45,15,22,0.25)" }}>
+            {limitReached
+              ? `Límite de ${DAILY_LIMIT} mensajes diarios alcanzado`
+              : "Asistente IA · Food·Mood · No sustituye consejo médico"}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  )
+}
