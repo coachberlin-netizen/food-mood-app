@@ -1,0 +1,10 @@
+{
+  "serverInfo": {
+    "name": "food-mood",
+    "version": "1.0.0"
+  },
+  "transport": {
+    "endpoint": "/mcp"
+  },
+  "capabilities": ["tools", "resources"]
+}
