@@ -8,6 +8,8 @@ import Link from "next/link";
 
 type AccessState = 'idle' | 'loading' | 'unauthenticated' | 'no-subscription' | 'subscribed';
 
+const DAILY_LIMIT = 20;
+
 interface Message {
   role: "assistant" | "user";
   content: string;
@@ -19,10 +21,11 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [messagesRemaining, setMessagesRemaining] = useState<number | null>(null);
   const { resultMood } = useQuizStore();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Check entitlement server-side every time the widget opens
+  // Server-side entitlement check every time the widget opens
   useEffect(() => {
     if (!isOpen) return;
     setAccessState('loading');
@@ -31,7 +34,12 @@ export function ChatWidget() {
       .then(async res => {
         if (res.status === 401) { setAccessState('unauthenticated'); return; }
         const data = await res.json();
-        setAccessState(data.canUseAI ? 'subscribed' : 'no-subscription');
+        if (data.canUseAI) {
+          setAccessState('subscribed');
+          setMessagesRemaining(data.messagesRemaining ?? DAILY_LIMIT);
+        } else {
+          setAccessState('no-subscription');
+        }
       })
       .catch(() => setAccessState('unauthenticated'));
   }, [isOpen]);
@@ -55,6 +63,7 @@ export function ChatWidget() {
 
   const handleSend = useCallback(async () => {
     if (!input.trim() || loading || accessState !== 'subscribed') return;
+    if (messagesRemaining !== null && messagesRemaining <= 0) return;
 
     const userMsg = input.trim();
     const newMessages: Message[] = [...messages, { role: "user", content: userMsg }];
@@ -69,11 +78,25 @@ export function ChatWidget() {
         body: JSON.stringify({ messages: newMessages }),
       });
 
-      // Server enforces auth/subscription — update state if access is revoked mid-session
+      // Server enforces auth/subscription — update state if access changes mid-session
       if (res.status === 401) { setAccessState('unauthenticated'); return; }
       if (res.status === 403) { setAccessState('no-subscription'); return; }
 
+      if (res.status === 429) {
+        setMessagesRemaining(0);
+        setMessages(prev => [...prev, {
+          role: "assistant",
+          content: "Has alcanzado tu límite de 20 mensajes diarios. Vuelve mañana para continuar. 🌙",
+        }]);
+        return;
+      }
+
       const data = await res.json();
+
+      if (typeof data.messagesRemaining === 'number') {
+        setMessagesRemaining(data.messagesRemaining);
+      }
+
       if (data.reply) {
         setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
       }
@@ -85,12 +108,14 @@ export function ChatWidget() {
     } finally {
       setLoading(false);
     }
-  }, [input, loading, accessState, messages]);
+  }, [input, loading, accessState, messages, messagesRemaining]);
 
   const handleClose = () => {
     setIsOpen(false);
     setInput("");
   };
+
+  const limitReached = messagesRemaining !== null && messagesRemaining <= 0;
 
   return (
     <>
@@ -214,23 +239,31 @@ export function ChatWidget() {
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder="¿Cómo te sientes? (ej: cansado, estresado...)"
-                      className="w-full pl-4 pr-12 py-3 rounded-2xl bg-cream border border-aubergine-dark/15 text-sm font-light text-aubergine-dark focus:outline-none focus:border-aubergine transition-all"
+                      placeholder={limitReached ? "Límite diario alcanzado" : "¿Cómo te sientes? (ej: cansado, estresado...)"}
+                      className="w-full pl-4 pr-12 py-3 rounded-2xl bg-cream border border-aubergine-dark/15 text-sm font-light text-aubergine-dark focus:outline-none focus:border-aubergine transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                       value={input}
                       onChange={e => setInput(e.target.value)}
                       onKeyDown={e => e.key === "Enter" && handleSend()}
                       maxLength={1000}
+                      disabled={limitReached}
                     />
                     <button
                       onClick={handleSend}
-                      disabled={!input.trim() || loading}
+                      disabled={!input.trim() || loading || limitReached}
                       className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-aubergine-dark text-white rounded-xl flex items-center justify-center hover:bg-aubergine transition-colors disabled:opacity-30"
                     >
                       <Send className="w-4 h-4" />
                     </button>
                   </div>
-                  <p className="text-[9px] text-center text-aubergine-dark/30 mt-3 font-medium uppercase tracking-[0.15em]">
-                    Asistente IA · Food·Mood
+
+                  {/* Counter */}
+                  <p className="text-[9px] text-center mt-3 font-medium uppercase tracking-[0.15em]"
+                    style={{ color: limitReached ? '#C9A84C' : 'rgba(45,15,22,0.3)' }}>
+                    {limitReached
+                      ? 'Límite diario alcanzado — Vuelve mañana'
+                      : messagesRemaining !== null
+                        ? `${messagesRemaining} de ${DAILY_LIMIT} mensajes restantes hoy`
+                        : 'Asistente IA · Food·Mood'}
                   </p>
                 </div>
               </>

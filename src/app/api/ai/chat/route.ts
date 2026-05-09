@@ -5,6 +5,7 @@ import { getPremiumStatus } from '@/lib/premium'
 
 export const dynamic = 'force-dynamic'
 
+const DAILY_LIMIT = 20
 const MAX_MESSAGE_LENGTH = 1000
 const MAX_HISTORY_MESSAGES = 20
 
@@ -41,7 +42,29 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Suscripción activa requerida' }, { status: 403 })
   }
 
-  // 3. Parse and validate body
+  // 3. Daily rate-limit check
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('ai_messages_today, ai_messages_reset_at')
+    .eq('id', user.id)
+    .maybeSingle()
+
+  const now = new Date()
+  const todayUtc = now.toISOString().slice(0, 10)
+  const resetDay = profile?.ai_messages_reset_at
+    ? new Date(profile.ai_messages_reset_at).toISOString().slice(0, 10)
+    : null
+  const needsReset = resetDay !== todayUtc
+  const currentCount = needsReset ? 0 : (profile?.ai_messages_today ?? 0)
+
+  if (currentCount >= DAILY_LIMIT) {
+    return NextResponse.json(
+      { error: 'Límite diario alcanzado', limitReached: true, messagesRemaining: 0 },
+      { status: 429 }
+    )
+  }
+
+  // 4. Parse and validate body
   let body: { messages?: unknown }
   try {
     body = await req.json()
@@ -70,7 +93,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Mensaje demasiado largo' }, { status: 400 })
   }
 
-  // 4. AI call — only reachable by authenticated, subscribed users
+  // 5. AI call — only reachable by authenticated, subscribed, within-limit users
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
     return NextResponse.json({ error: 'Servicio de IA no disponible' }, { status: 503 })
@@ -86,7 +109,18 @@ export async function POST(req: NextRequest) {
     })
 
     const reply = response.content[0]?.type === 'text' ? response.content[0].text : ''
-    return NextResponse.json({ reply })
+
+    // 6. Increment counter only after successful AI response
+    const newCount = currentCount + 1
+    const updateData: Record<string, unknown> = { ai_messages_today: newCount }
+    if (needsReset) updateData.ai_messages_reset_at = now.toISOString()
+
+    await supabase.from('profiles').update(updateData).eq('id', user.id)
+
+    return NextResponse.json({
+      reply,
+      messagesRemaining: DAILY_LIMIT - newCount,
+    })
   } catch (err) {
     console.error('[api/ai/chat] error:', err)
     return NextResponse.json({ error: 'Error del servicio de IA' }, { status: 502 })
