@@ -1,0 +1,120 @@
+{
+  "openapi": "3.1.0",
+  "x-service-info": {
+    "categories": ["wellness", "nutrition", "recipes", "subscriptions"]
+  },
+  "info": {
+    "title": "Food·Mood API",
+    "version": "1.0.0",
+    "description": "Functional recipes and gut-brain science for emotional wellbeing.",
+    "contact": { "name": "Food·Mood", "url": "https://www.food-mood.app", "email": "info@food-mood.app" },
+    "license": { "name": "Proprietary" }
+  },
+  "servers": [
+    { "url": "https://www.food-mood.app/api", "description": "Production" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Health check",
+        "responses": {
+          "200": { "description": "Service is healthy" }
+        }
+      }
+    },
+    "/recetas": {
+      "get": {
+        "operationId": "listRecetas",
+        "summary": "List functional recipes",
+        "description": "Returns functional recipes filtered by emotional mood, age range, gender and premium level.",
+        "parameters": [
+          { "name": "mood", "in": "query", "schema": { "type": "string" }, "description": "Emotional state (e.g. calma, activacion, focus, ansiedad)" },
+          { "name": "premium_level", "in": "query", "schema": { "type": "integer" }, "description": "Minimum premium level (0 = free)" }
+        ],
+        "responses": {
+          "200": { "description": "Array of recipe objects" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/leads": {
+      "post": {
+        "operationId": "subscribeLead",
+        "summary": "Subscribe to newsletter",
+        "description": "Subscribe an email address to the Food·Mood weekly newsletter.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" },
+                  "source": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Subscribed successfully" },
+          "400": { "description": "Invalid email" },
+          "409": { "description": "Already subscribed" }
+        }
+      }
+    },
+    "/checkout": {
+      "post": {
+        "operationId": "createCheckout",
+        "summary": "Start premium subscription checkout",
+        "description": "Creates a Stripe checkout session for Food·Mood Premium (monthly or quarterly).",
+        "x-payment-info": {
+          "intent": "session",
+          "method": "stripe",
+          "amount": 9,
+          "currency": "EUR",
+          "description": "Food·Mood Premium — 200+ functional recipes, emotional palette, 90-day history"
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["priceId"],
+                "properties": {
+                  "priceId": { "type": "string", "description": "Stripe price ID (monthly or quarterly)" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Stripe checkout session URL" },
+          "401": { "description": "Authentication required" }
+        }
+      }
+    },
+    "/premium": {
+      "get": {
+        "operationId": "getPremiumContent",
+        "summary": "Access premium recipe recommendations",
+        "description": "Returns personalised functional recipe recommendations. Requires x402 payment or active subscription.",
+        "x-payment-info": {
+          "intent": "charge",
+          "method": "tempo",
+          "amount": 0.001,
+          "currency": "USD",
+          "description": "One-time agent access to Food·Mood premium recommendations via x402"
+        },
+        "responses": {
+          "200": { "description": "Premium recipe recommendations" },
+          "402": { "description": "Payment required — x402 payment or active subscription needed" },
+          "401": { "description": "Authentication required" }
+        }
+      }
+    }
+  }
+}
