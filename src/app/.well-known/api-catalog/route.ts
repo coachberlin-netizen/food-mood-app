@@ -1,19 +1,25 @@
 import { NextResponse } from 'next/server'
 
-const catalog = {
-  apis: [
+// RFC 9727 API Catalog — application/linkset+json format (RFC 9264)
+const linkset = {
+  linkset: [
     {
-      id: 'https://www.food-mood.app/api',
-      title: 'Food·Mood API',
-      description:
-        'API for the Food·Mood wellness platform — gut-brain science, emotional recipe recommendations, and user tracking.',
-      humanURL: 'https://www.food-mood.app',
-      baseURL: 'https://www.food-mood.app/api',
-      tags: ['food', 'wellness', 'recipes', 'gut-brain', 'nutrition'],
-      properties: [
+      anchor: 'https://www.food-mood.app/api',
+      'service-desc': [
         {
-          type: 'X-service-doc',
-          url: 'https://www.food-mood.app/sobre-nosotros',
+          href: 'https://www.food-mood.app/api/openapi',
+          type: 'application/openapi+json',
+        },
+      ],
+      'service-doc': [
+        {
+          href: 'https://www.food-mood.app/sobre-nosotros',
+          type: 'text/html',
+        },
+      ],
+      status: [
+        {
+          href: 'https://www.food-mood.app/api/health',
         },
       ],
     },
@@ -21,9 +27,9 @@ const catalog = {
 }
 
 export function GET() {
-  return NextResponse.json(catalog, {
+  return new NextResponse(JSON.stringify(linkset), {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type':  'application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"',
       'Cache-Control': 'public, max-age=86400',
     },
   })
