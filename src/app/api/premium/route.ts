@@ -23,4 +23,7 @@ export const GET = withX402(
     description: 'Food·Mood premium recipe recommendations',
   },
   x402Server,
+  undefined, // paywallConfig
+  undefined, // paywall
+  false,     // syncFacilitatorOnStart — skip facilitator handshake on cold start
 )
