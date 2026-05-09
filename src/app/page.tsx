@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { ChevronDown, Moon, Zap, Brain, ArrowRight, Check, Flame, Sprout, Sparkles, Wind, Flower2, FlaskConical } from "lucide-react"
@@ -275,6 +275,72 @@ export default function Home() {
   const [planesOpen, setPlanesOpen] = useState(false)
   const [pruebaAntesOpen, setPruebaAntesOpen] = useState(false)
   const [curryOpen, setCurryOpen] = useState(false)
+
+  // WebMCP — expose site tools to AI agents via the browser (navigator.modelContext)
+  useEffect(() => {
+    if (typeof navigator === 'undefined' || !('modelContext' in navigator)) return
+    type MC = { registerTool: (tool: object, opts?: object) => void }
+    const mc = (navigator as unknown as { modelContext: MC }).modelContext
+    const ac = new AbortController()
+
+    mc.registerTool({
+      name: 'search_recipes',
+      title: 'Search Food·Mood recipes',
+      description: 'Search functional recipes by emotional state or ingredient. Returns recipe names, descriptions and URLs tailored to gut-brain science.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          mood:  { type: 'string', description: 'Emotional state — e.g. ansiedad, calma, energía, foco, sueño' },
+          query: { type: 'string', description: 'Free-text ingredient or keyword' },
+        },
+      },
+      execute: async (input: { mood?: string; query?: string }) => {
+        const params = new URLSearchParams()
+        if (input.mood)  params.set('mood', input.mood)
+        if (input.query) params.set('q', input.query)
+        const res = await fetch(`/api/recetas?${params}`)
+        if (!res.ok) return { error: 'Failed to fetch recipes' }
+        return res.json()
+      },
+      annotations: { readOnlyHint: true },
+    }, { signal: ac.signal })
+
+    mc.registerTool({
+      name: 'start_mood_test',
+      title: 'Start the Food·Mood emotional quiz',
+      description: 'Navigates the user to the 30-second emotional-state quiz that recommends personalised functional recipes.',
+      inputSchema: { type: 'object', properties: {} },
+      execute: async () => {
+        window.location.href = '/test'
+        return { navigating: true, url: '/test' }
+      },
+    }, { signal: ac.signal })
+
+    mc.registerTool({
+      name: 'subscribe_newsletter',
+      title: 'Subscribe to Food·Mood newsletter',
+      description: 'Subscribe an email address to the weekly Food·Mood newsletter — gut-brain science, ferments and functional recipes.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          email: { type: 'string', format: 'email', description: 'Email address to subscribe' },
+        },
+        required: ['email'],
+      },
+      execute: async (input: { email: string }) => {
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input.email, source: 'webmcp' }),
+        })
+        if (!res.ok) return { error: 'Subscription failed' }
+        return { success: true, message: 'Subscribed to Food·Mood newsletter' }
+      },
+      annotations: { untrustedContentHint: false },
+    }, { signal: ac.signal })
+
+    return () => ac.abort()
+  }, [])
 
   return (
     <main className="min-h-screen bg-[#F5F0E8] overflow-hidden font-sans font-light">
