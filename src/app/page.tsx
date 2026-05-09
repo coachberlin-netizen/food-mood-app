@@ -762,7 +762,7 @@ export default function Home() {
             className="font-serif text-3xl md:text-5xl text-white leading-[1.1] mb-6"
           >
             FOOD-MOOD Guide.<br />
-            <em className="font-light italic" style={{ color: "#C9A84C" }}>No responde como un chat genérico.</em>
+            <em className="font-light italic" style={{ color: "#C9A84C" }}>Responde como un chat especializado en psicología alimentaria, nutrición de precisión, hábitos y longevidad.</em>
           </motion.h2>
 
           <motion.p
