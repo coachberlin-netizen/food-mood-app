@@ -78,6 +78,13 @@ export default function AsistentePage() {
       }
 
       const data = await res.json()
+      if (!res.ok) {
+        setMessages(prev => [...prev, {
+          role: "assistant",
+          content: "Ha habido un problema técnico. Por favor, inténtalo de nuevo en unos momentos.",
+        }])
+        return
+      }
       if (typeof data.messagesRemaining === "number") setMessagesRemaining(data.messagesRemaining)
       if (data.reply) setMessages(prev => [...prev, { role: "assistant", content: data.reply }])
     } catch {
