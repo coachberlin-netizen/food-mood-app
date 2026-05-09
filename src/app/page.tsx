@@ -365,80 +365,40 @@ export default function Home() {
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <HomeHero />
 
-      {/* ── 1a. FOOD-MOOD GUIDE — asistente IA ──────────────────────────────── */}
-      <section aria-label="FOOD-MOOD Guide — Asistente IA premium" className="py-16 md:py-20 px-6" style={{ backgroundColor: "#2d0f16" }}>
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-
-          {/* Left: chat preview */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}
-            className="relative rounded-2xl overflow-hidden p-5 space-y-3"
-            style={{ backgroundColor: "#F5F0E8", border: "1px solid rgba(201,168,76,0.15)" }}
-          >
-            <div className="flex items-center gap-2 pb-3 border-b" style={{ borderColor: "rgba(45,15,22,0.08)" }}>
-              <div className="w-7 h-7 rounded-full flex items-center justify-center font-serif text-[10px] font-black shrink-0" style={{ backgroundColor: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.25)", color: "#C9A84C" }}>FM</div>
-              <span className="text-xs font-semibold" style={{ color: "#2d0f16" }}>FOOD-MOOD Guide</span>
-              <span className="ml-auto w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "#5A9B8A" }} />
+      {/* ── 1a. FOOD-MOOD GUIDE — push strip ───────────────────────────────── */}
+      <div style={{ backgroundColor: "#2d0f16", borderBottom: "1px solid rgba(201,168,76,0.1)" }}>
+        <div className="max-w-5xl mx-auto px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-4">
+          {/* Left */}
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.22)" }}>
+              <Sparkles className="w-3.5 h-3.5" style={{ color: "#C9A84C" }} />
             </div>
-            {[
-              { role: "user",      text: "Llevo semanas con ansiedad y no sé qué comer." },
-              { role: "assistant", text: "Tiene sentido que la ansiedad te descoloque el hambre — es uno de los primeros sistemas que se activan cuando el eje intestino-cerebro está bajo carga. ¿Noto que el impulso aparece más antes de comer, durante o después?" },
-              { role: "user",      text: "Más bien por las tardes, después de comer." },
-              { role: "assistant", text: "Tardes post-comida con impulso ansioso. Ese patrón suele tener que ver con la caída de glucosa y cortisol combinados. ¿Qué suele haber en tu almuerzo?" },
-            ].map((m, i) => (
-              <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                {m.role === "assistant" && (
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center font-serif text-[8px] font-black shrink-0 mr-1.5 mt-0.5" style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C" }}>FM</div>
-                )}
-                <div
-                  className="max-w-[78%] rounded-xl px-3 py-2 text-[11px] font-light leading-relaxed"
-                  style={m.role === "user"
-                    ? { backgroundColor: "#6B2737", color: "#F5F0E8", borderRadius: "12px 12px 3px 12px" }
-                    : { backgroundColor: "#fff", color: "rgba(45,15,22,0.8)", border: "1px solid rgba(45,15,22,0.07)", borderRadius: "12px 12px 12px 3px" }
-                  }
-                >
-                  {m.text}
-                </div>
-              </div>
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.3em]" style={{ color: "rgba(201,168,76,0.55)" }}>Asistente IA · Solo premium</p>
+              <p className="font-serif text-sm font-semibold leading-tight" style={{ color: "#F5F0E8" }}>
+                FOOD-MOOD Guide.{" "}
+                <em className="font-light italic" style={{ color: "rgba(245,240,232,0.45)" }}>Responde a lo que sientes.</em>
+              </p>
+            </div>
+          </div>
+          {/* Pills */}
+          <div className="flex flex-wrap gap-1.5 sm:flex-1">
+            {["Psicología alimentaria", "Nutrición de precisión", "Ciencia del comportamiento", "Longevidad aplicada"].map(l => (
+              <span key={l} className="text-[10px] px-2.5 py-1 rounded-full font-light" style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(201,168,76,0.12)", color: "rgba(245,240,232,0.45)" }}>
+                {l}
+              </span>
             ))}
-            <p className="text-[9px] text-center pt-1" style={{ color: "rgba(45,15,22,0.25)" }}>Solo informativo · No sustituye atención profesional</p>
-          </motion.div>
-
-          {/* Right: description + CTA */}
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-            className="space-y-6"
+          </div>
+          {/* CTA */}
+          <Link
+            href="/asistente"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all hover:brightness-110 shrink-0"
+            style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
           >
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-              Asistente IA · Solo premium
-            </motion.p>
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-[1.15]">
-              FOOD-MOOD Guide.
-              <br />
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Responde a lo que sientes, no solo a lo que preguntas.</em>
-            </motion.h2>
-            <motion.div variants={fade} className="grid grid-cols-2 gap-2">
-              {["Psicología alimentaria", "Nutrición de precisión", "Ciencia del comportamiento", "Longevidad aplicada"].map(l => (
-                <div key={l} className="rounded-xl px-3 py-2.5" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.12)" }}>
-                  <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.55)" }}>{l}</p>
-                </div>
-              ))}
-            </motion.div>
-            <motion.div variants={fade} className="flex flex-col items-start gap-2">
-              <Link
-                href="/asistente"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-                style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
-              >
-                Hablar con FOOD-MOOD Guide <ArrowRight className="w-4 h-4" />
-              </Link>
-              <p className="text-[10px]" style={{ color: "rgba(245,240,232,0.22)" }}>Incluido en los planes mensual y trimestral</p>
-            </motion.div>
-          </motion.div>
-
+            Hablar con FOOD-MOOD Guide <ArrowRight className="w-3 h-3" />
+          </Link>
         </div>
-      </section>
+      </div>
 
       {/* ── 1b. LA APP — PANTALLAS ──────────────────────────────────────────── */}
       <section aria-label="Pantallas de la aplicación Food·Mood" className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: "#2d0f16" }}>
