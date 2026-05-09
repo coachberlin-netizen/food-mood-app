@@ -1,0 +1,15 @@
+{
+  "protocol": {
+    "name": "acp",
+    "version": "2026-01-30",
+    "supported_versions": ["2025-09-29", "2025-12-12", "2026-01-16", "2026-01-30"],
+    "documentation_url": "https://agenticcommerce.dev"
+  },
+  "api_base_url": "https://www.food-mood.app/api",
+  "transports": ["rest"],
+  "capabilities": {
+    "services": ["checkout"],
+    "supported_currencies": ["eur"],
+    "supported_locales": ["es-ES"]
+  }
+}
