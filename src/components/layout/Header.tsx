@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { MobileNav } from "./MobileNav"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/store/useAuthStore"
-import { LogOut, User, PieChart, CreditCard, ChevronDown, Sparkles } from "lucide-react"
+import { LogOut, User, PieChart, CreditCard, ChevronDown } from "lucide-react"
 
 interface DropdownItem { label: string; href: string }
 
@@ -200,14 +200,6 @@ export function Header() {
               Entrar
             </Link>
           )}
-          <Link
-            href="/asistente"
-            className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all hover:brightness-110"
-            style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.25)", color: "#C9A84C" }}
-          >
-            <Sparkles className="w-3 h-3" />
-            Guide
-          </Link>
           {(isAuthenticated === false || (isAuthenticated === true && !isPremium)) && (
             <Link
               href={isAuthenticated ? '/pricing' : '/test'}
