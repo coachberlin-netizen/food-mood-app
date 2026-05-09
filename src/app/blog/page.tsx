@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { getPublishedPosts } from '@/lib/supabase/blog';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { NewsletterForm } from '@/components/layout/NewsletterForm';
+import { EDITORIAL_NEWSLETTERS } from '@/lib/editorial-newsletters';
 
 export const dynamic = 'force-dynamic';
 
@@ -169,6 +170,34 @@ export default async function BlogPage() {
             );
           })
         )}
+      </section>
+
+      {/* ── Archivo editorial ── */}
+      <section className="px-6 max-w-5xl mx-auto mb-32">
+        <div className="flex items-center gap-4 mb-10">
+          <div className="h-px bg-[#C9A84C] opacity-30 flex-1" />
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#6B2737] whitespace-nowrap">
+            Archivo · {EDITORIAL_NEWSLETTERS.length} ediciones
+          </span>
+          <div className="h-px bg-[#C9A84C] opacity-30 flex-1" />
+        </div>
+        <div className="flex flex-col divide-y divide-[#6B2737]/8">
+          {[...EDITORIAL_NEWSLETTERS].reverse().map(nl => (
+            <a
+              key={nl.slug}
+              href={`/newsletter/${nl.slug}`}
+              className="group flex items-baseline gap-4 py-4 hover:bg-[#6B2737]/3 -mx-3 px-3 rounded-xl transition-colors"
+            >
+              <span className="font-serif text-xs text-[#C9A84C] shrink-0 w-6 text-right opacity-60">
+                {nl.numero}
+              </span>
+              <span className="text-[15px] font-light text-[#2d0f16] group-hover:text-[#6B2737] transition-colors leading-snug flex-1">
+                {nl.subject}
+              </span>
+              <span className="text-xs text-[#6B2737]/40 shrink-0 group-hover:text-[#6B2737]/70 transition-colors">→</span>
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* ── Newsletter CTA ── */}
