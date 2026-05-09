@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { Moon, Zap, Leaf, Activity, BookOpen, Headphones, BarChart2, Brain } from 'lucide-react'
-import RetosHeroAnimation from './RetosHeroAnimation'
+import { RetosAnimation } from '@/components/retos/RetosAnimation'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,13 +16,21 @@ export const metadata: Metadata = {
     type: 'website',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Retos Food·Mood' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Retos de transformación Food·Mood',
-    description: 'Energía, sueño, antiinflamación. Desde 19€. Pago único, acceso de por vida.',
-  },
 }
 
+// ─── Animation palette (mirrors RetosAnimation.tsx CHALLENGES) ────────────────
+const PALETTE: Record<string, { bg: string; ink: string; inkSoft: string; accent: string; numeral: string }> = {
+  'recupera-tu-energia':    { bg: '#F1E7D4', ink: '#231F17', inkSoft: '#231F1799', accent: '#B85A1F', numeral: '01' },
+  'reset-antiinflamatorio': { bg: '#E4EADE', ink: '#1B2218', inkSoft: '#1B221899', accent: '#3F5A37', numeral: '02' },
+  'activa-tu-longevidad':   { bg: '#E9D9C7', ink: '#241814', inkSoft: '#24181499', accent: '#7A3A20', numeral: '03' },
+  'microhabitos':           { bg: '#DBE0E6', ink: '#15171C', inkSoft: '#15171C99', accent: '#243A5C', numeral: '04' },
+  'slow-food-mood':         { bg: '#E5DDE7', ink: '#1F1A23', inkSoft: '#1F1A2399', accent: '#5A4570', numeral: '05' },
+  'food-mood-reset':        { bg: '#F0DDCB', ink: '#231510', inkSoft: '#23151099', accent: '#B14F31', numeral: '06' },
+  'equilibrio-hormonal-45': { bg: '#E8D4DC', ink: '#241319', inkSoft: '#24131999', accent: '#8C3F5C', numeral: '07' },
+  'mejora-tu-sueno':        { bg: '#1F2540', ink: '#F2EAD3', inkSoft: '#F2EAD3AA', accent: '#D6B26C', numeral: '08' },
+}
+
+// ─── Data types ───────────────────────────────────────────────────────────────
 interface Challenge {
   id:            string
   slug:          string
@@ -46,163 +53,157 @@ interface Enrollment {
   paid:         boolean
 }
 
+const STATIC_CHALLENGES: Challenge[] = [
+  { id: 's1', slug: 'recupera-tu-energia',    title: 'Recupera tu energía',          subtitle: 'Reactiva tu metabolismo con datos reales. Sin déficits, sin fatiga.',                                                         description: null, category: 'Energía',      duration_days: 7,  price_eur: 19, color: '#B85A1F', emoji: '⚡', recipe_count: 7,  audio_count: 3  },
+  { id: 's2', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio',       subtitle: 'Calma silenciosa. Recupera ligereza desde el primer plato.',                                                                 description: null, category: 'Inflamación',  duration_days: 7,  price_eur: 19, color: '#3F5A37', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
+  { id: 's3', slug: 'activa-tu-longevidad',    title: 'Activa tu longevidad',         subtitle: 'Hábitos respaldados por evidencia para sumar años con vida.',                                                                description: null, category: 'Longevidad',   duration_days: 10, price_eur: 19, color: '#7A3A20', emoji: '🌱', recipe_count: 10, audio_count: 4  },
+  { id: 's4', slug: 'microhabitos',            title: 'Microhábitos',                 subtitle: 'Pequeños gestos diarios. Cambios que sí se sostienen.',                                                                     description: null, category: 'Hábitos',      duration_days: 21, price_eur: 29, color: '#243A5C', emoji: '✨', recipe_count: 21, audio_count: 5  },
+  { id: 's5', slug: 'slow-food-mood',          title: 'Slow Food·Mood',               subtitle: 'Comer despacio, pensar despacio. Volver a tu eje.',                                                                          description: null, category: 'Ansiedad',     duration_days: 21, price_eur: 29, color: '#5A4570', emoji: '🍵', recipe_count: 21, audio_count: 7  },
+  { id: 's6', slug: 'food-mood-reset',         title: 'Food·Mood Reset',              subtitle: 'Reescribe tu relación con la comida. 21 días, una nueva base.',                                                             description: null, category: 'Salud mental', duration_days: 21, price_eur: 29, color: '#B14F31', emoji: '🧠', recipe_count: 21, audio_count: 21 },
+  { id: 's7', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal 45+',      subtitle: 'Diseñado para tu nueva etapa. Energía, sueño y claridad mental.',                                                          description: null, category: 'Hormonas',     duration_days: 28, price_eur: 29, color: '#8C3F5C', emoji: '🌸', recipe_count: 28, audio_count: 8  },
+  { id: 's8', slug: 'mejora-tu-sueno',         title: 'Mejora tu sueño',              subtitle: 'Una rutina nocturna apoyada en cronobiología y nutrición.',                                                                 description: null, category: 'Sueño',        duration_days: 28, price_eur: 29, color: '#D6B26C', emoji: '🌙', recipe_count: 28, audio_count: 4  },
+]
+
 const SAMPLE_RECIPES: Record<string, string[]> = {
   'recupera-tu-energia':    ['Bol de quinoa con edamame y sésamo', 'Smoothie de remolacha y jengibre', 'Sopa miso con algas wakame'],
   'mejora-tu-sueno':        ['Leche dorada con ashwagandha', 'Arroz integral con champiñones', 'Crema de boniato y nuez moscada'],
   'reset-antiinflamatorio': ['Curry de lentejas con cúrcuma', 'Salmón al horno con limón', 'Ensalada de espinacas y nueces'],
   'equilibrio-hormonal-45': ['Desayuno de lino y frutos rojos', 'Tempeh salteado con brócoli y sésamo', 'Caldo de kombu con shiitake y miso'],
   'food-mood-reset':        ['Caldo de huesos con verduras fermentadas', 'Bol de kéfir con nueces y cacao puro', 'Lentejas rojas con cúrcuma y espinacas'],
-  'slow-food-mood':         ['Agua viva de pepino, menta y jengibre (8h)', 'Yogur artesano casero (fermentación 10h)', 'Pan de espelta con levado lento (toda la noche)'],
+  'slow-food-mood':         ['Agua viva de pepino, menta y jengibre', 'Yogur artesano (fermentación 10h)', 'Pan de espelta con levado lento'],
 }
 
-const STATIC_CHALLENGES: Challenge[] = [
-  { id: 'static-1', slug: 'recupera-tu-energia',    title: 'Recupera tu energía en 7 días',           subtitle: 'Sin cafeína forzada, sin azúcares de rebote. Resultados medibles en 7 días.', description: null, category: 'energía',     duration_days: 7,  price_eur: 19, color: '#E8703A', emoji: '⚡', recipe_count: 7,  audio_count: 3  },
-  { id: 'static-2', slug: 'mejora-tu-sueno',         title: 'Mejora tu sueño en 4 semanas',            subtitle: 'Serotonina → melatonina. Magnesio, triptófano, fermentados nocturnos.',      description: null, category: 'sueño',      duration_days: 28, price_eur: 29, color: '#4A7AB5', emoji: '😴', recipe_count: 28, audio_count: 4  },
-  { id: 'static-3', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio',                  subtitle: 'Cúrcuma, omega-3, fermentados. Reset completo en una semana.',               description: null, category: 'inflamación', duration_days: 7,  price_eur: 19, color: '#5A9B8A', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
-  { id: 'static-4', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal — Protocolo de 28 días', subtitle: 'Perimenopausia, SOP, tiroides, estrés hormonal.',                        description: null, category: 'hormonas',   duration_days: 28, price_eur: 29, color: '#C04878', emoji: '🌸', recipe_count: 28, audio_count: 8  },
-  { id: 'static-5', slug: 'food-mood-reset',    title: '21 días para resetear tu mente',              subtitle: 'Protocolo Food-Mood Reset. Eje intestino-cerebro en práctica.',                                           description: null, category: 'salud mental', duration_days: 21, price_eur: 29, color: '#4A7AB5', emoji: '🧠', recipe_count: 21, audio_count: 21 },
-  { id: 'static-6', slug: 'slow-food-mood',    title: 'Slow Food·Mood — 21 días para calmar la ansiedad', subtitle: 'Fast life. Slow Food·Mood. Fermentos, masas madre y caldos como práctica de regulación nerviosa.', description: null, category: 'ansiedad',    duration_days: 21, price_eur: 29, color: '#4A7B6B', emoji: '🍵', recipe_count: 21, audio_count: 7  },
-]
-
-const CATEGORY_CONFIG: Record<string, { icon: React.ReactNode; dot: string }> = {
-  'sueño':        { icon: <Moon     size={16} strokeWidth={1.5} />, dot: '#6B2737' },
-  'energía':      { icon: <Zap      size={16} strokeWidth={1.5} />, dot: '#C9A84C' },
-  'inflamación':  { icon: <Leaf     size={16} strokeWidth={1.5} />, dot: '#4A7C59' },
-  'hormonas':     { icon: <Activity size={16} strokeWidth={1.5} />, dot: '#8B5E83' },
-  'ansiedad':     { icon: <Brain    size={16} strokeWidth={1.5} />, dot: '#4A7B6B' },
-  'salud mental': { icon: <Brain    size={16} strokeWidth={1.5} />, dot: '#4A7AB5' },
+function durationLabel(days: number) {
+  if (days === 7)  return '1 semana'
+  if (days === 10) return '10 días'
+  if (days === 21) return '21 días'
+  if (days === 28) return '4 semanas'
+  return `${days} días`
 }
 
-function getCategoryConfig(category: string) {
-  return CATEGORY_CONFIG[category.toLowerCase()] ?? { icon: <Leaf size={16} strokeWidth={1.5} />, dot: '#6B2737' }
-}
-
-function ProgressBar({ value, color }: { value: number; color: string }) {
-  return (
-    <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: 'rgba(107,39,55,0.1)' }}>
-      <div
-        className="h-1.5 rounded-full"
-        style={{ width: `${Math.max(2, value)}%`, backgroundColor: color }}
-      />
-    </div>
-  )
-}
-
-function ChallengeCard({
-  challenge,
-  enrollment,
-}: {
-  challenge: Challenge
-  enrollment: Enrollment | undefined
-}) {
-  const pct = enrollment
-    ? Math.min(100, ((enrollment.current_day - 1) / challenge.duration_days) * 100)
-    : 0
-  const cat = getCategoryConfig(challenge.category)
+// ─── Card ─────────────────────────────────────────────────────────────────────
+function ChallengeCard({ challenge, enrollment }: { challenge: Challenge; enrollment: Enrollment | undefined }) {
+  const pal = PALETTE[challenge.slug] ?? { bg: '#F1E7D4', ink: '#231F17', inkSoft: '#231F1799', accent: '#B85A1F', numeral: '—' }
+  const pct = enrollment ? Math.min(100, ((enrollment.current_day - 1) / challenge.duration_days) * 100) : 0
 
   return (
     <article
-      className="bg-white rounded-2xl p-6 border-l-4 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4"
-      style={{ borderLeftColor: challenge.color }}
+      className="relative overflow-hidden rounded-2xl flex flex-col"
+      style={{ backgroundColor: pal.bg, color: pal.ink }}
     >
-      <div className="flex items-center justify-between gap-2">
-        <span
-          className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest"
-          style={{ color: challenge.color }}
-        >
-          {cat.icon}
-          {challenge.category}
-        </span>
-        <div className="flex items-center gap-2">
-          <span className="font-serif text-lg font-black" style={{ color: '#C9A84C' }}>
-            {challenge.price_eur}€
+      {/* Numeral watermark */}
+      <span
+        aria-hidden
+        className="pointer-events-none select-none absolute right-4 top-1/2 -translate-y-1/2 leading-none"
+        style={{
+          fontFamily: '"Instrument Serif", serif',
+          fontStyle: 'italic',
+          fontSize: 'clamp(80px, 18vw, 160px)',
+          color: pal.accent,
+          opacity: 0.08,
+          lineHeight: 1,
+        }}
+      >
+        {pal.numeral}
+      </span>
+
+      <div className="relative flex flex-col gap-5 p-7 flex-1">
+        {/* Tag row */}
+        <div className="flex items-center justify-between gap-3">
+          <span
+            className="text-[10px] font-bold uppercase tracking-[0.32em]"
+            style={{ color: pal.accent }}
+          >
+            {challenge.category} · {durationLabel(challenge.duration_days)}
           </span>
           <span
-            className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
-            style={{ backgroundColor: challenge.color }}
+            className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
+            style={{ backgroundColor: pal.accent + '18', color: pal.accent }}
           >
-            {challenge.duration_days === 7 ? '1 semana'
-              : challenge.duration_days === 21 ? '3 semanas'
-              : `${Math.round(challenge.duration_days / 7)} semanas`}
+            {challenge.price_eur}€
           </span>
         </div>
-      </div>
 
-      <div>
-        <h2 className="font-serif text-xl font-bold leading-snug mb-1" style={{ color: '#2d0f16' }}>
+        {/* Title */}
+        <h2
+          className="leading-[0.95] tracking-tight"
+          style={{
+            fontFamily: '"Instrument Serif", serif',
+            fontWeight: 400,
+            fontSize: 'clamp(28px, 4vw, 40px)',
+            color: pal.ink,
+          }}
+        >
           {challenge.title}
         </h2>
+
+        {/* Subtitle */}
         {challenge.subtitle && (
-          <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.65)' }}>
+          <p className="text-sm font-light leading-relaxed" style={{ color: pal.inkSoft }}>
             {challenge.subtitle}
           </p>
         )}
-      </div>
 
-      <div className="flex items-center gap-3 flex-wrap text-xs" style={{ color: 'rgba(107,39,55,0.5)' }}>
-        <span className="flex items-center gap-1"><BookOpen size={13} strokeWidth={1.5} />{challenge.recipe_count} recetas</span>
-        <span style={{ opacity: 0.3 }}>·</span>
-        <span className="flex items-center gap-1"><Headphones size={13} strokeWidth={1.5} />{challenge.audio_count} audios</span>
-        <span style={{ opacity: 0.3 }}>·</span>
-        <span className="flex items-center gap-1"><BarChart2 size={13} strokeWidth={1.5} />tracking diario</span>
-      </div>
-
-      {/* Recipe preview */}
-      {SAMPLE_RECIPES[challenge.slug] && (
-        <div className="rounded-xl p-3" style={{ background: 'rgba(107,39,55,0.04)', border: '1px solid rgba(107,39,55,0.08)' }}>
-          <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Muestra gratuita · 3 recetas de ejemplo
-          </p>
-          <ul className="space-y-1">
-            {SAMPLE_RECIPES[challenge.slug].map((r) => (
-              <li key={r} className="flex items-center gap-2 text-[11px]" style={{ color: 'rgba(45,15,22,0.65)' }}>
-                <span style={{ color: challenge.color }}>→</span>
+        {/* Recipe samples */}
+        {SAMPLE_RECIPES[challenge.slug] && (
+          <div className="flex flex-col gap-1.5">
+            <p
+              className="text-[9px] font-bold uppercase tracking-[0.28em] mb-0.5"
+              style={{ color: pal.accent + 'cc' }}
+            >
+              Muestra de recetas
+            </p>
+            {SAMPLE_RECIPES[challenge.slug].map(r => (
+              <span key={r} className="flex items-center gap-2 text-[11px] font-light" style={{ color: pal.inkSoft }}>
+                <span style={{ color: pal.accent, fontSize: 10 }}>→</span>
                 {r}
-              </li>
+              </span>
             ))}
-          </ul>
-        </div>
-      )}
-
-      {enrollment?.paid && !enrollment.completed ? (
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold" style={{ color: challenge.color }}>
-              Día {enrollment.current_day} de {challenge.duration_days}
-            </span>
-            <span className="text-xs" style={{ color: 'rgba(107,39,55,0.4)' }}>
-              {Math.round(pct)}%
-            </span>
           </div>
-          <ProgressBar value={pct} color={challenge.color} />
-          <Link
-            href={`/retos/${challenge.slug}`}
-            className="mt-1 text-center py-2.5 rounded-full text-sm font-bold text-white transition-all hover:opacity-90"
-            style={{ backgroundColor: challenge.color }}
-          >
-            Continuar →
-          </Link>
+        )}
+
+        {/* Progress / CTA */}
+        <div className="mt-auto pt-2">
+          {enrollment?.paid && !enrollment.completed ? (
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between text-xs" style={{ color: pal.inkSoft }}>
+                <span style={{ color: pal.accent }}>Día {enrollment.current_day} de {challenge.duration_days}</span>
+                <span>{Math.round(pct)}%</span>
+              </div>
+              <div className="w-full h-px rounded-full" style={{ backgroundColor: pal.accent + '25' }}>
+                <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: pal.accent }} />
+              </div>
+              <Link
+                href={`/retos/${challenge.slug}`}
+                className="text-center py-3 rounded-xl text-sm font-bold tracking-wide transition-all hover:opacity-90"
+                style={{ backgroundColor: pal.accent, color: pal.bg }}
+              >
+                Continuar →
+              </Link>
+            </div>
+          ) : enrollment?.completed ? (
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold" style={{ color: pal.accent }}>Completado ✓</span>
+              <Link href={`/retos/${challenge.slug}`} className="text-xs font-bold underline" style={{ color: pal.accent }}>
+                Ver informe →
+              </Link>
+            </div>
+          ) : (
+            <Link
+              href={`/retos/${challenge.slug}`}
+              className="block text-center py-3 rounded-xl text-sm font-bold tracking-wide transition-all hover:opacity-90"
+              style={{ backgroundColor: pal.accent, color: pal.bg }}
+            >
+              Ver el reto completo →
+            </Link>
+          )}
         </div>
-      ) : enrollment?.completed ? (
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-green-700">Reto completado</span>
-          <Link href={`/retos/${challenge.slug}`} className="text-xs font-bold" style={{ color: '#6B2737' }}>
-            Ver informe →
-          </Link>
-        </div>
-      ) : (
-        <Link
-          href={`/retos/${challenge.slug}`}
-          className="block text-center py-3 rounded-full text-sm font-bold text-white transition-all hover:opacity-90 mt-auto"
-          style={{ backgroundColor: '#E8703A' }}
-        >
-          Ver contenido completo →
-        </Link>
-      )}
+      </div>
     </article>
   )
 }
 
+// ─── Page ─────────────────────────────────────────────────────────────────────
 export default async function RetosPage() {
   const supabase = await createClient()
 
@@ -230,7 +231,7 @@ export default async function RetosPage() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Retos de transformación Food·Mood',
-    description: 'Programas de nutrición emocional de 7 y 30 días basados en el eje intestino-cerebro.',
+    description: 'Programas de nutrición emocional de 7 a 28 días basados en el eje intestino-cerebro.',
     url: 'https://www.food-mood.app/retos',
     numberOfItems: challenges.length,
     itemListElement: challenges.map((c, i) => ({
@@ -239,75 +240,73 @@ export default async function RetosPage() {
       name: c.title,
       description: c.subtitle ?? undefined,
       url: `https://www.food-mood.app/retos/${c.slug}`,
-      offers: {
-        '@type': 'Offer',
-        price: c.price_eur,
-        priceCurrency: 'EUR',
-        availability: 'https://schema.org/InStock',
-      },
+      offers: { '@type': 'Offer', price: c.price_eur, priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
     })),
   }
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
-      />
-      <main className="min-h-screen" style={{ backgroundColor: '#F5F0E8' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
-        <section aria-label="Animación de retos" className="w-full">
-          <RetosHeroAnimation />
-        </section>
+      <main style={{ backgroundColor: '#0b0b0a', minHeight: '100vh' }}>
 
-        <div className="max-w-4xl mx-auto px-6 pt-16 pb-24">
+        {/* ── Animation hero ── */}
+        <RetosAnimation />
 
-          <section aria-label="Presentación de retos" className="mb-16 text-center">
-            <span
-              className="text-[11px] font-bold uppercase tracking-[0.2em] block mb-6"
-              style={{ color: 'rgba(107,39,55,0.45)' }}
-            >
-              Transformaciones guiadas · Con ciencia y receta
-            </span>
-            <h1 className="font-serif text-5xl md:text-6xl font-black mb-4 leading-tight" style={{ color: '#2d0f16' }}>
-              Elige tu reto.
-            </h1>
-            <p className="text-lg font-light max-w-xl mx-auto" style={{ color: 'rgba(107,39,55,0.6)' }}>
-              Un objetivo. Un tiempo. Un camino con datos reales.
-            </p>
-          </section>
+        {/* ── Header editorial ── */}
+        <div className="max-w-5xl mx-auto px-6 pt-20 pb-4">
+          <p
+            className="text-[10px] font-bold uppercase tracking-[0.38em] mb-5"
+            style={{ color: 'rgba(201,168,76,0.7)', fontFamily: '"Inter Tight", sans-serif' }}
+          >
+            Elige tu reto
+          </p>
+          <h1
+            className="leading-[0.94] tracking-tight mb-6"
+            style={{
+              fontFamily: '"Instrument Serif", serif',
+              fontWeight: 400,
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              color: '#F2EAD3',
+            }}
+          >
+            Un objetivo.<br />
+            <em style={{ color: '#C9A84C' }}>Un punto de partida.</em>
+          </h1>
+          <p
+            className="text-base font-light max-w-lg"
+            style={{ color: 'rgba(242,234,211,0.45)', fontFamily: '"Inter Tight", sans-serif' }}
+          >
+            8 caminos guiados. Datos reales. Pago único desde 19€ — sin renovación automática.
+          </p>
+        </div>
 
-          <section aria-label="Catálogo de retos" className="grid md:grid-cols-2 gap-6 mb-20">
-            {challenges.map(challenge => (
+        {/* ── Cards grid ── */}
+        <div className="max-w-5xl mx-auto px-6 py-12">
+          <div className="grid md:grid-cols-2 gap-4">
+            {challenges.map(c => (
               <ChallengeCard
-                key={challenge.id}
-                challenge={challenge}
-                enrollment={enrollmentMap.get(challenge.id)}
+                key={c.id}
+                challenge={c}
+                enrollment={enrollmentMap.get(c.id)}
               />
             ))}
-          </section>
-
-          <section
-            aria-label="Por qué funcionan los retos"
-            className="rounded-3xl p-10 md:p-16 text-center"
-            style={{ backgroundColor: '#2d0f16' }}
-          >
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
-              Por qué funcionan
-            </p>
-            <p
-              className="font-serif text-xl md:text-2xl font-light leading-relaxed max-w-2xl mx-auto"
-              style={{ color: 'rgba(255,255,255,0.85)' }}
-            >
-              Los retos son el único formato donde la intención se convierte
-              en acción sostenida. Porque tienen principio, medio y fin.
-            </p>
-            <p className="text-sm font-light mt-6" style={{ color: 'rgba(255,255,255,0.4)' }}>
-              Inicio · Seguimiento diario con tu índice Food·Mood · Informe final
-            </p>
-          </section>
-
+          </div>
         </div>
+
+        {/* ── Footer note ── */}
+        <div
+          className="border-t py-10 text-center"
+          style={{ borderColor: 'rgba(242,234,211,0.06)' }}
+        >
+          <p
+            className="text-[11px] font-light tracking-widest uppercase"
+            style={{ color: 'rgba(242,234,211,0.25)', fontFamily: '"Inter Tight", sans-serif' }}
+          >
+            food·mood · retos de transformación · desde 19€ · pago único · sin renovación automática
+          </p>
+        </div>
+
       </main>
     </>
   )
