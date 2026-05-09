@@ -282,6 +282,7 @@ export function RetosAnimation() {
                 <span className="ra-brand-dot" />
                 <span className="ra-brand-name">food·mood</span>
               </span>
+              <span style={{ opacity: 0.55, letterSpacing: "0.28em", fontSize: "0.85cqw" }}>retos de transformación</span>
               <span className="ra-counter">
                 <span className="ra-counter-num">{counter.num}</span>
                 <span className="ra-slash">/</span>
@@ -289,8 +290,7 @@ export function RetosAnimation() {
               </span>
             </div>
             <div className="ra-chrome-row ra-chrome-bottom">
-              <span style={{ opacity: 0.6 }}>retos de transformación</span>
-              <span style={{ opacity: 0.6 }}>food-mood.app</span>
+              <span style={{ opacity: 0.4 }}>food-mood.app</span>
             </div>
           </div>
 
