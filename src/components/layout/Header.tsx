@@ -109,6 +109,14 @@ export function Header() {
     return () => subscription.unsubscribe()
   }, [])
 
+  React.useEffect(() => {
+    if (isAuthenticated !== true) return
+    fetch('/api/mi-tier')
+      .then(r => r.json())
+      .then(d => setIsPremium(!!d.isPremium))
+      .catch(() => {})
+  }, [isAuthenticated])
+
   const handleLogout = async () => {
     try {
       const supabase = createClient()
@@ -184,23 +192,21 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-end gap-3">
           {isAuthenticated === false && (
-            <>
-              <Link
-                href="/auth/login"
-                className="hidden md:inline-flex text-sm font-medium text-cream/70 hover:text-cream transition-colors"
-              >
-                Entrar
-              </Link>
-              <span className="hidden lg:inline text-[10px] font-light tracking-wider uppercase" style={{ color: "rgba(245,240,232,0.30)" }}>
-                PWA · Sin app
-              </span>
-              <Link
-                href="/auth/register"
-                className="hidden md:inline-flex px-4 py-2 rounded-full text-sm font-semibold text-aubergine-dark bg-cream hover:bg-cream/90 transition-colors"
-              >
-                Crear cuenta
-              </Link>
-            </>
+            <Link
+              href="/auth/login"
+              className="hidden md:inline-flex text-sm font-medium text-cream/60 hover:text-cream transition-colors"
+            >
+              Entrar
+            </Link>
+          )}
+          {(isAuthenticated === false || (isAuthenticated === true && !isPremium)) && (
+            <Link
+              href={isAuthenticated ? '/pricing' : '/test'}
+              className="hidden md:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
+              style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+            >
+              {isAuthenticated ? 'Suscríbete →' : 'Empieza gratis →'}
+            </Link>
           )}
           <div className="relative" ref={menuRef}>
             <button
