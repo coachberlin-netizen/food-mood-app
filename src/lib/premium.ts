@@ -19,7 +19,8 @@ import { SupabaseClient } from '@supabase/supabase-js'
  */
 export function isAdminEmail(email: string | undefined): boolean {
   if (!email) return false
-  const list = (process.env.FM_ADMIN_EMAILS ?? '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean)
+  const raw = process.env.FM_ADMIN_EMAILS ?? process.env.ADMIN_EMAIL ?? ''
+  const list = raw.split(',').map(e => e.trim().toLowerCase()).filter(Boolean)
   return list.includes(email.toLowerCase())
 }
 
