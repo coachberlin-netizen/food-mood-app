@@ -180,7 +180,11 @@ export default function AsistentePage() {
           </p>
         </div>
         {messagesRemaining !== null && (
-          <span className="text-[10px] font-medium shrink-0" style={{ color: limitReached ? "#C9A84C" : "rgba(245,240,232,0.35)" }}>
+          <span className="text-[10px] font-semibold shrink-0 px-2 py-0.5 rounded-full" style={{
+            backgroundColor: limitReached ? "rgba(201,168,76,0.15)" : "rgba(245,240,232,0.08)",
+            color: limitReached ? "#C9A84C" : "rgba(245,240,232,0.7)",
+            border: `1px solid ${limitReached ? "rgba(201,168,76,0.3)" : "rgba(245,240,232,0.12)"}`,
+          }}>
             {limitReached ? "Límite alcanzado" : `${messagesRemaining}/${DAILY_LIMIT} hoy`}
           </span>
         )}
