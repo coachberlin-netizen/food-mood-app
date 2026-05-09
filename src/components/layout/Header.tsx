@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { MobileNav } from "./MobileNav"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/store/useAuthStore"
-import { LogOut, User, PieChart, CreditCard, ChevronDown } from "lucide-react"
+import { LogOut, User, PieChart, CreditCard, ChevronDown, Sparkles, ArrowRight } from "lucide-react"
 
 interface DropdownItem { label: string; href: string }
 
@@ -79,6 +79,80 @@ const DESCUBRIR: DropdownItem[] = [
   { label: "Síntomas",    href: "/sintomas"           },
   { label: "Newsletter",  href: "/blog"               },
 ]
+
+function GuideDropdown() {
+  const [open, setOpen] = React.useState(false)
+  const ref = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    function outside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", outside)
+    return () => document.removeEventListener("mousedown", outside)
+  }, [])
+
+  return (
+    <div className="relative hidden md:block" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all hover:brightness-110"
+        style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.22)", color: "#C9A84C" }}
+      >
+        <Sparkles className="w-3 h-3" />
+        <span>FOOD·MOOD IA</span>
+        <ChevronDown className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div
+          className="absolute top-full right-0 mt-3 w-72 z-50 overflow-hidden"
+          style={{
+            backgroundColor: "#2d0f16",
+            borderRadius: "16px",
+            border: "1px solid rgba(201,168,76,0.2)",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.5)",
+          }}
+        >
+          {/* Header */}
+          <div className="px-5 pt-5 pb-4 border-b" style={{ borderColor: "rgba(201,168,76,0.1)" }}>
+            <p className="text-[9px] font-bold uppercase tracking-[0.35em] mb-1" style={{ color: "rgba(201,168,76,0.55)" }}>
+              Asistente IA · Solo premium
+            </p>
+            <p className="font-serif text-base font-semibold text-white leading-snug">
+              FOOD-MOOD Guide.
+            </p>
+            <p className="text-xs font-light mt-1" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Responde a lo que sientes, no solo a lo que preguntas.
+            </p>
+          </div>
+
+          {/* Pills */}
+          <div className="px-5 py-4 grid grid-cols-2 gap-1.5">
+            {["Psicología alimentaria", "Nutrición de precisión", "Ciencia del comportamiento", "Longevidad aplicada"].map(l => (
+              <div key={l} className="rounded-lg px-2.5 py-2" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.1)" }}>
+                <p className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.5)" }}>{l}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="px-5 pb-5">
+            <Link
+              href="/asistente"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all hover:brightness-110"
+              style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+            >
+              Hablar con FOOD-MOOD Guide <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -209,6 +283,7 @@ export function Header() {
               {isAuthenticated ? 'Suscríbete →' : 'Empieza gratis →'}
             </Link>
           )}
+          <GuideDropdown />
           <div className="relative" ref={menuRef}>
             <button
               type="button"
