@@ -964,48 +964,8 @@ export default function Home() {
       </section>
 
       {/* ── 5. LOS RETOS ────────────────────────────────────────────────────── */}
-      <section aria-label="Retos de transformación disponibles" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#FEFBF4" }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "#C9A84C" }}>
-              Retos de transformación
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-tight mb-4">
-              No necesitas otro plan de comidas.{" "}
-              <span className="italic font-light">Necesitas un punto de partida.</span>
-            </h2>
-            <p className="text-base font-light max-w-xl mx-auto" style={{ color: "rgba(107,39,55,0.6)" }}>
-              Un objetivo. Un tiempo. Un camino con datos reales.
-            </p>
-          </div>
-
-          <div className="mb-10 rounded-2xl overflow-hidden shadow-lg">
-            <RetosAnimation />
-          </div>
-
-          <div
-            className="rounded-3xl p-8 md:p-12 text-center"
-            style={{ backgroundColor: "#2d0f16" }}
-          >
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "#C9A84C" }}>
-              Por qué funcionan
-            </p>
-            <p className="font-serif text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-2" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Los retos son el único formato donde la intención se convierte en acción sostenida.
-              Porque tienen principio, medio y fin.
-            </p>
-            <p className="text-sm font-light" style={{ color: "rgba(255,255,255,0.72)" }}>
-              Inicio · Tracking diario con tu índice Food·Mood · Informe final
-            </p>
-            <Link
-              href="/retos"
-              className="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold text-[#2d0f16] transition-all hover:opacity-90"
-              style={{ backgroundColor: "#C9A84C" }}
-            >
-              Ver todos los retos <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
+      <section aria-label="Retos de transformación">
+        <RetosAnimation />
       </section>
 
       {/* ── 5b. CORPORATE WELLNESS ──────────────────────────────────────────── */}
