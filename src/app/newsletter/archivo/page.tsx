@@ -137,6 +137,13 @@ const NEWSLETTERS = [
     description: 'Granularidad emocional, interocepción y eje intestino-cerebro: por qué las emociones se solapan, qué papel juega la microbiota en lo que sientes y cómo el kéfir, el miso y el cacao amplían tu rango emocional.',
     tag:         'Emociones · Neurociencia',
   },
+  {
+    numero:      '19',
+    slug:        'sabor-amargo-nervio-vago',
+    subject:     'Por qué el café amargo te calma. La ciencia del nervio vago y el sabor amargo.',
+    description: 'Receptores TAS2R, nervio vago y la teoría constructivista de las emociones: por qué el amargor activa el sistema nervioso parasimpático, reduce el cortisol y mejora la regulación emocional — con receta y bibliografía.',
+    tag:         'Neurociencia · Sabor',
+  },
 ]
 
 function NewsletterList() {
@@ -156,7 +163,7 @@ function NewsletterList() {
         {/* Header */}
         <div className="mb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Archivo editorial · 18 ediciones
+            Archivo editorial · 19 ediciones
           </p>
           <h1 className="font-serif text-4xl font-black leading-tight mb-4" style={{ color: '#2d0f16' }}>
             Todas las<br />newsletters

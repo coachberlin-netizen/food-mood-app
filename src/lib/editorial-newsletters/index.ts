@@ -16,6 +16,7 @@ import { buildHtml as html15 } from './15-reset-mitocondrial'
 import { buildHtml as html16 } from './16-habitos-con-placer'
 import { buildHtml as html17 } from './17-tiroides-postmenopausia'
 import { buildHtml as html18 } from './18-espectro-emocional'
+import { buildHtml as html19 } from './19-sabor-amargo-nervio-vago'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -45,4 +46,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 16, slug: 'habitos-con-placer', subject: 'Los hábitos duraderos no se crean con disciplina. Se crean con placer. ✨', buildHtml: html16 },
   { numero: 17, slug: 'tiroides-postmenopausia', subject: 'Tu tiroides no está rota. Quizá solo tiene frío. 🌡️', buildHtml: html17 },
   { numero: 18, slug: 'espectro-emocional', subject: 'No sientes una emoción. Sientes varias a la vez. Y eso tiene una explicación. 🧠', buildHtml: html18 },
+  { numero: 19, slug: 'sabor-amargo-nervio-vago', subject: 'Por qué el café amargo te calma. La ciencia del nervio vago y el sabor amargo. ☕', buildHtml: html19 },
 ]
