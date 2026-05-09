@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { MobileNav } from "./MobileNav"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/store/useAuthStore"
-import { LogOut, User, PieChart, CreditCard, ChevronDown, Sparkles, ArrowRight } from "lucide-react"
+import { LogOut, User, PieChart, CreditCard, ChevronDown, Brain, ArrowRight } from "lucide-react"
 
 interface DropdownItem { label: string; href: string }
 
@@ -100,7 +100,7 @@ function GuideDropdown() {
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all hover:brightness-110"
         style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.22)", color: "#C9A84C" }}
       >
-        <Sparkles className="w-3 h-3" />
+        <Brain className="w-3 h-3" />
         <span>FOOD·MOOD IA</span>
         <ChevronDown className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
