@@ -16,7 +16,7 @@ const CHALLENGES = [
 ]
 
 // ─── Timeline ─────────────────────────────────────────────────────────────────
-const T = { intro1: 3.6, intro2: 4.0, intro3: 4.0, feature: 3.4, outro: 4.6 }
+const T = { intro1: 4.5, intro2: 5.5, intro3: 5.5, feature: 6.0, outro: 6.0 }
 
 type IntroSeg   = { kind: "intro";   which: 1|2|3; dur: number; start: number; end: number }
 type FeatureSeg = { kind: "feature"; index: number; dur: number; start: number; end: number }

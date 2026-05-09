@@ -964,8 +964,20 @@ export default function Home() {
       </section>
 
       {/* ── 5. LOS RETOS ────────────────────────────────────────────────────── */}
-      <section aria-label="Retos de transformación">
+      <section aria-label="Retos de transformación" style={{ backgroundColor: "#0b0b0a" }}>
         <RetosAnimation />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 py-8 px-6">
+          <Link
+            href="/retos"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
+            style={{ backgroundColor: "#C9A84C", color: "#0b0b0a" }}
+          >
+            Ver todos los retos <ArrowRight className="w-4 h-4" />
+          </Link>
+          <span className="text-[11px] font-light tracking-wide" style={{ color: "rgba(245,240,232,0.35)" }}>
+            Desde 19 € · Pago único · Sin renovación automática
+          </span>
+        </div>
       </section>
 
       {/* ── 5b. CORPORATE WELLNESS ──────────────────────────────────────────── */}
