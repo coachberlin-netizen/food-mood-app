@@ -745,7 +745,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3b. NEUROCIENCIA ────────────────────────────────────────────────── */}
+      {/* ── 3b. FOOD-MOOD GUIDE — asistente IA ─────────────────────────────── */}
+      <section aria-label="FOOD-MOOD Guide — Asistente IA premium" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-3xl mx-auto text-center">
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-[10px] font-bold uppercase tracking-[0.35em] mb-6"
+            style={{ color: "#C9A84C" }}
+          >
+            Asistente IA · Solo premium
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }}
+            className="font-serif text-3xl md:text-5xl text-white leading-[1.1] mb-6"
+          >
+            FOOD-MOOD Guide.<br />
+            <em className="font-light italic" style={{ color: "#C9A84C" }}>No responde como un chat genérico.</em>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.14 }}
+            className="text-base md:text-lg font-light leading-relaxed mb-10"
+            style={{ color: "rgba(245,240,232,0.65)" }}
+          >
+            Integra psicología alimentaria, nutrición de precisión cotidiana, ciencia del comportamiento y longevidad aplicada para leer patrones, no solo preguntas.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-left"
+          >
+            {[
+              { label: "Psicología\nalimentaria" },
+              { label: "Nutrición de\nprecisión cotidiana" },
+              { label: "Ciencia del\ncomportamiento" },
+              { label: "Longevidad\naplicada" },
+            ].map(({ label }) => (
+              <div
+                key={label}
+                className="rounded-xl p-4"
+                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.15)" }}
+              >
+                <p className="text-xs font-light leading-snug whitespace-pre-line" style={{ color: "rgba(245,240,232,0.55)" }}>
+                  {label}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.26 }}
+            className="flex flex-col items-center gap-3"
+          >
+            <Link
+              href="/asistente"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
+              style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+            >
+              Hablar con FOOD-MOOD Guide <ArrowRight className="w-4 h-4" />
+            </Link>
+            <p className="text-[10px]" style={{ color: "rgba(245,240,232,0.22)" }}>
+              Incluido en los planes mensual y trimestral
+            </p>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* ── 3c. NEUROCIENCIA ────────────────────────────────────────────────── */}
       <section aria-label="La neurociencia lo confirma" className="py-12 md:py-16 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
           <button
