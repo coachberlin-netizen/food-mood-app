@@ -615,159 +615,118 @@ export default function Home() {
       </section>
 
       {/* ── 3. CÓMO FUNCIONA ────────────────────────────────────────────────── */}
-      <section id="como-funciona" aria-label="Cómo funciona Food·Mood" className="py-20 md:py-28 px-6 bg-[#F5F0E8]">
+      <section id="como-funciona" aria-label="Cómo funciona Food·Mood" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0b0b0a" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "rgba(107,39,55,0.4)" }}>
+
+          <div className="mb-14">
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
               Cómo funciona
             </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-tight">
+            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight max-w-xl">
               Un sistema que escucha{" "}
-              <span className="italic font-light">antes de recomendar.</span>
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>antes de recomendar.</em>
             </h2>
           </div>
 
-          {/* Flow diagram */}
-          <div className="relative">
-
-            {/* Desktop: animated connecting line */}
-            <div className="hidden md:block absolute top-[38px] left-[12%] right-[12%] h-px" style={{ backgroundColor: "rgba(107,39,55,0.08)" }}>
+          <div className="grid md:grid-cols-2 gap-4">
+            {([
+              {
+                num: "01",
+                title: "Test de 30 segundos",
+                body: "Dinos cómo te sientes hoy. Tu mezcla real en porcentajes, no una etiqueta.",
+                accent: "#C9A84C",
+                bg: "rgba(201,168,76,0.06)",
+                border: "rgba(201,168,76,0.15)",
+                tag: "Gratis · Sin registro",
+                href: "/test",
+              },
+              {
+                num: "02",
+                title: "Tu paleta emocional",
+                body: "60% calma, 25% melancolía, 15% curiosidad. Un mapa real, no una etiqueta genérica.",
+                accent: "#5A9B8A",
+                bg: "rgba(90,155,138,0.06)",
+                border: "rgba(90,155,138,0.18)",
+                tag: "Espectro · No etiqueta",
+                href: "/paleta",
+              },
+              {
+                num: "03",
+                title: "Receta del día",
+                body: "Diseñada para tu estado emocional. Con el mecanismo bioquímico explicado, no solo los ingredientes.",
+                accent: "#C04878",
+                bg: "rgba(192,72,120,0.06)",
+                border: "rgba(192,72,120,0.18)",
+                tag: "20 min · Funcional",
+                href: "/recetas",
+              },
+              {
+                num: "04",
+                title: "Tu índice Food·Mood",
+                body: "Ves en datos cómo evolucionas. 90 días de trayectoria emocional y nutricional documentada.",
+                accent: "#4A7AB5",
+                bg: "rgba(74,122,181,0.06)",
+                border: "rgba(74,122,181,0.18)",
+                tag: "90 días · Datos reales",
+                href: "/dashboard",
+              },
+            ] as const).map((step, i) => (
               <motion.div
-                className="absolute inset-y-0 left-0"
-                initial={{ right: "100%" }}
-                whileInView={{ right: 0 }}
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.4, ease: "easeOut", delay: 0.4 }}
-                style={{ backgroundColor: "#C9A84C", opacity: 0.5 }}
-              />
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-10 md:gap-6">
-              {([
-                {
-                  title: "Test de 30 segundos",
-                  body: "Dinos cómo te sientes hoy. Tu mezcla real en porcentajes, no una etiqueta.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-                      <line x1="3" y1="6" x2="21" y2="6" opacity=".3"/>
-                      <circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/>
-                      <line x1="3" y1="12" x2="21" y2="12" opacity=".3"/>
-                      <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/>
-                      <line x1="3" y1="18" x2="21" y2="18" opacity=".3"/>
-                      <circle cx="7" cy="18" r="2" fill="currentColor" stroke="none"/>
-                    </svg>
-                  ),
-                },
-                {
-                  title: "Tu paleta emocional",
-                  body: "60% calma, 25% melancolía, 15% curiosidad. Un mapa real, no una etiqueta.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" strokeLinecap="round">
-                      <rect x="3" y="8" width="5" height="8" rx="2" fill="#5A9B8A" opacity=".8"/>
-                      <rect x="10" y="5" width="5" height="11" rx="2" fill="#4A7AB5" opacity=".8"/>
-                      <rect x="17" y="10" width="5" height="6" rx="2" fill="#C04878" opacity=".8"/>
-                    </svg>
-                  ),
-                },
-                {
-                  title: "Receta del día",
-                  body: "Diseñada para tu estado, no para una dieta genérica. Con el mecanismo bioquímico.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 2v7c0 1.7 1.3 3 3 3s3-1.3 3-3V2"/>
-                      <line x1="6" y1="12" x2="6" y2="22"/>
-                      <path d="M20.84 2.18a5 5 0 00-5.67 5.67L17 10l-1.68 1.68A5 5 0 0020.84 2.18z"/>
-                      <line x1="17" y1="10" x2="17" y2="22"/>
-                    </svg>
-                  ),
-                },
-                {
-                  title: "Tu índice Food·Mood",
-                  body: "Ves en datos cómo evolucionas. 90 días de trayectoria documentada.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                    </svg>
-                  ),
-                },
-              ] as const).map((step, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.12, duration: 0.5 }}
-                  className="relative flex flex-col items-center text-center gap-5"
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+              >
+                <Link
+                  href={step.href}
+                  className="group relative block rounded-2xl p-7 h-full transition-all hover:brightness-110"
+                  style={{ backgroundColor: step.bg, border: `1px solid ${step.border}` }}
                 >
-                  {/* Mobile: vertical connector above (except first) */}
-                  {i > 0 && (
-                    <div className="md:hidden absolute -top-5 left-1/2 -translate-x-1/2 w-px h-5" style={{ backgroundColor: "rgba(201,168,76,0.4)" }} />
-                  )}
+                  {/* Large numeral watermark */}
+                  <span
+                    className="absolute top-5 right-6 font-serif font-black leading-none select-none"
+                    style={{ fontSize: "clamp(56px, 8vw, 88px)", color: step.accent, opacity: 0.08 }}
+                  >
+                    {step.num}
+                  </span>
 
-                  {/* Icon circle */}
-                  <div className="relative z-10">
-                    <div
-                      className="w-[76px] h-[76px] rounded-full flex items-center justify-center bg-white shadow-sm"
-                      style={{ border: "1.5px solid rgba(107,39,55,0.1)", color: "#6B2737" }}
-                    >
-                      {step.icon}
-                    </div>
-                    {/* Step badge */}
-                    <span
-                      className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white"
-                      style={{ backgroundColor: "#C9A84C" }}
-                    >
-                      {i + 1}
-                    </span>
-                    {/* Desktop arrow between steps */}
-                    {i < 3 && (
-                      <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 -right-[calc(50%+8px)] items-center" style={{ color: "#C9A84C", opacity: 0.6 }}>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                    )}
-                  </div>
+                  {/* Tag */}
+                  <span
+                    className="inline-block text-[9px] font-bold uppercase tracking-[0.25em] px-2.5 py-1 rounded-full mb-5"
+                    style={{ backgroundColor: `${step.accent}18`, color: step.accent, border: `1px solid ${step.accent}30` }}
+                  >
+                    {step.tag}
+                  </span>
 
-                  <div className="space-y-2 max-w-[180px]">
-                    <h3 className="font-serif text-base font-bold leading-snug" style={{ color: "#2d0f16" }}>
-                      {i === 1 ? (
-                        <Link href="/paleta" className="underline decoration-[#C9A84C]/50 underline-offset-2 hover:text-[#6B2737] transition-colors">
-                          {step.title}
-                        </Link>
-                      ) : step.title}
-                    </h3>
-                    <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>
-                      {step.body}
-                    </p>
-                    {i === 1 && (
-                      <Link href="/paleta" className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest transition-colors hover:opacity-80" style={{ color: "#C9A84C" }}>
-                        Explorar →
-                      </Link>
-                    )}
+                  {/* Step number small */}
+                  <p className="text-[10px] font-mono mb-2" style={{ color: `${step.accent}80` }}>{step.num}</p>
+
+                  <h3 className="font-serif text-xl md:text-2xl font-semibold mb-3 leading-snug" style={{ color: "#F5F0E8" }}>
+                    {step.title}
+                  </h3>
+                  <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.55)" }}>
+                    {step.body}
+                  </p>
+
+                  <div className="mt-5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest transition-opacity group-hover:opacity-100 opacity-0" style={{ color: step.accent }}>
+                    Explorar <ArrowRight className="w-3 h-3" />
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                </Link>
+              </motion.div>
+            ))}
           </div>
 
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5">
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
             <Link
               href="/test"
-              className="inline-flex items-center gap-2 text-sm font-semibold transition-colors"
-              style={{ color: "#6B2737" }}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:brightness-110"
+              style={{ backgroundColor: "#C9A84C", color: "#0b0b0a" }}
             >
               Hacer el test gratis — 30 segundos <ArrowRight className="w-4 h-4" />
             </Link>
-            <span className="text-[#6B2737]/20 hidden sm:inline">·</span>
-            <Link
-              href="/paleta"
-              className="inline-flex items-center gap-2 text-sm font-light transition-opacity hover:opacity-70"
-              style={{ color: "rgba(107,39,55,0.5)" }}
-            >
-              Descubre tu paleta emocional <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
           </div>
+
         </div>
       </section>
 
