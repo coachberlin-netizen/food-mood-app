@@ -18,6 +18,7 @@ import { buildHtml as html17 } from './17-tiroides-postmenopausia'
 import { buildHtml as html18 } from './18-espectro-emocional'
 import { buildHtml as html19 } from './19-sabor-amargo-nervio-vago'
 import { buildHtml as html20 } from './20-injera-teff-etiopia'
+import { buildHtml as html21 } from './21-tkemali-georgia'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -49,4 +50,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 18, slug: 'espectro-emocional', subject: 'No sientes una emoción. Sientes varias a la vez. Y eso tiene una explicación. 🧠', buildHtml: html18 },
   { numero: 19, slug: 'sabor-amargo-nervio-vago', subject: 'Por qué el café amargo te calma. La ciencia del nervio vago y el sabor amargo. ☕', buildHtml: html19 },
   { numero: 20, slug: 'injera-teff-etiopia', subject: 'El pan que lleva 72 horas fermentando. Etiopía lleva milenios comiendo para el cerebro sin saberlo.', buildHtml: html20 },
+  { numero: 21, slug: 'tkemali-georgia', subject: 'La salsa agria que los georgianos llevan 3.000 años usando para todo. La ciencia acaba de empezar a entender por qué.', buildHtml: html21 },
 ]

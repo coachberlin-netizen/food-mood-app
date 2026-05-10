@@ -1,0 +1,295 @@
+export function buildHtml(): string {
+  return /* html */`<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food·Mood — La salsa agria que los georgianos llevan 3.000 años usando para todo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #EDE8DF; font-family: 'Lato', Arial, sans-serif; color: #2a1a1e; -webkit-font-smoothing: antialiased; }
+  .wrapper { max-width: 680px; margin: 0 auto; background: #F5F0E8; }
+  .header { background: #2d0f16; padding: 48px 44px 44px; }
+  .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #6B2737; letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
+  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; }
+  .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.45); margin-bottom: 32px; }
+  .header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; color: #F5F0E8; line-height: 1.18; margin-bottom: 0; }
+  .header-title em { font-style: italic; color: #C9A84C; font-weight: 400; }
+  .intro { padding: 36px 44px; border-bottom: 1px solid #e0d5c8; }
+  .intro p { font-size: 15px; line-height: 1.80; color: #4a3a3e; font-weight: 300; margin-bottom: 16px; }
+  .intro p:last-child { margin-bottom: 0; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 18px; }
+  .section-label-dark { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 18px; }
+  .bio-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; background: #1e0b11; }
+  .bio-table { width: 100%; border-collapse: collapse; }
+  .bio-table thead tr { background: #2d0f16; }
+  .bio-table thead th { padding: 10px 12px; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(201,168,76,0.60); text-align: left; }
+  .bio-table tbody tr { border-bottom: 1px solid rgba(201,168,76,0.08); }
+  .bio-table tbody tr:last-child { border-bottom: none; }
+  .bio-table tbody td { padding: 13px 12px; font-size: 12px; font-weight: 300; line-height: 1.60; vertical-align: top; }
+  .td-compuesto { color: #C9A84C; font-weight: 700; font-size: 12px; }
+  .td-fuente { color: rgba(245,240,232,0.60); }
+  .td-mecanismo { color: rgba(245,240,232,0.75); }
+  .bio-note { margin-top: 16px; font-size: 11px; font-style: italic; color: rgba(201,168,76,0.50); line-height: 1.60; }
+  .cifras-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
+  .cifra-value { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 8px; }
+  .cifra-label { font-size: 12px; font-weight: 300; color: #4a3a3e; line-height: 1.65; }
+  .cifra-label em { font-style: italic; color: #6B2737; }
+  .comp-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
+  .comp-table { width: 100%; border-collapse: collapse; }
+  .comp-table thead tr { background: #2d0f16; }
+  .comp-table thead th { padding: 10px 12px; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.55); text-align: left; }
+  .comp-table tbody tr { background: #fff; border-bottom: 1px solid #ece5db; }
+  .comp-table tbody tr:nth-child(even) { background: #faf7f2; }
+  .comp-table tbody tr:last-child { border-bottom: none; }
+  .comp-table tbody td { padding: 11px 12px; font-size: 12px; font-weight: 300; color: #4a3a3e; line-height: 1.50; vertical-align: middle; }
+  .td-fermento { font-weight: 700; color: #2a1a1e; }
+  .td-origen { color: #6B2737; }
+  .puntos-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
+  .punto-item { margin-bottom: 28px; }
+  .punto-item:last-child { margin-bottom: 0; }
+  .punto-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #C9A84C; font-weight: 700; line-height: 1; margin-bottom: 6px; }
+  .punto-text { font-size: 15px; font-weight: 300; color: #4a3a3e; line-height: 1.78; }
+  .punto-text strong { color: #2a1a1e; font-weight: 700; }
+  .punto-ref { font-size: 11px; font-style: italic; color: #9e8080; margin-top: 6px; display: block; }
+  .recipe-wrap { padding: 36px 44px; background: #2d0f16; }
+  .recipe-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+  .recipe-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #F5F0E8; line-height: 1.25; margin-bottom: 24px; }
+  .recipe-col-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 10px; }
+  .recipe-item { font-size: 14px; font-weight: 300; color: rgba(245,240,232,0.88); line-height: 1.65; margin-bottom: 6px; }
+  .recipe-item:last-child { margin-bottom: 0; }
+  .recipe-prep { font-size: 14px; font-weight: 300; color: rgba(245,240,232,0.80); line-height: 1.78; margin-bottom: 10px; }
+  .recipe-day { color: #C9A84C; font-weight: 700; }
+  .recipe-usos-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 8px; }
+  .recipe-usos { font-size: 13px; font-weight: 300; color: rgba(245,240,232,0.72); line-height: 1.70; }
+  .recipe-note-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 8px; }
+  .recipe-note { font-size: 13px; font-style: italic; color: rgba(245,240,232,0.65); line-height: 1.70; }
+  .biblio-wrap { padding: 28px 44px; border-bottom: 1px solid #e0d5c8; background: #fafaf5; }
+  .biblio-title { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 12px; }
+  .biblio-item { font-size: 11px; font-weight: 300; color: #7a6a6e; line-height: 1.65; margin-bottom: 5px; }
+  .pullquote { background: #C9A84C; padding: 36px 44px; }
+  .pullquote-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2d0f16; line-height: 1.45; text-align: center; }
+  .cta-wrap { padding: 36px 44px; text-align: center; border-bottom: 1px solid #e0d5c8; }
+  .cta-btn { display: inline-block; background: #6B2737; color: #F5F0E8 !important; text-decoration: none; padding: 14px 32px; font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .06em; border-radius: 3px; }
+  .footer { padding: 22px 44px; text-align: center; }
+  .footer-text { font-size: 11px; font-weight: 300; color: #9e8080; }
+  @media (max-width: 480px) {
+    .wrapper { width: 100% !important; }
+    .header { padding: 32px 24px 28px !important; }
+    .header-title { font-size: 24px !important; }
+    .intro, .bio-wrap, .cifras-wrap, .comp-wrap, .puntos-wrap,
+    .recipe-wrap, .biblio-wrap, .pullquote, .cta-wrap, .footer {
+      padding-left: 24px !important; padding-right: 24px !important;
+    }
+    .cifra-value { font-size: 32px !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <p class="logo-text">Food&middot;Mood</p>
+    <p class="header-numero">N&ordm; 21</p>
+    <p class="header-tagline">La app de body &amp; mind que estabas esperando.</p>
+    <h1 class="header-title">
+      La salsa agria que los georgianos llevan 3.000 a&ntilde;os usando para todo.<br>
+      <em>La ciencia acaba de empezar a entender por qu&eacute;.</em>
+    </h1>
+  </div>
+
+  <div class="intro">
+    <p>Georgia es uno de los pa&iacute;ses con mayor tradici&oacute;n fermentativa del mundo &mdash;y uno de los menos explorados fuera de su regi&oacute;n. El tkemali es una salsa elaborada con ciruelas silvestres &aacute;cidas (<em>Prunus divaricata</em>) fermentadas con hierbas arom&aacute;ticas salvajes: pennyroyal, hinojo silvestre, ajo. No es un condimento secundario: en la mesa georgiana acompa&ntilde;a cada comida, cada estaci&oacute;n, cada celebraci&oacute;n. La investigaci&oacute;n actual sobre polifenoles y microbioma sugiere que esta pr&aacute;ctica milenaria puede tener una l&oacute;gica bioqu&iacute;mica que la tradici&oacute;n intuy&oacute; mucho antes de que la ciencia la nombrara.</p>
+    <p>Desde la perspectiva de la Hip&oacute;tesis del Marcador Som&aacute;tico de Antonio Damasio, las salsas fermentadas &aacute;cidas que acompa&ntilde;an la comida generan se&ntilde;ales sensoriales previas a la digesti&oacute;n &mdash;acidez, aroma, complejidad&mdash; que el cerebro puede asociar con bienestar y saciedad. Seg&uacute;n la Teor&iacute;a de la Emoci&oacute;n Constru&iacute;da de Lisa Feldman Barrett, ese contexto sensorial participa activamente en la construcci&oacute;n de la experiencia emocional de la comida. El tkemali no es solo sabor: es arquitectura sensorial con consecuencias metab&oacute;licas.</p>
+  </div>
+
+  <div class="bio-wrap">
+    <p class="section-label-dark">Gr&aacute;fico 1 &mdash; Composici&oacute;n bioactiva del tkemali</p>
+    <table class="bio-table" cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th width="24%">Compuesto</th>
+          <th width="30%">Fuente en tkemali</th>
+          <th width="46%">Mecanismo estudiado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-compuesto">Acido clorog&eacute;nico</td>
+          <td class="td-fuente">Ciruelas silvestres &aacute;cidas</td>
+          <td class="td-mecanismo">Se asocia con modulaci&oacute;n de la respuesta gluc&eacute;mica y actividad antioxidante (Clifford, 2000)</td>
+        </tr>
+        <tr>
+          <td class="td-compuesto">Antocianinas</td>
+          <td class="td-fuente">Piel de ciruela morada</td>
+          <td class="td-mecanismo">La evidencia sugiere propiedades antiinflamatorias y posible efecto en diversidad microbiana (Tsuda, 2012)</td>
+        </tr>
+        <tr>
+          <td class="td-compuesto">Pectina fermentada</td>
+          <td class="td-fuente">Pulpa de ciruela + tiempo</td>
+          <td class="td-mecanismo">Sustrato prebi&oacute;tico; puede favorecer bacterias productoras de butirato</td>
+        </tr>
+        <tr>
+          <td class="td-compuesto">Acido m&aacute;lico</td>
+          <td class="td-fuente">Fermentaci&oacute;n espont&aacute;nea</td>
+          <td class="td-mecanismo">Se asocia con modulaci&oacute;n de pH intestinal y acidez beneficiosa para la digesti&oacute;n</td>
+        </tr>
+        <tr>
+          <td class="td-compuesto">Polifenoles totales</td>
+          <td class="td-fuente">Hierbas arom&aacute;ticas silvestres</td>
+          <td class="td-mecanismo">La investigaci&oacute;n apunta a interacci&oacute;n con microbiota y reducci&oacute;n de marcadores inflamatorios</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="bio-note">Los efectos descritos corresponden a estudios del compuesto aislado o de alimentos similares. La extrapolaci&oacute;n directa al tkemali como producto fermentado complejo requiere m&aacute;s investigaci&oacute;n espec&iacute;fica.</p>
+  </div>
+
+  <div class="cifras-wrap">
+    <p class="section-label">Gr&aacute;fico 2 &mdash; La acidez que puede proteger</p>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td width="33%" valign="top" style="padding: 0 16px 0 0; border-right: 1px solid #e0d5c8;">
+          <p class="cifra-value">2,8&ndash;3,5</p>
+          <p class="cifra-label">pH aproximado del tkemali tradicional. En este rango el ambiente es hostil para pat&oacute;genos y favorece la preservaci&oacute;n natural <em>sin conservantes artificiales</em>.</p>
+        </td>
+        <td width="33%" valign="top" style="padding: 0 16px; border-right: 1px solid #e0d5c8;">
+          <p class="cifra-value">&times;3</p>
+          <p class="cifra-label">Los alimentos fermentados &aacute;cidos consumidos con la comida pueden mejorar la absorci&oacute;n de minerales como hierro y zinc al modular el pH intestinal puntualmente. <em>(Gibson et al., 2010)</em></p>
+        </td>
+        <td width="33%" valign="top" style="padding: 0 0 0 16px;">
+          <p class="cifra-value">2.000+</p>
+          <p class="cifra-label">A&ntilde;os de uso documentado de fermentos de frutas &aacute;cidas en la regi&oacute;n del C&aacute;ucaso, seg&uacute;n registros hist&oacute;ricos y arqueol&oacute;gicos.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="comp-wrap">
+    <p class="section-label">Gr&aacute;fico 3 &mdash; Condimentos fermentados: una tradici&oacute;n global</p>
+    <table class="comp-table" cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th width="20%">Fermento</th>
+          <th width="20%">Origen</th>
+          <th width="22%">Base</th>
+          <th width="38%">Compuestos principales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-fermento">Tkemali</td>
+          <td class="td-origen">Georgia</td>
+          <td>Ciruela silvestre</td>
+          <td>Antocianinas, &aacute;cido clorog&eacute;nico, pectina</td>
+        </tr>
+        <tr>
+          <td class="td-fermento">Umeboshi</td>
+          <td class="td-origen">Jap&oacute;n</td>
+          <td>Ciruela ume</td>
+          <td>&Aacute;cido c&iacute;trico, catequinas, benzaldeh&iacute;do</td>
+        </tr>
+        <tr>
+          <td class="td-fermento">Worcestershire</td>
+          <td class="td-origen">Reino Unido</td>
+          <td>Tamarindo + vinagre</td>
+          <td>Polifenoles, &aacute;cido ac&eacute;tico, glutamato</td>
+        </tr>
+        <tr>
+          <td class="td-fermento">Verjuice</td>
+          <td class="td-origen">Francia / Espa&ntilde;a</td>
+          <td>Uva verde sin madurar</td>
+          <td>&Aacute;cido tart&aacute;rico, precursor de resveratrol</td>
+        </tr>
+        <tr>
+          <td class="td-fermento">Shrub</td>
+          <td class="td-origen">Medio Oriente</td>
+          <td>Frutas + vinagre de manzana</td>
+          <td>Antocianinas, &aacute;cido ac&eacute;tico, flavonoides</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="puntos-wrap">
+    <p class="section-label">Fermentar frutas &aacute;cidas: la t&eacute;cnica m&aacute;s olvidada de Europa</p>
+    <div class="punto-item">
+      <p class="punto-num">1.</p>
+      <p class="punto-text"><strong>La acidez no es solo sabor &mdash; es informaci&oacute;n para el intestino.</strong> Los &aacute;cidos org&aacute;nicos presentes en frutas fermentadas pueden modular el pH del tracto digestivo de forma puntual, creando condiciones que la investigaci&oacute;n asocia con mejor absorci&oacute;n de micronutrientes y menor proliferaci&oacute;n de bacterias oportunistas. No es un efecto dram&aacute;tico: es una modulaci&oacute;n fina que se acumula comida a comida. <span class="punto-ref">(Cummings &amp; Macfarlane, 1991)</span></p>
+    </div>
+    <div class="punto-item">
+      <p class="punto-num">2.</p>
+      <p class="punto-text"><strong>Los polifenoles de la fruta cambian durante la fermentaci&oacute;n.</strong> La fermentaci&oacute;n transforma los polifenoles de la ciruela &mdash;en gran parte no absorbibles en su forma original&mdash; en metabolitos m&aacute;s biodisponibles. La microbiota act&uacute;a como laboratorio de conversi&oacute;n: lo que entra como antocianina puede salir como urolitina u otros metabolitos con actividad documentada. La evidencia sugiere que este proceso de biotransformaci&oacute;n puede ser tan relevante como el compuesto original. <span class="punto-ref">(Selma et al., 2009)</span></p>
+    </div>
+    <div class="punto-item">
+      <p class="punto-num">3.</p>
+      <p class="punto-text"><strong>El ritual importa tanto como el compuesto.</strong> Desde la neurociencia sensorial, el momento en que se toma un condimento &aacute;cido y arom&aacute;tico al inicio de la comida puede activar la secreci&oacute;n de jugos digestivos y generar marcadores som&aacute;ticos de anticipaci&oacute;n del placer. Barrett dir&iacute;a que el cerebro ya est&aacute; construyendo la emoci&oacute;n &ldquo;satisfacci&oacute;n&rdquo; antes del primer bocado. La cultura georgiana lo supo siempre &mdash;la ciencia lo est&aacute; documentando ahora.</p>
+    </div>
+  </div>
+
+  <div class="recipe-wrap">
+    <p class="recipe-eyebrow">Receta Food&middot;Mood</p>
+    <p class="recipe-title">Tkemali casero de ciruelas y eneldo</p>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td width="42%" valign="top" style="padding-right: 24px;">
+          <p class="recipe-col-label">Ingredientes</p>
+          <p class="recipe-item">&mdash; 500 g ciruelas &aacute;cidas (mirabolanos, claudias verdes sin madurar, o ciruelas de temporada &aacute;cidas)</p>
+          <p class="recipe-item">&mdash; 3 dientes de ajo</p>
+          <p class="recipe-item">&mdash; 1 cdta semillas de cilantro molidas</p>
+          <p class="recipe-item">&mdash; 1 cdta de eneldo seco o fresco</p>
+          <p class="recipe-item">&mdash; &frac12; cdta de menta seca</p>
+          <p class="recipe-item">&mdash; Sal marina al gusto</p>
+          <p class="recipe-item">&mdash; Opcional: guindilla fresca para versi&oacute;n picante</p>
+        </td>
+        <td width="58%" valign="top">
+          <p class="recipe-col-label">Preparaci&oacute;n &mdash; fermentaci&oacute;n 3 d&iacute;as</p>
+          <p class="recipe-prep"><span class="recipe-day">D&iacute;a 1.</span> Cuece las ciruelas en poca agua hasta que se ablanden. Retira los huesos. Tritura la pulpa con ajo, especias y sal. Deja enfriar completamente a temperatura ambiente.</p>
+          <p class="recipe-prep"><span class="recipe-day">D&iacute;as 2&ndash;3.</span> Cubre el recipiente con un pa&ntilde;o y deja fermentar a temperatura ambiente. Debe oler &aacute;cido y afrutado &mdash;no a putrefacci&oacute;n. Si aparece una fina capa de moho blanco superficial, ret&iacute;rala y contin&uacute;a. Guarda en tarro de cristal en nevera hasta 3 semanas.</p>
+        </td>
+      </tr>
+    </table>
+    <div style="margin-top: 24px; border-top: 1px solid rgba(201,168,76,0.15); padding-top: 20px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="45%" valign="top" style="padding-right: 20px;">
+            <p class="recipe-usos-label">Usos Food&middot;Mood</p>
+            <p class="recipe-usos">Con carnes asadas, con legumbres, como dressing &aacute;cido en ensaladas, mezclado con k&eacute;fir como salsa para verduras crudas.</p>
+          </td>
+          <td width="55%" valign="top" style="border-left: 1px solid rgba(201,168,76,0.15); padding-left: 20px;">
+            <p class="recipe-note-label">Nota Food&middot;Mood</p>
+            <p class="recipe-note">El tkemali casero es fermentaci&oacute;n espont&aacute;nea &mdash;no hay cultivo iniciador a&ntilde;adido. Las bacterias del entorno y de la propia fruta hacen el trabajo. Es el mismo principio que el pan de masa madre: confiar en los microorganismos que ya est&aacute;n ah&iacute;. La ciencia de los psicobi&oacute;ticos sugiere que esta diversidad microbiana espont&aacute;nea puede ser precisamente su valor. (Sonnenburg, 2015)</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="biblio-wrap">
+    <p class="biblio-title">Referencias</p>
+    <p class="biblio-item">Barrett, L.F. (2017). <em>How Emotions Are Made.</em> Houghton Mifflin Harcourt.</p>
+    <p class="biblio-item">Clifford, M.N. (2000). Chlorogenic acids and other cinnamates. <em>Journal of the Science of Food and Agriculture</em>, 80(7), 1033&ndash;1043.</p>
+    <p class="biblio-item">Cummings, J.H. &amp; Macfarlane, G.T. (1991). The control and consequences of bacterial fermentation in the human colon. <em>Journal of Applied Bacteriology</em>, 70(6), 443&ndash;459.</p>
+    <p class="biblio-item">Damasio, A. (1994). <em>Descartes&rsquo; Error.</em> Putnam Publishing.</p>
+    <p class="biblio-item">Gibson, R.S. et al. (2010). Improving the bioavailability of nutrients in plant foods at the household level. <em>Proceedings of the Nutrition Society</em>, 69(2), 278&ndash;283.</p>
+    <p class="biblio-item">Selma, M.V. et al. (2009). Interaction between phenolics and gut microbiota. <em>Journal of Agricultural and Food Chemistry</em>, 57(15), 6485&ndash;6501.</p>
+    <p class="biblio-item">Sonnenburg, J. &amp; Sonnenburg, E. (2015). <em>The Good Gut.</em> Penguin Press.</p>
+    <p class="biblio-item">Tsuda, T. (2012). Dietary anthocyanin-rich plants: biochemical basis and recent progress in health-promoting effects. <em>Molecules</em>, 17(3), 3461&ndash;3469.</p>
+  </div>
+
+  <div class="pullquote">
+    <p class="pullquote-text">&ldquo;No necesitas un suplemento de polifenoles.<br>Puede que solo necesites una cucharada de tkemali.&rdquo;</p>
+  </div>
+
+  <div class="cta-wrap">
+    <a href="https://www.food-mood.app" class="cta-btn">Descubre tu perfil de estado de &aacute;nimo en food-mood.app &rarr;</a>
+  </div>
+
+  <div class="footer">
+    <p class="footer-text">Food&middot;Mood &middot; food-mood.app &middot; &copy; 2026</p>
+  </div>
+
+</div>
+</body>
+</html>`
+}
