@@ -16,7 +16,7 @@ const CHALLENGES = [
 ]
 
 // ─── Timeline ─────────────────────────────────────────────────────────────────
-const T = { intro1: 4.5, intro2: 5.5, intro3: 5.5, feature: 6.0, outro: 6.0 }
+const T = { intro1: 2.8, intro2: 3.0, intro3: 3.0, feature: 3.8, outro: 3.2 }
 
 type IntroSeg   = { kind: "intro";   which: 1|2|3; dur: number; start: number; end: number }
 type FeatureSeg = { kind: "feature"; index: number; dur: number; start: number; end: number }
@@ -43,13 +43,20 @@ function currentSegment(t: number): Seg & { local: number } {
 }
 
 // ─── Hook ─────────────────────────────────────────────────────────────────────
+// Throttled to 20fps for React state (CSS transitions still run at 60fps).
+// Phase changes (segment boundaries / in-out thresholds) are still detected
+// within 50ms — imperceptible given the 600ms+ transition durations.
 function useLoopTime(total: number) {
   const [t, setT] = useState(0)
   useEffect(() => {
     let raf: number
+    let lastFlush = 0
     const start = performance.now()
-    const tick = () => {
-      setT(((performance.now() - start) / 1000) % total)
+    const tick = (now: number) => {
+      if (now - lastFlush >= 50) {          // ~20fps React updates
+        lastFlush = now
+        setT(((now - start) / 1000) % total)
+      }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
@@ -77,41 +84,41 @@ function Fade({ children, state, delay = 0 }: { children: ReactNode; state: stri
 
 // ─── Intro scenes ─────────────────────────────────────────────────────────────
 function Intro1({ local, dur }: { local: number; dur: number }) {
-  const s = local > 0.05 ? (local > dur - 0.5 ? "out" : "in") : ""
-  const f = local > 0.4  ? (local > dur - 0.5 ? "out" : "in") : ""
+  const s = local > 0.05 ? (local > dur - 0.45 ? "out" : "in") : ""
+  const f = local > 0.3  ? (local > dur - 0.45 ? "out" : "in") : ""
   return (
     <div className="ra-scene ra-intro">
       <span className="ra-eyebrow">
         <Fade state={f}><span className="ra-rule" /></Fade>
-        <Fade state={f} delay={120}>food·mood · transformación</Fade>
-        <Fade state={f} delay={240}><span className="ra-rule" /></Fade>
+        <Fade state={f} delay={80}>food·mood · transformación</Fade>
+        <Fade state={f} delay={160}><span className="ra-rule" /></Fade>
       </span>
       <h1 className="ra-display">
-        <RevealLine state={s} delay={120}>Retos de</RevealLine>{" "}
-        <RevealLine state={s} delay={320}><em>transformación</em></RevealLine>
+        <RevealLine state={s} delay={80}>Retos de</RevealLine>{" "}
+        <RevealLine state={s} delay={210}><em>transformación</em></RevealLine>
       </h1>
       <p className="ra-sub">
-        <Fade state={f} delay={900}>8 caminos guiados. Datos reales. Un punto de partida claro.</Fade>
+        <Fade state={f} delay={600}>8 caminos guiados. Datos reales. Un punto de partida claro.</Fade>
       </p>
     </div>
   )
 }
 
 function Intro2({ local, dur }: { local: number; dur: number }) {
-  const s = local > 0.05 ? (local > dur - 0.5 ? "out" : "in") : ""
+  const s = local > 0.05 ? (local > dur - 0.45 ? "out" : "in") : ""
   return (
     <div className="ra-scene ra-intro">
       <span className="ra-eyebrow">
         <Fade state={s}><span className="ra-rule" /></Fade>
-        <Fade state={s} delay={120}>la idea</Fade>
-        <Fade state={s} delay={240}><span className="ra-rule" /></Fade>
+        <Fade state={s} delay={80}>la idea</Fade>
+        <Fade state={s} delay={160}><span className="ra-rule" /></Fade>
       </span>
       <h2 className="ra-display" style={{ fontSize: "6.8cqw" }}>
-        <RevealLine state={s} delay={80}>No necesitas otro</RevealLine>{" "}
-        <RevealLine state={s} delay={220}><em>plan de comidas.</em></RevealLine>
+        <RevealLine state={s} delay={60}>No necesitas otro</RevealLine>{" "}
+        <RevealLine state={s} delay={170}><em>plan de comidas.</em></RevealLine>
         <br />
-        <RevealLine state={s} delay={520}>Necesitas un</RevealLine>{" "}
-        <RevealLine state={s} delay={680}><em>punto de partida.</em></RevealLine>
+        <RevealLine state={s} delay={360}>Necesitas un</RevealLine>{" "}
+        <RevealLine state={s} delay={480}><em>punto de partida.</em></RevealLine>
       </h2>
       <p className="ra-sub" />
     </div>
@@ -119,20 +126,20 @@ function Intro2({ local, dur }: { local: number; dur: number }) {
 }
 
 function Intro3({ local, dur }: { local: number; dur: number }) {
-  const s = local > 0.05 ? (local > dur - 0.5 ? "out" : "in") : ""
+  const s = local > 0.05 ? (local > dur - 0.45 ? "out" : "in") : ""
   return (
     <div className="ra-scene ra-intro">
       <span className="ra-eyebrow">
         <Fade state={s}><span className="ra-rule" /></Fade>
-        <Fade state={s} delay={120}>el método</Fade>
-        <Fade state={s} delay={240}><span className="ra-rule" /></Fade>
+        <Fade state={s} delay={80}>el método</Fade>
+        <Fade state={s} delay={160}><span className="ra-rule" /></Fade>
       </span>
       <h2 className="ra-display" style={{ fontSize: "7.6cqw", lineHeight: 1.04 }}>
-        <RevealLine state={s} delay={80}><em>Un objetivo.</em></RevealLine>
+        <RevealLine state={s} delay={60}><em>Un objetivo.</em></RevealLine>
         <br />
-        <RevealLine state={s} delay={320}><em>Un tiempo.</em></RevealLine>
+        <RevealLine state={s} delay={220}><em>Un tiempo.</em></RevealLine>
         <br />
-        <RevealLine state={s} delay={560}>Un camino con <em>datos reales.</em></RevealLine>
+        <RevealLine state={s} delay={380}>Un camino con <em>datos reales.</em></RevealLine>
       </h2>
       <p className="ra-sub" />
     </div>
@@ -148,28 +155,28 @@ function FeatureTitle({ title, em, state }: { title: string; em: string; state: 
 
   const render = (text: string, delay: number) => {
     const idx = text.toLowerCase().indexOf(em.toLowerCase())
-    if (idx < 0) return <RevealLine state={state} delay={delay} dur={1100}>{text}</RevealLine>
+    if (idx < 0) return <RevealLine state={state} delay={delay} dur={650}>{text}</RevealLine>
     return (
-      <RevealLine state={state} delay={delay} dur={1100}>
+      <RevealLine state={state} delay={delay} dur={650}>
         {text.slice(0, idx)}<em>{text.slice(idx, idx + em.length)}</em>{text.slice(idx + em.length)}
       </RevealLine>
     )
   }
 
-  if (words.length < 3) return render(title, 200)
+  if (words.length < 3) return render(title, 130)
   return (
     <>
-      {render(lineA, 200)}
+      {render(lineA, 130)}
       <br />
-      {render(lineB, 360)}
+      {render(lineB, 250)}
     </>
   )
 }
 
 // ─── Feature (per-reto scene) ─────────────────────────────────────────────────
 function Feature({ data, local, dur }: { data: typeof CHALLENGES[0]; local: number; dur: number }) {
-  const s  = local > 0.10 ? (local > dur - 0.55 ? "out" : "in") : ""
-  const sl = local > 0.25 ? (local > dur - 0.55 ? "out" : "in") : ""
+  const s  = local > 0.08 ? (local > dur - 0.50 ? "out" : "in") : ""
+  const sl = local > 0.18 ? (local > dur - 0.50 ? "out" : "in") : ""
 
   return (
     <div className="ra-scene ra-feature">
@@ -177,9 +184,9 @@ function Feature({ data, local, dur }: { data: typeof CHALLENGES[0]; local: numb
       <div className="ra-rule-v" />
 
       <span className="ra-tag">
-        <Fade state={s} delay={80}><span className="ra-bullet" /></Fade>
-        <Fade state={s} delay={140}>{data.cat}</Fade>
-        <Fade state={s} delay={220}><span className="ra-dur">· {data.duration}</span></Fade>
+        <Fade state={s} delay={50}><span className="ra-bullet" /></Fade>
+        <Fade state={s} delay={100}>{data.cat}</Fade>
+        <Fade state={s} delay={160}><span className="ra-dur">· {data.duration}</span></Fade>
       </span>
 
       <h2 className="ra-title">
@@ -187,9 +194,9 @@ function Feature({ data, local, dur }: { data: typeof CHALLENGES[0]; local: numb
       </h2>
 
       <div className="ra-meta">
-        <p className="ra-blurb"><Fade state={sl} delay={520}>{data.blurb}</Fade></p>
+        <p className="ra-blurb"><Fade state={sl} delay={340}>{data.blurb}</Fade></p>
         <span className="ra-price">
-          <Fade state={sl} delay={680}>
+          <Fade state={sl} delay={460}>
             <span className="ra-amount">{data.price}</span>
             <span className="ra-euro">€</span>
             <small>iva incluido</small>
@@ -198,8 +205,8 @@ function Feature({ data, local, dur }: { data: typeof CHALLENGES[0]; local: numb
       </div>
 
       <span className="ra-caption">
-        <Fade state={s} delay={300}><span className="ra-cap-dot" /></Fade>
-        <Fade state={s} delay={380}>reto · {data.numeral} de 08</Fade>
+        <Fade state={s} delay={200}><span className="ra-cap-dot" /></Fade>
+        <Fade state={s} delay={270}>reto · {data.numeral} de 08</Fade>
       </span>
     </div>
   )
@@ -207,22 +214,22 @@ function Feature({ data, local, dur }: { data: typeof CHALLENGES[0]; local: numb
 
 // ─── Outro ────────────────────────────────────────────────────────────────────
 function Outro({ local, dur }: { local: number; dur: number }) {
-  const s = local > 0.05 ? (local > dur - 0.5 ? "out" : "in") : ""
+  const s = local > 0.05 ? (local > dur - 0.45 ? "out" : "in") : ""
   return (
     <div className="ra-scene ra-outro">
       <span className="ra-eyebrow">
         <Fade state={s}><span className="ra-rule" /></Fade>
-        <Fade state={s} delay={120}>tu camino te espera</Fade>
-        <Fade state={s} delay={240}><span className="ra-rule" /></Fade>
+        <Fade state={s} delay={80}>tu camino te espera</Fade>
+        <Fade state={s} delay={160}><span className="ra-rule" /></Fade>
       </span>
       <h2 className="ra-display">
-        <RevealLine state={s} delay={120}>8 retos.</RevealLine>{" "}
-        <RevealLine state={s} delay={300}>1 punto de</RevealLine>{" "}
-        <RevealLine state={s} delay={500}><em>partida.</em></RevealLine>
+        <RevealLine state={s} delay={80}>8 retos.</RevealLine>{" "}
+        <RevealLine state={s} delay={200}>1 punto de</RevealLine>{" "}
+        <RevealLine state={s} delay={340}><em>partida.</em></RevealLine>
       </h2>
       <span className="ra-cta-outro">
-        <Fade state={s} delay={1000}>empieza en food-mood.app</Fade>
-        <Fade state={s} delay={1180}><span className="ra-arrow" /></Fade>
+        <Fade state={s} delay={680}>empieza en food-mood.app</Fade>
+        <Fade state={s} delay={800}><span className="ra-arrow" /></Fade>
       </span>
     </div>
   )
@@ -344,10 +351,11 @@ const RA_CSS = `
     container-type: inline-size;
     overflow: hidden;
     transition:
-      background-color 1100ms cubic-bezier(.6,.05,.2,1),
-      color            1100ms cubic-bezier(.6,.05,.2,1);
+      background-color 750ms cubic-bezier(.6,.05,.2,1),
+      color            750ms cubic-bezier(.6,.05,.2,1);
     font-family: "Inter Tight", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    will-change: background-color;
   }
 
   /* ── Frame ── */
@@ -516,12 +524,13 @@ const RA_CSS = `
     color: var(--accent); opacity: 0;
     user-select: none; pointer-events: none;
     transform: translateX(8cqw);
-    transition: transform 1200ms cubic-bezier(.22,.95,.28,1), opacity 900ms ease;
+    transition: transform 800ms cubic-bezier(.22,.95,.28,1), opacity 600ms ease;
+    will-change: transform, opacity;
     z-index: 1;
   }
   .ra-glyph-in  { transform: translateX(0);    opacity: .085; }
   .ra-glyph-out { transform: translateX(-4cqw); opacity: 0;
-                  transition: transform 600ms ease, opacity 400ms ease; }
+                  transition: transform 400ms ease, opacity 280ms ease; }
 
   /* Vertical rule in feature */
   .ra-rule-v {
@@ -569,32 +578,34 @@ const RA_CSS = `
   .ra-rl-inner {
     display: block;
     transform: translateY(110%);
-    transition: transform var(--rd, 900ms) cubic-bezier(.22,.95,.28,1) var(--rdelay, 0ms);
+    transition: transform var(--rd, 620ms) cubic-bezier(.22,.95,.28,1) var(--rdelay, 0ms);
     will-change: transform;
   }
   .ra-rl.in  > .ra-rl-inner { transform: translateY(0); }
   .ra-rl.out > .ra-rl-inner {
     transform: translateY(-110%);
-    transition: transform 700ms cubic-bezier(.6,.05,.2,1) var(--rdelay, 0ms);
+    transition: transform 420ms cubic-bezier(.6,.05,.2,1) var(--rdelay, 0ms);
   }
 
   /* ── Fade animation ── */
   .ra-fade {
-    opacity: 0; transform: translateY(.6cqw);
-    transition: opacity 700ms ease, transform 900ms cubic-bezier(.22,.95,.28,1);
+    opacity: 0; transform: translateY(.5cqw);
+    transition: opacity 480ms ease, transform 620ms cubic-bezier(.22,.95,.28,1);
     transition-delay: var(--rdelay, 0ms);
     display: inline-block;
+    will-change: opacity, transform;
   }
   .ra-fade.in  { opacity: 1; transform: translateY(0); }
-  .ra-fade.out { opacity: 0; transform: translateY(-.4cqw);
-                 transition: opacity 500ms ease, transform 500ms ease; }
+  .ra-fade.out { opacity: 0; transform: translateY(-.3cqw);
+                 transition: opacity 320ms ease, transform 320ms ease; }
 
   /* ── Wash sweep transition ── */
   .ra-wash {
     position: absolute; inset: 0;
     transform: scaleY(0); transform-origin: bottom center;
     z-index: 7; pointer-events: none; opacity: .96;
-    animation: ra-washIn 1100ms cubic-bezier(.7,.05,.2,1) forwards;
+    animation: ra-washIn 720ms cubic-bezier(.7,.05,.2,1) forwards;
+    will-change: transform;
   }
   @keyframes ra-washIn {
     0%     { transform: scaleY(0); transform-origin: bottom center; }
