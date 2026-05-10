@@ -4,11 +4,11 @@ dotenv.config({ path: '.env.local' })
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
-const SUPABASE_URL = process.env.RECETAS_SUPABASE_URL
-const SUPABASE_KEY = process.env.RECETAS_SUPABASE_KEY
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.RECETAS_SUPABASE_KEY
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
-  console.error('❌ Missing RECETAS_SUPABASE_URL or RECETAS_SUPABASE_KEY')
+  console.error('❌ Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
   process.exit(1)
 }
 
