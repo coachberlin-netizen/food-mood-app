@@ -30,6 +30,7 @@ interface Ferment {
   recipe_elaboration: string | null;
   key_compounds: string[] | null;
   probiotic_strains: string[] | null;
+  image_url: string | null;
 }
 
 function getPosition(lat: number, lng: number) {
@@ -156,14 +157,36 @@ export default function FermentosClient({
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
                 }}
-                className="group relative bg-white rounded-xl border border-aubergine-dark/10 p-6 flex flex-col items-start cursor-pointer hover:shadow-luxury-hover transition-all duration-300"
+                className="group relative bg-white rounded-xl border border-aubergine-dark/10 flex flex-col items-start cursor-pointer hover:shadow-luxury-hover transition-all duration-300 overflow-hidden"
                 onClick={() => handleFermentClick(ferment)}
               >
+                {/* Foto */}
+                {ferment.image_url ? (
+                  <div className="relative w-full h-36 overflow-hidden">
+                    <img
+                      src={ferment.image_url}
+                      alt={ferment.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/30 to-transparent" />
+                    <span
+                      className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full shadow"
+                      style={{ backgroundColor: color }}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-full h-1.5" style={{ backgroundColor: color }} />
+                )}
+
+                <div className="p-6 flex flex-col items-start w-full flex-1">
                 <div className="flex justify-between items-center w-full mb-4">
                   <span className="text-[10px] font-sans tracking-[0.1em] uppercase text-aubergine-dark/40">
                     {ferment.country}
                   </span>
-                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                  {!ferment.image_url && (
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                  )}
                 </div>
 
                 <h4 className="text-xl font-serif text-aubergine-dark font-medium mb-3 group-hover:text-[#C9A84C] transition-colors">
@@ -190,6 +213,7 @@ export default function FermentosClient({
                     </span>
                   )}
                 </div>
+                </div>{/* end inner padding */}
               </motion.div>
             );
           })}
