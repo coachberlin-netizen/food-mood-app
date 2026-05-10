@@ -17,6 +17,7 @@ import { buildHtml as html16 } from './16-habitos-con-placer'
 import { buildHtml as html17 } from './17-tiroides-postmenopausia'
 import { buildHtml as html18 } from './18-espectro-emocional'
 import { buildHtml as html19 } from './19-sabor-amargo-nervio-vago'
+import { buildHtml as html20 } from './20-injera-teff-etiopia'
 
 export interface EditorialNewsletter {
   numero:   number
@@ -47,4 +48,5 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 17, slug: 'tiroides-postmenopausia', subject: 'Tu tiroides no está rota. Quizá solo tiene frío. 🌡️', buildHtml: html17 },
   { numero: 18, slug: 'espectro-emocional', subject: 'No sientes una emoción. Sientes varias a la vez. Y eso tiene una explicación. 🧠', buildHtml: html18 },
   { numero: 19, slug: 'sabor-amargo-nervio-vago', subject: 'Por qué el café amargo te calma. La ciencia del nervio vago y el sabor amargo. ☕', buildHtml: html19 },
+  { numero: 20, slug: 'injera-teff-etiopia', subject: 'El pan que lleva 72 horas fermentando. Etiopía lleva milenios comiendo para el cerebro sin saberlo.', buildHtml: html20 },
 ]
