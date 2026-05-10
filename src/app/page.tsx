@@ -1142,18 +1142,19 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setPruebaAntesOpen(o => !o)}
-            className="w-full flex items-center justify-between gap-4 py-2 group"
+            className="w-full flex items-center justify-between gap-4 py-3 px-4 rounded-xl group transition-colors"
+            style={{ backgroundColor: pruebaAntesOpen ? 'rgba(107,39,55,0.08)' : 'rgba(107,39,55,0.05)', border: '1px solid rgba(107,39,55,0.18)' }}
             aria-expanded={pruebaAntesOpen}
           >
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <span className="font-serif text-xl font-bold" style={{ color: '#2d0f16' }}>Prueba antes</span>
-              <span className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.55)' }}>
+              <span className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.65)' }}>
                 · Una receta anti-ansiedad, gratis.
               </span>
             </div>
             <ChevronDown
               className="w-5 h-5 shrink-0 transition-transform duration-300"
-              style={{ color: 'rgba(107,39,55,0.4)', transform: pruebaAntesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+              style={{ color: '#6B2737', transform: pruebaAntesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
             />
           </button>
 
