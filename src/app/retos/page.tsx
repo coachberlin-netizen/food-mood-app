@@ -182,11 +182,8 @@ function ChallengeCard({ challenge, enrollment }: { challenge: Challenge; enroll
               </Link>
             </div>
           ) : enrollment?.completed ? (
-            <div className="flex items-center justify-between">
+            <div className="flex items-center">
               <span className="text-xs font-semibold" style={{ color: pal.accent }}>Completado ✓</span>
-              <Link href={`/retos/${challenge.slug}`} className="text-xs font-bold underline" style={{ color: pal.accent }}>
-                Ver informe →
-              </Link>
             </div>
           ) : (
             <Link

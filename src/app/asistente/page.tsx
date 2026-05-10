@@ -19,8 +19,10 @@ export default function AsistentePage() {
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
   const [messagesRemaining, setMessagesRemaining] = useState<number | null>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const scrollRef       = useRef<HTMLDivElement>(null)
+  const inputRef        = useRef<HTMLInputElement>(null)
+  const lastMsgRef      = useRef<HTMLDivElement>(null)
+  const bottomRef       = useRef<HTMLDivElement>(null)
 
   // Entitlement check on mount
   useEffect(() => {
@@ -40,10 +42,15 @@ export default function AsistentePage() {
   }, [])
 
 
-  // Auto-scroll
+  // Cuando carga → scroll al fondo (muestra el indicador de escritura)
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    if (loading) bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [loading])
+
+  // Cuando llega respuesta del asistente → scroll al INICIO del mensaje
+  useEffect(() => {
+    if (!loading && messages.length > 0 && messages[messages.length - 1].role === "assistant") {
+      lastMsgRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
     }
   }, [messages, loading])
 
@@ -224,7 +231,7 @@ export default function AsistentePage() {
           )}
 
           {messages.map((msg, i) => (
-            <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div key={i} ref={i === messages.length - 1 ? lastMsgRef : undefined} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               {msg.role === "assistant" && (
                 <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1 font-serif text-[10px] font-black" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)", color: "#C9A84C" }}>
                   FM
@@ -256,6 +263,7 @@ export default function AsistentePage() {
               </div>
             </div>
           )}
+          <div ref={bottomRef} />
         </div>
       </div>
 
