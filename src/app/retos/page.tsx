@@ -1,3 +1,4 @@
+import React from 'react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
@@ -44,6 +45,7 @@ interface Challenge {
   emoji:         string
   recipe_count:  number
   audio_count:   number
+  image_url?:    string | null
 }
 
 interface Enrollment {
@@ -91,6 +93,22 @@ function ChallengeCard({ challenge, enrollment }: { challenge: Challenge; enroll
       className="relative overflow-hidden rounded-2xl flex flex-col"
       style={{ backgroundColor: pal.bg, color: pal.ink }}
     >
+      {/* Hero photo */}
+      {challenge.image_url && (
+        <div className="relative w-full h-44 overflow-hidden">
+          <img
+            src={challenge.image_url}
+            alt={challenge.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-[var(--pal-bg)]/60 to-transparent"
+            style={{ '--pal-bg': pal.bg } as React.CSSProperties}
+          />
+        </div>
+      )}
+
       {/* Numeral watermark */}
       <span
         aria-hidden
