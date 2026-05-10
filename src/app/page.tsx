@@ -1365,29 +1365,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 8. FAQ ──────────────────────────────────────────────────────────── */}
-      <section aria-label="Preguntas frecuentes" className="py-20 md:py-28 px-6" style={{ backgroundColor: "white", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "rgba(107,39,55,0.4)" }}>
-              Preguntas frecuentes
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl text-[#2d0f16]">
-              Las dudas habituales.
-            </h2>
-          </div>
-          <div>
-            {FAQS.map((faq, i) => (
-              <FaqItem
-                key={i}
-                faq={faq}
-                isOpen={openFaqs.has(i)}
-                onToggle={() => toggleFaq(i)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── 9. CIERRE ───────────────────────────────────────────────────────── */}
       <section aria-label="Llamada a la acción final" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>

@@ -78,6 +78,7 @@ const DESCUBRIR: DropdownItem[] = [
   { label: "Fermentos",   href: "/fermentos-del-mundo"},
   { label: "Síntomas",    href: "/sintomas"           },
   { label: "Newsletter",  href: "/blog"               },
+  { label: "FAQ",         href: "/faq"                },
 ]
 
 function GuideDropdown() {

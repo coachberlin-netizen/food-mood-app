@@ -1,115 +1,45 @@
-import React from "react";
-import { Metadata } from "next";
+"use client"
 
-export const metadata: Metadata = {
-  title: "Preguntas Frecuentes | Food·Mood",
-  description: "Respuestas a tus dudas sobre la nutrición funcional y la conexión intestino-cerebro.",
-};
+import { useState } from "react"
+import { ChevronDown } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
-export default function FAQPage() {
-  const faqs = [
-    {
-      q: "¿Qué es Food·Mood?",
-      a: "Food·Mood es un espacio diseñado para conectar lo que sientes con lo que comes. Nuestra misión es ayudarte a nutrir tu cuerpo y mente escuchando las señales de tu intestino."
-    },
-    {
-      q: "¿Cómo funciona el quiz?",
-      a: "A través de preguntas simples sobre tu estado de ánimo, identificamos tu 'mood' actual. A partir de ello, te sugerimos alimentos que equilibran tu química interior de manera funcional."
-    },
-    {
-      q: "¿Qué son los 6 estados?",
-      a: "En base a este test visual, el algoritmo ubica tu necesidad en uno de nuestros 6 estados Food·Mood: Activación, Calma, Focus, Reset, Social o Familia. Cada uno tiene un grupo único de ingredientes recomendados para potenciar su estado ideal."
-    },
-    {
-      q: "¿Es una dieta?",
-      a: "En absoluto. Es una herramienta de autoconocimiento intuitivo. No existen restricciones ni conteo de calorías, nos enfocamos en añadir nutrición que soporte tus emociones."
-    },
-    {
-      q: "¿Las recetas son para todos?",
-      a: "Sí, están creadas para ser gentiles con el intestino y fáciles de adaptar a diferentes sensibilidades. Son opciones simples para reconectar sin importar tu nivel de habilidad en la cocina."
-    },
-    {
-      q: "¿Cómo funciona la conexión intestino-cerebro?",
-      a: "Ambos se comunican constantemente mediante el nervio vago y tu microbiota. Lo que comes influye directamente en neurotransmisores como la serotonina, impactando dramáticamente en cómo te sientes."
-    },
-    {
-      q: "¿Guardan mis datos?",
-      a: "Tu privacidad y tranquilidad son innegociables. Registramos tus tests solo para permitirte ver tu propia evolución histórica, sin ceder jamás esa información bajo ningún concepto."
-    },
-    {
-      q: "¿Puedo cambiar mi respuesta?",
-      a: "La fluidez es clave; las emociones cambian a lo largo del día. Puedes realizar el test siempre que lo desees para obtener nuevas sugerencias alineadas a tu nuevo presente."
-    },
-    {
-      q: "¿Las recetas son rápidas?",
-      a: "La practicidad es prioridad. Aunque el tiempo varía, todas las recetas indican claramente sus minutos de preparación y grado de dificultad para adaptarse a tu ritmo diario."
-    },
-    {
-      q: "¿Sirve para problemas médicos?",
-      a: "Food·Mood es una guía de bienestar holístico orientada a nutrirte integralmente, pero no diagnostica. Si presentas molestias severas, el consejo de un médico especialista es el mejor primer paso."
-    },
-    {
-      q: "¿Cuándo tengo recetas nuevas?",
-      a: "Añadimos recetas nuevas cada semana. Cada vez que entres encontrarás combinaciones adaptadas a tu mood del día."
-    },
-    {
-      q: "¿Cómo contactar con nuestro equipo?",
-      a: "Nos encantaría leerte. Puedes enviarnos cualquier duda, comentario o logro personal a nuestra bandeja directa (info@food-mood.app) para recibir apoyo de nuestro equipo de bienestar."
-    }
-  ];
+const FAQS = [
+  { q: "¿Necesito saber cocinar?", a: "No. Las recetas son de 20-30 minutos, 5-7 ingredientes, y se adaptan a tu nivel de energía del día. Si puedes hervir agua, puedes hacer cualquier receta de Food·Mood." },
+  { q: "¿Y si tengo intolerancias o sigo una dieta vegana?", a: "Cada receta tiene alternativas sin gluten, sin lácteos y veganas claramente marcadas. El test inicial lo tiene en cuenta para personalizarte mejor." },
+  { q: "¿Qué incluye exactamente un reto?", a: "Recetas diarias diseñadas para tu objetivo, audios de contexto científico, tracking de tu índice Food·Mood, y un informe final con tus correlaciones personales." },
+  { q: "¿Cuánto cuesta y hay suscripción oculta?", a: "Los retos son pago único: 19€ (7 días) o 29€ (4 semanas). Acceso de por vida al contenido, sin renovación automática. El plan premium mensual/trimestral sí es suscripción — cancelas cuando quieras desde tu perfil." },
+  { q: "¿Cuándo empiezo a notar cambios?", a: "La mayoría nota algo diferente entre el día 3 y el día 4. El cambio real — el que se sostiene — aparece en la segunda o tercera semana, cuando el microbioma empieza a reorganizarse." },
+  { q: "¿Sustituye a la atención médica o psicológica?", a: "No. Food·Mood es una herramienta de bienestar basada en evidencia nutricional, no un tratamiento médico. Si tienes un diagnóstico, consúltalo siempre con tu profesional." },
+]
 
+export default function FaqPage() {
+  const [open, setOpen] = useState<number | null>(null)
   return (
-    <div className="min-h-screen bg-aubergine">
-      <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-16 md:gap-20">
-        
-        {/* HEADER */}
-        <header className="flex flex-col gap-4 text-center">
-          <p className="font-serif text-2xl font-semibold text-aubergine-dark mb-4">
-            Food<span className="text-[#D4AF37]">·</span>Mood
-          </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-aubergine-dark leading-tight">
-            Preguntas Frecuentes
-          </h1>
-          <p className="text-aubergine-dark/60 font-medium tracking-wide pt-4 max-w-xl mx-auto">
-            Respuestas simples desde la unión de la neurociencia y la intuición.
-          </p>
-        </header>
-
-        {/* FAQ LIST */}
-        <section className="bg-cream rounded-[2rem] p-8 md:p-14 border border-aubergine-dark/20 shadow-sm">
-          <div className="flex flex-col gap-12">
-            {faqs.map((faq, idx) => (
-              <article key={idx} className="flex flex-col gap-3 group">
-                <div className="flex items-start gap-4">
-                  <span className="font-serif text-[#D4AF37] text-xl md:text-2xl mt-0.5 min-w-[2.5rem]">
-                    {(idx + 1).toString().padStart(2, '0')}.
-                  </span>
-                  <div className="flex flex-col gap-3">
-                    <h2 className="text-2xl font-serif text-aubergine-dark group-hover:text-[#D4AF37] transition-colors leading-snug">
-                      {faq.q}
-                    </h2>
-                    <p className="text-lg text-aubergine-dark/80 font-light leading-relaxed">
-                      {faq.a}
-                    </p>
-                  </div>
-                </div>
-                {/* Custom separator line for all except last item */}
-                {idx !== faqs.length - 1 && (
-                  <div className="w-full relative h-px bg-[#edeae3] mt-8 ml-10 md:ml-14"></div>
-                )}
-              </article>
-            ))}
-          </div>
-        </section>
-        
-        {/* Footer CTAs / Thanks */}
-        <div className="text-center pt-8 border-t border-aubergine-dark/10">
-          <p className="text-aubergine-dark/60 font-light italic text-xl font-serif">
-            Tu intestino tiene algo que decirte. Escúchalo.
-          </p>
+    <main className="min-h-screen pt-32 pb-24 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center mb-14">
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Preguntas frecuentes</p>
+          <h1 className="font-serif text-3xl md:text-4xl" style={{ color: "#2d0f16" }}>Las dudas habituales.</h1>
         </div>
-
+        <div>
+          {FAQS.map((faq, i) => (
+            <div key={i} className="border-b" style={{ borderColor: "rgba(107,39,55,0.1)" }}>
+              <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between py-5 text-left gap-6">
+                <span className="font-serif text-lg" style={{ color: "#2d0f16" }}>{faq.q}</span>
+                <ChevronDown className="w-4 h-4 shrink-0 transition-transform duration-300" style={{ color: "rgba(107,39,55,0.4)", transform: open === i ? "rotate(180deg)" : undefined }} />
+              </button>
+              <AnimatePresence initial={false}>
+                {open === i && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }} style={{ overflow: "hidden" }}>
+                    <p className="pb-5 font-light leading-relaxed text-[15px]" style={{ color: "rgba(107,39,55,0.65)" }}>{faq.a}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    </main>
+  )
 }
