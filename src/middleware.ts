@@ -108,7 +108,7 @@ export async function middleware(request: NextRequest) {
     // Fuentes
     "font-src 'self' https://fonts.gstatic.com",
     // Imágenes: Supabase storage (wildcard cubre ambos proyectos)
-    "img-src 'self' data: blob: https://*.supabase.co",
+    "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com",
     // Conexiones: Supabase, AI APIs, Stripe, Vercel Analytics, Resend (server-side, no CSP needed)
     "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://generativelanguage.googleapis.com https://api.stripe.com https://vitals.vercel-insights.com",
     // Iframes: solo Stripe (checkout embebido)
