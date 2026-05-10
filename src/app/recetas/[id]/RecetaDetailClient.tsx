@@ -393,11 +393,14 @@ export default function RecetaDetailClient({
                 Variantes
               </h2>
               <div className="flex flex-wrap gap-2">
-                {receta.variantes_es.map((v, i) => (
-                  <span key={i} className="text-[12px] font-light text-aubergine-dark/65 bg-cream border border-aubergine-dark/10 px-3.5 py-2 rounded-xl leading-snug">
-                    {v}
-                  </span>
-                ))}
+                {receta.variantes_es.map((vRaw, i) => {
+                  const v = typeof vRaw === "string" ? vRaw : (vRaw as any).variante || JSON.stringify(vRaw);
+                  return (
+                    <span key={i} className="text-[12px] font-light text-aubergine-dark/65 bg-cream border border-aubergine-dark/10 px-3.5 py-2 rounded-xl leading-snug">
+                      {v}
+                    </span>
+                  );
+                })}
               </div>
             </motion.section>
           )}
