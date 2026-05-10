@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { createInviteLink, removeMember, isTelegramConfigured } from '@/lib/telegram'
+import { EDITORIAL_NEWSLETTERS } from '@/lib/editorial-newsletters'
 
 /**
  * POST /api/stripe/webhook
@@ -192,37 +193,149 @@ export async function POST(req: NextRequest) {
           console.log(`✅ Profile updated (upsert): User ${userId} is now PREMIUM.`)
         }
 
-        // ── Email de bienvenida premium ───────────────────────────────────
+        // ── Emails de bienvenida ──────────────────────────────────────────
         if (customerEmail && process.env.RESEND_API_KEY) {
           try {
             const resend = new Resend(process.env.RESEND_API_KEY)
             const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.food-mood.app'
+
+            // Receta de bienvenida — query a Supabase
+            const { data: receta } = await supabaseAdmin
+              .from('recetas')
+              .select('id, nombre_es, ingredientes_es, preparacion_es, nota_food_mood_es, tiempo_preparacion_min, mood_es')
+              .order('created_at', { ascending: false })
+              .limit(1)
+              .maybeSingle()
+
+            const recetaUrl   = receta ? `${appUrl}/recetas/${receta.id}` : `${appUrl}/recetas`
+            const nombreReceta = receta?.nombre_es ?? 'Tu primera receta de regalo'
+            const ingredientes = (receta?.ingredientes_es ?? []).slice(0, 6) as string[]
+            const pasos        = (receta?.preparacion_es ?? []).slice(0, 3) as string[]
+            const notaFM       = receta?.nota_food_mood_es ?? ''
+            const tiempoMin    = receta?.tiempo_preparacion_min ?? null
+
+            // Email 1 — Bienvenida con receta
             await resend.emails.send({
               from:    `Food·Mood <${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app'}>`,
               to:      customerEmail,
-              subject: '¡Bienvenida a Food·Mood Premium! ✨',
-              html: `
-                <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2d0f16;padding:32px 24px">
-                  <h1 style="font-size:26px;font-weight:400;margin-bottom:8px;line-height:1.2">
-                    ¡Ya eres parte de Food·Mood Premium! ✨
-                  </h1>
-                  <p style="font-size:15px;line-height:1.7;color:#6b4452;margin-bottom:8px">
-                    Tienes acceso completo a todas las recetas funcionales, el glosario científico, los retos de transformación y el seguimiento con tu índice Food·Mood.
-                  </p>
-                  <p style="font-size:15px;line-height:1.7;color:#6b4452;margin-bottom:28px">
-                    Empieza por donde más lo necesitas: ¿energía, sueño, calma o foco?
-                  </p>
-                  <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
-                    <a href="${appUrl}/recetas" style="display:inline-block;background:#6B2737;color:#F5F0E8;padding:13px 24px;border-radius:50px;text-decoration:none;font-size:14px;font-weight:600">Ver todas las recetas →</a>
-                    <a href="${appUrl}/retos" style="display:inline-block;background:transparent;color:#6B2737;padding:13px 24px;border-radius:50px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid #6B2737">Explorar retos →</a>
-                  </div>
-                  <p style="font-size:12px;color:#b08090;line-height:1.6">
-                    ¿Alguna pregunta? Responde a este correo, estamos aquí.
-                  </p>
-                </div>
-              `,
+              subject: 'Bienvenida a Food·Mood ✨ — tu primera receta de regalo',
+              html: `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bienvenida a Food·Mood</title>
+</head>
+<body style="margin:0;padding:0;background:#EDE8DF;font-family:Georgia,serif;color:#2d0f16">
+<div style="max-width:600px;margin:0 auto;background:#F5F0E8">
+
+  <!-- Header -->
+  <div style="background:#2d0f16;padding:44px 40px 36px">
+    <p style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin:0 0 10px">Food·Mood</p>
+    <h1 style="font-family:Georgia,serif;font-size:30px;font-weight:400;color:#F5F0E8;line-height:1.2;margin:0 0 12px">
+      Bienvenida. <em style="color:#C9A84C;font-style:italic">Ya eres parte de esto.</em>
+    </h1>
+    <p style="font-size:13px;font-weight:300;color:rgba(245,240,232,0.5);margin:0;letter-spacing:.04em">
+      Nutrición emocional · Eje intestino-cerebro
+    </p>
+  </div>
+
+  <!-- Intro -->
+  <div style="padding:36px 40px 28px;border-bottom:1px solid #e0d5c8">
+    <p style="font-size:15px;line-height:1.80;color:#4a3a3e;font-weight:300;margin:0 0 16px">
+      Hemos reservado un espacio para ti en Food·Mood. A partir de ahora tienes acceso completo a todas las recetas funcionales, los retos de transformación, el glosario científico y tu índice Food·Mood personalizado.
+    </p>
+    <p style="font-size:15px;line-height:1.80;color:#4a3a3e;font-weight:300;margin:0">
+      Para empezar, te dejamos aquí debajo la receta que te prometimos. Guárdala, hazla esta semana.
+    </p>
+  </div>
+
+  <!-- Receta -->
+  <div style="padding:36px 40px;border-bottom:1px solid #e0d5c8">
+    <p style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9e8080;margin:0 0 14px">
+      Tu receta de bienvenida
+    </p>
+    <h2 style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#2d0f16;margin:0 0 6px;line-height:1.25">
+      ${nombreReceta}
+    </h2>
+    ${tiempoMin ? `<p style="font-size:12px;color:#b08090;margin:0 0 20px">⏱ ${tiempoMin} min</p>` : '<div style="margin-bottom:20px"></div>'}
+
+    ${ingredientes.length > 0 ? `
+    <p style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;margin:0 0 10px">Ingredientes</p>
+    <ul style="margin:0 0 20px;padding:0;list-style:none">
+      ${ingredientes.map((ing: string) => `<li style="font-size:14px;font-weight:300;color:#4a3a3e;line-height:1.7;padding:2px 0">· ${ing}</li>`).join('')}
+    </ul>` : ''}
+
+    ${pasos.length > 0 ? `
+    <p style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;margin:0 0 10px">Preparación</p>
+    <ol style="margin:0 0 20px;padding:0;list-style:none">
+      ${pasos.map((paso: string, i: number) => `<li style="font-size:14px;font-weight:300;color:#4a3a3e;line-height:1.7;padding:3px 0"><strong style="color:#6B2737">${i + 1}.</strong> ${paso}</li>`).join('')}
+    </ol>` : ''}
+
+    ${notaFM ? `
+    <div style="background:#2d0f16;border-radius:12px;padding:20px 24px;margin-bottom:24px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;margin:0 0 8px">Por qué funciona</p>
+      <p style="font-size:13px;font-weight:300;color:rgba(245,240,232,0.8);line-height:1.75;margin:0">${notaFM}</p>
+    </div>` : ''}
+
+    <a href="${recetaUrl}" style="display:inline-block;background:#C9A84C;color:#2d0f16;padding:13px 28px;border-radius:50px;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.03em">
+      Ver receta completa →
+    </a>
+  </div>
+
+  <!-- CTAs -->
+  <div style="padding:32px 40px;border-bottom:1px solid #e0d5c8">
+    <p style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9e8080;margin:0 0 16px">
+      Empieza por donde más lo necesites
+    </p>
+    <table style="width:100%;border-collapse:collapse">
+      <tr>
+        <td style="padding-right:8px;padding-bottom:8px">
+          <a href="${appUrl}/dashboard" style="display:block;background:#6B2737;color:#F5F0E8;padding:12px 16px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;text-align:center">
+            Mi dashboard →
+          </a>
+        </td>
+        <td style="padding-left:8px;padding-bottom:8px">
+          <a href="${appUrl}/recetas" style="display:block;background:transparent;color:#6B2737;padding:11px 16px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;text-align:center;border:1px solid #6B2737">
+            Todas las recetas →
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <a href="${appUrl}/retos" style="display:block;background:transparent;color:#6B2737;padding:11px 16px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;text-align:center;border:1px solid rgba(107,39,55,0.3)">
+            Explorar retos →
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div style="padding:28px 40px">
+    <p style="font-size:13px;font-weight:300;color:#b08090;line-height:1.7;margin:0 0 6px">
+      En un momento te llega un segundo correo con nuestra última newsletter de regalo.
+    </p>
+    <p style="font-size:12px;color:#c4a8b0;margin:0">
+      ¿Alguna pregunta? Responde directamente a este correo.
+    </p>
+  </div>
+
+</div>
+</body>
+</html>`,
             })
-            console.log(`✅ Welcome email sent to ${customerEmail}`)
+
+            // Email 2 — Última newsletter de regalo
+            const latest = EDITORIAL_NEWSLETTERS[EDITORIAL_NEWSLETTERS.length - 1]
+            await resend.emails.send({
+              from:    `Food·Mood <${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app'}>`,
+              to:      customerEmail,
+              subject: `🎁 De regalo: Newsletter #${latest.numero} — ${latest.subject}`,
+              html:    latest.buildHtml(),
+            })
+
+            console.log(`✅ Welcome + newsletter emails sent to ${customerEmail}`)
           } catch (emailErr: any) {
             console.error(`⚠️ Welcome email failed (non-blocking): ${emailErr.message}`)
           }
