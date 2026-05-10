@@ -7,7 +7,6 @@ import { ChevronDown, Moon, Zap, Brain, ArrowRight, Check, Flame, Sprout, Sparkl
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
 import HomeHero from "@/components/layout/HomeHero"
-import { AppDemo } from "@/components/layout/AppDemo"
 import { RetosAnimation } from "@/components/retos/RetosAnimation"
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
@@ -423,8 +422,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 1c. DEMO INTERACTIVA ────────────────────────────────────────────── */}
-      <AppDemo />
 
       {/* ── 2. NEUROCIENCIA — accordion ─────────────────────────────────────── */}
       <section aria-label="La neurociencia lo confirma" className="py-12 md:py-16 px-6" style={{ backgroundColor: "#2d0f16" }}>
