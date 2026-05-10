@@ -54,10 +54,20 @@ const PHOTOS = {
   DESSERT:     P('photo-1578985545062-ddb88e813e37'),
   CHOC_DES:    P('photo-1481391243133-f96216dcb5d2'),
   DIP:         P('photo-1540420773420-3366772f4999'),
+  PORRIDGE:    P('photo-1517673132405-6b0592a8fb4d'),
+  EGGS:        P('photo-1525351484163-7529414344d8'),
+  CACAO_DRINK: P('photo-1542990253-0d0f5be5f0ed'),
+  CEVICHE:     P('photo-1535399831218-d5bd36d1a6b3'),
 };
 
 // [keyword, photo] — first match wins (most specific first)
 const RULES = [
+  // DISH TYPES that override ingredients (porridge, revuelto)
+  ['porridge',    PHOTOS.PORRIDGE],
+  ['gachas de',   PHOTOS.PORRIDGE],
+  ['revuelto',    PHOTOS.EGGS],
+  ['aguachile',   PHOTOS.CEVICHE],
+  ['cacao ceremonial', PHOTOS.CACAO_DRINK],
   // FISH
   ['arenque',     PHOTOS.SARDINE],
   ['boquer',      PHOTOS.SARDINE],
