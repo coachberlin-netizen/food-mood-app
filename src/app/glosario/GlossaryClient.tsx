@@ -13,6 +13,7 @@ interface GlossaryItem {
   category: string
   moods: string[]
   active_compounds?: string[]
+  image_url?: string | null
 }
 
 const CATEGORIES = [
@@ -175,7 +176,19 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
               key={item.id}
             >
               <Link href={`/glosario/${item.slug}`} className="group block h-full">
-                <div className="h-full bg-transparent border border-[#6B2737]/10 p-8 rounded-[2rem] hover:border-[#6B2737]/30 hover:bg-[#6B2737]/[0.02] transition-all duration-500 shadow-sm hover:shadow-xl relative overflow-hidden flex flex-col">
+                <div className="h-full bg-transparent border border-[#6B2737]/10 rounded-[2rem] hover:border-[#6B2737]/30 hover:bg-[#6B2737]/[0.02] transition-all duration-500 shadow-sm hover:shadow-xl relative overflow-hidden flex flex-col">
+                  {item.image_url && (
+                    <div className="relative w-full h-40 overflow-hidden rounded-t-[2rem]">
+                      <img
+                        src={item.image_url}
+                        alt={item.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)]/60 to-transparent" />
+                    </div>
+                  )}
+                  <div className="p-8 flex flex-col flex-1">
                   {item.category && (
                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-[10px] uppercase tracking-widest font-bold self-start mb-4">
                        {categoryLabels[item.category] || item.category}
@@ -202,6 +215,7 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
                       })}
                     </div>
                   )}
+                  </div>
                 </div>
               </Link>
             </motion.div>
