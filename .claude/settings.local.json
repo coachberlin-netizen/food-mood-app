@@ -49,7 +49,27 @@
       "Bash(python *)",
       "Bash(xargs grep *)",
       "Bash(npx ts-node *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Read(//c/Users/coach/Desktop/Mayo2026/**)",
+      "Bash(npx tsx *)",
+      "WebFetch(domain:isitagentready.com)",
+      "WebFetch(domain:developers.cloudflare.com)",
+      "WebFetch(domain:www.rfc-editor.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:developer.chrome.com)",
+      "WebFetch(domain:webmachinelearning.github.io)",
+      "WebFetch(domain:docs.x402.org)",
+      "Bash(npm show *)",
+      "Bash(xargs cat *)",
+      "WebFetch(domain:mpp.dev)",
+      "WebFetch(domain:ucp.dev)",
+      "Bash(xargs -0 grep -l \"subscriptions\")",
+      "Bash(gunzip)",
+      "Bash(zcat \"C:\\\\Users\\\\coach\\\\.claude\\\\projects\\\\C--Users-coach-food-mood-app\\\\ff0845c9-7187-4c8e-b662-cbc1445f9467\\\\tool-results\\\\webfetch-1778337838513-o8gsux.bin\")",
+      "Bash(New-Item -ItemType Directory -Force -Path \"C:\\\\Users\\\\coach\\\\food-mood-app\\\\src\\\\app\\\\faq\")",
+      "Bash(Out-Null)",
+      "Bash(npx next *)",
+      "Bash(node *)"
     ]
   }
 }
