@@ -683,10 +683,15 @@ export default function Home() {
                   className="group relative block rounded-2xl p-7 h-full transition-all hover:brightness-110"
                   style={{ backgroundColor: step.bg, border: `1px solid ${step.border}` }}
                 >
-                  {/* Large numeral watermark */}
+                  {/* Large numeral — neon glow */}
                   <span
-                    className="absolute top-5 right-6 font-serif font-black leading-none select-none"
-                    style={{ fontSize: "clamp(56px, 8vw, 88px)", color: step.accent, opacity: 0.08 }}
+                    className="absolute top-4 right-6 font-serif font-black leading-none select-none"
+                    style={{
+                      fontSize: "clamp(64px, 9vw, 96px)",
+                      color: step.accent,
+                      opacity: 0.55,
+                      textShadow: `0 0 18px ${step.accent}99, 0 0 40px ${step.accent}44`,
+                    }}
                   >
                     {step.num}
                   </span>
@@ -700,7 +705,7 @@ export default function Home() {
                   </span>
 
                   {/* Step number small */}
-                  <p className="text-[10px] font-mono mb-2" style={{ color: `${step.accent}80` }}>{step.num}</p>
+                  <p className="text-[10px] font-mono mb-2" style={{ color: step.accent }}>{step.num}</p>
 
                   <h3 className="font-serif text-xl md:text-2xl font-semibold mb-3 leading-snug" style={{ color: "#F5F0E8" }}>
                     {step.title}
