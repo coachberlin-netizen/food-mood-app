@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, Star, ChefHat, SearchX } from "lucide-react";
+import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, Star, SearchX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { moods as MOODS } from "@/data/moods";
@@ -34,7 +34,7 @@ const CHEF_STYLE: Record<string, string> = {
 
 const RECIPE_SCOPES = [
   { label: "Todos", premiumLevel: "" },
-  { label: "Chef / Exclusivo", premiumLevel: "2" },
+  { label: "Tradición + Función", premiumLevel: "2" },
 ] as const;
 
 interface Receta {
@@ -187,8 +187,8 @@ function ExclusivaCard({ receta, locked = false, isFree = false, onLockedClick }
       </h3>
       {receta.chef_inspiracion && CHEF_STYLE[receta.chef_inspiracion] && (
         <p className="flex items-center gap-1.5 text-[11px] text-[#C9A84C]/70 font-light mb-3">
-          <ChefHat className="w-3 h-3" />
-          {CHEF_STYLE[receta.chef_inspiracion]}
+          <span className="text-[10px]">✦</span>
+          Tradición + Función · {CHEF_STYLE[receta.chef_inspiracion]}
         </p>
       )}
       <div className="mt-auto pt-4 flex items-center gap-2 flex-wrap">
@@ -240,9 +240,9 @@ function SmartCard({ receta, isPremium, freeQuota = false, onLockedClick }: { re
   return <RecipeCard receta={receta} locked={locked} isFree={isFree} onLockedClick={handleLocked} />;
 }
 
-function Pill({ active, isChef, onClick, children }: { active: boolean; isChef?: boolean; onClick: () => void; children: React.ReactNode }) {
+function Pill({ active, isDestacado, onClick, children }: { active: boolean; isDestacado?: boolean; onClick: () => void; children: React.ReactNode }) {
   const baseClasses = "shrink-0 px-5 py-2 rounded-full text-[11px] font-medium tracking-[0.08em] uppercase transition-all duration-150 border whitespace-nowrap";
-  if (isChef) {
+  if (isDestacado) {
     return (
       <button
         onClick={onClick}
@@ -458,7 +458,7 @@ export default function RecetasClient({
 
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
             {RECIPE_SCOPES.map((p, i) => (
-              <Pill key={i} active={profileIdx === i} isChef={p.label === "Chef / Exclusivo"} onClick={() => { setProfileIdx(i); setPage(1); }}>
+              <Pill key={i} active={profileIdx === i} isDestacado={p.label === "Tradición + Función"} onClick={() => { setProfileIdx(i); setPage(1); }}>
                 {p.label}
               </Pill>
             ))}
