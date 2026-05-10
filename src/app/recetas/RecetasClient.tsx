@@ -56,6 +56,7 @@ interface Receta {
   premium_level?: number;
   segmento?: string;
   moodId?: string;
+  image_url?: string | null;
 }
 
 interface ApiResponse {
@@ -92,15 +93,32 @@ function RecipeCard({ receta, locked = false, isFree = false, onLockedClick }: {
       exit={{ opacity: 0, y: -8 }}
       whileHover={{ y: -4, scale: locked ? 1.01 : 1, boxShadow: "0 8px 24px rgba(63,26,34,0.08)" }}
       transition={{ duration: 0.2 }}
-      className={`relative bg-cream rounded-2xl border border-aubergine-dark/10 p-6 md:p-7 transition-all duration-200 h-full flex flex-col group overflow-hidden ${
-        'cursor-pointer'
-      }`}
+      className={`relative bg-cream rounded-2xl border border-aubergine-dark/10 transition-all duration-200 h-full flex flex-col group overflow-hidden ${'cursor-pointer'}`}
     >
-      <div 
+      <div
         className="absolute top-0 left-0 right-0 h-[3px] z-20"
         style={{ backgroundColor: mood.color }}
       />
 
+      {/* Food photo */}
+      {receta.image_url ? (
+        <div className="relative w-full h-40 overflow-hidden">
+          <img
+            src={receta.image_url}
+            alt={receta.nombre_es}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-cream/30 to-transparent" />
+        </div>
+      ) : (
+        <div
+          className="w-full h-2"
+          style={{ backgroundColor: mood.colorLight }}
+        />
+      )}
+
+      <div className="flex flex-col flex-1 p-6 md:p-7">
       <div className="flex items-center justify-between mb-4 mt-1">
         <span
           className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
@@ -131,6 +149,8 @@ function RecipeCard({ receta, locked = false, isFree = false, onLockedClick }: {
           {receta.dificultad}
         </span>
       </div>
+
+      </div>{/* end inner content */}
 
       {locked && (
         <div

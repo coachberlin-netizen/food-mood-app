@@ -3,7 +3,7 @@
  * Shared constants for the Food·Mood application.
  */
 
-export const RECIPE_COLUMNS = 'id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada, segmento, premium_level';
+export const RECIPE_COLUMNS = 'id, nombre_es, mood_es, tiempo_preparacion_min, tipo_plato, dificultad, temporada, segmento, premium_level, chef_inspiracion, image_url';
 
 export const MOOD_COLORS: Record<string, string> = {
   activacion: '#FFB000',
