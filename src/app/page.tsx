@@ -689,8 +689,8 @@ export default function Home() {
                     style={{
                       fontSize: "clamp(64px, 9vw, 96px)",
                       color: step.accent,
-                      opacity: 0.55,
-                      textShadow: `0 0 18px ${step.accent}99, 0 0 40px ${step.accent}44`,
+                      opacity: 1,
+                      textShadow: `0 0 8px ${step.accent}, 0 0 24px ${step.accent}cc, 0 0 60px ${step.accent}66`,
                     }}
                   >
                     {step.num}
