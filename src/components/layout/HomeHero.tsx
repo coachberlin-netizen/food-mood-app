@@ -306,17 +306,6 @@ export default function HomeHero() {
               </a>
             </div>
 
-            {/* Social proof */}
-            <div className="hero-fade-up-6 max-md:hidden" style={{ marginTop:"40px",display:"flex",alignItems:"center",gap:"10px" }}>
-              <div style={{ display:"flex",gap:"-4px" }}>
-                {["#C9A84C","#8E2535","#4A7C59","#4A7AB5"].map((c,i) => (
-                  <div key={i} style={{ width:"24px",height:"24px",borderRadius:"50%",background:c,border:`1.5px solid ${BURG_DEEP}`,marginLeft: i===0 ? 0 : "-6px" }} />
-                ))}
-              </div>
-              <p style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",color:"rgba(245,237,224,.45)",letterSpacing:"0.06em" }}>
-                +1.200 personas ya conocen su Food·Mood
-              </p>
-            </div>
           </div>
 
           {/* Scroll hint */}
