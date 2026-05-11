@@ -2,35 +2,13 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, Star, SearchX } from "lucide-react";
+import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, SearchX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { moods as MOODS } from "@/data/moods";
 import { PaywallModal } from "@/components/recetas/PaywallModal";
 
 /* ── Chef → anonymous style map ── */
-const CHEF_STYLE: Record<string, string> = {
-  "Ferran Adrià":          "Estilo mediterráneo · técnica esferificación",
-  "René Redzepi":          "Estilo nórdico · técnica fermentación",
-  "Massimo Bottura":       "Estilo italiano · técnica deconstrucción",
-  "Nobu Matsuhisa":        "Estilo japonés-peruano · técnica fusión",
-  "Heston Blumenthal":     "Estilo británico · técnica cocina molecular",
-  "Joan Roca":             "Estilo catalán · técnica destilación",
-  "Andoni Aduriz":         "Estilo vasco · técnica biotecnología",
-  "Alain Ducasse":         "Estilo francés · técnica alta cocina",
-  "Joël Robuchon":         "Estilo francés clásico · técnica purés",
-  "Anne-Sophie Pic":       "Estilo francés · técnica infusiones",
-  "Yoshihiro Narisawa":    "Estilo japonés · técnica bosque-mar",
-  "Virgilio Martínez":     "Estilo peruano · técnica altitudes",
-  "Ana Ros":               "Estilo esloveno · técnica foraging",
-  "Clare Smyth":           "Estilo británico · técnica producto local",
-  "Dominique Crenn":       "Estilo franco-californiano · técnica poética",
-  "Albert Adrià":          "Estilo mediterráneo · técnica pastelería",
-  "Quique Dacosta":        "Estilo mediterráneo · técnica vanguardia",
-  "Elena Arzak":           "Estilo vasco · técnica innovación",
-  "Diego Guerrero":        "Estilo español · técnica vegetales",
-  "Dabiz Muñoz":           "Estilo español · técnica street-haute",
-};
 
 const RECIPE_SCOPES = [
   { label: "Todos", premiumLevel: "" },
@@ -175,85 +153,10 @@ function RecipeCard({ receta, locked = false, isFree = false, onLockedClick }: {
   return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
 }
 
-function ExclusivaCard({ receta, locked = false, isFree = false, onLockedClick }: { receta: Receta; locked?: boolean; isFree?: boolean; onLockedClick?: () => void }) {
-  const mood = MOODS.find(m => receta.mood_es?.toLowerCase().includes(m.id)) || MOODS.find(m => m.id === receta.moodId) || MOODS[0];
-
-  const card = (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4, scale: locked ? 1.01 : 1, boxShadow: "0 12px 32px rgba(201,168,76,0.15)" }}
-      transition={{ duration: 0.25 }}
-      className={`relative bg-gradient-to-br from-[#1a1118] to-[#2a1825] rounded-2xl border border-[#C9A84C]/20 p-6 md:p-7 h-full flex flex-col group overflow-hidden ${
-        'cursor-pointer'
-      }`}
-    >
-      <div 
-        className="absolute top-0 left-0 right-0 h-[3px] z-20"
-        style={{ backgroundColor: mood.color }}
-      />
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
-      <div className="flex items-center justify-end mb-4 relative mt-1">
-        <span className="flex items-center gap-1 text-[11px] text-cream/40 font-medium">
-          <Clock className="w-3 h-3" />
-          {receta.tiempo_preparacion_min} min
-        </span>
-      </div>
-      <h3 className="text-lg font-serif font-bold text-cream/90 leading-snug mb-1.5 group-hover:text-[#C9A84C] transition-colors line-clamp-2">
-        {receta.nombre_es}
-      </h3>
-      {receta.chef_inspiracion && CHEF_STYLE[receta.chef_inspiracion] && (
-        <p className="flex items-center gap-1.5 text-[11px] text-[#C9A84C]/70 font-light mb-3">
-          <span className="text-[10px]">✦</span>
-          Tradición + Función · {CHEF_STYLE[receta.chef_inspiracion]}
-        </p>
-      )}
-      <div className="mt-auto pt-4 flex items-center gap-2 flex-wrap">
-        {isFree && (
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A84C] bg-[#C9A84C]/15 border border-[#C9A84C]/30 px-2.5 py-1 rounded-lg">
-            Gratis
-          </span>
-        )}
-        <span
-          className="text-[10px] font-medium px-2.5 py-1 rounded-lg border capitalize"
-          style={{ color: mood.color, backgroundColor: mood.colorLight, borderColor: `${mood.color}25` }}
-        >
-          {mood.emoji} {mood.id}
-        </span>
-        <span className="text-[10px] text-cream/30 px-2.5 py-1 rounded-lg capitalize">
-          {receta.dificultad}
-        </span>
-      </div>
-      {locked && (
-        <div
-          className="absolute inset-x-0 bottom-0 top-1/4 flex flex-col items-center justify-end pb-8 bg-gradient-to-t from-[#2a1825] via-[#2a1825]/80 to-transparent pointer-events-none"
-        >
-          <div className="flex flex-col items-center pointer-events-auto">
-            <Lock className="w-5 h-5 text-[#C9A84C]/70 mb-2" />
-            <span className="text-[10px] text-[#C9A84C] font-bold uppercase tracking-widest mb-2">Acceso Exclusivo</span>
-            <button
-              onClick={e => { e.preventDefault(); onLockedClick?.(); }}
-              className="px-4 py-2 bg-[#C9A84C] text-white text-[11px] font-bold rounded-lg shadow-[0_4px_12px_rgba(201,168,76,0.3)] hover:bg-[#b8953e] hover:scale-105 transition-all"
-            >
-              Desbloquear — desde 7€/mes
-            </button>
-          </div>
-        </div>
-      )}
-    </motion.div>
-  );
-
-  if (locked) return <button className="text-left w-full h-full" onClick={onLockedClick}>{card}</button>;
-  return <Link href={`/recetas/${receta.id}`}>{card}</Link>;
-}
-
 function SmartCard({ receta, isPremium, freeQuota = false, onLockedClick }: { receta: Receta; isPremium: boolean; freeQuota?: boolean; onLockedClick: (r: Receta) => void }) {
   const locked = !isPremium && !freeQuota && (receta.premium_level ?? 0) > 0;
   const isFree = (receta.premium_level ?? 0) === 0 || freeQuota;
   const handleLocked = locked ? () => onLockedClick(receta) : undefined;
-  if ((receta.premium_level ?? 0) === 2) {
-    return <ExclusivaCard receta={receta} locked={locked} isFree={isFree} onLockedClick={handleLocked} />;
-  }
   return <RecipeCard receta={receta} locked={locked} isFree={isFree} onLockedClick={handleLocked} />;
 }
 
