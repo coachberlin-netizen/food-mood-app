@@ -84,8 +84,14 @@ function Gate({ wrong }: { wrong: boolean }) {
           </button>
         </form>
 
-        <p style={{ marginTop: 28, fontSize: 11, color: 'rgba(245,240,232,0.2)' }}>
-          No key? Contact info@food-mood.app
+        <p style={{ marginTop: 32, fontSize: 13, color: 'rgba(245,240,232,0.5)' }}>
+          ¿Sin acceso?{' '}
+          <a
+            href="mailto:info@food-mood.app?subject=Food·Mood — Solicitud de acceso investor deck"
+            style={{ color: '#C9A84C', textDecoration: 'none', fontWeight: 600 }}
+          >
+            info@food-mood.app
+          </a>
         </p>
       </div>
     </main>
