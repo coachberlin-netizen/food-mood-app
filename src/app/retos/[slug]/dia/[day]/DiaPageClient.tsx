@@ -64,6 +64,7 @@ interface RecipeData {
     titulo:            string
     texto:             string
     alimento_estrella: string
+    imagen_url?:       string
   }
   audio?: {
     titulo:       string
@@ -373,6 +374,7 @@ export default function DiaPageClient({ challenge, enrollment, dayContent, dayNu
               titulo={rd.psicobiotico.titulo}
               texto={rd.psicobiotico.texto}
               alimento_estrella={rd.psicobiotico.alimento_estrella}
+              imagen_url={rd.psicobiotico.imagen_url}
             />
           )}
 

@@ -193,10 +193,7 @@ function ExclusivaCard({ receta, locked = false, isFree = false, onLockedClick }
         style={{ backgroundColor: mood.color }}
       />
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
-      <div className="flex items-center justify-between mb-4 relative mt-1">
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] border border-[#C9A84C]/20">
-          <Star className="w-3 h-3" /> Exclusiva
-        </span>
+      <div className="flex items-center justify-end mb-4 relative mt-1">
         <span className="flex items-center gap-1 text-[11px] text-cream/40 font-medium">
           <Clock className="w-3 h-3" />
           {receta.tiempo_preparacion_min} min
