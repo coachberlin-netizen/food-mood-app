@@ -272,7 +272,6 @@ export default function Home() {
   const [tranquilidadOpen, setTranquilidadOpen] = useState(false)
   const [neurocienciaOpen, setNeurocienciaOpen] = useState(false)
   const [testimoniosOpen, setTestimoniosOpen] = useState(false)
-  const [corporateOpen, setCorporateOpen] = useState(false)
   const [planesOpen, setPlanesOpen] = useState(false)
   const [pruebaAntesOpen, setPruebaAntesOpen] = useState(false)
   const [curryOpen, setCurryOpen] = useState(false)
@@ -872,87 +871,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5b. CORPORATE WELLNESS ──────────────────────────────────────────── */}
-      <section aria-label="Food·Mood for Work — Corporate Wellness" className="px-6 py-6" style={{ backgroundColor: '#FF5500' }}>
-        <div className="max-w-5xl mx-auto">
-          <button
-            type="button"
-            onClick={() => setCorporateOpen(o => !o)}
-            className="w-full flex items-center justify-between gap-4 py-2 group"
-            aria-expanded={corporateOpen}
-          >
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <span className="font-serif text-xl font-bold text-white">Food·Mood for Work</span>
-              <span className="text-sm font-light" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                · Alimenta el foco de tu equipo
-              </span>
-            </div>
-            <ChevronDown
-              className="w-5 h-5 shrink-0 transition-transform duration-300"
-              style={{ color: 'rgba(255,255,255,0.8)', transform: corporateOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
-            />
-          </button>
-
-          <AnimatePresence initial={false}>
-            {corporateOpen && (
-              <motion.div
-                key="corporate-content"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.35, ease: 'easeInOut' }}
-                style={{ overflow: 'hidden' }}
-              >
-                <div className="pt-4 pb-2">
-                  <div className="rounded-3xl overflow-hidden grid md:grid-cols-2 bg-white">
-                    <div className="p-8 md:p-10 flex flex-col justify-center">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#FF5500' }}>
-                        Food·Mood for Work · Corporate Wellness
-                      </p>
-                      <h2 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3" style={{ color: '#2d0f16' }}>
-                        Alimenta el foco<br />
-                        <span className="italic font-light">de tu equipo.</span>
-                      </h2>
-                      <p className="text-sm font-light leading-relaxed mb-6" style={{ color: 'rgba(107,39,55,0.6)' }}>
-                        Programa corporativo de 7 días: snacks funcionales, micro-hábitos y tracking para mejorar el foco, la energía y el bienestar en la jornada laboral.
-                      </p>
-                      <Link
-                        href="/corporate-wellness"
-                        className="inline-flex items-center gap-2 self-start px-7 py-3 rounded-full text-sm font-bold transition-all hover:opacity-90"
-                        style={{ backgroundColor: '#FF5500', color: 'white' }}
-                      >
-                        Ver el programa <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                    <div className="p-8 md:p-10 border-t md:border-t-0 md:border-l" style={{ borderColor: 'rgba(107,39,55,0.08)' }}>
-                      <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.35)' }}>
-                        Incluye
-                      </p>
-                      <ul className="space-y-3">
-                        {[
-                          '7 días · 14 snacks funcionales',
-                          'Lista de compra semanal',
-                          'Check-in diario: energía, foco, ánimo',
-                          'Audios de 2–3 min: foco y pausa consciente',
-                          'Informe agregado para RRHH',
-                        ].map((item) => (
-                          <li key={item} className="flex items-center gap-2.5 text-sm font-light" style={{ color: 'rgba(107,39,55,0.7)' }}>
-                            <Check className="w-3.5 h-3.5 shrink-0" style={{ color: '#FF5500' }} />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                      <p className="mt-6 text-xs font-light" style={{ color: 'rgba(107,39,55,0.35)' }}>
-                        Desde 490€ · Piloto hasta 25 personas · Factura incluida
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
 
       {/* ── 6. PRUEBA SOCIAL ────────────────────────────────────────────────── */}
       <section aria-label="Testimonios de usuarios" className="py-8 md:py-10 px-6 bg-[#F5F0E8]">
