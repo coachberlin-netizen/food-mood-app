@@ -46,6 +46,7 @@ export interface Receta {
   temporada: string;
   tipo_plato: string;
   ingrediente_firma?: string;
+  premium_level?: number;
 }
 
 export interface RelatedReceta {

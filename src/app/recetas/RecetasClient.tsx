@@ -232,9 +232,7 @@ export default function RecetasClient({
       try {
         const res = await fetch('/api/mi-tier');
         const data = await res.json();
-        if (data.isPremium) {
-          setIsPremium(true);
-        }
+        setIsPremium(data.isPremium === true);
       } catch (err) {
         console.error("Error re-verifying premium status:", err);
       }

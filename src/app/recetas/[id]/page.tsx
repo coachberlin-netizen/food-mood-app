@@ -129,6 +129,12 @@ export default async function RecetaPage(
   const { data: { user } } = await supabase.auth.getUser();
   const isPremium = user ? await getPremiumStatus(supabase, user.id) : false;
 
+  // Server-side gate: strip prep steps for non-premium users on premium recipes
+  const isPremiumRecipe = (receta.premium_level ?? 0) > 0;
+  const recetaForClient = (!isPremium && isPremiumRecipe)
+    ? { ...receta, preparacion_es: receta.preparacion_es?.slice(0, 1) ?? [] }
+    : receta;
+
   const schema = buildRecipeSchema(receta);
 
   return (
@@ -138,7 +144,7 @@ export default async function RecetaPage(
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       <RecetaDetailClient
-        receta={receta}
+        receta={recetaForClient}
         relacionadas={relacionadas}
         isPremium={isPremium}
       />
