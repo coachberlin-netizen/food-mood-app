@@ -5,6 +5,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, SearchX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { moods as MOODS } from "@/data/moods";
 import { PaywallModal } from "@/components/recetas/PaywallModal";
 
@@ -81,10 +82,12 @@ function RecipeCard({ receta, locked = false, isFree = false, onLockedClick }: {
       {/* Food photo */}
       {receta.image_url ? (
         <div className="relative w-full h-40 overflow-hidden">
-          <img
+          <Image
             src={receta.image_url}
             alt={receta.nombre_es}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-cream/30 to-transparent" />

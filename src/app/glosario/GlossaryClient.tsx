@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Search, X, Sparkles, Leaf } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -179,10 +180,12 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
                 <div className="h-full bg-transparent border border-[#6B2737]/10 rounded-[2rem] hover:border-[#6B2737]/30 hover:bg-[#6B2737]/[0.02] transition-all duration-500 shadow-sm hover:shadow-xl relative overflow-hidden flex flex-col">
                   {item.image_url && (
                     <div className="relative w-full h-40 overflow-hidden rounded-t-[2rem]">
-                      <img
+                      <Image
                         src={item.image_url}
                         alt={item.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)]/60 to-transparent" />
