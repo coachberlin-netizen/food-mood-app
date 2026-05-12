@@ -69,7 +69,9 @@
       "Bash(New-Item -ItemType Directory -Force -Path \"C:\\\\Users\\\\coach\\\\food-mood-app\\\\src\\\\app\\\\faq\")",
       "Bash(Out-Null)",
       "Bash(npx next *)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_* node *)",
+      "Bash(grep -rn '\"ES\"\\\\| ES$\\\\|🇪🇸\\\\|bandea\\\\|españ' /c/Users/coach/food-mood-app/src --include=\"*.tsx\" -i)"
     ]
   }
 }

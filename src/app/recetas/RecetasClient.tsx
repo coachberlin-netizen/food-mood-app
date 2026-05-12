@@ -209,7 +209,7 @@ export default function RecetasClient({
   const segmento = "adulto";
   const [profileIdx, setProfileIdx] = useState<number>(0);
   const [q, setQ] = useState<string>(searchParams.get("q") || "");
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(Number(searchParams.get("page") || "1"));
 
   const [recetas, setRecetas] = useState<Receta[]>(initialRecetas);
   const [total, setTotal] = useState(initialTotal);
@@ -503,9 +503,9 @@ export default function RecetasClient({
 
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-4 pt-12">
-                <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page <= 1} className="p-2.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronLeft className="w-4 h-4" /></button>
+                <button onClick={() => { const p = Math.max(1, page - 1); setPage(p); const sp = new URLSearchParams(searchParams.toString()); sp.set("page", String(p)); router.replace(`/recetas?${sp.toString()}`, { scroll: false }); }} disabled={page <= 1} className="p-2.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronLeft className="w-4 h-4" /></button>
                 <span className="text-sm font-medium text-aubergine-dark/60">{page} / {totalPages}</span>
-                <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page >= totalPages} className="p-2.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronRight className="w-4 h-4" /></button>
+                <button onClick={() => { const p = Math.min(totalPages, page + 1); setPage(p); const sp = new URLSearchParams(searchParams.toString()); sp.set("page", String(p)); router.replace(`/recetas?${sp.toString()}`, { scroll: false }); }} disabled={page >= totalPages} className="p-2.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronRight className="w-4 h-4" /></button>
               </div>
             )}
           </>
