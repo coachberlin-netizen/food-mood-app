@@ -465,6 +465,124 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
     }
   }
 
+  // ── Modo completado ─────────────────────────────────────────────────────────
+  if (enrollment?.paid && enrollment.completed) {
+    return (
+      <main className="min-h-screen" style={{ background: '#F5F0E8' }}>
+        <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
+          <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: color }}>
+            ← Ver todos los retos
+          </Link>
+        </div>
+
+        <div className="max-w-[480px] mx-auto px-5 pb-16 pt-8 space-y-4">
+
+          {/* Encabezado */}
+          <div className="flex items-center gap-3 mb-2">
+            <div
+              className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+              style={{ background: `${color}18` }}
+            >
+              <CategoryIcon emoji={emoji} size={28} />
+            </div>
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-widest mb-0.5" style={{ color: 'rgba(107,39,55,0.45)' }}>
+                Completado
+              </p>
+              <h1 className="font-serif text-[18px] font-bold leading-tight" style={{ color: '#2d0f16' }}>
+                {challenge.title}
+              </h1>
+            </div>
+          </div>
+
+          {/* Trofeo */}
+          <div
+            className="rounded-2xl p-6 text-center border"
+            style={{ backgroundColor: `rgba(${rgb},0.06)`, borderColor: `rgba(${rgb},0.2)` }}
+          >
+            <div className="flex justify-center mb-3">
+              <Trophy size={40} strokeWidth={1.5} style={{ color: '#C9A84C' }} />
+            </div>
+            <p className="font-serif text-xl font-bold mb-1" style={{ color: '#2d0f16' }}>
+              ¡Reto completado!
+            </p>
+            <p className="text-xs font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
+              {durationD} días · {durationD} recetas
+            </p>
+          </div>
+
+          {/* Índice Food·Mood */}
+          {enrollment.fm_index_start != null && enrollment.fm_index_end != null && (
+            <div className="bg-white rounded-2xl border border-[#e8ddd5] p-5">
+              <p className="text-[11px] font-medium uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>
+                Tu índice Food·Mood
+              </p>
+              <div className="flex items-center gap-3">
+                <div>
+                  <p className="text-[10px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Inicio</p>
+                  <p className="font-serif text-2xl font-black" style={{ color: 'rgba(107,39,55,0.35)' }}>
+                    {enrollment.fm_index_start}
+                  </p>
+                </div>
+                <div className="flex-1 h-px" style={{ background: 'rgba(107,39,55,0.1)' }} />
+                <div className="text-right">
+                  <p className="text-[10px] font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>Fin</p>
+                  <p className="font-serif text-2xl font-black" style={{ color: color }}>
+                    {enrollment.fm_index_end}
+                  </p>
+                </div>
+                {enrollment.fm_index_end > enrollment.fm_index_start && (
+                  <span className="text-xs font-semibold ml-2" style={{ color: '#4A7C59' }}>
+                    ↑ +{enrollment.fm_index_end - enrollment.fm_index_start}
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* CTAs */}
+          <div className="flex flex-col gap-3 pt-2">
+            <button
+              onClick={handleRestart}
+              disabled={restartState === 'loading'}
+              className="w-full py-4 rounded-2xl text-[16px] font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
+              style={{ background: color }}
+            >
+              {restartState === 'loading' ? 'Reiniciando…' : `${emoji} Empezar de nuevo →`}
+            </button>
+            {restartState === 'error' && (
+              <p className="text-xs text-center" style={{ color: '#c0392b' }}>
+                Error al reiniciar. Inténtalo de nuevo.
+              </p>
+            )}
+            <Link
+              href="/retos"
+              className="block py-3 rounded-2xl text-sm font-bold text-center border-2 transition-all hover:opacity-80 no-underline"
+              style={{ borderColor: color, color: color }}
+            >
+              Ver más retos →
+            </Link>
+            <button
+              onClick={() => {
+                const text = `Acabo de completar el reto "${challenge.title}" en ${durationD} días con Food·Mood 🏆`
+                if (navigator.share) {
+                  navigator.share({ text, url: window.location.href }).catch(() => {})
+                } else {
+                  navigator.clipboard.writeText(text + ' ' + window.location.href)
+                }
+              }}
+              className="block w-full py-3 rounded-2xl text-sm font-bold border-2 transition-all hover:opacity-80"
+              style={{ borderColor: 'rgba(107,39,55,0.2)', color: 'rgba(107,39,55,0.45)' }}
+            >
+              Compartir mi logro →
+            </button>
+          </div>
+
+        </div>
+      </main>
+    )
+  }
+
   // ── Modo dashboard (ya pagado, en curso) ────────────────────────────────────
   if (enrollment?.paid && !enrollment.completed) {
     const currentDay  = enrollment.current_day as number
