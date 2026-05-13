@@ -268,6 +268,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
   const [showBetaBox,  setShowBetaBox]  = useState(false)
 
   const [restartState, setRestartState] = useState<'idle' | 'loading' | 'error'>('idle')
+  const [restartError,  setRestartError]  = useState<string | null>(null)
 
   const isSuccess = searchParams.get('success') === 'true'
   const [pollingPaid, setPollingPaid] = useState(false)
@@ -360,17 +361,28 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
   async function handleRestart() {
     setRestartState('loading')
+    setRestartError(null)
     try {
       const res = await fetch('/api/retos/restart', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ challenge_id: challenge.id }),
       })
-      if (!res.ok) { setRestartState('error'); return }
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        const msg = data?.error ?? `HTTP ${res.status}`
+        console.error('[handleRestart] error:', res.status, msg)
+        setRestartError(msg)
+        setRestartState('error')
+        return
+      }
       setEnrollment(prev => prev ? { ...prev, current_day: 1, completed: false, completed_at: null, fm_index_end: null } : prev)
       setRestartState('idle')
       router.push(`/retos/${challenge.slug}/dia/1`)
-    } catch {
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      console.error('[handleRestart] exception:', msg)
+      setRestartError(msg)
       setRestartState('error')
     }
   }
@@ -552,7 +564,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             </button>
             {restartState === 'error' && (
               <p className="text-xs text-center" style={{ color: '#c0392b' }}>
-                Error al reiniciar. Inténtalo de nuevo.
+                {restartError ? `Error: ${restartError}` : 'Error al reiniciar. Inténtalo de nuevo.'}
               </p>
             )}
             <Link
