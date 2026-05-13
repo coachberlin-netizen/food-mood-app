@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food·Mood — No es lo que comes. Es lo que hace tu microbiota con lo que comes.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #EDE8DF; font-family: 'Lato', Arial, sans-serif; color: #2a1a1e; -webkit-font-smoothing: antialiased; }
+  .wrapper { max-width: 680px; margin: 0 auto; background: #F5F0E8; }
+
+  /* HEADER */
+  .header { background: #2d0f16; padding: 48px 44px 44px; }
+  .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #6B2737; letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
+  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; }
+  .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.45); margin-bottom: 32px; }
+  .header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 33px; font-weight: 700; color: #F5F0E8; line-height: 1.18; }
+  .header-title em { font-style: italic; color: #C9A84C; font-weight: 400; }
+
+  /* INTRO */
+  .intro { padding: 36px 44px; border-bottom: 1px solid #e0d5c8; }
+  .intro p { font-size: 15px; line-height: 1.82; color: #4a3a3e; font-weight: 300; margin-bottom: 18px; }
+  .intro p:last-child { margin-bottom: 0; }
+  .intro strong { font-weight: 700; color: #2a1a1e; }
+
+  /* SECTION LABELS */
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 18px; }
+  .section-label-gold { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 14px; }
+
+  /* GRÁFICO 1 — MISMOS ALIMENTOS, TRES RESPUESTAS */
+  .g1-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; background: #1a0a0f; }
+  .g1-table { width: 100%; border-collapse: collapse; }
+  .g1-table thead tr { background: #2d0f16; }
+  .g1-table thead th { padding: 12px 10px; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; text-align: left; vertical-align: bottom; }
+  .th-alimento { color: rgba(245,240,232,0.45); width: 18%; }
+  .th-diversa  { color: #C9A84C; width: 28%; }
+  .th-pobre    { color: rgba(201,168,76,0.55); width: 27%; }
+  .th-disbio   { color: rgba(201,168,76,0.40); width: 27%; }
+  .g1-table tbody tr { border-bottom: 1px solid rgba(201,168,76,0.10); }
+  .g1-table tbody tr:last-child { border-bottom: none; }
+  .g1-table tbody td { padding: 14px 10px; font-size: 11.5px; font-weight: 300; line-height: 1.62; vertical-align: top; }
+  .td-ali  { color: #C9A84C; font-weight: 700; font-size: 12px; }
+  .td-div  { color: rgba(245,240,232,0.85); }
+  .td-pob  { color: rgba(245,240,232,0.55); }
+  .td-dis  { color: rgba(245,240,232,0.40); font-style: italic; }
+  .g1-note { margin-top: 18px; font-size: 10.5px; font-style: italic; color: rgba(201,168,76,0.45); line-height: 1.65; }
+
+  /* GRÁFICO 2 — BIOTRANSFORMACIÓN (FLOW) */
+  .g2-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
+  .flow-step { margin-bottom: 0; }
+  .flow-node { background: #fff; border: 1px solid #e0d5c8; border-radius: 8px; padding: 14px 18px; margin-bottom: 4px; }
+  .flow-node-title { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: #2a1a1e; margin-bottom: 4px; }
+  .flow-node-sub { font-size: 11.5px; font-weight: 300; color: #9e8080; line-height: 1.55; font-style: italic; }
+  .flow-node-sub strong { font-style: normal; color: #C9A84C; font-weight: 700; }
+  .flow-arrow { text-align: center; padding: 4px 0; font-size: 18px; color: #6B2737; font-weight: 700; line-height: 1; }
+  .flow-metabolitos { background: #2d0f16; border-radius: 8px; padding: 14px 18px; margin-bottom: 4px; }
+  .flow-metabolitos-title { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(201,168,76,0.6); margin-bottom: 8px; }
+  .flow-metabolitos-items { font-size: 12.5px; font-weight: 300; color: #C9A84C; letter-spacing: .04em; line-height: 1.8; }
+  .flow-source { margin-top: 16px; font-size: 10.5px; font-style: italic; color: rgba(107,39,55,0.50); line-height: 1.60; }
+
+  /* GRÁFICO 3 — 5 FACTORES */
+  .g3-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
+  .factor-card { background: #2d0f16; border-radius: 10px; padding: 20px 22px; margin-bottom: 12px; }
+  .factor-card:last-child { margin-bottom: 0; }
+  .factor-num { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.45); margin-bottom: 6px; }
+  .factor-title { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: #C9A84C; margin-bottom: 10px; }
+  .factor-body { font-size: 12.5px; font-weight: 300; line-height: 1.70; color: rgba(245,240,232,0.75); }
+  .factor-cite { font-size: 11px; color: rgba(201,168,76,0.45); font-style: italic; margin-top: 7px; }
+
+  /* SECCIÓN — QUÉ PUEDE CAMBIAR */
+  .cambio-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
+  .cambio-item { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid #ece5db; }
+  .cambio-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .cambio-num { display: inline-block; width: 28px; height: 28px; background: #6B2737; border-radius: 50%; text-align: center; line-height: 28px; font-size: 12px; font-weight: 700; color: #F5F0E8; margin-bottom: 10px; }
+  .cambio-titulo { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: #2a1a1e; margin-bottom: 10px; }
+  .cambio-body { font-size: 14px; font-weight: 300; line-height: 1.80; color: #4a3a3e; }
+
+  /* RECETA */
+  .receta-wrap { padding: 32px 44px; background: #2d0f16; }
+  .receta-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 10px; }
+  .receta-title { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: #C9A84C; line-height: 1.25; margin-bottom: 20px; }
+  .receta-subtitle { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.40); margin-bottom: 10px; margin-top: 18px; }
+  .receta-list { list-style: none; padding: 0; }
+  .receta-list li { font-size: 13px; font-weight: 300; color: rgba(245,240,232,0.80); line-height: 1.65; padding: 3px 0; padding-left: 14px; position: relative; }
+  .receta-list li::before { content: "—"; position: absolute; left: 0; color: rgba(201,168,76,0.50); }
+  .receta-steps { font-size: 13.5px; font-weight: 300; line-height: 1.80; color: rgba(245,240,232,0.75); }
+  .receta-nota { margin-top: 22px; padding: 18px 20px; border: 1px solid rgba(201,168,76,0.20); border-radius: 8px; }
+  .receta-nota-label { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 8px; }
+  .receta-nota-body { font-size: 12.5px; font-weight: 300; line-height: 1.72; color: rgba(245,240,232,0.65); font-style: italic; }
+
+  /* BIBLIOGRAFÍA */
+  .biblio-wrap { padding: 28px 44px; border-bottom: 1px solid #e0d5c8; background: #faf7f2; }
+  .biblio-title { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 14px; }
+  .biblio-list { list-style: none; padding: 0; }
+  .biblio-list li { font-size: 11.5px; font-weight: 300; color: #7a6a6e; line-height: 1.68; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid #ece5db; }
+  .biblio-list li:last-child { border-bottom: none; margin-bottom: 0; }
+  .biblio-author { font-weight: 700; color: #4a3a3e; }
+
+  /* PULL QUOTE */
+  .quote-wrap { padding: 40px 44px; background: #C9A84C; }
+  .quote-text { font-family: 'Playfair Display', Georgia, serif; font-size: 26px; font-weight: 700; color: #2d0f16; line-height: 1.30; text-align: center; }
+  .quote-text em { font-style: italic; font-weight: 400; }
+
+  /* CTA */
+  .cta-wrap { padding: 36px 44px; text-align: center; border-bottom: 1px solid #e0d5c8; }
+  .cta-body { font-size: 13.5px; font-weight: 300; color: #7a6a6e; line-height: 1.70; margin-bottom: 22px; }
+  .cta-btn { display: inline-block; background: #6B2737; color: #F5F0E8; font-family: 'Lato', Arial, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-decoration: none; padding: 14px 30px; border-radius: 40px; }
+
+  /* FOOTER */
+  .footer { padding: 24px 44px; text-align: center; }
+  .footer p { font-size: 11px; font-weight: 300; color: #b0a0a4; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .header { padding: 32px 22px 30px; }
+    .header-title { font-size: 26px; }
+    .intro, .g2-wrap, .g3-wrap, .cambio-wrap, .biblio-wrap, .quote-wrap, .cta-wrap, .footer { padding-left: 22px; padding-right: 22px; }
+    .g1-wrap { padding: 24px 12px; }
+    .g1-table thead th, .g1-table tbody td { padding: 8px 6px; font-size: 10.5px; }
+    .receta-wrap { padding: 28px 22px; }
+    .quote-text { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EDE8DF;">
+  <tr>
+    <td align="center" style="padding: 24px 12px;">
+
+      <table class="wrapper" width="680" cellpadding="0" cellspacing="0" border="0" style="max-width:680px;background:#F5F0E8;">
+
+        <!-- ══ HEADER ══ -->
+        <tr>
+          <td class="header">
+            <div class="logo-text">Food·Mood</div>
+            <div class="header-numero">N&ordm; 22</div>
+            <div class="header-tagline">La app de body &amp; mind que estabas esperando.</div>
+            <h1 class="header-title">
+              No es lo que comes.<br>
+              <em>Es lo que hace tu microbiota<br>con lo que comes.</em>
+            </h1>
+          </td>
+        </tr>
+
+        <!-- ══ INTRO ══ -->
+        <tr>
+          <td class="intro">
+            <p>
+              Esta es la tesis central de Food&middot;Mood &mdash; y también uno de los hallazgos
+              más disruptivos de la nutrición contemporánea. El mismo alimento puede producir
+              respuestas metabólicas y emocionales completamente distintas en dos personas
+              diferentes. Un estudio publicado en <em>Cell</em> por Zeevi et al. (2015) demostró
+              que la respuesta glucémica a alimentos idénticos varía enormemente entre individuos,
+              y que el microbioma intestinal es uno de los principales predictores de esa
+              variabilidad. El plátano no es simplemente &ldquo;un plátano&rdquo;: es un sustrato
+              que tu microbiota transforma en metabolitos específicos según quién vive en tu
+              intestino.
+            </p>
+            <p>
+              La Cognición Encarnada &mdash; marco teórico desarrollado por Francisco Varela, Evan
+              Thompson y Eleanor Rosch &mdash; propone que la mente no procesa información de forma
+              aislada del cuerpo: el estado corporal co-construye la experiencia cognitiva y
+              emocional en tiempo real. Aplicado a la nutrición, esto significa que lo que comes
+              no solo nutre células: modula el sustrato biológico sobre el que el cerebro construye,
+              según Barrett, cada emoción. No existe separación entre alimentar el cuerpo y alimentar
+              la mente. La pregunta relevante no es qué comes, sino <strong>qué hace tu ecosistema
+              interno con ello.</strong>
+            </p>
+          </td>
+        </tr>
+
+        <!-- ══ GRÁFICO 1 — EL MISMO ALIMENTO, TRES RESPUESTAS ══ -->
+        <tr>
+          <td class="g1-wrap">
+            <div class="section-label-gold">El mismo alimento &mdash; tres respuestas distintas</div>
+            <table class="g1-table">
+              <thead>
+                <tr>
+                  <th class="th-alimento">Alimento</th>
+                  <th class="th-diversa">Microbiota diversa</th>
+                  <th class="th-pobre">Microbiota empobrecida</th>
+                  <th class="th-disbio">Microbiota disbiótica</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-ali">Plátano maduro</td>
+                  <td class="td-div">Butirato + precursores de serotonina; respuesta glucémica que puede resultar estable</td>
+                  <td class="td-pob">Glucosa rápida + posible pico insulínico; efecto fermentativo limitado</td>
+                  <td class="td-dis">Fermentación excesiva, gas, malestar digestivo variable</td>
+                </tr>
+                <tr>
+                  <td class="td-ali">Yogur sin azúcar</td>
+                  <td class="td-div">Posible refuerzo de Lactobacillus existentes; producción de GABA documentada en modelos animales</td>
+                  <td class="td-pob">Tránsito rápido; efecto sobre microbioma probablemente limitado</td>
+                  <td class="td-dis">Puede generar competencia con bacterias oportunistas según contexto</td>
+                </tr>
+                <tr>
+                  <td class="td-ali">Col fermentada</td>
+                  <td class="td-div">Diversificación microbiana + butirato + vitamina K2; efecto sinérgico documentado</td>
+                  <td class="td-pob">Aporte puntual de metabolitos; impacto en composición probablemente transitorio</td>
+                  <td class="td-dis">Variable &mdash; depende de qué cepas predominan en el ecosistema</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="g1-note">
+              Esta tabla ilustra tendencias observadas en investigación, no efectos individuales predecibles.
+              El microbioma es dinámico y contextual. (Sonnenburg &amp; B&auml;ckhed, 2016; Zmora et al., 2018)
+            </div>
+          </td>
+        </tr>
+
+        <!-- ══ GRÁFICO 2 — PROCESO DE BIOTRANSFORMACIÓN ══ -->
+        <tr>
+          <td class="g2-wrap">
+            <div class="section-label">El proceso de biotransformación</div>
+
+            <div class="flow-node">
+              <div class="flow-node-title">Alimento</div>
+              <div class="flow-node-sub">Lo que introduces. La materia prima del proceso.</div>
+            </div>
+
+            <div class="flow-arrow">&#8595;</div>
+
+            <div class="flow-node">
+              <div class="flow-node-title">Enzimas microbianas</div>
+              <div class="flow-node-sub">
+                <strong>Más de 10 millones de genes microbianos</strong> procesan lo que
+                tus 23.000 genes humanos no pueden metabolizar por sí solos.
+              </div>
+            </div>
+
+            <div class="flow-arrow">&#8595;</div>
+
+            <div class="flow-metabolitos">
+              <div class="flow-metabolitos-title">Metabolitos producidos</div>
+              <div class="flow-metabolitos-items">
+                Butirato &nbsp;&middot;&nbsp; SCFA (ácidos grasos de cadena corta) &nbsp;&middot;&nbsp; GABA
+                &nbsp;&middot;&nbsp; Precursores de serotonina &nbsp;&middot;&nbsp; Urolitinas
+              </div>
+            </div>
+
+            <div class="flow-arrow">&#8595;</div>
+
+            <div class="flow-node">
+              <div class="flow-node-title">Receptores intestinales</div>
+              <div class="flow-node-sub">
+                El intestino concentra <strong>más receptores sensoriales</strong> que cualquier otro órgano del cuerpo.
+              </div>
+            </div>
+
+            <div class="flow-arrow">&#8595;</div>
+
+            <div class="flow-node">
+              <div class="flow-node-title">Nervio vago</div>
+              <div class="flow-node-sub">
+                El <strong>80% de las señales</strong> viajan en dirección intestino &rarr; cerebro,
+                no al revés. La conversación es mayoritariamente ascendente.
+              </div>
+            </div>
+
+            <div class="flow-arrow">&#8595;</div>
+
+            <div class="flow-node">
+              <div class="flow-node-title">Cerebro</div>
+              <div class="flow-node-sub">
+                Estado de ánimo &nbsp;&middot;&nbsp; Foco &nbsp;&middot;&nbsp; Respuesta al estr&eacute;s
+                &nbsp;&middot;&nbsp; Motivaci&oacute;n &nbsp;&middot;&nbsp; Calidad del sueño
+              </div>
+            </div>
+
+            <div class="flow-source">
+              Fuente: Cryan, J.F. et al. (2019). The Microbiota-Gut-Brain Axis. <em>Physiological Reviews</em>, 99(4), 1877&ndash;2013.
+            </div>
+          </td>
+        </tr>
+
+        <!-- ══ GRÁFICO 3 — 5 FACTORES ══ -->
+        <tr>
+          <td class="g3-wrap">
+            <div class="section-label">5 factores que cambian cómo procesas los alimentos</div>
+
+            <div class="factor-card">
+              <div class="factor-num">Factor 01</div>
+              <div class="factor-title">Estrés crónico</div>
+              <div class="factor-body">
+                El cortisol sostenido puede alterar la permeabilidad intestinal y modificar
+                la composición microbiana en cuestión de días. La evidencia sugiere una reducción
+                de <em>Lactobacillus</em> y <em>Bifidobacterium</em> bajo estrés prolongado,
+                dos géneros asociados a la producción de GABA y a la regulación del eje HPA.
+              </div>
+              <div class="factor-cite">(Galley et al., 2014. BMC Microbiology)</div>
+            </div>
+
+            <div class="factor-card">
+              <div class="factor-num">Factor 02</div>
+              <div class="factor-title">Antibióticos</div>
+              <div class="factor-body">
+                Un ciclo de antibióticos de amplio espectro puede reducir la diversidad microbiana
+                hasta un 30% en pocas semanas. La investigación apunta a que la recuperación
+                completa puede tardar meses o no producirse si no se interviene con alimentación
+                específica y exposición a alimentos fermentados.
+              </div>
+            </div>
+
+            <div class="factor-card">
+              <div class="factor-num">Factor 03</div>
+              <div class="factor-title">Calidad del sueño</div>
+              <div class="factor-body">
+                Estudios en humanos asocian el sueño fragmentado &mdash; menos de 6 horas o de
+                mala calidad &mdash; con alteraciones en la composición microbiana y mayor
+                permeabilidad intestinal al día siguiente. La relación es bidireccional:
+                el microbioma también influye en los ritmos circadianos.
+              </div>
+              <div class="factor-cite">(Liang et al., 2015. Cell Host &amp; Microbe)</div>
+            </div>
+
+            <div class="factor-card">
+              <div class="factor-num">Factor 04</div>
+              <div class="factor-title">Diversidad vegetal</div>
+              <div class="factor-body">
+                El estudio APC Microbiome Ireland y otros sugieren que consumir más de 30 tipos
+                diferentes de plantas a la semana se asocia con mayor diversidad microbiana.
+                No 30 porciones: 30 tipos distintos. Las hierbas aromáticas, las especias
+                y las semillas también cuentan en ese recuento.
+              </div>
+            </div>
+
+            <div class="factor-card">
+              <div class="factor-num">Factor 05</div>
+              <div class="factor-title">Fermentos regulares</div>
+              <div class="factor-body">
+                Sonnenburg et al. (2021, <em>Cell</em>) demostraron que una dieta alta en alimentos
+                fermentados aumentó la diversidad microbiana y redujo marcadores inflamatorios
+                en 10 semanas, con mayor efecto que una dieta alta en fibra sola. El tipo de
+                fermento importa menos que la regularidad de la exposición.
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ══ SECCIÓN — QUÉ PUEDE CAMBIAR ══ -->
+        <tr>
+          <td class="cambio-wrap">
+            <div class="section-label">Qué puede cambiar cuando alimentas a la microbiota correcta</div>
+
+            <div class="cambio-item">
+              <div class="cambio-num">1</div>
+              <div class="cambio-titulo">La respuesta al estrés puede modularse.</div>
+              <div class="cambio-body">
+                La investigación en psicobióticos &mdash; término acuñado por Dinan, Stanton y Cryan
+                en 2013 &mdash; sugiere que ciertas bacterias intestinales pueden influir en el eje HPA
+                (hipotálamo-hipófisis-adrenal), que regula la respuesta al cortisol. No es un efecto
+                inmediato ni garantizado, pero la evidencia apunta a que el microbioma es una palanca
+                relevante en la resiliencia al estrés sostenido.
+              </div>
+            </div>
+
+            <div class="cambio-item">
+              <div class="cambio-num">2</div>
+              <div class="cambio-titulo">El estado de ánimo basal puede estabilizarse.</div>
+              <div class="cambio-body">
+                El 95% de la serotonina del cuerpo se produce en el intestino. Esta serotonina
+                entérica no cruza la barrera hematoencefálica directamente, pero puede influir
+                en el cerebro a través del nervio vago y otros mecanismos indirectos. La investigación
+                sugiere que un microbioma más diverso se asocia con menor incidencia de síntomas
+                depresivos y ansiosos, aunque la causalidad en humanos sigue siendo objeto de estudio.
+              </div>
+            </div>
+
+            <div class="cambio-item">
+              <div class="cambio-num">3</div>
+              <div class="cambio-titulo">La energía post-comida puede ser diferente.</div>
+              <div class="cambio-body">
+                La variabilidad glucémica &mdash; los picos y caídas de glucosa tras comer &mdash;
+                está parcialmente mediada por el microbioma. Un intestino con mayor diversidad
+                microbiana puede, según Zeevi et al. (2015), procesar los mismos carbohidratos
+                con una respuesta glucémica más estable. Lo que se traduce en energía más sostenida
+                y menos fatiga post-prandial. El mismo plato, distinto efecto.
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ══ RECETA ══ -->
+        <tr>
+          <td class="receta-wrap">
+            <div class="receta-label">Receta de esta edición</div>
+            <div class="receta-title">Bol de boniato asado,<br>kéfir y semillas de girasol</div>
+
+            <div class="receta-subtitle">Ingredientes &mdash; 2 personas</div>
+            <ul class="receta-list">
+              <li>2 boniatos medianos</li>
+              <li>150 g kéfir natural sin azúcar</li>
+              <li>2 cucharadas de semillas de girasol (activadas en remojo 8 horas)</li>
+              <li>1 cucharada de tahini</li>
+              <li>Ralladura de limón y su zumo</li>
+              <li>Cúrcuma, comino, pimienta negra</li>
+              <li>Hojas verdes al gusto: rúcula, espinaca</li>
+              <li>Sal marina</li>
+            </ul>
+
+            <div class="receta-subtitle">Preparación</div>
+            <div class="receta-steps">
+              Asa los boniatos enteros a 200 &deg;C durante 45 minutos, hasta que estén tiernos
+              por dentro y caramelizados por fuera. Córtalos longitudinalmente y ábrelos con las
+              manos. Mezcla el kéfir con el tahini, el zumo de limón, la ralladura, la cúrcuma,
+              el comino y una pizca de pimienta negra. Vierte sobre el boniato. Añade las semillas
+              y las hojas verdes justo antes de servir.
+            </div>
+
+            <div class="receta-nota">
+              <div class="receta-nota-label">Nota Food&middot;Mood</div>
+              <div class="receta-nota-body">
+                El boniato aporta fibra fermentable &mdash; almidón resistente, especialmente cuando
+                se enfría ligeramente &mdash; que puede actuar como sustrato preferido para bacterias
+                productoras de butirato. El kéfir introduce microorganismos vivos documentados en la
+                literatura psicobiótica. La pimienta negra mejora la biodisponibilidad de la curcumina
+                hasta un 2.000% según estudios in vitro (Shoba et al., 1998). Un bol que trabaja
+                en tres niveles a la vez.
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ══ BIBLIOGRAFÍA ══ -->
+        <tr>
+          <td class="biblio-wrap">
+            <div class="biblio-title">Referencias</div>
+            <ul class="biblio-list">
+              <li><span class="biblio-author">Barrett, L.F.</span> (2017). <em>How Emotions Are Made.</em> Houghton Mifflin Harcourt.</li>
+              <li><span class="biblio-author">Cryan, J.F. et al.</span> (2019). The Microbiota-Gut-Brain Axis. <em>Physiological Reviews</em>, 99(4), 1877&ndash;2013.</li>
+              <li><span class="biblio-author">Damasio, A.</span> (1994). <em>Descartes' Error.</em> Putnam Publishing.</li>
+              <li><span class="biblio-author">Dinan, T.G. et al.</span> (2013). Psychobiotics: a novel class of psychotropic. <em>Biological Psychiatry</em>, 74(10), 720&ndash;726.</li>
+              <li><span class="biblio-author">Galley, J.D. et al.</span> (2014). Exposure to a social stressor disrupts the community structure of the colonic mucosa-associated microbiota. <em>BMC Microbiology</em>, 14, 189.</li>
+              <li><span class="biblio-author">Liang, X. et al.</span> (2015). Gut microbiota mediates circadian clock function. <em>Cell Host &amp; Microbe</em>, 17, 605&ndash;611.</li>
+              <li><span class="biblio-author">Shoba, G. et al.</span> (1998). Influence of piperine on the pharmacokinetics of curcumin. <em>Planta Medica</em>, 64(4), 353&ndash;356.</li>
+              <li><span class="biblio-author">Sonnenburg, E.D. et al.</span> (2021). Gut-microbiota-targeted diets modulate human immune status. <em>Cell</em>, 184(16), 4137&ndash;4153.</li>
+              <li><span class="biblio-author">Varela, F., Thompson, E. &amp; Rosch, E.</span> (1991). <em>The Embodied Mind.</em> MIT Press.</li>
+              <li><span class="biblio-author">Zeevi, D. et al.</span> (2015). Personalized nutrition by prediction of glycemic responses. <em>Cell</em>, 163(5), 1079&ndash;1094.</li>
+              <li><span class="biblio-author">Zmora, N. et al.</span> (2018). Personalized gut mucosal colonization resistance to empiric probiotics. <em>Cell</em>, 174(6), 1388&ndash;1405.</li>
+            </ul>
+          </td>
+        </tr>
+
+        <!-- ══ PULL QUOTE ══ -->
+        <tr>
+          <td class="quote-wrap">
+            <div class="quote-text">
+              &ldquo;Tu microbiota es el chef.<br>
+              <em>T&uacute; solo eres el que compra los ingredientes.&rdquo;</em>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ══ CTA ══ -->
+        <tr>
+          <td class="cta-wrap">
+            <div class="cta-body">
+              Descubre cómo tu estado de ánimo y tu alimentación se construyen juntos.
+              El test de Food&middot;Mood cruza tu perfil emocional con los alimentos
+              que mejor pueden trabajar en tu ecosistema interno.
+            </div>
+            <a href="https://food-mood.app" class="cta-btn">
+              Descubre tu perfil de estado de ánimo en food-mood.app &rarr;
+            </a>
+          </td>
+        </tr>
+
+        <!-- ══ FOOTER ══ -->
+        <tr>
+          <td class="footer">
+            <p>Food&middot;Mood &nbsp;&middot;&nbsp; food-mood.app &nbsp;&middot;&nbsp; &copy; 2026</p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
