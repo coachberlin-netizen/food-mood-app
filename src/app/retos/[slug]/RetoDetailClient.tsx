@@ -376,9 +376,9 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
         setRestartState('error')
         return
       }
-      setEnrollment(prev => prev ? { ...prev, current_day: 1, completed: false, completed_at: null, fm_index_end: null } : prev)
       setRestartState('idle')
-      router.push(`/retos/${challenge.slug}/dia/1`)
+      // Hard reload so the server re-fetches enrollment from DB (avoids stale client state)
+      window.location.href = `/retos/${challenge.slug}/dia/1`
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err)
       console.error('[handleRestart] exception:', msg)
