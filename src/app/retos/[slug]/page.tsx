@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { Suspense } from 'react'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
 import { isUserAdmin } from '@/lib/admin-config'
@@ -125,7 +125,7 @@ export default async function RetoDetailPage({ params, searchParams }: PageProps
       isPremium = true  // already paid = already has access
     }
 
-    // Server-side restart: ?restart=true resets the enrollment directly, bypassing client AJAX
+    // Server-side restart fallback: ?restart=true resets enrollment and redirects to Day 1
     if (shouldRestart && enrollment?.paid && enrollment.completed) {
       const admin = createAdmin(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -137,7 +137,7 @@ export default async function RetoDetailPage({ params, searchParams }: PageProps
         .update({ current_day: 1, completed: false, completed_at: null, fm_index_end: null })
         .eq('id', (enrollment as any).id)
       if (!restartErr) {
-        enrollment = { ...enrollment, current_day: 1, completed: false, completed_at: null, fm_index_end: null } as typeof enrollment
+        redirect(`/retos/${slug}/dia/1`)
       } else {
         console.error('[page restart] error:', restartErr)
       }

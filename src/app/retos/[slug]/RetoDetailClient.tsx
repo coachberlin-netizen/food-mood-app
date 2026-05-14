@@ -359,11 +359,26 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
     })
   }
 
-  function handleRestart() {
+  async function handleRestart() {
     setRestartState('loading')
-    // The restart is done server-side on page load when ?restart=true is present.
-    // This avoids client-side AJAX issues (RLS, session cookies, etc.).
-    window.location.href = `/retos/${challenge.slug}?restart=true`
+    setRestartError(null)
+    try {
+      const res = await fetch('/api/retos/restart', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ challenge_id: challenge.id }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setRestartState('error')
+        setRestartError(data.error ?? 'Error al reiniciar')
+        return
+      }
+      window.location.href = `/retos/${challenge.slug}/dia/1`
+    } catch {
+      setRestartState('error')
+      setRestartError('Error de conexión')
+    }
   }
 
   // Auto-apply beta_code param after login redirect
