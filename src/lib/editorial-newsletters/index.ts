@@ -20,6 +20,7 @@ import { buildHtml as html19 } from './19-sabor-amargo-nervio-vago'
 import { buildHtml as html20 } from './20-injera-teff-etiopia'
 import { buildHtml as html21 } from './21-tkemali-georgia'
 import { buildHtml as html22 } from './22-no-es-lo-que-comes'
+import { buildHtml as html23 } from './23-ritmo-circadiano'
 import { buildHtml as html24 } from './24-microbioma-ansiedad'
 
 export interface EditorialNewsletter {
@@ -54,5 +55,6 @@ export const EDITORIAL_NEWSLETTERS: EditorialNewsletter[] = [
   { numero: 20, slug: 'injera-teff-etiopia', subject: 'El pan que lleva 72 horas fermentando. Etiopía lleva milenios comiendo para el cerebro sin saberlo.', buildHtml: html20 },
   { numero: 21, slug: 'tkemali-georgia',        subject: 'La salsa agria que los georgianos llevan 3.000 años usando para todo. La ciencia acaba de empezar a entender por qué.', buildHtml: html21 },
   { numero: 22, slug: 'no-es-lo-que-comes',     subject: 'No es lo que comes. Es lo que hace tu microbiota con lo que comes.',   buildHtml: html22 },
+  { numero: 23, slug: 'ritmo-circadiano',       subject: 'Tu cuerpo tiene un reloj. Y cada vez que comes fuera de hora, lo atrasa.', buildHtml: html23 },
   { numero: 24, slug: 'microbioma-ansiedad',    subject: 'Tu ansiedad tiene 38 billones de cómplices. Se llaman bacterias intestinales.', buildHtml: html24 },
 ]
