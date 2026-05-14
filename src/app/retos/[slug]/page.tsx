@@ -2,13 +2,14 @@ import { Metadata } from 'next'
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createClient as createAdmin } from '@supabase/supabase-js'
 import { isUserAdmin } from '@/lib/admin-config'
 import { getPremiumStatus } from '@/lib/premium'
 import RetoDetailClient from './RetoDetailClient'
 
 export const dynamic = 'force-dynamic'
 
-type PageProps = { params: Promise<{ slug: string }> }
+type PageProps = { params: Promise<{ slug: string }>; searchParams?: unknown }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
@@ -65,8 +66,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function RetoDetailPage({ params }: PageProps) {
+export default async function RetoDetailPage({ params, searchParams }: PageProps) {
   const { slug } = await params
+  const sp = await (searchParams as unknown as Promise<Record<string, string>>)
+  const shouldRestart = sp?.restart === 'true'
   const supabase = await createClient()
 
   const { data: challenge } = await supabase
@@ -120,6 +123,24 @@ export default async function RetoDetailPage({ params }: PageProps) {
       }
     } else {
       isPremium = true  // already paid = already has access
+    }
+
+    // Server-side restart: ?restart=true resets the enrollment directly, bypassing client AJAX
+    if (shouldRestart && enrollment?.paid && enrollment.completed) {
+      const admin = createAdmin(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+        { auth: { autoRefreshToken: false, persistSession: false } }
+      )
+      const { error: restartErr } = await admin
+        .from('user_challenges')
+        .update({ current_day: 1, completed: false, completed_at: null, fm_index_end: null })
+        .eq('id', (enrollment as any).id)
+      if (!restartErr) {
+        enrollment = { ...enrollment, current_day: 1, completed: false, completed_at: null, fm_index_end: null } as typeof enrollment
+      } else {
+        console.error('[page restart] error:', restartErr)
+      }
     }
 
     if (enrollment?.paid && !enrollment.completed) {
