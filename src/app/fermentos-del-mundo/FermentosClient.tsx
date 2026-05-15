@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 
 const MOOD_COLORS: Record<string, string> = {
   activacion: "#FFB000",
@@ -148,7 +149,7 @@ export default function FermentosClient({
           }}
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
-          {initialFerments.map((ferment) => {
+          {initialFerments.map((ferment, index) => {
             const color = MOOD_COLORS[ferment.mood] || "#6B2737";
             return (
               <motion.div
@@ -163,11 +164,13 @@ export default function FermentosClient({
                 {/* Foto */}
                 {ferment.image_url ? (
                   <div className="relative w-full h-36 overflow-hidden">
-                    <img
+                    <Image
                       src={ferment.image_url}
                       alt={ferment.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      priority={index < 4}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-white/30 to-transparent" />
                     <span

@@ -40,7 +40,16 @@ export default async function FermentosDelMundoPage() {
     .eq('is_active', true)
     .order('sort_order', { ascending: true });
 
+  // Extract Supabase storage hostname for preconnect
+  const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
+    ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
+    : null
+
   return (
+    <>
+      {supabaseHost && (
+        <link rel="preconnect" href={`https://${supabaseHost}`} crossOrigin="anonymous" />
+      )}
     <main className="min-h-screen bg-cream">
       {/* HERO SECTION */}
       <section className="pt-32 pb-16 px-6 relative bg-cream">
@@ -59,7 +68,8 @@ export default async function FermentosDelMundoPage() {
 
       {/* INTERACTIVE MAP & GRID (Client Component) */}
       <FermentosClient initialFerments={ferments || []} isPremium={isPremium} />
-      
+
     </main>
+    </>
   );
 }
