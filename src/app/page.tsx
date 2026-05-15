@@ -11,33 +11,37 @@ import { RetosAnimation } from "@/components/retos/RetosAnimation"
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
 const RETOS = [
-  { Icon: Zap,         category: "Energía",      color: "#E8703A", duration: "7 días",    title: "Recupera tu energía",         price: 19, slug: "recupera-tu-energia"    },
-  { Icon: Flame,       category: "Inflamación",  color: "#5A9B8A", duration: "7 días",    title: "Reset antiinflamatorio",      price: 19, slug: "reset-antiinflamatorio" },
-  { Icon: Sprout,      category: "Longevidad",   color: "#2D6B55", duration: "10 días",   title: "Activa tu longevidad",        price: 19, slug: "activa-tu-longevidad"   },
-  { Icon: Sparkles,    category: "Hábitos",      color: "#C9A84C", duration: "21 días",   title: "Microhábitos",                price: 29, slug: "microhabitos"           },
-  { Icon: Wind,        category: "Ansiedad",     color: "#4A7B6B", duration: "21 días",   title: "Slow Food·Mood",              price: 29, slug: "slow-food-mood"         },
-  { Icon: Brain,       category: "Salud mental", color: "#4A7AB5", duration: "21 días",   title: "Food·Mood Reset",             price: 29, slug: "food-mood-reset"        },
-  { Icon: Flower2,     category: "Hormonas",     color: "#C04878", duration: "28 días",   title: "Equilibrio hormonal 45+",     price: 29, slug: "equilibrio-hormonal-45" },
-  { Icon: Moon,        category: "Sueño",        color: "#4A7AB5", duration: "4 semanas", title: "Mejora tu sueño",             price: 29, slug: "mejora-tu-sueno"        },
+  { Icon: Zap,         category: "Energía",          color: "#E8703A", duration: "7 días",    title: "Energía estable sin cafeína",          price: 19, slug: "recupera-tu-energia"    },
+  { Icon: Flame,       category: "Postbióticos",     color: "#5A9B8A", duration: "7 días",    title: "Reset antiinflamatorio con postbióticos", price: 19, slug: "reset-antiinflamatorio" },
+  { Icon: Sprout,      category: "Longevidad",       color: "#2D6B55", duration: "10 días",   title: "Activa tu longevidad · Urolitinas",        price: 19, slug: "activa-tu-longevidad"   },
+  { Icon: Sparkles,    category: "Micro-prácticas",  color: "#C9A84C", duration: "21 días",   title: "Micro-prácticas diarias · 21 días",        price: 29, slug: "microhabitos"           },
+  { Icon: Wind,        category: "Nervous system",   color: "#4A7B6B", duration: "21 días",   title: "Slow Food·Mood: sistema nervioso",         price: 29, slug: "slow-food-mood"         },
+  { Icon: Brain,       category: "Mental fitness",   color: "#4A7AB5", duration: "21 días",   title: "Mental Fitness Reset",                     price: 29, slug: "food-mood-reset"        },
+  { Icon: Flower2,     category: "Hormonas",         color: "#C04878", duration: "28 días",   title: "Equilibrio hormonal y estrobioma",          price: 29, slug: "equilibrio-hormonal-45" },
+  { Icon: Moon,        category: "Ritmo circadiano", color: "#4A7AB5", duration: "4 semanas", title: "Sueño circadiano · Reloj biológico",       price: 29, slug: "mejora-tu-sueno"        },
 ]
 
 // ─── FAQ data ────────────────────────────────────────────────────────────────
 const FAQS = [
   {
-    q: "¿Necesito saber cocinar?",
+    q: "¿Qué es la neurogastronomía personalizada?",
+    a: "Es la aplicación práctica de la ciencia del eje intestino-cerebro a tu biología concreta: qué postbióticos, fermentos y patrones de crononutrición activan tu sistema nervioso autónomo de forma óptima según tu estado emocional real. Food·Mood traduce esa ciencia en recetas funcionales diarias, sin suplementos ni protocolos rígidos.",
+  },
+  {
+    q: "¿Cómo funciona la IA personalizada de Food·Mood?",
+    a: "La IA analiza tu mezcla emocional, síntomas del día, niveles de energía y calidad de sueño para calcular tu índice intestino-cerebro y seleccionar la receta con mayor impacto para ese momento. Aprende de tus registros: detecta qué alimentos te suben o bajan el índice y adapta las recomendaciones en tiempo real.",
+  },
+  {
+    q: "¿Necesito conocimientos de cocina?",
     a: "No. Las recetas son de 20-30 minutos, 5-7 ingredientes, y se adaptan a tu nivel de energía del día. Si puedes hervir agua, puedes hacer cualquier receta de Food·Mood.",
   },
   {
-    q: "¿Y si tengo intolerancias o sigo una dieta vegana?",
-    a: "Cada receta tiene alternativas sin gluten, sin lácteos y veganas claramente marcadas. El test inicial lo tiene en cuenta para personalizarte mejor.",
+    q: "¿Es compatible con dieta vegana, vegetariana o sin gluten?",
+    a: "Sí. Cada receta tiene alternativas sin gluten, sin lácteos y veganas claramente marcadas. El test inicial y el check-in diario lo tienen en cuenta para personalizarte mejor.",
   },
   {
-    q: "¿Qué incluye exactamente un reto?",
-    a: "Recetas diarias diseñadas para tu objetivo, audios de contexto científico, tracking de tu índice Food·Mood, y un informe final con tus correlaciones personales.",
-  },
-  {
-    q: "¿Cuánto cuesta y hay suscripción oculta?",
-    a: "Los retos son pago único: 19€ (7 días) o 29€ (4 semanas). Acceso de por vida al contenido, sin renovación automática. El plan premium mensual/trimestral sí es suscripción — cancelas cuando quieras desde tu perfil.",
+    q: "¿Puedo cancelar cuando quiera?",
+    a: "Los retos son pago único — 19€ (7 días) o 29€ (4 semanas) — sin renovación automática. El plan premium mensual/trimestral sí es suscripción y puedes cancelarlo en cualquier momento desde tu perfil, sin penalización.",
   },
   {
     q: "¿Cuándo empiezo a notar cambios?",
@@ -622,7 +626,7 @@ export default function Home() {
               Cómo funciona
             </p>
             <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight max-w-xl">
-              Un sistema que escucha{" "}
+              IA personalizada que escucha{" "}
               <em className="font-light italic" style={{ color: "#C9A84C" }}>antes de recomendar.</em>
             </h2>
           </div>
@@ -749,8 +753,8 @@ export default function Home() {
                 Tu índice Food·Mood
               </motion.p>
               <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
-                Un número que te dice<br />
-                <span className="italic font-light">cómo estás de verdad.</span>
+                Tu índice intestino-cerebro<br />
+                <span className="italic font-light">en tiempo real.</span>
               </motion.h2>
               <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
                 Cada día calculas tu índice (0-100) a partir de tus registros de comida, síntomas y estado emocional.

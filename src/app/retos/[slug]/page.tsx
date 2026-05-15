@@ -62,19 +62,33 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) return { title: 'Reto — Food·Mood' }
 
-  const title = `${data.title} — Reto ${data.duration_days} días | Food·Mood`
+  const SLUG_TITLES: Record<string, string> = {
+    'slow-food-mood':         'Calmar la ansiedad con cocina lenta — Reto 21 días | Food·Mood',
+    'mejora-tu-sueno':        'Reto Circadiano — Mejora tu sueño en 4 semanas | Food·Mood',
+    'reset-antiinflamatorio': 'Postbióticos antiinflamatorios — Reset intestinal 7 días | Food·Mood',
+    'equilibrio-hormonal-45': 'Alimentación perimenopausia y menopausia — Reto 28 días | Food·Mood',
+    'recupera-tu-energia':    'Recetas para recuperar energía sin cafeína — Reto 7 días | Food·Mood',
+    'food-mood-reset':        'Mental Fitness Reset — 21 días para resetear la mente | Food·Mood',
+    'microhabitos':           'Microhábitos de nutrición — 21 días sin rutinas | Food·Mood',
+    'activa-tu-longevidad':   'Activa tu longevidad — Urolitinas y polifenoles | Food·Mood',
+  }
+
+  const title = SLUG_TITLES[slug] ?? `${data.title} — Reto ${data.duration_days} días | Food·Mood`
   const rawDesc = data.subtitle ?? ''
   const description = rawDesc.toLowerCase().includes('reto')
     ? rawDesc
-    : `Reto de ${data.duration_days} días · ${data.price_eur}€ · ${rawDesc || 'Nutrición emocional basada en el eje intestino-cerebro.'}`
+    : `Reto de ${data.duration_days} días · ${data.price_eur}€ · ${rawDesc || 'Neurogastronomía personalizada basada en el eje intestino-cerebro.'}`
   const canonicalUrl = `https://www.food-mood.app/retos/${slug}`
 
   const SLUG_KEYWORDS: Record<string, string[]> = {
-    'reset-antiinflamatorio':  ['reset antiinflamatorio', 'dieta antiinflamatoria', 'NF-kB alimentación', 'cúrcuma omega-3', 'fermentados antiinflamación'],
-    'mejora-tu-sueno':         ['mejorar sueño alimentación', 'serotonina melatonina dieta', 'triptófano alimentos', 'insomnio nutrición', 'magnesio sueño'],
-    'recupera-tu-energia':     ['recuperar energía sin cafeína', 'fatiga crónica alimentación', 'energía mitocondrial', 'hierro transporte energía'],
-    'equilibrio-hormonal-45':  ['equilibrio hormonal perimenopausia', 'alimentación SOP', 'fitoestrógenos dieta', 'estrobioma hormonal', 'tiroides nutrición'],
-    'food-mood-reset':         ['reset intestino cerebro', 'microbioma salud mental', 'psicobióticos', 'serotonina intestinal', 'food mood reset'],
+    'reset-antiinflamatorio':  ['reset antiinflamatorio postbióticos', 'dieta antiinflamatoria', 'NF-kB alimentación', 'cúrcuma omega-3 butirato', 'fermentados antiinflamación', 'urolitinas intestino'],
+    'mejora-tu-sueno':         ['reto circadiano sueño', 'mejorar sueño alimentación', 'crononutrición ritmo circadiano', 'triptófano melatonina alimentos', 'insomnio nutrición', 'magnesio sueño reloj biológico'],
+    'recupera-tu-energia':     ['recuperar energía sin cafeína', 'fatiga crónica alimentación', 'energía mitocondrial CoQ10', 'adaptógenos energía', 'energía estable sin estimulantes'],
+    'equilibrio-hormonal-45':  ['alimentación perimenopausia menopausia', 'estrobioma hormonal', 'fitoestrógenos dieta', 'urolitinas hormonas', 'alimentación SOP', 'neurofemtech nutrición'],
+    'food-mood-reset':         ['mental fitness reset', 'microbioma salud mental', 'psicobióticos ansiedad', 'serotonina intestinal', 'regulación sistema nervioso dieta'],
+    'slow-food-mood':          ['cocina lenta ansiedad', 'nervio vago alimentación', 'regulación sistema nervioso cocina', 'slow food bienestar mental', 'fermentados ansiedad'],
+    'microhabitos':            ['microhábitos nutrición', 'hábitos alimentarios sostenibles', 'micro-prácticas diarias', 'hábitos saludables sin esfuerzo'],
+    'activa-tu-longevidad':    ['urolitinas longevidad', 'polifenoles envejecimiento', 'longevidad alimentación', 'activar longevidad dieta', 'nutraceuticos longevidad'],
   }
   const slugKeywords = SLUG_KEYWORDS[slug] ?? []
 

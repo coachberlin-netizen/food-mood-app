@@ -285,7 +285,7 @@ export default function HomeHero() {
 
             {/* Sub */}
             <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"380px" }}>
-              Mapea tus emociones, síntomas y energía. Recetas funcionales que actúan sobre el eje intestino-cerebro — con precisión, sin esfuerzo, con placer.
+              Neurogastronomía personalizada por IA: postbióticos, fermentos y crononutrición adaptados a tu estado emocional real. Sin esfuerzo. Solo placer.
             </p>
 
             {/* CTAs */}
