@@ -86,6 +86,10 @@ function getMixedSliders(emotions: string[]) {
   }
 }
 
+// ── Brand accent colours ─────────────────────────────────────────────
+const BURGUNDY = '#6B2737'
+const NARANJA  = '#E8621C'
+
 // ── Shared card style ────────────────────────────────────────────────
 
 const cardBase = 'w-full rounded-2xl p-4 text-left transition-all border-2 cursor-pointer'
@@ -299,14 +303,33 @@ function StepNota({
 
 // ── Result screen ────────────────────────────────────────────────────
 
-function FadeCard({ delay = 0, children }: { delay?: number; children: React.ReactNode }) {
+function FadeCard({
+  delay = 0,
+  accent = BURGUNDY,
+  label,
+  children,
+}: {
+  delay?: number
+  accent?: string
+  label?: string
+  children: React.ReactNode
+}) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.35, ease: 'easeOut' }}
-      className="bg-white/5 rounded-2xl p-5 border border-white/8"
+      transition={{ delay, duration: 0.4, ease: 'easeOut' }}
+      className="rounded-3xl p-8 md:p-10 border"
+      style={{
+        borderColor: accent + '35',
+        background: `linear-gradient(150deg, ${accent}16 0%, ${accent}07 100%)`,
+      }}
     >
+      {label && (
+        <p className="text-[11px] font-black tracking-[0.26em] uppercase mb-5" style={{ color: accent }}>
+          {label}
+        </p>
+      )}
       {children}
     </motion.div>
   )
@@ -417,7 +440,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
   if (!moodA) return null
 
   return (
-    <div className="min-h-screen bg-[#1A0A0E] px-5 pb-12 max-w-md mx-auto">
+    <div className="min-h-screen bg-[#1A0A0E] px-5 md:px-8 pb-16 max-w-2xl mx-auto">
       {/* Celebratory header */}
       <motion.div
         initial={{ opacity: 0, scale: 0.92 }}
@@ -480,60 +503,55 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         )}
       </motion.div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {/* Claude premium reading */}
         {isPremium && (loadingClaude || claudeReading) && (
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.35 }}
-            className="rounded-2xl p-5 border"
-            style={{ borderColor: accentColor + '30', background: accentColor + '08' }}
+            transition={{ delay: 0.45, duration: 0.4 }}
+            className="rounded-3xl p-8 md:p-10 border"
+            style={{ borderColor: accentColor + '35', background: `linear-gradient(150deg, ${accentColor}18 0%, ${accentColor}08 100%)` }}
           >
-            <div className="flex items-center gap-2 mb-3">
-              <Sparkles className="w-3 h-3" style={{ color: accentColor }} />
-              <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: accentColor }}>
+            <div className="flex items-center gap-2 mb-5">
+              <Sparkles className="w-4 h-4" style={{ color: accentColor }} />
+              <p className="text-[11px] font-black tracking-[0.26em] uppercase" style={{ color: accentColor }}>
                 Lectura personalizada
               </p>
             </div>
             {loadingClaude && !claudeReading ? (
-              <div className="space-y-2 animate-pulse">
-                <div className="h-3 rounded bg-white/8 w-full" />
-                <div className="h-3 rounded bg-white/8 w-5/6" />
-                <div className="h-3 rounded bg-white/8 w-4/6" />
+              <div className="space-y-3 animate-pulse">
+                <div className="h-4 rounded bg-white/8 w-full" />
+                <div className="h-4 rounded bg-white/8 w-5/6" />
+                <div className="h-4 rounded bg-white/8 w-4/6" />
               </div>
             ) : (
-              <p className="text-[#F5F0E8]/90 text-sm leading-relaxed">{claudeReading}</p>
+              <p className="text-[#F5F0E8]/90 text-base md:text-lg leading-relaxed font-light">{claudeReading}</p>
             )}
           </motion.div>
         )}
 
         {/* Rule-based oracle reading */}
-        <FadeCard delay={isPremium ? 0.55 : 0.45}>
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que estamos observando</p>
-          <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{score.reading}</p>
+        <FadeCard delay={isPremium ? 0.55 : 0.45} accent={BURGUNDY} label="Lo que estamos observando">
+          <p className="text-[#F5F0E8]/85 text-base md:text-lg leading-relaxed font-light">{score.reading}</p>
         </FadeCard>
 
         {/* Pattern insight — only when a cross-signal pattern is detected */}
         {score.insight && (
-          <FadeCard delay={0.55}>
-            <div className="flex items-start gap-3">
-              <div className="w-1 self-stretch rounded-full shrink-0" style={{ background: accentColor + '80' }} />
-              <div>
-                <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-2">Patrón detectado</p>
-                <p className="text-[#F5F0E8]/85 text-sm leading-relaxed">{score.insight}</p>
-              </div>
+          <FadeCard delay={0.55} accent={NARANJA} label="Patrón detectado">
+            <div className="flex items-start gap-4">
+              <div className="w-1.5 self-stretch rounded-full shrink-0 mt-1" style={{ background: NARANJA + '70' }} />
+              <p className="text-[#F5F0E8]/85 text-base md:text-lg leading-relaxed font-light">{score.insight}</p>
             </div>
           </FadeCard>
         )}
 
         {/* Nutrition focus */}
-        <FadeCard delay={0.65}>
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Lo que podría ayudarte hoy</p>
-          <ul className="space-y-2">
+        <FadeCard delay={0.65} accent={NARANJA} label="Lo que podría ayudarte hoy">
+          <ul className="space-y-4">
             {score.nutritionPriority.map((f, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-[#F5F0E8]/75">
-                <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+              <li key={i} className="flex items-start gap-3 text-base md:text-lg text-[#F5F0E8]/80 leading-snug">
+                <span className="shrink-0 mt-1 font-bold" style={{ color: NARANJA }}>—</span>
                 {f}
               </li>
             ))}
@@ -541,24 +559,22 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
         </FadeCard>
 
         {/* Ritual */}
-        <FadeCard delay={0.75}>
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-2">Tu siguiente pequeño paso</p>
-          <p className="text-[#F5F0E8]/75 text-sm">{score.ritual}</p>
+        <FadeCard delay={0.75} accent={BURGUNDY} label="Tu siguiente pequeño paso">
+          <p className="text-[#F5F0E8]/80 text-base md:text-lg leading-relaxed font-light">{score.ritual}</p>
         </FadeCard>
 
         {/* Recipe */}
         {recipe && (
-          <FadeCard delay={0.85}>
-            <p className="text-[#C9A84C] text-[10px] font-medium tracking-widest uppercase mb-3">Tu recomendación Food·Mood</p>
-            <p className="text-[#F5F0E8] font-medium text-sm mb-1">{recipe.nombre_es}</p>
-            <p className="text-[#F5F0E8]/40 text-xs mb-4">{recipe.tiempo_preparacion_min} min · {recipe.tipo_plato}</p>
+          <FadeCard delay={0.85} accent={NARANJA} label="Tu recomendación Food·Mood">
+            <p className="text-[#F5F0E8] font-serif text-xl md:text-2xl mb-2 leading-snug">{recipe.nombre_es}</p>
+            <p className="text-[#F5F0E8]/40 text-sm mb-6">{recipe.tiempo_preparacion_min} min · {recipe.tipo_plato}</p>
             {isPremium ? (
-              <Link href={`/recetas/${recipe.id}`} className="inline-flex items-center gap-2 text-xs font-semibold text-[#C9A84C] hover:text-[#C9A84C]/80 transition-colors">
-                Ver receta completa <ArrowRight className="w-3 h-3" />
+              <Link href={`/recetas/${recipe.id}`} className="inline-flex items-center gap-2 text-sm font-semibold transition-colors" style={{ color: NARANJA }}>
+                Ver receta completa <ArrowRight className="w-4 h-4" />
               </Link>
             ) : (
-              <Link href="/pricing" className="inline-flex items-center gap-2 text-xs font-semibold text-[#F5F0E8]/50 hover:text-[#F5F0E8] transition-colors">
-                Hazte Premium para ver la receta <ArrowRight className="w-3 h-3" />
+              <Link href="/pricing" className="inline-flex items-center gap-2 text-sm font-semibold text-[#F5F0E8]/50 hover:text-[#F5F0E8] transition-colors">
+                Hazte Premium para ver la receta <ArrowRight className="w-4 h-4" />
               </Link>
             )}
           </FadeCard>
