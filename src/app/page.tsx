@@ -629,6 +629,9 @@ export default function Home() {
               IA personalizada que escucha{" "}
               <em className="font-light italic" style={{ color: "#C9A84C" }}>antes de recomendar.</em>
             </h2>
+            <p className="mt-5 text-sm md:text-base font-light leading-relaxed max-w-2xl" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Detrás de cada recomendación hay un equipo humano: psicólogas, expertas en microbiota, neurogastronomía y tecnología de alimentos entrenan y revisan la IA. Cada plato pasa por filtro científico antes de llegar a ti.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
