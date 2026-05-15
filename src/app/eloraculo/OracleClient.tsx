@@ -278,6 +278,9 @@ function StepNota({
         rows={4}
         className="w-full rounded-2xl bg-white/5 border border-white/10 p-4 text-[#F5F0E8] text-sm placeholder:text-[#F5F0E8]/25 focus:outline-none focus:border-[#C9A84C]/50 resize-none"
       />
+      <p className="text-[#F5F0E8]/25 text-[10px] mt-1 px-1">
+        Tus notas se guardan cifradas en el servidor y solo tú puedes verlas.
+      </p>
       <div>
         <p className="text-[#F5F0E8]/40 text-xs uppercase tracking-widest mb-3">Fase del ciclo (opcional)</p>
         <div className="grid grid-cols-2 gap-2">
@@ -387,41 +390,51 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
     }
     setSaving(true)
     try {
-      await supabase.from('oracle_checkins').insert({
-        user_id:           user.id,
-        primary_emotion:   data.emotions[0] ?? null,
-        secondary_emotion: data.emotions[1] ?? null,
-        energy_level:      data.energyLevel,
-        sleep_quality:     data.sleepQuality,
-        primary_symptom:   data.primarySymptom,
-        craving_state:     data.cravingState,
-        cycle_phase:       data.cyclePhase,
-        notes:             data.notes || null,
-        oracle_reading:    claudeReading ?? score.reading,
-        recipe_mood_id:    score.recipeQuery.moodId,
-        suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual } satisfies OracleSuggestedAction,
-        emotional_mix: {
-          emotions:      data.emotions,
-          weights:       Object.fromEntries(data.emotions.map((e, i) => [e, i === 0 ? 1.0 : 0.4])),
-          mixed_color:   accentColor,
-          dominant_need: score.dominantNeed,
-        } satisfies EmotionalMix,
-        engine_output: score,
-      })
-
+      // Build palette payload (derived data — less sensitive)
+      let palettePayload: Record<string, unknown> | null = null
       if (data.emotions[0]) {
         const sliders = getMixedSliders(data.emotions)
         const palette = calculatePalette(sliders)
-        await supabase.from('emotional_palettes').insert({
-          user_id:           user.id,
+        palettePayload = {
           ...sliders,
           mood_dominante:    palette.moodDominante,
           mood_secundario:   palette.moodSecundario,
           color_resultado:   palette.colorMezclado,
           recetas_sugeridas: recipe ? [recipe.id] : [],
-        })
+        }
       }
 
+      // Send through server route — encrypts cycle_phase + notes (GDPR Art.9)
+      const res = await fetch('/api/oracle/save', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          checkin: {
+            primary_emotion:   data.emotions[0] ?? null,
+            secondary_emotion: data.emotions[1] ?? null,
+            energy_level:      data.energyLevel,
+            sleep_quality:     data.sleepQuality,
+            primary_symptom:   data.primarySymptom,
+            craving_state:     data.cravingState,
+            // 'skip' means user declined — store null
+            cycle_phase:       data.cyclePhase === 'skip' ? null : data.cyclePhase,
+            notes:             data.notes || null,
+            oracle_reading:    claudeReading ?? score.reading,
+            recipe_mood_id:    score.recipeQuery.moodId,
+            suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual } satisfies OracleSuggestedAction,
+            emotional_mix: {
+              emotions:      data.emotions,
+              weights:       Object.fromEntries(data.emotions.map((e, i) => [e, i === 0 ? 1.0 : 0.4])),
+              mixed_color:   accentColor,
+              dominant_need: score.dominantNeed,
+            } satisfies EmotionalMix,
+            engine_output: score,
+          },
+          palette: palettePayload,
+        }),
+      })
+
+      if (!res.ok) throw new Error('Save failed')
       setSaved(true)
     } finally {
       setSaving(false)

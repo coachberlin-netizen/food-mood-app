@@ -160,7 +160,7 @@ export const useQuizStore = create<QuizState>()(
         });
 
         if (isDone && finalMoodVal) {
-          trackEvent({ name: "quiz_completed", properties: { resultMood: finalMoodVal } });
+          trackEvent({ name: "quiz_completed" });
           (async () => {
             const supabase = createClient();
             const { data: { session } } = await supabase.auth.getSession();

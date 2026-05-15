@@ -77,7 +77,7 @@ export function AppDemo() {
   function handleMoodClick(i: number) {
     setSelected(i);
     setPaletteIdx(i);
-    try { trackEvent({ name: "demo_step", properties: { step: 1, mood: MOODS[i].label } }); } catch {}
+    try { trackEvent({ name: "demo_step", properties: { step: 1 } }); } catch {}
   }
 
   function goToPalette() {

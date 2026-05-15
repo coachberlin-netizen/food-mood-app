@@ -30,6 +30,8 @@ export async function GET(_req: NextRequest) {
     { data: moodHistory },
     { data: recipeHistory },
     { data: consent },
+    { data: oracleCheckins },
+    { data: symptomLog },
   ] = await Promise.all([
     admin.from("profiles").select("*").eq("id", userId).maybeSingle(),
     admin.from("user_profiles").select("*").eq("id", userId).maybeSingle(),
@@ -40,6 +42,8 @@ export async function GET(_req: NextRequest) {
     admin.from("mood_history").select("*").eq("user_id", userId).order("created_at", { ascending: false }),
     admin.from("user_recipe_history").select("*").eq("user_id", userId).order("created_at", { ascending: false }),
     admin.from("user_consent").select("*").eq("user_id", userId).maybeSingle(),
+    admin.from("oracle_checkins").select("created_at,primary_emotion,secondary_emotion,energy_level,sleep_quality,primary_symptom,craving_state,oracle_reading").eq("user_id", userId).order("created_at", { ascending: false }),
+    admin.from("symptom_log").select("log_date,bloating_level,sleep_level,brain_fog_level,energy_level,anxiety_level,headache_level,digestion_level,mood_level").eq("user_id", userId).order("log_date", { ascending: false }),
   ])
 
   const exportPayload = {
@@ -55,10 +59,12 @@ export async function GET(_req: NextRequest) {
     subscriptions: subscriptions ?? [],
     consent,
     emotional_data: {
-      test_results: testResults ?? [],
+      test_results:       testResults       ?? [],
       emotional_palettes: emotionalPalettes ?? [],
-      diary_entries: diaryEntries ?? [],
-      mood_history: moodHistory ?? [],
+      diary_entries:      diaryEntries      ?? [],
+      mood_history:       moodHistory       ?? [],
+      oracle_checkins:    oracleCheckins    ?? [],  // check-ins del Oráculo (notas y ciclo cifrados en BD)
+      symptom_log:        symptomLog        ?? [],
     },
     activity: {
       recipe_history: recipeHistory ?? [],

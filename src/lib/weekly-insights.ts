@@ -52,11 +52,11 @@ export async function generateWeeklyDigest(
   const prevWeekStart = addDays(weekStart, -7)
   const prevWeekEnd   = addDays(weekEnd,   -7)
 
-  // Parallel fetch: this week + prev week fm_index + correlations
+  // Parallel fetch: this week + prev week fm_index
+  // Correlaciones eliminadas del digest — contienen patrones de salud personal (GDPR Art.9)
   const [
     { data: thisWeekRaw },
     { data: prevWeekRaw },
-    { data: corrRaw },
   ] = await Promise.all([
     supabase
       .from("fm_index_log")
@@ -70,20 +70,13 @@ export async function generateWeeklyDigest(
       .eq("user_id", userId)
       .gte("log_date", prevWeekStart)
       .lte("log_date", prevWeekEnd),
-    supabase
-      .from("correlations_cache")
-      .select("insight_text, confidence, sample_size")
-      .eq("user_id", userId)
-      .order("sample_size", { ascending: false })
-      .limit(3),
   ])
 
   const thisWeek = (thisWeekRaw ?? []) as { log_date: string; index_value: number }[]
   const prevWeek = (prevWeekRaw ?? []) as { log_date: string; index_value: number }[]
-  const corr     = (corrRaw     ?? []) as { insight_text: string; confidence: string; sample_size: number }[]
 
   // Need at least 1 data point to generate
-  if (thisWeek.length === 0 && corr.length === 0) return null
+  if (thisWeek.length === 0) return null
 
   // Metrics
   const thisValues = thisWeek.map(r => r.index_value).filter(v => v != null)
@@ -119,9 +112,9 @@ export async function generateWeeklyDigest(
     fm_index_change,
     best_day:          best?.log_date ?? null,
     best_day_index:    best ? Math.round(best.index_value) : null,
-    top_correlation_1: corr[0]?.insight_text ?? null,
-    top_correlation_2: corr[1]?.insight_text ?? null,
-    top_correlation_3: corr[2]?.insight_text ?? null,
+    top_correlation_1: null,  // removed — health behavior correlations not sent by email (GDPR Art.9)
+    top_correlation_2: null,
+    top_correlation_3: null,
     record_broken,
     record_type:       record_broken ? "indice" : null,
   }

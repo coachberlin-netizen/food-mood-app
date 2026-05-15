@@ -26,17 +26,25 @@ export async function POST(req: NextRequest) {
     headache_level:  levels.headache  ?? 0,
     digestion_level: levels.digestion ?? 0,
     mood_level:      levels.mood      ?? 0,
-    notes:           notes || null,
     updated_at:      new Date().toISOString(),
   }
 
   if (user) {
     row.user_id = user.id
+    // Encrypt cycle level (most sensitive — menstrual health)
     if ((levels.cycle ?? 0) > 0) {
       try {
         row.cycle_encrypted = encryptSensitive(String(levels.cycle), user.id)
       } catch {
         // ENCRYPTION_SECRET missing in dev — skip silently
+      }
+    }
+    // Encrypt free-text notes (can contain personal health descriptions)
+    if (notes) {
+      try {
+        row.notes = encryptSensitive(notes, user.id)
+      } catch {
+        row.notes = notes  // fallback in dev
       }
     }
     const { error } = await supabase
@@ -47,6 +55,7 @@ export async function POST(req: NextRequest) {
   } else {
     row.user_id    = null
     row.session_id = session_id
+    row.notes      = notes || null   // anonymous: stored as-is (no user key to derive from)
     const { error } = await supabase.from("symptom_log").insert(row)
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   }

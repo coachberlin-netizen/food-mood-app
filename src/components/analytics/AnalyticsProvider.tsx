@@ -15,17 +15,17 @@ const CLARITY_ID   = process.env.NEXT_PUBLIC_CLARITY_ID   ?? ""
 // ── Event catalogue ─────────────────────────────────────────────────────────
 export type AnalyticsEvent =
   | { name: "quiz_started" }
-  | { name: "quiz_completed";    properties: { resultMood: string } }
+  | { name: "quiz_completed" }                                                    // no mood data — GDPR Art.9
   | { name: "quiz_step";         properties: { step: number } }
-  | { name: "recipe_viewed";     properties: { recipeId: string; recipeName?: string } }
-  | { name: "mood_tracked";      properties: { moodId: string } }
+  | { name: "recipe_viewed";     properties: { recipeId: string } }               // no recipe name — less inferrable
+  | { name: "mood_tracked" }                                                      // no moodId — GDPR Art.9
   | { name: "checkout_started";  properties: { plan: "monthly" | "quarterly" } }
   | { name: "checkout_success" }
   | { name: "register_started" }
   | { name: "login_success" }
   | { name: "reto_viewed";       properties: { slug: string } }
   | { name: "newsletter_signup"; properties: { source: string } }
-  | { name: "demo_step";         properties: { step: number; mood?: string } }
+  | { name: "demo_step";         properties: { step: number } }                   // no mood — GDPR Art.9
   | { name: "servicios_cta";     properties: { service: "sesion" | "protocolo" } }
 
 // ── Single tracking call — fires only when consent is given ──────────────────
