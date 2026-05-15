@@ -182,6 +182,16 @@ export default async function EquilibrioHormonalPage() {
           </Link>
         </div>
 
+        {/* Hero image */}
+        <div className="w-full overflow-hidden" style={{ maxHeight: '340px' }}>
+          <img
+            src="/retos/equilibrio-hormonal-45.jpg"
+            alt="Equilibrio hormonal y estrobioma — Food·Mood"
+            className="w-full object-cover object-center"
+            style={{ maxHeight: '340px' }}
+          />
+        </div>
+
         <div className="max-w-[480px] mx-auto px-5 pb-16">
 
           {/* Hero */}
