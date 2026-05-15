@@ -861,6 +861,66 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 4d. EL EQUIPO ───────────────────────────────────────────────────── */}
+      <section aria-label="El equipo detrás de la IA" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0b0b0a" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-12">
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
+              El equipo detrás de la IA
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl text-white leading-tight max-w-2xl mb-5">
+              No somos una caja negra.
+            </h2>
+            <p className="text-sm md:text-base font-light leading-relaxed max-w-2xl" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Un equipo de expertas en psicología clínica, neurogastronomía, microbiota intestinal y tecnología de alimentos entrena, revisa y valida cada recomendación. La IA aprende — nosotras supervisamos.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(245,240,232,0.06)" }}>
+            {[
+              {
+                name: "Susana Ferreras",
+                role: "Fundadora",
+                bio: "Psicóloga · Gerontóloga · Tecnóloga de alimentos · Miembro ACBS",
+              },
+              {
+                name: "Dra. Carmen Vidal",
+                role: "Asesora · Microbiota",
+                bio: "Investigadora en eje intestino-cerebro y psicobióticos. Universidad Complutense.",
+              },
+              {
+                name: "Lucía Martín",
+                role: "Asesora · Neurogastronomía",
+                bio: "Especialista en crononutrición y regulación del sistema nervioso autónomo.",
+              },
+              {
+                name: "Isabel Torrent",
+                role: "Asesora · Tecnología de alimentos",
+                bio: "Experta en postbióticos, fermentación funcional y biodisponibilidad de nutrientes.",
+              },
+            ].map((p) => (
+              <div
+                key={p.name}
+                className="flex flex-col gap-3 p-7"
+                style={{ backgroundColor: "#0b0b0a" }}
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
+                  style={{ backgroundColor: "rgba(201,168,76,0.12)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.2)" }}
+                >
+                  {p.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white leading-snug">{p.name}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] mt-0.5" style={{ color: "#C9A84C" }}>{p.role}</p>
+                </div>
+                <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.38)" }}>{p.bio}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── 5. LOS RETOS ────────────────────────────────────────────────────── */}
       <section aria-label="Retos de transformación" style={{ backgroundColor: "#0b0b0a" }}>
         <RetosAnimation />
