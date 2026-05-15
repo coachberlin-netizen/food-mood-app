@@ -7,118 +7,118 @@ export const dynamic = 'force-dynamic'
 const CANONICAL = 'https://www.food-mood.app/retos/microhabitos'
 
 export const metadata: Metadata = {
-  title: 'MicrohÃ¡bitos â€" 21 dÃ­as para crear hÃ¡bitos sin fuerza de voluntad | FoodÂ·Mood',
-  description: 'Crea hÃ¡bitos que duran con Tiny Habits, ancla hedÃ³nica y bebidas fermentadas. 21 dÃ­as de psicologÃ­a del comportamiento. Sin disciplina. Desde 29â‚¬.',
+  title: 'Microhábitos — 21 días para crear hábitos sin fuerza de voluntad | Food·Mood',
+  description: 'Crea hábitos que duran con Tiny Habits, ancla hedónica y bebidas fermentadas. 21 días de psicología del comportamiento. Sin disciplina. Desde 29€.',
   alternates: {
     canonical: CANONICAL,
     languages: { 'es': CANONICAL },
   },
   openGraph: {
-    title: 'MicrohÃ¡bitos â€" 21 dÃ­as para crear hÃ¡bitos sin fuerza de voluntad',
-    description: 'Tiny Habits, ancla hedÃ³nica y bebidas fermentadas como motor de cambio real. 21 dÃ­as. Sin disciplina. Desde 29â‚¬.',
+    title: 'Microhábitos — 21 días para crear hábitos sin fuerza de voluntad',
+    description: 'Tiny Habits, ancla hedónica y bebidas fermentadas como motor de cambio real. 21 días. Sin disciplina. Desde 29€.',
     url: CANONICAL,
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'MicrohÃ¡bitos FoodÂ·Mood â€" 21 dÃ­as para crear hÃ¡bitos sin fuerza de voluntad' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Microhábitos Food·Mood — 21 días para crear hábitos sin fuerza de voluntad' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MicrohÃ¡bitos â€" 21 dÃ­as para crear hÃ¡bitos sin fuerza de voluntad',
-    description: 'Tiny Habits + ancla hedÃ³nica + bebidas funcionales fermentadas. PsicologÃ­a real del comportamiento. 21 dÃ­as, 29â‚¬.',
+    title: 'Microhábitos — 21 días para crear hábitos sin fuerza de voluntad',
+    description: 'Tiny Habits + ancla hedónica + bebidas funcionales fermentadas. Psicología real del comportamiento. 21 días, 29€.',
     images: ['/og-image.png'],
   },
 }
 
-// â"€â"€ Contenido estÃ¡tico â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// â"€â"€ Contenido estático â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 const FASES = [
   {
     num: '01',
     nombre: 'PREPARAR',
-    dias: 'DÃ­as 1â€"7',
-    concepto: 'Tiny Habits Â· DiseÃ±o de entorno Â· Ancla hedÃ³nica Â· Identidad Â· Dopamina Â· AutocompasiÃ³n',
-    descripcion: 'Construyes el andamio. Cada hÃ¡bito es tan pequeÃ±o que la resistencia desaparece. Cada bebida crea una asociaciÃ³n placerâ€"acciÃ³n en tu circuito de dopamina.',
-    hito: 'DÃ­a 7 â€" Elixir de celebraciÃ³n: kÃ©fir con vainilla, dÃ¡til y cacao',
+    dias: 'Días 1—7',
+    concepto: 'Tiny Habits · Diseño de entorno · Ancla hedónica · Identidad · Dopamina · Autocompasión',
+    descripcion: 'Construyes el andamio. Cada hábito es tan pequeño que la resistencia desaparece. Cada bebida crea una asociación placer—acción en tu circuito de dopamina.',
+    hito: 'Día 7 — Elixir de celebración: kéfir con vainilla, dátil y cacao',
     color: '#C9A84C',
   },
   {
     num: '02',
     nombre: 'REFORZAR',
-    dias: 'DÃ­as 8â€"14',
-    concepto: 'Protocolo de obstÃ¡culos Â· Never miss twice Â· SeÃ±ales mÃºltiples Â· Flexibilidad cognitiva Â· Refuerzo inmediato',
-    descripcion: 'El entusiasmo baja â€" y eso es exactamente el entrenamiento. Aprendes a mantener el hÃ¡bito cuando no es conveniente. Eso es lo que lo vuelve permanente.',
-    hito: 'DÃ­a 14 â€" Gran elixir: kombucha de hibisco, fresas y albahaca',
+    dias: 'Días 8—14',
+    concepto: 'Protocolo de obstáculos · Never miss twice · Señales múltiples · Flexibilidad cognitiva · Refuerzo inmediato',
+    descripcion: 'El entusiasmo baja — y eso es exactamente el entrenamiento. Aprendes a mantener el hábito cuando no es conveniente. Eso es lo que lo vuelve permanente.',
+    hito: 'Día 14 — Gran elixir: kombucha de hibisco, fresas y albahaca',
     color: '#8B6914',
   },
   {
     num: '03',
     nombre: 'INTEGRAR',
-    dias: 'DÃ­as 15â€"21',
-    concepto: 'Automaticidad Â· Yo futuro Â· Identidad consolidada Â· Resiliencia Â· Ancla sensorial Â· Plan post-reto',
-    descripcion: 'El hÃ¡bito empieza a ocurrir solo. Lo trasladamos del cÃ³rtex prefrontal a los ganglios basales â€" de decisiÃ³n consciente a comportamiento automÃ¡tico.',
-    hito: 'DÃ­a 21 â€" El Gran Reset: kÃ©fir con vainilla bean, miel cruda y pÃ©talos de rosa',
+    dias: 'Días 15—21',
+    concepto: 'Automaticidad · Yo futuro · Identidad consolidada · Resiliencia · Ancla sensorial · Plan post-reto',
+    descripcion: 'El hábito empieza a ocurrir solo. Lo trasladamos del córtex prefrontal a los ganglios basales — de decisión consciente a comportamiento automático.',
+    hito: 'Día 21 — El Gran Reset: kéfir con vainilla bean, miel cruda y pétalos de rosa',
     color: '#6B2737',
   },
 ]
 
 const BEBIDAS = [
-  { dia: 1,  nombre: 'Limonada de limÃ³n fermentado, jengibre y cÃºrcuma',       fase: 'preparar' },
-  { dia: 2,  nombre: 'KÃ©fir cremoso con arÃ¡ndanos silvestres y lavanda',        fase: 'preparar' },
+  { dia: 1,  nombre: 'Limonada de limón fermentado, jengibre y cúrcuma',       fase: 'preparar' },
+  { dia: 2,  nombre: 'Kéfir cremoso con arándanos silvestres y lavanda',        fase: 'preparar' },
   { dia: 3,  nombre: 'Kombucha de menta fresca y lima',                          fase: 'preparar' },
-  { dia: 4,  nombre: 'Agua de kÃ©fir con frambuesas y agua de rosas',             fase: 'preparar' },
-  { dia: 5,  nombre: 'Smoothie tropical de mango, kÃ©fir y cardamomo',            fase: 'preparar' },
+  { dia: 4,  nombre: 'Agua de kéfir con frambuesas y agua de rosas',             fase: 'preparar' },
+  { dia: 5,  nombre: 'Smoothie tropical de mango, kéfir y cardamomo',            fase: 'preparar' },
   { dia: 6,  nombre: 'Limonada de hibisco fermentada con miel de flores',        fase: 'preparar' },
-  { dia: 7,  nombre: 'âœ¨ Elixir de celebraciÃ³n â€" kÃ©fir, vainilla, dÃ¡til, cacao', fase: 'preparar' },
-  { dia: 8,  nombre: 'Shot de adaptÃ³genos: ashwagandha, maca y cacao',           fase: 'reforzar' },
-  { dia: 9,  nombre: 'Agua de kÃ©fir con membrillo y canela',                     fase: 'reforzar' },
-  { dia: 10, nombre: 'TÃ© de hongos reishi con leche de avena fermentada',        fase: 'reforzar' },
-  { dia: 11, nombre: 'KÃ©fir de cabra con pera madura y nuez tostada',            fase: 'reforzar' },
+  { dia: 7,  nombre: 'âœ¨ Elixir de celebración — kéfir, vainilla, dátil, cacao', fase: 'preparar' },
+  { dia: 8,  nombre: 'Shot de adaptógenos: ashwagandha, maca y cacao',           fase: 'reforzar' },
+  { dia: 9,  nombre: 'Agua de kéfir con membrillo y canela',                     fase: 'reforzar' },
+  { dia: 10, nombre: 'Té de hongos reishi con leche de avena fermentada',        fase: 'reforzar' },
+  { dia: 11, nombre: 'Kéfir de cabra con pera madura y nuez tostada',            fase: 'reforzar' },
   { dia: 12, nombre: 'Jugo verde fermentado: pepino, apio, manzana, kombucha',   fase: 'reforzar' },
-  { dia: 13, nombre: 'Lassi tropical de mango, kÃ©fir y cÃºrcuma dorada',          fase: 'reforzar' },
+  { dia: 13, nombre: 'Lassi tropical de mango, kéfir y cúrcuma dorada',          fase: 'reforzar' },
   { dia: 14, nombre: 'âœ¨ Gran elixir: kombucha de hibisco, fresas y albahaca',    fase: 'reforzar' },
-  { dia: 15, nombre: 'TÃ³nica de kÃ©fir con limÃ³n Meyer y miel de manuka',         fase: 'integrar' },
-  { dia: 16, nombre: 'Batido cremoso de plÃ¡tano, kÃ©fir y tahini',                fase: 'integrar' },
+  { dia: 15, nombre: 'Tónica de kéfir con limón Meyer y miel de manuka',         fase: 'integrar' },
+  { dia: 16, nombre: 'Batido cremoso de plátano, kéfir y tahini',                fase: 'integrar' },
   { dia: 17, nombre: 'Kombucha de cereza y cacao oscuro',                         fase: 'integrar' },
-  { dia: 18, nombre: 'Agua de kÃ©fir con naranja sanguina y cardamomo',            fase: 'integrar' },
-  { dia: 19, nombre: 'Smoothie bowl de kÃ©fir con frutos rojos y cacao',           fase: 'integrar' },
-  { dia: 20, nombre: 'Elixir nocturno: kÃ©fir, ashwagandha, miel y pimienta',     fase: 'integrar' },
-  { dia: 21, nombre: 'âœ¨ El Gran Reset â€" kÃ©fir, vainilla bean y pÃ©talos de rosa', fase: 'integrar' },
+  { dia: 18, nombre: 'Agua de kéfir con naranja sanguina y cardamomo',            fase: 'integrar' },
+  { dia: 19, nombre: 'Smoothie bowl de kéfir con frutos rojos y cacao',           fase: 'integrar' },
+  { dia: 20, nombre: 'Elixir nocturno: kéfir, ashwagandha, miel y pimienta',     fase: 'integrar' },
+  { dia: 21, nombre: 'âœ¨ El Gran Reset — kéfir, vainilla bean y pétalos de rosa', fase: 'integrar' },
 ]
 
 const MECANISMOS = [
-  { icono: 'ðŸ§ ', titulo: 'Tiny Habits', texto: 'HÃ¡bitos tan pequeÃ±os que la resistencia desaparece. BJ Fogg, Stanford.' },
-  { icono: 'ðŸ¡', titulo: 'DiseÃ±o de entorno', texto: 'El entorno decide el 80% de tu comportamiento. Sin esfuerzo consciente.' },
-  { icono: 'ðŸ‹', titulo: 'Ancla hedÃ³nica', texto: 'Cada bebida crea una asociaciÃ³n placerâ€"hÃ¡bito en tu circuito dopaminÃ©rgico.' },
-  { icono: 'ðŸªž', titulo: 'Identidad', texto: 'Los hÃ¡bitos que duran vienen de quiÃ©n eres, no de lo que quieres lograr.' },
-  { icono: 'âš¡', titulo: 'AnticipaciÃ³n', texto: 'La dopamina se libera anticipando el placer. Usas el deseo a tu favor.' },
-  { icono: 'ðŸ’›', titulo: 'AutocompasiÃ³n', texto: 'La autocrÃ­tica apaga la motivaciÃ³n. La autocompasiÃ³n la enciende. Kristin Neff.' },
-  { icono: 'ðŸ›¡ï¸', titulo: 'Protocolo de obstÃ¡culos', texto: 'WOOP + implementation intentions. Los obstÃ¡culos planificados no bloquean.' },
-  { icono: 'ðŸ"', titulo: 'Automaticidad', texto: 'El hÃ¡bito pasa del cÃ³rtex prefrontal a los ganglios basales. Ya no requiere decisiÃ³n.' },
+  { icono: 'ðŸ§ ', titulo: 'Tiny Habits', texto: 'Hábitos tan pequeños que la resistencia desaparece. BJ Fogg, Stanford.' },
+  { icono: 'ðŸ¡', titulo: 'Diseño de entorno', texto: 'El entorno decide el 80% de tu comportamiento. Sin esfuerzo consciente.' },
+  { icono: 'ðŸ‹', titulo: 'Ancla hedónica', texto: 'Cada bebida crea una asociación placer—hábito en tu circuito dopaminérgico.' },
+  { icono: 'ðŸªž', titulo: 'Identidad', texto: 'Los hábitos que duran vienen de quién eres, no de lo que quieres lograr.' },
+  { icono: 'âš¡', titulo: 'Anticipación', texto: 'La dopamina se libera anticipando el placer. Usas el deseo a tu favor.' },
+  { icono: 'ðŸ’›', titulo: 'Autocompasión', texto: 'La autocrítica apaga la motivación. La autocompasión la enciende. Kristin Neff.' },
+  { icono: 'ðŸ›¡ï¸', titulo: 'Protocolo de obstáculos', texto: 'WOOP + implementation intentions. Los obstáculos planificados no bloquean.' },
+  { icono: 'ðŸ"', titulo: 'Automaticidad', texto: 'El hábito pasa del córtex prefrontal a los ganglios basales. Ya no requiere decisión.' },
 ]
 
 const FAQ = [
   {
-    q: 'Â¿Necesito experiencia previa con fermentados o kÃ©fir?',
-    a: 'No. Las bebidas son sencillas â€" la mÃ¡s compleja tarda 5 minutos. Muchos ingredientes ya estÃ¡n en tu nevera. Si no encuentras kÃ©fir, damos alternativas para cada receta.',
+    q: '¿Necesito experiencia previa con fermentados o kéfir?',
+    a: 'No. Las bebidas son sencillas — la más compleja tarda 5 minutos. Muchos ingredientes ya están en tu nevera. Si no encuentras kéfir, damos alternativas para cada receta.',
   },
   {
-    q: 'Â¿CuÃ¡nto tiempo necesito cada dÃ­a?',
-    a: 'El micro-hÃ¡bito principal son 30 segundos a 5 minutos. La bebida, 2-5 minutos de preparaciÃ³n. El diario, 3-5 minutos. En total: menos de 10 minutos diarios.',
+    q: '¿Cuánto tiempo necesito cada día?',
+    a: 'El micro-hábito principal son 30 segundos a 5 minutos. La bebida, 2-5 minutos de preparación. El diario, 3-5 minutos. En total: menos de 10 minutos diarios.',
   },
   {
-    q: 'Â¿QuÃ© pasa si me salto un dÃ­a?',
-    a: 'Nada. El reto incluye especÃ­ficamente el mÃ³dulo "never miss twice" â€" y una versiÃ³n mÃ­nima de cada dÃ­a para cuando la vida se complica. El hÃ¡bito imperfecto que ocurre gana al perfecto que no pasa.',
+    q: '¿Qué pasa si me salto un día?',
+    a: 'Nada. El reto incluye específicamente el módulo "never miss twice" — y una versión mínima de cada día para cuando la vida se complica. El hábito imperfecto que ocurre gana al perfecto que no pasa.',
   },
   {
-    q: 'Â¿En quÃ© se diferencia del FoodÂ·Mood Reset o del Slow FoodÂ·Mood?',
-    a: 'FoodÂ·Mood Reset trabaja el eje intestino-cerebro desde la nutriciÃ³n. Slow FoodÂ·Mood trabaja la ansiedad desde la cocina lenta. MicrohÃ¡bitos trabaja los hÃ¡bitos â€" cÃ³mo crearlos, fijarlos y hacerlos automÃ¡ticos. Son complementarios.',
+    q: '¿En qué se diferencia del Food·Mood Reset o del Slow Food·Mood?',
+    a: 'Food·Mood Reset trabaja el eje intestino-cerebro desde la nutrición. Slow Food·Mood trabaja la ansiedad desde la cocina lenta. Microhábitos trabaja los hábitos — cómo crearlos, fijarlos y hacerlos automáticos. Son complementarios.',
   },
   {
-    q: 'Â¿Funciona si ya he intentado cambiar hÃ¡bitos antes sin Ã©xito?',
-    a: 'Especialmente para ti. Este reto parte de la premisa de que los intentos anteriores fallaron por diseÃ±o, no por falta de voluntad. El placer como mecanismo â€" no como recompensa â€" funciona de forma diferente en el cerebro.',
+    q: '¿Funciona si ya he intentado cambiar hábitos antes sin éxito?',
+    a: 'Especialmente para ti. Este reto parte de la premisa de que los intentos anteriores fallaron por diseño, no por falta de voluntad. El placer como mecanismo — no como recompensa — funciona de forma diferente en el cerebro.',
   },
   {
-    q: 'Â¿Tengo acceso permanente al contenido?',
-    a: 'SÃ­. Una vez comprado, el contenido es tuyo para siempre. Puedes repetir el reto, revisitar dÃ­as, o usarlo como referencia cuando necesites reinstalar un hÃ¡bito.',
+    q: '¿Tengo acceso permanente al contenido?',
+    a: 'Sí. Una vez comprado, el contenido es tuyo para siempre. Puedes repetir el reto, revisitar días, o usarlo como referencia cuando necesites reinstalar un hábito.',
   },
 ]
 
@@ -130,58 +130,58 @@ const FAQ_SCHEMA = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Â¿Necesito experiencia previa con fermentados o kÃ©fir para hacer el reto MicrohÃ¡bitos?',
+      name: '¿Necesito experiencia previa con fermentados o kéfir para hacer el reto Microhábitos?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. Las bebidas son sencillas â€" la mÃ¡s compleja tarda 5 minutos. Muchos ingredientes ya estÃ¡n en tu nevera. Si no encuentras kÃ©fir, damos alternativas para cada receta.',
+        text: 'No. Las bebidas son sencillas — la más compleja tarda 5 minutos. Muchos ingredientes ya están en tu nevera. Si no encuentras kéfir, damos alternativas para cada receta.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Â¿CuÃ¡nto tiempo necesito cada dÃ­a para el reto de microhÃ¡bitos?',
+      name: '¿Cuánto tiempo necesito cada día para el reto de microhábitos?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Menos de 10 minutos diarios. El micro-hÃ¡bito principal son 30 segundos a 5 minutos. La bebida, 2-5 minutos de preparaciÃ³n. El diario, 3-5 minutos.',
+        text: 'Menos de 10 minutos diarios. El micro-hábito principal son 30 segundos a 5 minutos. La bebida, 2-5 minutos de preparación. El diario, 3-5 minutos.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Â¿QuÃ© pasa si me salto un dÃ­a del reto?',
+      name: '¿Qué pasa si me salto un día del reto?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Nada. El reto incluye especÃ­ficamente el mÃ³dulo "never miss twice" y una versiÃ³n mÃ­nima de cada dÃ­a para cuando la vida se complica. El hÃ¡bito imperfecto que ocurre gana al perfecto que no pasa.',
+        text: 'Nada. El reto incluye específicamente el módulo "never miss twice" y una versión mínima de cada día para cuando la vida se complica. El hábito imperfecto que ocurre gana al perfecto que no pasa.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Â¿En quÃ© se diferencia MicrohÃ¡bitos del FoodÂ·Mood Reset o del Slow FoodÂ·Mood?',
+      name: '¿En qué se diferencia Microhábitos del Food·Mood Reset o del Slow Food·Mood?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'FoodÂ·Mood Reset trabaja el eje intestino-cerebro desde la nutriciÃ³n. Slow FoodÂ·Mood trabaja la ansiedad desde la cocina lenta. MicrohÃ¡bitos trabaja los hÃ¡bitos â€" cÃ³mo crearlos, fijarlos y hacerlos automÃ¡ticos usando el placer como mecanismo.',
+        text: 'Food·Mood Reset trabaja el eje intestino-cerebro desde la nutrición. Slow Food·Mood trabaja la ansiedad desde la cocina lenta. Microhábitos trabaja los hábitos — cómo crearlos, fijarlos y hacerlos automáticos usando el placer como mecanismo.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Â¿Funciona si ya he intentado cambiar hÃ¡bitos antes y he fracasado?',
+      name: '¿Funciona si ya he intentado cambiar hábitos antes y he fracasado?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Especialmente para ti. Este programa parte de que los intentos anteriores fallaron por diseÃ±o, no por falta de voluntad. El placer como mecanismo â€" no como recompensa â€" activa el circuito dopaminÃ©rgico de forma diferente al enfoque basado en disciplina.',
+        text: 'Especialmente para ti. Este programa parte de que los intentos anteriores fallaron por diseño, no por falta de voluntad. El placer como mecanismo — no como recompensa — activa el circuito dopaminérgico de forma diferente al enfoque basado en disciplina.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Â¿QuÃ© es el ancla hedÃ³nica y por quÃ© funciona para crear hÃ¡bitos?',
+      name: '¿Qué es el ancla hedónica y por qué funciona para crear hábitos?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'El ancla hedÃ³nica es un estÃ­mulo placentero (en este caso una bebida funcional fermentada) que se asocia repetidamente a un micro-hÃ¡bito. Cada vez que el cerebro experimenta placer, libera dopamina y graba la ruta neural que llevÃ³ a ese placer. DespuÃ©s de 21 repeticiones, el hÃ¡bito ocurre de forma automÃ¡tica.',
+        text: 'El ancla hedónica es un estímulo placentero (en este caso una bebida funcional fermentada) que se asocia repetidamente a un micro-hábito. Cada vez que el cerebro experimenta placer, libera dopamina y graba la ruta neural que llevó a ese placer. Después de 21 repeticiones, el hábito ocurre de forma automática.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Â¿Tengo acceso permanente al contenido del reto?',
+      name: '¿Tengo acceso permanente al contenido del reto?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'SÃ­. Una vez comprado, el contenido es tuyo para siempre. Puedes repetir el reto, revisitar dÃ­as, o usarlo como referencia cuando necesites reinstalar un hÃ¡bito. Precio Ãºnico de 29â‚¬.',
+        text: 'Sí. Una vez comprado, el contenido es tuyo para siempre. Puedes repetir el reto, revisitar días, o usarlo como referencia cuando necesites reinstalar un hábito. Precio único de 29€.',
       },
     },
   ],
@@ -190,11 +190,11 @@ const FAQ_SCHEMA = {
 const COURSE_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Course',
-  name: 'MicrohÃ¡bitos â€" 21 dÃ­as para crear hÃ¡bitos con placer',
-  description: 'Programa de 21 dÃ­as basado en psicologÃ­a del comportamiento (Tiny Habits, Environment Design, Hedonic Anchoring) para crear hÃ¡bitos duraderos usando el placer como mecanismo neurolÃ³gico, no como recompensa.',
+  name: 'Microhábitos — 21 días para crear hábitos con placer',
+  description: 'Programa de 21 días basado en psicología del comportamiento (Tiny Habits, Environment Design, Hedonic Anchoring) para crear hábitos duraderos usando el placer como mecanismo neurológico, no como recompensa.',
   url: CANONICAL,
   image: 'https://www.food-mood.app/og-image.png',
-  provider: { '@type': 'Organization', name: 'FoodÂ·Mood', url: 'https://www.food-mood.app' },
+  provider: { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
   educationalLevel: 'Beginner',
   inLanguage: 'es',
   timeRequired: 'P21D',
@@ -209,18 +209,18 @@ const COURSE_SCHEMA = {
   hasCourseInstance: [
     {
       '@type': 'CourseInstance',
-      name: 'Fase 1 â€" Preparar (dÃ­as 1â€"7)',
-      description: 'Tiny Habits, diseÃ±o de entorno, ancla hedÃ³nica, identidad basada en hÃ¡bitos, anticipaciÃ³n de dopamina y autocompasiÃ³n como motor de persistencia.',
+      name: 'Fase 1 — Preparar (días 1—7)',
+      description: 'Tiny Habits, diseño de entorno, ancla hedónica, identidad basada en hábitos, anticipación de dopamina y autocompasión como motor de persistencia.',
     },
     {
       '@type': 'CourseInstance',
-      name: 'Fase 2 â€" Reforzar (dÃ­as 8â€"14)',
-      description: 'Protocolo de obstÃ¡culos (WOOP), regla del "never miss twice", seÃ±ales mÃºltiples, flexibilidad cognitiva y refuerzo inmediato en ventana de 90 segundos.',
+      name: 'Fase 2 — Reforzar (días 8—14)',
+      description: 'Protocolo de obstáculos (WOOP), regla del "never miss twice", señales múltiples, flexibilidad cognitiva y refuerzo inmediato en ventana de 90 segundos.',
     },
     {
       '@type': 'CourseInstance',
-      name: 'Fase 3 â€" Integrar (dÃ­as 15â€"21)',
-      description: 'Automaticidad, conexiÃ³n con el yo futuro, consolidaciÃ³n de identidad, resiliencia ante el estrÃ©s, ancla sensorial y plan de continuidad post-reto.',
+      name: 'Fase 3 — Integrar (días 15—21)',
+      description: 'Automaticidad, conexión con el yo futuro, consolidación de identidad, resiliencia ante el estrés, ancla sensorial y plan de continuidad post-reto.',
     },
   ],
 }
@@ -228,7 +228,7 @@ const COURSE_SCHEMA = {
 const ORG_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'FoodÂ·Mood',
+  name: 'Food·Mood',
   url: 'https://www.food-mood.app',
   contactPoint: { '@type': 'ContactPoint', email: 'info@food-mood.app', contactType: 'customer service' },
 }
@@ -252,13 +252,13 @@ export default async function MicrohabitosPage() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'MicrohÃ¡bitos â€" 21 dÃ­as',
-    description: 'Crea hÃ¡bitos reales usando el placer como motor de cambio. 21 dÃ­as de micro-hÃ¡bitos, psicologÃ­a del comportamiento y bebidas funcionales fermentadas.',
+    name: 'Microhábitos — 21 días',
+    description: 'Crea hábitos reales usando el placer como motor de cambio. 21 días de micro-hábitos, psicología del comportamiento y bebidas funcionales fermentadas.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
-    brand: { '@type': 'Brand', name: 'FoodÂ·Mood' },
+    brand: { '@type': 'Brand', name: 'Food·Mood' },
     offers: [
-      { '@type': 'Offer', name: 'MicrohÃ¡bitos â€" 21 dÃ­as', price: 29, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
+      { '@type': 'Offer', name: 'Microhábitos — 21 días', price: 29, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
     ],
   }
 
@@ -266,9 +266,9 @@ export default async function MicrohabitosPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'FoodÂ·Mood', item: 'https://www.food-mood.app' },
+      { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
       { '@type': 'ListItem', position: 2, name: 'Retos',     item: 'https://www.food-mood.app/retos' },
-      { '@type': 'ListItem', position: 3, name: 'MicrohÃ¡bitos', item: CANONICAL },
+      { '@type': 'ListItem', position: 3, name: 'Microhábitos', item: CANONICAL },
     ],
   }
 
@@ -309,7 +309,7 @@ export default async function MicrohabitosPage() {
               className="text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full"
               style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}
             >
-              21 dÃ­as Â· PsicologÃ­a del comportamiento
+              21 días · Psicología del comportamiento
             </span>
             <span className="text-xl" aria-hidden="true">âœ¨</span>
           </div>
@@ -322,7 +322,7 @@ export default async function MicrohabitosPage() {
 
           <div className="relative z-10 max-w-2xl mx-auto px-6 pb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-5" style={{ color: 'rgba(201,168,76,0.6)' }}>
-              HÃ¡bitos Â· Placer Â· Neurociencia
+              Hábitos · Placer · Neurociencia
             </p>
             <h1
               id="mh-h1"
@@ -334,7 +334,7 @@ export default async function MicrohabitosPage() {
               <span style={{ color: '#C9A84C' }}>Es el mecanismo.</span>
             </h1>
             <p className="text-lg font-light leading-relaxed mb-10" style={{ color: 'rgba(245,240,232,0.6)', maxWidth: '440px' }}>
-              21 dÃ­as para crear un hÃ¡bito real sin fuerza de voluntad. Un micro-hÃ¡bito + una teorÃ­a psicolÃ³gica + una bebida funcional como ancla hedÃ³nica. Cada dÃ­a.
+              21 días para crear un hábito real sin fuerza de voluntad. Un micro-hábito + una teoría psicológica + una bebida funcional como ancla hedónica. Cada día.
             </p>
 
             <MicrohabitosCTA challengeId={challengeId} isAuthenticated={isAuthenticated} />
@@ -342,7 +342,7 @@ export default async function MicrohabitosPage() {
             <div className="flex items-center gap-6 mt-8">
               <div className="text-center">
                 <p className="text-2xl font-black" style={{ color: '#C9A84C' }}>21</p>
-                <p className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(245,240,232,0.35)' }}>dÃ­as</p>
+                <p className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(245,240,232,0.35)' }}>días</p>
               </div>
               <div style={{ width: '1px', height: '36px', backgroundColor: 'rgba(245,240,232,0.1)' }} aria-hidden="true" />
               <div className="text-center">
@@ -351,7 +351,7 @@ export default async function MicrohabitosPage() {
               </div>
               <div style={{ width: '1px', height: '36px', backgroundColor: 'rgba(245,240,232,0.1)' }} aria-hidden="true" />
               <div className="text-center">
-                <p className="text-2xl font-black" style={{ color: '#C9A84C' }}>29â‚¬</p>
+                <p className="text-2xl font-black" style={{ color: '#C9A84C' }}>29€</p>
                 <p className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(245,240,232,0.35)' }}>acceso de por vida</p>
               </div>
             </div>
@@ -363,13 +363,13 @@ export default async function MicrohabitosPage() {
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>El problema real</p>
             <h2 id="mh-problema" className="font-serif text-2xl md:text-3xl font-bold mb-6 leading-tight" style={{ color: '#F5F0E8' }}>
-              La fuerza de voluntad<br />no es la soluciÃ³n.
+              La fuerza de voluntad<br />no es la solución.
             </h2>
             <p className="text-base font-light leading-relaxed mb-4" style={{ color: 'rgba(245,240,232,0.65)' }}>
-              Los estudios de seguimiento muestran que el 92% de los propÃ³sitos fallan. No porque las personas sean dÃ©biles â€" sino porque el mÃ©todo estÃ¡ mal diseÃ±ado. La fuerza de voluntad es un recurso limitado que se agota. Un hÃ¡bito que depende de ella fracasa en cuanto el dÃ­a se complica.
+              Los estudios de seguimiento muestran que el 92% de los propósitos fallan. No porque las personas sean débiles — sino porque el método está mal diseñado. La fuerza de voluntad es un recurso limitado que se agota. Un hábito que depende de ella fracasa en cuanto el día se complica.
             </p>
             <p className="text-base font-light leading-relaxed" style={{ color: 'rgba(245,240,232,0.65)' }}>
-              La neurociencia del comportamiento lleva 30 aÃ±os diciÃ©ndonos lo que sabemos intuitivamente: el placer crea rutas neurales. La repeticiÃ³n placentera construye hÃ¡bitos. La restricciÃ³n y la culpa los destruyen.
+              La neurociencia del comportamiento lleva 30 años diciéndonos lo que sabemos intuitivamente: el placer crea rutas neurales. La repetición placentera construye hábitos. La restricción y la culpa los destruyen.
             </p>
           </div>
         </section>
@@ -378,16 +378,16 @@ export default async function MicrohabitosPage() {
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-mecanismo">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>La diferencia</p>
           <h2 id="mh-mecanismo" className="font-serif text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: '#2d0f16' }}>
-            El ancla hedÃ³nica:<br />por quÃ© funciona.
+            El ancla hedónica:<br />por qué funciona.
           </h2>
           <p className="text-base font-light leading-relaxed mb-6" style={{ color: 'rgba(107,39,55,0.65)' }}>
-            Cada dÃ­a del reto, preparas una bebida funcional fermentada. No como recompensa por haber hecho algo difÃ­cil. Como el hÃ¡bito mismo. Tu circuito dopaminÃ©rgico aprende: <em>esto vale la pena repetir.</em> DespuÃ©s de 21 repeticiones, la ruta neural existe. El hÃ¡bito ya vive en ti.
+            Cada día del reto, preparas una bebida funcional fermentada. No como recompensa por haber hecho algo difícil. Como el hábito mismo. Tu circuito dopaminérgico aprende: <em>esto vale la pena repetir.</em> Después de 21 repeticiones, la ruta neural existe. El hábito ya vive en ti.
           </p>
           <blockquote
             className="border-l-4 pl-5 py-1 italic font-serif text-xl"
             style={{ borderColor: '#C9A84C', color: 'rgba(107,39,55,0.8)' }}
           >
-            &ldquo;Cada vez que experimentas placer, el cerebro libera dopamina y graba la ruta neural que llevÃ³ a ese placer.&rdquo;
+            &ldquo;Cada vez que experimentas placer, el cerebro libera dopamina y graba la ruta neural que llevó a ese placer.&rdquo;
           </blockquote>
         </section>
 
@@ -403,9 +403,9 @@ export default async function MicrohabitosPage() {
 
         {/* â"€â"€ 8 MECANISMOS â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-ciencia">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>PsicologÃ­a real</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>Psicología real</p>
           <h2 id="mh-ciencia" className="font-serif text-2xl md:text-3xl font-bold mb-10 leading-tight" style={{ color: '#2d0f16' }}>
-            8 mecanismos psicolÃ³gicos.<br />21 dÃ­as para instalarlos.
+            8 mecanismos psicológicos.<br />21 días para instalarlos.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {MECANISMOS.map(({ icono, titulo, texto }) => (
@@ -430,7 +430,7 @@ export default async function MicrohabitosPage() {
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-fases">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>El proceso</p>
           <h2 id="mh-fases" className="font-serif text-2xl md:text-3xl font-bold mb-10 leading-tight" style={{ color: '#2d0f16' }}>
-            Tres fases, un hÃ¡bito<br />permanente.
+            Tres fases, un hábito<br />permanente.
           </h2>
           <div className="space-y-6">
             {FASES.map(({ num, nombre, dias, concepto, descripcion, hito, color }) => (
@@ -478,7 +478,7 @@ export default async function MicrohabitosPage() {
               21 bebidas funcionales fermentadas.
             </h2>
             <p className="text-sm font-light mb-8" style={{ color: 'rgba(245,240,232,0.5)' }}>
-              KÃ©fir, kombucha, adaptÃ³genos, probiÃ³ticos. Cada una diseÃ±ada para el mecanismo psicolÃ³gico del dÃ­a.
+              Kéfir, kombucha, adaptógenos, probióticos. Cada una diseñada para el mecanismo psicológico del día.
             </p>
             <ol className="space-y-2.5" role="list">
               {BEBIDAS.map(({ dia, nombre }) => (
@@ -510,19 +510,19 @@ export default async function MicrohabitosPage() {
             </h2>
             <ul className="space-y-4" role="list">
               {[
-                { icon: 'ðŸ§ª', text: '21 bebidas funcionales fermentadas â€" kÃ©fir, kombucha, adaptÃ³genos' },
-                { icon: 'ðŸ§ ', text: '21 micro-hÃ¡bitos con base en psicologÃ­a del comportamiento real' },
-                { icon: 'ðŸŽ§', text: '21 audios guiados de 3-5 minutos â€" uno por dÃ­a' },
-                { icon: 'ðŸ""', text: 'Diario de reflexiÃ³n: 3 preguntas maÃ±ana, tarde y noche' },
-                { icon: 'ðŸ†', text: '3 hitos de celebraciÃ³n en los dÃ­as 7, 14 y 21' },
-                { icon: 'â™¾ï¸', text: 'Acceso de por vida â€" repite el reto cuando lo necesites' },
+                { icon: 'ðŸ§ª', text: '21 bebidas funcionales fermentadas — kéfir, kombucha, adaptógenos' },
+                { icon: 'ðŸ§ ', text: '21 micro-hábitos con base en psicología del comportamiento real' },
+                { icon: 'ðŸŽ§', text: '21 audios guiados de 3-5 minutos — uno por día' },
+                { icon: 'ðŸ""', text: 'Diario de reflexión: 3 preguntas mañana, tarde y noche' },
+                { icon: 'ðŸ†', text: '3 hitos de celebración en los días 7, 14 y 21' },
+                { icon: 'â™¾ï¸', text: 'Acceso de por vida — repite el reto cuando lo necesites' },
               ].map(({ icon, text }) => (
                 <li key={text} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
                   <span
                     className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold text-[#F5F0E8]"
                     style={{ backgroundColor: '#C9A84C' }}
                     aria-hidden="true"
-                  >âœ"</span>
+                  >✓</span>
                   {text}
                 </li>
               ))}
@@ -533,18 +533,18 @@ export default async function MicrohabitosPage() {
         {/* â"€â"€ PARA QUIÃ‰N â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-paraquien">
           <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.2)' }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>Â¿Es para ti?</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>¿Es para ti?</p>
             <h2 id="mh-paraquien" className="font-serif text-xl font-bold mb-6 leading-tight" style={{ color: '#2d0f16' }}>
               Este reto es para ti siâ€¦
             </h2>
             <ul className="space-y-3" role="list">
               {[
-                'Has intentado cambiar hÃ¡bitos antes y los has abandonado',
-                'Sientes que te falta fuerza de voluntad â€" pero en realidad te falta diseÃ±o',
-                'Quieres resultados que duren mÃ¡s de 3 semanas',
+                'Has intentado cambiar hábitos antes y los has abandonado',
+                'Sientes que te falta fuerza de voluntad — pero en realidad te falta diseño',
+                'Quieres resultados que duren más de 3 semanas',
                 'Te gusta la idea de que el placer sea el motor, no la recompensa',
-                'Tienes menos de 10 minutos al dÃ­a para invertir',
-                'Quieres entender la psicologÃ­a detrÃ¡s de tu propio comportamiento',
+                'Tienes menos de 10 minutos al día para invertir',
+                'Quieres entender la psicología detrás de tu propio comportamiento',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm font-light" style={{ color: 'rgba(107,39,55,0.75)' }}>
                   <span style={{ color: '#C9A84C', fontWeight: 700, flexShrink: 0 }}>â†’</span>
@@ -594,12 +594,12 @@ export default async function MicrohabitosPage() {
               className="font-serif font-black leading-tight mb-4"
               style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', color: '#F5F0E8' }}
             >
-              21 dÃ­as para que el hÃ¡bito<br />
+              21 días para que el hábito<br />
               <span style={{ color: '#C9A84C' }}>ocurra solo.</span>
             </h2>
             <p className="text-base font-light mb-8 leading-relaxed" style={{ color: 'rgba(245,240,232,0.55)' }}>
-              Sin fuerza de voluntad. Sin restricciÃ³n. Sin culpa.<br />
-              Solo placer bien diseÃ±ado, repetido 21 veces.
+              Sin fuerza de voluntad. Sin restricción. Sin culpa.<br />
+              Solo placer bien diseñado, repetido 21 veces.
             </p>
             <MicrohabitosCTA challengeId={challengeId} isAuthenticated={isAuthenticated} compact />
           </div>
