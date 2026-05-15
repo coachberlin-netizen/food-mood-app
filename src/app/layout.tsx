@@ -27,14 +27,13 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#1a2332",
+  themeColor: "#6B2737",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
-  title: "Food·Mood — Recetas para tu estado emocional",
-  description: "Recetas funcionales según cómo te sientes. Sin dietas, sin contar calorías. Basado en la ciencia del eje intestino-cerebro.",
-  keywords: "recetas según estado de ánimo, neurociencia nutricional, psicobióticos, microbiota intestinal, alimentación emocional, recetas funcionales, eje intestino cerebro, bienestar emocional, longevidad alimentación",
+  title: "Food·Mood — IA de nutrición emocional | Postbióticos y eje intestino-cerebro",
+  description: "Recetas funcionales con IA personalizada según tu estado emocional. Postbióticos, crononutrición y regulación del sistema nervioso. Empieza gratis.",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
@@ -51,8 +50,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://www.food-mood.app/",
-    title: "Food·Mood — Come según cómo te sientes | Retos de 7 y 30 días",
-    description: "Recetas diseñadas para tu estado emocional. Sin dietas, sin contar calorías. Basado en la ciencia del eje intestino-cerebro.",
+    title: "Food·Mood — Recetas funcionales para tu eje intestino-cerebro",
+    description: "IA que adapta las recetas a tu mezcla emocional real. Postbióticos, crononutrición y nervous system care. Empieza gratis.",
     siteName: "Food·Mood",
     locale: "es_ES",
     images: [
@@ -60,14 +59,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Food·Mood — Neurociencia nutricional para tu estado emocional",
+        alt: "Food·Mood — IA de nutrición emocional y eje intestino-cerebro",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Food·Mood — Come según cómo te sientes",
-    description: "Recetas diseñadas para tu estado emocional. Sin dietas, sin contar calorías. Basado en el eje intestino-cerebro.",
+    title: "Food·Mood — IA de nutrición emocional",
+    description: "Recetas funcionales con IA personalizada. Postbióticos, crononutrición, nervous system care. Empieza gratis.",
     images: ["/og-image.png"],
   },
   icons: {

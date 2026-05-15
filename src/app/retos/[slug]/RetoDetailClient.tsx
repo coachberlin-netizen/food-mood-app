@@ -818,10 +818,13 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             {challenge.title}
           </h1>
           {challenge.subtitle && (
-            <p className="text-lg font-light mb-6" style={{ color: 'rgba(107,39,55,0.65)' }}>
+            <p className="text-lg font-light mb-4" style={{ color: 'rgba(107,39,55,0.65)' }}>
               {challenge.subtitle}
             </p>
           )}
+          <p className="text-xs font-medium mb-6" style={{ color: 'rgba(107,39,55,0.45)' }}>
+            IA entrenada en neurociencia nutricional · adapta tu seguimiento a tu mezcla emocional real
+          </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <span
               className="text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white"
@@ -873,6 +876,19 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               )
             })}
           </ul>
+        </section>
+
+        {/* ── Más allá de los probióticos ── */}
+        <section className="bg-white rounded-2xl p-8 shadow-sm border border-aubergine-dark/5">
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: color }}>
+            Más allá de los probióticos
+          </p>
+          <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.7)' }}>
+            Trabajamos con <strong style={{ color: '#2d0f16' }}>postbióticos</strong> — los compuestos que tus bacterias producen y que regulan tu humor, tu inflamación y tu energía. Butirato, urolitinas, ácidos grasos de cadena corta. Cada receta está diseñada para maximizarlos.
+          </p>
+          <p className="text-[11px] font-light mt-3 italic" style={{ color: 'rgba(107,39,55,0.45)' }}>
+            La micro-práctica diaria de 20 minutos que reordena tu eje intestino-cerebro.
+          </p>
         </section>
 
         {/* ── Cómo funciona ── */}

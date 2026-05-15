@@ -7,15 +7,15 @@ import { RetosAnimation } from '@/components/retos/RetosAnimation'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Retos de transformación — 7 y 30 días | Food·Mood',
-  description: 'Retos de nutrición emocional de 7 y 30 días. Energía, sueño, antiinflamación y salud mental. Recetas funcionales, audios y seguimiento diario. Desde 19€.',
+  title: 'Retos de nutrición emocional · Postbióticos, sueño y hormonas | Food·Mood',
+  description: '8 retos guiados con IA personalizada: postbióticos, regulación del sistema nervioso, ritmo circadiano y equilibrio hormonal. Desde 19€, pago único.',
   alternates: { canonical: 'https://www.food-mood.app/retos' },
   openGraph: {
-    title: 'Retos de transformación Food·Mood',
-    description: 'Un objetivo. Un tiempo. Un camino con datos reales. Retos de nutrición emocional desde 19€.',
+    title: 'Retos de nutrición emocional — postbióticos, crononutrición y nervous system care',
+    description: '8 retos guiados con IA personalizada. Postbióticos, ritmo circadiano y regulación del sistema nervioso. Desde 19€, pago único.',
     url: 'https://www.food-mood.app/retos',
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Retos Food·Mood' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Retos de nutrición emocional Food·Mood' }],
   },
 }
 
@@ -56,15 +56,27 @@ interface Enrollment {
 }
 
 const STATIC_CHALLENGES: Challenge[] = [
-  { id: 's1', slug: 'recupera-tu-energia',    title: 'Recupera tu energía',          subtitle: 'Reactiva tu metabolismo con datos reales. Sin déficits, sin fatiga.',                                                         description: null, category: 'Energía',      duration_days: 7,  price_eur: 19, color: '#B85A1F', emoji: '⚡', recipe_count: 7,  audio_count: 3  },
-  { id: 's2', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio',       subtitle: 'Calma silenciosa. Recupera ligereza desde el primer plato.',                                                                 description: null, category: 'Inflamación',  duration_days: 7,  price_eur: 19, color: '#3F5A37', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
-  { id: 's3', slug: 'activa-tu-longevidad',    title: 'Activa tu longevidad',         subtitle: 'Hábitos respaldados por evidencia para sumar años con vida.',                                                                description: null, category: 'Longevidad',   duration_days: 10, price_eur: 19, color: '#7A3A20', emoji: '🌱', recipe_count: 10, audio_count: 4  },
-  { id: 's4', slug: 'microhabitos',            title: 'Microhábitos',                 subtitle: 'Pequeños gestos diarios. Cambios que sí se sostienen.',                                                                     description: null, category: 'Hábitos',      duration_days: 21, price_eur: 29, color: '#243A5C', emoji: '✨', recipe_count: 21, audio_count: 5  },
-  { id: 's5', slug: 'slow-food-mood',          title: 'Slow Food·Mood',               subtitle: 'Comer despacio, pensar despacio. Volver a tu eje.',                                                                          description: null, category: 'Ansiedad',     duration_days: 21, price_eur: 29, color: '#5A4570', emoji: '🍵', recipe_count: 21, audio_count: 7  },
-  { id: 's6', slug: 'food-mood-reset',         title: 'Food·Mood Reset',              subtitle: 'Reescribe tu relación con la comida. 21 días, una nueva base.',                                                             description: null, category: 'Salud mental', duration_days: 21, price_eur: 29, color: '#B14F31', emoji: '🧠', recipe_count: 21, audio_count: 21 },
-  { id: 's7', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal 45+',      subtitle: 'Diseñado para tu nueva etapa. Energía, sueño y claridad mental.',                                                          description: null, category: 'Hormonas',     duration_days: 28, price_eur: 29, color: '#8C3F5C', emoji: '🌸', recipe_count: 28, audio_count: 8  },
-  { id: 's8', slug: 'mejora-tu-sueno',         title: 'Mejora tu sueño',              subtitle: 'Una rutina nocturna apoyada en cronobiología y nutrición.',                                                                 description: null, category: 'Sueño',        duration_days: 28, price_eur: 29, color: '#D6B26C', emoji: '🌙', recipe_count: 28, audio_count: 4  },
+  { id: 's1', slug: 'recupera-tu-energia',    title: 'Recupera tu energía',          subtitle: 'Reactiva tu metabolismo con datos reales. Sin déficits, sin fatiga.',                                                                          description: null, category: 'Energía',          duration_days: 7,  price_eur: 19, color: '#B85A1F', emoji: '⚡', recipe_count: 7,  audio_count: 3  },
+  { id: 's2', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio',       subtitle: 'Postbióticos en acción: urolitinas, butirato, cúrcuma. Reset del eje intestino-cerebro en 7 días.',                                           description: null, category: 'Postbióticos',     duration_days: 7,  price_eur: 19, color: '#3F5A37', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
+  { id: 's3', slug: 'activa-tu-longevidad',    title: 'Activa tu longevidad',         subtitle: 'Hábitos respaldados por evidencia para sumar años con vida.',                                                                                   description: null, category: 'Longevidad',        duration_days: 10, price_eur: 19, color: '#7A3A20', emoji: '🌱', recipe_count: 10, audio_count: 4  },
+  { id: 's4', slug: 'microhabitos',            title: 'Microhábitos',                 subtitle: 'Micro-prácticas diarias de 20 minutos. Sin rutinas rígidas. Sin fuerza de voluntad.',                                                          description: null, category: 'Micro-prácticas',  duration_days: 21, price_eur: 29, color: '#243A5C', emoji: '✨', recipe_count: 21, audio_count: 5  },
+  { id: 's5', slug: 'slow-food-mood',          title: 'Slow Food·Mood',               subtitle: 'La cocina lenta como práctica de regulación del sistema nervioso. Nervio vago, microbiota y calma en 21 días.',                                 description: null, category: 'Nervous system',   duration_days: 21, price_eur: 29, color: '#5A4570', emoji: '🍵', recipe_count: 21, audio_count: 7  },
+  { id: 's6', slug: 'food-mood-reset',         title: 'Food·Mood Reset',              subtitle: 'Mental fitness desde el plato. 21 días de gimnasio mental — lo que Calm hace con la respiración, Food·Mood lo hace con tu microbiota.',         description: null, category: 'Mental fitness',   duration_days: 21, price_eur: 29, color: '#B14F31', emoji: '🧠', recipe_count: 21, audio_count: 21 },
+  { id: 's7', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal 45+',      subtitle: 'Estrobioma y postbióticos: alimentación perimenopausia y menopausia. Fitoestrógenos, urolitinas y microbiota hormonal.',                        description: null, category: 'Postbióticos',     duration_days: 28, price_eur: 29, color: '#8C3F5C', emoji: '🌸', recipe_count: 28, audio_count: 8  },
+  { id: 's8', slug: 'mejora-tu-sueno',         title: 'Reto Circadiano — Mejora tu sueño', subtitle: 'Sincroniza tu ritmo circadiano: crononutrición, luz y sueño en 4 semanas. Qué comer y a qué hora para tu reloj biológico.',               description: null, category: 'Ritmo circadiano', duration_days: 28, price_eur: 29, color: '#D6B26C', emoji: '🌙', recipe_count: 28, audio_count: 4  },
 ]
+
+// Badges editoriales por reto — hardcoded, no vienen de DB
+const BADGES: Record<string, { text: string; color: string }> = {
+  'slow-food-mood':         { text: 'NERVOUS SYSTEM CARE', color: '#5A4570' },
+  'food-mood-reset':        { text: 'MÁS VENDIDO',         color: '#B14F31' },
+  'recupera-tu-energia':    { text: 'RECOMENDADO PARA EMPEZAR', color: '#B85A1F' },
+  'microhabitos':           { text: 'MICRO-PRÁCTICAS',     color: '#243A5C' },
+  'reset-antiinflamatorio': { text: 'POSTBIÓTICOS',        color: '#3F5A37' },
+  'equilibrio-hormonal-45': { text: 'POSTBIÓTICOS',        color: '#8C3F5C' },
+  'mejora-tu-sueno':        { text: 'CIRCADIAN WELLNESS',  color: '#D6B26C' },
+  'activa-tu-longevidad':   { text: 'NUEVO',               color: '#7A3A20' },
+}
 
 const SAMPLE_RECIPES: Record<string, string[]> = {
   'recupera-tu-energia':    ['Bol de quinoa con edamame y sésamo', 'Smoothie de remolacha y jengibre', 'Sopa miso con algas wakame'],
@@ -87,6 +99,7 @@ function durationLabel(days: number) {
 function ChallengeCard({ challenge, enrollment }: { challenge: Challenge; enrollment: Enrollment | undefined }) {
   const pal = PALETTE[challenge.slug] ?? { bg: '#F1E7D4', ink: '#231F17', inkSoft: '#231F1799', accent: '#B85A1F', numeral: '—' }
   const pct = enrollment ? Math.min(100, ((enrollment.current_day - 1) / challenge.duration_days) * 100) : 0
+  const badge = BADGES[challenge.slug]
 
   return (
     <article
@@ -126,6 +139,16 @@ function ChallengeCard({ challenge, enrollment }: { challenge: Challenge; enroll
       </span>
 
       <div className="relative flex flex-col gap-5 p-7 flex-1">
+        {/* Badge editorial */}
+        {badge && (
+          <span
+            className="self-start text-[9px] font-black uppercase tracking-[0.28em] px-2.5 py-1 rounded-full"
+            style={{ backgroundColor: badge.color + '22', color: badge.color, border: `1px solid ${badge.color}44` }}
+          >
+            {badge.text}
+          </span>
+        )}
+
         {/* Tag row */}
         <div className="flex items-center justify-between gap-3">
           <span
@@ -289,11 +312,30 @@ export default async function RetosPage() {
             <em style={{ color: '#C9A84C' }}>Un punto de partida.</em>
           </h1>
           <p
-            className="text-base font-light max-w-lg"
+            className="text-base font-light max-w-lg mb-10"
             style={{ color: 'rgba(242,234,211,0.45)', fontFamily: '"Inter Tight", sans-serif' }}
           >
             8 caminos guiados. Datos reales. Pago único desde 19€ — sin renovación automática.
           </p>
+
+          {/* ── Bloque IA personalizada ── */}
+          <div
+            className="rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+            style={{ backgroundColor: 'rgba(201,168,76,0.07)', border: '1px solid rgba(201,168,76,0.18)' }}
+          >
+            <span
+              className="shrink-0 text-[10px] font-black uppercase tracking-[0.28em] px-2.5 py-1 rounded-full"
+              style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}
+            >
+              IA personalizada
+            </span>
+            <p
+              className="text-sm font-light leading-relaxed"
+              style={{ color: 'rgba(242,234,211,0.65)', fontFamily: '"Inter Tight", sans-serif' }}
+            >
+              Todos los retos incluyen tu índice Food·Mood: IA entrenada en neurociencia nutricional que adapta el seguimiento a tu mezcla emocional real, día a día.
+            </p>
+          </div>
         </div>
 
         {/* ── Cards grid ── */}
