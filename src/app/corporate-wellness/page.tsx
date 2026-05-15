@@ -6,20 +6,6 @@ export const metadata: Metadata = {
   title: 'Programa de Bienestar Corporativo | Food·Mood for Work — Nutrición para equipos',
   description:
     'Programa de bienestar laboral de 7 días basado en neurociencia nutricional. Snacks funcionales, tracking de bienestar e informe para RRHH. Mejora el foco, la energía y el rendimiento de tu equipo desde el eje intestino-cerebro. Piloto desde 490€.',
-  keywords: [
-    'programa bienestar corporativo empresas',
-    'corporate wellness España',
-    'nutrición laboral equipos',
-    'bienestar empleados productividad',
-    'programa salud laboral RRHH',
-    'snacks funcionales oficina foco',
-    'mejorar rendimiento cognitivo trabajo',
-    'reducir fatiga mental empleados',
-    'eje intestino cerebro rendimiento laboral',
-    'programa wellness piloto empresa',
-    'bienestar laboral pyme',
-    'nutrición funcional trabajo',
-  ],
   openGraph: {
     title: 'Food·Mood for Work — Programa de bienestar corporativo basado en neurociencia',
     description: 'Alimenta el foco de tu equipo. 7 días de snacks funcionales, micro-hábitos y tracking de bienestar. Informe agregado para RRHH. Piloto desde 490€.',

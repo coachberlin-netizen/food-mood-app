@@ -521,7 +521,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           {enrollment.fm_index_start != null && enrollment.fm_index_end != null && (
             <div className="bg-white rounded-2xl border border-[#e8ddd5] p-5">
               <p className="text-[11px] font-medium uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>
-                Tu índice Food·Mood
+                Tus logros Food·Mood
               </p>
               <div className="flex items-center gap-3">
                 <div>
@@ -976,7 +976,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                 style={{ backgroundColor: 'white', border: `1px solid rgba(${rgb},0.15)` }}
               >
                 <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: color }}>
-                  Tu índice Food·Mood
+                  Tus logros Food·Mood
                 </p>
                 <div className="flex items-center gap-3">
                   <span className="font-serif text-2xl font-black" style={{ color: 'rgba(107,39,55,0.35)' }}>

@@ -95,15 +95,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
-    keywords: [
-      data.title,
-      `reto ${data.duration_days} días`,
-      'reto nutricional',
-      'nutrición emocional',
-      'eje intestino-cerebro',
-      'Food Mood',
-      ...slugKeywords,
-    ].filter(Boolean).join(', '),
     alternates: { canonical: canonicalUrl },
     openGraph: {
       title,

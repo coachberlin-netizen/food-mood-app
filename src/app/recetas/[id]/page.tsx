@@ -89,13 +89,6 @@ export async function generateMetadata(
   return {
     title,
     description: desc,
-    keywords: [
-      `receta ${receta.mood_es}`,
-      `receta ${receta.tipo_plato}`,
-      `receta ${receta.temporada}`,
-      `alimentos para ${receta.mood_es}`,
-      ...(receta.tags ?? []),
-    ],
     alternates: { canonical: `/recetas/${receta.id}` },
     openGraph: {
       title,

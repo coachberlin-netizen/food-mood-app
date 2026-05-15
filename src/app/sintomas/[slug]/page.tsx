@@ -32,19 +32,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonicalUrl = `https://www.food-mood.app/sintomas/${slug}`
   const title = `${info.titulo} y alimentación — Recetas funcionales | Food·Mood`
   const description = `${info.subtitulo}. ${info.explicacion_cientifica.slice(0, 130)}… Recetas específicas basadas en la ciencia del eje intestino-cerebro.`
-  const keywords = [
-    ...(SLUG_KEYWORDS[slug] ?? []),
-    info.titulo.toLowerCase(),
-    'nutrición emocional',
-    'eje intestino cerebro',
-    'recetas funcionales',
-    'Food Mood',
-  ].join(', ')
-
   return {
     title,
     description,
-    keywords,
     alternates: { canonical: canonicalUrl },
     openGraph: {
       title,

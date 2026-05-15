@@ -6,16 +6,6 @@ export const metadata: Metadata = {
   title: 'Sesiones y Protocolos Personalizados — Food·Mood',
   description:
     'Sesión 1:1 y protocolo de 4 semanas supervisados por expertos universitarios en psicología, psicología de la alimentación y longevidad. Orientación rigurosa, humana y práctica.',
-  keywords: [
-    'sesión nutrición emocional',
-    'protocolo alimentación personalizado',
-    'psicología de la alimentación',
-    'longevidad nutrición',
-    'expertos universitarios alimentación',
-    'orientación nutricional online',
-    'eje intestino cerebro consulta',
-    'Food Mood sesión',
-  ].join(', '),
   alternates: { canonical: 'https://www.food-mood.app/servicios' },
   openGraph: {
     title: 'Sesiones y Protocolos Personalizados — Food·Mood',

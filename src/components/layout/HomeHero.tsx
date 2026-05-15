@@ -12,9 +12,7 @@ const GOLD_LIGHT = "#E8C98A";
 const CREAM      = "#F5EDE0";
 
 const PHOTOS = [
-  "/hero/hero1.jpg",
-  "/hero/hero2.jpg",
-  "/hero/hero3.jpg",
+  "/hero/hero-neurogastronomy.jpg",
 ];
 
 const HERO_CSS = `
@@ -167,17 +165,6 @@ export default function HomeHero() {
     if (dustRightRef.current) spawnParticles(dustRightRef.current, 20);
   }, []);
 
-  // Photo cycling
-  useEffect(() => {
-    const id = setInterval(() => {
-      setPhotoFade(false);
-      setTimeout(() => {
-        setPhotoIdx(i => (i + 1) % PHOTOS.length);
-        setPhotoFade(true);
-      }, 1200);
-    }, 9000);
-    return () => clearInterval(id);
-  }, []);
 
   // Mouse parallax
   useEffect(() => {

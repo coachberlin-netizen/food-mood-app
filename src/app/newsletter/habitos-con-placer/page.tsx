@@ -1,27 +1,26 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { buildHtml } from '@/lib/editorial-newsletters/16-habitos-con-placer'
 import { extractNewsletterParts } from '@/lib/editorial-newsletters/extract-html'
 
 export const metadata: Metadata = {
-  title: 'Los hábitos duraderos no se crean con disciplina. Se crean con placer. | Food·Mood Newsletter Nº 16',
+  title: 'Los hÃ¡bitos duraderos no se crean con disciplina. Se crean con placer. | FoodÂ·Mood Newsletter NÂº 16',
   description:
-    'La neurociencia del hábito: por qué la dopamina y el placer crean rutinas automáticas donde la fuerza de voluntad fracasa. Tirosina, circuito de recompensa y el bol que crea el hábito del desayuno. Newsletter Nº 16 de Food·Mood.',
-  keywords: 'neurociencia hábitos alimentarios, dopamina placer comida, formación hábitos sin disciplina, tirosina dopamina alimentos, circuito recompensa comida, ganglios basales hábito, ego depletion voluntad, come con placer crea hábitos, Lally 66 días hábito, Schultz dopamina recompensa',
+    'La neurociencia del hÃ¡bito: por quÃ© la dopamina y el placer crean rutinas automÃ¡ticas donde la fuerza de voluntad fracasa. Tirosina, circuito de recompensa y el bol que crea el hÃ¡bito del desayuno. Newsletter NÂº 16 de FoodÂ·Mood.',
   alternates: { canonical: 'https://www.food-mood.app/newsletter/habitos-con-placer' },
   openGraph: {
-    title:         'Los hábitos duraderos no se crean con disciplina. Se crean con placer.',
-    description:   'Dopamina, ganglios basales y el circuito de recompensa: la neurociencia que explica por qué el placer crea hábitos donde la fuerza de voluntad falla siempre.',
+    title:         'Los hÃ¡bitos duraderos no se crean con disciplina. Se crean con placer.',
+    description:   'Dopamina, ganglios basales y el circuito de recompensa: la neurociencia que explica por quÃ© el placer crea hÃ¡bitos donde la fuerza de voluntad falla siempre.',
     url:           'https://www.food-mood.app/newsletter/habitos-con-placer',
     type:          'article',
-    siteName:      'Food·Mood',
+    siteName:      'FoodÂ·Mood',
     publishedTime: '2026-05-11',
-    images:        [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter Food·Mood — Hábitos con placer, neurociencia del hábito' }],
+    images:        [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter FoodÂ·Mood â€” HÃ¡bitos con placer, neurociencia del hÃ¡bito' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Los hábitos duraderos no se crean con disciplina. Se crean con placer.',
-    description: 'La dopamina refuerza el circuito que llevó al placer. Sin dopamina, sin hábito. La tirosina del yogur griego y las fresas construyen el mecanismo correcto. Newsletter Nº 16.',
+    title:       'Los hÃ¡bitos duraderos no se crean con disciplina. Se crean con placer.',
+    description: 'La dopamina refuerza el circuito que llevÃ³ al placer. Sin dopamina, sin hÃ¡bito. La tirosina del yogur griego y las fresas construyen el mecanismo correcto. Newsletter NÂº 16.',
     images:      ['/og-image.png'],
   },
 }
@@ -31,25 +30,25 @@ const LD = {
   '@graph': [
     {
       '@type':          'NewsArticle',
-      headline:         'Los hábitos duraderos no se crean con disciplina. Se crean con placer.',
-      description:      'Neurociencia del hábito alimentario: dopamina, ganglios basales, tirosina y el circuito de recompensa. Por qué el placer es el mecanismo correcto para crear rutinas que duran.',
+      headline:         'Los hÃ¡bitos duraderos no se crean con disciplina. Se crean con placer.',
+      description:      'Neurociencia del hÃ¡bito alimentario: dopamina, ganglios basales, tirosina y el circuito de recompensa. Por quÃ© el placer es el mecanismo correcto para crear rutinas que duran.',
       url:              'https://www.food-mood.app/newsletter/habitos-con-placer',
       datePublished:    '2026-05-11',
       dateModified:     '2026-05-11',
       inLanguage:       'es',
       image:            'https://www.food-mood.app/og-image.png',
-      author:           { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
-      publisher:        { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app',
+      author:           { '@type': 'Organization', name: 'FoodÂ·Mood', url: 'https://www.food-mood.app' },
+      publisher:        { '@type': 'Organization', name: 'FoodÂ·Mood', url: 'https://www.food-mood.app',
                           logo: { '@type': 'ImageObject', url: 'https://www.food-mood.app/og-image.png' } },
       mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://www.food-mood.app/newsletter/habitos-con-placer' },
-      isPartOf:         { '@type': 'Periodical', name: 'Newsletter Food·Mood', url: 'https://www.food-mood.app/newsletter' },
+      isPartOf:         { '@type': 'Periodical', name: 'Newsletter FoodÂ·Mood', url: 'https://www.food-mood.app/newsletter' },
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Food·Mood',  item: 'https://www.food-mood.app' },
+        { '@type': 'ListItem', position: 1, name: 'FoodÂ·Mood',  item: 'https://www.food-mood.app' },
         { '@type': 'ListItem', position: 2, name: 'Newsletter', item: 'https://www.food-mood.app/newsletter' },
-        { '@type': 'ListItem', position: 3, name: 'Hábitos con placer', item: 'https://www.food-mood.app/newsletter/habitos-con-placer' },
+        { '@type': 'ListItem', position: 3, name: 'HÃ¡bitos con placer', item: 'https://www.food-mood.app/newsletter/habitos-con-placer' },
       ],
     },
   ],
@@ -66,10 +65,11 @@ export default function NewsletterHabitosConPlacerPage() {
           href="/newsletter/archivo"
           style={{ fontSize: 12, color: 'rgba(107,39,55,0.6)', textDecoration: 'none' }}
         >
-          ← Archivo de newsletters
+          â† Archivo de newsletters
         </Link>
       </div>
       <div dangerouslySetInnerHTML={{ __html: body }} />
     </>
   )
 }
+

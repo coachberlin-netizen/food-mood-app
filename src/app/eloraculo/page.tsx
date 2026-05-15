@@ -8,15 +8,6 @@ export const metadata: Metadata = {
   title: 'El Oráculo Bioquímico — IA de nutrición emocional femenina | Food·Mood',
   description:
     'Tecnología femtech basada en neurociencia nutricional. Registra tu estado emocional, energía y ciclo menstrual y recibe cada día una lectura personalizada desde el eje intestino-cerebro. Postbióticos, crononutrición y regulación del sistema nervioso.',
-  keywords: [
-    'femtech', 'women\'s health technology', 'salud femenina digital',
-    'nutrición emocional mujer', 'eje intestino-cerebro', 'gut-brain axis women',
-    'regulación hormonal nutrición', 'ciclo menstrual alimentación', 'cycle syncing nutrition',
-    'mental fitness mujer', 'emotional intelligence nutrition', 'microbioma femenino',
-    'psicobióticos', 'estrobolome', 'postbióticos mujer', 'nervous system care',
-    'crononutrición', 'biohacking femenino', 'health tech mujer', 'women wellness app',
-    'female nutrition AI', 'inteligencia artificial salud femenina',
-  ].join(', '),
   alternates: { canonical: 'https://www.food-mood.app/eloraculo' },
   openGraph: {
     title: 'El Oráculo Bioquímico — IA femtech de nutrición emocional | Food·Mood',

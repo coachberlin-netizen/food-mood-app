@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+﻿import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import BuyRetoButton from '@/components/retos/BuyRetoButton'
 import type { Metadata } from 'next'
@@ -6,24 +6,23 @@ import type { Metadata } from 'next'
 const CANONICAL = 'https://www.food-mood.app/retos/activa-tu-longevidad'
 
 export const metadata: Metadata = {
-  title:       'Activa tu longevidad en 10 días — Come joven. Siente todo. | Food·Mood',
-  description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging activados desde el plato en 10 días. Sin suplementos, sin restricciones. Basado en la ciencia de las zonas azules. Desde 19€.',
-  keywords:    'cómo activar autofagia con comida, alimentos que alargan telómeros, NAD+ alimentos naturales, colágeno sin suplementos, microbioma envejecimiento, dieta zonas azules, inflammaging alimentación, longevidad dieta mediterránea, protocolo antiaging 10 días, alimentos antiinflamatorios crónicos, spermidina alimentos, sirtuinas activar con comida, BDNF alimentos, ritmo circadiano alimentación, reto longevidad español',
+  title:       'Activa tu longevidad en 10 dÃ­as â€” Come joven. Siente todo. | FoodÂ·Mood',
+  description: 'TelÃ³meros, autofagia, colÃ¡geno y NAD+. 10 mecanismos antiaging activados desde el plato en 10 dÃ­as. Sin suplementos, sin restricciones. Basado en la ciencia de las zonas azules. Desde 19â‚¬.',
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },
   },
   openGraph: {
-    title:       'Activa tu longevidad en 10 días — Come joven. Siente todo. | Food·Mood',
-    description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging desde el plato. Sin suplementos, sin restricciones. Basado en zonas azules. 19€.',
+    title:       'Activa tu longevidad en 10 dÃ­as â€” Come joven. Siente todo. | FoodÂ·Mood',
+    description: 'TelÃ³meros, autofagia, colÃ¡geno y NAD+. 10 mecanismos antiaging desde el plato. Sin suplementos, sin restricciones. Basado en zonas azules. 19â‚¬.',
     url:         CANONICAL,
     type:        'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Activa tu longevidad en 10 días — Food·Mood' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Activa tu longevidad en 10 dÃ­as â€” FoodÂ·Mood' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Activa tu longevidad en 10 días | Food·Mood',
-    description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging desde el plato. Sin suplementos. 19€.',
+    title:       'Activa tu longevidad en 10 dÃ­as | FoodÂ·Mood',
+    description: 'TelÃ³meros, autofagia, colÃ¡geno y NAD+. 10 mecanismos antiaging desde el plato. Sin suplementos. 19â‚¬.',
     images:      ['/og-image.png'],
   },
 }
@@ -31,30 +30,30 @@ export const metadata: Metadata = {
 const COLOR = '#2D6B55'
 
 const INCLUYE = [
-  { icono: '🧬', texto: '10 recetas antiaging con mecanismo científico integrado' },
-  { icono: '🎧', texto: '10 audios guiados — educativos, rituales y cierre' },
-  { icono: '📊', texto: 'Tracking diario de energía, piel y bienestar' },
-  { icono: '📋', texto: 'Protocolo de longevidad personal al completar' },
-  { icono: '♾️', texto: 'Acceso permanente al contenido' },
+  { icono: 'ðŸ§¬', texto: '10 recetas antiaging con mecanismo cientÃ­fico integrado' },
+  { icono: 'ðŸŽ§', texto: '10 audios guiados â€” educativos, rituales y cierre' },
+  { icono: 'ðŸ“Š', texto: 'Tracking diario de energÃ­a, piel y bienestar' },
+  { icono: 'ðŸ“‹', texto: 'Protocolo de longevidad personal al completar' },
+  { icono: 'â™¾ï¸', texto: 'Acceso permanente al contenido' },
 ]
 
 const MECANISMOS = [
-  { icono: '🧬', titulo: 'Telómeros',       desc: 'Protección del ADN con polifenoles' },
-  { icono: '♻️', titulo: 'Autofagia',        desc: 'Limpieza celular con spermidina' },
-  { icono: '🦴', titulo: 'Colágeno',         desc: 'Síntesis desde el caldo de huesos' },
-  { icono: '⚡', titulo: 'NAD+',             desc: 'Sirtuinas y biogénesis mitocondrial' },
-  { icono: '🦠', titulo: 'Microbioma',       desc: 'Diversidad bacteriana y butirato' },
-  { icono: '🔥', titulo: 'Inflammaging',     desc: 'Resolución activa de la inflamación' },
-  { icono: '🧠', titulo: 'BDNF',             desc: 'Neuroplasticidad y DHA cerebral' },
-  { icono: '✨', titulo: 'Eje piel-intestino', desc: 'Barrera cutánea desde dentro' },
-  { icono: '🌙', titulo: 'Reloj circadiano', desc: 'TRE y sincronía metabólica' },
-  { icono: '🌿', titulo: 'Zonas azules',     desc: 'El patrón completo, integrado' },
+  { icono: 'ðŸ§¬', titulo: 'TelÃ³meros',       desc: 'ProtecciÃ³n del ADN con polifenoles' },
+  { icono: 'â™»ï¸', titulo: 'Autofagia',        desc: 'Limpieza celular con spermidina' },
+  { icono: 'ðŸ¦´', titulo: 'ColÃ¡geno',         desc: 'SÃ­ntesis desde el caldo de huesos' },
+  { icono: 'âš¡', titulo: 'NAD+',             desc: 'Sirtuinas y biogÃ©nesis mitocondrial' },
+  { icono: 'ðŸ¦ ', titulo: 'Microbioma',       desc: 'Diversidad bacteriana y butirato' },
+  { icono: 'ðŸ”¥', titulo: 'Inflammaging',     desc: 'ResoluciÃ³n activa de la inflamaciÃ³n' },
+  { icono: 'ðŸ§ ', titulo: 'BDNF',             desc: 'Neuroplasticidad y DHA cerebral' },
+  { icono: 'âœ¨', titulo: 'Eje piel-intestino', desc: 'Barrera cutÃ¡nea desde dentro' },
+  { icono: 'ðŸŒ™', titulo: 'Reloj circadiano', desc: 'TRE y sincronÃ­a metabÃ³lica' },
+  { icono: 'ðŸŒ¿', titulo: 'Zonas azules',     desc: 'El patrÃ³n completo, integrado' },
 ]
 
 const HITOS = [
-  { dia: 1,  titulo: 'Día 1 — señalización de longevidad.',  desc: 'Telómeros y antioxidantes. El primer bocado ya cuenta.',   color: COLOR },
-  { dia: 5,  titulo: 'Día 5 — punto de inflexión interior.', desc: 'Autofagia, colágeno, NAD+ y microbioma en marcha.',         color: '#C9A84C' },
-  { dia: 10, titulo: 'Día 10 — el protocolo es tuyo.',       desc: 'La mesa de las zonas azules. Un estilo de vida, no una dieta.', color: '#4B8A6B' },
+  { dia: 1,  titulo: 'DÃ­a 1 â€” seÃ±alizaciÃ³n de longevidad.',  desc: 'TelÃ³meros y antioxidantes. El primer bocado ya cuenta.',   color: COLOR },
+  { dia: 5,  titulo: 'DÃ­a 5 â€” punto de inflexiÃ³n interior.', desc: 'Autofagia, colÃ¡geno, NAD+ y microbioma en marcha.',         color: '#C9A84C' },
+  { dia: 10, titulo: 'DÃ­a 10 â€” el protocolo es tuyo.',       desc: 'La mesa de las zonas azules. Un estilo de vida, no una dieta.', color: '#4B8A6B' },
 ]
 
 export default async function RetoLongevidadPage() {
@@ -88,11 +87,11 @@ export default async function RetoLongevidadPage() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Activa tu longevidad en 10 días — Come joven. Siente todo.',
-    description: 'Telómeros, autofagia, colágeno, NAD+ y microbioma. 10 mecanismos antiaging activados desde el plato en 10 días. Sin suplementos, sin restricciones.',
+    name: 'Activa tu longevidad en 10 dÃ­as â€” Come joven. Siente todo.',
+    description: 'TelÃ³meros, autofagia, colÃ¡geno, NAD+ y microbioma. 10 mecanismos antiaging activados desde el plato en 10 dÃ­as. Sin suplementos, sin restricciones.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
-    brand: { '@type': 'Brand', name: 'Food·Mood' },
+    brand: { '@type': 'Brand', name: 'FoodÂ·Mood' },
     offers: {
       '@type': 'Offer',
       price: 19,
@@ -112,7 +111,7 @@ export default async function RetoLongevidadPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
+      { '@type': 'ListItem', position: 1, name: 'FoodÂ·Mood', item: 'https://www.food-mood.app' },
       { '@type': 'ListItem', position: 2, name: 'Retos', item: 'https://www.food-mood.app/retos' },
       { '@type': 'ListItem', position: 3, name: 'Activa tu longevidad', item: CANONICAL },
     ],
@@ -124,50 +123,50 @@ export default async function RetoLongevidadPage() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: '¿Qué es la autofagia y cómo se activa con comida?',
+        name: 'Â¿QuÃ© es la autofagia y cÃ³mo se activa con comida?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'La autofagia es el mecanismo de limpieza celular mediante el cual la célula recicla sus componentes dañados. Se activa con ayuno intermitente y con alimentos ricos en spermidina como las setas shitake, el trigo germinado y los polifenoles del té verde (EGCG). El Nobel de Medicina 2016 fue otorgado por este descubrimiento.',
+          text: 'La autofagia es el mecanismo de limpieza celular mediante el cual la cÃ©lula recicla sus componentes daÃ±ados. Se activa con ayuno intermitente y con alimentos ricos en spermidina como las setas shitake, el trigo germinado y los polifenoles del tÃ© verde (EGCG). El Nobel de Medicina 2016 fue otorgado por este descubrimiento.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Qué alimentos alargan los telómeros?',
+        name: 'Â¿QuÃ© alimentos alargan los telÃ³meros?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Los telómeros se protegen con vitamina C (fresas, kiwi, pimiento), licopeno (tomate, sandía, granada), resveratrol (uvas, granada, arándanos), quercetina (cebollas, manzanas, alcaparras) y ácidos grasos omega-3 del pescado azul. Los probióticos vivos del kéfir y el yogur reducen el estrés oxidativo sistémico, el principal enemigo de los telómeros.',
+          text: 'Los telÃ³meros se protegen con vitamina C (fresas, kiwi, pimiento), licopeno (tomate, sandÃ­a, granada), resveratrol (uvas, granada, arÃ¡ndanos), quercetina (cebollas, manzanas, alcaparras) y Ã¡cidos grasos omega-3 del pescado azul. Los probiÃ³ticos vivos del kÃ©fir y el yogur reducen el estrÃ©s oxidativo sistÃ©mico, el principal enemigo de los telÃ³meros.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Cómo subir los niveles de NAD+ de forma natural?',
+        name: 'Â¿CÃ³mo subir los niveles de NAD+ de forma natural?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Los precursores del NAD+ en alimentos incluyen la niacina (vitamina B3) presente en atún, pollo, cacahuetes y setas; el triptófano en proteína animal y legumbres; y el NMN (nicotinamida mononucleótido) en brócoli, aguacate y edamame. El resveratrol potencia la activación de sirtuinas NAD-dependientes. El ayuno intermitente suave también eleva el NAD+ de forma significativa.',
+          text: 'Los precursores del NAD+ en alimentos incluyen la niacina (vitamina B3) presente en atÃºn, pollo, cacahuetes y setas; el triptÃ³fano en proteÃ­na animal y legumbres; y el NMN (nicotinamida mononucleÃ³tido) en brÃ³coli, aguacate y edamame. El resveratrol potencia la activaciÃ³n de sirtuinas NAD-dependientes. El ayuno intermitente suave tambiÃ©n eleva el NAD+ de forma significativa.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Qué es la inflammaging y cómo se reduce con alimentación?',
+        name: 'Â¿QuÃ© es la inflammaging y cÃ³mo se reduce con alimentaciÃ³n?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'La inflammaging es la inflamación crónica de bajo grado asociada al envejecimiento y es el denominador común de enfermedades como el Alzheimer, diabetes tipo 2 y enfermedad cardiovascular. Se reduce con omega-3 (salmón, sardinas, nueces), curcumina con pimienta negra, polifenoles (frutas del bosque, té verde, aceite de oliva virgen extra), fibra prebiótica y fermentados vivos.',
+          text: 'La inflammaging es la inflamaciÃ³n crÃ³nica de bajo grado asociada al envejecimiento y es el denominador comÃºn de enfermedades como el Alzheimer, diabetes tipo 2 y enfermedad cardiovascular. Se reduce con omega-3 (salmÃ³n, sardinas, nueces), curcumina con pimienta negra, polifenoles (frutas del bosque, tÃ© verde, aceite de oliva virgen extra), fibra prebiÃ³tica y fermentados vivos.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Qué es el colágeno natural y cómo estimular su síntesis?',
+        name: 'Â¿QuÃ© es el colÃ¡geno natural y cÃ³mo estimular su sÃ­ntesis?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El colágeno no se obtiene directamente de los alimentos, sino que se sintetiza en el cuerpo con la materia prima adecuada: vitamina C (imprescindible para la hidroxilación de prolina), glicina y prolina del caldo de huesos cocido lentamente con vinagre, cobre (semillas de girasol), silicio (puerro, avena) y zinc (semillas de calabaza, legumbres). Un caldo de huesos de 3-6 horas con vinagre es el suplemento de colágeno más biodisponible y económico que existe.',
+          text: 'El colÃ¡geno no se obtiene directamente de los alimentos, sino que se sintetiza en el cuerpo con la materia prima adecuada: vitamina C (imprescindible para la hidroxilaciÃ³n de prolina), glicina y prolina del caldo de huesos cocido lentamente con vinagre, cobre (semillas de girasol), silicio (puerro, avena) y zinc (semillas de calabaza, legumbres). Un caldo de huesos de 3-6 horas con vinagre es el suplemento de colÃ¡geno mÃ¡s biodisponible y econÃ³mico que existe.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Cuánto dura el reto y qué incluye?',
+        name: 'Â¿CuÃ¡nto dura el reto y quÃ© incluye?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El reto dura 10 días e incluye: 10 recetas antiaging con explicación científica, 10 audios guiados (educativos, rituales y cierre), tracking diario, y un protocolo de longevidad personal al completar. El acceso es permanente y el precio es 19€.',
+          text: 'El reto dura 10 dÃ­as e incluye: 10 recetas antiaging con explicaciÃ³n cientÃ­fica, 10 audios guiados (educativos, rituales y cierre), tracking diario, y un protocolo de longevidad personal al completar. El acceso es permanente y el precio es 19â‚¬.',
         },
       },
     ],
@@ -183,7 +182,7 @@ export default async function RetoLongevidadPage() {
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
         <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: COLOR }}>
-          ← Ver todos los retos
+          â† Ver todos los retos
         </Link>
       </div>
 
@@ -193,7 +192,7 @@ export default async function RetoLongevidadPage() {
         <div className="text-center py-10">
           <div className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium mb-4"
             style={{ background: `${COLOR}18`, color: COLOR }}>
-            <span>🌿</span> 10 días · Ciencia de zonas azules
+            <span>ðŸŒ¿</span> 10 dÃ­as Â· Ciencia de zonas azules
           </div>
 
           <h1 className="font-serif text-[28px] font-normal leading-tight mb-3"
@@ -202,7 +201,7 @@ export default async function RetoLongevidadPage() {
           </h1>
 
           <p className="text-base font-medium mb-2" style={{ color: COLOR }}>
-            Telómeros, autofagia, colágeno y microbioma.<br />10 mecanismos antiaging desde el plato.
+            TelÃ³meros, autofagia, colÃ¡geno y microbioma.<br />10 mecanismos antiaging desde el plato.
           </p>
 
           <p className="text-[13px] leading-snug" style={{ color: '#9e8080' }}>
@@ -210,26 +209,26 @@ export default async function RetoLongevidadPage() {
           </p>
         </div>
 
-        {/* Filosofía */}
+        {/* FilosofÃ­a */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-3" style={{ color: '#9e8080' }}>
             La premisa
           </p>
           <p className="text-sm leading-relaxed mb-3" style={{ color: '#4a3a3e' }}>
-            Envejecer es inevitable. <span className="font-semibold" style={{ color: COLOR }}>Cómo envejecemos, no.</span>
+            Envejecer es inevitable. <span className="font-semibold" style={{ color: COLOR }}>CÃ³mo envejecemos, no.</span>
           </p>
           <p className="text-sm leading-relaxed mb-3" style={{ color: 'rgba(74,58,62,0.75)' }}>
-            La ciencia de la longevidad ya no pertenece solo a las clínicas ni a los suplementos de 200€. Está en tu cocina. En cómo combinas los ingredientes. En el momento del día en que comes. En las bacterias que cuidas sin saberlo.
+            La ciencia de la longevidad ya no pertenece solo a las clÃ­nicas ni a los suplementos de 200â‚¬. EstÃ¡ en tu cocina. En cÃ³mo combinas los ingredientes. En el momento del dÃ­a en que comes. En las bacterias que cuidas sin saberlo.
           </p>
           <p className="text-sm leading-relaxed" style={{ color: 'rgba(74,58,62,0.75)' }}>
-            Cada día de este reto activa un mecanismo antiaging diferente. No hay restricciones. No hay sufrimiento. Solo placer muy bien elegido.
+            Cada dÃ­a de este reto activa un mecanismo antiaging diferente. No hay restricciones. No hay sufrimiento. Solo placer muy bien elegido.
           </p>
         </div>
 
-        {/* Qué incluye */}
+        {/* QuÃ© incluye */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-4" style={{ color: '#9e8080' }}>
-            Qué incluye
+            QuÃ© incluye
           </p>
           {INCLUYE.map(({ icono, texto }) => (
             <div key={texto} className="flex items-center gap-3 mb-3 last:mb-0">
@@ -238,7 +237,7 @@ export default async function RetoLongevidadPage() {
                 {icono}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-semibold" style={{ color: COLOR }}>✓</span>
+                <span className="text-[13px] font-semibold" style={{ color: COLOR }}>âœ“</span>
                 <span className="text-sm" style={{ color: '#4a3a3e' }}>{texto}</span>
               </div>
             </div>
@@ -262,10 +261,10 @@ export default async function RetoLongevidadPage() {
           </div>
         </div>
 
-        {/* Cómo funciona */}
+        {/* CÃ³mo funciona */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-5" style={{ color: '#9e8080' }}>
-            Cómo funciona
+            CÃ³mo funciona
           </p>
 
           <div className="relative">
@@ -289,12 +288,12 @@ export default async function RetoLongevidadPage() {
               Al completar
             </p>
             <p className="text-[13px] leading-snug" style={{ color: '#4a3a3e' }}>
-              Protocolo de longevidad personal: los 10 mecanismos que activaste, tu mapa nutricional y el patrón de zonas azules que incorporaste.
+              Protocolo de longevidad personal: los 10 mecanismos que activaste, tu mapa nutricional y el patrÃ³n de zonas azules que incorporaste.
             </p>
           </div>
         </div>
 
-        {/* Evidencia científica */}
+        {/* Evidencia cientÃ­fica */}
         <div className="rounded-2xl border p-5 mb-4" style={{ background: `${COLOR}06`, borderColor: `${COLOR}20` }}>
           <p className="text-[11px] font-medium uppercase tracking-widest mb-3" style={{ color: COLOR }}>
             Basado en
@@ -302,13 +301,13 @@ export default async function RetoLongevidadPage() {
           <div className="space-y-2">
             {[
               'Ciencia de zonas azules (Blue Zones, Dan Buettner)',
-              'Cronobiología nutricional y TRE (Satchidananda Panda)',
+              'CronobiologÃ­a nutricional y TRE (Satchidananda Panda)',
               'Autofagia y spermidina (Nobel Medicina 2016)',
               'NAD+ y sirtuinas (David Sinclair, Harvard)',
               'Eje intestino-cerebro y inflammaging',
             ].map(item => (
               <div key={item} className="flex items-start gap-2">
-                <span className="text-xs font-bold shrink-0 mt-0.5" style={{ color: COLOR }}>·</span>
+                <span className="text-xs font-bold shrink-0 mt-0.5" style={{ color: COLOR }}>Â·</span>
                 <span className="text-xs leading-snug" style={{ color: 'rgba(74,58,62,0.7)' }}>{item}</span>
               </div>
             ))}
@@ -318,11 +317,11 @@ export default async function RetoLongevidadPage() {
         {/* CTA */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6">
           <p className="text-[11px] font-medium uppercase tracking-widest text-center mb-2" style={{ color: '#9e8080' }}>
-            Únete ahora
+            Ãšnete ahora
           </p>
-          <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19€</p>
+          <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19â‚¬</p>
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
-            Acceso completo · 10 días
+            Acceso completo Â· 10 dÃ­as
           </p>
           <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
             Solo quedan algunas plazas esta semana
@@ -335,3 +334,4 @@ export default async function RetoLongevidadPage() {
     </>
   )
 }
+

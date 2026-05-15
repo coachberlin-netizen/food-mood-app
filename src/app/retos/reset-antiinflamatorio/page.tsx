@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+﻿import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import BuyRetoButton from '@/components/retos/BuyRetoButton'
 import type { Metadata } from 'next'
@@ -6,49 +6,48 @@ import type { Metadata } from 'next'
 const CANONICAL = 'https://www.food-mood.app/retos/reset-antiinflamatorio'
 
 export const metadata: Metadata = {
-  title:       'Reset antiinflamatorio en una semana | Food·Mood',
-  description: 'Cúrcuma, omega-3, fermentados y polifenoles. Seis vías antiinflamatorias en 7 días con seguimiento real. Basado en evidencia. 19€.',
-  keywords:    'reset antiinflamatorio, dieta antiinflamatoria 7 días, cúrcuma omega-3 alimentación, NF-kB inhibición, fermentados inflamación, polifenoles Nrf2, sulforafano antiinflamatorio, ayuno nocturno autofagia',
+  title:       'Reset antiinflamatorio en una semana | FoodÂ·Mood',
+  description: 'CÃºrcuma, omega-3, fermentados y polifenoles. Seis vÃ­as antiinflamatorias en 7 dÃ­as con seguimiento real. Basado en evidencia. 19â‚¬.',
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },
   },
   openGraph: {
-    title:       'Reset antiinflamatorio en una semana | Food·Mood',
-    description: 'Seis vías antiinflamatorias en 7 días. Cúrcuma, omega-3, fermentados, polifenoles, sulforafano y ayuno nocturno. Desde 19€.',
+    title:       'Reset antiinflamatorio en una semana | FoodÂ·Mood',
+    description: 'Seis vÃ­as antiinflamatorias en 7 dÃ­as. CÃºrcuma, omega-3, fermentados, polifenoles, sulforafano y ayuno nocturno. Desde 19â‚¬.',
     url:         CANONICAL,
     type:        'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Reset antiinflamatorio — Food·Mood' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Reset antiinflamatorio â€” FoodÂ·Mood' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Reset antiinflamatorio en una semana | Food·Mood',
-    description: 'Seis vías antiinflamatorias en 7 días. Cúrcuma, omega-3, fermentados y más. Desde 19€.',
+    title:       'Reset antiinflamatorio en una semana | FoodÂ·Mood',
+    description: 'Seis vÃ­as antiinflamatorias en 7 dÃ­as. CÃºrcuma, omega-3, fermentados y mÃ¡s. Desde 19â‚¬.',
     images:      ['/og-image.png'],
   },
 }
 
 const INCLUYE = [
-  { icono: '📘', texto: '7 días de protocolo antiinflamatorio con evidencia' },
-  { icono: '🎧', texto: '7 audios de apoyo (4-8 min)' },
-  { icono: '📊', texto: 'Seguimiento diario de síntomas y bienestar' },
-  { icono: '📋', texto: 'Informe personalizado al completar' },
-  { icono: '♾️', texto: 'Acceso de por vida al contenido' },
+  { icono: 'ðŸ“˜', texto: '7 dÃ­as de protocolo antiinflamatorio con evidencia' },
+  { icono: 'ðŸŽ§', texto: '7 audios de apoyo (4-8 min)' },
+  { icono: 'ðŸ“Š', texto: 'Seguimiento diario de sÃ­ntomas y bienestar' },
+  { icono: 'ðŸ“‹', texto: 'Informe personalizado al completar' },
+  { icono: 'â™¾ï¸', texto: 'Acceso de por vida al contenido' },
 ]
 
 const MECANISMOS = [
-  { icono: '🧬', titulo: 'Curcumina + piperina', desc: 'Inhibición directa de NF-κB' },
-  { icono: '🐟', titulo: 'Omega-3 EPA/DHA',      desc: 'Síntesis de resolvinas y protectinas' },
-  { icono: '🦠', titulo: 'Fermentados',           desc: 'Barrera intestinal anti-LPS' },
-  { icono: '🫐', titulo: 'Polifenoles',           desc: 'Activación de Nrf2 endógeno' },
-  { icono: '🥦', titulo: 'Sulforafano',           desc: 'Detoxificación celular fase II' },
-  { icono: '🌙', titulo: 'Ayuno nocturno',        desc: 'Autofagia y limpieza del inflamasoma' },
+  { icono: 'ðŸ§¬', titulo: 'Curcumina + piperina', desc: 'InhibiciÃ³n directa de NF-ÎºB' },
+  { icono: 'ðŸŸ', titulo: 'Omega-3 EPA/DHA',      desc: 'SÃ­ntesis de resolvinas y protectinas' },
+  { icono: 'ðŸ¦ ', titulo: 'Fermentados',           desc: 'Barrera intestinal anti-LPS' },
+  { icono: 'ðŸ«', titulo: 'Polifenoles',           desc: 'ActivaciÃ³n de Nrf2 endÃ³geno' },
+  { icono: 'ðŸ¥¦', titulo: 'Sulforafano',           desc: 'DetoxificaciÃ³n celular fase II' },
+  { icono: 'ðŸŒ™', titulo: 'Ayuno nocturno',        desc: 'Autofagia y limpieza del inflamasoma' },
 ]
 
 const HITOS = [
-  { dia: 1, titulo: 'Día 1 — empieza el reset.',     desc: 'NF-κB inhibido desde la primera leche dorada.',   color: '#5A9B8A' },
-  { dia: 4, titulo: 'Día 4 — punto de inflexión.',   desc: 'La mayoría nota cambios aquí. Nrf2 activo.',       color: '#C9A84C' },
-  { dia: 7, titulo: 'Día 7 — reset completado.',     desc: 'Informe personalizado. Seis vías trabajadas.',     color: '#4B8A6B' },
+  { dia: 1, titulo: 'DÃ­a 1 â€” empieza el reset.',     desc: 'NF-ÎºB inhibido desde la primera leche dorada.',   color: '#5A9B8A' },
+  { dia: 4, titulo: 'DÃ­a 4 â€” punto de inflexiÃ³n.',   desc: 'La mayorÃ­a nota cambios aquÃ­. Nrf2 activo.',       color: '#C9A84C' },
+  { dia: 7, titulo: 'DÃ­a 7 â€” reset completado.',     desc: 'Informe personalizado. Seis vÃ­as trabajadas.',     color: '#4B8A6B' },
 ]
 
 export default async function RetoAntiinflamatorioPage() {
@@ -83,10 +82,10 @@ export default async function RetoAntiinflamatorioPage() {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: 'Reset antiinflamatorio en una semana',
-    description: 'Seis vías antiinflamatorias en 7 días. Cúrcuma, omega-3, fermentados, polifenoles, sulforafano y ayuno nocturno.',
+    description: 'Seis vÃ­as antiinflamatorias en 7 dÃ­as. CÃºrcuma, omega-3, fermentados, polifenoles, sulforafano y ayuno nocturno.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
-    brand: { '@type': 'Brand', name: 'Food·Mood' },
+    brand: { '@type': 'Brand', name: 'FoodÂ·Mood' },
     offers: { '@type': 'Offer', price: 19, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
   }
 
@@ -94,7 +93,7 @@ export default async function RetoAntiinflamatorioPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
+      { '@type': 'ListItem', position: 1, name: 'FoodÂ·Mood', item: 'https://www.food-mood.app' },
       { '@type': 'ListItem', position: 2, name: 'Retos', item: 'https://www.food-mood.app/retos' },
       { '@type': 'ListItem', position: 3, name: 'Reset antiinflamatorio', item: CANONICAL },
     ],
@@ -109,7 +108,7 @@ export default async function RetoAntiinflamatorioPage() {
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
         <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: '#5A9B8A' }}>
-          ← Ver todos los retos
+          â† Ver todos los retos
         </Link>
       </div>
 
@@ -119,7 +118,7 @@ export default async function RetoAntiinflamatorioPage() {
         <div className="text-center py-10">
           <div className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium mb-4"
             style={{ background: '#e8f4f1', color: '#5A9B8A' }}>
-            <span>🌿</span> 7 días · Basado en evidencia
+            <span>ðŸŒ¿</span> 7 dÃ­as Â· Basado en evidencia
           </div>
 
           <h1 className="font-serif text-[28px] font-normal leading-tight mb-3"
@@ -128,18 +127,18 @@ export default async function RetoAntiinflamatorioPage() {
           </h1>
 
           <p className="text-base font-medium mb-2" style={{ color: '#5A9B8A' }}>
-            Cúrcuma, omega-3, fermentados.<br />Seis vías. Siete días.
+            CÃºrcuma, omega-3, fermentados.<br />Seis vÃ­as. Siete dÃ­as.
           </p>
 
           <p className="text-[13px] leading-snug" style={{ color: '#9e8080' }}>
-            Seguimiento real con tu índice Food·Mood
+            Seguimiento real con tu Ã­ndice FoodÂ·Mood
           </p>
         </div>
 
-        {/* Qué incluye */}
+        {/* QuÃ© incluye */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-4" style={{ color: '#9e8080' }}>
-            Qué incluye
+            QuÃ© incluye
           </p>
           {INCLUYE.map(({ icono, texto }) => (
             <div key={texto} className="flex items-center gap-3 mb-3 last:mb-0">
@@ -148,7 +147,7 @@ export default async function RetoAntiinflamatorioPage() {
                 {icono}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-semibold" style={{ color: '#5A9B8A' }}>✓</span>
+                <span className="text-[13px] font-semibold" style={{ color: '#5A9B8A' }}>âœ“</span>
                 <span className="text-sm" style={{ color: '#4a3a3e' }}>{texto}</span>
               </div>
             </div>
@@ -158,7 +157,7 @@ export default async function RetoAntiinflamatorioPage() {
         {/* Los 6 mecanismos */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-4" style={{ color: '#9e8080' }}>
-            Las 6 vías antiinflamatorias
+            Las 6 vÃ­as antiinflamatorias
           </p>
           <div className="grid grid-cols-2 gap-2.5">
             {MECANISMOS.map(({ icono, titulo, desc }) => (
@@ -172,10 +171,10 @@ export default async function RetoAntiinflamatorioPage() {
           </div>
         </div>
 
-        {/* Cómo funciona */}
+        {/* CÃ³mo funciona */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-5" style={{ color: '#9e8080' }}>
-            Cómo funciona
+            CÃ³mo funciona
           </p>
 
           <div className="relative">
@@ -199,7 +198,7 @@ export default async function RetoAntiinflamatorioPage() {
               Al completar
             </p>
             <p className="text-[13px] leading-snug" style={{ color: '#4a3a3e' }}>
-              Informe personalizado: índice inflamación inicio vs. fin, vías más efectivas para ti, protocolo permanente recomendado.
+              Informe personalizado: Ã­ndice inflamaciÃ³n inicio vs. fin, vÃ­as mÃ¡s efectivas para ti, protocolo permanente recomendado.
             </p>
           </div>
         </div>
@@ -207,11 +206,11 @@ export default async function RetoAntiinflamatorioPage() {
         {/* CTA */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6">
           <p className="text-[11px] font-medium uppercase tracking-widest text-center mb-2" style={{ color: '#9e8080' }}>
-            Únete ahora
+            Ãšnete ahora
           </p>
-          <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19€</p>
+          <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19â‚¬</p>
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
-            Acceso completo · 7 días
+            Acceso completo Â· 7 dÃ­as
           </p>
           <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
             Solo quedan algunas plazas esta semana
@@ -224,3 +223,4 @@ export default async function RetoAntiinflamatorioPage() {
     </>
   )
 }
+

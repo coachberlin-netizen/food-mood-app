@@ -360,7 +360,7 @@ export default function Home() {
           { "@type": "HowToStep", position: 1, name: "Test de 30 segundos", text: "Dinos cómo te sientes hoy. Tu mezcla real en porcentajes, no una etiqueta." },
           { "@type": "HowToStep", position: 2, name: "Tu paleta emocional", text: "Te mostramos tu espectro emocional del día: 60% calma, 25% melancolía, 15% curiosidad." },
           { "@type": "HowToStep", position: 3, name: "Receta del día", text: "Diseñada para tu estado emocional, con el mecanismo bioquímico explicado." },
-          { "@type": "HowToStep", position: 4, name: "Tu índice Food·Mood", text: "Ves en datos cómo evolucionas. 90 días de trayectoria documentada." },
+          { "@type": "HowToStep", position: 4, name: "Tus logros Food·Mood", text: "Ves en datos cómo evolucionas. 90 días de trayectoria documentada." },
         ],
       }) }} />
 
@@ -665,7 +665,7 @@ export default function Home() {
               },
               {
                 num: "04",
-                title: "Tu índice Food·Mood",
+                title: "Tus logros Food·Mood",
                 body: "Ves en datos cómo evolucionas. 90 días de trayectoria emocional y nutricional documentada.",
                 accent: "#4A7AB5",
                 bg: "rgba(74,122,181,0.06)",
@@ -750,7 +750,7 @@ export default function Home() {
               className="space-y-5"
             >
               <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-                Tu índice Food·Mood
+                Tus logros Food·Mood
               </motion.p>
               <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
                 Tu índice intestino-cerebro<br />
@@ -1299,26 +1299,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 10. FOOD·MOOD FOR WORK — FOOTER STRIP ───────────────────────────── */}
-      <section aria-label="Food·Mood for Work" className="px-6 py-10" style={{ backgroundColor: '#FF5500' }}>
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <p className="font-serif text-2xl font-bold text-white leading-tight">
-              Food·Mood <span className="font-light italic">for Work</span>
-            </p>
-            <p className="text-sm font-light mt-1" style={{ color: 'rgba(255,255,255,0.80)' }}>
-              Nutrición emocional para equipos — talleres, retos y programa anual
-            </p>
-          </div>
-          <Link
-            href="/corporate-wellness"
-            className="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:opacity-90"
-            style={{ backgroundColor: 'white', color: '#FF5500' }}
-          >
-            Ver el programa <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
 
     </main>
   )

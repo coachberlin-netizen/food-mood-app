@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+﻿import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import BuyRetoButton from '@/components/retos/BuyRetoButton'
 import type { Metadata } from 'next'
@@ -6,49 +6,48 @@ import type { Metadata } from 'next'
 const CANONICAL = 'https://www.food-mood.app/retos/recupera-tu-energia'
 
 export const metadata: Metadata = {
-  title:       'Recupera tu energía en 7 días | Food·Mood',
-  description: 'Sin cafeína forzada, sin azúcares de rebote. CoQ10, magnesio, hierro y adaptógenos. Protocolo mitocondrial de 7 días basado en evidencia. 19€.',
-  keywords:    'recuperar energía sin cafeína, fatiga crónica alimentación, energía mitocondrial, CoQ10 alimentos, hierro transporte energía, magnesio fatiga, adaptógenos cortisol, reto energía 7 días',
+  title:       'Recupera tu energÃ­a en 7 dÃ­as | FoodÂ·Mood',
+  description: 'Sin cafeÃ­na forzada, sin azÃºcares de rebote. CoQ10, magnesio, hierro y adaptÃ³genos. Protocolo mitocondrial de 7 dÃ­as basado en evidencia. 19â‚¬.',
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },
   },
   openGraph: {
-    title:       'Recupera tu energía en 7 días | Food·Mood',
-    description: 'Protocolo mitocondrial de 7 días. CoQ10, magnesio, hierro y adaptógenos. Sin cafeína forzada. Resultados medibles desde 19€.',
+    title:       'Recupera tu energÃ­a en 7 dÃ­as | FoodÂ·Mood',
+    description: 'Protocolo mitocondrial de 7 dÃ­as. CoQ10, magnesio, hierro y adaptÃ³genos. Sin cafeÃ­na forzada. Resultados medibles desde 19â‚¬.',
     url:         CANONICAL,
     type:        'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Recupera tu energía en 7 días — Food·Mood' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Recupera tu energÃ­a en 7 dÃ­as â€” FoodÂ·Mood' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Recupera tu energía en 7 días | Food·Mood',
-    description: 'Protocolo mitocondrial de 7 días. CoQ10, magnesio, hierro y adaptógenos. Desde 19€.',
+    title:       'Recupera tu energÃ­a en 7 dÃ­as | FoodÂ·Mood',
+    description: 'Protocolo mitocondrial de 7 dÃ­as. CoQ10, magnesio, hierro y adaptÃ³genos. Desde 19â‚¬.',
     images:      ['/og-image.png'],
   },
 }
 
 const INCLUYE = [
-  { icono: '📘', texto: '7 días de protocolo mitocondrial con evidencia' },
-  { icono: '🎧', texto: '7 audios de apoyo — uno por día' },
-  { icono: '📊', texto: 'Seguimiento diario de energía y ánimo' },
-  { icono: '📋', texto: 'Informe personalizado al completar' },
-  { icono: '♾️', texto: 'Acceso de por vida al contenido' },
+  { icono: 'ðŸ“˜', texto: '7 dÃ­as de protocolo mitocondrial con evidencia' },
+  { icono: 'ðŸŽ§', texto: '7 audios de apoyo â€” uno por dÃ­a' },
+  { icono: 'ðŸ“Š', texto: 'Seguimiento diario de energÃ­a y Ã¡nimo' },
+  { icono: 'ðŸ“‹', texto: 'Informe personalizado al completar' },
+  { icono: 'â™¾ï¸', texto: 'Acceso de por vida al contenido' },
 ]
 
 const MECANISMOS = [
-  { icono: '⚡', titulo: 'CoQ10',              desc: 'Motor de la cadena respiratoria' },
-  { icono: '🩸', titulo: 'Hierro + Vit. C',   desc: 'Transporte de oxígeno celular' },
-  { icono: '🔋', titulo: 'Magnesio',           desc: 'Activa el ATP producido' },
-  { icono: '🐟', titulo: 'Omega-3 DHA',        desc: 'Fluidez de membrana mitocondrial' },
-  { icono: '🔬', titulo: 'NAD+',               desc: 'Biogénesis de nuevas mitocondrias' },
-  { icono: '🌿', titulo: 'Adaptógenos',        desc: 'Regulación del cortisol' },
+  { icono: 'âš¡', titulo: 'CoQ10',              desc: 'Motor de la cadena respiratoria' },
+  { icono: 'ðŸ©¸', titulo: 'Hierro + Vit. C',   desc: 'Transporte de oxÃ­geno celular' },
+  { icono: 'ðŸ”‹', titulo: 'Magnesio',           desc: 'Activa el ATP producido' },
+  { icono: 'ðŸŸ', titulo: 'Omega-3 DHA',        desc: 'Fluidez de membrana mitocondrial' },
+  { icono: 'ðŸ”¬', titulo: 'NAD+',               desc: 'BiogÃ©nesis de nuevas mitocondrias' },
+  { icono: 'ðŸŒ¿', titulo: 'AdaptÃ³genos',        desc: 'RegulaciÃ³n del cortisol' },
 ]
 
 const HITOS = [
-  { dia: 1, titulo: 'Día 1 — empieza el reset.',     desc: 'CoQ10 y la cadena respiratoria.',          color: '#6B2737' },
-  { dia: 4, titulo: 'Día 4 — punto de inflexión.',   desc: 'La mayoría nota el cambio aquí.',           color: '#C9A84C' },
-  { dia: 7, titulo: 'Día 7 — reset completado.',     desc: 'Informe personalizado. Siguiente reto.',    color: '#4B8A6B' },
+  { dia: 1, titulo: 'DÃ­a 1 â€” empieza el reset.',     desc: 'CoQ10 y la cadena respiratoria.',          color: '#6B2737' },
+  { dia: 4, titulo: 'DÃ­a 4 â€” punto de inflexiÃ³n.',   desc: 'La mayorÃ­a nota el cambio aquÃ­.',           color: '#C9A84C' },
+  { dia: 7, titulo: 'DÃ­a 7 â€” reset completado.',     desc: 'Informe personalizado. Siguiente reto.',    color: '#4B8A6B' },
 ]
 
 export default async function RetoEnergiaPage() {
@@ -82,11 +81,11 @@ export default async function RetoEnergiaPage() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Recupera tu energía en 7 días',
-    description: 'Protocolo mitocondrial de 7 días para recuperar la energía sin cafeína forzada ni azúcares de rebote.',
+    name: 'Recupera tu energÃ­a en 7 dÃ­as',
+    description: 'Protocolo mitocondrial de 7 dÃ­as para recuperar la energÃ­a sin cafeÃ­na forzada ni azÃºcares de rebote.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
-    brand: { '@type': 'Brand', name: 'Food·Mood' },
+    brand: { '@type': 'Brand', name: 'FoodÂ·Mood' },
     offers: { '@type': 'Offer', price: 19, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: CANONICAL },
   }
 
@@ -94,9 +93,9 @@ export default async function RetoEnergiaPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Food·Mood', item: 'https://www.food-mood.app' },
+      { '@type': 'ListItem', position: 1, name: 'FoodÂ·Mood', item: 'https://www.food-mood.app' },
       { '@type': 'ListItem', position: 2, name: 'Retos', item: 'https://www.food-mood.app/retos' },
-      { '@type': 'ListItem', position: 3, name: 'Recupera tu energía', item: CANONICAL },
+      { '@type': 'ListItem', position: 3, name: 'Recupera tu energÃ­a', item: CANONICAL },
     ],
   }
 
@@ -109,7 +108,7 @@ export default async function RetoEnergiaPage() {
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
         <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: '#6B2737' }}>
-          ← Ver todos los retos
+          â† Ver todos los retos
         </Link>
       </div>
 
@@ -119,27 +118,27 @@ export default async function RetoEnergiaPage() {
         <div className="text-center py-10">
           <div className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium mb-4"
             style={{ background: '#f5eaec', color: '#6B2737' }}>
-            <span>⚡</span> 7 días · Basado en evidencia
+            <span>âš¡</span> 7 dÃ­as Â· Basado en evidencia
           </div>
 
           <h1 className="font-serif text-[28px] font-normal leading-tight mb-3"
             style={{ color: '#2a1a1e' }}>
-            Recupera tu energía<br />en una semana
+            Recupera tu energÃ­a<br />en una semana
           </h1>
 
           <p className="text-base font-medium mb-2" style={{ color: '#6B2737' }}>
-            Sin cafeína forzada, sin azúcares de rebote.<br />Resultados medibles en 7 días.
+            Sin cafeÃ­na forzada, sin azÃºcares de rebote.<br />Resultados medibles en 7 dÃ­as.
           </p>
 
           <p className="text-[13px] leading-snug" style={{ color: '#9e8080' }}>
-            Seguimiento real con tu índice Food·Mood
+            Seguimiento real con tu Ã­ndice FoodÂ·Mood
           </p>
         </div>
 
-        {/* Qué incluye */}
+        {/* QuÃ© incluye */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-4" style={{ color: '#9e8080' }}>
-            Qué incluye
+            QuÃ© incluye
           </p>
           {INCLUYE.map(({ icono, texto }) => (
             <div key={texto} className="flex items-center gap-3 mb-3 last:mb-0">
@@ -148,7 +147,7 @@ export default async function RetoEnergiaPage() {
                 {icono}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-semibold" style={{ color: '#6B2737' }}>✓</span>
+                <span className="text-[13px] font-semibold" style={{ color: '#6B2737' }}>âœ“</span>
                 <span className="text-sm" style={{ color: '#4a3a3e' }}>{texto}</span>
               </div>
             </div>
@@ -172,10 +171,10 @@ export default async function RetoEnergiaPage() {
           </div>
         </div>
 
-        {/* Cómo funciona */}
+        {/* CÃ³mo funciona */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6 mb-4">
           <p className="text-[11px] font-medium uppercase tracking-widest mb-5" style={{ color: '#9e8080' }}>
-            Cómo funciona
+            CÃ³mo funciona
           </p>
 
           <div className="relative">
@@ -199,7 +198,7 @@ export default async function RetoEnergiaPage() {
               Al completar
             </p>
             <p className="text-[13px] leading-snug" style={{ color: '#4a3a3e' }}>
-              Informe personalizado: índice inicio vs. fin, síntomas mejorados, siguiente reto recomendado.
+              Informe personalizado: Ã­ndice inicio vs. fin, sÃ­ntomas mejorados, siguiente reto recomendado.
             </p>
           </div>
         </div>
@@ -207,11 +206,11 @@ export default async function RetoEnergiaPage() {
         {/* CTA */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6">
           <p className="text-[11px] font-medium uppercase tracking-widest text-center mb-2" style={{ color: '#9e8080' }}>
-            Únete ahora
+            Ãšnete ahora
           </p>
-          <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19€</p>
+          <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19â‚¬</p>
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
-            Acceso completo · 7 días
+            Acceso completo Â· 7 dÃ­as
           </p>
           <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
             Solo quedan algunas plazas esta semana
@@ -224,3 +223,4 @@ export default async function RetoEnergiaPage() {
     </>
   )
 }
+

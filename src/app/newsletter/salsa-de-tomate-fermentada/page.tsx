@@ -1,24 +1,23 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Salsa de tomate fermentada: neuroprotección en tarro | Food·Mood Newsletter Nº 03',
+  title: 'Salsa de tomate fermentada: neuroprotecciÃ³n en tarro | FoodÂ·Mood Newsletter NÂº 03',
   description:
-    'Por qué el tomate fermentado 24–48h produce licopeno bioacesible que cruza la barrera hematoencefálica y protege las neuronas. Receta completa paso a paso. Newsletter Nº 03 de Food·Mood.',
-  keywords: 'salsa tomate fermentada, licopeno neuroprotección, fermentación láctica tomate, barrera hematoencefálica licopeno, receta fermentada casera, tomate cerebro salud mental',
+    'Por quÃ© el tomate fermentado 24â€“48h produce licopeno bioacesible que cruza la barrera hematoencefÃ¡lica y protege las neuronas. Receta completa paso a paso. Newsletter NÂº 03 de FoodÂ·Mood.',
   alternates: { canonical: 'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada' },
   openGraph: {
     title:       'Salsa de tomate fermentada. 24 a 48 horas.',
-    description: 'No es una receta de abuela. Es neuroprotección en tarro. El licopeno del tomate fermentado cruza la barrera del cerebro.',
+    description: 'No es una receta de abuela. Es neuroprotecciÃ³n en tarro. El licopeno del tomate fermentado cruza la barrera del cerebro.',
     url:         'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada',
     type:        'article',
-    siteName:    'Food·Mood',
-    images:      [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter Food·Mood — Salsa de tomate fermentada' }],
+    siteName:    'FoodÂ·Mood',
+    images:      [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter FoodÂ·Mood â€” Salsa de tomate fermentada' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Salsa de tomate fermentada: neuroprotección en tarro',
-    description: 'Licopeno bioacesible, barrera hematoencefálica y 48h de fermentación. Newsletter Nº 03 de Food·Mood.',
+    title:       'Salsa de tomate fermentada: neuroprotecciÃ³n en tarro',
+    description: 'Licopeno bioacesible, barrera hematoencefÃ¡lica y 48h de fermentaciÃ³n. Newsletter NÂº 03 de FoodÂ·Mood.',
     images:      ['/og-image.png'],
   },
 }
@@ -124,23 +123,23 @@ const LD = {
   '@graph': [
     {
       '@type':            'NewsArticle',
-      headline:           'Salsa de tomate fermentada: neuroprotección en tarro',
-      description:        'Por qué el tomate fermentado 24-48h produce licopeno bioacesible que cruza la barrera hematoencefálica y protege las neuronas. Receta completa.',
+      headline:           'Salsa de tomate fermentada: neuroprotecciÃ³n en tarro',
+      description:        'Por quÃ© el tomate fermentado 24-48h produce licopeno bioacesible que cruza la barrera hematoencefÃ¡lica y protege las neuronas. Receta completa.',
       url:                'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada',
       datePublished:      '2026-05-11',
       dateModified:       '2026-05-11',
       inLanguage:         'es',
       image:              'https://www.food-mood.app/og-image.png',
-      author:             { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
-      publisher:          { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app',
+      author:             { '@type': 'Organization', name: 'FoodÂ·Mood', url: 'https://www.food-mood.app' },
+      publisher:          { '@type': 'Organization', name: 'FoodÂ·Mood', url: 'https://www.food-mood.app',
                             logo: { '@type': 'ImageObject', url: 'https://www.food-mood.app/og-image.png' } },
       mainEntityOfPage:   { '@type': 'WebPage', '@id': 'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada' },
-      isPartOf:           { '@type': 'Periodical', name: 'Newsletter Food·Mood', url: 'https://www.food-mood.app/newsletter' },
+      isPartOf:           { '@type': 'Periodical', name: 'Newsletter FoodÂ·Mood', url: 'https://www.food-mood.app/newsletter' },
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Food·Mood',  item: 'https://www.food-mood.app' },
+        { '@type': 'ListItem', position: 1, name: 'FoodÂ·Mood',  item: 'https://www.food-mood.app' },
         { '@type': 'ListItem', position: 2, name: 'Newsletter', item: 'https://www.food-mood.app/newsletter' },
         { '@type': 'ListItem', position: 3, name: 'Salsa de tomate fermentada', item: 'https://www.food-mood.app/newsletter/salsa-de-tomate-fermentada' },
       ],
@@ -159,28 +158,28 @@ export default function SalsaTomateFermentadaNewsletter() {
 
         {/* Snippet preview */}
         <div className="snippet">
-          <p>Nº 03 · El licopeno del tomate fermentado cruza la barrera del cerebro y protege las neuronas. Receta: 20 min activos, 24–48h de espera.</p>
+          <p>NÂº 03 Â· El licopeno del tomate fermentado cruza la barrera del cerebro y protege las neuronas. Receta: 20 min activos, 24â€“48h de espera.</p>
         </div>
 
         {/* HEADER */}
         <div className="header">
           <div className="logo-row">
-            <span className="logo-text">Food·Mood</span>
+            <span className="logo-text">FoodÂ·Mood</span>
             <div className="logo-dot" />
-            <span className="logo-text">Slow Food·Mood</span>
+            <span className="logo-text">Slow FoodÂ·Mood</span>
           </div>
           <div className="slow-badge">
-            <span>🍅</span>
-            <span className="slow-badge-text">Fast life. Slow Food·Mood.</span>
+            <span>ðŸ…</span>
+            <span className="slow-badge-text">Fast life. Slow FoodÂ·Mood.</span>
           </div>
-          <div className="header-eyebrow">Newsletter · Nº 03 · Fermentación lenta</div>
+          <div className="header-eyebrow">Newsletter Â· NÂº 03 Â· FermentaciÃ³n lenta</div>
           <div className="header-title">
             Salsa de tomate<br />fermentada.<br />
             <em>24 a 48 horas.</em>
           </div>
           <div className="header-subtitle">
-            No es una receta de abuela. Es neuroprotección en tarro.
-            Te explico por qué el tiempo lo cambia todo.
+            No es una receta de abuela. Es neuroprotecciÃ³n en tarro.
+            Te explico por quÃ© el tiempo lo cambia todo.
           </div>
         </div>
 
@@ -189,10 +188,10 @@ export default function SalsaTomateFermentadaNewsletter() {
           <p className="intro-lead">Hay cosas que solo ocurren cuando no tienes prisa.</p>
           <div className="intro-body">
             <p>
-              El tomate cocido ya tiene más licopeno biodisponible que el crudo. Pero el tomate fermentado
-              durante 24 o 48 horas hace algo que ni el cocinado rápido ni ningún suplemento puede replicar:
-              las bacterias lácticas transforman los carotenoides en formas más activas, más absorbibles,{' '}
-              <strong>capaces de cruzar la barrera hematoencefálica y llegar directamente al tejido neuronal.</strong>
+              El tomate cocido ya tiene mÃ¡s licopeno biodisponible que el crudo. Pero el tomate fermentado
+              durante 24 o 48 horas hace algo que ni el cocinado rÃ¡pido ni ningÃºn suplemento puede replicar:
+              las bacterias lÃ¡cticas transforman los carotenoides en formas mÃ¡s activas, mÃ¡s absorbibles,{' '}
+              <strong>capaces de cruzar la barrera hematoencefÃ¡lica y llegar directamente al tejido neuronal.</strong>
             </p>
             <p>
               No necesitas ingredientes raros. No necesitas equipo especial.
@@ -206,130 +205,130 @@ export default function SalsaTomateFermentadaNewsletter() {
           <p className="pullquote-text">
             El licopeno del tomate fermentado no solo alimenta el cuerpo.<br />
             Cruza la barrera del cerebro. <em>Protege las neuronas.</em><br />
-            Eso no lo hace ningún bote de salsa del supermercado.
+            Eso no lo hace ningÃºn bote de salsa del supermercado.
           </p>
         </div>
 
         {/* CIENCIA */}
         <div className="ciencia">
-          <p className="section-label">💡 La idea de hoy — Licopeno y neuroprotección</p>
+          <p className="section-label">ðŸ’¡ La idea de hoy â€” Licopeno y neuroprotecciÃ³n</p>
 
           <div className="dato-box">
-            <div className="dato-numero">3–5×</div>
+            <div className="dato-numero">3â€“5Ã—</div>
             <div className="dato-label">
-              más licopeno biodisponible en el tomate cocinado que en el crudo.<br />
-              <strong>El fermentado lo convierte en formas aún más activas.</strong>
+              mÃ¡s licopeno biodisponible en el tomate cocinado que en el crudo.<br />
+              <strong>El fermentado lo convierte en formas aÃºn mÃ¡s activas.</strong>
             </div>
           </div>
 
           <div className="ciencia-body">
             <p>
-              El licopeno es el carotenoide más potente para la salud cerebral. A diferencia de otros
-              antioxidantes que se quedan en el torrente sanguíneo, el licopeno{' '}
-              <strong>cruza fácilmente la barrera hematoencefálica</strong> — la frontera que protege el
-              cerebro y que la mayoría de moléculas no pueden atravesar.
+              El licopeno es el carotenoide mÃ¡s potente para la salud cerebral. A diferencia de otros
+              antioxidantes que se quedan en el torrente sanguÃ­neo, el licopeno{' '}
+              <strong>cruza fÃ¡cilmente la barrera hematoencefÃ¡lica</strong> â€” la frontera que protege el
+              cerebro y que la mayorÃ­a de molÃ©culas no pueden atravesar.
             </p>
             <p>
-              Una vez dentro, reduce la oxidación lipídica en las neuronas y tiene efecto antiapoptótico:
+              Una vez dentro, reduce la oxidaciÃ³n lipÃ­dica en las neuronas y tiene efecto antiapoptÃ³tico:
               protege las neuronas de la muerte celular programada. Estudios en humanos asocian mayores
-              niveles de licopeno plasmático con{' '}
-              <strong>menor riesgo de depresión y deterioro cognitivo.</strong>
+              niveles de licopeno plasmÃ¡tico con{' '}
+              <strong>menor riesgo de depresiÃ³n y deterioro cognitivo.</strong>
             </p>
           </div>
 
           <div className="cadena">
             <div className="cadena-paso">Licopeno</div>
-            <div className="cadena-arrow">→</div>
-            <div className="cadena-paso">Barrera hematoencefálica</div>
-            <div className="cadena-arrow">→</div>
-            <div className="cadena-paso">Neuroprotección</div>
-            <div className="cadena-arrow">→</div>
+            <div className="cadena-arrow">â†’</div>
+            <div className="cadena-paso">Barrera hematoencefÃ¡lica</div>
+            <div className="cadena-arrow">â†’</div>
+            <div className="cadena-paso">NeuroprotecciÃ³n</div>
+            <div className="cadena-arrow">â†’</div>
             <div className="cadena-paso">Antiapoptosis</div>
           </div>
 
           <div className="mecanismo-row">
-            <div className="mecanismo-icon">🍅</div>
+            <div className="mecanismo-icon">ðŸ…</div>
             <div className="mecanismo-text">
               <strong>Cocinar activa el licopeno</strong>
               El tomate crudo tiene licopeno en forma trans, poco absorbible. El calor isomeriza
-              el licopeno a forma cis, 3 a 5 veces más biodisponible. Por eso la salsa casera
-              cocinada es más neuroprotectora que el tomate en ensalada.
-              <div className="mecanismo-ref">Shi &amp; Le Maguer, 2000 · Crit Rev Food Sci Nutr · Lycopene bioavailability</div>
+              el licopeno a forma cis, 3 a 5 veces mÃ¡s biodisponible. Por eso la salsa casera
+              cocinada es mÃ¡s neuroprotectora que el tomate en ensalada.
+              <div className="mecanismo-ref">Shi &amp; Le Maguer, 2000 Â· Crit Rev Food Sci Nutr Â· Lycopene bioavailability</div>
             </div>
           </div>
 
           <div className="mecanismo-row">
-            <div className="mecanismo-icon">🦠</div>
+            <div className="mecanismo-icon">ðŸ¦ </div>
             <div className="mecanismo-text">
               <strong>Fermentar amplifica el efecto</strong>
-              Las bacterias lácticas durante la fermentación continúan transformando los carotenoides
-              en formas de mayor actividad biológica. Además producen ácidos orgánicos que mejoran
-              la absorción intestinal del licopeno y reducen la inflamación que interfiere con
+              Las bacterias lÃ¡cticas durante la fermentaciÃ³n continÃºan transformando los carotenoides
+              en formas de mayor actividad biolÃ³gica. AdemÃ¡s producen Ã¡cidos orgÃ¡nicos que mejoran
+              la absorciÃ³n intestinal del licopeno y reducen la inflamaciÃ³n que interfiere con
               su transporte al cerebro.
-              <div className="mecanismo-ref">Xiao et al., 2023 · Food Chem · Lactic acid fermentation enhances lycopene bioaccessibility</div>
+              <div className="mecanismo-ref">Xiao et al., 2023 Â· Food Chem Â· Lactic acid fermentation enhances lycopene bioaccessibility</div>
             </div>
           </div>
 
           <div className="mecanismo-row">
-            <div className="mecanismo-icon">🧠</div>
+            <div className="mecanismo-icon">ðŸ§ </div>
             <div className="mecanismo-text">
-              <strong>Licopeno y depresión</strong>
-              Un metaanálisis de 2022 encontró correlación inversa significativa entre niveles
-              plasmáticos de licopeno y síntomas depresivos. El mecanismo probable: reducción
-              de la neuroinflamación mediada por IL-6 y TNF-α en el hipocampo.
-              <div className="mecanismo-ref">Wang et al., 2022 · Nutrients · Dietary lycopene and depression risk: meta-analysis</div>
+              <strong>Licopeno y depresiÃ³n</strong>
+              Un metaanÃ¡lisis de 2022 encontrÃ³ correlaciÃ³n inversa significativa entre niveles
+              plasmÃ¡ticos de licopeno y sÃ­ntomas depresivos. El mecanismo probable: reducciÃ³n
+              de la neuroinflamaciÃ³n mediada por IL-6 y TNF-Î± en el hipocampo.
+              <div className="mecanismo-ref">Wang et al., 2022 Â· Nutrients Â· Dietary lycopene and depression risk: meta-analysis</div>
             </div>
           </div>
         </div>
 
         {/* RECETA */}
         <div className="receta-section">
-          <p className="section-label">🫙 La receta — Salsa de tomate fermentada</p>
+          <p className="section-label">ðŸ«™ La receta â€” Salsa de tomate fermentada</p>
           <div className="receta-card">
             <div className="receta-header">
-              <div className="receta-mood">Slow Food·Mood · Neuroprotección &amp; Calma</div>
-              <div className="receta-nombre">Salsa de tomate fermentada (24–48h)</div>
-              <div className="receta-meta">⏱ 20 min activos · 24–48h fermentación · 1 tarro de 500 ml</div>
+              <div className="receta-mood">Slow FoodÂ·Mood Â· NeuroprotecciÃ³n &amp; Calma</div>
+              <div className="receta-nombre">Salsa de tomate fermentada (24â€“48h)</div>
+              <div className="receta-meta">â± 20 min activos Â· 24â€“48h fermentaciÃ³n Â· 1 tarro de 500 ml</div>
             </div>
             <div className="receta-body">
 
               <p className="ing-label">Ingredientes</p>
               <p className="ing-seccion">Base</p>
-              <div className="ing-item"><div className="ing-dot" /><span>600 g de tomates maduros — cuanto más rojos, más licopeno</span></div>
-              <div className="ing-item"><div className="ing-dot" /><span>1 cucharadita de sal marina sin refinar (no sal de mesa yodada — interfiere con la fermentación)</span></div>
+              <div className="ing-item"><div className="ing-dot" /><span>600 g de tomates maduros â€” cuanto mÃ¡s rojos, mÃ¡s licopeno</span></div>
+              <div className="ing-item"><div className="ing-dot" /><span>1 cucharadita de sal marina sin refinar (no sal de mesa yodada â€” interfiere con la fermentaciÃ³n)</span></div>
               <div className="ing-item"><div className="ing-dot" /><span>2 dientes de ajo</span></div>
               <div className="ing-item"><div className="ing-dot" /><span>1 cucharada de aceite de oliva virgen extra</span></div>
 
-              <p className="ing-seccion">Aromáticos</p>
-              <div className="ing-item"><div className="ing-dot" /><span>4–5 hojas de albahaca fresca</span></div>
-              <div className="ing-item"><div className="ing-dot" /><span>1 cucharadita de orégano seco</span></div>
-              <div className="ing-item"><div className="ing-dot" /><span className="ing-opcional">1 pizca de pimienta negra — opcional, potencia la absorción de carotenoides</span></div>
+              <p className="ing-seccion">AromÃ¡ticos</p>
+              <div className="ing-item"><div className="ing-dot" /><span>4â€“5 hojas de albahaca fresca</span></div>
+              <div className="ing-item"><div className="ing-dot" /><span>1 cucharadita de orÃ©gano seco</span></div>
+              <div className="ing-item"><div className="ing-dot" /><span className="ing-opcional">1 pizca de pimienta negra â€” opcional, potencia la absorciÃ³n de carotenoides</span></div>
 
-              <p className="ing-seccion">Para arrancar la fermentación</p>
-              <div className="ing-item"><div className="ing-dot" /><span>1 cucharada de salmuera de chucrut crudo sin pasteurizar o de kéfir de leche</span></div>
-              <div className="ing-item"><div className="ing-dot" /><span className="ing-opcional">Alternativa si no tienes: el propio tomate fermentará solo con la sal — solo tardará un poco más</span></div>
+              <p className="ing-seccion">Para arrancar la fermentaciÃ³n</p>
+              <div className="ing-item"><div className="ing-dot" /><span>1 cucharada de salmuera de chucrut crudo sin pasteurizar o de kÃ©fir de leche</span></div>
+              <div className="ing-item"><div className="ing-dot" /><span className="ing-opcional">Alternativa si no tienes: el propio tomate fermentarÃ¡ solo con la sal â€” solo tardarÃ¡ un poco mÃ¡s</span></div>
 
               <div className="receta-pasos">
-                <p className="ing-label">Preparación</p>
+                <p className="ing-label">PreparaciÃ³n</p>
 
-                <div className="paso"><div className="paso-num">1</div><div>Escalde los tomates 30 segundos en agua hirviendo. Pásalos a agua fría. Pela y trocea.<span className="paso-tip">El escaldado activa la primera isomerización del licopeno a forma cis.</span></div></div>
-                <div className="paso"><div className="paso-num">2</div><div>Cocina los tomates a fuego suave con el ajo y el aceite de oliva durante 15 minutos. Remueve ocasionalmente. El licopeno se activa con el calor y la grasa presente.<span className="paso-tip">La grasa del aceite de oliva es imprescindible — el licopeno es liposoluble.</span></div></div>
-                <div className="paso"><div className="paso-num">3</div><div>Retira del fuego. Añade la albahaca, el orégano y la pimienta. Tritura con batidora hasta obtener la textura deseada.</div></div>
-                <div className="paso"><div className="paso-num">4</div><div><strong>Espera a que baje a temperatura ambiente.</strong><span className="paso-warning">⚠ Nunca fermentar caliente — mata las bacterias lácticas.</span></div></div>
-                <div className="paso"><div className="paso-num">5</div><div>Añade la sal marina y la cucharada de salmuera de chucrut o kéfir. Mezcla bien.<span className="paso-tip">La salmuera inocula las bacterias lácticas que van a trabajar durante la fermentación.</span></div></div>
-                <div className="paso"><div className="paso-num">6</div><div>Pasa la salsa a un tarro de cristal limpio. Deja 2–3 cm de espacio arriba — la fermentación genera gas. Cierra con tapa pero no del todo hermético, o usa una gasa sujeta con goma.</div></div>
-                <div className="paso"><div className="paso-num">7</div><div>Deja fermentar a temperatura ambiente (entre 20 y 25°C) durante <strong>24 horas para un sabor suave</strong> o <strong>48 horas para un perfil más ácido y complejo.</strong><span className="paso-tip">En verano fermenta antes. En invierno puede necesitar hasta 72h.</span></div></div>
-                <div className="paso"><div className="paso-num">8</div><div>Cuando veas pequeñas burbujas en la superficie o notes el aroma ácido característico, la fermentación está activa. Cierra el tarro herméticamente y refrigera. Aguanta 2–3 semanas en nevera.</div></div>
+                <div className="paso"><div className="paso-num">1</div><div>Escalde los tomates 30 segundos en agua hirviendo. PÃ¡salos a agua frÃ­a. Pela y trocea.<span className="paso-tip">El escaldado activa la primera isomerizaciÃ³n del licopeno a forma cis.</span></div></div>
+                <div className="paso"><div className="paso-num">2</div><div>Cocina los tomates a fuego suave con el ajo y el aceite de oliva durante 15 minutos. Remueve ocasionalmente. El licopeno se activa con el calor y la grasa presente.<span className="paso-tip">La grasa del aceite de oliva es imprescindible â€” el licopeno es liposoluble.</span></div></div>
+                <div className="paso"><div className="paso-num">3</div><div>Retira del fuego. AÃ±ade la albahaca, el orÃ©gano y la pimienta. Tritura con batidora hasta obtener la textura deseada.</div></div>
+                <div className="paso"><div className="paso-num">4</div><div><strong>Espera a que baje a temperatura ambiente.</strong><span className="paso-warning">âš  Nunca fermentar caliente â€” mata las bacterias lÃ¡cticas.</span></div></div>
+                <div className="paso"><div className="paso-num">5</div><div>AÃ±ade la sal marina y la cucharada de salmuera de chucrut o kÃ©fir. Mezcla bien.<span className="paso-tip">La salmuera inocula las bacterias lÃ¡cticas que van a trabajar durante la fermentaciÃ³n.</span></div></div>
+                <div className="paso"><div className="paso-num">6</div><div>Pasa la salsa a un tarro de cristal limpio. Deja 2â€“3 cm de espacio arriba â€” la fermentaciÃ³n genera gas. Cierra con tapa pero no del todo hermÃ©tico, o usa una gasa sujeta con goma.</div></div>
+                <div className="paso"><div className="paso-num">7</div><div>Deja fermentar a temperatura ambiente (entre 20 y 25Â°C) durante <strong>24 horas para un sabor suave</strong> o <strong>48 horas para un perfil mÃ¡s Ã¡cido y complejo.</strong><span className="paso-tip">En verano fermenta antes. En invierno puede necesitar hasta 72h.</span></div></div>
+                <div className="paso"><div className="paso-num">8</div><div>Cuando veas pequeÃ±as burbujas en la superficie o notes el aroma Ã¡cido caracterÃ­stico, la fermentaciÃ³n estÃ¡ activa. Cierra el tarro hermÃ©ticamente y refrigera. Aguanta 2â€“3 semanas en nevera.</div></div>
               </div>
 
               <div className="receta-nota">
-                <strong>Por qué este proceso importa:</strong> Cada paso suma licopeno activo.
-                El escaldado inicia la isomerización. El cocinado con aceite multiplica la
-                biodisponibilidad por 3 a 5. La fermentación láctica continúa transformando
-                los carotenoides durante 24–48 horas, produciendo además ácido láctico que
-                mejora el entorno intestinal para la absorción. El resultado es una salsa con
-                una concentración de licopeno bioacesible imposible de obtener de otra forma.
-                Una cucharada al día es suficiente.
+                <strong>Por quÃ© este proceso importa:</strong> Cada paso suma licopeno activo.
+                El escaldado inicia la isomerizaciÃ³n. El cocinado con aceite multiplica la
+                biodisponibilidad por 3 a 5. La fermentaciÃ³n lÃ¡ctica continÃºa transformando
+                los carotenoides durante 24â€“48 horas, produciendo ademÃ¡s Ã¡cido lÃ¡ctico que
+                mejora el entorno intestinal para la absorciÃ³n. El resultado es una salsa con
+                una concentraciÃ³n de licopeno bioacesible imposible de obtener de otra forma.
+                Una cucharada al dÃ­a es suficiente.
               </div>
             </div>
           </div>
@@ -337,17 +336,17 @@ export default function SalsaTomateFermentadaNewsletter() {
 
         {/* SLOW PHILOSOPHY */}
         <div className="slow-section">
-          <p className="section-label">🌿 La filosofía Slow Food·Mood</p>
+          <p className="section-label">ðŸŒ¿ La filosofÃ­a Slow FoodÂ·Mood</p>
           <div className="slow-card">
-            <p className="slow-title">Fast life. Slow Food·Mood.</p>
+            <p className="slow-title">Fast life. Slow FoodÂ·Mood.</p>
             <p className="slow-text">
-              Vivimos rápido. Comemos rápido. Nos recuperamos despacio.
-              El reto Slow Food·Mood nació de una observación simple:{' '}
-              <strong>los procesos que más cuidan el sistema nervioso son los que necesitan tiempo.</strong>{' '}
-              La fermentación, el caldo largo, la masa madre, el encurtido. No son técnicas nostálgicas
-              — son bioquímica con paciencia.
+              Vivimos rÃ¡pido. Comemos rÃ¡pido. Nos recuperamos despacio.
+              El reto Slow FoodÂ·Mood naciÃ³ de una observaciÃ³n simple:{' '}
+              <strong>los procesos que mÃ¡s cuidan el sistema nervioso son los que necesitan tiempo.</strong>{' '}
+              La fermentaciÃ³n, el caldo largo, la masa madre, el encurtido. No son tÃ©cnicas nostÃ¡lgicas
+              â€” son bioquÃ­mica con paciencia.
               <br /><br />
-              Cada semana una receta lenta. Cada semana una razón científica para no tener prisa.
+              Cada semana una receta lenta. Cada semana una razÃ³n cientÃ­fica para no tener prisa.
             </p>
           </div>
         </div>
@@ -355,29 +354,29 @@ export default function SalsaTomateFermentadaNewsletter() {
         {/* CTA */}
         <div className="cta-section">
           <p className="cta-texto">
-            El reto <strong>Slow Food·Mood</strong> llega pronto a la app.<br />
-            7 días o 21 días de fermentos, caldos y masas para el sistema nervioso.<br />
-            Mientras tanto, la app tiene recetas organizadas por cómo te sientes hoy.
+            El reto <strong>Slow FoodÂ·Mood</strong> llega pronto a la app.<br />
+            7 dÃ­as o 21 dÃ­as de fermentos, caldos y masas para el sistema nervioso.<br />
+            Mientras tanto, la app tiene recetas organizadas por cÃ³mo te sientes hoy.
           </p>
-          <Link href="/" className="cta-btn-primary">Ver la app Food·Mood →</Link>
-          <Link href="/quiz" className="cta-btn-secondary">Hacer el quiz de estado de ánimo</Link>
+          <Link href="/" className="cta-btn-primary">Ver la app FoodÂ·Mood â†’</Link>
+          <Link href="/quiz" className="cta-btn-secondary">Hacer el quiz de estado de Ã¡nimo</Link>
         </div>
 
         {/* CIERRE */}
         <div className="cierre">
           <p className="cierre-text">
-            La salsa que empieces hoy estará lista mañana por la noche o pasado mañana.
-            Ese tiempo de espera no es inactividad — es bioquímica ocurriendo sin que
+            La salsa que empieces hoy estarÃ¡ lista maÃ±ana por la noche o pasado maÃ±ana.
+            Ese tiempo de espera no es inactividad â€” es bioquÃ­mica ocurriendo sin que
             tengas que hacer nada. A veces cuidar el cerebro es tan simple como poner
             un tarro en la encimera y dejarlo estar.
             <br /><br />
-            Dime si la haces. Me interesa saber cómo te queda.
+            Dime si la haces. Me interesa saber cÃ³mo te queda.
           </p>
           <div className="cierre-firma">
             <div className="firma-nombre">S. Ferreras</div>
             <div className="firma-cargo">
-              Psicóloga · Especialista en longevidad<br />
-              Experta en tecnología de los alimentos
+              PsicÃ³loga Â· Especialista en longevidad<br />
+              Experta en tecnologÃ­a de los alimentos
             </div>
           </div>
         </div>
@@ -385,12 +384,12 @@ export default function SalsaTomateFermentadaNewsletter() {
         {/* DISCLAIMER */}
         <div className="disclaimer">
           <div className="disclaimer-inner">
-            <div className="disclaimer-icon">📖</div>
+            <div className="disclaimer-icon">ðŸ“–</div>
             <div className="disclaimer-text">
-              <strong>Contenido de divulgación científica.</strong> Este newsletter traduce evidencia
-              científica actualizada a un lenguaje accesible para que puedas tomar decisiones
-              informadas sobre tu salud y bienestar. No sustituye el diagnóstico ni el tratamiento
-              de ningún profesional de la salud. Las referencias incluidas corresponden a
+              <strong>Contenido de divulgaciÃ³n cientÃ­fica.</strong> Este newsletter traduce evidencia
+              cientÃ­fica actualizada a un lenguaje accesible para que puedas tomar decisiones
+              informadas sobre tu salud y bienestar. No sustituye el diagnÃ³stico ni el tratamiento
+              de ningÃºn profesional de la salud. Las referencias incluidas corresponden a
               publicaciones revisadas por pares.
             </div>
           </div>
@@ -398,12 +397,13 @@ export default function SalsaTomateFermentadaNewsletter() {
 
         {/* FOOTER */}
         <div className="footer">
-          <div className="footer-logo">Food·Mood</div>
+          <div className="footer-logo">FoodÂ·Mood</div>
           <div className="footer-url">food-mood.app</div>
-          <div className="footer-copy">© 2026 Food·Mood</div>
+          <div className="footer-copy">Â© 2026 FoodÂ·Mood</div>
         </div>
 
       </div>
     </>
   )
 }
+
