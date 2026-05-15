@@ -1055,7 +1055,7 @@ export default function Home() {
       </section>
 
       {/* ── 7. NEWSLETTER / LEAD MAGNET ─────────────────────────────────────── */}
-      <section aria-label="Receta anti-ansiedad gratuita" className="px-6 py-6" style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
+      <section aria-label="Receta de tranquilidad gratuita" className="px-6 py-6" style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
         <div className="max-w-5xl mx-auto">
           <button
             type="button"
@@ -1067,7 +1067,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <span className="font-serif text-xl font-bold" style={{ color: '#2d0f16' }}>Prueba antes</span>
               <span className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.65)' }}>
-                · Una receta anti-ansiedad, gratis.
+                · Una receta de tranquilidad, gratis.
               </span>
             </div>
             <ChevronDown

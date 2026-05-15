@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
         await resend.emails.send({
           from: 'Food·Mood <hola@food-mood.app>',
           to: email,
-          subject: 'Tu receta anti-ansiedad — Food·Mood',
+          subject: 'Tu receta de tranquilidad — Food·Mood',
           html: recipeEmailHtml,
         })
       } catch (emailError) {
