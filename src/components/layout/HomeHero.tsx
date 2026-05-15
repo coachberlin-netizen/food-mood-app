@@ -330,11 +330,6 @@ export default function HomeHero() {
           <div className="hero-grain" style={{ zIndex:5 }} />
           <div ref={dustRightRef} style={{ position:"absolute",inset:0,pointerEvents:"none",zIndex:6,overflow:"hidden" }} />
 
-          {/* Photo tag */}
-          <div className="hero-fade-down-2" style={{ position:"absolute",top:"36px",right:"36px",zIndex:8,textAlign:"right" }}>
-            <span style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"9px",letterSpacing:"0.35em",textTransform:"uppercase",color:"rgba(232,201,138,.6)",display:"block" }}>Comida consciente</span>
-            <span style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"9px",letterSpacing:"0.35em",textTransform:"uppercase",color:"rgba(232,201,138,.3)",display:"block",marginTop:"4px" }}>food · mood</span>
-          </div>
 
           {/* Caption */}
           <div className="hero-fade-up-6" style={{ position:"absolute",bottom:"36px",left:0,right:0,textAlign:"center",zIndex:8 }}>
