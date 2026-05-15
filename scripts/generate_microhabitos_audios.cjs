@@ -50,11 +50,18 @@ function uploadAudio(localPath, storagePath, serviceKey) {
   });
 }
 
-// ── TTS generator ───────────────────────────────────────────────
-async function generateAudio(text, outputFile) {
+// ── TTS generator — uses rawToStream for SSML prosody control ───
+async function generateAudio(ssmlText, outputFile) {
   const tts = new MsEdgeTTS();
   await tts.setMetadata(VOICE, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-  const { audioStream } = tts.toStream(text);
+  const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="es-ES">
+  <voice name="${VOICE}">
+    <prosody rate="-18%" pitch="-5%">
+      ${ssmlText}
+    </prosody>
+  </voice>
+</speak>`;
+  const { audioStream } = tts.rawToStream(ssml);
   return new Promise((resolve, reject) => {
     const chunks = [];
     audioStream.on('data', d => chunks.push(d));
@@ -113,10 +120,8 @@ function buildScript(day, data) {
     parts.push(sanitize(data.psicobiotico.texto));
   }
 
-  const plainText = xmlEscape(parts.filter(Boolean).join(' '));
-
-  // Wrap in <prosody> — msedge-tts inserts this inside <speak><voice>
-  return `<prosody rate="-18%" pitch="-5%">${plainText}</prosody>`;
+  // Return plain XML-escaped text — prosody wrapper is added in generateAudio
+  return xmlEscape(parts.filter(Boolean).join(' '));
 }
 
 // ── Main ────────────────────────────────────────────────────────
