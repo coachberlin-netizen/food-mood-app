@@ -876,47 +876,22 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(245,240,232,0.06)" }}>
-            {[
-              {
-                name: "Susana Ferreras",
-                role: "Fundadora",
-                bio: "Psicóloga · Gerontóloga · Tecnóloga de alimentos · Miembro ACBS",
-              },
-              {
-                name: "Dra. Carmen Vidal",
-                role: "Asesora · Microbiota",
-                bio: "Investigadora en eje intestino-cerebro y psicobióticos. Universidad Complutense.",
-              },
-              {
-                name: "Lucía Martín",
-                role: "Asesora · Neurogastronomía",
-                bio: "Especialista en crononutrición y regulación del sistema nervioso autónomo.",
-              },
-              {
-                name: "Isabel Torrent",
-                role: "Asesora · Tecnología de alimentos",
-                bio: "Experta en postbióticos, fermentación funcional y biodisponibilidad de nutrientes.",
-              },
-            ].map((p) => (
+          <div className="border-t" style={{ borderColor: "rgba(245,240,232,0.06)" }}>
+            <div className="flex items-start gap-5 pt-8 max-w-sm">
               <div
-                key={p.name}
-                className="flex flex-col gap-3 p-7"
-                style={{ backgroundColor: "#0b0b0a" }}
+                className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 mt-0.5"
+                style={{ backgroundColor: "rgba(201,168,76,0.12)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.2)" }}
               >
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                  style={{ backgroundColor: "rgba(201,168,76,0.12)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.2)" }}
-                >
-                  {p.name.charAt(0)}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-white leading-snug">{p.name}</p>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] mt-0.5" style={{ color: "#C9A84C" }}>{p.role}</p>
-                </div>
-                <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.38)" }}>{p.bio}</p>
+                S
               </div>
-            ))}
+              <div>
+                <p className="text-sm font-semibold text-white leading-snug">Susana Ferreras</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] mt-0.5 mb-2" style={{ color: "#C9A84C" }}>Fundadora</p>
+                <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.38)" }}>
+                  Psicóloga · Gerontóloga · Tecnóloga de alimentos · Miembro ACBS
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
