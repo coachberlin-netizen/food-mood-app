@@ -9,7 +9,7 @@ const ACCESS_TOKEN = process.env.SUPABASE_ACCESS_TOKEN || '';
 const PROJECT = 'hbiraafgjshhyjhpbqty';
 const CHALLENGE_ID = 'c5767745-2fbd-4855-af49-38146419dbec';
 const BUCKET = 'retos-audio';
-const VOICE = 'es-ES-ElviraNeural';
+const VOICE = 'es-ES-AlvaroNeural'  // hombre, cálido, natural;
 const OUTPUT_DIR = path.join(__dirname, '..', 'tmp_audios');
 
 // ── Supabase helpers ────────────────────────────────────────────
@@ -67,28 +67,56 @@ async function generateAudio(text, outputFile) {
   });
 }
 
+// ── Sanitize text for TTS (strip symbols the voice would read aloud) ──
+function sanitize(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*(.+?)\*\*/gs, '$1')   // bold **x** → x
+    .replace(/\*(.+?)\*/gs, '$1')        // italic *x* → x
+    .replace(/#{1,6}\s*/g, '')           // headings
+    .replace(/—/g, ',')                  // em dash → comma pause
+    .replace(/–/g, ',')                  // en dash → comma
+    .replace(/·/g, '.')                  // middle dot → period
+    .replace(/•/g, '.')
+    .replace(/^\s*[-]\s+/gm, '')         // bullet list markers
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')  // markdown links → text
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+// XML-escape for SSML safety
+function xmlEscape(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 // ── Build full audio script from day data ───────────────────────
+// Returns SSML prosody wrapper for slower, more human delivery
 function buildScript(day, data) {
   const parts = [];
   // Intro
-  parts.push(`Día ${day}. ${data.lectura?.titulo?.replace(/^Audio — Día \d+:\s*/, '') || ''}.`);
-  parts.push('');
+  parts.push(`Día ${day}. ${sanitize(data.lectura?.titulo?.replace(/^Audio — Día \d+:\s*/, '') || '')}.`);
   // Lectura (audio script)
-  if (data.lectura?.texto) parts.push(data.lectura.texto);
-  parts.push('');
+  if (data.lectura?.texto) parts.push(sanitize(data.lectura.texto));
   // Cambio del día
   if (data.cambio_del_dia) {
-    parts.push(`Tu cambio de hoy: ${data.cambio_del_dia.titulo}.`);
-    parts.push(data.cambio_del_dia.instruccion || '');
-    if (data.cambio_del_dia.por_que) parts.push(`¿Por qué funciona? ${data.cambio_del_dia.por_que}`);
+    parts.push(`Tu cambio de hoy: ${sanitize(data.cambio_del_dia.titulo)}.`);
+    if (data.cambio_del_dia.instruccion) parts.push(sanitize(data.cambio_del_dia.instruccion));
+    if (data.cambio_del_dia.por_que) parts.push(`Por qué funciona. ${sanitize(data.cambio_del_dia.por_que)}`);
   }
-  parts.push('');
   // Psicobiótico
   if (data.psicobiotico?.texto) {
-    parts.push(`Nota Food Mood.`);
-    parts.push(data.psicobiotico.texto);
+    parts.push(`Nota de Food Mood.`);
+    parts.push(sanitize(data.psicobiotico.texto));
   }
-  return parts.filter(Boolean).join(' ');
+
+  const plainText = xmlEscape(parts.filter(Boolean).join(' '));
+
+  // Wrap in <prosody> — msedge-tts inserts this inside <speak><voice>
+  return `<prosody rate="-18%" pitch="-5%">${plainText}</prosody>`;
 }
 
 // ── Main ────────────────────────────────────────────────────────
