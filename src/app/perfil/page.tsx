@@ -26,10 +26,51 @@ export default function ProfilePage() {
   const [waSaving,   setWaSaving]        = useState(false);
   const [waSuccess,  setWaSuccess]       = useState(false);
   const [waError,    setWaError]         = useState<string | null>(null);
-  const [betaCode,   setBetaCode]        = useState('');
-  const [betaStatus, setBetaStatus]      = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
-  const [betaMsg,    setBetaMsg]         = useState('');
+  const [betaCode,         setBetaCode]         = useState('');
+  const [betaStatus,       setBetaStatus]       = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
+  const [betaMsg,          setBetaMsg]          = useState('');
+  const [exportLoading,    setExportLoading]    = useState(false);
+  const [showDeleteModal,  setShowDeleteModal]  = useState(false);
+  const [deleteConfirmTxt, setDeleteConfirmTxt] = useState('');
+  const [deleteLoading,    setDeleteLoading]    = useState(false);
+  const [deleteError,      setDeleteError]      = useState<string | null>(null);
   const router = useRouter();
+
+  const handleExport = async () => {
+    setExportLoading(true);
+    try {
+      const res = await fetch('/api/user/export-data');
+      if (!res.ok) throw new Error('Error al exportar');
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = res.headers.get('Content-Disposition')?.match(/filename="(.+)"/)?.[1] ?? 'foodmood-datos.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert('No se pudo exportar. Inténtalo de nuevo.');
+    } finally {
+      setExportLoading(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleteLoading(true);
+    setDeleteError(null);
+    try {
+      const res  = await fetch('/api/user/delete-all-data', { method: 'POST' });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? 'Error desconocido');
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      useAuthStore.getState().logout();
+      router.push('/?cuenta=eliminada');
+    } catch (err: unknown) {
+      setDeleteError(err instanceof Error ? err.message : 'Error al eliminar la cuenta.');
+      setDeleteLoading(false);
+    }
+  };
 
   useEffect(() => {
     getWhatsAppOptInAction().then(data => {
@@ -375,8 +416,14 @@ export default function ProfilePage() {
                   <span className="font-light text-aubergine-dark/80 group-hover:text-aubergine-dark transition-colors">Notificaciones</span>
                   <div className="w-10 h-6 bg-green-400 rounded-full flex items-center p-1 justify-end"><div className="w-4 h-4 bg-cream rounded-full" /></div>
                 </div>
-                <div className="py-5 flex justify-between items-center cursor-pointer group text-gold hover:text-amber-700">
-                  <span className="font-light flex items-center gap-3"><Download className="w-4 h-4" /> Exportar mis datos</span>
+                <div
+                  onClick={handleExport}
+                  className="py-5 flex justify-between items-center cursor-pointer group text-gold hover:text-amber-700"
+                >
+                  <span className="font-light flex items-center gap-3">
+                    <Download className="w-4 h-4" />
+                    {exportLoading ? 'Preparando…' : 'Exportar mis datos'}
+                  </span>
                 </div>
                 <div 
                   onClick={handleLogout}
@@ -384,7 +431,10 @@ export default function ProfilePage() {
                 >
                   <span className="font-light flex items-center gap-3"><LogOut className="w-4 h-4" /> Cerrar sesión</span>
                 </div>
-                <div className="py-5 flex justify-between items-center cursor-pointer group text-red-400 hover:text-red-500">
+                <div
+                  onClick={() => { setShowDeleteModal(true); setDeleteConfirmTxt(''); setDeleteError(null); }}
+                  className="py-5 flex justify-between items-center cursor-pointer group text-red-400 hover:text-red-500"
+                >
                   <span className="font-light flex items-center gap-3"><Trash2 className="w-4 h-4" /> Eliminar cuenta</span>
                 </div>
               </div>
@@ -416,6 +466,43 @@ export default function ProfilePage() {
           
         </div>
       </div>
+      {/* Delete confirmation modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-6">
+          <div className="bg-[#F5F0E8] rounded-3xl p-8 max-w-md w-full shadow-2xl border border-red-200 space-y-6">
+            <h2 className="text-2xl font-serif text-aubergine-dark">Eliminar cuenta</h2>
+            <p className="text-sm text-aubergine-dark/70 font-light leading-relaxed">
+              Esta acción es <strong>irreversible</strong>. Se borrarán todos tus datos, historial, recetas guardadas y suscripción activa conforme al RGPD.
+            </p>
+            <p className="text-sm text-aubergine-dark/70 font-light">
+              Escribe <span className="font-mono font-bold text-red-500">ELIMINAR</span> para confirmar.
+            </p>
+            <input
+              type="text"
+              value={deleteConfirmTxt}
+              onChange={e => setDeleteConfirmTxt(e.target.value)}
+              placeholder="ELIMINAR"
+              className="w-full border border-red-300 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-red-400/40 font-mono tracking-widest uppercase"
+            />
+            {deleteError && <p className="text-sm text-red-600">{deleteError}</p>}
+            <div className="flex gap-3 pt-2">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="flex-1 py-3 rounded-full border border-aubergine-dark/20 text-sm font-semibold text-aubergine-dark/70 hover:text-aubergine-dark transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                disabled={deleteConfirmTxt !== 'ELIMINAR' || deleteLoading}
+                onClick={handleDeleteAccount}
+                className="flex-1 py-3 rounded-full bg-red-500 text-white text-sm font-semibold hover:bg-red-600 transition-colors disabled:opacity-40"
+              >
+                {deleteLoading ? 'Eliminando…' : 'Eliminar todo'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AuthGuard>
   );
 }

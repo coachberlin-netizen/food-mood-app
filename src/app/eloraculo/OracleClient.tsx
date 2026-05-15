@@ -22,7 +22,9 @@ interface OracleData {
   notes: string
 }
 
-type Screen = 'hero' | 'wizard' | 'result'
+type Screen = 'hero' | 'consent' | 'wizard' | 'result'
+
+const CONSENT_KEY = 'fm_health_consent_v1'
 
 // ── Static data ──────────────────────────────────────────────────────
 
@@ -624,6 +626,78 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
   )
 }
 
+// ── Consent screen (GDPR Art.9) ──────────────────────────────────────
+
+function ConsentScreen({ onAccept, onDecline }: { onAccept: () => void; onDecline: () => void }) {
+  const [saving, setSaving] = useState(false)
+
+  const handleAccept = async () => {
+    setSaving(true)
+    localStorage.setItem(CONSENT_KEY, 'true')
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        await supabase.from('user_consent').upsert({
+          user_id:             user.id,
+          health_data_consent: true,
+          consent_version:     CONSENT_KEY,
+          consented_at:        new Date().toISOString(),
+        }, { onConflict: 'user_id' })
+      }
+    } catch { /* non-blocking */ }
+    finally { setSaving(false) }
+    onAccept()
+  }
+
+  return (
+    <motion.div
+      key="consent"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen bg-[#1A0A0E] flex flex-col items-center justify-center px-6 py-16"
+    >
+      <div className="max-w-sm w-full space-y-6">
+        <div className="text-center">
+          <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.3em] uppercase mb-4">
+            Antes de empezar
+          </p>
+          <h2 className="font-serif text-2xl text-[#F5F0E8] font-light leading-tight mb-3">
+            Tus datos de salud
+          </h2>
+          <p className="text-[#F5F0E8]/50 text-sm leading-relaxed">
+            El Oráculo registra información sobre tu estado emocional, síntomas, ciclo y descanso —
+            datos de categoría especial según el RGPD (Art. 9).
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3 text-sm text-[#F5F0E8]/60 leading-relaxed">
+          <p>✦ Solo <strong className="text-[#F5F0E8]/80">tú puedes ver</strong> tus lecturas — están cifradas y no se usan para publicidad.</p>
+          <p>✦ <strong className="text-[#F5F0E8]/80">Puedes borrar</strong> todos tus datos en cualquier momento desde tu perfil.</p>
+          <p>✦ Nunca compartimos datos de salud con terceros ni con herramientas de analítica.</p>
+          <p className="text-[#F5F0E8]/30 text-xs pt-1">Base legal: consentimiento explícito · Art. 9(2)(a) RGPD</p>
+        </div>
+
+        <div className="space-y-3">
+          <button
+            disabled={saving}
+            onClick={handleAccept}
+            className="w-full py-4 rounded-[60px] bg-[#6B2737] text-[#F5F0E8] font-semibold text-sm hover:bg-[#5a212e] transition-all disabled:opacity-50"
+          >
+            {saving ? 'Guardando…' : 'Entendido, empezar mi lectura'}
+          </button>
+          <button
+            onClick={onDecline}
+            className="w-full py-3 text-[#F5F0E8]/30 text-xs hover:text-[#F5F0E8]/50 transition-colors"
+          >
+            Volver
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 // ── Main wizard ──────────────────────────────────────────────────────
 
 const STEP_VARIANTS = {
@@ -636,6 +710,11 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
   const [screen, setScreen] = useState<Screen>('hero')
   const [step, setStep] = useState(0)
   const [dir, setDir] = useState(1)
+  const [consentGiven, setConsentGiven] = useState(false)
+
+  useEffect(() => {
+    setConsentGiven(localStorage.getItem(CONSENT_KEY) === 'true')
+  }, [])
   const [data, setData] = useState<OracleData>({
     emotions: [],
     energyLevel: 5,
@@ -678,6 +757,15 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
     return <OracleResult data={data} isPremium={isPremium} onReset={reset} />
   }
 
+  if (screen === 'consent') {
+    return (
+      <ConsentScreen
+        onAccept={() => { setConsentGiven(true); setScreen('wizard'); setStep(0) }}
+        onDecline={() => setScreen('hero')}
+      />
+    )
+  }
+
   if (screen === 'hero') {
     return (
       <motion.div
@@ -699,7 +787,10 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
             Registra cómo estás hoy y recibe una lectura personalizada.
           </p>
           <button
-            onClick={() => { setScreen('wizard'); setStep(0) }}
+            onClick={() => {
+              if (consentGiven) { setScreen('wizard'); setStep(0) }
+              else setScreen('consent')
+            }}
             className="inline-flex items-center gap-3 bg-[#6B2737] text-[#F5F0E8] rounded-[60px] px-10 py-4 text-base font-semibold hover:bg-[#5a212e] transition-all hover:scale-105 active:scale-95"
           >
             Empezar mi lectura <ArrowRight className="w-4 h-4" />
