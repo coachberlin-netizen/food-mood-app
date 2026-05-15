@@ -391,6 +391,16 @@ export default async function MicrohabitosPage() {
           </blockquote>
         </section>
 
+        {/* â”€â”€ FOTO â”€â”€ */}
+        <div className=”w-full overflow-hidden” style={{ maxHeight: '340px' }}>
+          <img
+            src=”/retos/microhabitos.jpg”
+            alt=”Micro-prácticas diarias — 21 días Food·Mood”
+            className=”w-full object-cover object-center”
+            style={{ maxHeight: '340px' }}
+          />
+        </div>
+
         {/* â”€â”€ 8 MECANISMOS â”€â”€ */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-ciencia">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>PsicologÃ­a real</p>
