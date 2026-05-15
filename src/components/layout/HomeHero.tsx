@@ -273,9 +273,11 @@ export default function HomeHero() {
             </div>
 
             {/* H1 */}
-            <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontWeight:400,fontSize:"clamp(40px,5vw,68px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
-              El hábito más fácil de crear:<br />
-              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>comer rico y sentirte mejor.</em>
+            <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontWeight:400,fontSize:"clamp(36px,4.6vw,62px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
+              La primera plataforma de IA<br />
+              que te ayuda a{" "}
+              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>regular tu sistema nervioso</em><br />
+              desde el plato.
             </h1>
 
             {/* Divider */}
@@ -283,7 +285,7 @@ export default function HomeHero() {
 
             {/* Sub */}
             <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"380px" }}>
-              Comida funcional para el eje intestino-cerebro. Cada receta nutre y actúa — sobre tu energía, tu estado de ánimo y tus hábitos. Sin esfuerzo. Solo placer.
+              Mapea tus emociones, síntomas y energía. Recetas funcionales que actúan sobre el eje intestino-cerebro — con precisión, sin esfuerzo, con placer.
             </p>
 
             {/* CTAs */}
@@ -349,7 +351,7 @@ export default function HomeHero() {
 
           {/* Caption */}
           <div className="hero-fade-up-6" style={{ position:"absolute",bottom:"36px",left:0,right:0,textAlign:"center",zIndex:8 }}>
-            <p style={{ fontFamily:"Georgia,serif",fontStyle:"italic",fontSize:"15px",color:"rgba(245,237,224,.58)",letterSpacing:"0.1em" }}>Comida que nutre desde adentro</p>
+            <p style={{ fontFamily:"Georgia,serif",fontStyle:"italic",fontSize:"15px",color:"rgba(245,237,224,.58)",letterSpacing:"0.1em" }}>Nutrición para tu sistema nervioso</p>
           </div>
         </div>
 
