@@ -8,6 +8,47 @@ import RetoDetailClient from './RetoDetailClient'
 
 export const dynamic = 'force-dynamic'
 
+// ─── FAQ schema data (plain text, no JSX — for JSON-LD) ──────────────────────
+const FAQS_BASE_SCHEMA = [
+  { q: '¿Qué recibo exactamente al comprar el reto?',                   a: 'Acceso inmediato a todas las recetas funcionales, audios de apoyo, seguimiento diario con tu índice Food·Mood e informe personalizado al finalizar. Todo accesible desde esta misma página, día a día.' },
+  { q: '¿Necesito ingredientes especiales o difíciles de encontrar?',   a: 'No. Los ingredientes están pensados para comprarse en cualquier supermercado. Cuando algún alimento es más específico, siempre incluimos una alternativa accesible.' },
+  { q: '¿Puedo hacerlo si trabajo en turnos o tengo un horario irregular?', a: 'Sí. Las recetas están diseñadas para 20-30 minutos de preparación y no dependen de un horario fijo. Puedes preparar los platos cuando mejor te venga — el reto no caduca ni tiene notificaciones obligatorias.' },
+  { q: '¿Necesito tener una dieta especial o ser vegano?',              a: 'No. Las recetas son flexibles — incluyen opciones para distintas preferencias. El objetivo es añadir alimentos funcionales, no eliminar nada.' },
+  { q: '¿Cuánto tiempo al día requiere?',                               a: 'Entre 20 y 30 minutos. Cada día recibes una receta, un audio breve y un registro emocional de dos preguntas. Sin rituales complejos ni listas interminables.' },
+  { q: '¿Puedo empezar cuando quiera?',                                 a: 'Sí. El acceso es inmediato tras el pago y el reto empieza el día que tú decidas. No hay fechas fijas ni cohortes.' },
+  { q: '¿Tengo dudas o necesito ayuda?',                                a: 'Puedes escribirnos en cualquier momento a info@food-mood.app.' },
+]
+const FAQS_BY_SLUG_SCHEMA: Record<string, Array<{ q: string; a: string }>> = {
+  'reset-antiinflamatorio': [
+    { q: '¿Es compatible con mi medicación?',              a: 'El reto se basa en alimentos naturales. Si tomas medicación anticoagulante (warfarina) o inmunosupresores, consulta a tu médico antes de aumentar el consumo de cúrcuma y omega-3.' },
+    { q: '¿Necesito comprar suplementos o proteínas?',     a: 'No. Todo el protocolo se basa en alimentos reales: cúrcuma, jengibre, omega-3 del pescado azul y fermentados. Sin pastillas, sin polvos, sin gasto extra.' },
+  ],
+  'mejora-tu-sueno': [
+    { q: '¿Funciona si tengo insomnio crónico?',           a: 'El reto actúa sobre la vía serotonina-melatonina a través de la alimentación. Funciona mejor como complemento a un tratamiento médico si lo tienes.' },
+    { q: '¿Puedo tomar melatonina a la vez?',              a: 'Sí, son compatibles. El reto trabaja la síntesis endógena de melatonina — más sostenible a largo plazo — mientras el suplemento cubre el corto plazo.' },
+  ],
+  'equilibrio-hormonal-45': [
+    { q: '¿Es para perimenopausia o también para SOP?',    a: 'Para todos. El protocolo trabaja el estrobioma, los fitoestrógenos y la inflamación de bajo grado — mecanismos comunes a la perimenopausia, el SOP y el hipotiroidismo subclínico.' },
+    { q: '¿Necesito análisis antes de empezar?',           a: 'No es obligatorio, pero conocer tus niveles de vitamina D, ferritina y TSH te permite medir el impacto real del protocolo al terminar.' },
+  ],
+  'recupera-tu-energia': [
+    { q: '¿Funciona sin dejar el café?',                   a: 'Sí. No pedimos que elimines la cafeína — pedimos que cambies el contexto: cuándo, con qué y por qué la tomas. El reto trabaja la función mitocondrial y el transporte de hierro.' },
+  ],
+}
+function buildFaqSchema(slug: string) {
+  const extra = FAQS_BY_SLUG_SCHEMA[slug] ?? []
+  const all = [...FAQS_BASE_SCHEMA.slice(0, 3), ...extra, ...FAQS_BASE_SCHEMA.slice(3)]
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: all.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  }
+}
+
 type PageProps = { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -168,6 +209,7 @@ export default async function RetoDetailPage({ params }: PageProps) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(slug)) }} />
       <div className="sr-only">
         <nav aria-label="Ruta de navegación">
           <a href="/retos">Retos</a> › <span>{challenge.title}</span>
