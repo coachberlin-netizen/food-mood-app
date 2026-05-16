@@ -7,13 +7,13 @@ import { buildSystemPromptWithContext } from '@/agent/build-context'
 import { retrieveForPrompt } from '@/agent/rag'
 import { runSafetyChecks } from '@/agent/safety-middleware'
 import type { UserHealthProfile } from '@/agent/safety-middleware'
+import type { AgentRequest } from '@/agent/types'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
 const MODEL           = 'claude-haiku-4-5-20251001'
 const MAX_TOKENS      = 2048
 const MONTHLY_QUOTA   = 100
 
-// Coste aproximado en EUR (haiku-4-5: ~$0.25/MTok in, ~$1.25/MTok out; USD≈EUR)
 const EUR_PER_TOK_IN  = 0.00000025
 const EUR_PER_TOK_OUT = 0.00000125
 
@@ -32,16 +32,19 @@ export async function POST(req: NextRequest) {
   const t0 = Date.now()
 
   // ── 1. Body ────────────────────────────────────────────────────────────────
-  let body: { moodCategoria?: string; mensaje?: string; moodTextoLibre?: string }
+  let body: AgentRequest
   try {
     body = await req.json()
   } catch {
     return NextResponse.json({ error: 'invalid_json' }, { status: 400 })
   }
 
-  const { moodCategoria, mensaje, moodTextoLibre } = body
-  if (!moodCategoria || !mensaje) {
-    return NextResponse.json({ error: 'missing_fields: moodCategoria, mensaje' }, { status: 400 })
+  const moodCategoria = body.mood?.categoria ?? body.userText
+  const mensaje       = body.userText
+  const moodTextoLibre = body.mood?.texto_libre
+
+  if (!mensaje) {
+    return NextResponse.json({ error: 'missing_fields: userText' }, { status: 400 })
   }
 
   // ── 2. Autenticación ───────────────────────────────────────────────────────
@@ -65,7 +68,7 @@ export async function POST(req: NextRequest) {
     (profile?.premium_level ?? 0) > 0
 
   if (!isPremium) {
-    return NextResponse.json({ error: 'premium_required' }, { status: 403 })
+    return NextResponse.json({ error: 'premium_required' }, { status: 402 })
   }
 
   // ── 4. Cupo mensual: 100 interacciones ────────────────────────────────────
@@ -183,5 +186,5 @@ export async function POST(req: NextRequest) {
     console.warn(`[agent:flag] ${safety.flagged} user=${user.id}`)
   }
 
-  return NextResponse.json({ response: safety.response }, { status: 200 })
+  return NextResponse.json(safety.response, { status: 200 })
 }
