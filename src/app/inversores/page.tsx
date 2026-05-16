@@ -319,6 +319,32 @@ function InvestorDeck() {
           At an €800K cap, this is not a bet against a giant. It is a bet on the beach they left empty.
         </p>
 
+        {/* Moat — 3 bullets */}
+        <SectionLabel>The Moat</SectionLabel>
+        <div style={{ background: '#1A1612', borderRadius: 8, padding: '22px 26px', marginBottom: 4 }}>
+          {[
+            {
+              label: 'Clinically-supervised emotional nutrition AI',
+              text: 'Vertical AI agent co-designed and continuously reviewed by a clinical professional, embedding EU AI Act–ready safety from day one instead of retrofitting later.',
+            },
+            {
+              label: 'Proprietary functional recipes & gut–brain dataset',
+              text: 'Unique combination of fermentations, postbiotics and mood-linked recipes, curated from scientific expertise and user outcomes into a dataset no generic wellness or calorie app can easily replicate.',
+            },
+            {
+              label: 'Regulation as a moat, not a risk',
+              text: 'Our Clinical AI Safety Infrastructure makes upcoming EU AI Act and health-adjacent digital regulation a barrier to entry for competitors, while our system is already architected for compliance.',
+            },
+          ].map(({ label, text }, i) => (
+            <div key={label} style={{ display: 'flex', gap: 14, marginBottom: i < 2 ? 18 : 0 }}>
+              <span style={{ color: '#C9A84C', fontFamily: 'monospace', fontSize: 14, fontWeight: 700, flexShrink: 0, lineHeight: 1.4 }}>·</span>
+              <p style={{ fontSize: 10.5, color: '#F5F0E8', lineHeight: 1.7, margin: 0 }}>
+                <strong style={{ color: '#C9A84C' }}>{label}</strong> — {text}
+              </p>
+            </div>
+          ))}
+        </div>
+
         {/* Psychological framework — collapsible */}
         <details style={{ marginTop: 16, marginBottom: 4 }}>
           <summary style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3A8C62', padding: '10px 14px', background: '#F0EDE4', borderRadius: 4, cursor: 'pointer', border: '1px solid #E0EDE6', userSelect: 'none' }}>
@@ -535,55 +561,23 @@ function InvestorDeck() {
           </div>
         </div>
 
-        {/* Moat summary bullets */}
-        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Moat — Three Structural Advantages</p>
-        <div style={{ background: '#1A1612', borderRadius: 8, padding: '20px 24px', marginBottom: 18 }}>
-          {[
-            {
-              label: 'Clinically-supervised emotional nutrition AI',
-              text: 'Vertical AI agent co-designed and continuously reviewed by a clinical professional, embedding EU AI Act–ready safety from day one instead of retrofitting later.',
-            },
-            {
-              label: 'Proprietary functional recipes & gut–brain dataset',
-              text: 'Unique combination of fermentations, postbiotics and mood-linked recipes, curated from scientific expertise and user outcomes into a dataset no generic wellness or calorie app can easily replicate.',
-            },
-            {
-              label: 'Regulation as a moat, not a risk',
-              text: 'Our Clinical AI Safety Infrastructure makes upcoming EU AI Act and health-adjacent digital regulation a barrier to entry for competitors, while our system is already architected for compliance.',
-            },
-          ].map(({ label, text }, i) => (
-            <div key={label} style={{ display: 'flex', gap: 14, marginBottom: i < 2 ? 16 : 0 }}>
-              <span style={{ color: '#C9A84C', fontFamily: 'monospace', fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>·</span>
-              <p style={{ fontSize: 10.5, color: '#F5F0E8', lineHeight: 1.65, margin: 0 }}>
-                <strong style={{ color: '#C9A84C' }}>{label}</strong> — {text}
-              </p>
-            </div>
-          ))}
-        </div>
-
         {/* Competition & Moat */}
         <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Competition &amp; Moat</p>
         <div style={{ marginBottom: 18 }}>
           <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
-            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — What prevents Noom or Lifesum from copying this tomorrow?</p>
-            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 10 }}>Three barriers:</p>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 10, lineHeight: 1.5 }}>Q — What prevents Noom or Lifesum from copying this tomorrow?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 12 }}>Three structural advantages that compound over time:</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <div style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
-                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>1. Spanish-language scientific content</p>
-                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Replicable, but requires 18–24 months of curation. We already have 3 challenges, 7 audio library episodes, and a book in pre-publication.</p>
-              </div>
-              <div style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
-                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>2. The founder as product</p>
-                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Noom cannot copy a psychologist + food biotechnologist + gerontologist + full-stack developer who lives this message. Authenticity does not scale easily.</p>
-              </div>
-              <div style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
-                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>3. The Food·Mood Dataset</p>
-                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>At 10,000+ users, our correlated food, mood, hormonal phase, and habit data (GDPR-compliant, aggregated) becomes a licensable asset for public health research and nutraceutical innovation. This dataset has no equivalent in Spanish-language women&apos;s health. Barrier #3 is what transforms us from an app into a data platform — it is not on any competitor&apos;s current roadmap.</p>
-              </div>
-              <div style={{ paddingLeft: 12, borderLeft: '2px solid #3A8C62' }}>
-                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>4. Regulation as a moat, not a risk</p>
-                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Food·Mood uses standard LLM infrastructure (Anthropic Claude) paired with a founder-designed safety filter layer: pre-LLM gates intercept crisis and eating disorder signals; post-LLM validation blocks allergens and routes drug-food interactions to pharmacist referral. The moat is operational — a documented human review process, a clinical advisory layer, and a curation pipeline that competitors cannot replicate quickly — not the underlying model. As the EU AI Act (fully applicable from 2027) raises the bar for health-adjacent AI systems, this architecture is already structured for compliance. Competitors retrofitting safety into systems not designed for it will need 18–24 months of legal and engineering work.</p>
-              </div>
+              {[
+                ['Clinically-supervised emotional nutrition AI', 'A vertical AI agent co-designed and continuously reviewed by a clinical professional. The underlying model is a general-purpose LLM (Anthropic Claude); the moat is the operational layer — the safety pipeline, the curation process, and the clinical expertise that shapes both. Competitors can buy the same model; they cannot buy 18 months of founder-embedded clinical review.'],
+                ['Proprietary functional recipes & gut–brain dataset', 'Fermentations, postbiotics, and mood-linked recipes curated from scientific expertise and early user outcomes. At 10,000+ users, this becomes a GDPR-compliant behavioural dataset — correlated food, mood, hormonal phase, and habit data — with no equivalent in Spanish-language women\'s health. That dataset is a licensable asset; no competitor is building it.'],
+                ['Regulation as a moat, not a risk', 'EU AI Act–ready safety architecture built from day one. Reviewed against MDCG 2025-4 (lifestyle vs. medical device classification): our claims and architecture stay on the wellness side. Competitors retrofitting safety into systems not designed for it will spend 18–24 months of legal and engineering work catching up — after the window to establish brand trust has closed.'],
+              ].map(([label, text]) => (
+                <div key={label} style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
+                  <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>{label}</p>
+                  <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>{text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
