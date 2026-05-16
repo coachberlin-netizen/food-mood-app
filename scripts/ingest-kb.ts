@@ -18,10 +18,40 @@ import path from 'path'
 import { createClient } from '@supabase/supabase-js'
 import { embedText } from '../src/agent/rag'
 
-const KB_DIR     = path.join(process.cwd(), 'content', 'kb')
+const KB_DIR      = path.join(process.cwd(), 'content', 'kb')
 const CHUNK_WORDS = 512
 const OVERLAP     = Math.round(CHUNK_WORDS * 0.1)   // 51 palabras ≈ 10%
 const MIN_CHARS   = 80                               // descartar fragmentos muy cortos
+const RPM_DELAY   = 21_000                           // 3 RPM free tier → 21s entre llamadas
+
+// Rate limiter global + retry para la clave sin método de pago (3 RPM)
+let lastEmbedAt = 0
+async function embedRateLimited(text: string): Promise<number[]> {
+  const elapsed = Date.now() - lastEmbedAt
+  if (elapsed < RPM_DELAY) {
+    const wait = RPM_DELAY - elapsed
+    process.stdout.write(`(⏳${Math.ceil(wait / 1000)}s) `)
+    await new Promise(r => setTimeout(r, wait))
+  }
+  lastEmbedAt = Date.now()
+
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      return await embedText(text)
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      if (attempt < 2) {
+        const wait = (attempt + 1) * 10_000
+        process.stdout.write(`(retry ${attempt + 1}, ⏳${wait / 1000}s) `)
+        await new Promise(r => setTimeout(r, wait))
+        lastEmbedAt = Date.now()
+      } else {
+        throw new Error(`embedText failed after 3 attempts: ${msg}`)
+      }
+    }
+  }
+  throw new Error('unreachable')
+}
 
 // ── Chunking por palabras con solapamiento ────────────────────────────────────
 
@@ -55,7 +85,7 @@ async function ingestFile(
 
   for (let idx = 0; idx < chunks.length; idx++) {
     const content   = chunks[idx]
-    const embedding = await embedText(content)
+    const embedding = await embedRateLimited(content)
 
     const { error } = await service.from('knowledge_base_chunks').insert({
       content,
@@ -66,6 +96,7 @@ async function ingestFile(
     })
 
     if (error) throw new Error(`Supabase insert error: ${error.message}`)
+    process.stdout.write(`${idx + 1}/${chunks.length} `)
   }
 
   console.log('OK')
