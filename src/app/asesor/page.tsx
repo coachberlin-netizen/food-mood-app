@@ -487,7 +487,7 @@ export default function AsesorPage() {
         const res = await fetch("/api/agent/chat", {
           method:  "POST",
           headers: { "Content-Type": "application/json" },
-          body:    JSON.stringify({ moodCategoria: selectedMood, mensaje: userText }),
+          body:    JSON.stringify({ userText, mood: { categoria: selectedMood } }),
         })
 
         if (res.status === 401) { setAccessState("unauthenticated"); return }
@@ -513,7 +513,7 @@ export default function AsesorPage() {
         }
 
         setUsed(prev => prev + 1)
-        setMessages(prev => [...prev, { role: "assistant", agentResponse: data.response }])
+        setMessages(prev => [...prev, { role: "assistant", agentResponse: data }])
       } catch {
         setMessages(prev => [
           ...prev,

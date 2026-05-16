@@ -754,6 +754,158 @@ function InvestorDeck() {
   )
 }
 
+const PERFORMANCE_TEXT = `FOOD·MOOD — PRE-SEED PERFORMANCE SNAPSHOT
+May 2026 · Confidential
+
+━━ PRODUCT READINESS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+— Full-stack PWA live at food-mood.app (Next.js / Supabase / Stripe / Vercel)
+— AI Digital Advisor with 4-layer clinical safety pipeline: crisis detection, TCA signals, allergen blocking, drug-food interactions — validated by founder as licensed mental health professional
+— 3 transformation challenges live; 5 more in pipeline — all 8 on schedule for Q1 2027
+— Stripe subscription payments integrated and tested; premium content fully gated
+— 7-episode proprietary audio library complete; book manuscript ready (pre-publication 2026)
+
+━━ CONTENT & COMMUNITY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+— Active newsletter + WhatsApp & Telegram communities — warm audience primed for launch
+— Demand validated through founder coaching practice (Umyko wellness community, paying clients)
+— 24 newsletter editions published; RAG knowledge base seeded with gut-brain longevity content
+
+━━ GO-TO-MARKET STATUS (INTENTIONAL PRE-LAUNCH) ━━━━━━━━━━━━
+— Scaling begins post-funding close — infrastructure ready, no premature growth spend
+— 90-day post-close targets: 100 paying users · D7 retention >40% · NPS >50
+— First investor matchmaking event: June 2026
+
+━━ UNIT ECONOMICS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+— Challenge entry: €19–29 | Subscription: €9/month (€7/month quarterly)
+— Target CAC: <€40 | Estimated LTV: €150–€200 | LTV:CAC ratio: >3.75×
+— Challenge → subscription conversion target: 15% (wellness app benchmark)
+— B2B Corporate Wellness: €490 pilot / €12 per employee per month
+
+━━ FINANCIAL TARGETS (18 MONTHS POST-CLOSE) ━━━━━━━━━━━━━━━━━━━
+— 2,500 challenge purchases + 500 active subscribers → ~€116K ARR equivalent
+— €8K–12K MRR by Q3 2027 milestone
+— Seed round Q1 2028 · Target: €25K+ MRR · 1,500+ active subscribers
+— At 1% Spanish SAM: 22,000 subscribers = €2.4M ARR
+
+━━ MARKET POSITION ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+— No established Spanish-language competitor in gut-brain nutrition for women 45+
+— TAM: ~95M Spanish-speaking women 45+ globally (Spain, LATAM, Hispanic USA)
+— EU AI Act compliant (lifestyle category, not high-risk AI); GDPR-first architecture
+
+━━ ROUND TERMS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+— Raising: €140,000
+— Instrument: SAFE-style convertible | Valuation cap: €800,000 | Discount: 20% at Seed
+— Implied dilution: ~17.5%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Susana Ferreras Diez · CEO & Founder
+www.food-mood.app · info@food-mood.app
+Confidential — do not distribute without authorisation`
+
+const BULLETS: Array<{ label: string; items: string[] }> = [
+  {
+    label: 'Product Readiness',
+    items: [
+      'Full-stack PWA live at food-mood.app — payments integrated, infrastructure tested on Vercel',
+      'AI Digital Advisor with 4-layer clinical safety pipeline (crisis, TCA, allergens, drug-food interactions) — validated by founder as licensed mental health professional. No competitor has equivalent.',
+      '3 transformation challenges live (Recupera tu Energía, Equilibrio Hormonal 45, Slow Food·Mood); 5 more in pipeline — all 8 on schedule Q1 2027',
+      '7-episode proprietary audio library complete; book manuscript ready for pre-publication 2026',
+    ],
+  },
+  {
+    label: 'Content & Community',
+    items: [
+      'Active newsletter + WhatsApp & Telegram communities — warm audience primed for launch',
+      'Demand validated through founder coaching practice (Umyko wellness community, paying clients)',
+      '24 newsletter editions published; RAG knowledge base seeded with gut-brain longevity content',
+    ],
+  },
+  {
+    label: 'Go-to-Market (Intentional Pre-Launch)',
+    items: [
+      'Scaling begins post-funding close — infrastructure and content ready; no premature growth spend',
+      '90-day post-close targets: 100 paying users · D7 retention >40% · NPS >50',
+      'First investor matchmaking event: June 2026',
+    ],
+  },
+  {
+    label: 'Unit Economics',
+    items: [
+      'Challenge entry: €19–€29 · Subscription: €9/month (€7/month quarterly)',
+      'Target CAC: <€40 · Estimated LTV: €150–€200 · LTV:CAC ratio >3.75×',
+      'Challenge → subscription conversion target: 15% (wellness app benchmark)',
+      'B2B Corporate Wellness: €490 pilot / €12 per employee per month — 1 mid-size contract = 50+ B2C subscriber equivalents',
+    ],
+  },
+  {
+    label: 'Financial Targets — 18 Months Post-Close',
+    items: [
+      '2,500 challenge purchases + 500 active subscribers → ~€116K ARR equivalent',
+      '€8K–12K MRR by Q3 2027 milestone · Seed round Q1 2028 at €25K+ MRR',
+      'At 1% of Spanish SAM: 22,000 subscribers = €2.4M ARR',
+    ],
+  },
+  {
+    label: 'Market Position',
+    items: [
+      'No established Spanish-language competitor in gut-brain nutrition for women 45+',
+      'TAM: ~95M Spanish-speaking women 45+ globally — Spain, LATAM, Hispanic USA',
+      'EU AI Act compliant (lifestyle category, not high-risk AI); GDPR-first architecture from day one',
+      'Raising €140K on SAFE-style convertible · €800K valuation cap · 20% discount at Seed · ~17.5% implied dilution',
+    ],
+  },
+]
+
+function PerformanceSnapshot() {
+  const encoded = encodeURIComponent(PERFORMANCE_TEXT)
+  return (
+    <>
+      <SectionLabel>Performance Snapshot</SectionLabel>
+      <div style={{ background: '#F0EDE4', border: '1px solid #E0EDE6', borderRadius: 8, padding: '20px 24px', marginBottom: 4 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
+          <div>
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#3A8C62', marginBottom: 3 }}>Pre-Seed · May 2026 · Confidential</p>
+            <p style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', lineHeight: 1.2 }}>Food·Mood — Performance Snapshot</p>
+          </div>
+          <a
+            href={`data:text/plain;charset=utf-8,${encoded}`}
+            download="food-mood-performance-snapshot-may2026.txt"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              fontSize: 9,
+              fontFamily: 'monospace',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: '#F9F7F2',
+              background: '#1A1612',
+              borderRadius: 4,
+              padding: '7px 14px',
+              textDecoration: 'none',
+              flexShrink: 0,
+            }}
+          >
+            ↓ Download (.txt)
+          </a>
+        </div>
+        {BULLETS.map(({ label, items }) => (
+          <div key={label} style={{ marginBottom: 14 }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3A8C62', marginBottom: 6 }}>{label}</p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {items.map(item => (
+                <li key={item} style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.55, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#3A8C62', flexShrink: 0, marginTop: 4, display: 'inline-block' }} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+
 const bodyP: React.CSSProperties = { fontSize: 10.5, color: '#1A1612', lineHeight: 1.72, marginTop: 8 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
