@@ -5,10 +5,13 @@ import { runSafetyPipeline } from "./safety/middleware";
 import type { AgentResponse } from "./safety/schema";
 import type { RagStore } from "./rag";
 import type { AgentRequest } from "./types";
+import type { BiomarkerStore } from "@/biomarkers/store";
+import type { Sample } from "@/biomarkers/types";
 
 export interface OrchestratorConfig {
   anthropic: Anthropic;
   rag: RagStore;
+  biomarkerStore?: BiomarkerStore;
   logger?: (event: Record<string, unknown>) => void;
   model?: string;
 }
@@ -16,6 +19,7 @@ export interface OrchestratorConfig {
 export class Orchestrator {
   private readonly anthropic: Anthropic;
   private readonly rag: RagStore;
+  private readonly biomarkerStore?: BiomarkerStore;
   private readonly logger: (event: Record<string, unknown>) => void;
   private readonly model: string;
   private readonly basePrompt: string;
@@ -23,6 +27,7 @@ export class Orchestrator {
   constructor(config: OrchestratorConfig) {
     this.anthropic = config.anthropic;
     this.rag = config.rag;
+    this.biomarkerStore = config.biomarkerStore;
     this.logger = config.logger ?? (() => {});
     this.model = config.model ?? "claude-haiku-4-5-20251001";
     this.basePrompt = loadSystemPrompt();
@@ -41,6 +46,17 @@ export class Orchestrator {
       /embarazo|lactancia/i.test(c),
     );
 
+    // Hidrata biomarcadores si el store está disponible y el userId existe
+    let biomarcadores: string | undefined;
+    if (this.biomarkerStore && req.userId) {
+      try {
+        const recent = await this.biomarkerStore.recent(req.userId, 7);
+        biomarcadores = aggregateBiomarkersText(recent);
+      } catch {
+        // No bloquear al agente si los biomarcadores fallan
+      }
+    }
+
     const systemPrompt = buildSystemPromptWithContext(this.basePrompt, {
       profile: {
         alergias: profile.allergies,
@@ -55,6 +71,7 @@ export class Orchestrator {
       },
       moodCategoria: mood?.categoria ?? userText,
       moodTextoLibre: mood?.texto_libre,
+      biomarcadores,
       fragmentosFoodMood: foodmoodChunks.length > 0 ? foodmoodChunks.join("\n\n---\n\n") : undefined,
       fragmentosLongevidad: longevidadChunks.length > 0 ? longevidadChunks.join("\n\n---\n\n") : undefined,
     });
@@ -92,4 +109,20 @@ export class Orchestrator {
       logger,
     });
   }
+}
+
+function aggregateBiomarkersText(samples: Sample[]): string | undefined {
+  const byType: Record<string, number[]> = {};
+  for (const s of samples) {
+    (byType[s.type] ??= []).push(s.value);
+  }
+  if (Object.keys(byType).length === 0) return undefined;
+
+  const avg = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / arr.length;
+  const lines: string[] = [];
+  if (byType.hrv?.length)          lines.push(`HRV media (7d): ${avg(byType.hrv).toFixed(1)} ms`);
+  if (byType.sleep_h?.length)      lines.push(`Sueño medio (7d): ${avg(byType.sleep_h).toFixed(1)} h`);
+  if (byType.resting_hr?.length)   lines.push(`FC en reposo media (7d): ${avg(byType.resting_hr).toFixed(0)} bpm`);
+  if (byType.glucose_mean?.length) lines.push(`Glucosa media (7d): ${avg(byType.glucose_mean).toFixed(0)} mg/dL`);
+  return lines.length > 0 ? lines.join("\n") : undefined;
 }
