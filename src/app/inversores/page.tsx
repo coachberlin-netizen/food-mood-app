@@ -535,6 +535,32 @@ function InvestorDeck() {
           </div>
         </div>
 
+        {/* Moat summary bullets */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Moat — Three Structural Advantages</p>
+        <div style={{ background: '#1A1612', borderRadius: 8, padding: '20px 24px', marginBottom: 18 }}>
+          {[
+            {
+              label: 'Clinically-supervised emotional nutrition AI',
+              text: 'Vertical AI agent co-designed and continuously reviewed by a clinical professional, embedding EU AI Act–ready safety from day one instead of retrofitting later.',
+            },
+            {
+              label: 'Proprietary functional recipes & gut–brain dataset',
+              text: 'Unique combination of fermentations, postbiotics and mood-linked recipes, curated from scientific expertise and user outcomes into a dataset no generic wellness or calorie app can easily replicate.',
+            },
+            {
+              label: 'Regulation as a moat, not a risk',
+              text: 'Our Clinical AI Safety Infrastructure makes upcoming EU AI Act and health-adjacent digital regulation a barrier to entry for competitors, while our system is already architected for compliance.',
+            },
+          ].map(({ label, text }, i) => (
+            <div key={label} style={{ display: 'flex', gap: 14, marginBottom: i < 2 ? 16 : 0 }}>
+              <span style={{ color: '#C9A84C', fontFamily: 'monospace', fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>·</span>
+              <p style={{ fontSize: 10.5, color: '#F5F0E8', lineHeight: 1.65, margin: 0 }}>
+                <strong style={{ color: '#C9A84C' }}>{label}</strong> — {text}
+              </p>
+            </div>
+          ))}
+        </div>
+
         {/* Competition & Moat */}
         <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>Competition &amp; Moat</p>
         <div style={{ marginBottom: 18 }}>
