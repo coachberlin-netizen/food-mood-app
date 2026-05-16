@@ -680,6 +680,12 @@ function InvestorDeck() {
             ↓ Pitch Deck PDF
           </a>
           <a
+            href="/inversores/safety-architecture"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#3A8C62', border: '1px solid #3A8C62', borderRadius: 4, padding: '7px 14px', textDecoration: 'none' }}
+          >
+            ↓ AI Safety Architecture (PDF)
+          </a>
+          <a
             href="mailto:info@food-mood.app?subject=Food·Mood Pre-Seed — Investor Interest"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F9F7F2', background: '#1A1612', borderRadius: 4, padding: '7px 14px', textDecoration: 'none' }}
           >
