@@ -26,11 +26,20 @@ describe("safety pipeline", () => {
     ).rejects.toBeInstanceOf(SafetyViolation);
   });
 
-  it("convierte interacción en advertencia, no bloqueo", async () => {
+  it("interacción de cautela añade advertencia sin bloquear", async () => {
     const callLLM = vi.fn().mockResolvedValue(valid);
     const out = await runSafetyPipeline({ userText: "hoy Focus", profile: { ...baseProfile, medications: ["warfarina"] }, callLLM, logger });
     expect(out.modo).toBe("recomendacion");
     if (out.modo === "recomendacion") expect(out.advertencias.length).toBeGreaterThan(0);
+  });
+
+  it("interacción bloqueante deriva al farmacéutico", async () => {
+    // fenelzina (IMAO) + "queso curado" → avoid → deriva
+    const conQueso = { ...valid, receta: { ...valid.receta, ingredientes: ["queso curado", "nueces", "miel"] } };
+    const callLLM = vi.fn().mockResolvedValue(conQueso);
+    const out = await runSafetyPipeline({ userText: "hoy Focus", profile: { ...baseProfile, medications: ["fenelzina"] }, callLLM, logger });
+    expect(out.modo).toBe("derivar");
+    if (out.modo === "derivar") expect(out.tipo_derivacion).toBe("farmaceutico");
   });
 
   it("sanitiza marcas en ingredientes y pasos", async () => {

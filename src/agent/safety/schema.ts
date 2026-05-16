@@ -26,7 +26,7 @@ export const AgentResponseSchema = z.discriminatedUnion("modo", [
   z.object({
     modo: z.literal("derivar"),
     mensaje: z.string(),
-    tipo_derivacion: z.enum(["crisis_emocional","tca","condicion_medica_activa"]),
+    tipo_derivacion: z.enum(["crisis_emocional","tca","condicion_medica_activa","farmaceutico"]),
     recursos: z.array(z.string()),
   }),
   z.object({ modo: z.literal("necesito_mas_contexto"), pregunta: z.string(), opciones: z.array(z.string()).default([]) }),
