@@ -54,7 +54,7 @@ async function onCheckoutCompleted(s: Stripe.Checkout.Session, deps: Deps) {
     stripeSubscriptionId: subscriptionId,
     status: (sub?.status ?? "active") as MembershipStatus,
     plan: (sub?.metadata?.plan ?? "monthly") as Plan,
-    currentPeriodEnd: sub?.current_period_end ? new Date(sub.current_period_end * 1000) : null,
+    currentPeriodEnd: sub?.billing_cycle_anchor ? new Date(sub.billing_cycle_anchor * 1000) : null,
   });
   deps.logger({ event: "membership_activated", user_id: userId });
 }
@@ -71,7 +71,7 @@ async function onSubscriptionUpdated(sub: Stripe.Subscription, deps: Deps) {
     stripeSubscriptionId: sub.id,
     status: sub.status as MembershipStatus,
     plan: (sub.metadata?.plan ?? existing.plan) as Plan,
-    currentPeriodEnd: new Date(sub.current_period_end * 1000),
+    currentPeriodEnd: sub.billing_cycle_anchor ? new Date(sub.billing_cycle_anchor * 1000) : null,
   });
   deps.logger({ event: "membership_updated", user_id: existing.userId, status: sub.status });
 }
