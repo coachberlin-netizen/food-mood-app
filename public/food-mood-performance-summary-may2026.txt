@@ -1,0 +1,137 @@
+FOOD·MOOD — INVESTOR PERFORMANCE SUMMARY
+Pre-Seed Round · May 2026 · Confidential
+════════════════════════════════════════════
+
+
+ROUND STRUCTURE
+───────────────
+· Instrument:       SAFE-style convertible
+· Raise:            €140,000
+· Valuation cap:    €800,000
+· Discount at Seed: 20%
+· Implied dilution: ~17.5%
+· Legal structure:  Subject to counsel (Spanish/EU)
+
+
+PRODUCT STATUS
+──────────────
+· MVP fully built and live — food-mood.app
+· Payments integrated (Stripe): challenges, subscriptions, corporate packages
+· AI Digital Advisor live with 4-layer clinical safety pipeline:
+  — Pre-flight crisis detection (no LLM call — direct referral to 024/SAPTEL)
+  — Pre-flight TCA signal detection (eating disorder pattern library, founder-reviewed)
+  — Post-flight allergen blocking (hard error — recommendation never delivered if allergen match)
+  — Post-flight drug-food interaction routing (caution warning or referral to pharmacist)
+· EU AI Act reviewed (MDCG 2025-4): app classified as lifestyle/wellness, not MDSW
+· Infrastructure: Next.js · Supabase · Stripe · Anthropic Claude · Vercel — fully serverless
+
+
+CONTENT STACK
+─────────────
+· Transformation challenges live:        3 of 8 (all 8 by Q1 2027)
+  — Activa tu energía (7 days, €19)
+  — Activa tu longevidad (10 days, €24)
+  — Corporate Wellness pilot package (€490+)
+· Proprietary audio library:             7 episodes complete
+· Book (pre-publication 2026):           "Food·Mood: El placer de estar bien"
+· Scientific KB (RAG):                   24 evidence-based chapters (gut-brain axis,
+                                          psychobiotics, hormonal health, longevity)
+· Recipe library:                         Seeded in Supabase, mood-mapped, premium-gated
+
+
+COMMUNITY & DEMAND VALIDATION
+──────────────────────────────
+· Active newsletter (Spanish-language audience)
+· WhatsApp + Telegram community channels — warm audience ready to onboard
+· Demand validated through founder's coaching practice (paying clients)
+· Demand validated through Umyko wellness community (paying clients)
+· First investor matchmaking event: June 2026
+· Launch strategy: post-close, with dedicated growth budget — not pre-revenue scrappy launch
+
+
+18-MONTH MILESTONES (POST-CLOSE, RELATIVE TO FUND CLOSE — EXPECTED H2 2026)
+──────────────────────────────────────────────────────────────────────────────
+Q1 2027:
+  · All 8 challenges live
+  · 200 active subscribers
+  · Book publication
+  · Corporate Wellness pipeline active — first proposals sent
+
+Q3 2027 (18-month target):
+  · 2,500 challenge purchases (acquisition)
+  · 500 active subscribers (retained base)
+  · First Corporate Wellness pilot closed
+  · €8K–12K MRR equivalent
+  · AI coaching module launch
+
+Q1 2028 (Seed):
+  · LATAM + US Hispanic expansion
+  · Seed round
+  · €25K+ MRR · 1,500+ active subscribers
+  · 2–3 Corporate Wellness clients
+
+
+90-DAY POST-CLOSE TARGETS
+──────────────────────────
+· 100 paying users
+· D7 retention > 40%
+· NPS > 50
+
+
+UNIT ECONOMICS (PROJECTIONS)
+──────────────────────────────
+· Challenge price:           €19–29 (acquisition)
+· Subscription price:        €9/month · €7/month (quarterly)
+· Challenge → sub conversion: target 15% (wellness benchmark)
+· Subscription retention:     85% @ 3 months · 70% @ 12 months
+· LTV (estimated):            €150–200
+· Target CAC:                 < €40
+· LTV / CAC ratio:            > 3.75×
+· Corporate pilot:            €490 base · €12/employee
+  (1 mid-size contract = 50+ B2C subscriber revenue equivalents)
+
+SOM (18-month):
+  2,500 challenge purchases + 500 active subscribers → ~€116K ARR run rate
+
+At 1% of Spanish SAM (22,000 subscribers):
+  → €2.4M ARR
+
+
+USE OF FUNDS (€140,000)
+────────────────────────
+· Product & Tech:                €50,000 (36%) — AI coaching, content engine, tech hire Q1 2027
+· Growth & Marketing:            €35,000 (25%) — paid acquisition, PR, community
+· Scientific Validation:         €20,000 (14%) — pilot studies, advisory board
+· Operations & Founder Salary:   €35,000 (25%) — €1,500/month founder salary (18 months)
+
+
+COMPETITIVE POSITION
+─────────────────────
+· TAM: ~95M Spanish-speaking women 45+ globally (Spain 11M · LATAM 75M · US Hispanic 9M)
+· No Spanish-language competitor at intersection of: gut-brain science + women 45+ + habit formation
+· Noom: €3.7B company, English-first, weight-loss — proved category, left the Spanish beach empty
+· Moat: clinically-supervised AI pipeline + proprietary gut-brain recipe dataset + EU AI Act–ready architecture
+
+
+FOUNDER
+────────
+· Susana Ferreras Diez — CEO & Founder
+· Psychologist · MSc Food Biotechnology · MSc Gerontology
+· Full-stack developer (Next.js, Supabase, Stripe, Vercel — entire MVP built by founder)
+· Kombucha brand founder (strategic exit to pivot to digital)
+· Food tech consultant (ongoing — supplements founder salary, maintains industry relationships)
+· Co-founder / partner: operations, administration, compliance
+
+
+CONTACT
+────────
+· www.food-mood.app
+· info@food-mood.app
+· Subject: Food·Mood Pre-Seed — Investor Interest
+
+
+════════════════════════════════════════════
+Confidential document · May 2026
+This summary is for authorised recipients only.
+All projections are forward-looking estimates — not guarantees of future performance.
+Do not distribute without written authorisation from the founder.
