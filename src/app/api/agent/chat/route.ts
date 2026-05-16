@@ -10,7 +10,7 @@ import type { UserHealthProfile } from '@/agent/safety-middleware'
 import type { AgentRequest } from '@/agent/types'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
-const MODEL           = 'claude-haiku-4-5-20251001'
+const MODEL           = 'claude-haiku-4-5'
 const MAX_TOKENS      = 2048
 const MONTHLY_QUOTA   = 100
 
