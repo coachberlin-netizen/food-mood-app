@@ -56,7 +56,7 @@ export default function ListaCompraClient({ slug, title, color, listaCompra }: P
             Tu lista de la compra
           </h1>
           <p className="text-base font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.55)" }}>
-            Todo lo que necesitas para los 21 días. Compra lo que puedas esta semana — el resto lo irás incorporando.
+            Todo lo que necesitas para los 10 días. Compra lo que puedas esta semana — el resto lo irás incorporando.
           </p>
         </div>
 
