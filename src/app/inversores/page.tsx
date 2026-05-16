@@ -466,6 +466,7 @@ function InvestorDeck() {
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 5, marginTop: 6 }}>
           {[
             'MVP fully built and live at food-mood.app — payments integrated, content stack ready, infrastructure tested',
+            'AI Digital Advisor live: clinical safety pipeline (crisis detection, TCA signals, drug-food interactions, allergen blocking) validated by founder as mental health professional — no competitor has equivalent',
             'Intentionally pre-launch on users: scaling starts after close, to do it right — not to chase messy early traction',
             'Active newsletter + WhatsApp & Telegram community channels — warm audience ready to onboard',
             'Book written (pre-publication 2026); 7-episode proprietary audio library complete',
@@ -549,11 +550,36 @@ function InvestorDeck() {
                 <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>2. The founder as product</p>
                 <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Noom cannot copy a psychologist + food biotechnologist + gerontologist + full-stack developer who lives this message. Authenticity does not scale easily.</p>
               </div>
-              <div style={{ paddingLeft: 12, borderLeft: '2px solid #3A8C62' }}>
+              <div style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
                 <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>3. The Food·Mood Dataset</p>
                 <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>At 10,000+ users, our correlated food, mood, hormonal phase, and habit data (GDPR-compliant, aggregated) becomes a licensable asset for public health research and nutraceutical innovation. This dataset has no equivalent in Spanish-language women&apos;s health. Barrier #3 is what transforms us from an app into a data platform — it is not on any competitor&apos;s current roadmap.</p>
               </div>
+              <div style={{ paddingLeft: 12, borderLeft: '2px solid #3A8C62' }}>
+                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>4. Clinical AI Safety Infrastructure</p>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Food·Mood is the only Spanish-language wellness app with a built-in, clinically validated AI safety layer. Before any response reaches the user, a pre-LLM pipeline intercepts emotional crisis signals and eating disorder indicators, routes drug-food interactions to pharmacist referral, and blocks allergen-containing recommendations at the schema level — all designed and reviewed by the founder in her capacity as a mental health professional. This is not a compliance checkbox: it is a structural advantage as the EU AI Act and Digital Health Act raise the bar for health-adjacent AI. Competitors will need 12–18 months to retrofit safety; we shipped it on day one.</p>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* AI Safety Architecture */}
+        <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 8 }}>AI &amp; Clinical Safety Architecture</p>
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+            <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — A wellness app giving AI dietary advice sounds like a regulatory minefield. How do you manage that risk?</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginBottom: 8 }}>We built clinical safety infrastructure from day one, not as a retrofit. The AI Digital Advisor runs a four-layer safety pipeline before any recommendation reaches the user:</p>
+            {[
+              ['Pre-flight crisis detection', 'Emotional distress and suicidal ideation signals are intercepted before the LLM is ever called. The system returns a structured referral with local crisis resources (Spain: 024 line; Mexico: SAPTEL) — the model never processes the input.'],
+              ['Pre-flight TCA detection', 'Eating disorder signals (restriction, purging, compensation, merit-based eating cognitions) trigger immediate referral to specialist services. Pattern library designed and reviewed by the founder in her clinical capacity.'],
+              ['Post-flight allergen blocking', 'Every AI-generated recipe is validated against the user\'s declared allergens. Any match throws a hard error — the recommendation is never delivered.'],
+              ['Post-flight drug-food interaction routing', 'Pharmacologically significant food-drug combinations (e.g. MAOIs + aged cheese, statins + grapefruit, warfarin + vitamin K foods) either add a caution warning or block the recommendation and derive to a pharmacist. No recommendation is delivered when safety cannot be guaranteed.'],
+            ].map(([label, text]) => (
+              <div key={label} style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6', marginBottom: 10 }}>
+                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>{label}</p>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>{text}</p>
+              </div>
+            ))}
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 10 }}>The entire pipeline is covered by automated tests (Vitest). The safety architecture is reviewed by the founder as a licensed mental health professional — not outsourced to a legal team after the fact. This positions Food·Mood ahead of incoming EU AI Act and Digital Health Act requirements that will force competitors to retrofit safety into systems not designed for it.</p>
           </div>
         </div>
 
@@ -617,7 +643,7 @@ function InvestorDeck() {
                   ['Founder burnout', 'Medium', 'High', 'Co-founder alleviates ops; hire #1 technical planned for Q1 2027'],
                   ['CAC higher than €40', 'Medium', 'High', '70% of growth budget on organic/community/PR; paid only as accelerator'],
                   ['Subscriber churn >10%/month', 'Low', 'High', 'Challenge-first model pre-qualifies high-intent users; Food·Mood Index increases engagement'],
-                  ['EU health-data / AI / medical-claims regulation', 'Low', 'Medium', 'GDPR-first architecture; wellness positioning; no diagnosis, treatment or medical claims; legal review before AI coaching expansion'],
+                  ['EU health-data / AI / medical-claims regulation', 'Low', 'Medium', 'GDPR-first architecture; clinical safety pipeline built-in (crisis, TCA, allergen, drug-food); no diagnosis or medical claims; wellness positioning; legal review before AI expansion'],
                   ['Big Tech Spanish localization', 'Low', 'Medium', '18–24 month content head start; dataset as long-term moat'],
                 ].map(([risk, prob, impact, mit]) => (
                   <tr key={risk} style={{ borderBottom: '1px solid #F0EDE4' }}>
