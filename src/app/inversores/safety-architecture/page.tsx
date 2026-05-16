@@ -193,7 +193,7 @@ export default function SafetyArchitecturePage() {
         <div style={{ background: '#F0EDE4', border: '1px solid #D8D0C4', borderLeft: '4px solid #3A8C62', borderRadius: '0 6px 6px 0', padding: '16px 20px', marginBottom: 28 }}>
           <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: '#3A8C62', marginBottom: 8 }}>Executive Summary</p>
           <p style={{ fontSize: 11, color: '#1A1612', lineHeight: 1.7, margin: 0 }}>
-            Food·Mood&apos;s AI Digital Advisor incorporates a four-layer clinical safety pipeline that intercepts sensitive signals <strong>before they reach the language model</strong>, validates every AI-generated recommendation against user health data, and routes to professional resources when safety cannot be guaranteed. The pipeline was designed by the founder in her capacity as a licensed mental health professional, is covered by automated tests, and positions Food·Mood structurally ahead of incoming EU AI Act and Digital Health Act requirements.
+            Food·Mood&apos;s AI Digital Advisor uses Anthropic Claude as the underlying language model, wrapped in a four-layer safety filter pipeline. The pipeline intercepts sensitive signals <strong>before they reach the model</strong>, validates every AI-generated recommendation against user health data, and routes to professional resources when safety cannot be guaranteed. The safety layer was designed by the founder in her capacity as a licensed psychologist, is covered by automated tests, and is structured for EU AI Act compliance (full applicability: 2027). Food·Mood operates as a <strong>wellness and lifestyle application</strong> — not a medical device — in accordance with MDCG 2025-4 guidance.
           </p>
         </div>
 
@@ -378,9 +378,14 @@ export default function SafetyArchitecturePage() {
               note: 'Food·Mood does not make medical diagnoses, influence clinical decisions, or process biometric data for identification. The safety pipeline ensures the system steps aside (derives) rather than responding to clinical situations — keeping it outside the high-risk AI category.',
             },
             {
-              reg: 'EU Digital Health Act',
-              classification: 'Wellness application — NOT medical device',
-              note: 'The system does not diagnose, treat, or provide clinical recommendations. Derivation is the response to clinical signals. This positioning is structurally enforced: the architecture prevents the model from engaging with medical situations.',
+              reg: 'MDR / IVDR + MDCG 2025-4',
+              classification: 'Lifestyle app — NOT medical device software',
+              note: 'The EU Medical Device Regulation and MDCG 2025-4 guidance distinguish between Medical Device Software (MDSW) and wellness/lifestyle apps. Food·Mood makes no efficacy claims, diagnoses no conditions, and influences no clinical decisions. The derivation architecture (routing to professionals when clinical signals appear) is specifically designed to stay on the lifestyle side of this line.',
+            },
+            {
+              reg: 'NIS2 / EHDS',
+              classification: 'Standard cybersecurity + data portability',
+              note: 'NIS2 Directive applies to digital service providers above a size threshold — currently not triggered. European Health Data Space (EHDS) regulation introduces data portability rights for health data; Food·Mood\'s GDPR-first architecture is compatible with EHDS secondary use restrictions. Both are monitored as the regulatory timeline evolves.',
             },
             {
               reg: 'GDPR / Data minimisation',
@@ -409,6 +414,34 @@ export default function SafetyArchitecturePage() {
           <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, margin: 0 }}>
             The crisis detection patterns, TCA signal library, and clinical derivation logic were designed and reviewed by the founder in her professional capacity as a psychologist. The drug-food interaction database was compiled from established pharmacological references and is intended for expansion through pharmacist advisory review. The system is designed to be curated by clinical professionals — not to replace their judgment.
           </p>
+        </div>
+
+        {/* Honest investor Q&A */}
+        <SectionTitle>Investor Q&amp;A — Honest Answers</SectionTitle>
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: 10, marginBottom: 8 }}>
+          {[
+            {
+              q: 'Is this "clinical AI" or a general LLM with a safety filter?',
+              a: 'The latter, stated honestly: the reasoning engine is Anthropic Claude (a general-purpose LLM). The value is in the operational layer — the safety filter pipeline, the curated knowledge base, and the human review process designed by a clinical professional. This is the right architecture for a wellness app at this stage. "Clinical AI" would imply regulatory approval under MDR, which we do not pursue.',
+            },
+            {
+              q: 'Who is liable if a recommendation causes harm?',
+              a: 'Food·Mood operates as a wellness education platform. The Terms of Service explicitly position recommendations as informational, not medical advice. The safety pipeline is designed to eliminate the highest-risk scenarios (crisis, allergens, drug interactions). Liability coverage is being scoped as part of legal setup; a Clinical Advisory Board with defined oversight responsibilities is on the Q1 2027 roadmap.',
+            },
+            {
+              q: 'Does human review scale?',
+              a: 'Phase 1 (launch): knowledge base is human-curated; the LLM selects from validated content. Phase 2 (Q3 2027): automated sampling of 10% of outputs with clinical spot-check. Phase 3 (Seed): guardrails handle low-risk categories automatically; human review reserved for edge cases. The pipeline is designed for this transition — the safety gates do not change, only the review cadence.',
+            },
+            {
+              q: 'What are the KPIs for the AI agent?',
+              a: 'Tracked from launch: recommendation acceptance rate (user completes recipe), D7/D30 retention cohorts, NPS post-interaction, escalation rate (% of interactions that trigger derivation), and inference cost per interaction. Target: <€0.008/interaction at current model pricing.',
+            },
+          ].map(({ q, a }) => (
+            <div key={q} style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
+              <p style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase' as const, marginBottom: 6, lineHeight: 1.5 }}>Q — {q}</p>
+              <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, margin: 0 }}>{a}</p>
+            </div>
+          ))}
         </div>
 
         {/* Footer */}

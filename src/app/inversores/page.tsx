@@ -206,7 +206,7 @@ function InvestorDeck() {
             <p style={bodyP}><strong style={{ color: '#1A1612' }}>SAM — ~10M paying-capable digital wellness users</strong> within that TAM. Paid app penetration: ~20% in Spain, 8–15% across LATAM, ~25% in US Hispanic market (Sensor Tower, 2024).</p>
             <p style={bodyP}><strong style={{ color: '#1A1612' }}>SOM (18-month):</strong> 2,500 challenge purchases + 500 active subscribers → ~€116K annual revenue run rate. At 1% of the Spanish SAM: 22,000 subscribers = <strong style={{ color: '#1A1612' }}>€2.4M ARR</strong>. The psychobiotics subcategory is a $2.5B emerging segment — Food·Mood is positioned as its first Spanish-language consumer brand.</p>
             <SectionLabel>Why Now</SectionLabel>
-            <p style={bodyP}>Smartphone penetration in LATAM crossed 70% in 2024. App spending among women 40+ grew 34% in 2023 (Sensor Tower). Yet every evidence-based gut-brain wellness app is English-only. Psychobiotic research has matured for consumer products, and the EU regulatory environment (GDPR, Digital Health Act) favours privacy-first European platforms. The window to become the category-defining Spanish-language app for women 45+ is open — and uncontested.</p>
+            <p style={bodyP}>Smartphone penetration in LATAM crossed 70% in 2024. App spending among women 40+ grew 34% in 2023 (Sensor Tower). Yet every evidence-based gut-brain wellness app is English-only. Psychobiotic research has matured for consumer products, and the EU regulatory environment (GDPR, EU AI Act, and the European Health Data Space framework) favours privacy-first European platforms. The window to become the category-defining Spanish-language app for women 45+ is open — and uncontested.</p>
           </div>
         </div>
 
@@ -555,8 +555,8 @@ function InvestorDeck() {
                 <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>At 10,000+ users, our correlated food, mood, hormonal phase, and habit data (GDPR-compliant, aggregated) becomes a licensable asset for public health research and nutraceutical innovation. This dataset has no equivalent in Spanish-language women&apos;s health. Barrier #3 is what transforms us from an app into a data platform — it is not on any competitor&apos;s current roadmap.</p>
               </div>
               <div style={{ paddingLeft: 12, borderLeft: '2px solid #3A8C62' }}>
-                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>4. Clinical AI Safety Infrastructure</p>
-                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Food·Mood is the only Spanish-language wellness app with a built-in, clinically validated AI safety layer. Before any response reaches the user, a pre-LLM pipeline intercepts emotional crisis signals and eating disorder indicators, routes drug-food interactions to pharmacist referral, and blocks allergen-containing recommendations at the schema level — all designed and reviewed by the founder in her capacity as a mental health professional. This is not a compliance checkbox: it is a structural advantage as the EU AI Act and Digital Health Act raise the bar for health-adjacent AI. Competitors will need 12–18 months to retrofit safety; we shipped it on day one.</p>
+                <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>4. Regulation as a moat, not a risk</p>
+                <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>Food·Mood uses standard LLM infrastructure (Anthropic Claude) paired with a founder-designed safety filter layer: pre-LLM gates intercept crisis and eating disorder signals; post-LLM validation blocks allergens and routes drug-food interactions to pharmacist referral. The moat is operational — a documented human review process, a clinical advisory layer, and a curation pipeline that competitors cannot replicate quickly — not the underlying model. As the EU AI Act (fully applicable from 2027) raises the bar for health-adjacent AI systems, this architecture is already structured for compliance. Competitors retrofitting safety into systems not designed for it will need 18–24 months of legal and engineering work.</p>
               </div>
             </div>
           </div>
@@ -579,7 +579,7 @@ function InvestorDeck() {
                 <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 3 }}>{text}</p>
               </div>
             ))}
-            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 10 }}>The entire pipeline is covered by automated tests (Vitest). The safety architecture is reviewed by the founder as a licensed mental health professional — not outsourced to a legal team after the fact. This positions Food·Mood ahead of incoming EU AI Act and Digital Health Act requirements that will force competitors to retrofit safety into systems not designed for it.</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, marginTop: 10 }}>The underlying model is Anthropic Claude (a general-purpose LLM). The moat is not the model — it is the operational layer around it: a documented safety filter pipeline, a founder-designed curation process, and a human review protocol that competitors cannot replicate quickly. The entire pipeline is covered by automated tests (Vitest). We operate as a wellness and lifestyle application, not a medical device: no diagnosis, no therapeutic claims, no clinical efficacy statements. We have reviewed MDCG 2025-4 (the EU guidance distinguishing Medical Device Software from wellness apps) and confirmed our claims and architecture stay firmly in the lifestyle category. On EU AI Act classification, Food·Mood does not make clinical decisions, diagnose conditions, or influence safety-critical outcomes — placing it outside the high-risk AI category (Annex III). Full compliance timeline aligns with the 2027 applicability deadline.</p>
           </div>
         </div>
 
@@ -643,7 +643,7 @@ function InvestorDeck() {
                   ['Founder burnout', 'Medium', 'High', 'Co-founder alleviates ops; hire #1 technical planned for Q1 2027'],
                   ['CAC higher than €40', 'Medium', 'High', '70% of growth budget on organic/community/PR; paid only as accelerator'],
                   ['Subscriber churn >10%/month', 'Low', 'High', 'Challenge-first model pre-qualifies high-intent users; Food·Mood Index increases engagement'],
-                  ['EU health-data / AI / medical-claims regulation', 'Low', 'Medium', 'GDPR-first architecture; clinical safety pipeline built-in (crisis, TCA, allergen, drug-food); no diagnosis or medical claims; wellness positioning; legal review before AI expansion'],
+                  ['EU AI Act / MDR classification risk', 'Low', 'Medium', 'Reviewed MDCG 2025-4: app stays on lifestyle side of MDSW line (no diagnosis, no clinical decisions, no efficacy claims). EU AI Act: not high-risk under Annex III. Full compliance timeline: 2027. NIS2 and EHDS monitored as thresholds evolve.'],
                   ['Big Tech Spanish localization', 'Low', 'Medium', '18–24 month content head start; dataset as long-term moat'],
                 ].map(([risk, prob, impact, mit]) => (
                   <tr key={risk} style={{ borderBottom: '1px solid #F0EDE4' }}>
