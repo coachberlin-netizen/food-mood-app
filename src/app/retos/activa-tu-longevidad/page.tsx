@@ -6,14 +6,14 @@ import type { Metadata } from 'next'
 const CANONICAL = 'https://www.food-mood.app/retos/activa-tu-longevidad'
 
 export const metadata: Metadata = {
-  title:       'Activa tu longevidad en 10 días — Come joven. Siente todo. | Food·Mood',
+  title:       'Activa tu longevidad en 10 días — Come rico. Vive más joven. | Food·Mood',
   description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging activados desde el plato en 10 días. Sin suplementos, sin restricciones. Basado en la ciencia de las zonas azules. Desde 19€.',
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },
   },
   openGraph: {
-    title:       'Activa tu longevidad en 10 días — Come joven. Siente todo. | Food·Mood',
+    title:       'Activa tu longevidad en 10 días — Come rico. Vive más joven. | Food·Mood',
     description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging desde el plato. Sin suplementos, sin restricciones. Basado en zonas azules. 19€.',
     url:         CANONICAL,
     type:        'website',
@@ -30,29 +30,29 @@ export const metadata: Metadata = {
 const COLOR = '#2D6B55'
 
 const INCLUYE = [
-  { icono: 'ðŸ§¬', texto: '10 recetas antiaging con mecanismo científico integrado' },
-  { icono: 'ðŸŽ§', texto: '10 audios guiados — educativos, rituales y cierre' },
-  { icono: 'ðŸ“Š', texto: 'Tracking diario de energía, piel y bienestar' },
-  { icono: 'ðŸ“‹', texto: 'Protocolo de longevidad personal al completar' },
-  { icono: 'â™¾ï¸', texto: 'Acceso permanente al contenido' },
+  { icono: '🧬', texto: '10 recetas antiaging con mecanismo científico integrado' },
+  { icono: '🎧', texto: '10 audios guiados — educativos, rituales y cierre' },
+  { icono: '📊', texto: 'Tracking diario de energía, piel y bienestar' },
+  { icono: '📋', texto: 'Protocolo de longevidad personal al completar' },
+  { icono: '♾️', texto: 'Acceso permanente al contenido' },
 ]
 
 const MECANISMOS = [
-  { icono: 'ðŸ§¬', titulo: 'Telómeros',       desc: 'Protección del ADN con polifenoles' },
-  { icono: 'â™»ï¸', titulo: 'Autofagia',        desc: 'Limpieza celular con spermidina' },
-  { icono: 'ðŸ¦´', titulo: 'Colágeno',         desc: 'Síntesis desde el caldo de huesos' },
-  { icono: 'âš¡', titulo: 'NAD+',             desc: 'Sirtuinas y biogénesis mitocondrial' },
-  { icono: 'ðŸ¦ ', titulo: 'Microbioma',       desc: 'Diversidad bacteriana y butirato' },
-  { icono: 'ðŸ”¥', titulo: 'Inflammaging',     desc: 'Resolución activa de la inflamación' },
-  { icono: 'ðŸ§ ', titulo: 'BDNF',             desc: 'Neuroplasticidad y DHA cerebral' },
-  { icono: 'âœ¨', titulo: 'Eje piel-intestino', desc: 'Barrera cutánea desde dentro' },
-  { icono: 'ðŸŒ™', titulo: 'Reloj circadiano', desc: 'TRE y sincronía metabólica' },
-  { icono: 'ðŸŒ¿', titulo: 'Zonas azules',     desc: 'El patrón completo, integrado' },
+  { icono: '🧬', titulo: 'Telómeros',        desc: 'Protección del ADN con polifenoles' },
+  { icono: '♻️', titulo: 'Autofagia',         desc: 'Limpieza celular con spermidina' },
+  { icono: '🦴', titulo: 'Colágeno',          desc: 'Síntesis desde el caldo de huesos' },
+  { icono: '⚡', titulo: 'NAD+',              desc: 'Sirtuinas y biogénesis mitocondrial' },
+  { icono: '🦠', titulo: 'Microbioma',        desc: 'Diversidad bacteriana y butirato' },
+  { icono: '🔥', titulo: 'Inflammaging',      desc: 'Resolución activa de la inflamación' },
+  { icono: '🧠', titulo: 'BDNF',              desc: 'Neuroplasticidad y DHA cerebral' },
+  { icono: '✨', titulo: 'Eje piel-intestino', desc: 'Barrera cutánea desde dentro' },
+  { icono: '🌙', titulo: 'Reloj circadiano',  desc: 'TRE y sincronía metabólica' },
+  { icono: '🌿', titulo: 'Zonas azules',      desc: 'El patrón completo, integrado' },
 ]
 
 const HITOS = [
-  { dia: 1,  titulo: 'Día 1 — señalización de longevidad.',  desc: 'Telómeros y antioxidantes. El primer bocado ya cuenta.',   color: COLOR },
-  { dia: 5,  titulo: 'Día 5 — punto de inflexión interior.', desc: 'Autofagia, colágeno, NAD+ y microbioma en marcha.',         color: '#C9A84C' },
+  { dia: 1,  titulo: 'Día 1 — señalización de longevidad.',  desc: 'Telómeros y antioxidantes. El primer bocado ya cuenta.',       color: COLOR      },
+  { dia: 5,  titulo: 'Día 5 — punto de inflexión interior.', desc: 'Autofagia, colágeno, NAD+ y microbioma en marcha.',           color: '#C9A84C'  },
   { dia: 10, titulo: 'Día 10 — el protocolo es tuyo.',       desc: 'La mesa de las zonas azules. Un estilo de vida, no una dieta.', color: '#4B8A6B' },
 ]
 
@@ -87,7 +87,7 @@ export default async function RetoLongevidadPage() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Activa tu longevidad en 10 días — Come joven. Siente todo.',
+    name: 'Activa tu longevidad en 10 días — Come rico. Vive más joven.',
     description: 'Telómeros, autofagia, colágeno, NAD+ y microbioma. 10 mecanismos antiaging activados desde el plato en 10 días. Sin suplementos, sin restricciones.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
@@ -182,7 +182,7 @@ export default async function RetoLongevidadPage() {
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
         <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: COLOR }}>
-          â† Ver todos los retos
+          ← Ver todos los retos
         </Link>
       </div>
 
@@ -192,20 +192,20 @@ export default async function RetoLongevidadPage() {
         <div className="text-center py-10">
           <div className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium mb-4"
             style={{ background: `${COLOR}18`, color: COLOR }}>
-            <span>ðŸŒ¿</span> 10 días · Ciencia de zonas azules
+            <span>🌿</span> 10 días · Ciencia de zonas azules
           </div>
 
           <h1 className="font-serif text-[28px] font-normal leading-tight mb-3"
             style={{ color: '#2a1a1e' }}>
-            Come joven.<br />Siente todo.
+            Come rico.<br />Vive más joven.
           </h1>
 
           <p className="text-base font-medium mb-2" style={{ color: COLOR }}>
-            Telómeros, autofagia, colágeno y microbioma.<br />10 mecanismos antiaging desde el plato.
+            Los ingredientes ya los tienes en casa.<br />Lo que cambia es cómo los combinas.
           </p>
 
           <p className="text-[13px] leading-snug" style={{ color: '#9e8080' }}>
-            Sin restricciones. Sin sufrimiento. Solo placer muy bien elegido.
+            Cada receta combina sabor y beneficio. Telómeros, autofagia, colágeno — desde el plato.
           </p>
         </div>
 
@@ -221,7 +221,7 @@ export default async function RetoLongevidadPage() {
             La ciencia de la longevidad ya no pertenece solo a las clínicas ni a los suplementos de 200€. Está en tu cocina. En cómo combinas los ingredientes. En el momento del día en que comes. En las bacterias que cuidas sin saberlo.
           </p>
           <p className="text-sm leading-relaxed" style={{ color: 'rgba(74,58,62,0.75)' }}>
-            Cada día de este reto activa un mecanismo antiaging diferente. No hay restricciones. No hay sufrimiento. Solo placer muy bien elegido.
+            Cada día de este reto activa un mecanismo antiaging diferente. Y cada receta está diseñada para que quieras repetirla — no porque sea obligatoria, sino porque está rica.
           </p>
         </div>
 
@@ -237,7 +237,7 @@ export default async function RetoLongevidadPage() {
                 {icono}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-semibold" style={{ color: COLOR }}>âœ“</span>
+                <span className="text-[13px] font-bold shrink-0" style={{ color: COLOR }}>✓</span>
                 <span className="text-sm" style={{ color: '#4a3a3e' }}>{texto}</span>
               </div>
             </div>
@@ -317,7 +317,7 @@ export default async function RetoLongevidadPage() {
         {/* CTA */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6">
           <p className="text-[11px] font-medium uppercase tracking-widest text-center mb-2" style={{ color: '#9e8080' }}>
-            Ãšnete ahora
+            Únete ahora
           </p>
           <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19€</p>
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
@@ -334,4 +334,3 @@ export default async function RetoLongevidadPage() {
     </>
   )
 }
-
