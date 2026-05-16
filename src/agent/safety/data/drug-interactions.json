@@ -1,0 +1,8 @@
+[
+  { "drug": "warfarina", "avoid": [], "caution": ["espinaca", "kale", "brócoli", "té verde", "matcha", "natto"] },
+  { "drug": "fenelzina", "avoid": ["queso curado", "tiramina", "vino tinto", "salsa de soja", "kombucha sin pasteurizar"], "caution": [] },
+  { "drug": "tranilcipromina", "avoid": ["queso curado", "tiramina", "vino tinto", "kombucha sin pasteurizar"], "caution": [] },
+  { "drug": "atorvastatina", "avoid": ["pomelo", "zumo de pomelo"], "caution": [] },
+  { "drug": "levotiroxina", "avoid": [], "caution": ["soja", "kale crudo", "brócoli crudo", "café (en las primeras 4h)"] },
+  { "drug": "sertralina", "avoid": [], "caution": ["queso curado", "tiramina"] }
+]
