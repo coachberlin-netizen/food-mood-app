@@ -64,8 +64,9 @@ function NavDropdown({ label, items }: { label: string; items: DropdownItem[] })
 }
 
 const MI_ESPACIO: DropdownItem[] = [
-  { label: "Asistente IA", href: "/asistente" },
-  { label: "Dashboard",    href: "/dashboard" },
+  { label: "Tu Asesor Digital", href: "/asesor"    },
+  { label: "Asistente IA",     href: "/asistente" },
+  { label: "Dashboard",        href: "/dashboard" },
   { label: "Test",         href: "/test"      },
   { label: "Mi bol",       href: "/bol"       },
   { label: "Mi viaje",     href: "/viaje"     },
@@ -119,13 +120,13 @@ function GuideDropdown() {
           {/* Header */}
           <div className="px-5 pt-5 pb-4 border-b" style={{ borderColor: "rgba(201,168,76,0.1)" }}>
             <p className="text-[9px] font-bold uppercase tracking-[0.35em] mb-1" style={{ color: "rgba(201,168,76,0.55)" }}>
-              Asistente IA · Solo premium
+              IA · Solo miembros premium
             </p>
             <p className="font-serif text-base font-semibold text-white leading-snug">
-              FOOD-MOOD Guide.
+              Tu Asesor Digital Personal.
             </p>
             <p className="text-xs font-light mt-1" style={{ color: "rgba(245,240,232,0.5)" }}>
-              Responde a lo que sientes, no solo a lo que preguntas.
+              Entrenado por nuestro equipo de expertos.
             </p>
           </div>
 
@@ -139,14 +140,22 @@ function GuideDropdown() {
           </div>
 
           {/* CTA */}
-          <div className="px-5 pb-5">
+          <div className="px-5 pb-5 space-y-2">
             <Link
-              href="/asistente"
+              href="/asesor"
               onClick={() => setOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all hover:brightness-110"
               style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
             >
-              Hablar con FOOD-MOOD Guide <ArrowRight className="w-3 h-3" />
+              Tu Asesor Digital Personal <ArrowRight className="w-3 h-3" />
+            </Link>
+            <Link
+              href="/asistente"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-2 rounded-xl text-xs font-medium transition-all hover:brightness-110"
+              style={{ backgroundColor: "rgba(255,255,255,0.06)", color: "rgba(245,240,232,0.6)", border: "1px solid rgba(255,255,255,0.08)" }}
+            >
+              Asistente IA clásico
             </Link>
           </div>
         </div>

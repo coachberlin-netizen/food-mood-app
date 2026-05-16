@@ -41,10 +41,11 @@ function chunkText(text: string): string[] {
 
 // ── Procesamiento de un archivo ───────────────────────────────────────────────
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function ingestFile(
   filePath:  string,
   chunkType: 'foodmood' | 'longevidad',
-  service:   ReturnType<typeof createClient>,
+  service:   ReturnType<typeof createClient<any, any, any>>,
 ) {
   const raw    = fs.readFileSync(filePath, 'utf-8')
   const source = path.relative(process.cwd(), filePath).replace(/\\/g, '/')
@@ -80,7 +81,8 @@ async function main() {
     process.exit(1)
   }
 
-  const service = createClient(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const service = createClient<any, any, any>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   )
