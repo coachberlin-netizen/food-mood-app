@@ -13,7 +13,8 @@
  *   NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (si --rag)
  *   VOYAGE_API_KEY (si --rag)
  */
-import "dotenv/config";
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 import path from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
 import { Orchestrator } from "../src/agent/orchestrator";
