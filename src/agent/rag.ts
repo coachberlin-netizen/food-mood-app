@@ -1,5 +1,23 @@
 import { createClient } from '@supabase/supabase-js'
 
+// ── RagStore interface ────────────────────────────────────────────────────────
+
+export interface RagStore {
+  search(args: { kb: 'food-mood' | 'longevity'; query: string; k: number }): Promise<string[]>;
+  drugInteractionsFor(medications: string[]): Promise<string[]>;
+}
+
+export class StubRagStore implements RagStore {
+  async search(_args: { kb: 'food-mood' | 'longevity'; query: string; k: number }): Promise<string[]> {
+    return [];
+  }
+  async drugInteractionsFor(_medications: string[]): Promise<string[]> {
+    return [];
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 const VOYAGE_API_URL = 'https://api.voyageai.com/v1/embeddings'
 const VOYAGE_MODEL   = 'voyage-3'
 const TOP_K          = 5
