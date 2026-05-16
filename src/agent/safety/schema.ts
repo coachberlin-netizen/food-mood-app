@@ -12,7 +12,7 @@ export const AgentResponseSchema = z.discriminatedUnion("modo", [
   z.object({
     modo: z.literal("recomendacion"),
     receta: RecetaSchema,
-    microaccion: z.object({ titulo: z.string(), descripcion: z.string(), duracion_min: z.number().int().positive() }),
+    microaccion: z.object({ titulo: z.string(), descripcion: z.string(), duracion_min: z.number().int().min(0) }),
     microcontenido: z.object({
       titulo: z.string(),
       porque: z.string(),
