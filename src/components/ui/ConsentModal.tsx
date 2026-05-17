@@ -18,9 +18,9 @@ export function ConsentModal() {
   const [visible, setVisible]   = useState(false)
   const [saving, setSaving]     = useState(false)
   const [consent, setConsent]   = useState<ConsentState>({
-    consent_analytics:           true,
-    consent_newsletter:          true,
-    consent_aggregated_research: true,
+    consent_analytics:           false,
+    consent_newsletter:          false,
+    consent_aggregated_research: false,
   })
   const supabase = createClient()
 
@@ -35,10 +35,10 @@ export function ConsentModal() {
   const toggle = (key: keyof ConsentState) =>
     setConsent(prev => ({ ...prev, [key]: !prev[key] }))
 
-  const handleSubmit = async () => {
+  const saveConsent = async (state: ConsentState) => {
     setSaving(true)
     localStorage.setItem(STORAGE_KEY, CONSENT_VERSION)
-    localStorage.setItem(ANALYTICS_KEY, String(consent.consent_analytics))
+    localStorage.setItem(ANALYTICS_KEY, String(state.consent_analytics))
     window.dispatchEvent(new Event("fm:consent-updated"))
 
     const { data: { user } } = await supabase.auth.getUser()
@@ -47,9 +47,9 @@ export function ConsentModal() {
         {
           user_id:                     user.id,
           consent_essential:           true,
-          consent_analytics:           consent.consent_analytics,
-          consent_newsletter:          consent.consent_newsletter,
-          consent_aggregated_research: consent.consent_aggregated_research,
+          consent_analytics:           state.consent_analytics,
+          consent_newsletter:          state.consent_newsletter,
+          consent_aggregated_research: state.consent_aggregated_research,
           consent_version:             CONSENT_VERSION,
           consent_date:                new Date().toISOString(),
           updated_at:                  new Date().toISOString(),
@@ -62,6 +62,14 @@ export function ConsentModal() {
     setVisible(false)
   }
 
+  const handleSubmit = () => saveConsent(consent)
+
+  const handleAcceptAll = () =>
+    saveConsent({ consent_analytics: true, consent_newsletter: true, consent_aggregated_research: true })
+
+  const handleRejectAll = () =>
+    saveConsent({ consent_analytics: false, consent_newsletter: false, consent_aggregated_research: false })
+
   if (!visible) return null
 
   return (
@@ -73,24 +81,14 @@ export function ConsentModal() {
         className="bg-[#F5F0E8] rounded-2xl px-5 py-4 border"
         style={{ borderColor: "rgba(107,39,55,0.12)" }}
       >
-        {/* Header row */}
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <div>
-            <p className="text-[9px] font-bold uppercase tracking-widest text-[#C9A84C] mb-0.5">
-              Tus datos, tus reglas
-            </p>
-            <p className="text-sm font-medium text-[#2d0f16] leading-snug">
-              ¿Qué podemos guardar?
-            </p>
-          </div>
-          <button
-            onClick={handleSubmit}
-            disabled={saving}
-            className="shrink-0 px-4 py-2 rounded-xl text-xs font-semibold text-white transition-all hover:opacity-90 disabled:opacity-60"
-            style={{ backgroundColor: "#6B2737" }}
-          >
-            {saving ? "…" : "Confirmar"}
-          </button>
+        {/* Header */}
+        <div className="mb-3">
+          <p className="text-[9px] font-bold uppercase tracking-widest text-[#C9A84C] mb-0.5">
+            Tus datos, tus reglas
+          </p>
+          <p className="text-sm font-medium text-[#2d0f16] leading-snug">
+            ¿Qué podemos guardar?
+          </p>
         </div>
 
         {/* Compact checkboxes */}
@@ -117,7 +115,35 @@ export function ConsentModal() {
           />
         </div>
 
-        <p className="text-[9px] text-[#6B2737]/30 mt-3 leading-relaxed">
+        {/* Actions */}
+        <div className="flex gap-2 mt-3">
+          <button
+            onClick={handleRejectAll}
+            disabled={saving}
+            className="flex-1 py-2 rounded-xl text-xs font-medium border transition-all disabled:opacity-60"
+            style={{ borderColor: "rgba(107,39,55,0.2)", color: "#6B2737" }}
+          >
+            Solo esencial
+          </button>
+          <button
+            onClick={handleAcceptAll}
+            disabled={saving}
+            className="flex-1 py-2 rounded-xl text-xs font-semibold text-white transition-all hover:opacity-90 disabled:opacity-60"
+            style={{ backgroundColor: "#6B2737" }}
+          >
+            {saving ? "…" : "Aceptar todo"}
+          </button>
+        </div>
+        <button
+          onClick={handleSubmit}
+          disabled={saving}
+          className="w-full mt-1.5 py-1.5 rounded-xl text-[11px] font-medium transition-all disabled:opacity-60"
+          style={{ color: "rgba(107,39,55,0.5)" }}
+        >
+          Guardar selección
+        </button>
+
+        <p className="text-[9px] text-[#6B2737]/30 mt-2 leading-relaxed">
           Esencial siempre activo · Resto opcional · Cambia preferencias en tu perfil.{" "}
           Los datos de estado emocional se tratan como datos de salud (Art. 9 GDPR).{" "}
           <Link href="/privacidad" className="underline hover:text-[#6B2737]/60 transition-colors">
