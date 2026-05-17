@@ -32,6 +32,7 @@ export function Footer() {
               <Link href="/blog" className="hover:text-gold transition-colors">Newsletter</Link>
               <Link href="/saber-mas" className="hover:text-gold transition-colors">Saber más</Link>
               <Link href="/fermentos-del-mundo" className="hover:text-gold transition-colors">Fermentos</Link>
+              <Link href="/biblioteca" className="hover:text-gold transition-colors">Biblioteca</Link>
             </div>
             <div className="flex gap-x-5 text-[11px] tracking-[0.16em] uppercase text-white/45">
               <Link href="/terminos" className="hover:text-gold transition-colors">Términos</Link>

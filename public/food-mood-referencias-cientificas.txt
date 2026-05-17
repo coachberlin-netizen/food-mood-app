@@ -1,0 +1,221 @@
+FOOD·MOOD — BASE DE CONOCIMIENTO CIENTÍFICO
+Referencias y fuentes del Asesor Personal
+Versión: Mayo 2026
+════════════════════════════════════════════════════════
+
+Este documento lista las publicaciones científicas, libros y
+revisiones que forman la base de conocimiento (Knowledge Base)
+del Asesor Personal de Food·Mood.
+
+Los textos originales fueron procesados, fragmentados y vectorizados
+con Voyage AI (voyage-3) para permitir recuperación semántica en
+tiempo real. El índice consta de 172 fragmentos activos (Mayo 2026).
+
+La selección y curación de fuentes fue realizada por la fundadora:
+Susana Ferreras Diez — Psicóloga · MSc Biotecnología Alimentaria ·
+MSc Gerontología.
+
+────────────────────────────────────────────────────────
+
+
+1. NEUROCIENCIA AFECTIVA Y EMOCIONES
+──────────────────────────────────────
+
+Barrett, L.F. (2017). How Emotions Are Made: The Secret Life of the
+  Brain. Houghton Mifflin Harcourt. ISBN 978-0544133310.
+
+Russell, J.A. (2003). Core affect and the psychological construction
+  of emotion. Psychological Review, 110(1), 145–172.
+  https://pubmed.ncbi.nlm.nih.gov/16262989/
+
+Lindquist, K.A. et al. (2021). Emotional granularity and emotion
+  regulation: a systematic review. PMC.
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC8315101/
+
+Damasio, A. (1994). Descartes' Error: Emotion, Reason, and the
+  Human Brain. Putnam. [Hipótesis del marcador somático]
+
+
+2. EJE INTESTINO-CEREBRO Y SALUD MENTAL
+──────────────────────────────────────────
+
+Cryan, J.F. et al. (2019). The microbiota-gut-brain axis.
+  Physiological Reviews, 99(4), 1877–2013.
+  https://doi.org/10.1152/physrev.00018.2018
+
+Cryan, J.F. & Dinan, T.G. (2012). Mind-altering microorganisms:
+  the impact of the gut microbiota on brain and behaviour.
+  Nature Reviews Neuroscience, 13(10), 701–712.
+
+Yano, J.M. et al. (2015). Indigenous bacteria from the gut microbiota
+  regulate host serotonin biosynthesis. Cell, 161(2), 264–276.
+  https://doi.org/10.1016/j.cell.2015.02.047
+
+Bravo, J.A. et al. (2011). Ingestion of Lactobacillus strain regulates
+  emotional behavior and central GABA receptor expression in a mouse
+  via the vagus nerve. PNAS, 108(38), 16050–16055.
+
+Allen, A.P. et al. (2016). Bifidobacterium longum 1714 as a translational
+  psychobiotic: modulation of stress, electrophysiology and neurocognition
+  in healthy volunteers. Translational Psychiatry, 6(11), e939.
+
+Stanton, C. et al. (2024). Psychobiotics and the gut-brain axis:
+  recent advances. Journal of Functional Foods.
+
+Dinan, T.G. & Cryan, J.F. (2013). Melancholic microbes: a link between
+  gut microbiota and depression? Neurogastroenterology & Motility.
+  [Término "psicobiótico" acuñado en este artículo]
+
+
+3. MICROBIOMA, ESTROBIOMA Y SALUD HORMONAL FEMENINA
+──────────────────────────────────────────────────────
+
+Reid, G. et al. (2003). Oral use of Lactobacillus rhamnosus GR-1 and
+  L. reuteri RC-14 significantly alters vaginal flora. FEMS Immunology &
+  Medical Microbiology, 35(2), 131–134.
+
+Howell, A.B. et al. (2005). Inhibition of the adherence of P-fimbriated
+  Escherichia coli to uroepithelial-cell surfaces by proanthocyanidin
+  extracts from cranberries. Journal of the Science of Food and
+  Agriculture, 85(10), 1700–1706.
+
+Qi, X. et al. (2021). Gut microbiota composition changes in menopausal
+  women: a systematic review and meta-analysis. Nutrients.
+
+Messina, M. (2016). Soy and health update: evaluation of the clinical
+  and epidemiologic literature. Nutrients / Advances in Nutrition.
+
+
+4. METABOLISMO, MITOCONDRIAS Y ENERGÍA CELULAR
+─────────────────────────────────────────────────
+
+Crane, F.L. (2001). Biochemical functions of coenzyme Q10.
+  Mitochondrion, 1(3), 255–266.
+
+Altura, B.M. & Altura, B.T. (1995). Magnesium: forgotten mineral in
+  cardiovascular biology, hypertension and atherogenesis.
+  Scientific American.
+
+Ikon, N. & Thomas, R.H. (2016). Cardiolipin and mitochondrial function.
+  Advances in Nutrition, 7(5), 963–973.
+
+
+5. PROTEÍNA, MÚSCULO Y PREVENCIÓN DE LA SARCOPENIA
+────────────────────────────────────────────────────
+
+Leidy, H.J. et al. (2013). Beneficial effects of a higher-protein
+  breakfast on the appetitive, hormonal and neural signals controlling
+  energy intake regulation in overweight/obese 'breakfast-skipping'
+  late-adolescent girls. American Journal of Clinical Nutrition.
+
+Witard, O.C. et al. (2016). High dietary protein intake for muscle
+  hypertrophy and maintenance. Nutrition Reviews, 74(suppl 1), 33–47.
+
+Areta, J.L. et al. (2013). Timing and distribution of protein ingestion
+  during prolonged recovery from resistance exercise alters myofibrillar
+  protein synthesis. Journal of Physiology, 591(9), 2319–2331.
+
+Messina, M. (2016). [op. cit. — also covers legumes and protein quality]
+
+
+6. HUESOS, COLÁGENO Y VENTANA POSMENOPÁUSICA
+───────────────────────────────────────────────
+
+Hauschka, P.V. et al. (1989). Osteocalcin and matrix Gla protein:
+  vitamin K-dependent proteins in bone. Physiological Reviews,
+  69(3), 990–1047.
+
+Natsuyama, R. (2013). Estrogen receptor signaling and bone metabolism.
+  Journal of Bone and Mineral Metabolism, 31(1), 1–8.
+
+
+7. NUTRICIÓN FUNCIONAL Y COMPUESTOS BIOACTIVOS
+────────────────────────────────────────────────
+
+Wang, Y. et al. (2022). Dietary lycopene and depression risk:
+  a meta-analysis. Nutrients, 14(3), 513.
+
+Shi, J. & Le Maguer, M. (2000). Lycopene in tomatoes: chemical and
+  physical properties affected by food processing. Critical Reviews
+  in Food Science and Nutrition, 40(1), 1–42.
+
+Xiao, Y. et al. (2023). Lactic acid fermentation enhances lycopene
+  bioaccessibility in tomato pulp. Food Chemistry, 410, 135397.
+
+Johnston, C.S. et al. (2004). Vinegar improves insulin sensitivity to
+  a high-carbohydrate meal in subjects with insulin resistance or
+  type 2 diabetes. Diabetes Care / Journal of the American Dietetic
+  Association.
+
+Zeevi, D. et al. (2015). Personalized nutrition by prediction of
+  glycemic responses. Cell, 163(5), 1079–1094.
+
+
+8. CRONONUTRICIÓN Y RITMO CIRCADIANO
+──────────────────────────────────────
+
+Hall, J.C., Rosbash, M. & Young, M.W. (2017). Nobel Lecture:
+  Molecular mechanisms controlling circadian rhythm.
+  Nobel Prize in Physiology or Medicine.
+
+Garaulet, M. & Gómez-Abellán, P. (2014). Timing of food intake and
+  obesity: a novel association. Physiology & Behavior, 134, 44–50.
+
+Panda, S. (2016). Circadian physiology of metabolism. Science,
+  354(6315), 1008–1015. [Satchin Panda, Salk Institute]
+
+
+9. CAMBIO DE CONDUCTA, HÁBITOS Y PSICOLOGÍA ALIMENTARIA
+──────────────────────────────────────────────────────────
+
+Lally, P. et al. (2010). How are habits formed: Modelling habit
+  formation in the real world. European Journal of Social Psychology,
+  40(6), 998–1009. [UCL — "66 días"]
+
+Bandura, A. (1977). Self-efficacy: toward a unifying theory of
+  behavioral change. Psychological Review, 84(2), 191–215.
+
+Prochaska, J.O. & DiClemente, C.C. (1983). Stages and processes of
+  self-change of smoking. Journal of Consulting and Clinical Psychology.
+  [Modelo Transteórico del Cambio]
+
+Macht, M. (2007). How emotions affect eating: a five-way model.
+  Appetite, 50(1), 1–11.
+
+Anderberg, R.H. (2016). The stomach-derived hormone ghrelin increases
+  impulsive behavior. Neuropsychopharmacology, 41(5), 1199–1209.
+
+Kullmann, S. et al. (2015). The obese brain: association of body mass
+  index and insulin sensitivity with resting state network functional
+  connectivity. Human Brain Mapping.
+
+Wood, W. (2019). Good Habits, Bad Habits. Farrar, Straus and Giroux.
+  ISBN 978-1250159076.
+
+Fogg, B.J. (2019). Tiny Habits. Houghton Mifflin Harcourt.
+  ISBN 978-0358003328.
+
+Clear, J. (2018). Atomic Habits. Avery. ISBN 978-0735211292.
+
+
+10. LIBROS DE REFERENCIA — BASE TEÓRICA
+──────────────────────────────────────────
+
+Barrett, L.F. (2017). How Emotions Are Made. [op. cit.]
+
+Enders, G. (2014). Gut: The Inside Story of Our Body's Most
+  Underrated Organ. Greystone Books. ISBN 978-1771641494.
+
+Redondo Illán, T. (2021). Coaching Nutricional.
+  Formación Alcalá. [Máster en Nutrición y Salud]
+
+Arroyo Fernández, A. & Lladó Jordan, G. (2021).
+  Psicología de la Alimentación.
+  Formación Alcalá. [Máster en Nutrición y Salud]
+
+
+════════════════════════════════════════════════════════
+Food·Mood · www.food-mood.app · info@food-mood.app
+Base de conocimiento curada por Susana Ferreras Diez
+Psicóloga · MSc Biotecnología Alimentaria · MSc Gerontología
+Última actualización: Mayo 2026
