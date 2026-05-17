@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 
 type DayMsg = { title: string; body: string }
-type Enrollment = { user_id: string; current_day: number; challenge_id: string; challenges: { slug: string } | null }
+type Enrollment = { user_id: string; current_day: number; challenge_id: string; challenges: { slug: string }[] }
 
 const SUENO_MESSAGES: Record<number, DayMsg> = {
   // Semana 1 — Magnesio + Zinc + base mineral
@@ -202,7 +202,7 @@ export async function POST(req: NextRequest) {
     const subs = subsByUser[enrollment.user_id]
     if (!subs?.length) continue
 
-    const slug = enrollment.challenges?.slug ?? 'mejora-tu-sueno'
+    const slug = enrollment.challenges?.[0]?.slug ?? 'mejora-tu-sueno'
     const messages = SLUG_MESSAGES[slug] ?? SUENO_MESSAGES
     const msg = messages[enrollment.current_day] ?? getDefaultMessage(slug, enrollment.current_day)
     const payload = JSON.stringify({
