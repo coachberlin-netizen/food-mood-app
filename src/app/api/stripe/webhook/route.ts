@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
               challenge_id,
               paid:              true,
               stripe_session_id: session.id,
-              fm_index_start:    (fmData as any)?.index_value ?? null,
+              fm_index_start:    (fmData as { index_value?: number } | null)?.index_value ?? null,
               current_day:       1,
               completed:         false,
               start_date:        new Date().toISOString().split('T')[0],

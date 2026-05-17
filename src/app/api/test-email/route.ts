@@ -5,6 +5,10 @@ import { EDITORIAL_NEWSLETTERS } from '@/lib/editorial-newsletters'
 export const dynamic = 'force-dynamic'
 
 export async function GET(req: NextRequest) {
+  if (req.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const apiKey   = process.env.RESEND_API_KEY
   const fromAddr = process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app'
   const queryTo  = req.nextUrl.searchParams.get('to')

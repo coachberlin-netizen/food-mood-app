@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 
 type DayMsg = { title: string; body: string }
+type Enrollment = { user_id: string; current_day: number; challenge_id: string; challenges: { slug: string } | null }
 
 const SUENO_MESSAGES: Record<number, DayMsg> = {
   // Semana 1 — Magnesio + Zinc + base mineral
@@ -174,7 +175,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, sentCount: 0 })
   }
 
-  const userIds = enrollments.map((e: any) => e.user_id)
+  const userIds = (enrollments as Enrollment[]).map((e) => e.user_id)
 
   // Get push subscriptions for these users
   const { data: subscriptions, error: subErr } = await supabase
@@ -197,11 +198,11 @@ export async function POST(req: NextRequest) {
   let sentCount = 0
   const sends: Promise<any>[] = []
 
-  for (const enrollment of enrollments as any[]) {
+  for (const enrollment of enrollments as Enrollment[]) {
     const subs = subsByUser[enrollment.user_id]
     if (!subs?.length) continue
 
-    const slug = (enrollment.challenges as any)?.slug ?? 'mejora-tu-sueno'
+    const slug = enrollment.challenges?.slug ?? 'mejora-tu-sueno'
     const messages = SLUG_MESSAGES[slug] ?? SUENO_MESSAGES
     const msg = messages[enrollment.current_day] ?? getDefaultMessage(slug, enrollment.current_day)
     const payload = JSON.stringify({
