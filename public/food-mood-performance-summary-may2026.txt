@@ -1,6 +1,190 @@
-FOOD·MOOD — INVESTOR PERFORMANCE SUMMARY
+FOOD·MOOD — PRODUCT & INVESTOR BRIEF
 Pre-Seed Round · May 2026 · Confidential
 ════════════════════════════════════════════
+
+
+WHAT IT IS (30 SECONDS)
+────────────────────────
+Food·Mood is a Spanish-language wellness app for women 45+ that maps emotional
+states to functional food recommendations using gut-brain science. Users take an
+8-step mood quiz, receive a dominant mood profile (one of 6 states: Activación,
+Calma, Focus, Social, Reset, Confort), and get personalised recipe and habit
+recommendations — powered by a clinical-grade AI advisor built on top of a
+proprietary scientific knowledge base.
+
+The product sits at the intersection of three proven categories:
+  · Personalised nutrition (Noom, Lifesum — proved demand, wrong audience)
+  · Women's health 45+ (Flo, Gennev — hormones, not gut-brain)
+  · AI health coaching (unrealised potential, no Spanish-language leader)
+
+No competitor in Spanish operates at the junction of gut-brain science,
+women 45+, and emotionally intelligent AI coaching.
+
+
+LIVE PRODUCT — WHAT EXISTS TODAY
+──────────────────────────────────
+
+1. MOOD QUIZ ENGINE
+   · 8-step emotional state quiz (Zustand state machine)
+   · 6 mood outputs: Activación, Calma, Focus, Social, Reset, Confort
+   · Mood history dashboard — emotional palette over time, streaks, trends
+   · Mood-to-recipe mapping: Supabase PostgreSQL with RLS, premium-gated
+
+2. RECIPE & CONTENT LIBRARY
+   · Full recipe database seeded in Supabase (mood-mapped, allergen-tagged)
+   · AI-generated premium recipes: Claude Haiku → structured JSON → Google Imagen
+   · 3 live transformation challenges (all 8 by Q1 2027):
+     — Activa tu energía (7 days · €19)
+     — Activa tu longevidad (10 days · €24)
+     — Corporate Wellness pilot (€490 base · €12/employee)
+   · 7 proprietary audio episodes (guided habits, meditation, nutrition science)
+   · Book manuscript in progress: "Food·Mood: El placer de estar bien"
+
+3. PAYMENTS & SUBSCRIPTIONS
+   · Stripe Checkout + webhooks (one-time challenges + monthly/quarterly subscriptions)
+   · Subscription: €9/month · €7/month (quarterly billing)
+   · Corporate packages: custom pricing, password-protected internal portal
+   · Premium waterfall: subscription status → profile flag → premium level
+
+4. AUTHENTICATION & USER MANAGEMENT
+   · Supabase Auth (email/password) — SSR sessions via @supabase/ssr
+   · Full GDPR toolkit: data export (JSON), data deletion, consent management
+   · Push notification subscription management (VAPID/Web Push API)
+
+
+THE AI LAYER — ASESOR PERSONAL
+───────────────────────────────
+The most technically differentiated component of Food·Mood is the Asesor Personal:
+a RAG-augmented conversational AI agent purpose-built for functional nutrition.
+
+  ARCHITECTURE:
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  User message                                                   │
+  │       ↓                                                         │
+  │  Safety pre-flight (crisis + TCA detection — no LLM call)       │
+  │       ↓                                                         │
+  │  Semantic retrieval (Voyage AI voyage-3 embeddings)             │
+  │       ├── food-mood KB: 6 book chapters → 71 chunks             │
+  │       └── longevidad KB: 15 scientific files → 101 chunks       │
+  │       ↓                                                         │
+  │  Context builder: user profile + mood history + biomarkers      │
+  │       ↓                                                         │
+  │  Claude Haiku (claude-haiku-4-5) with injected RAG context      │
+  │       ↓                                                         │
+  │  Safety post-flight (allergens + drug-food interactions)        │
+  │       ↓                                                         │
+  │  Response + usage tracking (tokens, cost €/session, latency)    │
+  └─────────────────────────────────────────────────────────────────┘
+
+  KNOWLEDGE BASE (172 INDEXED CHUNKS — DUAL KB):
+
+  food-mood KB (proprietary book content):
+    · Vinagre de kombucha — el ingrediente eje
+    · Recetas y protocolos Activación, Calma, Focus, Social (4 chapters indexed)
+    · (Reset and Confort chapters: indexing in progress)
+
+  longevidad KB (peer-reviewed science, 15 files):
+    · Mitocondrias y energía celular (Bhanu Bhanu, Hayflick)
+    · Microbiota y eje intestino-cerebro (Cryan, Dinan, Mayer)
+    · Sueño, cronodieta y ritmos circadianos (Walker, Satchin Panda)
+    · Neuroplasticidad y neuroprotección nutricional
+    · Inflamación crónica de bajo grado (inflammaging)
+    · Hormonas femeninas y menopausia nutricional
+    · Ayuno intermitente y restricción calórica — evidencia
+    · Fermentados, psicobióticos y salud mental (SMILES trial, Gut-Feely)
+    · Longevidad — protocolo de suplementación con evidencia
+    · Alimentación emocional: serotonina, grelina, leptina, eje HPA
+    · Coaching nutricional y cambio de hábitos (Prochaska, Bandura)
+    · Motivación, condicionamiento y aprendizaje alimentario
+    · Sarcopenia, densidad ósea y proteína en la segunda mitad de la vida
+    · Antioxidantes, polifenoles y señalización hormética
+    · Glucemia, insulina y salud metabólica femenina
+
+  SAFETY PIPELINE (4 layers — EU AI Act compliant):
+    1. Pre-flight crisis detection → direct referral to 024/SAPTEL (no LLM call)
+    2. Pre-flight TCA signal detection → eating disorder library (founder-reviewed)
+    3. Post-flight allergen blocking → hard error if allergen match
+    4. Post-flight drug-food interaction → caution or pharmacist referral
+
+  COST EFFICIENCY:
+    · Per-session cost (avg): < €0.003 (Claude Haiku + Voyage embeddings)
+    · Monthly quota: 100 queries/user — prevents cost overrun at scale
+    · Full cost accounting per session (tokens in/out → €) logged to DB
+
+  Q: SHOULD WE INDEX MORE BOOKS?
+    Short answer: yes, and it is cheap to do so.
+    Each new scientific book adds depth in 30–120 minutes of work.
+    Current 172 chunks cover the core curriculum for the target user (women 45+,
+    gut-brain, longevity, emotional eating, habit change). Priority additions:
+      · Hormonal health protocols (perimenopause, HRT, thyroid)
+      · Sports nutrition for women over 40 (muscle preservation, VO2max)
+      · Specific gut dysbiosis protocols (SIBO, IBS, leaky gut)
+      · Psychoneuroimmunology (Ader, Cohen — stress-immune-gut axis)
+    The infrastructure scales linearly: `reindex` script ingests any .md or .txt
+    in minutes. This is not a bottleneck — it is a growth lever. Each new book
+    makes the Asesor better without engineering cost.
+
+
+INTELLIGENT NOTIFICATION ENGINE
+──────────────────────────────────
+A rules-based notification system that personalises outreach based on real user
+biomarkers — not generic marketing blasts.
+
+  HOW IT WORKS:
+    · 3 daily evaluation windows (07:00 / 11:00 / 18:00 UTC)
+    · Each user has a notification preference profile:
+      — timezone (default: Europe/Madrid)
+      — quiet hours (default: 22:00–08:00)
+      — per-rule mute controls
+    · Rule evaluator checks: quiet hours → already sent today → rule logic
+    · Dispatches logged to DB (user_id, rule, channel, timestamp)
+
+  LIVE RULES:
+    polyphenol_window   — Fires 15 min before fasting window closes: "break your
+                          fast with polyphenols for maximum benefit"
+    sleep_short_calm    — If last night's sleep < 6h (from wearable), fires 8-10am:
+                          "Calma mode today — no caffeine after 2pm"
+    fermented_reminder  — If no fermented food logged in 24h, fires at 13:00:
+                          "Your microbiota reminder"
+    mood_checkin_nudge  — If no mood check-in today, fires at 20:00:
+                          "How did your day end?" (opt-in — off by default)
+
+  CHANNELS: Web Push (VAPID) · Email (Resend) — architecture decoupled,
+            SMS/WhatsApp can be added without touching rule logic.
+
+
+BIOMARKER INTEGRATION (LIVE INFRASTRUCTURE)
+─────────────────────────────────────────────
+OAuth2 wearable connections built and ready to activate:
+  · Oura Ring — HRV, sleep stages, readiness score, temperature
+  · WHOOP — strain, recovery, sleep performance
+  · Fitbit — activity, sleep, heart rate
+  · Apple HealthKit — native iOS integration
+  · Google Fit — Android
+
+Biomarker data flows into:
+  · Notification engine (sleep_h, fermented_consumed sample types)
+  · Asesor Personal context (HRV, sleep, glucose → personalised advice)
+  · Dashboard correlations (mood state × biomarker trends)
+
+AES-256-GCM encryption on all OAuth tokens at rest.
+GDPR: tokens deleted on user data-deletion request.
+
+
+TECHNICAL INFRASTRUCTURE
+──────────────────────────
+· Frontend:        Next.js 14 (App Router) · TypeScript strict · Tailwind · Framer Motion
+· Backend:         Supabase (PostgreSQL + pgvector + RLS + Auth) · Next.js API routes
+· AI:              Anthropic Claude Haiku (agent) · Google Imagen (recipe images)
+· Embeddings:      Voyage AI voyage-3 (1024-dim vectors, pgvector cosine similarity)
+· Payments:        Stripe (checkout, webhooks, subscriptions, portal)
+· Email:           Resend (transactional + newsletters)
+· Push:            Web Push API (VAPID) — PWA, no app store dependency
+· Hosting:         Vercel (serverless, EU-region, cron jobs)
+· Compliance:      EU AI Act (MDCG 2025-4 reviewed — lifestyle/wellness, not MDSW)
+                   GDPR (Estonian OÜ legal structure, e-Residency)
+
+All infrastructure built and maintained by the founder. Zero external engineering cost to date.
 
 
 ROUND STRUCTURE
@@ -10,128 +194,42 @@ ROUND STRUCTURE
 · Valuation cap:    €800,000
 · Discount at Seed: 20%
 · Implied dilution: ~17.5%
-· Legal structure:  Subject to counsel (Spanish/EU)
 
 
-PRODUCT STATUS
+UNIT ECONOMICS
 ──────────────
-· MVP fully built and live — food-mood.app
-· Payments integrated (Stripe): challenges, subscriptions, corporate packages
-· AI Digital Advisor live with 4-layer clinical safety pipeline:
-  — Pre-flight crisis detection (no LLM call — direct referral to 024/SAPTEL)
-  — Pre-flight TCA signal detection (eating disorder pattern library, founder-reviewed)
-  — Post-flight allergen blocking (hard error — recommendation never delivered if allergen match)
-  — Post-flight drug-food interaction routing (caution warning or referral to pharmacist)
-· EU AI Act reviewed (MDCG 2025-4): app classified as lifestyle/wellness, not MDSW
-· Infrastructure: Next.js · Supabase · Stripe · Anthropic Claude · Vercel — fully serverless
+· Challenge:             €19–29 (acquisition)
+· Subscription:          €9/mo · €7/mo (quarterly)
+· Conv. challenge→sub:   target 15%
+· LTV (est.):            €150–200
+· Target CAC:            < €40
+· LTV/CAC:               > 3.75×
+· AI cost/session:       < €0.003
 
 
-CONTENT STACK
-─────────────
-· Transformation challenges live:        3 of 8 (all 8 by Q1 2027)
-  — Activa tu energía (7 days, €19)
-  — Activa tu longevidad (10 days, €24)
-  — Corporate Wellness pilot package (€490+)
-· Proprietary audio library:             7 episodes complete
-· Book (pre-publication 2026):           "Food·Mood: El placer de estar bien"
-· Scientific KB (RAG):                   24 evidence-based chapters (gut-brain axis,
-                                          psychobiotics, hormonal health, longevity)
-· Recipe library:                         Seeded in Supabase, mood-mapped, premium-gated
-
-
-COMMUNITY & DEMAND VALIDATION
-──────────────────────────────
-· Active newsletter (Spanish-language audience)
-· WhatsApp + Telegram community channels — warm audience ready to onboard
-· Demand validated through founder's coaching practice (paying clients)
-· Demand validated through Umyko wellness community (paying clients)
-· First investor matchmaking event: June 2026
-· Launch strategy: post-close, with dedicated growth budget — not pre-revenue scrappy launch
-
-
-18-MONTH MILESTONES (POST-CLOSE, RELATIVE TO FUND CLOSE — EXPECTED H2 2026)
-──────────────────────────────────────────────────────────────────────────────
-Q1 2027:
-  · All 8 challenges live
-  · 200 active subscribers
-  · Book publication
-  · Corporate Wellness pipeline active — first proposals sent
-
-Q3 2027 (18-month target):
-  · 2,500 challenge purchases (acquisition)
-  · 500 active subscribers (retained base)
-  · First Corporate Wellness pilot closed
-  · €8K–12K MRR equivalent
-  · AI coaching module launch
-
-Q1 2028 (Seed):
-  · LATAM + US Hispanic expansion
-  · Seed round
-  · €25K+ MRR · 1,500+ active subscribers
-  · 2–3 Corporate Wellness clients
-
-
-90-DAY POST-CLOSE TARGETS
-──────────────────────────
-· 100 paying users
-· D7 retention > 40%
-· NPS > 50
-
-
-UNIT ECONOMICS (PROJECTIONS)
-──────────────────────────────
-· Challenge price:           €19–29 (acquisition)
-· Subscription price:        €9/month · €7/month (quarterly)
-· Challenge → sub conversion: target 15% (wellness benchmark)
-· Subscription retention:     85% @ 3 months · 70% @ 12 months
-· LTV (estimated):            €150–200
-· Target CAC:                 < €40
-· LTV / CAC ratio:            > 3.75×
-· Corporate pilot:            €490 base · €12/employee
-  (1 mid-size contract = 50+ B2C subscriber revenue equivalents)
-
-SOM (18-month):
-  2,500 challenge purchases + 500 active subscribers → ~€116K ARR run rate
-
-At 1% of Spanish SAM (22,000 subscribers):
-  → €2.4M ARR
-
-
-USE OF FUNDS (€140,000)
-────────────────────────
-· Product & Tech:                €50,000 (36%) — AI coaching, content engine, tech hire Q1 2027
-· Growth & Marketing:            €35,000 (25%) — paid acquisition, PR, community
-· Scientific Validation:         €20,000 (14%) — pilot studies, advisory board
-· Operations & Founder Salary:   €35,000 (25%) — €1,500/month founder salary (18 months)
-
-
-COMPETITIVE POSITION
-─────────────────────
-· TAM: ~95M Spanish-speaking women 45+ globally (Spain 11M · LATAM 75M · US Hispanic 9M)
-· No Spanish-language competitor at intersection of: gut-brain science + women 45+ + habit formation
-· Noom: €3.7B company, English-first, weight-loss — proved category, left the Spanish beach empty
-· Moat: clinically-supervised AI pipeline + proprietary gut-brain recipe dataset + EU AI Act–ready architecture
+18-MONTH MILESTONES (POST-CLOSE · H2 2026 START)
+──────────────────────────────────────────────────
+Q1 2027:  All 8 challenges · 200 subscribers · Book published · Corp pipeline active
+Q3 2027:  2,500 challenge sales · 500 subscribers · €8–12K MRR · 1st corp pilot closed
+Q1 2028:  Seed round · LATAM/US Hispanic expansion · €25K+ MRR · 1,500+ subscribers
 
 
 FOUNDER
 ────────
-· Susana Ferreras Diez — CEO & Founder
-· Psychologist · MSc Food Biotechnology · MSc Gerontology
-· Full-stack developer (Next.js, Supabase, Stripe, Vercel — entire MVP built by founder)
-· Kombucha brand founder (strategic exit to pivot to digital)
-· Food tech consultant (ongoing — supplements founder salary, maintains industry relationships)
-· Co-founder / partner: operations, administration, compliance
+Susana Ferreras Diez — CEO & Founder
+Psychologist · MSc Food Biotechnology · MSc Gerontology
+Full-stack developer (entire MVP built solo: Next.js, Supabase, AI, Stripe, Vercel)
+Kombucha brand founder (strategic exit) · Food tech consultant (ongoing)
 
 
 CONTACT
 ────────
-· www.food-mood.app
-· info@food-mood.app
-· Subject: Food·Mood Pre-Seed — Investor Interest
+www.food-mood.app · info@food-mood.app
+Subject: Food·Mood Pre-Seed — Investor Interest
 
 
 ════════════════════════════════════════════
-Confidential document · May 2026
-This summary is for authorised recipients only.
-All projections are forward-looking estimates — not guarantees of future performance.
-Do not distribute without written authorisation from the founder.
+Confidential — May 2026
+For authorised recipients only.
+Forward-looking projections — not guarantees.
+Do not distribute without written authorisation.

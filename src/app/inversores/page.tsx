@@ -148,22 +148,22 @@ function InvestorDeck() {
         </p>
       </div>
 
-      {/* Performance Summary Download */}
+      {/* Product & Investor Brief Download */}
       <div style={{ backgroundColor: '#F0EDE4', borderBottom: '1px solid #E0D9C8', padding: '20px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
         <div>
           <p style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 4 }}>
-            Performance Summary · May 2026
+            Product & Investor Brief · May 2026
           </p>
           <p style={{ fontSize: 13, fontWeight: 700, color: '#1A1612', marginBottom: 2 }}>
-            Food·Mood — Investor Status Brief
+            Food·Mood — Full Feature & Round Summary
           </p>
           <p style={{ fontSize: 11, color: '#3D3028', lineHeight: 1.5 }}>
-            Product status · content stack · unit economics · milestones · use of funds — all in one page.
+            AI architecture · RAG knowledge base · notification engine · biomarker integrations · unit economics · round structure.
           </p>
         </div>
         <a
           href="/food-mood-performance-summary-may2026.txt"
-          download="Food-Mood-Performance-Summary-May2026.txt"
+          download="Food-Mood-Product-Brief-May2026.txt"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -179,7 +179,7 @@ function InvestorDeck() {
             whiteSpace: 'nowrap',
           }}
         >
-          ↓ Download Summary (.txt)
+          ↓ Download Brief (.txt)
         </a>
       </div>
 
