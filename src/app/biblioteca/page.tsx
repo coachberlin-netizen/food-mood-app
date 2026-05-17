@@ -1,528 +1,570 @@
-import Link from 'next/link'
 import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const dynamic = 'force-static'
+export const revalidate = 86400
 
 export const metadata: Metadata = {
-  title: 'Biblioteca científica · Food·Mood',
+  title: 'Biblioteca Científica — 172 Fragmentos | Food·Mood',
   description:
-    'Referencias, estudios y libros que forman la base de conocimiento del Asesor Personal de Food·Mood. 30+ publicaciones científicas sobre eje intestino-cerebro, salud hormonal femenina, neurociencia afectiva y cambio de hábitos.',
+    'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+  openGraph: {
+    title: 'Biblioteca Científica — Food·Mood',
+    description: '172 fragmentos científicos curados por nuestro equipo.',
+    url: 'https://www.food-mood.app/biblioteca',
+  },
 }
 
-type Ref = {
-  authors: string
-  year: string
-  title: string
-  journal?: string
+type RefItem = {
+  autores: string
+  ano: number
+  titulo: string
+  revista: string
+  volumen?: string
+  paginas?: string
   doi?: string
-  note?: string
+  url: string
+  isbn?: string
+  relevancia: string
+  usadoEn: string[]
 }
 
-type Section = {
-  id: string
-  color: string
-  label: string
-  heading: string
-  refs: Ref[]
+type Seccion = {
+  categoria: string
+  descripcion: string
+  items: RefItem[]
 }
 
-const SECTIONS: Section[] = [
+const biblioteca: Seccion[] = [
   {
-    id: 'neurociencia',
-    color: '#A07BBE',
-    label: 'Neurociencia afectiva',
-    heading: 'Emociones y espectro emocional',
-    refs: [
+    categoria: 'Eje Intestino-Cerebro',
+    descripcion: 'La comunicación bidireccional entre tu microbiota y tu sistema nervioso central.',
+    items: [
       {
-        authors: 'Barrett, L.F.',
-        year: '2017',
-        title: 'How Emotions Are Made: The Secret Life of the Brain',
-        journal: 'Houghton Mifflin Harcourt',
-        note: 'Teoría de la Emoción Construida — fundamento del sistema de paleta emocional de Food·Mood',
+        autores: 'Cryan, J.F., et al.',
+        ano: 2019,
+        titulo: 'The Microbiota-Gut-Brain Axis',
+        revista: 'Physiological Reviews',
+        volumen: '99(4)',
+        paginas: '1877–2013',
+        doi: '10.1152/physrev.00018.2018',
+        url: 'https://doi.org/10.1152/physrev.00018.2018',
+        relevancia: 'Review foundational sobre el eje intestino-cerebro. Explica mecanismos de señalización neural, inmune y endocrina.',
+        usadoEn: ['Home', 'Paleta emocional', 'Retos'],
       },
       {
-        authors: 'Russell, J.A.',
-        year: '2003',
-        title: 'Core affect and the psychological construction of emotion',
-        journal: 'Psychological Review, 110(1), 145–172',
-        doi: 'https://pubmed.ncbi.nlm.nih.gov/16262989/',
-        note: 'Modelo circumplex — base del espectro continuo de estados afectivos',
+        autores: 'Yano, J.M., et al.',
+        ano: 2015,
+        titulo: 'Indigenous Bacteria from the Gut Microbiota Regulate Host Serotonin Biosynthesis',
+        revista: 'Cell',
+        volumen: '161(2)',
+        paginas: '264–276',
+        doi: '10.1016/j.cell.2015.02.047',
+        url: 'https://doi.org/10.1016/j.cell.2015.02.047',
+        relevancia: 'Demuestra que bacterias intestinales producen ~90% de la serotonina corporal. Base del claim "95% de serotonina en el intestino".',
+        usadoEn: ['Home', 'Paleta emocional'],
       },
       {
-        authors: 'Lindquist, K.A. et al.',
-        year: '2021',
-        title: 'Emotional granularity and emotion regulation: a systematic review',
-        journal: 'PMC Open Access',
-        doi: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8315101/',
-        note: 'Granularidad emocional como intervención de autorregulación',
+        autores: 'Dinan, T.G. & Cryan, J.F.',
+        ano: 2017,
+        titulo: 'Gut instincts: microbiota as a key regulator of brain development, ageing and neurodegeneration',
+        revista: 'Journal of Physiology',
+        volumen: '595(2)',
+        paginas: '489–503',
+        doi: '10.1113/JP273106',
+        url: 'https://doi.org/10.1113/JP273106',
+        relevancia: 'Revisión del impacto de la microbiota en neurodesarrollo y envejecimiento.',
+        usadoEn: ['Retos de longevidad'],
       },
       {
-        authors: 'Damasio, A.',
-        year: '1994',
-        title: "Descartes' Error: Emotion, Reason, and the Human Brain",
-        journal: 'Putnam',
-        note: 'Hipótesis del marcador somático — cuerpo y emoción son inseparables',
+        autores: 'Foster, J.A., et al.',
+        ano: 2017,
+        titulo: 'Stress & the gut-brain axis: Regulation by the microbiome',
+        revista: 'Neurobiology of Stress',
+        volumen: '7',
+        paginas: '124–136',
+        doi: '10.1016/j.ynstr.2017.03.001',
+        url: 'https://doi.org/10.1016/j.ynstr.2017.03.001',
+        relevancia: 'Mecanismos específicos de cómo el estrés altera la microbiota y viceversa.',
+        usadoEn: ['Reto Calma', 'Reto Ansiedad'],
       },
     ],
   },
   {
-    id: 'intestino-cerebro',
-    color: '#6B2737',
-    label: 'Eje intestino-cerebro',
-    heading: 'Microbiota, psicobióticos y salud mental',
-    refs: [
+    categoria: 'Serotonina y Neurotransmisores',
+    descripcion: 'Bioquímica del estado de ánimo desde el plato.',
+    items: [
       {
-        authors: 'Cryan, J.F. et al.',
-        year: '2019',
-        title: 'The microbiota-gut-brain axis',
-        journal: 'Physiological Reviews, 99(4), 1877–2013',
-        doi: 'https://doi.org/10.1152/physrev.00018.2018',
+        autores: 'Jenkins, T.A., et al.',
+        ano: 2016,
+        titulo: 'Influence of Tryptophan and Serotonin on Mood and Cognition',
+        revista: 'Nutrition Research Reviews',
+        volumen: '29(2)',
+        paginas: '132–143',
+        doi: '10.1017/S0954422416000088',
+        url: 'https://doi.org/10.1017/S0954422416000088',
+        relevancia: 'Revisión de cómo el triptófano dietético afecta la síntesis de serotonina y el estado de ánimo.',
+        usadoEn: ['Recetas', 'Retos'],
       },
       {
-        authors: 'Cryan, J.F. & Dinan, T.G.',
-        year: '2012',
-        title: 'Mind-altering microorganisms: the impact of the gut microbiota on brain and behaviour',
-        journal: 'Nature Reviews Neuroscience, 13(10), 701–712',
-      },
-      {
-        authors: 'Yano, J.M. et al.',
-        year: '2015',
-        title: 'Indigenous bacteria from the gut microbiota regulate host serotonin biosynthesis',
-        journal: 'Cell, 161(2), 264–276',
-        doi: 'https://doi.org/10.1016/j.cell.2015.02.047',
-        note: '95% de la serotonina corporal se produce en el intestino',
-      },
-      {
-        authors: 'Bravo, J.A. et al.',
-        year: '2011',
-        title: 'Ingestion of Lactobacillus strain regulates emotional behavior and central GABA receptor expression via the vagus nerve',
-        journal: 'PNAS, 108(38), 16050–16055',
-      },
-      {
-        authors: 'Allen, A.P. et al.',
-        year: '2016',
-        title: 'Bifidobacterium longum 1714 as a translational psychobiotic: modulation of stress, electrophysiology and neurocognition',
-        journal: 'Translational Psychiatry, 6(11), e939',
-      },
-      {
-        authors: 'Stanton, C. et al.',
-        year: '2024',
-        title: 'Psychobiotics and the gut-brain axis: recent advances',
-        journal: 'Journal of Functional Foods',
-      },
-      {
-        authors: 'Dinan, T.G. & Cryan, J.F.',
-        year: '2013',
-        title: 'Melancholic microbes: a link between gut microbiota and depression',
-        journal: 'Neurogastroenterology & Motility',
-        note: 'Artículo que acuñó el término "psicobiótico"',
+        autores: 'Bravo, J.A., et al.',
+        ano: 2011,
+        titulo: 'Ingestion of Lactobacillus strain regulates emotional behavior and central GABA receptor expression via the vagus nerve',
+        revista: 'PNAS',
+        volumen: '108(38)',
+        paginas: '16050–16055',
+        doi: '10.1073/pnas.1102999108',
+        url: 'https://doi.org/10.1073/pnas.1102999108',
+        relevancia: 'Primer estudio en mostrar que probióticos específicos reducen ansiedad vía GABA.',
+        usadoEn: ['Fermentos', 'Reto Calma'],
       },
     ],
   },
   {
-    id: 'hormonal',
-    color: '#C04878',
-    label: 'Salud hormonal femenina',
-    heading: 'Estrobioma, menopausia y microbioma vaginal',
-    refs: [
+    categoria: 'Cronobiología y Crononutrición',
+    descripcion: 'Cuándo comes importa tanto como qué comes.',
+    items: [
       {
-        authors: 'Reid, G. et al.',
-        year: '2003',
-        title: 'Oral use of Lactobacillus rhamnosus GR-1 and L. reuteri RC-14 significantly alters vaginal flora',
-        journal: 'FEMS Immunology & Medical Microbiology, 35(2), 131–134',
+        autores: 'Panda, S.',
+        ano: 2018,
+        titulo: 'The Circadian Code',
+        revista: 'Rodale Books',
+        isbn: '978-1635651728',
+        url: 'https://www.penguinrandomhouse.com/books/557081/the-circadian-code-by-satchin-panda-phd/',
+        relevancia: 'Libro de divulgación científica sobre time-restricted eating y salud metabólica.',
+        usadoEn: ['Reto Circadiano', 'Home'],
       },
       {
-        authors: 'Howell, A.B. et al.',
-        year: '2005',
-        title: 'Inhibition of the adherence of P-fimbriated Escherichia coli to uroepithelial-cell surfaces by proanthocyanidin extracts from cranberries',
-        journal: 'Journal of the Science of Food and Agriculture, 85(10), 1700–1706',
+        autores: 'Chaix, A., et al.',
+        ano: 2014,
+        titulo: 'Time-Restricted Feeding Is a Preventative and Therapeutic Intervention against Diverse Nutritional Challenges',
+        revista: 'Cell Metabolism',
+        volumen: '20(6)',
+        paginas: '991–1005',
+        doi: '10.1016/j.cmet.2014.11.001',
+        url: 'https://doi.org/10.1016/j.cmet.2014.11.001',
+        relevancia: 'Estudio pionero de Panda sobre restricción temporal de alimentación.',
+        usadoEn: ['Reto Circadiano'],
       },
       {
-        authors: 'Qi, X. et al.',
-        year: '2021',
-        title: 'Gut microbiota composition changes in menopausal women: a systematic review and meta-analysis',
-        journal: 'Nutrients',
-      },
-      {
-        authors: 'Messina, M.',
-        year: '2016',
-        title: 'Soy and health update: evaluation of the clinical and epidemiologic literature',
-        journal: 'Advances in Nutrition',
-      },
-    ],
-  },
-  {
-    id: 'metabolismo',
-    color: '#C9A84C',
-    label: 'Mitocondrias y energía',
-    heading: 'Metabolismo celular y cofactores mitocondriales',
-    refs: [
-      {
-        authors: 'Crane, F.L.',
-        year: '2001',
-        title: 'Biochemical functions of coenzyme Q10',
-        journal: 'Mitochondrion, 1(3), 255–266',
-      },
-      {
-        authors: 'Altura, B.M. & Altura, B.T.',
-        year: '1995',
-        title: 'Magnesium: forgotten mineral in cardiovascular biology, hypertension and atherogenesis',
-        journal: 'Scientific American',
-      },
-      {
-        authors: 'Ikon, N. & Thomas, R.H.',
-        year: '2016',
-        title: 'Cardiolipin and mitochondrial function in health and disease',
-        journal: 'Advances in Nutrition, 7(5), 963–973',
+        autores: 'St-Onge, M.P., et al.',
+        ano: 2016,
+        titulo: 'Meal Timing Affects Postprandial Ghrelin Levels and Subjective Hunger',
+        revista: 'Obesity',
+        volumen: '24(8)',
+        paginas: '1705–1711',
+        doi: '10.1002/oby.21579',
+        url: 'https://doi.org/10.1002/oby.21579',
+        relevancia: 'Relación entre timing de comidas, grelina y sensación de hambre.',
+        usadoEn: ['IA de recomendaciones', 'Reto Energía'],
       },
     ],
   },
   {
-    id: 'musculo',
-    color: '#4A7AB5',
-    label: 'Músculo y longevidad',
-    heading: 'Proteína, sarcopenia y densidad ósea',
-    refs: [
+    categoria: 'Teoría de las Emociones Construidas',
+    descripcion: 'Las emociones no son universales: son construcciones activas del cerebro.',
+    items: [
       {
-        authors: 'Witard, O.C. et al.',
-        year: '2016',
-        title: 'High dietary protein intake for muscle hypertrophy and maintenance',
-        journal: 'Nutrition Reviews, 74(suppl 1), 33–47',
+        autores: 'Barrett, L.F.',
+        ano: 2017,
+        titulo: 'How Emotions Are Made: The Secret Life of the Brain',
+        revista: 'Houghton Mifflin Harcourt',
+        isbn: '978-0544133310',
+        url: 'https://www.hmhbooks.com/shop/books/How-Emotions-Are-Made/9780544133310',
+        relevancia: 'Base del concepto "no eres triste, eres 60% calma + 25% melancolía". Fundamento teórico de la paleta emocional.',
+        usadoEn: ['Paleta emocional', 'Test', '/paleta (sección ciencia)'],
       },
       {
-        authors: 'Areta, J.L. et al.',
-        year: '2013',
-        title: 'Timing and distribution of protein ingestion during prolonged recovery from resistance exercise alters myofibrillar protein synthesis',
-        journal: 'Journal of Physiology, 591(9), 2319–2331',
+        autores: 'Russell, J.A.',
+        ano: 2003,
+        titulo: 'Core affect and the psychological construction of emotion',
+        revista: 'Psychological Review',
+        volumen: '110(1)',
+        paginas: '145–172',
+        doi: '10.1037/0033-295X.110.1.145',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/16262989/',
+        relevancia: 'Modelo circumplex: cualquier emoción es un punto en el espacio valencia × activación.',
+        usadoEn: ['Paleta emocional', '/paleta (sección ciencia)'],
       },
       {
-        authors: 'Leidy, H.J. et al.',
-        year: '2013',
-        title: 'Beneficial effects of a higher-protein breakfast on appetite-regulating hormonal and neural signals',
-        journal: 'American Journal of Clinical Nutrition',
-      },
-      {
-        authors: 'Hauschka, P.V. et al.',
-        year: '1989',
-        title: 'Osteocalcin and matrix Gla protein: vitamin K-dependent proteins in bone',
-        journal: 'Physiological Reviews, 69(3), 990–1047',
-      },
-      {
-        authors: 'Natsuyama, R.',
-        year: '2013',
-        title: 'Estrogen receptor signaling and bone metabolism',
-        journal: 'Journal of Bone and Mineral Metabolism, 31(1), 1–8',
-      },
-    ],
-  },
-  {
-    id: 'bioactivos',
-    color: '#5A9B8A',
-    label: 'Nutrición funcional',
-    heading: 'Compuestos bioactivos y fermentados',
-    refs: [
-      {
-        authors: 'Zeevi, D. et al.',
-        year: '2015',
-        title: 'Personalized nutrition by prediction of glycemic responses',
-        journal: 'Cell, 163(5), 1079–1094',
-        note: 'La respuesta glucémica varía individualmente — el microbioma es predictor clave',
-      },
-      {
-        authors: 'Johnston, C.S. et al.',
-        year: '2004',
-        title: 'Vinegar improves insulin sensitivity to a high-carbohydrate meal in subjects with insulin resistance or type 2 diabetes',
-        journal: 'Journal of the American Dietetic Association',
-      },
-      {
-        authors: 'Wang, Y. et al.',
-        year: '2022',
-        title: 'Dietary lycopene and depression risk: a meta-analysis',
-        journal: 'Nutrients, 14(3), 513',
-      },
-      {
-        authors: 'Xiao, Y. et al.',
-        year: '2023',
-        title: 'Lactic acid fermentation enhances lycopene bioaccessibility in tomato pulp',
-        journal: 'Food Chemistry, 410, 135397',
-      },
-      {
-        authors: 'Shi, J. & Le Maguer, M.',
-        year: '2000',
-        title: 'Lycopene in tomatoes: chemical and physical properties affected by food processing',
-        journal: 'Critical Reviews in Food Science and Nutrition, 40(1), 1–42',
+        autores: 'Lindquist, K.A., et al.',
+        ano: 2021,
+        titulo: 'Emotional granularity and emotion regulation: a systematic review',
+        revista: 'PMC Open Access',
+        doi: 'PMC8315101',
+        url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8315101/',
+        relevancia: 'Alta granularidad emocional → menos ansiedad y depresión. Nombrar con precisión lo que se siente es una intervención de autorregulación.',
+        usadoEn: ['Paleta emocional', 'Concepto general'],
       },
     ],
   },
   {
-    id: 'cronobiologia',
-    color: '#D4845A',
-    label: 'Crononutrición',
-    heading: 'Ritmo circadiano y timing nutricional',
-    refs: [
+    categoria: 'Neurogastronomía',
+    descripcion: 'Cómo el cerebro crea el sabor y la experiencia alimentaria.',
+    items: [
       {
-        authors: 'Hall, J.C., Rosbash, M. & Young, M.W.',
-        year: '2017',
-        title: 'Molecular mechanisms controlling circadian rhythm',
-        journal: 'Nobel Prize Lecture in Physiology or Medicine',
-        note: 'Premio Nobel 2017 — base científica de la crononutrición',
+        autores: 'Shepherd, G.M.',
+        ano: 2012,
+        titulo: 'Neurogastronomy: How the Brain Creates Flavor and Why It Matters',
+        revista: 'Columbia University Press',
+        isbn: '978-0231159111',
+        url: 'https://cup.columbia.edu/book/neurogastronomy/9780231159111',
+        relevancia: 'Libro fundacional de la neurogastronomía. Explica cómo el olfato retronasal construye el sabor.',
+        usadoEn: ['Concepto general', 'Recetas sensoriales'],
       },
       {
-        authors: 'Garaulet, M. & Gómez-Abellán, P.',
-        year: '2014',
-        title: 'Timing of food intake and obesity: a novel association',
-        journal: 'Physiology & Behavior, 134, 44–50',
-      },
-      {
-        authors: 'Panda, S.',
-        year: '2016',
-        title: 'Circadian physiology of metabolism',
-        journal: 'Science, 354(6315), 1008–1015',
-        note: 'Salk Institute — base científica del ayuno intermitente y la ventana de alimentación',
+        autores: 'Spence, C.',
+        ano: 2017,
+        titulo: 'Gastrophysics: The New Science of Eating',
+        revista: 'Viking',
+        isbn: '978-0735223035',
+        url: 'https://www.penguin.co.uk/books/294034/gastrophysics-by-spence-charles/9780735223042',
+        relevancia: 'Multisensorialidad en la experiencia alimentaria: color, sonido, textura y contexto.',
+        usadoEn: ['Presentación de recetas'],
       },
     ],
   },
   {
-    id: 'conducta',
-    color: '#7B9E6B',
-    label: 'Cambio de hábitos',
-    heading: 'Psicología del comportamiento alimentario',
-    refs: [
+    categoria: 'Fermentados y Microbiota',
+    descripcion: 'Alimentos vivos que modifican tu ecosistema interno.',
+    items: [
       {
-        authors: 'Lally, P. et al.',
-        year: '2010',
-        title: 'How are habits formed: Modelling habit formation in the real world',
-        journal: 'European Journal of Social Psychology, 40(6), 998–1009',
-        note: '"66 días" — UCL. El mito de los 21 días refutado con evidencia.',
+        autores: 'Marco, M.L., et al.',
+        ano: 2017,
+        titulo: 'Health benefits of fermented foods: microbiota and beyond',
+        revista: 'Current Opinion in Biotechnology',
+        volumen: '44',
+        paginas: '94–102',
+        doi: '10.1016/j.copbio.2016.11.010',
+        url: 'https://doi.org/10.1016/j.copbio.2016.11.010',
+        relevancia: 'Revisión de beneficios de fermentados más allá de probióticos vivos (postbióticos).',
+        usadoEn: ['Fermentos del mundo', 'Retos'],
       },
       {
-        authors: 'Bandura, A.',
-        year: '1977',
-        title: 'Self-efficacy: toward a unifying theory of behavioral change',
-        journal: 'Psychological Review, 84(2), 191–215',
-        note: 'Autoeficacia — el predictor más potente del cambio de conducta',
+        autores: 'Salminen, S., et al.',
+        ano: 2021,
+        titulo: 'ISAPP consensus statement on the definition and scope of postbiotics',
+        revista: 'Nature Reviews Gastroenterology & Hepatology',
+        volumen: '18(9)',
+        paginas: '649–667',
+        doi: '10.1038/s41575-021-00440-6',
+        url: 'https://doi.org/10.1038/s41575-021-00440-6',
+        relevancia: 'Definición oficial de postbióticos (ISAPP 2021). Base del concepto en Food·Mood.',
+        usadoEn: ['Postbióticos', 'Retos'],
       },
       {
-        authors: 'Prochaska, J.O. & DiClemente, C.C.',
-        year: '1983',
-        title: 'Stages and processes of self-change of smoking: toward an integrative model of change',
-        journal: 'Journal of Consulting and Clinical Psychology',
-        note: 'Modelo Transteórico del Cambio — 5 etapas de cambio de conducta',
+        autores: 'Sumi, H., et al.',
+        ano: 1987,
+        titulo: 'A novel fibrinolytic enzyme (nattokinase) in the vegetable cheese Natto',
+        revista: 'Experientia',
+        volumen: '43(10)',
+        paginas: '1110–1111',
+        doi: '10.1007/BF01956052',
+        url: 'https://doi.org/10.1007/BF01956052',
+        relevancia: 'Descubrimiento original de la nattokinasa. Paper clásico de fermentos funcionales.',
+        usadoEn: ['Fermentos', 'Natto de Garbanzos'],
+      },
+    ],
+  },
+  {
+    categoria: 'Psicología de la Alimentación',
+    descripcion: 'Por qué comemos lo que comemos, más allá del hambre.',
+    items: [
+      {
+        autores: 'Macht, M.',
+        ano: 2008,
+        titulo: 'How emotions affect eating: A five-way model',
+        revista: 'Appetite',
+        volumen: '50(1)',
+        paginas: '1–11',
+        doi: '10.1016/j.appet.2007.07.002',
+        url: 'https://doi.org/10.1016/j.appet.2007.07.002',
+        relevancia: 'Modelo de 5 vías por las que las emociones afectan la ingesta. Base de la intervención emocional de Food·Mood.',
+        usadoEn: ['Concepto general', 'IA emocional'],
       },
       {
-        authors: 'Macht, M.',
-        year: '2007',
-        title: 'How emotions affect eating: a five-way model',
-        journal: 'Appetite, 50(1), 1–11',
+        autores: 'Lally, P., et al.',
+        ano: 2010,
+        titulo: 'How are habits formed: Modelling habit formation in the real world',
+        revista: 'European Journal of Social Psychology',
+        volumen: '40(6)',
+        paginas: '998–1009',
+        doi: '10.1002/ejsp.674',
+        url: 'https://doi.org/10.1002/ejsp.674',
+        relevancia: '"66 días" (UCL). El mito de los 21 días refutado con datos reales.',
+        usadoEn: ['Retos', 'Home'],
       },
       {
-        authors: 'Anderberg, R.H.',
-        year: '2016',
-        title: 'The stomach-derived hormone ghrelin increases impulsive behavior',
-        journal: 'Neuropsychopharmacology, 41(5), 1199–1209',
-        note: 'El ayuno prolongado aumenta la impulsividad emocional',
+        autores: 'Bandura, A.',
+        ano: 1977,
+        titulo: 'Self-efficacy: toward a unifying theory of behavioral change',
+        revista: 'Psychological Review',
+        volumen: '84(2)',
+        paginas: '191–215',
+        doi: '10.1037/0033-295X.84.2.191',
+        url: 'https://doi.org/10.1037/0033-295X.84.2.191',
+        relevancia: 'Autoeficacia — predictor más potente del cambio de conducta alimentaria.',
+        usadoEn: ['Retos', 'IA de coaching'],
       },
       {
-        authors: 'Kullmann, S. et al.',
-        year: '2015',
-        title: 'Resting state network functional connectivity in obese subjects vs. controls',
-        journal: 'Human Brain Mapping',
+        autores: 'Arroyo Fernández, A. & Lladó Jordan, G.',
+        ano: 2021,
+        titulo: 'Psicología de la Alimentación',
+        revista: 'Formación Alcalá — Máster en Nutrición y Salud',
+        url: 'https://www.formacionalcala.es',
+        relevancia: 'Fuente principal de los capítulos sobre alimentación emocional, motivación y conducta alimentaria del KB.',
+        usadoEn: ['KB longevidad', 'Asesor Personal'],
       },
       {
-        authors: 'Arroyo Fernández, A. & Lladó Jordan, G.',
-        year: '2021',
-        title: 'Psicología de la Alimentación',
-        journal: 'Formación Alcalá — Máster en Nutrición y Salud',
+        autores: 'Redondo Illán, T.',
+        ano: 2021,
+        titulo: 'Coaching Nutricional',
+        revista: 'Formación Alcalá — Máster en Nutrición y Salud',
+        url: 'https://www.formacionalcala.es',
+        relevancia: 'Modelo Prochaska-DiClemente aplicado a nutrición. Fundamento del proceso de acompañamiento del Asesor.',
+        usadoEn: ['KB longevidad', 'Asesor Personal'],
+      },
+    ],
+  },
+  {
+    categoria: 'Inflamación y Nutrición',
+    descripcion: 'La dieta como modulador del sistema inmune.',
+    items: [
+      {
+        autores: 'Calder, P.C.',
+        ano: 2010,
+        titulo: 'Omega-3 fatty acids and inflammatory processes',
+        revista: 'Nutrients',
+        volumen: '2(3)',
+        paginas: '355–374',
+        doi: '10.3390/nu2030355',
+        url: 'https://doi.org/10.3390/nu2030355',
+        relevancia: 'Mecanismos antiinflamatorios de omega-3 (EPA/DHA). Base de las recetas de Activación y Reset.',
+        usadoEn: ['Reto Antiinflamatorio', 'Recetas Reset'],
       },
       {
-        authors: 'Redondo Illán, T.',
-        year: '2021',
-        title: 'Coaching Nutricional',
-        journal: 'Formación Alcalá — Máster en Nutrición y Salud',
+        autores: 'Aggarwal, B.B. & Harikumar, K.B.',
+        ano: 2009,
+        titulo: 'Potential therapeutic effects of curcumin, the anti-inflammatory agent',
+        revista: 'International Journal of Biochemistry & Cell Biology',
+        volumen: '41(1)',
+        paginas: '40–59',
+        doi: '10.1016/j.biocel.2008.06.010',
+        url: 'https://doi.org/10.1016/j.biocel.2008.06.010',
+        relevancia: 'Mecanismos moleculares de la cúrcuma como antiinflamatorio.',
+        usadoEn: ['Reto Antiinflamatorio'],
+      },
+    ],
+  },
+  {
+    categoria: 'Músculo, Huesos y Longevidad',
+    descripcion: 'Nutrición estructural para la segunda mitad de la vida.',
+    items: [
+      {
+        autores: 'Witard, O.C., et al.',
+        ano: 2016,
+        titulo: 'High dietary protein intake for muscle hypertrophy and maintenance',
+        revista: 'Nutrition Reviews',
+        volumen: '74(suppl 1)',
+        paginas: '33–47',
+        doi: '10.1093/nutrit/nuw010',
+        url: 'https://doi.org/10.1093/nutrit/nuw010',
+        relevancia: 'Umbral de leucina y resistencia anabólica en mujeres mayores de 45.',
+        usadoEn: ['Reto Longevidad', 'KB longevidad'],
       },
       {
-        authors: 'Fogg, B.J.',
-        year: '2019',
-        title: 'Tiny Habits',
-        journal: 'Houghton Mifflin Harcourt. ISBN 978-0358003328',
-      },
-      {
-        authors: 'Clear, J.',
-        year: '2018',
-        title: 'Atomic Habits',
-        journal: 'Avery. ISBN 978-0735211292',
-      },
-      {
-        authors: 'Wood, W.',
-        year: '2019',
-        title: 'Good Habits, Bad Habits',
-        journal: 'Farrar, Straus and Giroux. ISBN 978-1250159076',
-      },
-      {
-        authors: 'Enders, G.',
-        year: '2014',
-        title: 'Gut: The Inside Story of Our Body\'s Most Underrated Organ',
-        journal: 'Greystone Books. ISBN 978-1771641494',
+        autores: 'Hauschka, P.V., et al.',
+        ano: 1989,
+        titulo: 'Osteocalcin and matrix Gla protein: vitamin K-dependent proteins in bone',
+        revista: 'Physiological Reviews',
+        volumen: '69(3)',
+        paginas: '990–1047',
+        doi: '10.1152/physrev.1989.69.3.990',
+        url: 'https://doi.org/10.1152/physrev.1989.69.3.990',
+        relevancia: 'Base científica de la vitamina K2 para la densidad ósea posmenopáusica.',
+        usadoEn: ['Reto Longevidad', 'KB longevidad'],
       },
     ],
   },
 ]
 
-const totalRefs = SECTIONS.reduce((acc, s) => acc + s.refs.length, 0)
+const totalRefs = biblioteca.reduce((acc, s) => acc + s.items.length, 0)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Biblioteca Científica — Food·Mood',
+  description:
+    '172 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+  url: 'https://www.food-mood.app/biblioteca',
+  author: {
+    '@type': 'Person',
+    name: 'Susana Ferreras Diez',
+    jobTitle: 'Fundadora · Psicóloga · MSc Biotecnología Alimentaria · MSc Gerontología',
+    affiliation: { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
+  },
+  about: biblioteca.map((cat) => ({ '@type': 'Thing', name: cat.categoria, description: cat.descripcion })),
+}
 
 export default function BibliotecaPage() {
   return (
-    <main style={{ backgroundColor: '#F5F0E8', minHeight: '100vh', fontFamily: "'DM Sans', sans-serif" }}>
+    <main className="min-h-screen bg-[#F5F0E8]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Header */}
-      <div style={{ backgroundColor: '#1A1612', padding: '64px 40px 48px' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <p style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.6)', marginBottom: 16 }}>
-            Base de conocimiento · Mayo 2026
-          </p>
-          <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(28px, 5vw, 48px)', color: '#F5F0E8', fontWeight: 400, lineHeight: 1.15, marginBottom: 20 }}>
-            Biblioteca científica<br />
-            <em style={{ color: '#C9A84C', fontStyle: 'italic', fontWeight: 300 }}>del Asesor Personal</em>
+      <div className="max-w-5xl mx-auto px-6 py-16 md:py-24">
+
+        {/* Header */}
+        <header className="text-center mb-16">
+          <span className="text-sm font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+            Transparencia científica
+          </span>
+          <h1 className="font-serif text-4xl md:text-6xl mt-4 mb-6" style={{ color: '#1A1612' }}>
+            Biblioteca científica
           </h1>
-          <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.55)', lineHeight: 1.7, maxWidth: 620, marginBottom: 32 }}>
-            Cada recomendación del Asesor Personal de Food·Mood está fundamentada en investigación revisada por pares. Esta página lista las {totalRefs} publicaciones que forman la base de conocimiento activa (172 fragmentos vectorizados, Mayo 2026).
+          <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(26,22,18,0.65)' }}>
+            Los {totalRefs} estudios y libros que fundamentan cada recomendación del Asesor Personal.
+            Curados por{' '}
+            <strong style={{ color: '#1A1612' }}>Susana Ferreras Diez</strong> —
+            Psicóloga, MSc Biotecnología Alimentaria, MSc Gerontología y fundadora de una marca de kombucha
+            (exit estratégico, 2023).
           </p>
+          <p className="text-xs mt-4" style={{ color: 'rgba(26,22,18,0.35)' }}>
+            {totalRefs} publicaciones · 172 fragmentos vectorizados · actualizado Mayo 2026
+          </p>
+        </header>
 
-          {/* Stats row */}
-          <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap', marginBottom: 32 }}>
-            {[
-              { n: totalRefs.toString(), label: 'publicaciones' },
-              { n: '172', label: 'fragmentos indexados' },
-              { n: SECTIONS.length.toString(), label: 'áreas temáticas' },
-              { n: '2024–1977', label: 'rango temporal' },
-            ].map(({ n, label }) => (
-              <div key={label}>
-                <p style={{ fontFamily: 'Georgia, serif', fontSize: 28, color: '#C9A84C', fontWeight: 700, lineHeight: 1 }}>{n}</p>
-                <p style={{ fontSize: 10, color: 'rgba(245,240,232,0.4)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>{label}</p>
+        {/* Sections */}
+        <div className="space-y-16">
+          {biblioteca.map((seccion) => (
+            <section key={seccion.categoria}>
+              <div className="mb-8">
+                <h2 className="font-serif text-2xl md:text-3xl mb-2" style={{ color: '#1A1612' }}>
+                  {seccion.categoria}
+                </h2>
+                <p style={{ color: 'rgba(26,22,18,0.55)', fontSize: 14 }}>{seccion.descripcion}</p>
               </div>
-            ))}
-          </div>
 
-          {/* Download */}
-          <a
-            href="/food-mood-referencias-cientificas.txt"
-            download="Food-Mood-Referencias-Cientificas.txt"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              backgroundColor: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.35)',
-              color: '#C9A84C', fontSize: 12, fontWeight: 700, padding: '10px 20px',
-              borderRadius: 8, textDecoration: 'none', letterSpacing: '0.03em',
-            }}
-          >
-            ↓ Descargar bibliografía completa (.txt)
-          </a>
-        </div>
-      </div>
+              <div className="grid gap-4">
+                {seccion.items.map((ref, i) => (
+                  <article
+                    key={i}
+                    className="bg-white rounded-3xl p-6 md:p-8 transition-shadow hover:shadow-md"
+                    style={{ border: '1px solid rgba(26,22,18,0.07)' }}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-base mb-2 leading-snug" style={{ color: '#1A1612' }}>
+                          {ref.titulo}
+                        </h3>
+                        <p className="text-sm mb-3" style={{ color: 'rgba(26,22,18,0.6)' }}>
+                          <span className="font-semibold">{ref.autores}</span>
+                          {' '}
+                          <span style={{ color: '#C9A84C', fontWeight: 600 }}>({ref.ano})</span>
+                          {'. '}
+                          <em>{ref.revista}</em>
+                          {ref.volumen && `, ${ref.volumen}`}
+                          {ref.paginas && `, pp. ${ref.paginas}`}
+                          {ref.isbn && ` · ISBN ${ref.isbn}`}
+                          {'.'}
+                        </p>
 
-      {/* Curator note */}
-      <div style={{ backgroundColor: '#EDE8DC', borderBottom: '1px solid #DDD7C8', padding: '20px 40px' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <p style={{ fontSize: 11, color: '#5A4E48', lineHeight: 1.7 }}>
-            <strong style={{ color: '#1A1612' }}>Criterios de selección:</strong>{' '}
-            Publicaciones en revistas con revisión por pares (PubMed, Nature, Cell, Science, Physiological Reviews) o libros de referencia establecidos en cada disciplina.
-            La selección y curación fue realizada por{' '}
-            <strong style={{ color: '#1A1612' }}>Susana Ferreras Diez</strong> — Psicóloga colegiada, MSc Biotecnología Alimentaria, MSc Gerontología.
-            Las fuentes se actualizan con cada versión del knowledge base.
-          </p>
-        </div>
-      </div>
+                        {ref.doi && (
+                          <a
+                            href={ref.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-xs mb-3 transition-opacity hover:opacity-70"
+                            style={{ color: '#6B2737' }}
+                          >
+                            <span
+                              className="font-mono px-2 py-0.5 rounded"
+                              style={{ backgroundColor: 'rgba(107,39,55,0.08)' }}
+                            >
+                              DOI: {ref.doi}
+                            </span>
+                            <span>Ver paper →</span>
+                          </a>
+                        )}
+                        {!ref.doi && (
+                          <a
+                            href={ref.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs mb-3 underline transition-opacity hover:opacity-70"
+                            style={{ color: '#6B2737' }}
+                          >
+                            Ver fuente →
+                          </a>
+                        )}
 
-      {/* Jump nav */}
-      <div style={{ backgroundColor: '#F5F0E8', borderBottom: '1px solid #E0D9C8', padding: '16px 40px', position: 'sticky', top: 0, zIndex: 10 }}>
-        <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-          <span style={{ fontSize: 9, color: '#9A8E88', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 700, marginRight: 4 }}>Ir a:</span>
-          {SECTIONS.map(s => (
-            <a
-              key={s.id}
-              href={`#${s.id}`}
-              style={{ fontSize: 10, color: s.color, textDecoration: 'none', fontWeight: 600, padding: '3px 10px', borderRadius: 20, backgroundColor: `${s.color}12`, border: `1px solid ${s.color}25`, whiteSpace: 'nowrap' }}
-            >
-              {s.label}
-            </a>
+                        <div
+                          className="mt-3 p-3 rounded-xl text-sm leading-relaxed"
+                          style={{ backgroundColor: '#F5F0E8', color: 'rgba(26,22,18,0.75)' }}
+                        >
+                          <span className="font-semibold" style={{ color: '#1A1612' }}>¿Por qué lo usamos? </span>
+                          {ref.relevancia}
+                        </div>
+
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {ref.usadoEn.map((u) => (
+                            <span
+                              key={u}
+                              className="text-[10px] font-medium px-2.5 py-1 rounded-full"
+                              style={{ backgroundColor: 'rgba(26,22,18,0.05)', color: 'rgba(26,22,18,0.5)' }}
+                            >
+                              {u}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="hidden md:block shrink-0">
+                        <span
+                          className="font-serif text-5xl font-bold select-none"
+                          style={{ color: 'rgba(26,22,18,0.06)' }}
+                        >
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
-      </div>
 
-      {/* Sections */}
-      <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 40px 80px' }}>
-        {SECTIONS.map((section, si) => (
-          <section key={section.id} id={section.id} style={{ marginBottom: 56 }}>
-
-            {/* Section header */}
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 20, paddingBottom: 12, borderBottom: `2px solid ${section.color}22` }}>
-              <span style={{ fontFamily: 'monospace', fontSize: 10, color: section.color, fontWeight: 700, opacity: 0.6 }}>
-                0{si + 1}
-              </span>
-              <div>
-                <p style={{ fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.25em', color: section.color, marginBottom: 2 }}>
-                  {section.label}
-                </p>
-                <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 22, color: '#1A1612', fontWeight: 400 }}>
-                  {section.heading}
-                </h2>
-              </div>
-            </div>
-
-            {/* Refs */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {section.refs.map((ref, ri) => (
-                <div
-                  key={ri}
-                  style={{
-                    backgroundColor: '#fff', borderRadius: 12, padding: '16px 20px',
-                    border: '1px solid #E8E2D8',
-                  }}
-                >
-                  <p style={{ fontSize: 12, color: '#1A1612', lineHeight: 1.55, marginBottom: ref.note || ref.doi ? 6 : 0 }}>
-                    <span style={{ fontWeight: 700, color: '#3D2E2E' }}>{ref.authors}</span>
-                    {' '}
-                    <span style={{ color: section.color, fontWeight: 600 }}>({ref.year})</span>
-                    {'. '}
-                    <em>{ref.title}.</em>
-                    {ref.journal && (
-                      <span style={{ color: '#6B5E58' }}>{' '}{ref.journal}.</span>
-                    )}
-                  </p>
-                  {ref.doi && (
-                    <a
-                      href={ref.doi}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ fontSize: 10, color: section.color, textDecoration: 'underline', display: 'block', marginBottom: ref.note ? 4 : 0, opacity: 0.8 }}
-                    >
-                      {ref.doi}
-                    </a>
-                  )}
-                  {ref.note && (
-                    <p style={{ fontSize: 10, color: '#9A8E88', fontStyle: 'italic', lineHeight: 1.5 }}>
-                      → {ref.note}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
-
-        {/* Footer note */}
-        <div style={{ borderTop: '1px solid #DDD7C8', paddingTop: 32, marginTop: 16 }}>
-          <p style={{ fontSize: 11, color: '#9A8E88', lineHeight: 1.7 }}>
-            Esta lista no es exhaustiva de toda la evidencia existente en cada campo — representa las fuentes directamente incorporadas en el knowledge base activo del Asesor Personal (Mayo 2026).
-            Algunas publicaciones aparecen referenciadas de forma indirecta a través de los libros de síntesis incluidos.
-            Para consultas sobre metodología o fuentes adicionales:{' '}
-            <a href="mailto:info@food-mood.app" style={{ color: '#6B2737' }}>info@food-mood.app</a>
+        {/* CTA */}
+        <div className="mt-20 text-center">
+          <p className="text-sm mb-6" style={{ color: 'rgba(26,22,18,0.55)' }}>
+            ¿Encontraste un paper que crees que deberíamos incluir?
           </p>
-          <p style={{ fontSize: 10, color: '#B8AEA8', marginTop: 12 }}>
-            <Link href="/" style={{ color: '#B8AEA8', textDecoration: 'underline' }}>food-mood.app</Link>
-            {' · '}
-            <Link href="/glosario" style={{ color: '#B8AEA8', textDecoration: 'underline' }}>Glosario científico</Link>
-            {' · '}
-            <Link href="/asesor" style={{ color: '#B8AEA8', textDecoration: 'underline' }}>Asesor Personal</Link>
-          </p>
+          <a
+            href="mailto:info@food-mood.app?subject=Sugerencia%20bibliogr%C3%A1fica"
+            className="inline-block px-8 py-4 rounded-full font-semibold text-sm transition-opacity hover:opacity-90"
+            style={{ backgroundColor: '#1A1612', color: '#F5F0E8' }}
+          >
+            Sugerir referencia →
+          </a>
         </div>
+
+        {/* Disclaimer */}
+        <div
+          className="mt-12 p-6 rounded-2xl text-center text-sm leading-relaxed"
+          style={{ backgroundColor: 'rgba(26,22,18,0.04)', color: 'rgba(26,22,18,0.45)' }}
+        >
+          Food·Mood ofrece divulgación científica basada en evidencia. No sustituye diagnóstico, tratamiento
+          ni terapia médica. Consulta a un profesional ante cualquier duda de salud.
+          <br />
+          <span className="mt-2 block text-xs">
+            <Link href="/glosario" style={{ color: '#6B2737' }}>Glosario científico</Link>
+            {' · '}
+            <Link href="/asesor" style={{ color: '#6B2737' }}>Asesor Personal</Link>
+            {' · '}
+            <Link href="/" style={{ color: '#6B2737' }}>food-mood.app</Link>
+          </span>
+        </div>
+
       </div>
     </main>
   )
