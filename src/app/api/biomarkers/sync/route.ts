@@ -5,25 +5,17 @@ import { BiomarkerStore } from "@/biomarkers/store";
 import { syncUser } from "@/biomarkers/sync";
 import type { Provider } from "@/biomarkers/types";
 
-// POST /api/biomarkers/sync
-// Authorization: Bearer CRON_SECRET
-// Body: { userId?: string }  — si se omite, sincroniza todos los usuarios activos
-export async function POST(req: NextRequest) {
-  if (req.headers.get("authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-  }
-
-  const body = await req.json().catch(() => ({})) as { userId?: string };
+async function runSync(userId?: string) {
   const db = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
   let query = db.from("biomarker_connections").select("user_id, provider");
-  if (body.userId) query = query.eq("user_id", body.userId);
+  if (userId) query = query.eq("user_id", userId);
 
   const { data: connections, error } = await query;
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) throw new Error(error.message);
 
   const store = new BiomarkerStore();
   let totalSynced = 0;
@@ -45,5 +37,30 @@ export async function POST(req: NextRequest) {
     }),
   );
 
-  return NextResponse.json({ synced: totalSynced, errors: totalErrors, connections: connections?.length ?? 0, details });
+  return { synced: totalSynced, errors: totalErrors, connections: connections?.length ?? 0, details };
+}
+
+function authorized(req: NextRequest): boolean {
+  return req.headers.get("authorization") === `Bearer ${process.env.CRON_SECRET}`;
+}
+
+// GET — llamado por Vercel Cron (todos los usuarios)
+export async function GET(req: NextRequest) {
+  if (!authorized(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  try {
+    return NextResponse.json(await runSync());
+  } catch (err) {
+    return NextResponse.json({ error: String(err) }, { status: 500 });
+  }
+}
+
+// POST — llamado manualmente con { userId? } en el body
+export async function POST(req: NextRequest) {
+  if (!authorized(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  const body = await req.json().catch(() => ({})) as { userId?: string };
+  try {
+    return NextResponse.json(await runSync(body.userId));
+  } catch (err) {
+    return NextResponse.json({ error: String(err) }, { status: 500 });
+  }
 }
