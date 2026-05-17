@@ -136,6 +136,33 @@ function ScienceSection() {
                 </p>
               </div>
 
+              {/* Teoría de la Emoción Construida — Barrett */}
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-3">
+                  Teoría de la Emoción Construida — por qué no existen etiquetas fijas
+                </p>
+                <p className="mb-3">
+                  La neurocientífica <strong className="font-medium text-[#6B2737]">Lisa Feldman Barrett</strong> propone que las emociones no son reacciones automáticas y universales — son{' '}
+                  <em>construcciones activas del cerebro</em> en cada momento, basadas en señales corporales, contexto y experiencia previa.
+                  Lo que llamamos &ldquo;ansiedad&rdquo; o &ldquo;tristeza&rdquo; son etiquetas que el cerebro asigna a estados fisiológicos ambiguos.
+                </p>
+                <p className="mb-3">
+                  Esto tiene una implicación directa: cuanto más preciso es tu vocabulario emocional —tu <em>granularidad</em>—,
+                  mejor regulas esas señales. Distinguir &ldquo;hay un 60% de calma y un 25% de melancolía&rdquo; en lugar de &ldquo;estoy mal&rdquo;
+                  no es subjetivismo: es una intervención de autorregulación clínicamente respaldada.
+                </p>
+                <p className="text-[11px] text-[#4A4A4A]/50 italic">
+                  <a
+                    href="https://lisafeldmanbarrett.com/books/how-emotions-are-made/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-[#6B2737]/60 hover:text-[#6B2737] transition-colors"
+                  >
+                    Barrett, L.F. (2017). <cite>How Emotions Are Made.</cite> Houghton Mifflin Harcourt.
+                  </a>
+                </p>
+              </div>
+
               {/* Nota metodológica */}
               <div className="pt-4 border-t border-[#6B2737]/6">
                 <p className="text-[11px] text-[#4A4A4A]/45 leading-relaxed italic">
