@@ -120,7 +120,7 @@ export function BiomarkerPanel() {
                 </span>
               ) : (
                 <Link
-                  href={`/api/biomarkers/connect/${id}`}
+                  href={id === "oura" ? "/configuracion/wearables" : `/api/biomarkers/connect/${id}`}
                   className="text-[11px] font-medium px-3 py-1 rounded-full transition-all"
                   style={{
                     border: "1px solid rgba(255,255,255,0.12)",
