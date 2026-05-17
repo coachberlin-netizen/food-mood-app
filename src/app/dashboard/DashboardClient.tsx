@@ -18,6 +18,7 @@ import { OracleCorrelations } from "@/components/dashboard/OracleCorrelations";
 import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 import { FoodMoodIndex } from "@/components/FoodMoodIndex";
+import { BiomarkerPanel } from "@/components/biomarkers/BiomarkerPanel";
 
 // ── JourneyCard — compact dashboard widget ────────────────────────────────────
 function JourneyCard() {
@@ -344,6 +345,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
         {/* ── Oracle widget + correlaciones ── */}
         {isAuthenticated && <OracleWidget />}
         {isAuthenticated && <OracleCorrelations />}
+
+        {/* ── Biomarcadores (solo premium) ── */}
+        {isAuthenticated && isPremium && <BiomarkerPanel />}
 
         {/* ── Journey card ── */}
         {isAuthenticated && <JourneyCard />}
