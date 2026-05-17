@@ -2,7 +2,15 @@
   "crons": [
     {
       "path": "/api/notifications/tick",
-      "schedule": "0 * * * *"
+      "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/notifications/tick",
+      "schedule": "0 11 * * *"
+    },
+    {
+      "path": "/api/notifications/tick",
+      "schedule": "0 18 * * *"
     },
     {
       "path": "/api/newsletter/send-weekly",
