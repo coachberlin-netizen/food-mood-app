@@ -754,7 +754,7 @@ export default function Home() {
               <em className="font-light italic" style={{ color: "#C9A84C" }}>Es una especialista que te conoce.</em>
             </h2>
             <p className="mt-5 text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.5)" }}>
-              Cualquier IA genérica puede decirte "come verduras y duerme bien". La nuestra ha leído
+              Cualquier IA genérica puede decirte &ldquo;come verduras y duerme bien&rdquo;. La nuestra ha leído
               los mismos libros que tu endocrina, tu psicóloga y tu coach nutricional — y además sabe cómo te sientes hoy.
             </p>
           </div>
@@ -765,11 +765,11 @@ export default function Home() {
             <div className="rounded-2xl p-7 flex flex-col gap-4" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
               <p className="text-[9px] font-bold uppercase tracking-[0.3em]" style={{ color: "rgba(245,240,232,0.3)" }}>IA genérica</p>
               <p className="font-serif text-base text-white leading-snug italic opacity-60">
-                "Dormí fatal, ¿qué como?"
+                &ldquo;Dormí fatal, ¿qué como?&rdquo;
               </p>
               <div className="rounded-xl p-4" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>
-                  "Intenta dormir más. Evita el azúcar y la cafeína. Come alimentos ricos en triptófano como el pavo o los plátanos. Mantén unos horarios regulares…"
+                  &ldquo;Intenta dormir más. Evita el azúcar y la cafeína. Come alimentos ricos en triptófano como el pavo o los plátanos. Mantén unos horarios regulares…&rdquo;
                 </p>
               </div>
               <p className="text-[10px] leading-relaxed" style={{ color: "rgba(245,240,232,0.3)" }}>
@@ -781,11 +781,11 @@ export default function Home() {
             <div className="rounded-2xl p-7 flex flex-col gap-4" style={{ backgroundColor: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.2)" }}>
               <p className="text-[9px] font-bold uppercase tracking-[0.3em]" style={{ color: "#C9A84C" }}>Asesor Personal Food·Mood</p>
               <p className="font-serif text-base text-white leading-snug italic" style={{ opacity: 0.9 }}>
-                "Dormí fatal, ¿qué como?"
+                &ldquo;Dormí fatal, ¿qué como?&rdquo;
               </p>
               <div className="rounded-xl p-4" style={{ backgroundColor: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.15)" }}>
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
-                  "Con 4–5h de sueño, tu grelina está elevada — eso son antojos, no hambre real. Te propongo un día Calma: desayuno con triptófano (huevo + plátano), nada de cafeína después de las 14h, y si puedes, 20 minutos de luz solar antes de las 10h para resetear el cortisol."
+                  &ldquo;Con 4–5h de sueño, tu grelina está elevada — eso son antojos, no hambre real. Te propongo un día Calma: desayuno con triptófano (huevo + plátano), nada de cafeína después de las 14h, y si puedes, 20 minutos de luz solar antes de las 10h para resetear el cortisol.&rdquo;
                 </p>
               </div>
               <p className="text-[10px] leading-relaxed" style={{ color: "rgba(245,240,232,0.5)" }}>
