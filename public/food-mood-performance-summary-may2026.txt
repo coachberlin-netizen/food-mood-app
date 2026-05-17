@@ -125,6 +125,76 @@ a RAG-augmented conversational AI agent purpose-built for functional nutrition.
     makes the Asesor better without engineering cost.
 
 
+WHY OUR AI IS NOT CHATGPT: THE MOAT EXPLAINED
+───────────────────────────────────────────────
+Investors often ask: "Can't anyone do this with ChatGPT?" The answer is no —
+and understanding why is the key to understanding the defensibility of Food·Mood.
+
+  THE GENERIC AI AGENT (ChatGPT / Claude used raw):
+    Trained on all of the internet. Knows a little about everything, a lot
+    about nothing specific. Ask it "what should I eat if I slept badly?" and
+    you get: "sleep more, eat vegetables, avoid sugar." Correct. Useless.
+
+    It does not know who you are. It does not know you have been in Reset mode
+    for 3 days. It does not know Satchin Panda's protocol on chrono-diet and
+    short sleep. It does not know your user is 51, perimenopausal, with IBS.
+    It has no clinical safety layer. And most critically for an investor:
+    any competitor can do exactly the same thing tomorrow, for free.
+
+  THE FOOD·MOOD ASESOR PERSONAL:
+    Uses the same base model (Claude Haiku), but before answering it:
+
+      1. Understands who you are (profile, emotional history, biomarkers)
+      2. Searches 172 curated scientific fragments for the most relevant
+         content for your exact question — using semantic vector similarity
+      3. Builds the response combining:
+           — what the science says (Cryan, Walker, Panda, Bandura...)
+           — what the user knows about herself (today's emotional state)
+           — Food·Mood's methodology and brand voice
+      4. Passes it through a clinical safety pipeline before delivery
+
+    The same "I slept badly" question becomes:
+
+      "With 4.5h of sleep, your ghrelin is elevated right now — that means
+       cravings for calorie-dense food, not real hunger. I suggest a Calma
+       day: breakfast with tryptophan (egg + banana), no caffeine after 2pm,
+       and if possible, 20 minutes of morning sunlight before 10am to reset
+       your cortisol curve."
+
+    That is not ChatGPT. That is a specialist psycho-nutritionist trained on
+    your profile, available 24/7 at under €0.003 per consultation.
+
+  WHY THIS MATTERS FOR INVESTORS:
+
+  1. REAL DEFENSIBILITY
+     The language model (Claude) is available to anyone. The curated knowledge —
+     which books to select, which fragments to index, how to map science to
+     emotional states — represents years of the founder's clinical expertise.
+     It cannot be replicated in a week or a month.
+
+  2. QUALITY THAT SCALES WITHOUT MARGINAL COST
+     Each new book indexed improves every response for every user, permanently,
+     with zero additional engineering cost. The knowledge asset appreciates
+     over time — like a dataset flywheel.
+
+  3. THE MODEL IS A COMMODITY. THE DATASET IS NOT.
+     In applied AI, the model is infrastructure — like electricity. What
+     differentiates winners is what you connect it to. The Food·Mood KB
+     is the differentiating asset, not Claude.
+
+  4. OPERATING COST 40× LOWER THAN A HUMAN
+     A nutritional coach: €60–120/hour.
+     The Asesor Personal: €0.003/consultation.
+     At a €150–200 LTV per user, the lifetime AI cost is < €0.30.
+     The AI line gross margin is > 99%.
+
+  5. A CLINICAL BARRIER GENERIC COMPETITORS CANNOT CROSS
+     The safety pipeline (crisis detection, eating disorder signals, allergen
+     blocking, drug-food interaction routing) was designed and reviewed by the
+     founder as a licensed psychologist. A competitor using a raw API without
+     this layer carries clinical and regulatory risk that Food·Mood does not.
+
+
 INTELLIGENT NOTIFICATION ENGINE
 ──────────────────────────────────
 A rules-based notification system that personalises outreach based on real user
