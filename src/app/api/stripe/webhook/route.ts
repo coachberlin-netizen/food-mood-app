@@ -18,19 +18,20 @@ export async function POST(req: NextRequest) {
   let event
 
   try {
-    if (!sig || !webhookSecret || webhookSecret === 'whsec_pendiente') {
+    if (!sig || !webhookSecret) {
+      // En local dev sin Stripe CLI activo, permitir bypass solo en desarrollo
       if (process.env.NODE_ENV === 'production') {
-        console.error('❌ CRITICAL: Stripe webhook secret is missing or pending in PRODUCTION. Rejecting request.')
-        return NextResponse.json({ error: `Signature Verification Failed (Production Security Enforced)` }, { status: 400 })
+        console.error('❌ CRITICAL: Stripe webhook secret missing in PRODUCTION.')
+        return NextResponse.json({ error: 'Signature Verification Failed' }, { status: 400 })
       }
-      console.warn('⚠️ Stripe webhook secret is missing or pending. Bypassing signature verification (TEST MODE ONLY).')
+      console.warn('⚠️ Stripe webhook: sin firma (dev). Usar Stripe CLI para firmas reales.')
       event = JSON.parse(body)
     } else {
       try {
         event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
       } catch (err: any) {
         console.error(`❌ Webhook Signature Verification Failed: ${err.message}`)
-        return NextResponse.json({ error: `Signature Verification Failed` }, { status: 400 })
+        return NextResponse.json({ error: 'Signature Verification Failed' }, { status: 400 })
       }
     }
   } catch (err: any) {
@@ -161,17 +162,40 @@ export async function POST(req: NextRequest) {
           userId = match.id;
           console.log(`✅ Usuario encontrado vía email: ${userId}`);
         } else {
-          console.log(`⚠️ Usuario no encontrado. Creando cuenta shadow (auto-provision) para: ${customerEmail}`);
-          const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
-            email: customerEmail,
-            email_confirm: true,
-          });
-
-          if (newUser?.user) {
-            userId = newUser.user.id;
-            console.log(`✅ Cuenta autogenerada con éxito: ${userId}`);
-          } else {
-            console.error(`❌ Falló la autogeneración de cuenta:`, createError?.message);
+          // No crear cuentas sin consentimiento explícito del usuario (GDPR Art. 6)
+          // El usuario debe registrarse él mismo; el pago queda registrado en Stripe
+          console.warn(`⚠️ Pago recibido de ${customerEmail} sin cuenta en Food·Mood. Sin auto-provision.`);
+          if (customerEmail && process.env.RESEND_API_KEY) {
+            try {
+              const resend = new Resend(process.env.RESEND_API_KEY)
+              const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.food-mood.app'
+              await resend.emails.send({
+                from: `Food·Mood <${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app'}>`,
+                to: customerEmail,
+                subject: 'Tu pago se ha recibido — activa tu cuenta Food·Mood',
+                html: `
+                  <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2d0f16;padding:32px 24px">
+                    <h1 style="font-size:24px;font-weight:400;margin-bottom:12px">Tu pago se ha confirmado ✅</h1>
+                    <p style="font-size:15px;line-height:1.7;color:#6b4452;margin-bottom:24px">
+                      Hemos recibido tu pago correctamente. Para acceder a tu membresía premium,
+                      crea tu cuenta con este mismo correo electrónico.
+                    </p>
+                    <p style="margin-bottom:28px">
+                      <a href="${appUrl}/registro"
+                         style="display:inline-block;background:#6B2737;color:#F5F0E8;padding:14px 28px;border-radius:50px;text-decoration:none;font-size:14px;font-weight:600">
+                        Crear mi cuenta →
+                      </a>
+                    </p>
+                    <p style="font-size:13px;color:#b08090;line-height:1.6">
+                      Si tienes alguna duda, responde a este correo.
+                    </p>
+                  </div>
+                `,
+              })
+              console.log(`📧 Email "activa tu cuenta" enviado a ${customerEmail}`)
+            } catch (emailErr: any) {
+              console.error(`⚠️ Email de activación fallido: ${emailErr.message}`)
+            }
           }
         }
       }
@@ -310,7 +334,7 @@ export async function POST(req: NextRequest) {
           }
         }
       } else {
-        console.warn(`⚠️ Pago recibido (Email: ${customerEmail}) pero NO se encontró un usuario existente en Supabase.`)
+        console.warn(`⚠️ Pago recibido (Email: ${customerEmail}) sin userId resuelto — revisar manualmente en Stripe.`)
       }
       break
     }

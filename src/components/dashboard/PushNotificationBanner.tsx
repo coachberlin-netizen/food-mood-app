@@ -26,28 +26,27 @@ export function PushNotificationBanner() {
 
   const handleSubscribe = async () => {
     try {
+      // GDPR: registrar consentimiento explícito antes de pedir permiso al navegador
+      await fetch("/api/push/consent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
-        // Register SW and get subscription
         const registration = await navigator.serviceWorker.register("/sw.js");
-        
-        // Wait for SW to be ready
         let subscription = await registration.pushManager.getSubscription();
-        
         if (!subscription) {
-            subscription = await registration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
-            });
+          subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+          });
         }
-
-        // Send to backend
         await fetch("/api/push/subscribe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(subscription)
+          body: JSON.stringify(subscription),
         });
-
         setIsVisible(false);
         localStorage.setItem("push_banner_dismissed", "true");
         alert("¡Notificaciones activadas! Te avisaremos cada mañana.");

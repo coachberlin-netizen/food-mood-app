@@ -17,6 +17,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    // GDPR: verificar consentimiento explícito antes de guardar la suscripción
+    const { data: consent } = await supabase
+      .from('user_consent')
+      .select('consent_push_notifications')
+      .eq('user_id', user.id)
+      .maybeSingle()
+
+    if (!consent?.consent_push_notifications) {
+      return NextResponse.json({ error: 'Consentimiento de notificaciones no otorgado' }, { status: 403 })
+    }
+
     const { error } = await supabase
       .from('push_subscriptions')
       .upsert({
