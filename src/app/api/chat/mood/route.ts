@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@supabase/supabase-js'
+import { createClient as createServerClient } from '@/lib/supabase/server'
 import { getRecipeRecommendationByMood, buildPremiumUpsellMessage, UserContext } from '../../../../lib/daily-inspiration'
 
 const MOOD_MAP: Record<string, string> = {
@@ -91,7 +92,7 @@ function extractMoodJSON(text: string): { mood?: string; confidence?: number; cl
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, userId } = await req.json()
+    const { messages } = await req.json()
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: 'Missing messages' }, { status: 400 })
@@ -101,6 +102,11 @@ export async function POST(req: NextRequest) {
     if (!apiKey) {
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
     }
+
+    // Derive userId from server-side session — never trust the request body
+    const serverSupabase = await createServerClient()
+    const { data: { user } } = await serverSupabase.auth.getUser()
+    const userId = user?.id
 
     const mainSupabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -167,7 +173,6 @@ export async function POST(req: NextRequest) {
               last_mood: detectedMood,
               last_mood_date: new Date().toISOString(),
             })
-            .eq('id', userId)
             .eq('id', userId)
         }
       }

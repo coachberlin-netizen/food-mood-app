@@ -62,7 +62,7 @@ export class BiomarkerStore {
 
   async insertSamples(samples: Sample[]): Promise<void> {
     if (samples.length === 0) return;
-    const { error } = await this.db.from("biomarker_samples").insert(
+    const { error } = await this.db.from("biomarker_samples").upsert(
       samples.map((s) => ({
         user_id: s.userId,
         provider: s.provider,
@@ -71,6 +71,7 @@ export class BiomarkerStore {
         unit: s.unit,
         measured_at: s.measuredAt.toISOString(),
       })),
+      { onConflict: "user_id,provider,type,measured_at", ignoreDuplicates: true },
     );
     if (error) throw new Error(`Error insertando muestras: ${error.message}`);
   }

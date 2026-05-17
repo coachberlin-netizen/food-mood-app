@@ -13,6 +13,7 @@ const STEPS = [
 export default function WearablesPage() {
   const router = useRouter();
   const [token, setToken] = useState("");
+  const [consent, setConsent] = useState(false);
   const [state, setState] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -108,6 +109,20 @@ export default function WearablesPage() {
             />
           </div>
 
+          {/* Consentimiento GDPR — datos de salud Art. 9 */}
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              disabled={state === "loading" || state === "ok"}
+              className="mt-0.5 flex-shrink-0 accent-amber-500"
+            />
+            <span className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+              Acepto que Food·Mood procese mis datos de salud (HRV, sueño, frecuencia cardíaca) para personalizar mis recomendaciones. Puedo revocar este consentimiento en cualquier momento eliminando la conexión.
+            </span>
+          </label>
+
           {state === "error" && (
             <p className="text-sm rounded-xl px-4 py-3"
               style={{ backgroundColor: "rgba(255,80,80,0.1)", color: "#ff9090" }}>
@@ -124,7 +139,7 @@ export default function WearablesPage() {
           ) : (
             <button
               type="submit"
-              disabled={state === "loading" || !token.trim()}
+              disabled={state === "loading" || !token.trim() || !consent}
               className="w-full py-3.5 rounded-2xl font-semibold text-sm transition-all disabled:opacity-50"
               style={{ backgroundColor: "#C9A84C", color: "#120a0e" }}
             >

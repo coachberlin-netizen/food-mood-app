@@ -11,12 +11,19 @@ const adminClient = () =>
   )
 
 const USER_TABLES = [
-  "test_results",
+  "biomarker_connections",
+  "biomarker_samples",
+  "oracle_checkins",
+  "symptom_log",
   "emotional_palettes",
+  "test_results",
   "diary_entries",
   "mood_history",
   "user_recipe_history",
+  "user_challenges",
   "push_subscriptions",
+  "newsletter_sends",
+  "weekly_digest",
   "subscriptions",
   "user_consent",
   "profiles",
