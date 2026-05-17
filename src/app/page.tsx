@@ -741,6 +741,104 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 4b. DIFERENCIAL IA ──────────────────────────────────────────────── */}
+      <section aria-label="Por qué nuestra IA no es ChatGPT" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#111009" }}>
+        <div className="max-w-5xl mx-auto">
+
+          <div className="mb-14 max-w-2xl">
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
+              Inteligencia especializada
+            </p>
+            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
+              No es ChatGPT.{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Es una especialista que te conoce.</em>
+            </h2>
+            <p className="mt-5 text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Cualquier IA genérica puede decirte "come verduras y duerme bien". La nuestra ha leído
+              los mismos libros que tu endocrina, tu psicóloga y tu coach nutricional — y además sabe cómo te sientes hoy.
+            </p>
+          </div>
+
+          {/* Comparison cards */}
+          <div className="grid md:grid-cols-2 gap-4 mb-14">
+            {/* Generic AI */}
+            <div className="rounded-2xl p-7 flex flex-col gap-4" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+              <p className="text-[9px] font-bold uppercase tracking-[0.3em]" style={{ color: "rgba(245,240,232,0.3)" }}>IA genérica</p>
+              <p className="font-serif text-base text-white leading-snug italic opacity-60">
+                "Dormí fatal, ¿qué como?"
+              </p>
+              <div className="rounded-xl p-4" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>
+                  "Intenta dormir más. Evita el azúcar y la cafeína. Come alimentos ricos en triptófano como el pavo o los plátanos. Mantén unos horarios regulares…"
+                </p>
+              </div>
+              <p className="text-[10px] leading-relaxed" style={{ color: "rgba(245,240,232,0.3)" }}>
+                Correcto. Lo mismo que encontrarías en Google. Sin contexto tuyo. Sin protocolo real. Sin saber que tienes 51 años, que estás en perimenopausia y que tu historial muestra 3 días seguidos de modo Reset.
+              </p>
+            </div>
+
+            {/* Food·Mood AI */}
+            <div className="rounded-2xl p-7 flex flex-col gap-4" style={{ backgroundColor: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.2)" }}>
+              <p className="text-[9px] font-bold uppercase tracking-[0.3em]" style={{ color: "#C9A84C" }}>Asesor Personal Food·Mood</p>
+              <p className="font-serif text-base text-white leading-snug italic" style={{ opacity: 0.9 }}>
+                "Dormí fatal, ¿qué como?"
+              </p>
+              <div className="rounded-xl p-4" style={{ backgroundColor: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.15)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
+                  "Con 4–5h de sueño, tu grelina está elevada — eso son antojos, no hambre real. Te propongo un día Calma: desayuno con triptófano (huevo + plátano), nada de cafeína después de las 14h, y si puedes, 20 minutos de luz solar antes de las 10h para resetear el cortisol."
+                </p>
+              </div>
+              <p className="text-[10px] leading-relaxed" style={{ color: "rgba(245,240,232,0.5)" }}>
+                Basado en tu historial emocional, en los protocolos de Satchin Panda sobre cronodieta y sueño, y en la neurobiología de la grelina. Revisado clínicamente. Con tu voz, para ti.
+              </p>
+            </div>
+          </div>
+
+          {/* 3 pillars */}
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              {
+                icon: "◎",
+                title: "172 fragmentos científicos indexados",
+                body: "Microbiota, eje intestino-cerebro, longevidad, sueño, hormonas, alimentación emocional, neuroplasticidad. Seleccionados y curados por la fundadora, psicóloga y máster en nutrición.",
+                color: "#C9A84C",
+              },
+              {
+                icon: "⬡",
+                title: "Sabe quién eres antes de responder",
+                body: "Tu estado emocional de hoy. Tu historial de los últimos 90 días. Tus biomarcadores si tienes wearable. Nada de respuestas genéricas — todo en contexto.",
+                color: "#5A9B8A",
+              },
+              {
+                icon: "⊕",
+                title: "Pipeline de seguridad clínica",
+                body: "Antes de responder detecta señales de crisis, TCA, alérgenos e interacciones fármaco-alimento. No llega nada sin filtro. Diseñado por una psicóloga clínica.",
+                color: "#A07BBE",
+              },
+            ].map((p, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.12, duration: 0.5 }}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: "rgba(255,255,255,0.03)", border: `1px solid ${p.color}22` }}
+              >
+                <span className="text-2xl mb-4 block" style={{ color: p.color }}>{p.icon}</span>
+                <h3 className="font-serif text-base font-semibold mb-2 leading-snug" style={{ color: "#F5F0E8" }}>
+                  {p.title}
+                </h3>
+                <p className="text-xs leading-relaxed" style={{ color: "rgba(245,240,232,0.5)" }}>
+                  {p.body}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
       {/* ── 4c. ÍNDICE FOOD·MOOD — EJEMPLO ─────────────────────────────────── */}
       <section aria-label="Qué es el índice Food·Mood" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-4xl mx-auto">
