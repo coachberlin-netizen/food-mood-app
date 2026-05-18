@@ -245,6 +245,47 @@ function InvestorDeck() {
           </div>
         </div>
 
+        {/* Concept Brief — collapsible */}
+        <details style={{ marginTop: 16, marginBottom: 4 }}>
+          <summary style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3A8C62', padding: '10px 14px', background: '#F0EDE4', borderRadius: 4, cursor: 'pointer', border: '1px solid #E0EDE6', userSelect: 'none' }}>
+            Food·Mood — Concept Brief · Click to expand
+          </summary>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderTop: 'none', borderRadius: '0 0 4px 4px', padding: '18px 20px' }}>
+            <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 12 }}>
+              Food·Mood is a membership-based companion designed to help people eat in a way that supports how they want to feel each day. It works around a brief daily check-in: the user names where they want to go — Activation, Calm, Focus, Social, Reset, Comfort — and receives a proposal built for that day, made of one recipe, one micro-ritual and a short explanation of why. Over time, it is designed to support steadier daily energy, calmer digestion and a more conscious relationship with food.
+            </p>
+            <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 16 }}>
+              The product sits at the intersection of two converging fields: nutritional psychology and the science of healthy longevity (autophagy, NAD+, microbiome, AGEs, inflammaging, sirtuins). Rather than asking users to label a discrete emotion, it works with six affective-functional states — a framing more aligned with contemporary affective neuroscience than the discrete-emotion model used by most wellness apps.
+            </p>
+
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 10 }}>What the concept integrates</p>
+
+            {([
+              ['A curated knowledge base', 'Grounded in landmark research from psychoneuroimmunology (Ader & Cohen), the microbiota–gut–brain axis (Cryan, Dinan), enterochromaffin serotonin biology (Yano et al.), circadian nutrition (Panda) and constructed-emotion theory (Feldman Barrett). Each recommendation surfaces an evidence tier (A–D) so users can distinguish well-established science from emerging research.'],
+              ['A structured safety layer', 'Runs on every interaction. Not optional, not advisory. It cross-references allergies, drug–food interactions and protected physiological states (pregnancy, lactation, thyroid disease, IBS, autoimmunity); detects language consistent with disordered eating or acute emotional crisis; and routes to qualified human resources where appropriate, rather than offering nutritional content in those moments.'],
+              ['A daily ritual rather than a chat session', 'The intended format is a short morning check-in followed by a contextual proposal, with conversational follow-up available when the user needs it. Designed to fit into existing routines rather than add another app to manage.'],
+              ['A membership model with a monthly usage quota', 'Aligns inference costs with sustainable unit economics and positions the product as a careful companion rather than a free-to-extract utility. Static book content remains free; conversational and personalized layers are gated.'],
+              ['Personalization for sub-populations the broader wellness market underserves', 'Perimenopausal women, athletes over forty with anabolic resistance, users with functional gut conditions (SIBO, IBS), users managing autoimmunity, and users in Mediterranean and Iberian cultural contexts where eating windows and meal timing differ from the Anglophone norm.'],
+              ['Editorial independence', 'Food·Mood is not a sales channel for any commercial brand. Ingredients are described generically, which is intended to support user trust over time.'],
+              ['Optional integration with consumer biomarkers', '(HRV, sleep, continuous glucose) through wearables, allowing the product to ground recommendations in objective physiological data when the user chooses to connect them — without requiring it.'],
+              ['A consistent editorial voice', 'Developed across the author\'s book Food·Mood: El placer de estar bien and translated into the product\'s conversational behavior: warm, hedonic, scientifically literate, never clinical or prescriptive.'],
+            ] as [string, string][]).map(([label, text]) => (
+              <div key={label} style={{ marginBottom: 10, paddingLeft: 10, borderLeft: '2px solid #E0EDE6' }}>
+                <p style={{ fontSize: 9.5, color: '#1A1612', fontWeight: 600, marginBottom: 3 }}>{label}</p>
+                <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, margin: 0 }}>{text}</p>
+              </div>
+            ))}
+
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#5A4E48', marginTop: 16, marginBottom: 8 }}>Positioning</p>
+            <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 10 }}>
+              Food·Mood does not promise outcomes it cannot validate. It aims to provide guidance that is scientifically literate, situationally aware, and bounded by clear deferral to medical professionals when relevant. Compared with symptom-tracking apps, diet apps and general-purpose AI chatbots, the differentiator is the integrated framing — affective state, nutritional psychology, gut–brain biology, longevity pathways and structured safety — operating together under a single editorial voice.
+            </p>
+            <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65 }}>
+              The founder&apos;s interdisciplinary background in psychology, gerontology, food technology and nutritional coaching, together with membership of the Association for Contextual Behavioral Science (ACBS), informs both the knowledge base and the editorial stance of the product.
+            </p>
+          </div>
+        </details>
+
         <SectionLabel>Business Model</SectionLabel>
         <p style={{ fontSize: 9.5, color: '#3D3028', lineHeight: 1.6, marginTop: 4, marginBottom: 10, fontStyle: 'italic' }}>
           Challenge-first acquisition → subscription retention. Three distinct revenue streams that reinforce each other: challenges drive the first payment and completion; subscriptions capture the retained LTV; corporate contracts compress revenue per transaction.
