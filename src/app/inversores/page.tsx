@@ -227,11 +227,18 @@ function InvestorDeck() {
           </div>
         </div>
 
+        {/* Core pitch pullquote */}
+        <div style={{ borderLeft: '3px solid #3A8C62', paddingLeft: 16, marginTop: 20, marginBottom: 4 }}>
+          <p style={{ fontFamily: 'serif', fontSize: 13, fontStyle: 'italic', color: '#1A1612', lineHeight: 1.65, margin: 0 }}>
+            Most wellness apps ask &ldquo;what did you eat?&rdquo; Food·Mood asks &ldquo;how do you want to feel?&rdquo; — and uses a curated gut-brain knowledge base to translate that answer into food, ritual and habit.
+          </p>
+        </div>
+
         {/* Two-col */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 8 }}>
           <div>
             <SectionLabel>What We Do</SectionLabel>
-            <p style={bodyP}>Food·Mood is a <strong style={{ color: '#1A1612' }}>habit formation engine</strong> that uses the sensory pleasure of functional food as the behavioral anchor — for the <strong style={{ color: '#1A1612' }}>95M+ Spanish-speaking adults</strong> across Spain, Latin America, and Hispanic USA who lack personalised nutritional support in their language.</p>
+            <p style={bodyP}>Food·Mood is not a generic recipe chatbot. It is a <strong style={{ color: '#1A1612' }}>vertical emotional nutrition agent</strong> grounded in a curated knowledge base that translates mood, body signals and user context into functional food recommendations, micro-rituals and long-term habit formation — for the <strong style={{ color: '#1A1612' }}>95M+ Spanish-speaking adults</strong> across Spain, Latin America, and Hispanic USA who lack personalised nutritional support in their language.</p>
             <p style={bodyP}>The core insight: lasting habits form when anchored to pleasure, not willpower. The mechanism is biological — 90% of serotonin is produced in the gut. When you eat the right food for your emotional state and enjoy it, you activate the reward circuit that makes you want to repeat it. That is how sustainable habits are built: not through discipline, but through sensory experience.</p>
             <p style={bodyP}>The product: expert-curated psychobiotic recipes mapped to emotional state, guided transformation challenges (7–28 days), daily habit tracking, and a proprietary Food·Mood Index that shows each user how their food choices correlate with their mood, energy, and focus over time. No calorie counting. No guilt. No willpower required.</p>
           </div>
@@ -282,6 +289,58 @@ function InvestorDeck() {
             </p>
             <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65 }}>
               The founder&apos;s interdisciplinary background in psychology, gerontology, food technology and nutritional coaching, together with membership of the Association for Contextual Behavioral Science (ACBS), informs both the knowledge base and the editorial stance of the product.
+            </p>
+          </div>
+        </details>
+
+        {/* Intelligence Layer — collapsible */}
+        <details style={{ marginTop: 16, marginBottom: 4 }}>
+          <summary style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3A8C62', padding: '10px 14px', background: '#F0EDE4', borderRadius: 4, cursor: 'pointer', border: '1px solid #E0EDE6', userSelect: 'none' }}>
+            The Intelligence Layer — How the AI Reads a Mood Check-In · Click to expand
+          </summary>
+          <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderTop: 'none', borderRadius: '0 0 4px 4px', padding: '18px 20px' }}>
+            <p style={{ fontFamily: 'serif', fontSize: 11, fontStyle: 'italic', color: '#1A1612', lineHeight: 1.65, marginBottom: 14 }}>
+              A proprietary emotional nutrition intelligence layer
+            </p>
+            <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 10 }}>
+              Food·Mood is not a generic recipe chatbot. It is built on a curated knowledge base that helps the AI interpret the user&apos;s mood check-in beyond simple emotional labels. The system reads each check-in as a combination of affective direction, body budget, interoceptive signals, habit context and safety boundaries — and uses that reading to generate a recommendation that is contextually grounded, not generically retrieved.
+            </p>
+
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 10 }}>Four operational layers</p>
+
+            {([
+              [
+                '1 · Mood direction',
+                'Reads the check-in as an affective direction — not a fixed emotional label. "Calma" is not treated as a diagnosis; it is treated as a vector: the user wants to move toward lower arousal and higher positive valence. The system maps that vector to one of six functional states (Activación, Calma, Foco, Social, Restauración, Confort), each with a distinct nutritional and sensory profile grounded in the knowledge base.',
+              ],
+              [
+                '2 · Body budget hypothesis',
+                'Interprets the recommendation as a prediction about what the body needs to maintain alostatic balance — not just what tastes good. Grounded in Sterling\'s allostasis model and Feldman Barrett\'s body budget framework: food modulates the interoceptive signals that feed the brain\'s predictive models for mood and energy. The AI does not serve recipes — it surfaces body budget hypotheses translated into food.',
+              ],
+              [
+                '3 · Functional recommendation',
+                'Maps the body budget hypothesis to specific psychobiotic foods, micro-rituals and habit scaffolding — grounded in the proprietary knowledge base (scientific literature, founder-authored frameworks, structured evidence tiers A–D). The knowledge base is not a list of recipes; it is a structured interpretive layer that gives the AI the context to explain why a specific food is recommended for a specific emotional direction.',
+              ],
+              [
+                '4 · Safety routing',
+                'Runs before and after every recommendation. Pre-flight: crisis signals and TCA patterns are intercepted before the LLM is called — the model never processes those inputs. Post-flight: allergen blocking and drug-food interaction routing validate every output before it reaches the user. No recommendation is delivered when safety cannot be guaranteed.',
+              ],
+            ] as [string, string][]).map(([label, text]) => (
+              <div key={label} style={{ marginBottom: 12, paddingLeft: 10, borderLeft: '2px solid #E0EDE6' }}>
+                <p style={{ fontSize: 9.5, color: '#1A1612', fontWeight: 600, marginBottom: 3 }}>{label}</p>
+                <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, margin: 0 }}>{text}</p>
+              </div>
+            ))}
+
+            <div style={{ background: '#F0EDE4', border: '1px solid #E0EDE6', borderLeft: '3px solid #3A8C62', borderRadius: '0 4px 4px 0', padding: '12px 14px', marginTop: 16 }}>
+              <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 6 }}>What the knowledge base is — and what it is not</p>
+              <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 0 }}>
+                The AI is grounded in a proprietary, curated knowledge base built from scientific literature, founder-authored frameworks, structured evidence tiers and clinical safety protocols. It is not trained on commercial books or generic wellness content. The knowledge base is the reason the AI can explain <em>why</em> — not just suggest what.
+              </p>
+            </div>
+
+            <p style={{ fontFamily: 'serif', fontSize: 11, fontStyle: 'italic', color: '#3A8C62', marginTop: 16, lineHeight: 1.65, borderTop: '1px solid #E0EDE6', paddingTop: 12 }}>
+              &quot;We are not building a better recipe app. We are building the emotional nutrition infrastructure for the Spanish-speaking world — and the knowledge base is the moat.&quot;
             </p>
           </div>
         </details>
