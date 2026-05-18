@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   openGraph: {
     title: 'Biblioteca Científica — Food·Mood',
-    description: '215 fragmentos científicos curados por nuestro equipo.',
+    description: '232 fragmentos científicos curados por nuestro equipo.',
     url: 'https://www.food-mood.app/biblioteca',
   },
 }
@@ -657,7 +657,53 @@ const biblioteca: Seccion[] = [
         isbn: '978-0062376558',
         url: 'https://dramayermd.com/book/the-mind-gut-connection/',
         relevancia: 'Síntesis clínica del eje intestino-cerebro por el investigador pionero. Base de la comprensión del SII como cuadro biopsicosocial, no solo digestivo.',
-        usadoEn: ['KB digestivo', 'Concepto general', 'Asesor Personal'],
+        usadoEn: ['KB digestivo', 'KB Mayer', 'Asesor Personal'],
+      },
+      {
+        autores: 'Mayer, E.',
+        ano: 2021,
+        titulo: 'The Gut-Immune Connection: How Understanding the Connection Between Food and Immunity Can Help Us Regain Our Health',
+        revista: 'Harper Wave',
+        isbn: '978-0062996688',
+        url: 'https://dramayermd.com/book/the-gut-immune-connection/',
+        relevancia: 'El GALT contiene el 70% del sistema inmune. La disbiosis y la hiperpermeabilidad intestinal (LPS en circulación) son motor central del inflammaging sistémico. Cuidar el intestino es cuidar la inmunidad. Base del KB #11.',
+        usadoEn: ['KB Mayer', 'KB PNI', 'Asesor Personal'],
+      },
+      {
+        autores: 'Mayer, E.A., Tillisch, K. & Gupta, A.',
+        ano: 2015,
+        titulo: 'Gut/brain axis and the microbiota',
+        revista: 'Journal of Clinical Investigation',
+        volumen: '125(3)',
+        paginas: '926–938',
+        doi: '10.1172/JCI76304',
+        url: 'https://doi.org/10.1172/JCI76304',
+        relevancia: 'Revisión traslacional de Mayer sobre las cuatro vías de comunicación cerebro-intestino-microbiota. Resumen científico del modelo que articula ambos libros.',
+        usadoEn: ['KB Mayer', 'Asesor Personal'],
+      },
+      {
+        autores: 'Tillisch, K., Mayer, E.A., Gupta, A., et al.',
+        ano: 2017,
+        titulo: 'Brain Structure and Response to Emotional Stimuli as Related to Gut Microbial Profiles in Healthy Women',
+        revista: 'Psychosomatic Medicine',
+        volumen: '79(8)',
+        paginas: '905–913',
+        doi: '10.1097/PSY.0000000000000493',
+        url: 'https://doi.org/10.1097/PSY.0000000000000493',
+        relevancia: 'Primer estudio de neuroimagen que relaciona perfil microbiano con estructura cerebral y respuesta emocional en humanos sanos. Evidencia directa de que la microbiota modula el procesamiento emocional.',
+        usadoEn: ['KB Mayer', 'KB microbiota', 'Asesor Personal'],
+      },
+      {
+        autores: 'Cryan, J.F. & Dinan, T.G.',
+        ano: 2012,
+        titulo: 'Mind-altering microorganisms: the impact of the gut microbiota on brain and behaviour',
+        revista: 'Nature Reviews Neuroscience',
+        volumen: '13(10)',
+        paginas: '701–712',
+        doi: '10.1038/nrn3346',
+        url: 'https://doi.org/10.1038/nrn3346',
+        relevancia: 'Paper seminal de Cryan y Dinan en Nature Reviews Neuroscience: el primer mapa completo de cómo la microbiota influye en el comportamiento y la salud mental. Referencia fundacional del campo.',
+        usadoEn: ['KB microbiota', 'KB Mayer', 'Asesor Personal'],
       },
       {
         autores: 'Sonnenburg, J. & Sonnenburg, E.',
@@ -937,7 +983,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Biblioteca Científica — Food·Mood',
   description:
-    '215 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+    '232 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   url: 'https://www.food-mood.app/biblioteca',
   author: {
     '@type': 'Person',
@@ -971,7 +1017,7 @@ export default function BibliotecaPage() {
             (exit estratégico, 2023).
           </p>
           <p className="text-xs mt-4" style={{ color: 'rgba(26,22,18,0.35)' }}>
-            {totalRefs} publicaciones · 215 fragmentos vectorizados · actualizado Mayo 2026
+            {totalRefs} publicaciones · 232 fragmentos vectorizados · actualizado Mayo 2026
           </p>
         </header>
 
