@@ -24,12 +24,12 @@ const RETOS = [
 // ─── FAQ data ────────────────────────────────────────────────────────────────
 const FAQS = [
   {
-    q: "¿Qué es la neurogastronomía personalizada?",
+    q: "¿Qué es la nutrición emocional personalizada?",
     a: "Es la aplicación práctica de la ciencia del eje intestino-cerebro a tu biología concreta: qué postbióticos, fermentos y patrones de crononutrición activan tu sistema nervioso autónomo de forma óptima según tu estado emocional real. Food·Mood traduce esa ciencia en recetas funcionales diarias, sin suplementos ni protocolos rígidos.",
   },
   {
     q: "¿Cómo funciona la IA personalizada de Food·Mood?",
-    a: "La IA analiza tu mezcla emocional, síntomas del día, niveles de energía y calidad de sueño para calcular tu índice intestino-cerebro y seleccionar la receta con mayor impacto para ese momento. Aprende de tus registros: detecta qué alimentos te suben o bajan el índice y adapta las recomendaciones en tiempo real.",
+    a: "La IA analiza tu mezcla emocional, síntomas del día, niveles de energía y calidad de sueño para identificar tus patrones intestino-cerebro y seleccionar la receta con mayor impacto para ese momento. Aprende de tus registros: detecta qué alimentos te activan o te frenan y adapta las recomendaciones en tiempo real.",
   },
   {
     q: "¿Necesito conocimientos de cocina?",
@@ -630,7 +630,7 @@ export default function Home() {
               <em className="font-light italic" style={{ color: "#C9A84C" }}>antes de recomendar.</em>
             </h2>
             <p className="mt-5 text-sm md:text-base font-light leading-relaxed max-w-2xl" style={{ color: "rgba(245,240,232,0.5)" }}>
-              Detrás de cada recomendación hay un equipo humano: psicólogas, expertas en microbiota, neurogastronomía y tecnología de alimentos entrenan y revisan la IA. Cada plato pasa por filtro científico antes de llegar a ti.
+              Detrás de cada recomendación hay un equipo humano: psicólogas, expertas en microbiota, nutrición emocional y tecnología de alimentos entrenan y revisan la IA. Cada plato pasa por filtro científico antes de llegar a ti.
             </p>
           </div>
 
@@ -840,7 +840,7 @@ export default function Home() {
       </section>
 
       {/* ── 4c. ÍNDICE FOOD·MOOD — EJEMPLO ─────────────────────────────────── */}
-      <section aria-label="Qué es el índice Food·Mood" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#2d0f16" }}>
+      <section aria-label="Tu espejo diario Food·Mood" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
 
@@ -851,21 +851,21 @@ export default function Home() {
               className="space-y-5"
             >
               <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-                Tus logros Food·Mood
+                Tu espejo diario
               </motion.p>
               <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
-                Tu índice intestino-cerebro<br />
-                <span className="italic font-light">en tiempo real.</span>
+                Los patrones que notas,<br />
+                <span className="italic font-light">en datos reales.</span>
               </motion.h2>
               <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
-                Cada día calculas tu índice (0-100) a partir de tus registros de comida, síntomas y estado emocional.
-                No es una báscula — es un espejo de tu eje intestino-cerebro.
+                Cada día registras cómo comes, cómo te sientes y cómo duermes. El patrón que emerge es tu mapa real
+                — no una báscula, sino tu eje intestino-cerebro en acción.
               </motion.p>
               <motion.ul variants={fade} className="space-y-3">
                 {[
                   "Ve en qué días comes mejor y cómo te afecta al día siguiente",
-                  "Detecta los alimentos que te suben o te bajan el índice",
-                  "Compara tu inicio vs. fin de cada reto en datos reales",
+                  "Detecta los alimentos que te activan o te frenan — y cuándo",
+                  "Ve cómo ha cambiado tu estado desde que empezaste",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: "rgba(245,240,232,0.65)" }}>
                     <span className="w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold text-[#2d0f16]" style={{ backgroundColor: "#C9A84C" }}>✓</span>
@@ -885,18 +885,18 @@ export default function Home() {
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,76,0.95)" }}>Índice Food·Mood</p>
-                  <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.72)" }}>21 días · Reto antiinflamatorio</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,76,0.95)" }}>Tu evolución Food·Mood</p>
+                  <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.72)" }}>21 días · Programa antiinflamatorio</p>
                 </div>
                 <div className="text-right">
                   <p className="font-serif text-4xl font-black" style={{ color: "#C9A84C" }}>74</p>
-                  <p className="text-[10px] font-light" style={{ color: "rgba(201,168,76,0.85)" }}>/ 100</p>
+                  <p className="text-[10px] font-light" style={{ color: "rgba(201,168,76,0.85)" }}>día 21</p>
                 </div>
               </div>
 
               {/* Mini gráfica SVG */}
               <div className="mb-5">
-                <svg viewBox="0 0 280 80" className="w-full" preserveAspectRatio="none" aria-label="Evolución del índice Food·Mood en 21 días">
+                <svg viewBox="0 0 280 80" className="w-full" preserveAspectRatio="none" aria-label="Tu evolución Food·Mood en 21 días">
                   {/* Grid lines */}
                   {[20, 40, 60].map(y => (
                     <line key={y} x1="0" y1={y} x2="280" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
@@ -934,7 +934,7 @@ export default function Home() {
                 </div>
                 <div className="rounded-2xl p-4 text-center flex flex-col items-center justify-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
                   <p className="font-serif text-xl font-black" style={{ color: "#C9A84C" }}>+37</p>
-                  <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(201,168,76,0.85)" }}>puntos</p>
+                  <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(201,168,76,0.85)" }}>evolución</p>
                 </div>
                 <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)" }}>
                   <p className="text-[10px] font-light mb-1" style={{ color: "rgba(201,168,76,0.92)" }}>Hoy</p>
@@ -946,7 +946,7 @@ export default function Home() {
               <div className="mt-4 rounded-2xl px-4 py-3" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
                 <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.8)" }}>
                   <span className="font-semibold" style={{ color: "#F5F0E8" }}>Patrón detectado:</span>{" "}
-                  los días que comes chucrut o kéfir, tu índice sube una media de 8 puntos al día siguiente.
+                  los días que comes chucrut o kéfir, notas más energía y claridad al día siguiente.
                 </p>
               </div>
 
@@ -970,7 +970,7 @@ export default function Home() {
               No somos una caja negra.
             </h2>
             <p className="text-sm md:text-base font-light leading-relaxed max-w-2xl" style={{ color: "rgba(245,240,232,0.5)" }}>
-              Un equipo de expertas en psicología clínica, neurogastronomía, microbiota intestinal y tecnología de alimentos entrena, revisa y valida cada recomendación. La IA aprende — nosotras supervisamos.
+              Un equipo de expertas en psicología clínica, nutrición funcional, microbiota intestinal y tecnología de alimentos entrena, revisa y valida cada recomendación. La IA aprende — nosotras supervisamos.
             </p>
           </div>
 
@@ -995,7 +995,7 @@ export default function Home() {
       </section>
 
       {/* ── 5. LOS RETOS ────────────────────────────────────────────────────── */}
-      <section aria-label="Retos de transformación" style={{ backgroundColor: "#0b0b0a" }}>
+      <section aria-label="Programas Food·Mood" style={{ backgroundColor: "#0b0b0a" }}>
         <RetosAnimation />
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 py-8 px-6">
           <Link
@@ -1185,7 +1185,7 @@ export default function Home() {
                   </div>
 
                   <p className="text-center text-xs font-light" style={{ color: "rgba(245,240,232,0.62)" }}>
-                    Los retos de transformación (7–30 días) son pago único desde 19€ · Sin renovación automática
+                    Los programas (7–30 días) son pago único desde 19€ · Sin renovación automática
                   </p>
                 </div>
               </motion.div>
