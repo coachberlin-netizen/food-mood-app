@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   openGraph: {
     title: 'Biblioteca Científica — Food·Mood',
-    description: '232 fragmentos científicos curados por nuestro equipo.',
+    description: '248 fragmentos científicos curados por nuestro equipo.',
     url: 'https://www.food-mood.app/biblioteca',
   },
 }
@@ -945,6 +945,66 @@ const biblioteca: Seccion[] = [
     ],
   },
   {
+    categoria: 'Menopausia Moderna y HRT',
+    descripcion: 'La re-evaluación post-WHI, HRT bioidéntica, 30+ síntomas no reconocidos y el kit integrado para la transición.',
+    items: [
+      {
+        autores: 'Haver, M.C.',
+        ano: 2024,
+        titulo: 'The New Menopause: Navigating Your Path Through Hormonal Change with Purpose, Power, and the Facts',
+        revista: 'Rodale Books',
+        isbn: '978-0593580844',
+        url: 'https://www.maryClairehaver.com/the-new-menopause',
+        relevancia: 'Manual actualizado sobre menopausia: corrección del WHI, glosario de HRT moderna, lista de 30+ síntomas no reconocidos, ventana de oportunidad, y toolkit de cinco palancas (ejercicio, nutrición, sueño, estrés, HRT considerada). Referencia central del KB #12.',
+        usadoEn: ['KB menopausia', 'Reto Hormonal', 'Asesor Personal'],
+      },
+      {
+        autores: 'Haver, M.C.',
+        ano: 2023,
+        titulo: 'The Galveston Diet: The Doctor-Developed, Patient-Proven Plan to Burn Fat and Tame Your Hormonal Symptoms',
+        revista: 'William Morrow',
+        isbn: '978-0063243316',
+        url: 'https://galvestondiet.com',
+        relevancia: 'TRE 14–16h + composición antiinflamatoria + proteína distribuida para mujeres en transición menopáusica. Primer plan dietético diseñado específicamente para menopausia con base en nutrición funcional.',
+        usadoEn: ['KB menopausia', 'Asesor Personal'],
+      },
+      {
+        autores: 'Manson, J.E., Aragaki, A.K., Rossouw, J.E., et al.',
+        ano: 2017,
+        titulo: 'Menopausal Hormone Therapy and Long-term All-Cause and Cause-Specific Mortality',
+        revista: 'JAMA',
+        volumen: '318(10)',
+        paginas: '927–938',
+        doi: '10.1001/jama.2017.11217',
+        url: 'https://doi.org/10.1001/jama.2017.11217',
+        relevancia: 'Re-análisis del WHI a largo plazo: en mujeres que iniciaron HRT antes de los 60 o en los 10 primeros años post-menopausia, la mortalidad por todas las causas se redujo. Base del consenso post-WHI que desmitifica la HRT.',
+        usadoEn: ['KB menopausia', 'Asesor Personal'],
+      },
+      {
+        autores: 'The Menopause Society (NAMS)',
+        ano: 2022,
+        titulo: '2022 Hormone Therapy Position Statement of The North American Menopause Society',
+        revista: 'Menopause',
+        volumen: '29(7)',
+        paginas: '767–794',
+        doi: '10.1097/GME.0000000000002028',
+        url: 'https://doi.org/10.1097/GME.0000000000002028',
+        relevancia: 'Posición oficial de la sociedad científica de referencia en menopausia: HRT es la intervención más efectiva para sofocos, protege hueso y cardiovascular en la ventana de oportunidad. Base del marco de desestigmatización.',
+        usadoEn: ['KB menopausia', 'Asesor Personal'],
+      },
+      {
+        autores: 'Gunter, J.',
+        ano: 2021,
+        titulo: 'The Menopause Manifesto: Own Your Health with Facts and Feminism',
+        revista: 'Citadel Press',
+        isbn: '978-0806540665',
+        url: 'https://www.drjengunter.com/the-menopause-manifesto',
+        relevancia: 'Referencia complementaria con énfasis en evidencia y desmitificación. Ginecóloga y columnista NY Times. Contrapeso riguroso a la desinformación sobre menopausia en medios y redes sociales.',
+        usadoEn: ['KB menopausia', 'Asesor Personal'],
+      },
+    ],
+  },
+  {
     categoria: 'Músculo, Huesos y Longevidad',
     descripcion: 'Nutrición estructural para la segunda mitad de la vida.',
     items: [
@@ -983,7 +1043,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Biblioteca Científica — Food·Mood',
   description:
-    '232 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+    '248 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   url: 'https://www.food-mood.app/biblioteca',
   author: {
     '@type': 'Person',
@@ -1017,7 +1077,7 @@ export default function BibliotecaPage() {
             (exit estratégico, 2023).
           </p>
           <p className="text-xs mt-4" style={{ color: 'rgba(26,22,18,0.35)' }}>
-            {totalRefs} publicaciones · 232 fragmentos vectorizados · actualizado Mayo 2026
+            {totalRefs} publicaciones · 248 fragmentos vectorizados · actualizado Mayo 2026
           </p>
         </header>
 
