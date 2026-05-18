@@ -246,7 +246,7 @@ function InvestorDeck() {
             <SectionLabel>Market Opportunity</SectionLabel>
             <p style={bodyP}><strong style={{ color: '#1A1612' }}>TAM — ~95M Spanish-speaking women 45+ globally:</strong> Spain (11M) · Latin America (75M) · Hispanic USA (9M). Every major wellness app is English-first or lacks the scientific depth for this life stage. No competitor has established a gut-brain nutrition brand in Spanish.</p>
             <p style={bodyP}><strong style={{ color: '#1A1612' }}>SAM — ~10M paying-capable digital wellness users</strong> within that TAM. Paid app penetration: ~20% in Spain, 8–15% across LATAM, ~25% in US Hispanic market (Sensor Tower, 2024).</p>
-            <p style={bodyP}><strong style={{ color: '#1A1612' }}>SOM (18-month):</strong> 2,500 challenge purchases + 500 active subscribers → ~€116K annual revenue run rate. At 1% of the Spanish SAM: 22,000 subscribers = <strong style={{ color: '#1A1612' }}>€2.4M ARR</strong>. The psychobiotics subcategory is a $2.5B emerging segment — Food·Mood is positioned as its first Spanish-language consumer brand.</p>
+            <p style={bodyP}><strong style={{ color: '#1A1612' }}>SOM (18-month):</strong> 2,500 challenge purchases + 500 active subscribers → ~€116K annual revenue run rate. At 1% of the Spanish SAM: 22,000 subscribers = <strong style={{ color: '#1A1612' }}>€2.4M ARR</strong>. The psychobiotics subcategory is a $2.5B emerging segment — Food·Mood is positioned as its category-defining Spanish-language consumer brand.</p>
             <SectionLabel>Why Now</SectionLabel>
             <p style={bodyP}>Smartphone penetration in LATAM crossed 70% in 2024. App spending among women 40+ grew 34% in 2023 (Sensor Tower). Yet every evidence-based gut-brain wellness app is English-only. Psychobiotic research has matured for consumer products, and the EU regulatory environment (GDPR, EU AI Act, and the European Health Data Space framework) favours privacy-first European platforms. The window to become the category-defining Spanish-language app for women 45+ is open — and uncontested.</p>
           </div>
@@ -334,8 +334,11 @@ function InvestorDeck() {
 
             <div style={{ background: '#F0EDE4', border: '1px solid #E0EDE6', borderLeft: '3px solid #3A8C62', borderRadius: '0 4px 4px 0', padding: '12px 14px', marginTop: 16 }}>
               <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 6 }}>What the knowledge base is — and what it is not</p>
+              <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 6 }}>
+                The AI is grounded in a proprietary, curated knowledge base: <strong style={{ color: '#1A1612' }}>12 specialist documents, 248 vectorised fragments</strong> covering the gut-brain axis (Cryan, Dinan, Mayer), psychobiotics, chrononutrition (Panda), psiconeuroinmunología, constructed emotion theory (Feldman Barrett), perimenopause (Briden) and menopause (Haver). Built from scientific literature, founder-authored frameworks and structured evidence tiers — not trained on commercial books or generic wellness content.
+              </p>
               <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 0 }}>
-                The AI is grounded in a proprietary, curated knowledge base built from scientific literature, founder-authored frameworks, structured evidence tiers and clinical safety protocols. It is not trained on commercial books or generic wellness content. The knowledge base is the reason the AI can explain <em>why</em> — not just suggest what.
+                The knowledge base is the reason the AI can explain <em>why</em> — not just suggest what.
               </p>
             </div>
 
@@ -867,7 +870,7 @@ May 2026 · Confidential
 ━━ CONTENT & COMMUNITY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 — Active newsletter + WhatsApp & Telegram communities — warm audience primed for launch
 — Demand validated through founder coaching practice (Umyko wellness community, paying clients)
-— 24 newsletter editions published; RAG knowledge base seeded with gut-brain longevity content
+— 24 newsletter editions published; proprietary RAG knowledge base: 12 specialist documents, 248 vectorised fragments covering gut-brain axis, psychobiotics, chrononutrition, constructed emotion, PNI, perimenopause and menopause
 
 ━━ GO-TO-MARKET STATUS (INTENTIONAL PRE-LAUNCH) ━━━━━━━━━━━━
 — Scaling begins post-funding close — infrastructure ready, no premature growth spend
@@ -889,7 +892,7 @@ May 2026 · Confidential
 ━━ MARKET POSITION ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 — No established Spanish-language competitor in gut-brain nutrition for women 45+
 — TAM: ~95M Spanish-speaking women 45+ globally (Spain, LATAM, Hispanic USA)
-— EU AI Act compliant (lifestyle category, not high-risk AI); GDPR-first architecture
+— EU AI Act: lifestyle category, not high-risk under Annex III; GDPR-first architecture; full compliance timeline 2027
 
 ━━ ROUND TERMS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 — Raising: €140,000
@@ -906,7 +909,7 @@ const BULLETS: Array<{ label: string; items: string[] }> = [
     label: 'Product Readiness',
     items: [
       'Full-stack PWA live at food-mood.app — payments integrated, infrastructure tested on Vercel',
-      'AI Digital Advisor with 4-layer clinical safety pipeline (crisis, TCA, allergens, drug-food interactions) — validated by founder as licensed mental health professional. No competitor has equivalent.',
+      'AI Digital Advisor with 4-layer clinical safety pipeline (crisis, TCA, allergens, drug-food interactions) — designed and validated by founder as licensed mental health professional',
       '3 transformation challenges live (Recupera tu Energía, Equilibrio Hormonal 45, Slow Food·Mood); 5 more in pipeline — all 8 on schedule Q1 2027',
       '7-episode proprietary audio library complete; book manuscript ready for pre-publication 2026',
     ],
@@ -916,11 +919,11 @@ const BULLETS: Array<{ label: string; items: string[] }> = [
     items: [
       'Active newsletter + WhatsApp & Telegram communities — warm audience primed for launch',
       'Demand validated through founder coaching practice (Umyko wellness community, paying clients)',
-      '24 newsletter editions published; RAG knowledge base seeded with gut-brain longevity content',
+      '24 newsletter editions published; proprietary RAG knowledge base: 12 specialist documents, 248 vectorised fragments (gut-brain axis, psychobiotics, chrononutrition, perimenopause, menopause, constructed emotion, PNI)',
     ],
   },
   {
-    label: 'Go-to-Market (Intentional Pre-Launch)',
+    label: 'Go-to-Market (Closed Beta / Controlled Launch)',
     items: [
       'Scaling begins post-funding close — infrastructure and content ready; no premature growth spend',
       '90-day post-close targets: 100 paying users · D7 retention >40% · NPS >50',
