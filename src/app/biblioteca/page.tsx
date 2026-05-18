@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   openGraph: {
     title: 'Biblioteca Científica — Food·Mood',
-    description: '172 fragmentos científicos curados por nuestro equipo.',
+    description: '193 fragmentos científicos curados por nuestro equipo.',
     url: 'https://www.food-mood.app/biblioteca',
   },
 }
@@ -87,6 +87,61 @@ const biblioteca: Seccion[] = [
         url: 'https://doi.org/10.1016/j.ynstr.2017.03.001',
         relevancia: 'Mecanismos específicos de cómo el estrés altera la microbiota y viceversa.',
         usadoEn: ['Reto Calma', 'Reto Ansiedad'],
+      },
+      {
+        autores: 'Dinan, T.G., Stanton, C. & Cryan, J.F.',
+        ano: 2013,
+        titulo: 'Psychobiotics: a novel class of psychotropic',
+        revista: 'Biological Psychiatry',
+        volumen: '74(10)',
+        paginas: '720–726',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/23759244/',
+        relevancia: 'Introduce el término psicobiótico: microorganismo vivo que produce beneficio mental en el huésped. Define la cepa-especificidad y los mecanismos (GABA, serotonina, eje HPA). Paper fundacional del campo.',
+        usadoEn: ['KB microbiota', 'Fermentos', 'Asesor Personal'],
+      },
+      {
+        autores: 'Allen, A.P., et al.',
+        ano: 2016,
+        titulo: 'Bifidobacterium longum 1714 as a translational psychobiotic: modulation of stress, electrophysiology and neurocognition in healthy volunteers',
+        revista: 'Translational Psychiatry',
+        volumen: '6(11)',
+        paginas: 'e939',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/27723742/',
+        relevancia: 'Primer ensayo humano que muestra que B. longum 1714 reduce el cortisol ante estrés agudo y mejora el rendimiento cognitivo bajo estrés. Valida el concepto de psicobiótico en humanos.',
+        usadoEn: ['KB microbiota', 'Reto Calma', 'Asesor Personal'],
+      },
+      {
+        autores: 'Messaoudi, M., et al.',
+        ano: 2011,
+        titulo: 'Assessment of psychotropic-like properties of a probiotic formulation (Lactobacillus helveticus R0052 and Bifidobacterium longum R0175) in rats and human subjects',
+        revista: 'British Journal of Nutrition',
+        volumen: '105(5)',
+        paginas: '755–764',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/20974015/',
+        relevancia: 'L. helveticus R0052 + B. longum R0175 reducen ansiedad y síntomas depresivos leves en humanos. Base de las fórmulas probióticas combinadas para mood con respaldo clínico.',
+        usadoEn: ['KB microbiota', 'Reto Calma', 'Asesor Personal'],
+      },
+      {
+        autores: 'Jacka, F.N., et al.',
+        ano: 2017,
+        titulo: 'A randomised controlled trial of dietary improvement for adults with major depression (the \'SMILES\' trial)',
+        revista: 'BMC Medicine',
+        volumen: '15(1)',
+        paginas: '23',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/28137247/',
+        relevancia: 'Ensayo aleatorizado que demuestra que la dieta mediterránea mejora significativamente la depresión clínica. La dieta como intervención terapéutica de primera línea, no solo coadyuvante. Referencia clave de la nutrición psicobiótica integral.',
+        usadoEn: ['KB microbiota', 'KB PNI', 'Asesor Personal'],
+      },
+      {
+        autores: 'Cryan, J.F. & Dinan, T.G.',
+        ano: 2020,
+        titulo: 'The gut microbiome in neurological disorders',
+        revista: 'The Lancet Neurology',
+        volumen: '19(2)',
+        paginas: '179–194',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/31636439/',
+        relevancia: 'Revisión del vínculo entre disbiosis y Parkinson (hipótesis Braak, alfa-sinucleína entérica), Alzheimer (LPS en placas amiloides) y esclerosis múltiple. Argumento central para la microbiota como estrategia de neuroprotección a largo plazo.',
+        usadoEn: ['KB microbiota', 'Reto Longevidad', 'Asesor Personal'],
       },
     ],
   },
@@ -821,7 +876,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Biblioteca Científica — Food·Mood',
   description:
-    '172 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+    '193 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   url: 'https://www.food-mood.app/biblioteca',
   author: {
     '@type': 'Person',
@@ -855,7 +910,7 @@ export default function BibliotecaPage() {
             (exit estratégico, 2023).
           </p>
           <p className="text-xs mt-4" style={{ color: 'rgba(26,22,18,0.35)' }}>
-            {totalRefs} publicaciones · 172 fragmentos vectorizados · actualizado Mayo 2026
+            {totalRefs} publicaciones · 193 fragmentos vectorizados · actualizado Mayo 2026
           </p>
         </header>
 
