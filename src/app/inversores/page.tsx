@@ -345,7 +345,7 @@ function InvestorDeck() {
           </tbody>
         </table>
         <p style={{ fontSize: 8.5, color: '#5A4E48', marginTop: 6, fontStyle: 'italic', lineHeight: 1.5 }}>
-          △ Elektra Health addresses symptoms; does not integrate nutritional science. No competitor offers gut-brain nutrition in Spanish for perimenopause/menopause. Food·Mood is the first.
+          △ Elektra Health addresses symptoms; does not integrate nutritional science. No direct Spanish-language competitor has been identified at the intersection of gut-brain nutrition and perimenopause/menopause.
         </p>
 
         {/* Noom deep-dive */}
@@ -401,15 +401,15 @@ function InvestorDeck() {
           {[
             {
               label: 'Clinically-supervised emotional nutrition AI',
-              text: 'Vertical AI agent co-designed and continuously reviewed by a clinical professional, embedding EU AI Act–ready safety from day one instead of retrofitting later.',
+              text: 'Vertical AI agent co-designed and continuously reviewed by a clinical professional. Safety built from day one — harder to replicate than a generic recipe app because of the combined content, clinical oversight and founder expertise.',
             },
             {
               label: 'Proprietary functional recipes & gut–brain dataset',
               text: 'Unique combination of fermentations, postbiotics and mood-linked recipes, curated from scientific expertise and user outcomes into a dataset no generic wellness or calorie app can easily replicate.',
             },
             {
-              label: 'Regulation as a moat, not a risk',
-              text: 'Our Clinical AI Safety Infrastructure makes upcoming EU AI Act and health-adjacent digital regulation a barrier to entry for competitors, while our system is already architected for compliance.',
+              label: 'Safety infrastructure as a structural advantage',
+              text: 'We designed safety infrastructure from day one, not as a retrofit. As EU AI Act and health-adjacent regulation evolve, systems built with compliance in mind will adapt faster than those that were not.',
             },
           ].map(({ label, text }, i) => (
             <div key={label} style={{ display: 'flex', gap: 14, marginBottom: i < 2 ? 18 : 0 }}>
@@ -568,8 +568,8 @@ function InvestorDeck() {
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 5, marginTop: 6 }}>
           {[
             'MVP fully built and live at food-mood.app — payments integrated, content stack ready, infrastructure tested',
-            'AI Digital Advisor live: clinical safety pipeline (crisis detection, TCA signals, drug-food interactions, allergen blocking) validated by founder as mental health professional — no competitor has equivalent',
-            'Intentionally pre-launch on users: scaling starts after close, to do it right — not to chase messy early traction',
+            'AI Digital Advisor live: four-layer clinical safety pipeline (crisis detection, TCA signals, drug-food interactions, allergen blocking) — designed and validated by founder as licensed mental health professional',
+            'Closed beta / controlled launch phase: MVP live, payments and infrastructure tested — commercial launch is the next milestone after close',
             'Active newsletter + WhatsApp & Telegram community channels — warm audience ready to onboard',
             'Book written (pre-publication 2026); 7-episode proprietary audio library complete',
             '3 transformation challenges live; 5 more in pipeline — all 8 ready by Q1 2027',
@@ -649,7 +649,7 @@ function InvestorDeck() {
               {[
                 ['Clinically-supervised emotional nutrition AI', 'A vertical AI agent co-designed and continuously reviewed by a clinical professional. The underlying model is a general-purpose LLM (Anthropic Claude); the moat is the operational layer — the safety pipeline, the curation process, and the clinical expertise that shapes both. Competitors can buy the same model; they cannot buy 18 months of founder-embedded clinical review.'],
                 ['Proprietary functional recipes & gut–brain dataset', 'Fermentations, postbiotics, and mood-linked recipes curated from scientific expertise and early user outcomes. At 10,000+ users, this becomes a GDPR-compliant behavioural dataset — correlated food, mood, hormonal phase, and habit data — with no equivalent in Spanish-language women\'s health. That dataset is a licensable asset; no competitor is building it.'],
-                ['Regulation as a moat, not a risk', 'EU AI Act–ready safety architecture built from day one. Reviewed against MDCG 2025-4 (lifestyle vs. medical device classification): our claims and architecture stay on the wellness side. Competitors retrofitting safety into systems not designed for it will spend 18–24 months of legal and engineering work catching up — after the window to establish brand trust has closed.'],
+                ['Safety infrastructure as a structural advantage', 'Safety designed from day one, not as a retrofit. The product is positioned as a wellness/lifestyle companion with no diagnosis, no treatment claims and no clinical decision-making. We have reviewed MDCG 2025-4 as a reference framework; formal regulatory classification will be confirmed by specialised counsel before scale. Competitors building safety as an afterthought will face significantly higher friction as regulation matures.'],
               ].map(([label, text]) => (
                 <div key={label} style={{ paddingLeft: 12, borderLeft: '2px solid #E0EDE6' }}>
                   <p style={{ fontSize: 10, color: '#1A1612', fontWeight: 600, margin: 0 }}>{label}</p>

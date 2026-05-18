@@ -8,11 +8,11 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Retos de nutrición emocional · Postbióticos, sueño y hormonas | Food·Mood',
-  description: '8 retos guiados con IA personalizada: postbióticos, regulación del sistema nervioso, ritmo circadiano y equilibrio hormonal. Desde 19€, pago único.',
+  description: '8 programas guiados con IA personalizada: postbióticos, bienestar del sistema nervioso, ritmo circadiano y equilibrio hormonal. Desde 19€, pago único.',
   alternates: { canonical: 'https://www.food-mood.app/retos' },
   openGraph: {
     title: 'Retos de nutrición emocional — postbióticos, crononutrición y nervous system care',
-    description: '8 retos guiados con IA personalizada. Postbióticos, ritmo circadiano y regulación del sistema nervioso. Desde 19€, pago único.',
+    description: '8 programas guiados con IA personalizada. Postbióticos, ritmo circadiano y bienestar del sistema nervioso. Desde 19€, pago único.',
     url: 'https://www.food-mood.app/retos',
     type: 'website',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Retos de nutrición emocional Food·Mood' }],
@@ -60,9 +60,9 @@ const STATIC_CHALLENGES: Challenge[] = [
   { id: 's2', slug: 'reset-antiinflamatorio',  title: 'Reset antiinflamatorio con postbióticos · 7 días',                  subtitle: 'Postbióticos en acción: urolitinas, butirato, cúrcuma. Reset del eje intestino-cerebro en 7 días.',                                           description: null, category: 'Postbióticos',     duration_days: 7,  price_eur: 19, color: '#3F5A37', emoji: '🌿', recipe_count: 7,  audio_count: 7  },
   { id: 's3', slug: 'activa-tu-longevidad',    title: 'Activa tu longevidad · Urolitinas y polifenoles',                   subtitle: 'Hábitos respaldados por evidencia para sumar años con vida.',                                                                                   description: null, category: 'Longevidad',        duration_days: 10, price_eur: 19, color: '#7A3A20', emoji: '🌱', recipe_count: 10, audio_count: 4  },
   { id: 's4', slug: 'microhabitos',            title: 'Micro-prácticas diarias · 21 días sin rutinas rígidas',             subtitle: 'Micro-prácticas diarias de 20 minutos. Sin rutinas rígidas. Sin fuerza de voluntad.',                                                          description: null, category: 'Micro-prácticas',  duration_days: 21, price_eur: 29, color: '#243A5C', emoji: '✨', recipe_count: 21, audio_count: 5  },
-  { id: 's5', slug: 'slow-food-mood',          title: 'Slow Food·Mood: regulación del sistema nervioso en 21 días',        subtitle: 'La cocina lenta como práctica de regulación del sistema nervioso. Nervio vago, microbiota y calma en 21 días.',                                 description: null, category: 'Nervous system',   duration_days: 21, price_eur: 29, color: '#5A4570', emoji: '🍵', recipe_count: 21, audio_count: 7  },
+  { id: 's5', slug: 'slow-food-mood',          title: 'Slow Food·Mood: bienestar del sistema nervioso en 21 días',        subtitle: 'La cocina lenta como práctica de bienestar interior. Nervio vago, microbiota y calma en 21 días.',                                 description: null, category: 'Nervous system',   duration_days: 21, price_eur: 29, color: '#5A4570', emoji: '🍵', recipe_count: 21, audio_count: 7  },
   { id: 's6', slug: 'food-mood-reset',         title: 'Mental Fitness Reset · 21 días desde el plato',                    subtitle: 'Mental fitness desde el plato. 21 días de gimnasio mental — lo que Calm hace con la respiración, Food·Mood lo hace con tu microbiota.',         description: null, category: 'Mental fitness',   duration_days: 21, price_eur: 29, color: '#B14F31', emoji: '🧠', recipe_count: 21, audio_count: 21 },
-  { id: 's7', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal y estrobioma · Protocolo 28 días',              subtitle: 'Estrobioma y postbióticos: alimentación perimenopausia y menopausia. Fitoestrógenos, urolitinas y microbiota hormonal.',                        description: null, category: 'Postbióticos',     duration_days: 28, price_eur: 29, color: '#8C3F5C', emoji: '🌸', recipe_count: 28, audio_count: 8  },
+  { id: 's7', slug: 'equilibrio-hormonal-45',  title: 'Equilibrio hormonal y estrobioma · Programa 28 días',              subtitle: 'Estrobioma y postbióticos: alimentación perimenopausia y menopausia. Fitoestrógenos, urolitinas y microbiota hormonal.',                        description: null, category: 'Postbióticos',     duration_days: 28, price_eur: 29, color: '#8C3F5C', emoji: '🌸', recipe_count: 28, audio_count: 8  },
   { id: 's8', slug: 'mejora-tu-sueno',         title: 'Sueño circadiano: 4 semanas para resetear tu reloj biológico',     subtitle: 'Sincroniza tu ritmo circadiano: crononutrición, luz y sueño en 4 semanas. Qué comer y a qué hora para tu reloj biológico.',               description: null, category: 'Ritmo circadiano', duration_days: 28, price_eur: 29, color: '#D6B26C', emoji: '🌙', recipe_count: 28, audio_count: 4  },
 ]
 
@@ -269,7 +269,7 @@ export default async function RetosPage() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Retos de nutrición funcional Food·Mood',
-    description: 'Programas de neurogastronomía personalizada de 7 a 28 días: postbióticos, ritmo circadiano, regulación del sistema nervioso y equilibrio hormonal.',
+    description: 'Programas de nutrición emocional de 7 a 28 días: postbióticos, ritmo circadiano, bienestar del sistema nervioso y equilibrio hormonal.',
     url: 'https://www.food-mood.app/retos',
     numberOfItems: challenges.length,
     itemListElement: challenges.map((c, i) => ({
@@ -286,7 +286,7 @@ export default async function RetosPage() {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: '¿Qué es la neurogastronomía personalizada?',     acceptedAnswer: { '@type': 'Answer', text: 'La aplicación práctica de la ciencia del eje intestino-cerebro a tu biología concreta: postbióticos, fermentos y crononutrición adaptados a tu estado emocional real. Food·Mood traduce esa ciencia en recetas funcionales diarias.' } },
+      { '@type': 'Question', name: '¿Qué es la nutrición emocional personalizada?',     acceptedAnswer: { '@type': 'Answer', text: 'La aplicación práctica de la ciencia del eje intestino-cerebro a tu biología concreta: postbióticos, fermentos y crononutrición adaptados a tu estado emocional real. Food·Mood traduce esa ciencia en recetas funcionales diarias.' } },
       { '@type': 'Question', name: '¿Cómo funciona la IA personalizada de Food·Mood?', acceptedAnswer: { '@type': 'Answer', text: 'La IA analiza tu mezcla emocional, síntomas, energía y sueño para calcular tu índice intestino-cerebro y seleccionar la receta con mayor impacto para ese momento. Aprende de tus registros y adapta las recomendaciones en tiempo real.' } },
       { '@type': 'Question', name: '¿Necesito conocimientos de cocina?',              acceptedAnswer: { '@type': 'Answer', text: 'No. Todas las recetas son de 20-30 minutos, 5-7 ingredientes, adaptadas a tu nivel de energía del día. Si puedes hervir agua, puedes hacer cualquier receta de Food·Mood.' } },
       { '@type': 'Question', name: '¿Puedo cancelar cuando quiera?',                  acceptedAnswer: { '@type': 'Answer', text: 'Los retos son pago único — 19€ (7 días) o 29€ (4 semanas) — sin renovación automática. El plan premium mensual/trimestral se puede cancelar en cualquier momento desde el perfil, sin penalización.' } },
@@ -373,7 +373,7 @@ export default async function RetosPage() {
             className="text-[11px] font-light tracking-widest uppercase"
             style={{ color: 'rgba(242,234,211,0.25)', fontFamily: '"Inter Tight", sans-serif' }}
           >
-            food·mood · retos de transformación · desde 19€ · pago único · sin renovación automática
+            food·mood · programas · desde 19€ · pago único · sin renovación automática
           </p>
         </div>
 

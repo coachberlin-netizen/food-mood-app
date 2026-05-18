@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!data) return { title: 'Reto — Food·Mood' }
 
   const SLUG_TITLES: Record<string, string> = {
-    'slow-food-mood':         'Calmar la ansiedad con cocina lenta — Reto 21 días | Food·Mood',
+    'slow-food-mood':         'Cocina lenta para la calma interior — Programa 21 días | Food·Mood',
     'mejora-tu-sueno':        'Reto Circadiano — Mejora tu sueño en 4 semanas | Food·Mood',
     'reset-antiinflamatorio': 'Postbióticos antiinflamatorios — Reset intestinal 7 días | Food·Mood',
     'equilibrio-hormonal-45': 'Alimentación perimenopausia y menopausia — Reto 28 días | Food·Mood',
@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const rawDesc = data.subtitle ?? ''
   const description = rawDesc.toLowerCase().includes('reto')
     ? rawDesc
-    : `Reto de ${data.duration_days} días · ${data.price_eur}€ · ${rawDesc || 'Neurogastronomía personalizada basada en el eje intestino-cerebro.'}`
+    : `Programa de ${data.duration_days} días · ${data.price_eur}€ · ${rawDesc || 'Nutrición emocional basada en el eje intestino-cerebro.'}`
   const canonicalUrl = `https://www.food-mood.app/retos/${slug}`
 
   const SLUG_KEYWORDS: Record<string, string[]> = {

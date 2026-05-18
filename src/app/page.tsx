@@ -951,7 +951,7 @@ export default function Home() {
               </div>
 
               <p className="text-center text-[10px] font-light mt-5" style={{ color: "rgba(245,240,232,0.62)" }}>
-                Ejemplo basado en datos reales de usuarias del reto antiinflamatorio
+                Ejemplo ilustrativo basado en patrones esperados de seguimiento.
               </p>
             </motion.div>
 

@@ -153,7 +153,7 @@ const FAQS_BY_SLUG: Record<string, Array<{ q: string; a: string | React.ReactNod
   'equilibrio-hormonal-45': [
     {
       q: '¿Es para perimenopausia o también para SOP y tiroides?',
-      a: 'Para todos. El protocolo trabaja el estrobioma, los fitoestrógenos y la inflamación de bajo grado — mecanismos comunes a la perimenopausia, el SOP y el hipotiroidismo subclínico. Si tienes diagnóstico específico, los resultados pueden variar.',
+      a: 'Para todos. El programa trabaja el estrobioma, los fitoestrógenos y la inflamación de bajo grado — mecanismos relevantes en la perimenopausia, el SOP y el hipotiroidismo subclínico. Está diseñado como apoyo nutricional, no como tratamiento. Si tienes diagnóstico específico, consúltalo con tu equipo médico.',
     },
     {
       q: '¿Necesito hacerme análisis antes de empezar?',

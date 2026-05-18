@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Equilibrio hormonal después de los 45 | Food·Mood',
     description:
-      'Protocolo de 28 días de alimentación, microbiota y hábitos para acompañar la perimenopausia y el SOP. Basado en evidencia. 39€.',
+      'Programa de 28 días de alimentación, microbiota y hábitos para acompañar la perimenopausia y el SOP. Basado en evidencia. 39€.',
     url: CANONICAL,
     type: 'website',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Equilibrio hormonal después de los 45 — Food·Mood' }],

@@ -723,7 +723,7 @@ function MentalScene() {
       orbFruits={[{ e:'🫐',ph:0,spd:0.10 },{ e:'🥜',ph:2.09,spd:0.10 },{ e:'🍵',ph:4.19,spd:0.10 },{ e:'✨',ph:1.05,spd:0.16,sz:26 }]}
     >
       <div style={{ position:'absolute', left:80, top:110, opacity:Easing.easeOutCubic(t1) }}>
-        <div style={{ fontFamily:HV, fontSize:18, fontWeight:600, color:s.accent, letterSpacing:'0.04em', marginBottom:10 }}>🧠 21 días · salud mental</div>
+        <div style={{ fontFamily:HV, fontSize:18, fontWeight:600, color:s.accent, letterSpacing:'0.04em', marginBottom:10 }}>🧠 21 días · bienestar mental</div>
         <div style={{ fontFamily:HV, fontSize:54, fontWeight:900, color:CREAM, letterSpacing:'-0.04em', lineHeight:1.04, maxWidth:530 }}>
           21 días para resetear<br />tu mente a través<br />de la alimentación
         </div>

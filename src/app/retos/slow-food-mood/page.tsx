@@ -10,23 +10,23 @@ export const dynamic = 'force-dynamic'
 const CANONICAL = 'https://www.food-mood.app/retos/slow-food-mood'
 
 export const metadata: Metadata = {
-  title: 'Slow Food·Mood — 21 días para calmar la ansiedad | Food·Mood',
-  description: 'Reto de cocina lenta: 21 días para calmar la ansiedad. Fermentos, masas madre y caldos desde 29€. Mindfulness encarnado basado en evidencia.',
+  title: 'Slow Food·Mood — 21 días para cultivar la calma interior | Food·Mood',
+  description: 'Programa de cocina lenta: 21 días para cultivar la calma interior. Fermentos, masas madre y caldos desde 29€. Mindfulness encarnado basado en evidencia.',
   alternates: {
     canonical: CANONICAL,
     languages: { 'es': CANONICAL },
   },
   openGraph: {
-    title: 'Slow Food·Mood — 21 días para calmar la ansiedad',
-    description: 'Reto de cocina lenta: 21 días para calmar la ansiedad. Fermentos, masas madre y caldos desde 29€.',
+    title: 'Slow Food·Mood — 21 días para cultivar la calma interior',
+    description: 'Programa de cocina lenta: 21 días para cultivar la calma interior. Fermentos, masas madre y caldos desde 29€.',
     url: CANONICAL,
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Slow Food·Mood — reto de cocina lenta para calmar la ansiedad' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Slow Food·Mood — cocina lenta para cultivar la calma interior' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Slow Food·Mood — 21 días para calmar la ansiedad',
-    description: 'Reto de cocina lenta: 21 días para calmar la ansiedad. Fermentos, masas madre y caldos. Desde 29€.',
+    title: 'Slow Food·Mood — 21 días para cultivar la calma interior',
+    description: 'Programa de cocina lenta: 21 días para cultivar la calma interior. Fermentos, masas madre y caldos. Desde 29€.',
     images: ['/og-image.png'],
   },
 }
@@ -44,7 +44,7 @@ const INGREDIENTS = [
 const COMPARISON = [
   { feature: 'Foco',          reset: 'Lo que comes',              slow: 'Cómo cocinas' },
   { feature: 'Mecanismo',     reset: 'Nutrición funcional',       slow: 'Mindfulness encarnado' },
-  { feature: 'Sistema',       reset: 'Estado de ánimo general',   slow: 'Sistema nervioso / ansiedad' },
+  { feature: 'Sistema',       reset: 'Estado de ánimo general',   slow: 'Sistema nervioso / calma' },
   { feature: 'Acción diaria', reset: 'Comer una receta',          slow: 'Preparar algo que necesita tiempo' },
   { feature: 'Para quién',    reset: 'Quiero entender food·mood', slow: 'No puedo parar. Voy demasiado rápido.' },
 ]
@@ -73,7 +73,7 @@ export default async function SlowFoodMoodPage() {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: 'Slow Food·Mood',
-    description: 'Reto de cocina lenta para calmar la ansiedad y el sistema nervioso. Fermentos, masas madre y caldos como herramientas de mindfulness real.',
+    description: 'Programa de cocina lenta para cultivar la calma interior y apoyar el bienestar del sistema nervioso. Fermentos, masas madre y caldos como herramientas de mindfulness real.',
     url: CANONICAL,
     image: 'https://www.food-mood.app/og-image.png',
     brand: { '@type': 'Brand', name: 'Food·Mood' },
@@ -123,10 +123,10 @@ export default async function SlowFoodMoodPage() {
         {/* â”€â”€ HERO COPY + FIRST CTA â”€â”€ */}
         <section className="max-w-2xl mx-auto px-6 py-20 text-center" aria-labelledby="sfm-h1">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] block mb-6" style={{ color: 'rgba(107,39,55,0.4)' }}>
-            Ansiedad · Sistema nervioso · Estrés crónico
+            Calma · Sistema nervioso · Bienestar interior
           </span>
           <h1 id="sfm-h1" className="font-serif text-4xl md:text-5xl font-black mb-5 leading-tight" style={{ color: '#2d0f16' }}>
-            Cocina despacio.<br />Calma la ansiedad.
+            Cocina despacio.<br />Cultiva la calma.
           </h1>
           <p className="text-lg font-light leading-relaxed mb-4" style={{ color: 'rgba(107,39,55,0.65)' }}>
             En 21 días, aprenderás que el tiempo no es el enemigo. Es la herramienta.
@@ -143,7 +143,7 @@ export default async function SlowFoodMoodPage() {
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>El problema</p>
             <h2 id="sfm-problema" className="font-serif text-2xl md:text-3xl font-bold mb-6 leading-tight" style={{ color: '#F5F0E8' }}>
-              La ansiedad no se cura<br />con más información.
+              El bienestar no llega<br />con más información.
             </h2>
             <p className="text-base font-light leading-relaxed" style={{ color: 'rgba(245,240,232,0.7)' }}>
               Sabes perfectamente que deberías respirar más, dormir mejor, ir más despacio. Lo sabes. Y aun así, no puedes. Porque el conocimiento solo no cambia los hábitos. Lo que cambia los hábitos es la experiencia repetida, sensorial, que deja huella en el cuerpo.
@@ -324,7 +324,7 @@ export default async function SlowFoodMoodPage() {
               ¿Listo para ir más despacio?
             </h2>
             <p className="text-base font-light mb-6 leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
-              21 días. Una preparación al día. Y la ansiedad empieza a tener otro ritmo.
+              21 días. Una preparación al día. Y la calma empieza a tener otro ritmo.
             </p>
 
             <SlowFoodMoodCTA
