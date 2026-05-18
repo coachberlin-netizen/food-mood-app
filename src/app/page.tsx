@@ -994,6 +994,66 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 4e. NO ES UNA IA GENÉRICA ──────────────────────────────────────── */}
+      <section aria-label="La inteligencia detrás de Food·Mood" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+
+            <motion.div
+              initial="hidden" whileInView="visible" viewport={{ once: true }}
+              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+              className="space-y-5"
+            >
+              <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
+                Base de conocimiento propia
+              </motion.p>
+              <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
+                No es una IA genérica.
+              </motion.h2>
+              <motion.p variants={fade} className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
+                Food·Mood no responde solo con recetas. Interpreta tu check-in diario desde una base de conocimiento especializada en nutrición emocional, microbiota, crononutrición, interocepción y hábitos.
+              </motion.p>
+              <motion.p variants={fade} className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
+                Cuando eliges <em>Calma</em>, <em>Foco</em> o <em>Restauración</em>, la app no lo toma como una etiqueta fija. Lo lee como una dirección: qué necesita tu cuerpo para enviar mejores señales a tu cerebro.
+              </motion.p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <div
+                className="rounded-2xl p-6 space-y-4"
+                style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em]" style={{ color: "rgba(201,168,76,0.7)" }}>
+                  Después, te propone
+                </p>
+                {[
+                  "Una receta funcional",
+                  "Un micro-ritual",
+                  "Una explicación sencilla del porqué",
+                  "Una recomendación adaptada a tu momento",
+                ].map(item => (
+                  <div key={item} className="flex items-start gap-3">
+                    <span
+                      className="w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"
+                      style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+                    >→</span>
+                    <span className="text-sm font-light" style={{ color: "rgba(245,240,232,0.75)" }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[11px] font-light tracking-wide" style={{ color: "rgba(245,240,232,0.28)" }}>
+                Sin diagnóstico. Sin promesas médicas. Sin culpa.
+              </p>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── 5. LOS RETOS ────────────────────────────────────────────────────── */}
       <section aria-label="Programas Food·Mood" style={{ backgroundColor: "#0b0b0a" }}>
         <RetosAnimation />
