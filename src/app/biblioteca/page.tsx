@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   openGraph: {
     title: 'Biblioteca Científica — Food·Mood',
-    description: '193 fragmentos científicos curados por nuestro equipo.',
+    description: '215 fragmentos científicos curados por nuestro equipo.',
     url: 'https://www.food-mood.app/biblioteca',
   },
 }
@@ -784,6 +784,67 @@ const biblioteca: Seccion[] = [
     ],
   },
   {
+    categoria: 'Perimenopausia — Enfoque Integrativo',
+    descripcion: 'Progesterona, histamina, detox estrogénico, suplementos y la perimenopausia como segunda pubertad.',
+    items: [
+      {
+        autores: 'Briden, L.',
+        ano: 2021,
+        titulo: 'Hormone Repair Manual: Every Woman\'s Guide to Healthy Hormones After 40',
+        revista: 'Pan Macmillan',
+        isbn: '978-1760983130',
+        url: 'https://www.larabriden.com/hormone-repair-manual/',
+        relevancia: 'Manual clínico sobre perimenopausia desde enfoque integrativo. Marco "segunda pubertad", rol central de la progesterona, histamina-estrógenos, suplementos con evidencia y metabolismo de estrógenos en tres fases. Referencia central del KB #10.',
+        usadoEn: ['KB perimenopausia', 'Reto Hormonal', 'Asesor Personal'],
+      },
+      {
+        autores: 'Briden, L.',
+        ano: 2024,
+        titulo: 'Period Repair Manual: Natural Treatment for Better Hormones and Better Periods',
+        revista: 'Greenpeak Publishing',
+        volumen: '4ª ed.',
+        isbn: '978-0648352761',
+        url: 'https://www.larabriden.com/period-repair-manual/',
+        relevancia: 'Complemento del Hormone Repair Manual para mujeres en perimenopausia temprana con ciclos aún presentes. Tratamiento integrativo de síndrome premenstrual, PCOS, endometriosis y dismenorrea.',
+        usadoEn: ['KB perimenopausia', 'Asesor Personal'],
+      },
+      {
+        autores: 'Mosconi, L.',
+        ano: 2020,
+        titulo: 'The XX Brain: The Groundbreaking Science Empowering Women to Prevent Dementia',
+        revista: 'Avery / Penguin Random House',
+        isbn: '978-0525534358',
+        url: 'https://www.lisamosconi.com/the-xx-brain',
+        relevancia: 'Neurociencia del cerebro femenino en la transición menopáusica: el estradiol como neuroprotector, ventana de oportunidad HRT, cambios metabólicos cerebrales visibles en neuroimagen, y estrategias de reducción de riesgo Alzheimer. Base del concepto "neuroplasticidad selectiva post-menopausia".',
+        usadoEn: ['KB perimenopausia', 'KB longevidad', 'Asesor Personal'],
+      },
+      {
+        autores: 'Maintz, L. & Novak, N.',
+        ano: 2007,
+        titulo: 'Histamine and histamine intolerance',
+        revista: 'American Journal of Clinical Nutrition',
+        volumen: '85(5)',
+        paginas: '1185–1196',
+        doi: '10.1093/ajcn/85.5.1185',
+        url: 'https://doi.org/10.1093/ajcn/85.5.1185',
+        relevancia: 'Revisión exhaustiva de la intolerancia a la histamina: mecanismos DAO, fuentes alimentarias, síntomas y tratamiento. Base de la recomendación de fermentos jóvenes y DAO oral en mujeres perimenopáusicas con sospecha de intolerancia.',
+        usadoEn: ['KB perimenopausia', 'Fermentos', 'Asesor Personal'],
+      },
+      {
+        autores: 'Davis, S.R., et al.',
+        ano: 2019,
+        titulo: 'Global Consensus Position Statement on the Use of Testosterone Therapy for Women',
+        revista: 'Journal of Clinical Endocrinology & Metabolism',
+        volumen: '104(10)',
+        paginas: '4660–4666',
+        doi: '10.1210/jc.2019-01603',
+        url: 'https://doi.org/10.1210/jc.2019-01603',
+        relevancia: 'Consenso internacional sobre testosterona en mujeres: indicaciones, dosificación, evidencia de eficacia en HSDD y seguridad. Base del enfoque "el agente informa, no prescribe" sobre testosterona femenina.',
+        usadoEn: ['KB perimenopausia', 'Asesor Personal'],
+      },
+    ],
+  },
+  {
     categoria: 'Salud Hormonal Femenina y Estrobioma',
     descripcion: 'Fitoestrógenos, estrobioma, glucemia y omega-3 en perimenopausia y menopausia.',
     items: [
@@ -876,7 +937,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Biblioteca Científica — Food·Mood',
   description:
-    '193 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+    '215 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   url: 'https://www.food-mood.app/biblioteca',
   author: {
     '@type': 'Person',
@@ -910,7 +971,7 @@ export default function BibliotecaPage() {
             (exit estratégico, 2023).
           </p>
           <p className="text-xs mt-4" style={{ color: 'rgba(26,22,18,0.35)' }}>
-            {totalRefs} publicaciones · 193 fragmentos vectorizados · actualizado Mayo 2026
+            {totalRefs} publicaciones · 215 fragmentos vectorizados · actualizado Mayo 2026
           </p>
         </header>
 
