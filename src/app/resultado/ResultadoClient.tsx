@@ -29,9 +29,9 @@ const MOOD_DESCRIPTIONS: Record<string, string> = {
 const MOOD_MAP: Record<string, string> = {
   activacion: "Activación",
   calma: "Calma",
-  focus: "Focus",
+  focus: "Foco",
   social: "Social",
-  reset: "Reset",
+  reset: "Restauración",
   familia: "Familia",
 };
 

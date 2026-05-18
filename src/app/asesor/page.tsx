@@ -14,9 +14,9 @@ import type { AgentResponse } from "@/agent/schema"
 const MOODS = [
   { id: "Activación", label: "Activación" },
   { id: "Calma",      label: "Calma" },
-  { id: "Focus",      label: "Focus" },
+  { id: "Focus",      label: "Foco" },
   { id: "Social",     label: "Social" },
-  { id: "Reset",      label: "Reset" },
+  { id: "Reset",      label: "Restauración" },
   { id: "Confort",    label: "Confort" },
 ]
 

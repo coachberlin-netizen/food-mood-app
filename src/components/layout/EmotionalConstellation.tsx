@@ -18,9 +18,9 @@ function blendColors(c1: string, c2: string, t: number): string {
 const nodes = [
   { id: "activacion", name: "Activación", color: "#C9A84C", x: 12, y: 18, icon: "citrus", phase: 0   },
   { id: "calma",      name: "Calma",      color: "#7FBFAA", x: 88, y: 12, icon: "lotus",  phase: 1.0 },
-  { id: "focus",      name: "Focus",      color: "#9BB8D4", x: 50, y: 48, icon: "gem",    phase: 2.0 },
-  { id: "social",     name: "Social",     color: "#C87F9A", x: 92, y: 82, icon: "bloom",  phase: 3.0 },
-  { id: "reset",      name: "Reset",      color: "#9B7EC8", x: 15, y: 88, icon: "fern",   phase: 4.0 },
+  { id: "focus",      name: "Foco",         color: "#9BB8D4", x: 50, y: 48, icon: "gem",    phase: 2.0 },
+  { id: "social",     name: "Social",       color: "#C87F9A", x: 92, y: 82, icon: "bloom",  phase: 3.0 },
+  { id: "reset",      name: "Restauración", color: "#9B7EC8", x: 15, y: 88, icon: "fern",   phase: 4.0 },
   { id: "confort",    name: "Confort",    color: "#C49060", x:  6, y: 52, icon: "fig",    phase: 5.0 },
 ]
 

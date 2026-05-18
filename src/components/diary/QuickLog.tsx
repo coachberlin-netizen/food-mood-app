@@ -13,9 +13,9 @@ interface QuickLogProps {
 const MOODS = [
   { id: 'activacion', label: 'Activación', color: '#E8A87C' },
   { id: 'calma',      label: 'Calma',      color: '#7EC8C8' },
-  { id: 'focus',      label: 'Focus',      color: '#F4E285' },
-  { id: 'social',     label: 'Social',     color: '#F4A7B9' },
-  { id: 'reset',      label: 'Reset',      color: '#B8A9C9' },
+  { id: 'focus',      label: 'Foco',         color: '#F4E285' },
+  { id: 'social',     label: 'Social',       color: '#F4A7B9' },
+  { id: 'reset',      label: 'Restauración', color: '#B8A9C9' },
   { id: 'confort',    label: 'Confort',    color: '#D4A574' },
 ];
 

@@ -33,7 +33,7 @@ const MOODS: MoodDetail[] = [
   },
   {
     id: "focus",
-    nombre: "Focus",
+    nombre: "Foco",
     color: "#4A7AB5",
     microText: "Tu cerebro quiere rendir. Hay alimentos que le dan exactamente lo que necesita para no fallar.",
     neurotransmitters: "Memoria + concentración",
@@ -49,7 +49,7 @@ const MOODS: MoodDetail[] = [
   },
   {
     id: "reset",
-    nombre: "Reset",
+    nombre: "Restauración",
     color: "#7A5AAA",
     microText: "Necesitas parar. Tu cuerpo lo sabe antes que tú — hay alimentos que lo ayudan a soltar.",
     neurotransmitters: "Limpieza celular + antiinflamación",

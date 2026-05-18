@@ -8,9 +8,9 @@ import { Loader2 } from "lucide-react";
 const MOOD_OPTIONS = [
   { id: "energia", label: "Energía", emoji: "⚡", color: "#D97706" },
   { id: "calma",   label: "Calma",   emoji: "🌿", color: "#6B8E6B" },
-  { id: "focus",   label: "Focus",   emoji: "🎯", color: "#0D9488" },
-  { id: "social",  label: "Social",  emoji: "🤝", color: "#BE185D" },
-  { id: "reset",   label: "Reset",   emoji: "🔄", color: "#65A30D" },
+  { id: "focus",   label: "Foco",         emoji: "🎯", color: "#0D9488" },
+  { id: "social",  label: "Social",       emoji: "🤝", color: "#BE185D" },
+  { id: "reset",   label: "Restauración", emoji: "🔄", color: "#65A30D" },
   { id: "confort",  label: "Confort",  emoji: "🛋️", color: "#D4956A" },
 ];
 

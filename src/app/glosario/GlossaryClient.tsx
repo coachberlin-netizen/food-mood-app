@@ -45,9 +45,9 @@ const MOOD_COLORS: Record<string, { color: string, bg: string }> = {
 const MOODS = [
   { id: "activacion", label: "Activación" },
   { id: "calma", label: "Calma" },
-  { id: "focus", label: "Focus" },
+  { id: "focus", label: "Foco" },
   { id: "social", label: "Social" },
-  { id: "reset", label: "Reset" },
+  { id: "reset", label: "Restauración" },
   { id: "confort", label: "Confort" },
 ];
 

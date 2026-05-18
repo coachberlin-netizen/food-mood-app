@@ -179,7 +179,7 @@ function PaletaScreen() {
       <div className="flex flex-col gap-3 mb-4">
         {[
           { label: "Calma", pct: 68, color: "#5A9B8A" },
-          { label: "Focus", pct: 32, color: "#4A7AB5" },
+          { label: "Foco", pct: 32, color: "#4A7AB5" },
           { label: "Energía", pct: 18, color: "#C9A84C" },
         ].map(b => (
           <div key={b.label}>

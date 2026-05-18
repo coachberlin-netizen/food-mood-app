@@ -25,9 +25,9 @@ const MOOD_COLOR_MAP: Record<string, string> = {
 const MOOD_LABELS: Record<string, string> = {
   activacion: 'Activación',
   calma:      'Calma',
-  focus:      'Focus',
+  focus:      'Foco',
   social:     'Social',
-  reset:      'Reset',
+  reset:      'Restauración',
   confort:    'Confort'
 };
 
