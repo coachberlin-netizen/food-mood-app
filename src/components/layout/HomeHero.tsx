@@ -255,7 +255,7 @@ export default function HomeHero() {
             <div className="hero-fade-up-1" style={{ display:"inline-flex",alignItems:"center",gap:"10px",marginBottom:"28px" }}>
               <span style={{ width:"6px",height:"6px",borderRadius:"50%",background:GOLD_LIGHT,display:"inline-block",flexShrink:0 }} />
               <span style={{ fontFamily:"sans-serif",fontWeight:400,fontSize:"11px",letterSpacing:"0.28em",color:GOLD_LIGHT,textTransform:"uppercase" }}>
-                Test gratuito · 2 minutos
+                Asesor Personal · IA
               </span>
             </div>
 
@@ -278,21 +278,31 @@ export default function HomeHero() {
             {/* CTAs */}
             <div className="hero-fade-up-5" style={{ marginTop:"36px",display:"flex",flexDirection:"column",gap:"14px",alignItems:"flex-start" }}>
               <Link
-                href="/test"
+                href="/checkout"
                 style={{ fontFamily:"sans-serif",fontWeight:500,fontSize:"13px",letterSpacing:"0.18em",textTransform:"uppercase",color:BURG_DEEP,background:GOLD_LIGHT,padding:"16px 36px",display:"inline-block",textDecoration:"none",transition:"background .25s",borderRadius:"2px" }}
                 onMouseEnter={e => (e.currentTarget.style.background = CREAM)}
                 onMouseLeave={e => (e.currentTarget.style.background = GOLD_LIGHT)}
               >
-                Descubre tu estado ahora →
+                Empieza tu membresía →
               </Link>
-              <a
-                href="#como-funciona"
-                style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(245,237,224,.4)",textDecoration:"none",display:"flex",alignItems:"center",gap:"6px",transition:"color .25s" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,237,224,.75)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,237,224,.4)")}
-              >
-                Ver cómo funciona ↓
-              </a>
+              <div style={{ display:"flex",flexDirection:"column",gap:"8px",alignItems:"flex-start" }}>
+                <a
+                  href="#como-funciona"
+                  style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(245,237,224,.4)",textDecoration:"none",transition:"color .25s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,237,224,.75)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,237,224,.4)")}
+                >
+                  Ver cómo funciona ↓
+                </a>
+                <Link
+                  href="/test"
+                  style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"10px",letterSpacing:"0.18em",color:"rgba(245,237,224,.28)",textDecoration:"none",transition:"color .25s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,237,224,.55)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,237,224,.28)")}
+                >
+                  o descubre tu estado emocional gratis
+                </Link>
+              </div>
             </div>
 
           </div>
