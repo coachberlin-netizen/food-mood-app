@@ -96,7 +96,9 @@ REGLAS: Sin "¡" ni emojis en el texto. Máximo 700 tokens.`
       .map(b => b.text)
       .join('')
 
-    const informe = JSON.parse(rawText)
+    // Strip markdown code fences the model sometimes wraps around JSON
+    const cleanJson = rawText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim()
+    const informe = JSON.parse(cleanJson)
 
     await supabase
       .from('reto_informes')

@@ -162,11 +162,15 @@ export const useQuizStore = create<QuizState>()(
         if (isDone && finalMoodVal) {
           trackEvent({ name: "quiz_completed" });
           (async () => {
-            const supabase = createClient();
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-              await supabase.from('mood_entries').insert({ user_id: session.user.id, mood_id: finalMoodVal });
-              await supabase.from('quiz_results').insert({ user_id: session.user.id, result_mood: finalMoodVal });
+            try {
+              const supabase = createClient();
+              const { data: { session } } = await supabase.auth.getSession();
+              if (session?.user) {
+                await supabase.from('mood_entries').insert({ user_id: session.user.id, mood_id: finalMoodVal });
+                await supabase.from('quiz_results').insert({ user_id: session.user.id, result_mood: finalMoodVal });
+              }
+            } catch (err) {
+              console.error('[quiz] Error saving mood entry:', err);
             }
           })();
         }
@@ -193,11 +197,15 @@ export const useQuizStore = create<QuizState>()(
           });
 
           (async () => {
-            const supabase = createClient();
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-              await supabase.from('mood_entries').insert({ user_id: session.user.id, mood_id: winner });
-              await supabase.from('quiz_results').insert({ user_id: session.user.id, result_mood: winner });
+            try {
+              const supabase = createClient();
+              const { data: { session } } = await supabase.auth.getSession();
+              if (session?.user) {
+                await supabase.from('mood_entries').insert({ user_id: session.user.id, mood_id: winner });
+                await supabase.from('quiz_results').insert({ user_id: session.user.id, result_mood: winner });
+              }
+            } catch (err) {
+              console.error('[quiz] Error saving result mood:', err);
             }
           })();
         }

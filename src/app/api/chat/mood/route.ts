@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
     const anthropic = new Anthropic({ apiKey })
 
     const response = await anthropic.messages.create({
-      model: 'claude-haiku-4-5',
+      model: 'claude-haiku-4-5-20251001',
       max_tokens: 600,
       system: getSystemPrompt(userTier),
       messages: messages.map((m: { role: string; content: string }) => ({
@@ -167,7 +167,7 @@ export async function POST(req: NextRequest) {
 
         // Guardo el estado emocional (mood) más reciente para analítica rápida
         if (userId) {
-          mainSupabase
+          await serverSupabase
             .from('profiles')
             .update({
               last_mood: detectedMood,
