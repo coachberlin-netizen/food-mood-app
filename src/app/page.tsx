@@ -469,7 +469,7 @@ export default function Home() {
                         { number: "90%", label: "de tu serotonina se produce en el intestino" },
                         { number: "90 días", label: "el ciclo real de cambio del microbioma" },
                         { number: "20 min", label: "de media por receta" },
-                        { number: "7 días", label: "para sentir los primeros cambios" },
+                        { number: "7 días", label: "en los que muchos usuarios empiezan a notar algo" },
                       ].map(({ number, label }) => (
                         <div key={number} className="rounded-2xl p-4 flex flex-col gap-1.5" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
                           <dt className="font-serif text-2xl font-black" style={{ color: "#C9A84C" }}>{number}</dt>
