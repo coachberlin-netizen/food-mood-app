@@ -335,7 +335,7 @@ function InvestorDeck() {
             <div style={{ background: '#F0EDE4', border: '1px solid #E0EDE6', borderLeft: '3px solid #3A8C62', borderRadius: '0 4px 4px 0', padding: '12px 14px', marginTop: 16 }}>
               <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5A4E48', marginBottom: 6 }}>What the knowledge base is — and what it is not</p>
               <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 6 }}>
-                The AI is grounded in a proprietary, curated knowledge base: <strong style={{ color: '#1A1612' }}>12 specialist documents, 248 vectorised fragments</strong> covering the gut-brain axis (Cryan, Dinan, Mayer), psychobiotics, chrononutrition (Panda), psiconeuroinmunología, constructed emotion theory (Feldman Barrett), perimenopause (Briden) and menopause (Haver). Built from scientific literature, founder-authored frameworks and structured evidence tiers — not trained on commercial books or generic wellness content.
+                The AI is grounded in a proprietary, curated knowledge base: <strong style={{ color: '#1A1612' }}>14 specialist documents, 255 vectorised fragments</strong> covering the gut-brain axis (Cryan, Dinan, Mayer), psychobiotics, chrononutrition (Panda), psiconeuroinmunología, constructed emotion theory (Feldman Barrett), perimenopause (Briden) and menopause (Haver). Built from scientific literature, founder-authored frameworks and structured evidence tiers — not trained on commercial books or generic wellness content.
               </p>
               <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65, marginBottom: 0 }}>
                 The knowledge base is the reason the AI can explain <em>why</em> — not just suggest what.
@@ -870,7 +870,7 @@ May 2026 · Confidential
 ━━ CONTENT & COMMUNITY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 — Active newsletter + WhatsApp & Telegram communities — warm audience primed for launch
 — Demand validated through founder coaching practice (Umyko wellness community, paying clients)
-— 24 newsletter editions published; proprietary RAG knowledge base: 12 specialist documents, 248 vectorised fragments covering gut-brain axis, psychobiotics, chrononutrition, constructed emotion, PNI, perimenopause and menopause
+— 24 newsletter editions published; proprietary RAG knowledge base: 14 specialist documents, 255 vectorised fragments covering gut-brain axis, psychobiotics, chrononutrition, constructed emotion, PNI, perimenopause and menopause
 
 ━━ GO-TO-MARKET STATUS (INTENTIONAL PRE-LAUNCH) ━━━━━━━━━━━━
 — Scaling begins post-funding close — infrastructure ready, no premature growth spend
@@ -919,7 +919,7 @@ const BULLETS: Array<{ label: string; items: string[] }> = [
     items: [
       'Active newsletter + WhatsApp & Telegram communities — warm audience primed for launch',
       'Demand validated through founder coaching practice (Umyko wellness community, paying clients)',
-      '24 newsletter editions published; proprietary RAG knowledge base: 12 specialist documents, 248 vectorised fragments (gut-brain axis, psychobiotics, chrononutrition, perimenopause, menopause, constructed emotion, PNI)',
+      '24 newsletter editions published; proprietary RAG knowledge base: 14 specialist documents, 255 vectorised fragments (gut-brain axis, psychobiotics, chrononutrition, perimenopause, menopause, constructed emotion, PNI)',
     ],
   },
   {

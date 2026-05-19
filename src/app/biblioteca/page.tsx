@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   openGraph: {
     title: 'Biblioteca Científica — Food·Mood',
-    description: '248 fragmentos científicos curados por nuestro equipo.',
+    description: '255 fragmentos científicos curados por nuestro equipo.',
     url: 'https://www.food-mood.app/biblioteca',
   },
 }
@@ -1007,6 +1007,113 @@ const biblioteca: Seccion[] = [
     ],
   },
   {
+    categoria: 'Alimentación Intuitiva y Marco Anti-Dieta',
+    descripcion: 'La evidencia detrás del enfoque peso-inclusivo que fundamenta el guardrail ético del Asesor Personal.',
+    items: [
+      {
+        autores: 'Tribole, E. y Resch, E.',
+        ano: 2020,
+        titulo: 'Intuitive Eating: A Revolutionary Anti-Diet Approach (4.ª ed.)',
+        revista: "St. Martin's Essentials",
+        isbn: '978-1250255907',
+        url: 'https://www.intuitiveeating.org',
+        relevancia: 'Marco clínico de referencia para la relación saludable con la comida. 10 principios respaldados por más de 125 estudios. Base del guardrail anti-dieta del agente y de todos los casos QA de conducta compensatoria.',
+        usadoEn: ['Asesor Personal', 'Safety guardrail', 'KB alimentación intuitiva'],
+      },
+      {
+        autores: 'Tylka, T.L. y Kroon Van Diest, A.M.',
+        ano: 2013,
+        titulo: 'The Intuitive Eating Scale–2: Item refinement and psychometric evaluation',
+        revista: 'Journal of Counseling Psychology',
+        volumen: '60(1)',
+        paginas: '137–153',
+        doi: '10.1037/a0030893',
+        url: 'https://doi.org/10.1037/a0030893',
+        relevancia: 'Escala validada de alimentación intuitiva. Correlaciones con imagen corporal, bienestar, y marcadores metabólicos.',
+        usadoEn: ['KB alimentación intuitiva'],
+      },
+      {
+        autores: 'Van Dyke, N. y Drinkwater, E.J.',
+        ano: 2014,
+        titulo: 'Relationships between intuitive eating and health indicators: literature review',
+        revista: 'Public Health Nutrition',
+        volumen: '17(8)',
+        paginas: '1757–1766',
+        doi: '10.1017/S1368980013002139',
+        url: 'https://doi.org/10.1017/S1368980013002139',
+        relevancia: 'Revisión sistemática: alimentación intuitiva se asocia con menor TCA, mejor imagen corporal y marcadores metabólicos más favorables que las intervenciones centradas en el peso.',
+        usadoEn: ['KB alimentación intuitiva'],
+      },
+      {
+        autores: 'Bacon, L. y Aphramor, L.',
+        ano: 2011,
+        titulo: 'Weight Science: Evaluating the Evidence for a Paradigm Shift',
+        revista: 'Nutrition Journal',
+        volumen: '10',
+        paginas: '9',
+        doi: '10.1186/1475-2891-10-9',
+        url: 'https://doi.org/10.1186/1475-2891-10-9',
+        relevancia: 'Revisión crítica de la evidencia sobre dietas de pérdida de peso. Argumenta que el modelo centrado en el peso genera más daño que beneficio. Base del marco HAES (Health at Every Size).',
+        usadoEn: ['KB alimentación intuitiva', 'Safety guardrail'],
+      },
+    ],
+  },
+  {
+    categoria: 'Serotonina Intestinal y Metabolismo del Triptófano',
+    descripcion: 'El mecanismo molecular por el que la microbiota regula la serotonina periférica y el estado de ánimo.',
+    items: [
+      {
+        id: 'yano-2015-cell',
+        autores: 'Yano, J.M., et al.',
+        ano: 2015,
+        titulo: 'Indigenous Bacteria from the Gut Microbiota Regulate Host Serotonin Biosynthesis',
+        revista: 'Cell',
+        volumen: '161(2)',
+        paginas: '264–276',
+        doi: '10.1016/j.cell.2015.02.047',
+        url: 'https://doi.org/10.1016/j.cell.2015.02.047',
+        relevancia: 'Paper fundacional: bacterias esporuladas (Clostridia) producen SCFAs que activan Tph1 en células enterocromafines, regulando el 90-95% de la serotonina corporal. Vincula fibra fermentable → microbiota → serotonina periférica de forma causal.',
+        usadoEn: ['Home', 'KB serotonina enterocromafín', 'Asesor Personal'],
+      },
+      {
+        autores: 'Reigstad, C.S., et al.',
+        ano: 2015,
+        titulo: 'Gut microbes promote colonic serotonin production through an effect of short-chain fatty acids on enterochromaffin cells',
+        revista: 'FASEB Journal',
+        volumen: '29(4)',
+        paginas: '1395–1403',
+        doi: '10.1096/fj.14-259598',
+        url: 'https://doi.org/10.1096/fj.14-259598',
+        relevancia: 'Confirmación independiente del mecanismo SCFA → células enterocromafines → serotonina en modelo animal y humano.',
+        usadoEn: ['KB serotonina enterocromafín'],
+      },
+      {
+        autores: 'O\'Mahony, S.M., et al.',
+        ano: 2015,
+        titulo: 'Serotonin, tryptophan metabolism and the brain-gut-microbiome axis',
+        revista: 'Behavioural Brain Research',
+        volumen: '277',
+        paginas: '32–48',
+        doi: '10.1016/j.bbr.2014.07.027',
+        url: 'https://doi.org/10.1016/j.bbr.2014.07.027',
+        relevancia: 'Marco completo del metabolismo del triptófano: vía serotonina vs vía kinurenina vs vía indoles. Base del concepto "cortocircuito del triptófano" cuando hay inflamación crónica.',
+        usadoEn: ['KB serotonina enterocromafín', 'Asesor Personal'],
+      },
+      {
+        autores: 'Agus, A., Planchais, J. y Sokol, H.',
+        ano: 2018,
+        titulo: 'Gut Microbiota Regulation of Tryptophan Metabolism in Health and Disease',
+        revista: 'Cell Host & Microbe',
+        volumen: '23(6)',
+        paginas: '716–724',
+        doi: '10.1016/j.chom.2018.05.003',
+        url: 'https://doi.org/10.1016/j.chom.2018.05.003',
+        relevancia: 'Revisión mecanicista de las tres vías del triptófano (serotonina, kinurenina, indoles) y el papel de la microbiota en el equilibrio entre ellas. Marco de referencia para inflamación y depresión.',
+        usadoEn: ['KB serotonina enterocromafín'],
+      },
+    ],
+  },
+  {
     categoria: 'Músculo, Huesos y Longevidad',
     descripcion: 'Nutrición estructural para la segunda mitad de la vida.',
     items: [
@@ -1045,7 +1152,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Biblioteca Científica — Food·Mood',
   description:
-    '248 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+    '255 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   url: 'https://www.food-mood.app/biblioteca',
   author: {
     '@type': 'Person',
@@ -1079,7 +1186,7 @@ export default function BibliotecaPage() {
             (exit estratégico, 2023).
           </p>
           <p className="text-xs mt-4" style={{ color: 'rgba(26,22,18,0.35)' }}>
-            {totalRefs} publicaciones · 248 fragmentos vectorizados · actualizado Mayo 2026
+            {totalRefs} publicaciones · 255 fragmentos vectorizados · actualizado Mayo 2026
           </p>
         </header>
 
