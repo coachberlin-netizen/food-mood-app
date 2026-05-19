@@ -15,8 +15,8 @@ const RETOS = [
   { Icon: Flame,       category: "Postbióticos",     color: "#5A9B8A", duration: "7 días",    title: "Reset antiinflamatorio con postbióticos", price: 19, slug: "reset-antiinflamatorio" },
   { Icon: Sprout,      category: "Longevidad",       color: "#2D6B55", duration: "10 días",   title: "Activa tu longevidad · Urolitinas",        price: 19, slug: "activa-tu-longevidad"   },
   { Icon: Sparkles,    category: "Micro-prácticas",  color: "#C9A84C", duration: "21 días",   title: "Micro-prácticas diarias · 21 días",        price: 29, slug: "microhabitos"           },
-  { Icon: Wind,        category: "Nervous system",   color: "#4A7B6B", duration: "21 días",   title: "Slow Food·Mood: sistema nervioso",         price: 29, slug: "slow-food-mood"         },
-  { Icon: Brain,       category: "Mental fitness",   color: "#4A7AB5", duration: "21 días",   title: "Mental Fitness Reset",                     price: 29, slug: "food-mood-reset"        },
+  { Icon: Wind,        category: "Sistema nervioso", color: "#4A7B6B", duration: "21 días",   title: "Slow Food·Mood: sistema nervioso",         price: 29, slug: "slow-food-mood"         },
+  { Icon: Brain,       category: "Mente y foco",     color: "#4A7AB5", duration: "21 días",   title: "Mental Fitness Reset",                     price: 29, slug: "food-mood-reset"        },
   { Icon: Flower2,     category: "Hormonas",         color: "#C04878", duration: "28 días",   title: "Equilibrio hormonal y estrobioma",          price: 29, slug: "equilibrio-hormonal-45" },
   { Icon: Moon,        category: "Ritmo circadiano", color: "#4A7AB5", duration: "4 semanas", title: "Sueño circadiano · Reloj biológico",       price: 29, slug: "mejora-tu-sueno"        },
 ]
@@ -573,9 +573,9 @@ export default function Home() {
                     <div className="px-7 py-5 border-b" style={{ backgroundColor: "white", borderColor: "rgba(107,39,55,0.07)" }}>
                       <div className="flex flex-col gap-3">
                         {[
-                          { mol: "GABA", fuente: "Miso (fermentado)", efecto: "Inhibe la sobreactivación neuronal. Mismo mecanismo que los ansiolíticos, sin receta." },
+                          { mol: "GABA", fuente: "Miso (fermentado)", efecto: "Principal neurotransmisor inhibidor del sistema nervioso. El intestino fermentado activa su producción local vía el eje intestino-cerebro." },
                           { mol: "Magnesio", fuente: "Aguacate", efecto: "Cofactor de más de 300 reacciones nerviosas. El estrés lo depleta primero." },
-                          { mol: "Glicina", fuente: "Sésamo tostado", efecto: "Aminoácido inhibidor que ralentiza las señales de alerta en el tálamo." },
+                          { mol: "Glicina", fuente: "Sésamo tostado", efecto: "Aminoácido inhibidor que contribuye a calmar la respuesta de estrés del sistema nervioso." },
                         ].map(({ mol, fuente, efecto }) => (
                           <div key={mol} className="flex items-start gap-3">
                             <span className="shrink-0 mt-0.5 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(90,155,138,0.1)", color: "#4A7B6B" }}>
@@ -799,8 +799,8 @@ export default function Home() {
             {[
               {
                 icon: "◎",
-                title: "172 fragmentos científicos indexados",
-                body: "Microbiota, eje intestino-cerebro, longevidad, sueño, hormonas, alimentación emocional, neuroplasticidad. Seleccionados y curados por la fundadora, psicóloga y máster en nutrición.",
+                title: "248 fragmentos científicos indexados",
+                body: "Microbiota, eje intestino-cerebro, longevidad, sueño, hormonas, perimenopausia, menopausia, alimentación emocional, neuroplasticidad. Seleccionados y curados por la fundadora, psicóloga y máster en nutrición.",
                 color: "#C9A84C",
               },
               {
