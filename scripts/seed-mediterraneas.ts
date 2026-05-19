@@ -11,7 +11,7 @@ dotenv.config({ path: '.env.local' })
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
-  process.env.RECETAS_SUPABASE_URL!,
+  (process.env.RECETAS_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL)!,
   process.env.RECETAS_SUPABASE_KEY!
 )
 
