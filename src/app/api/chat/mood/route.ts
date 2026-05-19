@@ -26,7 +26,11 @@ const MOOD_MAP: Record<string, string> = {
   'calidez':     'familia & Calidez',
 }
 
-function getSystemPrompt(tier: string) {
+function getSystemPrompt(tier: string, diarioContext?: string) {
+  const diarioSection = diarioContext
+    ? `\n\nDIARIO DE LA USUARIA (entradas recientes):\n${diarioContext}\n\nUsa este contexto para personalizar tus respuestas. Si detectas patrones claros (sueño, comida, estado de ánimo), nómbralos con delicadeza y curiosidad, nunca como diagnóstico.`
+    : ''
+
   return `Eres el asistente oficial de Food·Mood.
 
 Food·Mood es una app de psiconutrición, tecnologia de los alimentos y longevidad. La app ayuda a las personas a traducir cómo se sienten en decisiones culinarias con más placer, más variedad y más sentido.
@@ -65,7 +69,7 @@ En el mismo mensaje en el que detectas cómo se sienten (cansancio -> activacion
 Ejemplo:
 {"mood":"calma","confidence":0.85}
 
-Los valores de "mood" permitidos son SÓLO: activacion, calma, focus, social, reset, familia. ¡Sé proactivo, emite el tip útil en el texto y siempre acompáñalo del JSON final!`
+Los valores de "mood" permitidos son SÓLO: activacion, calma, focus, social, reset, familia. ¡Sé proactivo, emite el tip útil en el texto y siempre acompáñalo del JSON final!${diarioSection}`
 }
 
 function extractMoodJSON(text: string): { mood?: string; confidence?: number; cleanText: string } {
@@ -127,12 +131,37 @@ export async function POST(req: NextRequest) {
 
     const userContext: UserContext = { id: userId, tier: userTier }
 
+    // Fetch recent diary entries for context injection
+    let diarioContext: string | undefined
+    if (userId) {
+      const since = new Date()
+      since.setDate(since.getDate() - 14)
+      const { data: entradas } = await serverSupabase
+        .from('diario_entradas')
+        .select('fecha, mood_id, estado_libre, comida_libre, sueno_horas, nota_libre')
+        .eq('user_id', userId)
+        .gte('fecha', since.toISOString().split('T')[0])
+        .order('fecha', { ascending: false })
+        .limit(14)
+      if (entradas && entradas.length > 0) {
+        diarioContext = entradas.map(e => {
+          const parts: string[] = [`[${e.fecha}]`]
+          if (e.mood_id)      parts.push(`Color: ${e.mood_id}`)
+          if (e.estado_libre) parts.push(`Estado: "${e.estado_libre}"`)
+          if (e.comida_libre) parts.push(`Comida: "${e.comida_libre}"`)
+          if (e.sueno_horas)  parts.push(`Sueño: ${e.sueno_horas}h`)
+          if (e.nota_libre)   parts.push(`Nota: "${e.nota_libre}"`)
+          return `• ${parts.join(' · ')}`
+        }).join('\n')
+      }
+    }
+
     const anthropic = new Anthropic({ apiKey })
 
     const response = await anthropic.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 600,
-      system: getSystemPrompt(userTier),
+      system: getSystemPrompt(userTier, diarioContext),
       messages: messages.map((m: { role: string; content: string }) => ({
         role: m.role as 'user' | 'assistant',
         content: m.content,
