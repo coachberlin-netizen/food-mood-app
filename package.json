@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "seed-recetas": "ts-node scripts/seed-recetas.ts",
+    "seed-mediterraneas": "ts-node scripts/seed-mediterraneas.ts",
     "qa": "npx tsx scripts/qa-run.ts",
     "qa:rag": "npx tsx scripts/qa-run.ts --rag",
     "qa:fast": "npx tsx scripts/qa-run.ts --no-judge"
