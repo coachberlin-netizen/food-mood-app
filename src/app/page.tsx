@@ -462,7 +462,7 @@ export default function Home() {
                 <div className="grid md:grid-cols-2 gap-14 md:gap-20 items-start mt-10">
                   <div className="space-y-6">
                     <p className="text-sm md:text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.82)" }}>
-                      Tu intestino produce el 90% de tu serotonina. Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo. Eso es lo que crea el hábito. No el esfuerzo.
+                      Tu intestino produce el 90% de tu serotonina<sup><a href="/biblioteca#yano-2015" style={{ color: '#C9A84C', fontSize: '0.7em', opacity: 0.7 }} className="hover:opacity-100 transition-opacity">¹</a></sup>. Cuando comes lo que te hace sentir bien, ese circuito se activa y tu cerebro lo pide de nuevo. Eso es lo que crea el hábito. No el esfuerzo.
                     </p>
                     <dl className="grid grid-cols-2 gap-3">
                       {[
@@ -478,7 +478,10 @@ export default function Home() {
                       ))}
                     </dl>
                     <p className="text-xs font-light italic" style={{ color: "rgba(245,240,232,0.35)" }}>
-                      BJ Fogg · Tiny Habits · Cryan et al. — eje microbiota-intestino-cerebro
+                      <sup>¹</sup> Yano et al. 2015 · <em>Cell</em> 161(2) — microbiota indígena y serotonina enterocromafín ·{' '}
+                      <a href="/biblioteca#yano-2015" style={{ color: 'rgba(245,240,232,0.5)' }} className="underline hover:opacity-100 transition-opacity">
+                        ver referencia →
+                      </a>
                     </p>
                   </div>
                   <div className="flex flex-col gap-5">

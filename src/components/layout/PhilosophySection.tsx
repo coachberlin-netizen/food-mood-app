@@ -8,6 +8,7 @@ export function PhilosophySection() {
     {
       label: "Serotonina",
       title: "El 90% de tu serotonina la produce tu intestino.",
+      footnoteUrl: "/biblioteca#yano-2015",
       text: "No tu cerebro. Por eso lo que comes cambia cómo te sientes — antes de que lo decidas conscientemente.",
       color: "#E30B5D",
       watercolor: "/images/textures/watercolor-raspberry.png",
@@ -144,6 +145,16 @@ export function PhilosophySection() {
               <div className="relative z-10 flex flex-col items-center">
                 <h3 className="text-xl md:text-2xl font-serif text-aubergine-dark mb-4 leading-tight">
                   {node.title}
+                  {'footnoteUrl' in node && node.footnoteUrl && (
+                    <a
+                      href={node.footnoteUrl as string}
+                      className="align-super ml-0.5 text-xs font-sans font-normal opacity-40 hover:opacity-80 transition-opacity no-underline"
+                      style={{ color: '#6B2737', fontSize: '0.6em', verticalAlign: 'super' }}
+                      title="Ver fuente científica"
+                    >
+                      ¹
+                    </a>
+                  )}
                 </h3>
                 <p className="text-[13px] md:text-[14px] text-aubergine-dark/60 font-light leading-relaxed max-w-[240px] text-balance">
                   {node.text}

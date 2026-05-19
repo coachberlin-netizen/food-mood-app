@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 }
 
 type RefItem = {
+  id?: string
   autores: string
   ano: number
   titulo: string
@@ -53,6 +54,7 @@ const biblioteca: Seccion[] = [
         usadoEn: ['Home', 'Paleta emocional', 'Retos'],
       },
       {
+        id: 'yano-2015',
         autores: 'Yano, J.M., et al.',
         ano: 2015,
         titulo: 'Indigenous Bacteria from the Gut Microbiota Regulate Host Serotonin Biosynthesis',
@@ -1096,6 +1098,7 @@ export default function BibliotecaPage() {
                 {seccion.items.map((ref, i) => (
                   <article
                     key={i}
+                    id={ref.id}
                     className="bg-white rounded-3xl p-6 md:p-8 transition-shadow hover:shadow-md"
                     style={{ border: '1px solid rgba(26,22,18,0.07)' }}
                   >

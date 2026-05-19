@@ -261,18 +261,16 @@ export default function HomeHero() {
 
             {/* H1 */}
             <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontWeight:400,fontSize:"clamp(36px,4.6vw,62px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
-              La primera plataforma de IA<br />
-              que te ayuda a{" "}
-              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>regular tu sistema nervioso</em><br />
-              desde el plato.
+              Dime cómo quieres sentirte.<br />
+              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>Food·Mood te muestra qué comer hoy.</em>
             </h1>
 
             {/* Divider */}
             <div className="hero-fade-up-3" style={{ width:"48px",height:"1px",background:`linear-gradient(90deg,${GOLD},transparent)`,margin:"26px 0" }} />
 
             {/* Sub */}
-            <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"380px" }}>
-              Neurogastronomía personalizada por IA: postbióticos, fermentos y crononutrición adaptados a tu estado emocional real. Sin esfuerzo. Solo placer.
+            <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"420px" }}>
+              Una IA especializada en nutrición emocional, entrenada con conocimiento curado sobre microbiota, interocepción y eje intestino-cerebro. Recetas funcionales, micro-rituales y placer real para acompañar tu energía, calma, foco y equilibrio.
             </p>
 
             {/* CTAs */}
