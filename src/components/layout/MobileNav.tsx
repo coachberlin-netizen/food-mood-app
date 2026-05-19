@@ -83,6 +83,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                   <NavLink href="/viaje"         label="Mi viaje"      close={close} />
                   <NavLink href="/semana"        label="Mi semana"     close={close} />
                   <NavLink href="/recetas"       label="Recetas"       close={close} />
+                  <NavLink href="/enciclopedia" label="Enciclopedia"  close={close} />
                   <NavLink href="/servicios"    label="Sesiones 1:1"  close={close} />
                   <NavLink href="/glosario"      label="Glosario"      close={close} />
                   <NavLink href="/sintomas"      label="Síntomas"      close={close} />

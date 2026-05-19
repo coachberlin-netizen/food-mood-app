@@ -1,3 +1,15 @@
+---
+title: Protocolos prácticos de longevidad
+kb: longevity
+section: protocolos_longevidad
+mood_relevance: [Reset, Activación, Focus, Calma]
+palancas_longevidad: [autofagia, AMPK, NAD+, mitocondrias, sirtuinas]
+audiencia_primaria: usuarios interesados en protocolos concretos — ayuno, ejercicio, suplementos
+nivel_evidencia_general: B
+language: es
+last_updated: 2026-05
+---
+
 # Protocolos prácticos de longevidad
 
 ## Ayuno intermitente 16:8 — El protocolo base

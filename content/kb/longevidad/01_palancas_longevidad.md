@@ -1,3 +1,15 @@
+---
+title: Palancas moleculares de la longevidad
+kb: longevity
+section: palancas_longevidad
+mood_relevance: [Activación, Focus, Reset, Calma, Confort, Social]
+palancas_longevidad: [autofagia, NAD+, telómeros, AMPK, sirtuinas, senolíticos, espermidina, mitocondrias]
+audiencia_primaria: todos los usuarios — marco base que fundamenta el resto del sistema
+nivel_evidencia_general: B
+language: es
+last_updated: 2026-05
+---
+
 # Palancas moleculares de la longevidad
 
 ## Autofagia — La limpieza celular

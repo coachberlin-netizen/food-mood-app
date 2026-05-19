@@ -64,13 +64,14 @@ function NavDropdown({ label, items }: { label: string; items: DropdownItem[] })
 }
 
 const MI_ESPACIO: DropdownItem[] = [
-  { label: "Tu Asesor Digital", href: "/asesor"    },
-  { label: "Asistente IA",     href: "/asistente" },
-  { label: "Dashboard",        href: "/dashboard" },
-  { label: "Test",         href: "/test"      },
-  { label: "Mi bol",       href: "/bol"       },
-  { label: "Mi viaje",     href: "/viaje"     },
-  { label: "Mi semana",    href: "/semana"    },
+  { label: "Tu Asesor Digital", href: "/asesor"       },
+  { label: "Asistente IA",     href: "/asistente"    },
+  { label: "Dashboard",        href: "/dashboard"    },
+  { label: "Test",             href: "/test"         },
+  { label: "Mi bol",           href: "/bol"          },
+  { label: "Mi viaje",         href: "/viaje"        },
+  { label: "Mi semana",        href: "/semana"       },
+  { label: "Enciclopedia",     href: "/enciclopedia" },
 ]
 
 const DESCUBRIR: DropdownItem[] = [
