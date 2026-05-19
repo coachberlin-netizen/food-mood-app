@@ -43,6 +43,7 @@ interface ApiResponse {
   total: number;
   page: number;
   totalPages: number;
+  isFallback?: boolean;
 }
 
 function SkeletonCard() {
@@ -223,6 +224,7 @@ export default function RecetasClient({
   // State for premium status, initialized from server-side prop
   const [isPremium, setIsPremium] = useState(initialIsPremium);
   const [lockedReceta, setLockedReceta] = useState<Receta | null>(null);
+  const [isFallback, setIsFallback] = useState(false);
   const LIMIT = 24;
 
   // Re-verify premium status on client side to handle caching/stale props
@@ -280,6 +282,7 @@ export default function RecetasClient({
       setRecetas(unique);
       setTotal(data.total || 0);
       setTotalPages(data.totalPages || 0);
+      setIsFallback(data.isFallback === true);
       setError(null);
     } catch (err: any) {
       console.error("Error fetching recetas:", err);
@@ -448,6 +451,27 @@ export default function RecetasClient({
           )
         ) : (
           <>
+            {isFallback && moodFilter && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8 rounded-2xl border border-[#C9A84C]/25 bg-[#C9A84C]/6 px-6 py-5 flex items-start gap-4"
+              >
+                <span className="text-2xl mt-0.5">🌱</span>
+                <div>
+                  <p className="text-sm font-semibold text-aubergine-dark mb-1">
+                    Estamos construyendo este estado emocional
+                  </p>
+                  <p className="text-sm font-light text-aubergine-dark/60 leading-relaxed">
+                    Aún no tenemos recetas específicas para{" "}
+                    <strong className="font-medium">
+                      {MOODS.find(m => m.id === moodFilter)?.label ?? moodFilter}
+                    </strong>
+                    , pero aquí tienes otras que también te nutrirán. Las añadimos cada semana.
+                  </p>
+                </div>
+              </motion.div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               <AnimatePresence mode="popLayout">
                 {(() => {
