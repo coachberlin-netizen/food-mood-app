@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   openGraph: {
     title: 'Biblioteca Científica — Food·Mood',
-    description: '255 fragmentos científicos curados por nuestro equipo.',
+    description: '282 fragmentos científicos curados por nuestro equipo.',
     url: 'https://www.food-mood.app/biblioteca',
   },
 }
@@ -1114,6 +1114,56 @@ const biblioteca: Seccion[] = [
     ],
   },
   {
+    categoria: 'Longevidad Clínica y Medicine 3.0',
+    descripcion: 'El marco preventivo-predictivo que une ejercicio, nutrición, sueño y salud emocional en una estrategia de décadas.',
+    items: [
+      {
+        autores: 'Attia, P. y Gifford, B.',
+        ano: 2023,
+        titulo: 'Outlive: The Science and Art of Longevity',
+        revista: 'Harmony Books',
+        isbn: '978-0593236598',
+        url: 'https://peterattiamd.com/outlive',
+        relevancia: 'Manual de longevidad clínica más completo de la última década. Marco Medicine 3.0, cuatro jinetes (cardiovascular, cáncer, neurodegeneración, metabólica), cinco palancas (ejercicio, nutrición, sueño, salud emocional, fármacos selectos), Centenarian Decathlon como herramienta de objetivos funcionales.',
+        usadoEn: ['KB longevidad clínica', 'Asesor Personal'],
+      },
+      {
+        autores: 'Mandsager, K., et al.',
+        ano: 2018,
+        titulo: 'Association of Cardiorespiratory Fitness With Long-term Mortality Among Adults Undergoing Exercise Treadmill Testing',
+        revista: 'JAMA Network Open',
+        volumen: '1(6)',
+        paginas: 'e183605',
+        doi: '10.1001/jamanetworkopen.2018.3605',
+        url: 'https://doi.org/10.1001/jamanetworkopen.2018.3605',
+        relevancia: 'VO2max como predictor de mortalidad por todas las causas — el fitness cardiovascular supera en predicción al tabaquismo, diabetes e hipertensión. Base del énfasis de Attia en zona 2 y VO2max.',
+        usadoEn: ['KB longevidad clínica'],
+      },
+      {
+        autores: 'López-Otín, C., et al.',
+        ano: 2023,
+        titulo: 'Hallmarks of aging: an expanding universe',
+        revista: 'Cell',
+        volumen: '186(2)',
+        paginas: '243–278',
+        doi: '10.1016/j.cell.2022.11.001',
+        url: 'https://doi.org/10.1016/j.cell.2022.11.001',
+        relevancia: 'Marco actualizado de los hallmarks moleculares del envejecimiento: 12 palancas incluyendo inflamaging, disfunción mitocondrial, senescencia celular, disbiosis. Fundamento científico del enfoque preventivo.',
+        usadoEn: ['KB longevidad clínica', 'KB palancas longevidad'],
+      },
+      {
+        autores: 'Livingston, G., et al.',
+        ano: 2024,
+        titulo: 'Dementia prevention, intervention, and care: 2024 report of the Lancet standing Commission',
+        revista: 'The Lancet',
+        doi: '10.1016/S0140-6736(24)01296-0',
+        url: 'https://doi.org/10.1016/S0140-6736(24)01296-0',
+        relevancia: '14 factores de riesgo modificables de demencia, incluyendo pérdida auditiva no tratada, LDL elevado, inactividad física, depresión, aislamiento social. Evidencia de que el 45% de los casos podrían prevenirse.',
+        usadoEn: ['KB longevidad clínica'],
+      },
+    ],
+  },
+  {
     categoria: 'Músculo, Huesos y Longevidad',
     descripcion: 'Nutrición estructural para la segunda mitad de la vida.',
     items: [
@@ -1152,7 +1202,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Biblioteca Científica — Food·Mood',
   description:
-    '255 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+    '282 fragmentos científicos curados sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   url: 'https://www.food-mood.app/biblioteca',
   author: {
     '@type': 'Person',
@@ -1186,7 +1236,7 @@ export default function BibliotecaPage() {
             (exit estratégico, 2023).
           </p>
           <p className="text-xs mt-4" style={{ color: 'rgba(26,22,18,0.35)' }}>
-            {totalRefs} publicaciones · 255 fragmentos vectorizados · actualizado Mayo 2026
+            {totalRefs} publicaciones · 282 fragmentos vectorizados · actualizado Mayo 2026
           </p>
         </header>
 
