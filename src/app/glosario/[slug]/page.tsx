@@ -136,17 +136,6 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
           )}
         </header>
 
-        {/* Hero image */}
-        {item.image_url && (
-          <div className="mb-16 -mx-6 md:mx-0 overflow-hidden md:rounded-[2rem] h-56 md:h-72 lg:h-80">
-            <img
-              src={item.image_url}
-              alt={item.name}
-              className="w-full h-full object-cover"
-              loading="eager"
-            />
-          </div>
-        )}
 
         {/* Locked State OR Full Content */}
         {isLocked ? (

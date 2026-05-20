@@ -61,7 +61,7 @@ export default async function GlosarioPage() {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from("glossary")
-    .select("id, name, slug, tagline, category, moods, is_premium_detail, active_compounds, image_url")
+    .select("id, name, slug, tagline, category, moods, is_premium_detail, active_compounds")
     .order("name")
 
   if (error) {
