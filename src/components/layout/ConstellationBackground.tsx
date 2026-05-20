@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useMemo, useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
-// Each node: food emoji, associated emotion label, glow color, position, float offset
 const NODES = [
   { emoji: '🍊', emotion: 'energía',       color: '#FF8C00', top: '15%', left: '10%', delay: 0,   dx: 14,  dy: -10 },
   { emoji: '🍐', emotion: 'calma',         color: '#7CB87A', top: '24%', left: '83%', delay: 1,   dx: -12, dy: 16  },
@@ -17,14 +16,12 @@ const NODES = [
   { emoji: '🫚', emotion: 'longevidad',    color: '#C9A84C', top: '7%',  left: '87%', delay: 2.5, dx: -10, dy: 16  },
 ];
 
-// Pairs of node indices to connect with lines
 const CONNECTIONS: [number, number][] = [
   [0, 4], [4, 1], [1, 3], [3, 7],
   [7, 5], [5, 8], [8, 6], [6, 0],
   [4, 9], [2, 5], [0, 2], [3, 5],
 ];
 
-// Pulse travelers: a dot that moves along a subset of lines
 const PULSES: { conn: number; delay: number }[] = [
   { conn: 0, delay: 0 },
   { conn: 2, delay: 1.8 },
@@ -34,6 +31,44 @@ const PULSES: { conn: number; delay: number }[] = [
 
 export function ConstellationBackground() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Memoize gradient definitions — they never change
+  const gradients = useMemo(() =>
+    CONNECTIONS.map(([a, b], i) => ({
+      id: `lg-${i}`,
+      x1: `${parseFloat(NODES[a].left)}%`,
+      y1: `${parseFloat(NODES[a].top)}%`,
+      x2: `${parseFloat(NODES[b].left)}%`,
+      y2: `${parseFloat(NODES[b].top)}%`,
+      color1: NODES[a].color,
+      color2: NODES[b].color,
+    })),
+  []);
+
+  // Memoize line coordinates
+  const lines = useMemo(() =>
+    CONNECTIONS.map(([a, b]) => ({
+      x1: parseFloat(NODES[a].left),
+      y1: parseFloat(NODES[a].top),
+      x2: parseFloat(NODES[b].left),
+      y2: parseFloat(NODES[b].top),
+    })),
+  []);
+
+  // Memoize pulse coordinates
+  const pulseCoords = useMemo(() =>
+    PULSES.map(({ conn, delay }) => {
+      const [a, b] = CONNECTIONS[conn];
+      return {
+        x1: parseFloat(NODES[a].left),
+        y1: parseFloat(NODES[a].top),
+        x2: parseFloat(NODES[b].left),
+        y2: parseFloat(NODES[b].top),
+        delay,
+      };
+    }),
+  []);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
@@ -43,8 +78,6 @@ export function ConstellationBackground() {
         style={{ width: '80%', height: '80%', backgroundColor: 'rgba(255,255,255,0.04)' }}
       />
 
-      {/* SVG layer: connection lines + pulse travelers */}
-      {/* viewBox 0 0 100 100 maps directly to the percentage-based node positions */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none"
         viewBox="0 0 100 100"
@@ -52,70 +85,61 @@ export function ConstellationBackground() {
         style={{ overflow: 'visible' }}
       >
         <defs>
-          {CONNECTIONS.map(([a, b], i) => (
+          {gradients.map(g => (
             <linearGradient
-              key={i}
-              id={`lg-${i}`}
-              x1={`${parseFloat(NODES[a].left)}%`}
-              y1={`${parseFloat(NODES[a].top)}%`}
-              x2={`${parseFloat(NODES[b].left)}%`}
-              y2={`${parseFloat(NODES[b].top)}%`}
+              key={g.id}
+              id={g.id}
+              x1={g.x1} y1={g.y1}
+              x2={g.x2} y2={g.y2}
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0%"   stopColor={NODES[a].color} stopOpacity="0.05" />
-              <stop offset="50%"  stopColor="#ffffff"        stopOpacity="0.22" />
-              <stop offset="100%" stopColor={NODES[b].color} stopOpacity="0.05" />
+              <stop offset="0%"   stopColor={g.color1} stopOpacity="0.05" />
+              <stop offset="50%"  stopColor="#ffffff"  stopOpacity="0.22" />
+              <stop offset="100%" stopColor={g.color2} stopOpacity="0.05" />
             </linearGradient>
           ))}
         </defs>
 
         {/* Lines */}
-        {CONNECTIONS.map(([a, b], i) => (
+        {lines.map((l, i) => (
           <motion.line
             key={i}
-            x1={parseFloat(NODES[a].left)}
-            y1={parseFloat(NODES[a].top)}
-            x2={parseFloat(NODES[b].left)}
-            y2={parseFloat(NODES[b].top)}
+            x1={l.x1} y1={l.y1}
+            x2={l.x2} y2={l.y2}
             stroke={`url(#lg-${i})`}
             strokeWidth="0.25"
-            animate={{ opacity: [0.25, 0.6, 0.25] }}
-            transition={{
+            animate={prefersReducedMotion ? { opacity: 0.4 } : { opacity: [0.25, 0.6, 0.25] }}
+            transition={prefersReducedMotion ? {} : {
               duration: 4 + i * 0.4,
               repeat: Infinity,
               delay: i * 0.35,
               ease: 'easeInOut',
             }}
+            style={{ willChange: 'opacity' }}
           />
         ))}
 
-        {/* Pulse dots traveling along selected lines */}
-        {PULSES.map(({ conn, delay }, i) => {
-          const [a, b] = CONNECTIONS[conn];
-          const x1 = parseFloat(NODES[a].left);
-          const y1 = parseFloat(NODES[a].top);
-          const x2 = parseFloat(NODES[b].left);
-          const y2 = parseFloat(NODES[b].top);
-          return (
-            <motion.circle
-              key={i}
-              r="0.6"
-              fill="white"
-              initial={{ cx: x1, cy: y1, opacity: 0 }}
-              animate={{
-                cx:      [x1, x2, x1],
-                cy:      [y1, y2, y1],
-                opacity: [0, 0.7, 0.7, 0],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                delay,
-                ease: 'easeInOut',
-              }}
-            />
-          );
-        })}
+        {/* Pulse dots */}
+        {!prefersReducedMotion && pulseCoords.map((p, i) => (
+          <motion.circle
+            key={i}
+            r="0.6"
+            fill="white"
+            initial={{ cx: p.x1, cy: p.y1, opacity: 0 }}
+            animate={{
+              cx:      [p.x1, p.x2, p.x1],
+              cy:      [p.y1, p.y2, p.y1],
+              opacity: [0, 0.7, 0.7, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              delay: p.delay,
+              ease: 'easeInOut',
+            }}
+            style={{ willChange: 'transform, opacity' }}
+          />
+        ))}
       </svg>
 
       {/* Food emoji nodes */}
@@ -123,13 +147,16 @@ export function ConstellationBackground() {
         <motion.div
           key={i}
           initial={{ opacity: 0, scale: 0 }}
-          animate={{
-            opacity: hovered === i ? 1    : [0.55, 0.9, 0.55],
-            scale:   hovered === i ? 1.25 : [1, 1.12, 1],
-            x: [0, node.dx, 0],
-            y: [0, node.dy, 0],
-          }}
-          transition={{
+          animate={prefersReducedMotion
+            ? { opacity: 0.7, scale: 1 }
+            : {
+                opacity: hovered === i ? 1    : [0.55, 0.9, 0.55],
+                scale:   hovered === i ? 1.25 : [1, 1.12, 1],
+                x: [0, node.dx, 0],
+                y: [0, node.dy, 0],
+              }
+          }
+          transition={prefersReducedMotion ? { duration: 0.3 } : {
             duration: 6 + node.delay * 0.8,
             repeat: Infinity,
             delay: node.delay,
@@ -147,11 +174,12 @@ export function ConstellationBackground() {
             userSelect:  'none',
             filter:      `drop-shadow(0 0 18px ${node.color}cc) drop-shadow(0 0 6px ${node.color}88)`,
             pointerEvents: 'auto',
+            willChange:  prefersReducedMotion ? 'auto' : 'transform, opacity',
+            transform:   'translateZ(0)',
           }}
         >
           {node.emoji}
 
-          {/* Emotion tooltip on hover */}
           <AnimatePresence>
             {hovered === i && (
               <motion.div

@@ -131,7 +131,7 @@ function DimensionSlider({
       </div>
       <div className="flex items-center gap-3">
         <span className="text-[10px] text-[#6B2737]/35 w-14 text-right shrink-0 leading-tight">{cfg.low}</span>
-        <div className="relative flex-1 h-8 flex items-center">
+        <div className="relative flex-1 h-11 flex items-center">
           {/* Gradient track */}
           <div
             className="absolute w-full h-2 rounded-full"
@@ -142,7 +142,7 @@ function DimensionSlider({
             className="absolute h-2 right-0 rounded-r-full bg-white/50 transition-all duration-75"
             style={{ width: `${100 - value}%` }}
           />
-          {/* Native input (transparent, handles events) */}
+          {/* Native input — 44px tall for WCAG touch target */}
           <input
             type="range"
             min={0}
@@ -150,6 +150,7 @@ function DimensionSlider({
             value={value}
             onChange={e => onChange(Number(e.target.value))}
             className="absolute w-full h-full opacity-0 cursor-pointer z-10"
+            style={{ touchAction: 'none' }}
           />
           {/* Custom thumb */}
           <div

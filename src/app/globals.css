@@ -15,6 +15,11 @@ input, select, textarea {
   font-size: 16px;
 }
 
+/* Eliminate 300ms tap delay on touch devices */
+a, button, input[type="button"], input[type="submit"], input[type="range"], label {
+  touch-action: manipulation;
+}
+
 /* Preserve visual text-xs/sm appearance while keeping 16px for iOS */
 input.input-sm, select.input-sm, textarea.input-sm {
   font-size: 16px;
@@ -42,8 +47,13 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-pulse {
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

@@ -72,13 +72,20 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({
-      recetas:    data ?? [],
-      total:      count ?? 0,
-      page,
-      totalPages: Math.ceil((count ?? 0) / limit),
-      isFallback: false,
-    })
+    return NextResponse.json(
+      {
+        recetas:    data ?? [],
+        total:      count ?? 0,
+        page,
+        totalPages: Math.ceil((count ?? 0) / limit),
+        isFallback: false,
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=600',
+        },
+      },
+    )
 
   } catch (err: any) {
     console.error('API /api/recetas error:', err)

@@ -1,13 +1,18 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import dynamic from "next/dynamic"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { ChevronDown, Moon, Zap, Brain, ArrowRight, Check, Flame, Sprout, Sparkles, Wind, Flower2, FlaskConical } from "lucide-react"
 import { ConstellationBackground } from "@/components/layout/ConstellationBackground"
 import { NewsletterForm } from "@/components/layout/NewsletterForm"
-import HomeHero from "@/components/layout/HomeHero"
-import { RetosAnimation } from "@/components/retos/RetosAnimation"
+
+const HomeHero = dynamic(() => import("@/components/layout/HomeHero"), { ssr: false })
+const RetosAnimation = dynamic(
+  () => import("@/components/retos/RetosAnimation").then(m => ({ default: m.RetosAnimation })),
+  { ssr: false }
+)
 
 // ─── Retos estáticos ──────────────────────────────────────────────────────────
 const RETOS = [

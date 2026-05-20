@@ -4,9 +4,10 @@
   "description": "Recetas personalizadas según tu estado emocional y salud intestinal.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#6B2737",
+  "background_color": "#F5F0E8",
   "theme_color": "#6B2737",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
+  "scope": "/",
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -23,6 +24,29 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Test emocional",
+      "short_name": "Test",
+      "description": "Descubre tu estado emocional ahora",
+      "url": "/test",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Mis recetas",
+      "short_name": "Recetas",
+      "description": "Recetas para tu estado de hoy",
+      "url": "/recetas",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Asesor digital",
+      "short_name": "Asesor",
+      "description": "Consúltame sobre nutrición emocional",
+      "url": "/asesor",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

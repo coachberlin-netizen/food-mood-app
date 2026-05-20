@@ -108,9 +108,20 @@ export default async function RecetasPage() {
 
       <Suspense
         fallback={
-          <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
-            <div className="animate-pulse text-aubergine-dark/30 font-serif text-xl">
-              Cargando recetas...
+          <div className="min-h-screen bg-[var(--background)] px-4 pt-8 pb-16">
+            <div className="max-w-6xl mx-auto space-y-6">
+              {/* Filter bar skeleton */}
+              <div className="h-10 w-48 rounded-full bg-white/60 animate-pulse" />
+              {/* Cards grid skeleton */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-52 rounded-2xl bg-white/60 animate-pulse"
+                    style={{ animationDelay: `${i * 0.06}s` }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         }
