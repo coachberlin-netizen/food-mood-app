@@ -74,8 +74,8 @@ export function ConsentModal() {
 
   return (
     <div
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9999] w-[calc(100%-2rem)] max-w-sm"
-      style={{ filter: "drop-shadow(0 8px 32px rgba(45,15,22,0.18))" }}
+      className="fixed left-1/2 -translate-x-1/2 z-[9999] w-[calc(100%-2rem)] max-w-sm"
+      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)', filter: "drop-shadow(0 8px 32px rgba(45,15,22,0.18))" }}
     >
       <div
         className="bg-[#F5F0E8] rounded-2xl px-5 py-4 border"
@@ -169,7 +169,7 @@ function CompactRow({
   return (
     <label className={`flex items-center gap-2 ${disabled ? "opacity-50" : "cursor-pointer"}`}>
       <div
-        className="w-4 h-4 rounded shrink-0 flex items-center justify-center border transition-all"
+        className="w-5 h-5 rounded shrink-0 flex items-center justify-center border transition-all"
         style={{
           backgroundColor: checked ? "#6B2737" : "transparent",
           borderColor: "#6B2737",

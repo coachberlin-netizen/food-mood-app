@@ -219,7 +219,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-aubergine-dark/95 backdrop-blur-xl border-b border-cream/10 transition-all duration-300">
-      <div className="container mx-auto px-6 h-20 md:px-12 flex items-center justify-between gap-8">
+      <div className="container mx-auto px-4 sm:px-6 h-20 md:px-12 flex items-center justify-between gap-8">
         <div className="flex items-center justify-start flex-1">
           <MobileNav isAuthenticated={isAuthenticated ?? false} isPremium={isPremium} />
 
@@ -271,7 +271,7 @@ export function Header() {
         </div>
 
         <Link href="/" className="flex-1 flex justify-center transition-transform hover:scale-[1.02] duration-300 shrink-0">
-          <span className="font-serif text-2xl font-semibold tracking-tight text-cream">
+          <span className="font-serif text-xl sm:text-2xl font-semibold tracking-tight text-cream">
             Food<span className="text-gold">·</span>Mood
           </span>
         </Link>

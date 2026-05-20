@@ -122,7 +122,8 @@ export function ChatWidget() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-aubergine-dark text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-[60] group border border-white/10"
+        className="fixed right-4 sm:right-6 w-14 h-14 bg-aubergine-dark text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-[60] group border border-white/10"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)' }}
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
         <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#C9A84C] rounded-full scale-0 group-hover:scale-100 transition-transform flex items-center justify-center">
@@ -137,7 +138,11 @@ export function ChatWidget() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 w-[350px] sm:w-[400px] h-[500px] bg-cream border border-aubergine-dark/15 rounded-[2rem] shadow-luxury flex flex-col overflow-hidden z-[60] backdrop-blur-sm"
+            className="fixed right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[380px] bg-cream border border-aubergine-dark/15 rounded-[2rem] shadow-luxury flex flex-col overflow-hidden z-[60] backdrop-blur-sm"
+          style={{
+            bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5.5rem)',
+            maxHeight: 'min(500px, calc(100dvh - 10rem))',
+          }}
           >
             {/* Header */}
             <div className="bg-aubergine-dark p-6 flex items-center justify-between shrink-0">

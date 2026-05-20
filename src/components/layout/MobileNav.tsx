@@ -141,7 +141,9 @@ function NavLink({ href, label, close, gold }: { href: string; label: string; cl
       href={href}
       onClick={close}
       style={{
-        display: 'block',
+        display: 'flex',
+        alignItems: 'center',
+        minHeight: '44px',
         padding: '10px 8px',
         fontSize: '17px',
         fontWeight: gold ? 700 : 500,

@@ -28,6 +28,14 @@ const config: Config = {
         'luxury': '0 1px 3px rgba(26,35,50,0.04)',
         'luxury-hover': '0 4px 12px rgba(26,35,50,0.06)',
       },
+      height: {
+        'dvh': '100dvh',
+        'svh': '100svh',
+      },
+      minHeight: {
+        'dvh': '100dvh',
+        'svh': '100svh',
+      },
       typography: ({ theme }: { theme: any }) => ({
         'food-mood': {
           css: {

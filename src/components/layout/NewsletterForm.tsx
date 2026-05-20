@@ -59,7 +59,8 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
             value={nlEmail}
             onChange={(e) => setNlEmail(e.target.value)}
             placeholder="tu email"
-            className={`w-full sm:w-48 pl-9 pr-3 py-2.5 rounded-lg border text-xs placeholder:text-opacity-25 focus:outline-none focus:ring-1 transition-all ${
+            style={{ fontSize: '16px' }}
+            className={`w-full sm:w-48 pl-9 pr-3 py-2.5 rounded-lg border placeholder:text-opacity-25 focus:outline-none focus:ring-1 transition-all ${
               dark 
                 ? 'bg-cream/10 border-cream/15 text-white placeholder:text-cream focus:ring-[#C9A84C]/40' 
                 : 'bg-aubergine-dark/5 border-aubergine-dark/10 text-aubergine-dark placeholder:text-aubergine-dark focus:ring-aubergine-dark/20'

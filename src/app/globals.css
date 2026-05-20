@@ -3,8 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --background: #F5F0E8; 
+  --background: #F5F0E8;
   --foreground: #3F1A22;
+  /* Safe area insets (iOS home indicator, notch) */
+  --sai-bottom: env(safe-area-inset-bottom, 0px);
+  --sai-top: env(safe-area-inset-top, 0px);
+}
+
+/* Prevent iOS Safari from zooming on input focus (font-size < 16px) */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Preserve visual text-xs/sm appearance while keeping 16px for iOS */
+input.input-sm, select.input-sm, textarea.input-sm {
+  font-size: 16px;
 }
 
 @media (prefers-color-scheme: dark) {

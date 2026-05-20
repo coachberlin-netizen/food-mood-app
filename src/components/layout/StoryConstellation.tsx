@@ -75,7 +75,7 @@ export function StoryConstellation() {
         </motion.div>
 
         {/* Primary Visual: The Solar System / Constellation */}
-        <div className="relative h-[500px] md:h-[650px] w-full flex items-center justify-center mb-16 md:mb-24">
+        <div className="relative h-[340px] sm:h-[500px] md:h-[650px] w-full flex items-center justify-center mb-16 md:mb-24 overflow-hidden">
           
           {/* SVG Connections */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -107,8 +107,8 @@ export function StoryConstellation() {
           </motion.div>
 
           {/* Orbiting Nodes */}
-          <motion.div 
-            className="absolute inset-0"
+          <motion.div
+            className="absolute inset-0 scale-[0.55] sm:scale-75 md:scale-100 origin-center"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"

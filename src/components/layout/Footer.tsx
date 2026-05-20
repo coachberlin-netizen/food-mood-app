@@ -5,7 +5,7 @@ import { NewsletterForm } from "./NewsletterForm"
 
 export function Footer() {
   return (
-    <footer className="w-full bg-aubergine-dark py-8">
+    <footer className="w-full bg-aubergine-dark py-8" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2rem)' }}>
       <div className="max-w-5xl mx-auto px-6 md:px-12">
 
         {/* Brand + Newsletter */}

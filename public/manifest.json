@@ -1,7 +1,7 @@
-﻿{
-  "name": "FoodÂ·Mood â€” Neurociencia Nutricional",
-  "short_name": "FoodÂ·Mood",
-  "description": "Recetas personalizadas segÃºn tu estado emocional y salud intestinal.",
+{
+  "name": "Food·Mood — Neurociencia Nutricional",
+  "short_name": "Food·Mood",
+  "description": "Recetas personalizadas según tu estado emocional y salud intestinal.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#6B2737",
@@ -26,4 +26,3 @@
     }
   ]
 }
-

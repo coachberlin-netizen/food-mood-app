@@ -222,7 +222,7 @@ export function EmotionalConstellation() {
             className="cursor-pointer"
             onMouseEnter={() => setHoveredNode(node.id)}
             onMouseLeave={() => setHoveredNode(null)}
-            onTouchStart={() => setHoveredNode(node.id)}
+            onTouchStart={(e) => { e.preventDefault(); setHoveredNode(prev => prev === node.id ? null : node.id) }}
           >
             <BotanicalIcon
               type={node.icon}
@@ -233,6 +233,20 @@ export function EmotionalConstellation() {
               index={i}
             />
 
+            {/* Always-visible label (subtle) */}
+            <text
+              x={0} y={14}
+              textAnchor="middle"
+              fill="white"
+              opacity={hoveredNode === node.id ? 0 : 0.45}
+              fontSize="2.5"
+              fontFamily="sans-serif"
+              letterSpacing="0.04em"
+              className="pointer-events-none uppercase"
+            >
+              {node.name}
+            </text>
+
             <AnimatePresence>
               {hoveredNode === node.id && (
                 <motion.g
@@ -241,10 +255,14 @@ export function EmotionalConstellation() {
                   exit={{ opacity: 0 }}
                 >
                   <text
-                    x={0} y={12}
+                    x={0} y={14}
                     textAnchor="middle"
                     fill="white"
-                    className="text-[2.5px] font-sans tracking-[0.25em] uppercase font-bold pointer-events-none"
+                    fontSize="2.5"
+                    fontFamily="sans-serif"
+                    letterSpacing="0.04em"
+                    fontWeight="bold"
+                    className="pointer-events-none uppercase"
                   >
                     {node.name}
                   </text>

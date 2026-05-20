@@ -90,7 +90,8 @@ export function InstallBanner() {
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="fixed bottom-0 left-0 right-0 z-[100] p-4 pb-8 md:p-6 md:pb-10"
+        className="fixed bottom-0 left-0 right-0 z-[100] p-4 md:p-6"
+        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2rem)' }}
       >
         <div className="max-w-md mx-auto bg-aubergine-dark/95 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl shadow-black/50 overflow-hidden">
           {/* Header */}

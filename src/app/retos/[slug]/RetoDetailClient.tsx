@@ -1163,8 +1163,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
       {/* ── Sticky CTA móvil — aparece tras scroll 50% ── */}
       {!enrollment?.paid && showStickyCta && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden px-4 pb-4 pt-3"
-          style={{ background: 'linear-gradient(to top, #F5F0E8 70%, transparent)' }}>
+        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden px-4 pt-3"
+          style={{ background: 'linear-gradient(to top, #F5F0E8 70%, transparent)', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}>
           <button
             onClick={handleCheckout}
             disabled={isPending}

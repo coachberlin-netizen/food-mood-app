@@ -12,7 +12,7 @@ export function PhilosophySection() {
       text: "No tu cerebro. Por eso lo que comes cambia cómo te sientes — antes de que lo decidas conscientemente.",
       color: "#E30B5D",
       watercolor: "/images/textures/watercolor-raspberry.png",
-      size: "w-[340px] h-[340px]",
+      size: "w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] lg:w-[340px] lg:h-[340px]",
       pos: "lg:-translate-x-12"
     },
     {
@@ -21,7 +21,7 @@ export function PhilosophySection() {
       text: "Comer algo que te gusta activa dopamina, reduce el cortisol y mejora la absorción de nutrientes. El placer es la vía, no la recompensa.",
       color: "#E6E6FA",
       watercolor: "/images/textures/watercolor-lavender.png",
-      size: "w-[300px] h-[300px]",
+      size: "w-[190px] h-[190px] sm:w-[240px] sm:h-[240px] lg:w-[300px] lg:h-[300px]",
       pos: "lg:translate-y-20"
     },
     {
@@ -30,7 +30,7 @@ export function PhilosophySection() {
       text: "Comer con ansiedad convierte cualquier alimento en inflamación. El contexto importa tanto como el ingrediente.",
       color: "#FF7F50",
       watercolor: "/images/textures/watercolor-pomelo.png",
-      size: "w-[320px] h-[320px]",
+      size: "w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] lg:w-[320px] lg:h-[320px]",
       pos: "lg:translate-x-8 lg:-translate-y-8"
     },
     {
@@ -39,7 +39,7 @@ export function PhilosophySection() {
       text: "Y los más difíciles de cambiar. Por eso Food·Mood los hace visibles — con datos, no con fuerza de voluntad.",
       color: "#00CED1",
       watercolor: "/images/textures/watercolor-turquoise.png",
-      size: "w-[280px] h-[280px]",
+      size: "w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] lg:w-[280px] lg:h-[280px]",
       pos: "lg:-translate-x-4 lg:translate-y-12"
     }
   ];
@@ -79,7 +79,7 @@ export function PhilosophySection() {
           </motion.p>
         </header>
 
-        <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-0 lg:min-h-[500px]">
+        <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-0 lg:min-h-[500px]">
           {nodes.map((node, idx) => (
             <motion.div
               key={idx}
@@ -98,7 +98,7 @@ export function PhilosophySection() {
                 scale: { delay: idx * 0.15, duration: 1 }
               }}
               viewport={{ once: true }}
-              className={`relative group flex flex-col items-center justify-center text-center p-10 rounded-full border border-aubergine-dark/5 shadow-luxury hover:shadow-2xl transition-all duration-500 bg-white/40 backdrop-blur-md ${node.size} ${node.pos}`}
+              className={`relative group flex flex-col items-center justify-center text-center p-6 sm:p-10 rounded-full border border-aubergine-dark/5 shadow-luxury hover:shadow-2xl transition-all duration-500 bg-white/40 backdrop-blur-md ${node.size} ${node.pos}`}
             >
               {/* Watercolor Brushstroke Asset - Brightened & Boosted */}
               <motion.img
@@ -143,7 +143,7 @@ export function PhilosophySection() {
               />
 
               <div className="relative z-10 flex flex-col items-center">
-                <h3 className="text-xl md:text-2xl font-serif text-aubergine-dark mb-4 leading-tight">
+                <h3 className="text-base sm:text-xl md:text-2xl font-serif text-aubergine-dark mb-3 sm:mb-4 leading-tight">
                   {node.title}
                   {'footnoteUrl' in node && node.footnoteUrl && (
                     <a
@@ -156,7 +156,7 @@ export function PhilosophySection() {
                     </a>
                   )}
                 </h3>
-                <p className="text-[13px] md:text-[14px] text-aubergine-dark/60 font-light leading-relaxed max-w-[240px] text-balance">
+                <p className="text-[11px] sm:text-[13px] md:text-[14px] text-aubergine-dark/60 font-light leading-relaxed max-w-[200px] sm:max-w-[240px] text-balance">
                   {node.text}
                 </p>
               </div>
