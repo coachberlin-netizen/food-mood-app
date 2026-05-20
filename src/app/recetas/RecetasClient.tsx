@@ -5,7 +5,6 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search, X, Clock, ChevronLeft, ChevronRight, Lock, Sparkles, SearchX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { moods as MOODS } from "@/data/moods";
 import { PaywallModal } from "@/components/recetas/PaywallModal";
 
@@ -75,30 +74,19 @@ function RecipeCard({ receta, locked = false, isFree = false, onLockedClick }: {
       transition={{ duration: 0.2 }}
       className={`relative bg-cream rounded-2xl border border-aubergine-dark/10 transition-all duration-200 h-full flex flex-col group overflow-hidden ${'cursor-pointer'}`}
     >
+      {/* Mood colour header — instant render, zero network requests */}
       <div
-        className="absolute top-0 left-0 right-0 h-[3px] z-20"
-        style={{ backgroundColor: mood.color }}
-      />
-
-      {/* Food photo */}
-      {receta.image_url ? (
-        <div className="relative w-full h-40 overflow-hidden">
-          <Image
-            src={receta.image_url}
-            alt={receta.nombre_es}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-cream/30 to-transparent" />
-        </div>
-      ) : (
-        <div
-          className="w-full h-2"
-          style={{ backgroundColor: mood.colorLight }}
-        />
-      )}
+        className="w-full h-24 flex items-center justify-center"
+        style={{
+          background: `linear-gradient(135deg, ${mood.color}20 0%, ${mood.color}06 100%)`,
+          borderBottom: `1px solid ${mood.color}18`,
+        }}
+      >
+        <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ backgroundColor: mood.color }} />
+        <span className="text-5xl opacity-15 select-none group-hover:opacity-25 transition-opacity duration-500">
+          {mood.emoji}
+        </span>
+      </div>
 
       <div className="flex flex-col flex-1 p-6 md:p-7">
       <div className="flex items-center justify-between mb-4 mt-1">
