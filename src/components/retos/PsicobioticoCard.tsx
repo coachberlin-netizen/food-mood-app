@@ -5,14 +5,9 @@ interface Props {
   imagen_url?:       string
 }
 
-export default function PsicobioticoCard({ titulo, texto, alimento_estrella, imagen_url }: Props) {
+export default function PsicobioticoCard({ titulo, texto, alimento_estrella }: Props) {
   return (
     <div className="rounded-2xl border border-[#e8ddd5] bg-white overflow-hidden">
-      {imagen_url && (
-        <div className="w-full h-44 overflow-hidden">
-          <img src={imagen_url} alt={alimento_estrella} className="w-full h-full object-cover" loading="lazy" />
-        </div>
-      )}
       <div className="p-5">
       {/* Header */}
       <div className="flex items-start gap-3 mb-3">

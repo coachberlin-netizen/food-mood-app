@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import Image from "next/image"
+
 
 const MOOD_COLORS: Record<string, string> = {
   activacion: "#FFB000",
@@ -161,35 +161,15 @@ export default function FermentosClient({
                 className="group relative bg-white rounded-xl border border-aubergine-dark/10 flex flex-col items-start cursor-pointer hover:shadow-luxury-hover transition-all duration-300 overflow-hidden"
                 onClick={() => handleFermentClick(ferment)}
               >
-                {/* Foto */}
-                {ferment.image_url ? (
-                  <div className="relative w-full h-36 overflow-hidden">
-                    <Image
-                      src={ferment.image_url}
-                      alt={ferment.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      priority={index < 4}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white/30 to-transparent" />
-                    <span
-                      className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full shadow"
-                      style={{ backgroundColor: color }}
-                    />
-                  </div>
-                ) : (
-                  <div className="w-full h-1.5" style={{ backgroundColor: color }} />
-                )}
+                {/* Mood colour accent */}
+                <div className="w-full h-1.5" style={{ backgroundColor: color }} />
 
                 <div className="p-6 flex flex-col items-start w-full flex-1">
                 <div className="flex justify-between items-center w-full mb-4">
                   <span className="text-[10px] font-sans tracking-[0.1em] uppercase text-aubergine-dark/40">
                     {ferment.country}
                   </span>
-                  {!ferment.image_url && (
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-                  )}
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
                 </div>
 
                 <h4 className="text-xl font-serif text-aubergine-dark font-medium mb-3 group-hover:text-[#C9A84C] transition-colors">
