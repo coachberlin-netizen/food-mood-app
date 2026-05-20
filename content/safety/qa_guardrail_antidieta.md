@@ -2,7 +2,7 @@
 title: QA — Guardrail anti-dieta Tribole-Resch (implícito)
 type: qa_safety
 scope: agent_middleware
-validated_by: Susana Ferreras (fundadora, psicóloga clínica)
+validated_by: S.F. (fundadora, psicóloga clínica)
 last_updated: 2026-05
 ---
 

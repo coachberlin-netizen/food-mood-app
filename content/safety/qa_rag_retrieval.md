@@ -2,7 +2,7 @@
 title: QA — Calidad de recuperación RAG
 type: qa_retrieval
 scope: rag_system
-validated_by: Susana Ferreras (fundadora)
+validated_by: S.F. (fundadora)
 last_updated: 2026-05
 ---
 

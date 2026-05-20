@@ -286,7 +286,7 @@ Q1 2028:  Seed round · LATAM/US Hispanic expansion · €25K+ MRR · 1,500+ sub
 
 FOUNDER
 ────────
-Susana Ferreras Diez — CEO & Founder
+S.F. — CEO & Founder
 Psychologist · MSc Food Biotechnology · MSc Gerontology
 Full-stack developer (entire MVP built solo: Next.js, Supabase, AI, Stripe, Vercel)
 Kombucha brand founder (strategic exit) · Food tech consultant (ongoing)

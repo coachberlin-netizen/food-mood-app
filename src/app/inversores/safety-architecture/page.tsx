@@ -409,7 +409,7 @@ export default function SafetyArchitecturePage() {
         {/* Authorship */}
         <SectionTitle>Authorship &amp; Clinical Review</SectionTitle>
         <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 8, padding: '20px 24px' }}>
-          <div style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', marginBottom: 2 }}>Susana Ferreras Diez</div>
+          <div style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', marginBottom: 2 }}>S.F.</div>
           <div style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.1em', color: '#3A8C62', textTransform: 'uppercase' as const, marginBottom: 12 }}>CEO &amp; Founder · Psychologist · MSc Food Biotechnology · MSc Gerontology</div>
           <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65, margin: 0 }}>
             The crisis detection patterns, TCA signal library, and clinical derivation logic were designed and reviewed by the founder in her professional capacity as a psychologist. The drug-food interaction database was compiled from established pharmacological references and is intended for expansion through pharmacist advisory review. The system is designed to be curated by clinical professionals — not to replace their judgment.

@@ -617,7 +617,7 @@ function InvestorDeck() {
 
         <SectionLabel>The Founder</SectionLabel>
         <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 8, padding: '20px 24px', marginTop: 8 }}>
-          <div style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', marginBottom: 3 }}>Susana Ferreras Diez</div>
+          <div style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', marginBottom: 3 }}>S.F.</div>
           <div style={{ fontFamily: 'monospace', fontSize: 7.5, letterSpacing: '0.1em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 10 }}>CEO &amp; Founder</div>
           <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>
             Psychologist · MSc Food Biotechnology · MSc Gerontology · Creator of a kombucha brand and gut-health practitioner. Full-stack developer who built the entire Food·Mood MVP herself: Next.js, Supabase, Stripe, Vercel. Author of <em>&quot;Food·Mood: El placer de estar bien&quot;</em> (2026, pre-publication).
@@ -822,7 +822,7 @@ function InvestorDeck() {
 
         <div style={{ marginTop: 28, paddingTop: 12, borderTop: '1px solid #E0EDE6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <div style={{ fontFamily: 'monospace', fontSize: 7.5, color: '#3A8C62', letterSpacing: '0.08em', lineHeight: 1.7 }}>
-            Susana Ferreras Diez · CEO &amp; Founder<br />
+            S.F. · CEO &amp; Founder<br />
             www.food-mood.app · info@food-mood.app
           </div>
           <div style={{ fontSize: 7, color: '#5A4E48', textAlign: 'right', maxWidth: 340, lineHeight: 1.5 }}>
@@ -901,7 +901,7 @@ May 2026 · Confidential
 — Implied dilution: ~17.5%
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Susana Ferreras Diez · CEO & Founder
+S.F. · CEO & Founder
 www.food-mood.app · info@food-mood.app
 Confidential — do not distribute without authorisation`
 

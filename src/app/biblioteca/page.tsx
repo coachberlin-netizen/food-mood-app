@@ -7,7 +7,7 @@ export const revalidate = 86400
 export const metadata: Metadata = {
   title: 'Biblioteca Científica | Food·Mood',
   description:
-    'La base científica detrás de Food·Mood. Papers curados por Susana Ferreras sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
+    'La base científica detrás de Food·Mood. Papers curados por S.F. sobre microbiota, cronobiología, neurogastronomía y psicología de la alimentación.',
   openGraph: {
     title: 'Biblioteca Científica — Food·Mood',
     description: '282 fragmentos científicos curados por nuestro equipo.',
@@ -1268,7 +1268,7 @@ const jsonLd = {
   url: 'https://www.food-mood.app/biblioteca',
   author: {
     '@type': 'Person',
-    name: 'Susana Ferreras Diez',
+    name: 'S.F.',
     jobTitle: 'Fundadora · Psicóloga · MSc Biotecnología Alimentaria · MSc Gerontología',
     affiliation: { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
   },
@@ -1293,7 +1293,7 @@ export default function BibliotecaPage() {
           <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(26,22,18,0.65)' }}>
             Los {totalRefs} estudios y libros que fundamentan cada recomendación del Asesor Personal.
             Curados por{' '}
-            <strong style={{ color: '#1A1612' }}>Susana Ferreras Diez</strong> —
+            <strong style={{ color: '#1A1612' }}>S.F.</strong> —
             Psicóloga, MSc Biotecnología Alimentaria, MSc Gerontología y fundadora de una marca de kombucha
             (exit estratégico, 2023).
           </p>

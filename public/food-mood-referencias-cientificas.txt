@@ -12,8 +12,7 @@ con Voyage AI (voyage-3) para permitir recuperación semántica en
 tiempo real. El índice consta de 172 fragmentos activos (Mayo 2026).
 
 La selección y curación de fuentes fue realizada por la fundadora:
-Susana Ferreras Diez — Psicóloga · MSc Biotecnología Alimentaria ·
-MSc Gerontología.
+S.F. — Psicóloga · MSc Biotecnología Alimentaria · MSc Gerontología.
 
 ────────────────────────────────────────────────────────
 
@@ -216,6 +215,6 @@ Arroyo Fernández, A. & Lladó Jordan, G. (2021).
 
 ════════════════════════════════════════════════════════
 Food·Mood · www.food-mood.app · info@food-mood.app
-Base de conocimiento curada por Susana Ferreras Diez
+Base de conocimiento curada por S.F.
 Psicóloga · MSc Biotecnología Alimentaria · MSc Gerontología
 Última actualización: Mayo 2026

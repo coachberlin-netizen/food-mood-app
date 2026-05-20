@@ -991,7 +991,7 @@ export default function Home() {
                 S
               </div>
               <div>
-                <p className="text-sm font-semibold text-white leading-snug">Susana Ferreras</p>
+                <p className="text-sm font-semibold text-white leading-snug">S.F.</p>
                 <p className="text-[10px] font-bold uppercase tracking-[0.22em] mt-0.5 mb-2" style={{ color: "#C9A84C" }}>Fundadora</p>
                 <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.38)" }}>
                   Psicóloga · Gerontóloga · Tecnóloga de alimentos · Miembro ACBS
