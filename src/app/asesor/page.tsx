@@ -561,14 +561,18 @@ export default function AsesorPage() {
       mediaRecorderRef.current?.stop()
       return
     }
+    if (typeof MediaRecorder === "undefined") return
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const mimeType =
-        MediaRecorder.isTypeSupported("audio/webm;codecs=opus") ? "audio/webm;codecs=opus"
-        : MediaRecorder.isTypeSupported("audio/webm")            ? "audio/webm"
-        : "audio/mp4"
+      const CANDIDATES = [
+        "audio/webm;codecs=opus",
+        "audio/webm",
+        "audio/mp4",
+        "audio/ogg;codecs=opus",
+      ]
+      const mimeType = CANDIDATES.find((t) => MediaRecorder.isTypeSupported(t)) ?? ""
 
-      const recorder = new MediaRecorder(stream, { mimeType })
+      const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined)
       chunksRef.current = []
 
       recorder.ondataavailable = (e) => {
@@ -578,9 +582,11 @@ export default function AsesorPage() {
       recorder.onstop = async () => {
         stream.getTracks().forEach((t) => t.stop())
         setRecording(false)
-        const blob = new Blob(chunksRef.current, { type: mimeType })
+        const actualMime = recorder.mimeType || mimeType || "audio/webm"
+        const ext = actualMime.includes("mp4") ? "mp4" : actualMime.includes("ogg") ? "ogg" : "webm"
+        const blob = new Blob(chunksRef.current, { type: actualMime })
         const form = new FormData()
-        form.append("audio", blob, "voice.webm")
+        form.append("audio", blob, `voice.${ext}`)
         try {
           const res  = await fetch("/api/voice/transcribe", { method: "POST", body: form })
           const data = await res.json()
@@ -613,6 +619,11 @@ export default function AsesorPage() {
     }
     audioRef.current?.pause()
     setPlayingIdx(idx)
+
+    // Create Audio synchronously within the user gesture (iOS requirement)
+    const audio = new Audio()
+    audioRef.current = audio
+
     try {
       const res = await fetch("/api/voice/tts", {
         method: "POST",
@@ -622,8 +633,7 @@ export default function AsesorPage() {
       if (!res.ok) { setPlayingIdx(null); return }
       const blob = await res.blob()
       const url  = URL.createObjectURL(blob)
-      const audio = new Audio(url)
-      audioRef.current = audio
+      audio.src = url
       audio.onended = () => { setPlayingIdx(null); URL.revokeObjectURL(url) }
       audio.onerror = () => { setPlayingIdx(null); URL.revokeObjectURL(url) }
       await audio.play()
