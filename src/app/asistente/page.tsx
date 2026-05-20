@@ -1,8 +1,10 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
-import { Send, Loader2, Lock, Sparkles } from "lucide-react"
+import { Send, Loader2, Lock, Sparkles, Mic, MicOff, Volume2, VolumeX } from "lucide-react"
 import Link from "next/link"
+import { useVoiceInput } from "@/hooks/useVoiceInput"
+import { useVoiceOutput } from "@/hooks/useVoiceOutput"
 
 type AccessState = "idle" | "loading" | "unauthenticated" | "no-subscription" | "subscribed"
 
@@ -19,10 +21,23 @@ export default function AsistentePage() {
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
   const [messagesRemaining, setMessagesRemaining] = useState<number | null>(null)
+  const [ttsEnabled, setTtsEnabled] = useState(false)
   const scrollRef       = useRef<HTMLDivElement>(null)
   const inputRef        = useRef<HTMLInputElement>(null)
   const lastMsgRef      = useRef<HTMLDivElement>(null)
   const bottomRef       = useRef<HTMLDivElement>(null)
+
+  const { speak, stop, isSpeaking, supported: ttsSupported } = useVoiceOutput()
+
+  const { isListening, interim, startListening, stopListening, supported: sttSupported } = useVoiceInput({
+    onFinalTranscript: (text) => {
+      setInput(prev => prev ? `${prev} ${text}` : text)
+      stopListening()
+    },
+    onInterimTranscript: (text) => {
+      setInput(text)
+    },
+  })
 
   // Entitlement check on mount
   useEffect(() => {
@@ -93,7 +108,10 @@ export default function AsistentePage() {
         return
       }
       if (typeof data.messagesRemaining === "number") setMessagesRemaining(data.messagesRemaining)
-      if (data.reply) setMessages(prev => [...prev, { role: "assistant", content: data.reply }])
+      if (data.reply) {
+        setMessages(prev => [...prev, { role: "assistant", content: data.reply }])
+        if (ttsEnabled && ttsSupported) speak(data.reply)
+      }
     } catch {
       setMessages(prev => [...prev, {
         role: "assistant",
@@ -102,7 +120,7 @@ export default function AsistentePage() {
     } finally {
       setLoading(false)
     }
-  }, [input, loading, accessState, messages, messagesRemaining])
+  }, [input, loading, accessState, messages, messagesRemaining, ttsEnabled, ttsSupported, speak])
 
   const limitReached = messagesRemaining !== null && messagesRemaining <= 0
 
@@ -186,15 +204,30 @@ export default function AsistentePage() {
             IA especializada · gut-brain nutrition
           </p>
         </div>
-        {messagesRemaining !== null && (
-          <span className="text-[10px] font-semibold shrink-0 px-2 py-0.5 rounded-full" style={{
-            backgroundColor: limitReached ? "rgba(201,168,76,0.15)" : "rgba(245,240,232,0.08)",
-            color: limitReached ? "#C9A84C" : "rgba(245,240,232,0.7)",
-            border: `1px solid ${limitReached ? "rgba(201,168,76,0.3)" : "rgba(245,240,232,0.12)"}`,
-          }}>
-            {limitReached ? "Límite alcanzado" : `${messagesRemaining}/${DAILY_LIMIT} hoy`}
-          </span>
-        )}
+        <div className="flex items-center gap-2 shrink-0">
+          {ttsSupported && (
+            <button
+              onClick={() => { setTtsEnabled(e => !e); if (isSpeaking) stop() }}
+              title={ttsEnabled ? "Silenciar voz" : "Activar voz"}
+              className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+              style={{
+                backgroundColor: ttsEnabled ? "rgba(201,168,76,0.15)" : "rgba(245,240,232,0.06)",
+                color: ttsEnabled ? "#C9A84C" : "rgba(245,240,232,0.3)",
+              }}
+            >
+              {ttsEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
+            </button>
+          )}
+          {messagesRemaining !== null && (
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{
+              backgroundColor: limitReached ? "rgba(201,168,76,0.15)" : "rgba(245,240,232,0.08)",
+              color: limitReached ? "#C9A84C" : "rgba(245,240,232,0.7)",
+              border: `1px solid ${limitReached ? "rgba(201,168,76,0.3)" : "rgba(245,240,232,0.12)"}`,
+            }}>
+              {limitReached ? "Límite alcanzado" : `${messagesRemaining}/${DAILY_LIMIT} hoy`}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Messages */}
@@ -270,13 +303,42 @@ export default function AsistentePage() {
       {/* Input */}
       <div className="shrink-0 border-t px-4 py-4" style={{ backgroundColor: "#fff", borderColor: "rgba(45,15,22,0.08)" }}>
         <div className="max-w-2xl mx-auto">
-          <div className="flex gap-3 items-end">
+          <div className="flex gap-2 items-end">
+            {sttSupported && (
+              <button
+                type="button"
+                onMouseDown={startListening}
+                onMouseUp={stopListening}
+                onTouchStart={startListening}
+                onTouchEnd={stopListening}
+                disabled={limitReached}
+                title="Mantén pulsado para hablar"
+                className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all disabled:opacity-30"
+                style={{
+                  backgroundColor: isListening ? "#6B2737" : "rgba(107,39,55,0.08)",
+                  color: isListening ? "#F5F0E8" : "rgba(107,39,55,0.5)",
+                  border: "1px solid rgba(107,39,55,0.12)",
+                }}
+              >
+                {isListening ? <MicOff size={16} /> : <Mic size={16} />}
+              </button>
+            )}
             <input
               ref={inputRef}
               type="text"
-              placeholder={limitReached ? "Límite diario alcanzado — vuelve mañana" : "¿Cómo te encuentras hoy?"}
+              placeholder={
+                isListening
+                  ? (interim || "Escuchando…")
+                  : limitReached
+                  ? "Límite diario alcanzado — vuelve mañana"
+                  : "¿Cómo te encuentras hoy?"
+              }
               className="flex-1 px-4 py-3 rounded-2xl text-sm font-light focus:outline-none transition-all disabled:opacity-40"
-              style={{ backgroundColor: "#F5F0E8", border: "1px solid rgba(107,39,55,0.12)", color: "#2d0f16" }}
+              style={{
+                backgroundColor: isListening ? "rgba(107,39,55,0.04)" : "#F5F0E8",
+                border: `1px solid ${isListening ? "rgba(107,39,55,0.25)" : "rgba(107,39,55,0.12)"}`,
+                color: "#2d0f16",
+              }}
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === "Enter" && !e.shiftKey && handleSend()}

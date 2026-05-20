@@ -15,7 +15,7 @@ import {
 import { WeekMosaic } from "@/components/diary/WeekMosaic"
 import { MonthMosaic } from "@/components/diary/MonthMosaic"
 import { DiarioForm } from "@/components/diary/DiarioForm"
-import { ChevronDown, ChevronUp, Lock, Sparkles, Calendar, BookOpen, Brain } from "lucide-react"
+import { ChevronDown, ChevronUp, Lock, Sparkles, Calendar, BookOpen, Brain, Mic } from "lucide-react"
 import Link from "next/link"
 
 const MOOD_COLORS: Record<string, string> = {
@@ -180,6 +180,28 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
             El agente lo lee todo y empieza a detectar lo que tú sola no ves.
           </p>
         </header>
+
+        {/* ── Voice check-in CTA ── */}
+        <Link
+          href="/voz"
+          className="group flex items-center gap-5 px-7 py-5 rounded-2xl transition-all hover:shadow-md"
+          style={{ background: "linear-gradient(135deg, #2d0f16 0%, #6B2737 100%)", color: "#F5F0E8" }}
+        >
+          <div className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+            style={{ backgroundColor: "rgba(201,168,76,0.2)", border: "1px solid rgba(201,168,76,0.3)" }}>
+            <Mic size={18} style={{ color: "#C9A84C" }} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-[14px] font-semibold">Check-in de voz</p>
+            <p className="text-[12px] font-light leading-snug" style={{ color: "rgba(245,240,232,0.55)" }}>
+              Hablar es más íntimo que teclear. Cuéntame cómo estás hoy.
+            </p>
+          </div>
+          <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full shrink-0"
+            style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C" }}>
+            Nuevo
+          </span>
+        </Link>
 
         {/* ── DiarioForm — visible para todos ── */}
         <section className="bg-white rounded-[2.5rem] px-8 py-10 shadow-sm border border-[#6B2737]/5">
