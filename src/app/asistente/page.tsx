@@ -29,13 +29,9 @@ export default function AsistentePage() {
 
   const { speak, stop, isSpeaking, supported: ttsSupported } = useVoiceOutput()
 
-  const { isListening, interim, startListening, stopListening, supported: sttSupported } = useVoiceInput({
+  const { isListening, toggle: toggleMic, supported: sttSupported } = useVoiceInput({
     onFinalTranscript: (text) => {
       setInput(prev => prev ? `${prev} ${text}` : text)
-      stopListening()
-    },
-    onInterimTranscript: (text) => {
-      setInput(text)
     },
   })
 
@@ -307,12 +303,9 @@ export default function AsistentePage() {
             {sttSupported && (
               <button
                 type="button"
-                onMouseDown={startListening}
-                onMouseUp={stopListening}
-                onTouchStart={startListening}
-                onTouchEnd={stopListening}
+                onClick={toggleMic}
                 disabled={limitReached}
-                title="Mantén pulsado para hablar"
+                title={isListening ? "Detener grabación" : "Hablar"}
                 className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all disabled:opacity-30"
                 style={{
                   backgroundColor: isListening ? "#6B2737" : "rgba(107,39,55,0.08)",
@@ -328,7 +321,7 @@ export default function AsistentePage() {
               type="text"
               placeholder={
                 isListening
-                  ? (interim || "Escuchando…")
+                  ? "Grabando… toca el micro para detener"
                   : limitReached
                   ? "Límite diario alcanzado — vuelve mañana"
                   : "¿Cómo te encuentras hoy?"
