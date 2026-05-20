@@ -4,10 +4,26 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import {
   Send, Loader2, Lock, Sparkles, Clock,
   AlertTriangle, Phone, ChevronDown,
+  Mic, MicOff, Volume2, Square,
 } from "lucide-react"
 import Link from "next/link"
 import { useQuizStore } from "@/store/useQuizStore"
 import type { AgentResponse } from "@/agent/schema"
+
+// Extrae el texto legible de una respuesta del agente para TTS.
+// Devuelve null para derivar (sensibilidad clínica — el usuario lee a su ritmo).
+function extractTTSText(r: AgentResponse): string | null {
+  switch (r.modo) {
+    case "respuesta_libre":
+      return r.texto
+    case "necesito_mas_contexto":
+      return r.pregunta
+    case "recomendacion":
+      return `${r.microcontenido.porque} ${r.microaccion.titulo}: ${r.microaccion.descripcion}`
+    case "derivar":
+      return null
+  }
+}
 
 // ── Mood config ───────────────────────────────────────────────────────────────
 
@@ -443,8 +459,17 @@ export default function AsesorPage() {
   const [used,        setUsed]          = useState(0)
 
   const { resultMood } = useQuizStore()
-  const inputRef  = useRef<HTMLInputElement>(null)
-  const bottomRef = useRef<HTMLDivElement>(null)
+  const inputRef        = useRef<HTMLInputElement>(null)
+  const bottomRef       = useRef<HTMLDivElement>(null)
+
+  // ── Voz: grabación (STT) ──────────────────────────────────────────────────
+  const [recording,       setRecording]       = useState(false)
+  const mediaRecorderRef  = useRef<MediaRecorder | null>(null)
+  const chunksRef         = useRef<Blob[]>([])
+
+  // ── Voz: reproducción (TTS) ───────────────────────────────────────────────
+  const [playingIdx,  setPlayingIdx]  = useState<number | null>(null)
+  const audioRef      = useRef<HTMLAudioElement | null>(null)
 
   const remaining   = MONTHLY_LIMIT - used
   const limitReached = used >= MONTHLY_LIMIT
@@ -529,6 +554,83 @@ export default function AsesorPage() {
 
   const handleSend         = () => sendMessage(input)
   const handleOptionSelect = (opt: string) => sendMessage(opt)
+
+  // ── toggleRecording ───────────────────────────────────────────────────────
+  const toggleRecording = useCallback(async () => {
+    if (recording) {
+      mediaRecorderRef.current?.stop()
+      return
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const mimeType =
+        MediaRecorder.isTypeSupported("audio/webm;codecs=opus") ? "audio/webm;codecs=opus"
+        : MediaRecorder.isTypeSupported("audio/webm")            ? "audio/webm"
+        : "audio/mp4"
+
+      const recorder = new MediaRecorder(stream, { mimeType })
+      chunksRef.current = []
+
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunksRef.current.push(e.data)
+      }
+
+      recorder.onstop = async () => {
+        stream.getTracks().forEach((t) => t.stop())
+        setRecording(false)
+        const blob = new Blob(chunksRef.current, { type: mimeType })
+        const form = new FormData()
+        form.append("audio", blob, "voice.webm")
+        try {
+          const res  = await fetch("/api/voice/transcribe", { method: "POST", body: form })
+          const data = await res.json()
+          if (data.text) sendMessage(data.text)
+        } catch {}
+      }
+
+      mediaRecorderRef.current = recorder
+      recorder.start()
+      setRecording(true)
+
+      // Auto-stop tras 30 s
+      setTimeout(() => {
+        if (mediaRecorderRef.current?.state === "recording") {
+          mediaRecorderRef.current.stop()
+        }
+      }, 30_000)
+    } catch {
+      // Permiso denegado o no soportado
+    }
+  }, [recording, sendMessage])
+
+  // ── playTTS ───────────────────────────────────────────────────────────────
+  const playTTS = useCallback(async (text: string, idx: number) => {
+    // Detener si ya suena este mensaje
+    if (playingIdx === idx) {
+      audioRef.current?.pause()
+      setPlayingIdx(null)
+      return
+    }
+    audioRef.current?.pause()
+    setPlayingIdx(idx)
+    try {
+      const res = await fetch("/api/voice/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      })
+      if (!res.ok) { setPlayingIdx(null); return }
+      const blob = await res.blob()
+      const url  = URL.createObjectURL(blob)
+      const audio = new Audio(url)
+      audioRef.current = audio
+      audio.onended = () => { setPlayingIdx(null); URL.revokeObjectURL(url) }
+      audio.onerror = () => { setPlayingIdx(null); URL.revokeObjectURL(url) }
+      await audio.play()
+    } catch {
+      setPlayingIdx(null)
+    }
+  }, [playingIdx])
 
   // ── Pantallas de acceso ───────────────────────────────────────────────────
 
@@ -753,14 +855,37 @@ export default function AsesorPage() {
                 </div>
               )}
 
-              {msg.role === "assistant" && (
-                <div className="w-full max-w-[94%]">
-                  <AgentMessageRenderer
-                    agentResponse={msg.agentResponse}
-                    onOptionSelect={handleOptionSelect}
-                  />
-                </div>
-              )}
+              {msg.role === "assistant" && (() => {
+                const ttsText = extractTTSText(msg.agentResponse)
+                return (
+                  <div className="w-full max-w-[94%]">
+                    <AgentMessageRenderer
+                      agentResponse={msg.agentResponse}
+                      onOptionSelect={handleOptionSelect}
+                    />
+                    {ttsText && (
+                      <button
+                        onClick={() => playTTS(ttsText, i)}
+                        className="mt-2 ml-0.5 flex items-center gap-1.5 transition-opacity hover:opacity-80"
+                        style={{ color: playingIdx === i ? "#6B2737" : "rgba(45,15,22,0.28)" }}
+                        aria-label={playingIdx === i ? "Detener audio" : "Escuchar respuesta"}
+                      >
+                        {playingIdx === i ? (
+                          <>
+                            <Square className="w-3 h-3" fill="currentColor" />
+                            <span className="text-[10px] font-semibold uppercase tracking-wider">Detener</span>
+                          </>
+                        ) : (
+                          <>
+                            <Volume2 className="w-3 h-3" />
+                            <span className="text-[10px] font-medium uppercase tracking-wider">Escuchar</span>
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
+                )
+              })()}
 
               {msg.role === "error" && (
                 <div
@@ -813,16 +938,34 @@ export default function AsesorPage() {
         className="shrink-0 border-t px-4 py-4"
         style={{ backgroundColor: "#fff", borderColor: "rgba(45,15,22,0.08)" }}
       >
-        <div className="max-w-2xl mx-auto flex gap-3 items-end">
+        <div className="max-w-2xl mx-auto flex gap-2 items-end">
+          {/* Botón de micrófono */}
+          <button
+            onClick={toggleRecording}
+            disabled={!selectedMood || limitReached || loading}
+            className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all disabled:opacity-30"
+            style={{
+              backgroundColor: recording ? "rgba(239,68,68,0.08)" : "rgba(107,39,55,0.07)",
+              border: recording ? "1px solid rgba(239,68,68,0.25)" : "1px solid rgba(107,39,55,0.12)",
+              color: recording ? "#ef4444" : "#6B2737",
+              animation: recording ? "pulse 1.2s ease-in-out infinite" : "none",
+            }}
+            aria-label={recording ? "Detener grabación" : "Dictar mensaje"}
+          >
+            {recording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+          </button>
+
           <input
             ref={inputRef}
             type="text"
             placeholder={
-              !selectedMood
-                ? "Selecciona tu mood para empezar"
-                : limitReached
-                  ? "Límite mensual alcanzado"
-                  : "¿Cómo te encuentras? Cuéntame..."
+              recording
+                ? "Escuchando…"
+                : !selectedMood
+                  ? "Selecciona tu mood para empezar"
+                  : limitReached
+                    ? "Límite mensual alcanzado"
+                    : "¿Cómo te encuentras? Cuéntame..."
             }
             className="flex-1 px-4 py-3 rounded-2xl text-sm font-light focus:outline-none transition-all disabled:opacity-40"
             style={{
@@ -834,7 +977,7 @@ export default function AsesorPage() {
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === "Enter" && !e.shiftKey && handleSend()}
             maxLength={1000}
-            disabled={!selectedMood || limitReached}
+            disabled={!selectedMood || limitReached || recording}
           />
           <button
             onClick={handleSend}
