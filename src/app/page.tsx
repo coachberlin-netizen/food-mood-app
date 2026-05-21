@@ -380,100 +380,33 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* ── RIGHT: interactive visualization ─────────────────────────── */}
+            {/* ── RIGHT: phone mockups ──────────────────────────────────────── */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.9, delay: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-              className="flex flex-col gap-4"
+              className="flex flex-col items-center gap-2"
             >
-              {/* Label */}
-              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-center" style={{ color: "rgba(201,168,76,0.5)" }}>
-                La misma comida · tres efectos distintos
+              <p className="text-[10px] font-bold uppercase tracking-[0.28em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
+                La app · Simple. Personal. Tuya.
               </p>
 
-              {/* Central food card */}
-              <div
-                className="relative rounded-2xl p-4"
-                style={{ backgroundColor: "rgba(245,240,232,0.06)", border: "1px solid rgba(245,240,232,0.1)" }}
-              >
-                <div className="flex items-start gap-4">
-                  <span className="text-3xl leading-none mt-0.5" aria-hidden="true">🥗</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-serif text-sm font-bold text-white mb-1">Bowl de quinoa y aguacate</p>
-                    <p className="text-xs font-light" style={{ color: "rgba(245,240,232,0.5)" }}>Alta en triptófano, grasas saludables y fibra</p>
-                  </div>
-                  <span
-                    className="shrink-0 text-[9px] font-bold uppercase tracking-wide px-2 py-1 rounded-full whitespace-nowrap"
-                    style={{ backgroundColor: "rgba(201,168,76,0.14)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.24)" }}
-                  >
-                    depende de ti
-                  </span>
+              <div className="flex items-end justify-center gap-4 w-full">
+                {/* Test phone */}
+                <div className="flex flex-col items-center gap-3" style={{ width: 160 }}>
+                  <PhoneMockup screen="test" dimmed />
+                  <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.55)" }}>Test emocional</p>
+                </div>
+                {/* Paleta phone — featured */}
+                <div className="flex flex-col items-center gap-3" style={{ width: 180 }}>
+                  <PhoneMockup screen="paleta" featured />
+                  <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.82)" }}>Tu paleta emocional</p>
                 </div>
               </div>
 
-              {/* Separator */}
-              <p className="text-center text-xs font-light" style={{ color: "rgba(245,240,232,0.32)" }}>
-                no siempre produce el mismo efecto
+              <p className="text-[9px] font-light mt-4" style={{ color: "rgba(245,240,232,0.28)" }}>
+                Interfaz real · Sin filtros
               </p>
-
-              {/* Mood cards — 1 col on mobile, 3 on sm+ */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {[
-                  {
-                    emoji: "😰",
-                    label: "Con estrés alto",
-                    text: "El cortisol bloquea la absorción. Puedes sentir hinchazón y poca energía.",
-                    bg: "rgba(107,39,55,0.22)",
-                    border: "rgba(107,39,55,0.38)",
-                  },
-                  {
-                    emoji: "😴",
-                    label: "Con agotamiento",
-                    text: "El triptófano puede convertirse en serotonina y mejorar tu ánimo en 90 min.",
-                    bg: "rgba(74,122,181,0.14)",
-                    border: "rgba(74,122,181,0.28)",
-                  },
-                  {
-                    emoji: "✨",
-                    label: "En fase folicular",
-                    text: "Tu metabolismo está activo. Absorbes nutrientes al máximo y sientes energía real.",
-                    bg: "rgba(90,155,138,0.14)",
-                    border: "rgba(90,155,138,0.28)",
-                  },
-                ].map((card) => (
-                  <div
-                    key={card.label}
-                    className="rounded-xl p-3 flex flex-col gap-2"
-                    style={{
-                      backgroundColor: card.bg,
-                      border: `1px solid ${card.border}`,
-                      transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                    }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.35)" }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ""; (e.currentTarget as HTMLElement).style.boxShadow = "" }}
-                  >
-                    <span className="text-xl leading-none" aria-hidden="true">{card.emoji}</span>
-                    <p className="text-[10px] font-semibold leading-snug" style={{ color: "rgba(245,240,232,0.9)" }}>{card.label}</p>
-                    <p className="text-[9px] font-light leading-snug" style={{ color: "rgba(245,240,232,0.52)" }}>{card.text}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Test prompt block — clickable → /test */}
-              <Link
-                href="/test"
-                className="flex items-start gap-3 rounded-xl p-4 transition-all hover:brightness-110"
-                style={{ backgroundColor: "rgba(201,168,76,0.09)", border: "1px solid rgba(201,168,76,0.18)" }}
-              >
-                <Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#C9A84C" }} />
-                <div>
-                  <p className="text-xs font-semibold mb-1" style={{ color: "#C9A84C" }}>Test psiconutricional · 3 min</p>
-                  <p className="text-[11px] font-light leading-snug" style={{ color: "rgba(245,240,232,0.58)" }}>
-                    Cuéntanos cómo estás hoy — física, emocional y hormonalmente — y te diremos qué comer para sentirte mejor.
-                  </p>
-                </div>
-              </Link>
             </motion.div>
 
           </div>
@@ -604,53 +537,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── 3b. LA APP — PANTALLAS ───────────────────────────────────────────── */}
-      <section aria-label="Pantallas de la aplicación Food·Mood" className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: "#0b0b0a" }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "#C9A84C" }}>La app</p>
-            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              Simple. Personal.{" "}
-              <span className="italic font-light">Tuya.</span>
-            </h2>
-            <p className="text-base font-light mt-5 max-w-lg mx-auto" style={{ color: "rgba(245,240,232,0.75)" }}>
-              Sin curva de aprendizaje. En 2 minutos ya tienes tu propuesta del día.
-            </p>
-          </div>
-
-          <div className="flex items-end justify-center gap-4 md:gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 16 }}
-              viewport={{ once: true }} transition={{ duration: 0.6 }}
-              className="hidden md:block shrink-0" style={{ width: 188 }}
-            >
-              <PhoneMockup screen="test" dimmed />
-              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.65)" }}>Test emocional</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="shrink-0" style={{ width: 210 }}
-            >
-              <PhoneMockup screen="paleta" featured />
-              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.82)" }}>Tu paleta emocional</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 16 }}
-              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden md:block shrink-0" style={{ width: 188 }}
-            >
-              <PhoneMockup screen="receta" dimmed />
-              <p className="text-center text-[11px] font-light mt-5" style={{ color: "rgba(245,240,232,0.65)" }}>Receta del día</p>
-            </motion.div>
-          </div>
-
-          <p className="text-center text-[10px] font-light mt-10" style={{ color: "rgba(245,240,232,0.4)" }}>
-            Interfaz real de la app · Sin filtros · Sin montajes
-          </p>
         </div>
       </section>
 
