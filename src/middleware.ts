@@ -101,8 +101,8 @@ export async function middleware(request: NextRequest) {
 
   const csp = [
     "default-src 'self'",
-    // Next.js necesita unsafe-inline; Stripe y Vercel Analytics necesitan sus dominios
-    "script-src 'self' 'unsafe-inline' https://js.stripe.com https://va.vercel-scripts.com",
+    // Next.js necesita unsafe-inline; dev mode también necesita unsafe-eval para HMR/webpack
+    `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ""} https://js.stripe.com https://va.vercel-scripts.com`,
     // Estilos: inline (Tailwind/Framer) + Google Fonts
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     // Fuentes

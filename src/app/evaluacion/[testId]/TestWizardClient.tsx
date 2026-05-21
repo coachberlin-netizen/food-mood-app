@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, CheckCircle2, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -162,6 +162,10 @@ export function TestWizardClient({ test }: { test: EvaluacionTest }) {
   const [dir, setDir] = useState(1)
   const [respuestas, setRespuestas] = useState<RespuestasTest>({})
   const [done, setDone] = useState(false)
+  // Skip the enter animation on first render so content is visible immediately.
+  // Subsequent step changes use the full slide animation.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
 
   const pregunta = test.preguntas[step]
 
@@ -295,7 +299,7 @@ export function TestWizardClient({ test }: { test: EvaluacionTest }) {
             key={step}
             custom={dir}
             variants={STEP_VARIANTS}
-            initial="enter"
+            initial={mounted ? "enter" : "center"}
             animate="center"
             exit="exit"
             transition={{ duration: 0.22, ease: 'easeInOut' }}
