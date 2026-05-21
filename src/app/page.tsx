@@ -695,7 +695,8 @@ export default function Home() {
               <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.7)" }}>
                 Detrás de cada recomendación hay diez años de literatura científica sobre perimenopausia, microbiota, sueño, eje intestino-cerebro y psicología nutricional. Un equipo experto en perimenopausia, microbiota y longevidad revisa cada protocolo. Cuando algo no tiene evidencia clara, te lo decimos. Cuando algo es solo una idea, lo marcamos.
               </motion.p>
-              <motion.p variants={fade} className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.42)" }}>
+              <motion.p variants={fade} className="text-sm font-semibold tracking-wide mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", color: "#C9A84C" }}>
+                <span aria-hidden="true">✦</span>
                 No somos una caja negra: la IA aprende, las expertas supervisan.
               </motion.p>
             </motion.div>
