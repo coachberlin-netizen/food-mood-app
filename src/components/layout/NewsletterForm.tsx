@@ -14,7 +14,10 @@ interface NewsletterFormProps {
 
 export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFormProps) {
   const [nlEmail, setNlEmail] = useState('')
-  const [nlSent, setNlSent] = useState(false)
+  const [nlSent, setNlSent] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return localStorage.getItem('fm_nl_subscribed') === '1'
+  })
   const [nlLoading, setNlLoading] = useState(false)
 
   const handleNewsletter = async (e: React.FormEvent) => {
@@ -27,6 +30,7 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: nlEmail, source }),
       })
+      localStorage.setItem('fm_nl_subscribed', '1')
     } catch {}
     setNlSent(true)
     setNlLoading(false)

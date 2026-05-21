@@ -62,7 +62,7 @@ export function BetaBanner() {
           flexShrink: 0,
         }}
       >
-        Inversores · Pre-Seed abierto
+        Inversores →
         <span style={{ fontSize: 13 }}>→</span>
       </Link>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { calculatePalette, type PaletteResult } from "@/lib/emotional-palette";
 
@@ -17,7 +17,7 @@ const PaletteContext = createContext<PaletteContextType | undefined>(undefined);
 export function PaletteProvider({ children }: { children: React.ReactNode }) {
   const [currentPalette, setCurrentPalette] = useState<PaletteResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   const fetchLatestPalette = useCallback(async () => {
     setIsLoading(true);
