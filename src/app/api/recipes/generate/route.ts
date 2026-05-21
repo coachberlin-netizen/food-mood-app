@@ -44,17 +44,35 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing moodName" }, { status: 400 });
     }
 
-    // 3. Construct Claude Message
-    let userPrompt = `Necesito 1 receta para el estado emocional "${moodName}".\n`;
-    
-    if (occasion) {
-      userPrompt += `La receta es ideal para consumir como: ${occasion}.\n`;
+    // 3. Construct Claude Message — sanitize all user input before injection
+    const ALLOWED_RESTRICTIONS = new Set([
+      "vegano", "vegetariano", "sin gluten", "sin lactosa", "sin frutos secos",
+      "sin mariscos", "sin huevo", "sin soja", "sin cerdo", "halal", "kosher",
+      "keto", "paleo", "bajo en sodio", "bajo en azúcar", "sin alcohol",
+    ])
+
+    const sanitizeText = (s: string, maxLen: number) =>
+      s.replace(/[`"\\{}<>]/g, "").trim().slice(0, maxLen)
+
+    const safeOccasion = occasion ? sanitizeText(String(occasion), 80) : null
+    const safePreferences = preferences ? sanitizeText(String(preferences), 200) : null
+    const safeRestrictions = Array.isArray(restrictions)
+      ? restrictions
+          .map((r: unknown) => String(r).toLowerCase().trim())
+          .filter((r) => ALLOWED_RESTRICTIONS.has(r))
+          .slice(0, 6)
+      : []
+
+    let userPrompt = `Necesita 1 receta para el estado emocional "${sanitizeText(String(moodName), 50)}".\n`;
+
+    if (safeOccasion) {
+      userPrompt += `La receta es ideal para consumir como: ${safeOccasion}.\n`;
     }
-    if (preferences) {
-      userPrompt += `Tengo estos ingredientes/preferencias: ${preferences}.\n`;
+    if (safePreferences) {
+      userPrompt += `Ingredientes o preferencias: ${safePreferences}.\n`;
     }
-    if (restrictions && restrictions.length > 0) {
-      userPrompt += `Debe cumplir estas restricciones dietéticas: ${restrictions.join(", ")}.\n`;
+    if (safeRestrictions.length > 0) {
+      userPrompt += `Restricciones dietéticas: ${safeRestrictions.join(", ")}.\n`;
     }
     
     userPrompt += `\nGenera la receta usando la estructura JSON solicitada.`;

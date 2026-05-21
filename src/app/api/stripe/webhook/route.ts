@@ -156,8 +156,8 @@ export async function POST(req: NextRequest) {
       // Fallback: Si no hay userId en los metadatos, buscamos el usuario por su email del checkout
       if (!userId && customerEmail) {
         console.log(`Buscando usuario en Supabase por email de checkout: ${customerEmail}`);
-        const { data: authData, error: authError } = await supabaseAdmin.auth.admin.listUsers();
-        
+        const { data: authData, error: authError } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 });
+
         let match = null;
         if (!authError && authData?.users) {
           match = authData.users.find(u => u.email?.toLowerCase() === customerEmail.toLowerCase());
@@ -355,7 +355,7 @@ export async function POST(req: NextRequest) {
       const email = (customer as any).email
 
       if (email) {
-        const { data: authData } = await supabaseAdmin.auth.admin.listUsers()
+        const { data: authData } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
         const user = authData?.users.find(u => u.email?.toLowerCase() === email.toLowerCase())
 
         if (user) {
@@ -382,7 +382,7 @@ export async function POST(req: NextRequest) {
       const email = (customer as any).email
 
       if (email) {
-        const { data: authData } = await supabaseAdmin.auth.admin.listUsers()
+        const { data: authData } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
         const user = authData?.users.find(u => u.email?.toLowerCase() === email.toLowerCase())
 
         if (user) {

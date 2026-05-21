@@ -6,11 +6,28 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+// Simple in-memory rate limit — 5 submissions per IP per hour
+const leadRateLimit = new Map<string, { count: number; resetAt: number }>()
+
 export async function POST(req: NextRequest) {
   try {
+    // Rate limit by IP
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown'
+    const now = Date.now()
+    const window = 60 * 60 * 1000 // 1 hour
+    const entry = leadRateLimit.get(ip)
+    if (entry && now < entry.resetAt) {
+      if (entry.count >= 5) {
+        return NextResponse.json({ ok: true }) // silent — don't reveal limit to scrapers
+      }
+      entry.count++
+    } else {
+      leadRateLimit.set(ip, { count: 1, resetAt: now + window })
+    }
+
     const { email, source } = await req.json()
 
-    if (!email || !email.includes('@')) {
+    if (!email || typeof email !== 'string' || !email.includes('@') || email.length > 254) {
       return NextResponse.json({ error: 'Email inválido' }, { status: 400 })
     }
 
