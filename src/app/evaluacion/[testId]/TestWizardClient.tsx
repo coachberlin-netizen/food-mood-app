@@ -210,7 +210,7 @@ export function TestWizardClient({ test }: { test: EvaluacionTest }) {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="min-h-screen bg-[#1A0A0E] flex flex-col items-center justify-center px-6 text-center"
+        className="fixed inset-0 z-50 bg-[#1A0A0E] flex flex-col items-center justify-center px-6 text-center overflow-y-auto"
       >
         <motion.div
           initial={{ scale: 0 }}
@@ -262,7 +262,7 @@ export function TestWizardClient({ test }: { test: EvaluacionTest }) {
 
   // ── Wizard screen ────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#1A0A0E] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-[#1A0A0E] flex flex-col">
       {/* Header */}
       <div className="px-5 pt-5 pb-4 max-w-md mx-auto w-full">
         <div className="flex items-center justify-between mb-3">
