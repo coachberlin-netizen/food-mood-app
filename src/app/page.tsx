@@ -488,7 +488,161 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3. TRES COSAS QUE TE DA ──────────────────────────────────────────── */}
+      {/* ── 3. LONGEVIDAD FEMENINA ───────────────────────────────────────────── */}
+      <section aria-label="Por qué importa lo que comes ahora" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#f0ede6" }}>
+        <div className="max-w-5xl mx-auto">
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-[10px] font-bold uppercase tracking-[0.32em] mb-12"
+            style={{ color: "#9e4f6e" }}
+          >
+            Por qué importa lo que comes ahora
+          </motion.p>
+
+          {/* Stat card + narrative */}
+          <div className="grid md:grid-cols-2 gap-10 mb-14 items-start">
+
+            {/* Dark stat card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="rounded-2xl p-10 flex flex-col gap-6 relative overflow-hidden"
+              style={{ backgroundColor: "#141210", color: "#e8e4dc" }}
+            >
+              <div
+                className="absolute top-0 right-0 w-44 h-44 pointer-events-none"
+                style={{ background: "radial-gradient(circle at top right, rgba(158,79,110,0.18) 0%, transparent 70%)" }}
+                aria-hidden="true"
+              />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#8a8579" }}>
+                GWI 2026 · OMS
+              </span>
+              <div>
+                <div className="font-serif leading-none" style={{ fontSize: "clamp(3rem,8vw,5rem)", color: "#fff", letterSpacing: "-0.03em" }}>
+                  5 <span className="font-serif italic" style={{ fontSize: "0.52em", color: "rgba(255,255,255,0.42)" }}>años más</span>
+                </div>
+                <p className="text-sm font-light leading-relaxed mt-3" style={{ color: "#8a8579", maxWidth: "26ch" }}>
+                  Las mujeres viven más que los hombres, pero pasan más años gestionando el declive.
+                </p>
+              </div>
+              <div
+                className="rounded-lg p-4 text-sm font-light leading-relaxed"
+                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", color: "#e8e4dc" }}
+              >
+                <strong className="font-semibold" style={{ color: "#fff" }}>No es cuestión de longevidad. Es cuestión de healthspan.</strong>
+                {" "}Cuántos de esos años se viven con energía, claridad y bienestar real.
+              </div>
+            </motion.div>
+
+            {/* Copy narrative */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.12 }}
+              className="flex flex-col gap-6 pt-2"
+            >
+              <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] text-[#1e1b14]" style={{ letterSpacing: "-0.025em" }}>
+                Vivir más años no es lo mismo que{" "}
+                <em className="font-light italic" style={{ color: "#9e4f6e" }}>vivir bien más años.</em>
+              </h2>
+              <p className="text-base font-light leading-relaxed" style={{ color: "#6b6659", maxWidth: "52ch" }}>
+                La perimenopausia y la menopausia no son el final de nada: son una transición biológica que llega sin manual de instrucciones. Lo que comes —y cómo lo comes— puede cambiar radicalmente cómo transitas esa etapa. La ciencia lo sabe. Food·Mood lo traduce.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Perimenopausia y energía",
+                  "Sueño, cortisol y antojos",
+                  "Microbiota y claridad mental",
+                  "Hormonas y estado de ánimo",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium"
+                    style={{ backgroundColor: "#f0ede6", border: "1px solid rgba(40,30,10,0.10)", color: "#6b6659" }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#9e4f6e" }} aria-hidden="true" />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <Link
+                  href="/test"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
+                  style={{ backgroundColor: "#4a7c59", color: "#fff" }}
+                >
+                  Hacer el test gratis <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/como-funciona"
+                  className="text-sm font-medium transition-colors hover:opacity-70 border-b"
+                  style={{ color: "#6b6659", borderColor: "rgba(40,30,10,0.12)", paddingBottom: "1px" }}
+                >
+                  Ver cómo funciona ↗
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Feature cards row */}
+          <div className="grid sm:grid-cols-3 gap-4 mb-12">
+            {[
+              {
+                icon: "🧠",
+                title: "Niebla mental y microbiota",
+                body: "El 95% de la serotonina se produce en el intestino. Lo que comes influye directamente en tu claridad mental, memoria y gestión emocional.",
+              },
+              {
+                icon: "🌙",
+                title: "Sueño roto y cortisol",
+                body: "El patrón de despertar entre las 3 y las 5h no es solo estrés: el cortisol y los estrógenos se regulan también desde la alimentación.",
+              },
+              {
+                icon: "🔥",
+                title: "Inflamación silenciosa",
+                body: "La bajada de estrógenos activa vías inflamatorias. Ciertos alimentos las apagan. Food·Mood sabe cuáles son y cuándo usarlos.",
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="rounded-xl p-6 flex flex-col gap-3 transition-all hover:-translate-y-0.5 hover:shadow-md"
+                style={{ backgroundColor: "#f7f5f0", border: "1px solid rgba(40,30,10,0.09)" }}
+              >
+                <span className="text-2xl leading-none" aria-hidden="true">{card.icon}</span>
+                <h3 className="font-serif text-base font-semibold leading-snug" style={{ color: "#1e1b14" }}>{card.title}</h3>
+                <p className="text-sm font-light leading-relaxed" style={{ color: "#6b6659" }}>{card.body}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Science note */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl p-7"
+            style={{
+              background: "linear-gradient(105deg, #f5e8ee 0%, #fdf6ee 100%)",
+              border: "1px solid rgba(158,79,110,0.12)",
+            }}
+          >
+            <span className="text-4xl leading-none shrink-0" aria-hidden="true">🔬</span>
+            <div>
+              <strong className="block font-serif text-lg font-semibold mb-1" style={{ color: "#1e1b14" }}>
+                Base científica, no promesas.
+              </strong>
+              <p className="text-sm font-light leading-relaxed" style={{ color: "#6b6659" }}>
+                Cada recomendación está respaldada por literatura sobre perimenopausia, eje intestino-cerebro y psiconutrición. Un equipo experto supervisa cada protocolo. Cuando algo no tiene evidencia clara, te lo decimos.
+              </p>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* ── 4. TRES COSAS QUE TE DA ──────────────────────────────────────────── */}
+
       <section aria-label="Qué te ofrece Food·Mood" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
