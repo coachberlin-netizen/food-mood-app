@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Investors · Food·Mood Pre-Seed 2026',
+  title: 'Inversores · Food·Mood',
   description: 'Confidential information for investors. Restricted access.',
   robots: { index: false, follow: false },
 }
@@ -34,7 +34,7 @@ function Gate({ wrong }: { wrong: boolean }) {
             Food<span style={{ color: '#C9A84C' }}>·</span>Mood
           </p>
           <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', marginBottom: 24 }}>
-            Pre-Seed · Investor Access
+            Investor Access
           </p>
           <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.5)', lineHeight: 1.6 }}>
             This area is confidential. Enter the access key you received.
@@ -108,23 +108,23 @@ function InvestorDeck() {
           Food<span style={{ color: '#C9A84C' }}>·</span>Mood
         </p>
         <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C' }}>
-          Pre-Seed Investment Brief · Confidential · 2026
+          Investment Brief · Confidential · 2026
         </span>
       </div>
 
       {/* Pitch Deck CTA block */}
       <div style={{ backgroundColor: '#2d0f16', padding: '36px 40px', textAlign: 'center' }}>
         <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 12 }}>
-          Pitch Deck · Pre-Seed 2026
+          Pitch Deck · 2026
         </p>
         <p style={{ fontFamily: 'serif', fontSize: 26, color: '#F5F0E8', fontWeight: 700, marginBottom: 8, lineHeight: 1.2 }}>
           Food·Mood — The Full Picture
         </p>
         <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.85)', marginBottom: 24, maxWidth: 480, margin: '0 auto 24px' }}>
-          Download the full Pitch Deck: business model, metrics, roadmap and Pre-Seed round structure.
+          Download the full Pitch Deck: business model, metrics, roadmap and investment round structure.
         </p>
         <a
-          href="/pitch-deck-pre-seed-2026.pdf"
+          href="/pitch-deck--2026.pdf"
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -191,7 +191,7 @@ function InvestorDeck() {
             Food<span style={{ color: '#3A8C62' }}>·</span>Mood
           </div>
           <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.12em', color: '#3D3028', textTransform: 'uppercase', textAlign: 'right', lineHeight: 1.7 }}>
-            Pre-Seed Investment Brief<br />
+            Investment Brief<br />
             May 2026 · Confidential
           </div>
         </div>
@@ -200,7 +200,7 @@ function InvestorDeck() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 16 }}>
           <div>
             <p style={{ fontSize: 10.5, color: '#3D3028', lineHeight: 1.65 }}>
-              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>SAFE-style convertible</strong> — <strong style={{ color: '#1A1612' }}>€800K valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>, ~17.5% implied dilution. Standard European pre-seed terms via a SAFE-style post-money convertible instrument, subject to Spanish/EU legal structuring. The instrument avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
+              Raising <strong style={{ color: '#1A1612' }}>€140,000</strong> on a <strong style={{ color: '#1A1612' }}>SAFE-style convertible</strong> — <strong style={{ color: '#1A1612' }}>€800K valuation cap</strong>, <strong style={{ color: '#1A1612' }}>20% discount</strong>, ~17.5% implied dilution. Standard European  terms via a SAFE-style post-money convertible instrument, subject to Spanish/EU legal structuring. The instrument avoids a full priced equity round today while giving early investors clear upside through the cap and discount when it converts at Seed.
             </p>
             <p style={{ fontSize: 10, color: '#3D3028', lineHeight: 1.65, marginTop: 8 }}>
               Valuation is driven by founder profile, product readiness, and market potential — not revenue metrics. At an €800K cap with a 20% discount, this is an attractive early entry point into a category with no established Spanish-language competitor.
@@ -655,7 +655,7 @@ function InvestorDeck() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 18 }}>
           <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
             <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Is the founder fully committed? The €1,500/month salary suggests other income sources.</p>
-            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>The €1,500/month salary for the first 18 months is the minimum viable amount to maintain exclusive focus on Food·Mood without burning personal reserves. This reflects capital discipline — 87% of the round goes directly to product, growth, and validation — not lack of commitment. Unlike founders who pay themselves €4–5K/month at pre-seed and burn runway in 12 months, this structure maximises runway length. Full market-rate compensation will normalise at Seed stage.</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>The €1,500/month salary for the first 18 months is the minimum viable amount to maintain exclusive focus on Food·Mood without burning personal reserves. This reflects capital discipline — 87% of the round goes directly to product, growth, and validation — not lack of commitment. Unlike founders who pay themselves €4–5K/month at  and burn runway in 12 months, this structure maximises runway length. Full market-rate compensation will normalise at Seed stage.</p>
           </div>
           <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
             <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Is this a solo-founder risk?</p>
@@ -667,7 +667,7 @@ function InvestorDeck() {
           </div>
           <div style={{ background: '#FAFAF7', border: '1px solid #E0EDE6', borderRadius: 6, padding: '14px 18px' }}>
             <p style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.08em', color: '#3A8C62', textTransform: 'uppercase', marginBottom: 6, lineHeight: 1.5 }}>Q — Why is the valuation cap set at €800K?</p>
-            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>Lowering the cap to €800,000 is a deliberate strategic choice, not a sign of weakness. In the European pre-seed market (2025–2026), deals with an MVP but no user traction typically close between €600K–€1.0M. At €800K with a 20% discount, we are offering early investors an attractive entry point into a category with no established competitor, clear upside at Seed conversion (€800K effective pre-money vs. a potential Seed valuation of €3–5M), and aligned incentives: I prefer higher dilution now and a committed investor table, rather than an inflated cap that delays closing or creates down-round tension later.</p>
+            <p style={{ fontSize: 10, color: '#2A2218', lineHeight: 1.65 }}>Lowering the cap to €800,000 is a deliberate strategic choice, not a sign of weakness. In the European  market (2025–2026), deals with an MVP but no user traction typically close between €600K–€1.0M. At €800K with a 20% discount, we are offering early investors an attractive entry point into a category with no established competitor, clear upside at Seed conversion (€800K effective pre-money vs. a potential Seed valuation of €3–5M), and aligned incentives: I prefer higher dilution now and a committed investor table, rather than an inflated cap that delays closing or creates down-round tension later.</p>
           </div>
         </div>
 
@@ -833,7 +833,7 @@ function InvestorDeck() {
         {/* Download */}
         <div style={{ marginTop: 20, display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a
-            href="/pitch-deck-pre-seed-2026.pdf"
+            href="/pitch-deck--2026.pdf"
             target="_blank"
             rel="noopener noreferrer"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#3A8C62', border: '1px solid #E0EDE6', borderRadius: 4, padding: '7px 14px', textDecoration: 'none' }}
@@ -847,7 +847,7 @@ function InvestorDeck() {
             ↓ AI Safety Architecture (PDF)
           </a>
           <a
-            href="mailto:info@food-mood.app?subject=Food·Mood Pre-Seed — Investor Interest"
+            href="mailto:info@food-mood.app?subject=Food·Mood — Investor Interest"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F9F7F2', background: '#1A1612', borderRadius: 4, padding: '7px 14px', textDecoration: 'none' }}
           >
             → Contact the founder
@@ -858,7 +858,7 @@ function InvestorDeck() {
   )
 }
 
-const PERFORMANCE_TEXT = `FOOD·MOOD — PRE-SEED PERFORMANCE SNAPSHOT
+const PERFORMANCE_TEXT = `FOOD·MOOD — PERFORMANCE SNAPSHOT
 May 2026 · Confidential
 
 ━━ PRODUCT READINESS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -967,7 +967,7 @@ function PerformanceSnapshot() {
       <div style={{ background: '#F0EDE4', border: '1px solid #E0EDE6', borderRadius: 8, padding: '20px 24px', marginBottom: 4 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
           <div>
-            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#3A8C62', marginBottom: 3 }}>Pre-Seed · May 2026 · Confidential</p>
+            <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#3A8C62', marginBottom: 3 }}>May 2026 · Confidential</p>
             <p style={{ fontFamily: 'serif', fontSize: 13, fontWeight: 700, color: '#1A1612', lineHeight: 1.2 }}>Food·Mood — Performance Snapshot</p>
           </div>
           <a

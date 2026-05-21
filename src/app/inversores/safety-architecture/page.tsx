@@ -451,7 +451,7 @@ export default function SafetyArchitecturePage() {
           </div>
           <div style={{ fontSize: 7.5, color: '#5A4E48', textAlign: 'right' as const, lineHeight: 1.5 }}>
             Confidential — Do not distribute without authorisation<br />
-            Food·Mood Pre-Seed 2026
+            Food·Mood 2026
           </div>
         </div>
       </div>
