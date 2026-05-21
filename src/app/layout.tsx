@@ -36,8 +36,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
-  title: "Food·Mood — IA de nutrición emocional | Postbióticos y eje intestino-cerebro",
-  description: "Recetas funcionales con IA personalizada según tu estado emocional. Postbióticos, crononutrición y regulación del sistema nervioso. Empieza gratis.",
+  title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
+  description: "Para mujeres 40+ con síntomas de perimenopausia y menopausia. Un equipo de psicólogas, nutricionistas y especialistas en longevidad acompaña tu día a día con recetas funcionales, sin dietas. Empieza gratis.",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://www.food-mood.app/",
-    title: "Food·Mood — Recetas funcionales para tu eje intestino-cerebro",
-    description: "IA que adapta las recetas a tu mezcla emocional real. Postbióticos, crononutrición y nervous system care. Empieza gratis.",
+    title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
+    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Recetas funcionales, microacciones y comprensión científica, sin dietas y sin culpa. Diseñado por un equipo de psicólogas, tecnólogas de la alimentación y especialistas en longevidad.",
     siteName: "Food·Mood",
     locale: "es_ES",
     images: [
@@ -69,8 +69,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Food·Mood — IA de nutrición emocional",
-    description: "Recetas funcionales con IA personalizada. Postbióticos, crononutrición, nervous system care. Empieza gratis.",
+    title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
+    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Recetas funcionales, microacciones y comprensión científica, sin dietas y sin culpa.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -103,7 +103,7 @@ export default function RootLayout({
               "@type": "SoftwareApplication",
               name: "Food·Mood",
               url: "https://www.food-mood.app",
-              description: "Aplicación de neurociencia nutricional que personaliza recetas según el estado emocional del usuario. Basada en la ciencia del eje microbiota-intestino-cerebro.",
+              description: "Acompañamiento nutricional y emocional para mujeres 40+ en perimenopausia y menopausia. Recetas funcionales, microacciones y ciencia del eje intestino-cerebro, sin dietas ni culpa.",
               applicationCategory: "HealthApplication",
               applicationSubCategory: "NutritionApplication",
               operatingSystem: "Web, iOS, Android",
