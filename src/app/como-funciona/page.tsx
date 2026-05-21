@@ -161,7 +161,7 @@ export default function ComoFuncionaPage() {
             <Body>
               <p>
                 El test inicial recoge la mínima información necesaria para que la app deje de tratarte
-                como "una usuaria genérica" y empiece a tratarte como tú.
+                como “una usuaria genérica” y empiece a tratarte como tú.
               </p>
               <Item>Cómo te sientes hoy, en tus palabras o eligiendo entre mezclas —no una sola etiqueta: una paleta.</Item>
               <Item>Tu edad y la etapa hormonal en la que estás, si la sabes.</Item>
@@ -184,7 +184,7 @@ export default function ComoFuncionaPage() {
             className="scroll-mt-28"
           >
             <Eyebrow>02 · Tu paleta emocional</Eyebrow>
-            <SectionTitle>No eres "una mujer ansiosa". No eres "una mujer cansada". Eres una mezcla, y la mezcla cambia.</SectionTitle>
+            <SectionTitle>No eres “una mujer ansiosa”. No eres “una mujer cansada”. Eres una mezcla, y la mezcla cambia.</SectionTitle>
             <Body>
               <p>
                 La mayoría de las apps te piden que elijas una etiqueta única —contenta, triste, energética, cansada—.
@@ -230,7 +230,7 @@ export default function ComoFuncionaPage() {
             className="scroll-mt-28"
           >
             <Eyebrow>03 · La recomendación</Eyebrow>
-            <SectionTitle>Cómo pasamos de "hoy estoy en Calma" a "esta noche, esta cena".</SectionTitle>
+            <SectionTitle>Cómo pasamos de “hoy estoy en Calma” a “esta noche, esta cena”.</SectionTitle>
             <Body>
               <p>Cuando registras tu estado del día, cruzamos tres cosas:</p>
               <Item>Tu paleta de hoy y los síntomas que arrastras.</Item>
