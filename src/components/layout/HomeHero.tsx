@@ -261,8 +261,8 @@ export default function HomeHero() {
 
             {/* H1 */}
             <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontWeight:400,fontSize:"clamp(36px,4.6vw,62px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
-              Dime cómo quieres sentirte.<br />
-              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>Food·Mood te muestra qué comer hoy.</em>
+              No estás imaginándolo.<br />
+              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>Y no estás sola.</em>
             </h1>
 
             {/* Divider */}
@@ -270,20 +270,23 @@ export default function HomeHero() {
 
             {/* Sub */}
             <p className="hero-fade-up-4" style={{ fontFamily:"Georgia,serif",fontWeight:300,fontSize:"clamp(15px,1.3vw,18px)",lineHeight:1.65,color:"rgba(245,237,224,.72)",maxWidth:"420px" }}>
-              Una IA especializada en nutrición emocional, entrenada con conocimiento curado sobre microbiota, interocepción y eje intestino-cerebro. Recetas funcionales, micro-rituales y placer real para acompañar tu energía, calma, foco y equilibrio.
+              Si tienes 40 y pico y sientes que tu cuerpo ya no funciona como antes —sueño que se rompe, mente más lenta, ansiedad de la nada, antojos que te sobrepasan, peso que no se mueve—, hay nombre para lo que te está pasando. Y hay cosas que puedes hacer hoy.
             </p>
 
             {/* CTAs */}
             <div className="hero-fade-up-5" style={{ marginTop:"36px",display:"flex",flexDirection:"column",gap:"14px",alignItems:"flex-start" }}>
               <Link
-                href="/checkout"
+                href="/test"
                 style={{ fontFamily:"sans-serif",fontWeight:500,fontSize:"13px",letterSpacing:"0.18em",textTransform:"uppercase",color:BURG_DEEP,background:GOLD_LIGHT,padding:"16px 36px",display:"inline-block",textDecoration:"none",transition:"background .25s",borderRadius:"2px" }}
                 onMouseEnter={e => (e.currentTarget.style.background = CREAM)}
                 onMouseLeave={e => (e.currentTarget.style.background = GOLD_LIGHT)}
               >
-                Empieza tu membresía →
+                Empieza con el test →
               </Link>
               <div style={{ display:"flex",flexDirection:"column",gap:"8px",alignItems:"flex-start" }}>
+                <span style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"10px",letterSpacing:"0.20em",textTransform:"uppercase",color:"rgba(245,237,224,.32)" }}>
+                  2 minutos · sin registro
+                </span>
                 <a
                   href="#como-funciona"
                   style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(245,237,224,.4)",textDecoration:"none",transition:"color .25s" }}
@@ -292,14 +295,6 @@ export default function HomeHero() {
                 >
                   Ver cómo funciona ↓
                 </a>
-                <Link
-                  href="/test"
-                  style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"10px",letterSpacing:"0.18em",color:"rgba(245,237,224,.28)",textDecoration:"none",transition:"color .25s" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,237,224,.55)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,237,224,.28)")}
-                >
-                  o descubre tu estado emocional gratis
-                </Link>
               </div>
             </div>
 
