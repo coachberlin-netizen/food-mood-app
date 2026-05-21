@@ -95,15 +95,13 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                 </>
               ) : (
                 <>
-                  <NavLink href="/"        label="Home"         close={close} />
-                  <NavLink href="/eloraculo"  label="Mi lectura" close={close} />
-                  <NavLink href="/test"    label="Test gratuito" close={close} />
-                  <NavLink href="/recetas" label="Recetas"       close={close} />
-                  <NavLink href="/servicios" label="Sesiones 1:1" close={close} />
-                  <NavLink href="/glosario" label="Glosario"    close={close} />
-                  <NavLink href="/retos"   label="Retos"         close={close} />
-                  <NavLink href="/blog"    label="Newsletter"    close={close} />
-                  <NavLink href="/pricing" label="Planes"        close={close} gold />
+                  <NavLink href="/"              label="Inicio"        close={close} />
+                  <NavLink href="/recetas"       label="Recetas"       close={close} />
+                  <NavLink href="/como-funciona" label="Cómo funciona" close={close} />
+                  <NavLink href="/sintomas"      label="Síntomas"      close={close} />
+                  <NavLink href="/glosario"      label="Glosario"      close={close} />
+                  <NavLink href="/blog"          label="Newsletter"    close={close} />
+                  <NavLink href="/pricing"       label="Planes"        close={close} gold />
                 </>
               )}
             </nav>

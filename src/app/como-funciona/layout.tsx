@@ -2,14 +2,20 @@ import React from 'react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Cómo funciona | Food·Mood",
-  description: "Descubre el método de Food·Mood: test emocional, paleta de estados, recetas funcionales y seguimiento de tu bienestar. Basado en la ciencia del eje intestino-cerebro.",
+  title: "Cómo funciona Food·Mood — El método en detalle",
+  description: "Cómo te acompaña Food·Mood, paso a paso. Test inicial, paleta emocional, recomendación personalizada, seguimiento día a día. Diseñado por un equipo experto en perimenopausia, microbiota y longevidad.",
   openGraph: {
-    title: "Cómo funciona Food·Mood",
-    description: "Del estado emocional a la receta perfecta. Nuestro método en 4 pasos basado en neurociencia y microbiota.",
+    title: "Cómo funciona Food·Mood — El método en detalle",
+    description: "Sin promesas vagas. Exactamente lo que pasa cuando abres la app por primera vez, y lo que pasa cuando vuelves al día siguiente.",
     url: "https://www.food-mood.app/como-funciona",
     siteName: "Food·Mood",
+    locale: "es_ES",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cómo funciona Food·Mood — El método en detalle",
+    description: "Sin promesas vagas. Exactamente lo que pasa cuando abres la app por primera vez.",
   },
 }
 

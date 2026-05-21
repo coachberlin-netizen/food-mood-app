@@ -288,12 +288,12 @@ export default function HomeHero() {
                   2 minutos · sin registro
                 </span>
                 <a
-                  href="#como-funciona"
+                  href="/como-funciona"
                   style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(245,237,224,.4)",textDecoration:"none",transition:"color .25s" }}
                   onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,237,224,.75)")}
                   onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,237,224,.4)")}
                 >
-                  Ver cómo funciona ↓
+                  Conocer el método →
                 </a>
               </div>
             </div>
