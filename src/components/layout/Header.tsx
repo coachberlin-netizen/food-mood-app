@@ -75,12 +75,13 @@ const MI_ESPACIO: DropdownItem[] = [
 ]
 
 const DESCUBRIR: DropdownItem[] = [
-  { label: "Sesiones 1:1",href: "/servicios"         },
-  { label: "Glosario",    href: "/glosario"          },
-  { label: "Fermentos",   href: "/fermentos-del-mundo"},
-  { label: "Síntomas",    href: "/sintomas"           },
-  { label: "Newsletter",  href: "/blog"               },
-  { label: "FAQ",         href: "/faq"                },
+  { label: "Evaluación IA", href: "/evaluacion"        },
+  { label: "Sesiones 1:1",  href: "/servicios"         },
+  { label: "Glosario",      href: "/glosario"          },
+  { label: "Fermentos",     href: "/fermentos-del-mundo"},
+  { label: "Síntomas",      href: "/sintomas"           },
+  { label: "Newsletter",    href: "/blog"               },
+  { label: "FAQ",           href: "/faq"                },
 ]
 
 function GuideDropdown() {
@@ -248,21 +249,14 @@ export function Header() {
           ) : (
             <nav className="hidden md:flex items-center space-x-7">
               <Link href="/" className="text-sm font-semibold tracking-wide text-cream/90 hover:text-white transition-colors">
-                Home
-              </Link>
-              <Link href="/eloraculo" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Mi lectura
-              </Link>
-              <Link href="/test" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Test gratuito
+                Inicio
               </Link>
               <Link href="/recetas" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Recetas
               </Link>
-              <Link href="/retos" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Retos
+              <Link href="/evaluacion" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Evaluación Gratis
               </Link>
-              <NavDropdown label="Descubrir" items={DESCUBRIR} />
               <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">
                 Planes
               </Link>
