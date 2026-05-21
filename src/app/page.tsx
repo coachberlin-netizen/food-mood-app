@@ -489,7 +489,7 @@ export default function Home() {
       </section>
 
       {/* ── 3. LONGEVIDAD FEMENINA ───────────────────────────────────────────── */}
-      <section aria-label="Por qué importa lo que comes ahora" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#f0ede6" }}>
+      <section aria-label="Por qué importa lo que comes ahora" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#f7f5f0" }}>
         <div className="max-w-5xl mx-auto">
 
           <motion.p
@@ -558,7 +558,7 @@ export default function Home() {
                   <span
                     key={tag}
                     className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium"
-                    style={{ backgroundColor: "#f0ede6", border: "1px solid rgba(40,30,10,0.10)", color: "#6b6659" }}
+                    style={{ backgroundColor: "#fff", border: "1px solid rgba(40,30,10,0.10)", color: "#6b6659" }}
                   >
                     <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#9e4f6e" }} aria-hidden="true" />
                     {tag}
