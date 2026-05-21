@@ -63,7 +63,6 @@ export function BetaBanner() {
         }}
       >
         Inversores →
-        <span style={{ fontSize: 13 }}>→</span>
       </Link>
     </div>
   )
