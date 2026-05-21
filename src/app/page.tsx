@@ -368,7 +368,7 @@ export default function Home() {
                   className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
                   style={{ backgroundColor: "#C9A84C", color: "#1a0910" }}
                 >
-                  Hacer mi test psiconutricional
+                  Descubrir mi perfil
                 </Link>
                 <button
                   onClick={() => document.getElementById("sintomas")?.scrollIntoView({ behavior: "smooth" })}
