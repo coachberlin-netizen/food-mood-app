@@ -334,9 +334,17 @@ export function ResultadoClient() {
 
   useEffect(() => {
     async function init() {
-      // 1. Check auth
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
+      // 1. Check auth — wrap in try/catch so network errors fall through to login gate
+      let user: { id: string } | null = null
+      try {
+        const supabase = createClient()
+        const { data } = await supabase.auth.getUser()
+        user = data.user
+      } catch {
+        // Network/CORS error — treat as unauthenticated
+        setEstado('login_gate')
+        return
+      }
 
       if (!user) {
         setEstado('login_gate')
