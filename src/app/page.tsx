@@ -347,7 +347,7 @@ export default function Home() {
                 style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.22)" }}
               >
                 <span className="text-[10px] font-bold uppercase tracking-[0.26em]" style={{ color: "#C9A84C" }}>
-                  Nutrición psicoactiva · Femtech
+                  Nutrición neuroactiva · Femtech
                 </span>
               </div>
 
@@ -417,7 +417,7 @@ export default function Home() {
       <div style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.08)" }}>
         <div className="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-center justify-center gap-y-3 gap-x-0">
           {[
-            { icon: "🧬", text: "Basado en psiconutrición y cronobiología" },
+            { icon: "🧬", text: "Nutrición neuroactiva y cronobiología" },
             { icon: "🌙", text: "Adaptado a tu ciclo menstrual" },
             { icon: "🧠", text: "Eje intestino–cerebro" },
             { icon: "🔒", text: "Tus datos, siempre privados" },

@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
   title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
-  description: "Para mujeres 40+ con síntomas de perimenopausia y menopausia. Un equipo de psicólogas, nutricionistas y especialistas en longevidad acompaña tu día a día con recetas funcionales, sin dietas. Empieza gratis.",
+  description: "Para mujeres 40+ con síntomas de perimenopausia y menopausia. Nutrición neuroactiva: recetas funcionales basadas en el eje intestino-cerebro, sin dietas ni culpa. Empieza gratis.",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.food-mood.app/",
     title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
-    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Recetas funcionales, microacciones y comprensión científica, sin dietas y sin culpa. Diseñado por un equipo de psicólogas, tecnólogas de la alimentación y especialistas en longevidad.",
+    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Nutrición neuroactiva: recetas funcionales, microacciones y ciencia del eje intestino-cerebro, sin dietas ni culpa.",
     siteName: "Food·Mood",
     locale: "es_ES",
     images: [
@@ -63,14 +63,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Food·Mood — IA de nutrición emocional y eje intestino-cerebro",
+        alt: "Food·Mood — Nutrición neuroactiva para perimenopausia y menopausia",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
-    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Recetas funcionales, microacciones y comprensión científica, sin dietas y sin culpa.",
+    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Nutrición neuroactiva y recetas funcionales basadas en el eje intestino-cerebro, sin dietas ni culpa.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -103,7 +103,7 @@ export default function RootLayout({
               "@type": "SoftwareApplication",
               name: "Food·Mood",
               url: "https://www.food-mood.app",
-              description: "Acompañamiento nutricional y emocional para mujeres 40+ en perimenopausia y menopausia. Recetas funcionales, microacciones y ciencia del eje intestino-cerebro, sin dietas ni culpa.",
+              description: "Nutrición neuroactiva para mujeres 40+ en perimenopausia y menopausia. Recetas funcionales basadas en el eje intestino-cerebro, microacciones y seguimiento de patrones, sin dietas ni culpa.",
               applicationCategory: "HealthApplication",
               applicationSubCategory: "NutritionApplication",
               operatingSystem: "Web, iOS, Android",
@@ -132,7 +132,7 @@ export default function RootLayout({
               name: "Food·Mood",
               url: "https://www.food-mood.app",
               logo: "https://www.food-mood.app/icons/icon-512.png",
-              description: "Plataforma de nutrición emocional basada en el eje intestino-cerebro.",
+              description: "Plataforma de nutrición neuroactiva basada en el eje intestino-cerebro para mujeres 40+ en perimenopausia y menopausia.",
               sameAs: [],
               contactPoint: {
                 "@type": "ContactPoint",
