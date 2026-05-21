@@ -292,8 +292,9 @@ export function TestWizardClient({ test }: { test: EvaluacionTest }) {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 px-5 max-w-md mx-auto w-full py-2 overflow-y-auto">
+      {/* Content — min-h-full + justify-center: short steps center vertically,
+           long steps overflow and scroll naturally */}
+      <div className="flex-1 px-5 max-w-md mx-auto w-full overflow-y-auto overflow-x-hidden">
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div
             key={step}
@@ -303,6 +304,7 @@ export function TestWizardClient({ test }: { test: EvaluacionTest }) {
             animate="center"
             exit="exit"
             transition={{ duration: 0.22, ease: 'easeInOut' }}
+            className="min-h-full flex flex-col justify-center py-6"
           >
             <h2 className="font-serif text-xl text-[#F5F0E8] font-light leading-snug mb-6">
               {pregunta.texto}
