@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-const PASSWORD = 'FOODMOOD2026'
-const COOKIE   = 'inv_auth'
+const COOKIE = 'inv_auth'
 
 async function verifyPassword(formData: FormData) {
   'use server'
+  const password = process.env.INVERSORES_PASSWORD
   const cookieStore = await cookies()
-  if (formData.get('password') === PASSWORD) {
+  if (password && formData.get('password') === password) {
     cookieStore.set(COOKIE, 'true', {
       httpOnly: true,
       secure:   process.env.NODE_ENV === 'production',

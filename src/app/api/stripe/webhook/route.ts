@@ -72,8 +72,13 @@ export async function POST(req: NextRequest) {
               .from('challenges')
               .select('title, duration_days, price_eur')
               .eq('id', challenge_id)
-              .single(),
+              .maybeSingle(),
           ])
+
+          if (!challengeData) {
+            console.error(`❌ Reto no encontrado en DB: challenge_id=${challenge_id}. Pago procesado en Stripe pero sin acceso concedido.`)
+            break
+          }
 
           // Registrar compra en reto_purchases
           await supabaseAdmin

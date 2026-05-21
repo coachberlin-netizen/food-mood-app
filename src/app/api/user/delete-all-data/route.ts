@@ -71,9 +71,15 @@ export async function POST(req: NextRequest) {
     errors.push(`auth.users: ${authDeleteError.message}`)
   }
 
+  const encryptionSecret = process.env.ENCRYPTION_SECRET
+  if (!encryptionSecret) {
+    console.error("❌ ENCRYPTION_SECRET no configurado — hash de confirmación GDPR no fiable")
+    return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
+  }
+
   // Confirmation hash — proves deletion happened at this timestamp
   const confirmHash = createHash("sha256")
-    .update(`${userId}:${deletedAt}:${process.env.ENCRYPTION_SECRET ?? ""}`)
+    .update(`${userId}:${deletedAt}:${encryptionSecret}`)
     .digest("hex")
 
   return NextResponse.json({
