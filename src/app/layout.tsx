@@ -10,6 +10,7 @@ import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ConsentModal } from "@/components/ui/ConsentModal";
 import { BetaBanner } from "@/components/layout/BetaBanner";
 import { PaletteProvider } from "@/contexts/PaletteContext";
+import { AccessibilityWidget } from "@/components/ui/AccessibilityWidget";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -32,7 +33,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  // No maximumScale — blocking pinch-to-zoom violates WCAG 1.4.4 (Resize Text)
 };
 
 export const metadata: Metadata = {
@@ -96,6 +97,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="apple-touch-startup-image" href="/icons/icon-512.png" />
+        {/* Anti-FOUC: restore accessibility preferences before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var h=document.documentElement;var t=localStorage.getItem('fm-theme');var f=localStorage.getItem('fm-font-size');var c=localStorage.getItem('fm-contrast');if(t==='dark')h.setAttribute('data-theme','dark');if(f==='large')h.setAttribute('data-font-size','large');if(c==='high')h.setAttribute('data-contrast','high');}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -165,6 +172,7 @@ export default function RootLayout({
             </PageTransition>
           </Suspense>
           <ConsentModal />
+          <AccessibilityWidget />
           <InstallBanner />
           {/* pb-16 on mobile prevents footer content from hiding behind BottomNav */}
           <div className="pb-16 md:pb-0">

@@ -32,6 +32,34 @@ input.input-sm, select.input-sm, textarea.input-sm {
   }
 }
 
+/* ── Accessibility: Dark mode ──────────────────────────────────────────── */
+html[data-theme="dark"] {
+  filter: invert(1) hue-rotate(180deg);
+  color-scheme: dark;
+}
+/* Re-invert images/video so they look normal in dark mode */
+html[data-theme="dark"] img,
+html[data-theme="dark"] video,
+html[data-theme="dark"] [data-no-dark-invert] {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ── Accessibility: Large text ─────────────────────────────────────────── */
+html[data-font-size="large"] {
+  font-size: 112.5%; /* 18px base instead of 16px */
+}
+/* Prevent iOS zoom inputs from fighting the scale */
+html[data-font-size="large"] input,
+html[data-font-size="large"] select,
+html[data-font-size="large"] textarea {
+  font-size: max(16px, 1rem);
+}
+
+/* ── Accessibility: High contrast ──────────────────────────────────────── */
+html[data-contrast="high"] {
+  filter: contrast(150%);
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
