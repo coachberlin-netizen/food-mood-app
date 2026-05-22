@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { DM_Sans, Source_Serif_4, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { BottomNav } from "@/components/layout/BottomNav";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import { InstallBanner } from "@/components/ui/InstallBanner";
@@ -165,7 +166,11 @@ export default function RootLayout({
           </Suspense>
           <ConsentModal />
           <InstallBanner />
-          <Footer />
+          {/* pb-16 on mobile prevents footer content from hiding behind BottomNav */}
+          <div className="pb-16 md:pb-0">
+            <Footer />
+          </div>
+          <BottomNav />
         </PaletteProvider>
       </body>
     </html>
