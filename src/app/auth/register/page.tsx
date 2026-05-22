@@ -121,6 +121,14 @@ function RegisterForm() {
                   />
                 </div>
 
+                <p className="text-[11px] text-aubergine-dark/45 text-center leading-relaxed pt-1">
+                  Al crear tu cuenta aceptas los{' '}
+                  <Link href="/terminos" className="underline hover:text-aubergine-dark/70 transition-colors">Términos de Uso</Link>
+                  {' '}y la{' '}
+                  <Link href="/privacidad" className="underline hover:text-aubergine-dark/70 transition-colors">Política de Privacidad</Link>.
+                  Tus datos de salud nunca se comparten ni se venden.
+                </p>
+
                 <button
                   type="submit"
                   disabled={loading}
