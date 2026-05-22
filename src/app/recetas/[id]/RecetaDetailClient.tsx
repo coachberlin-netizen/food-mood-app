@@ -6,9 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowLeft, Clock, Share2, ChevronDown, ChevronUp,
-  Beaker, Droplets, Leaf, Check, Lock
+  Beaker, Droplets, Leaf, Check, Lock, ChefHat
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { CookingGuide } from "@/components/recipe/CookingGuide";
 
 /* ── Mood config ─────────────────────────────────────────────── */
 const MOODS: Record<string, { emoji: string; color: string; bg: string }> = {
@@ -139,8 +140,9 @@ export default function RecetaDetailClient({
   isPremium: boolean;
 }) {
   const router = useRouter();
-  const [showCiencia, setShowCiencia] = useState(false);
-  const [showToast,   setShowToast]   = useState(false);
+  const [showCiencia,    setShowCiencia]    = useState(false);
+  const [showToast,      setShowToast]      = useState(false);
+  const [showCookGuide,  setShowCookGuide]  = useState(false);
   const [glossaryTerms, setGlossaryTerms] = useState<{ name: string; slug: string }[]>([]);
 
   // Glossary linkification (client-only enhancement)
@@ -193,6 +195,11 @@ export default function RecetaDetailClient({
   return (
     <>
       <Toast show={showToast} message="¡Enlace copiado!" />
+
+      {/* Cooking guide overlay */}
+      {showCookGuide && isPremium && (
+        <CookingGuide receta={receta} onClose={() => setShowCookGuide(false)} />
+      )}
 
       <div className="min-h-screen bg-[var(--background)]">
         <div className="max-w-3xl mx-auto px-6 py-10 md:py-16 md:px-12">
@@ -323,20 +330,31 @@ export default function RecetaDetailClient({
             )}
 
             {isPremium ? (
-              /* Premium: todos los pasos */
-              <ol className="space-y-4">
-                {receta.preparacion_es?.slice(1).map((pasoRaw, i) => {
-                  const paso = typeof pasoRaw === "string" ? pasoRaw : (pasoRaw as any).paso || JSON.stringify(pasoRaw);
-                  return (
-                    <li key={i} className="flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5">
-                      <span className="shrink-0 w-8 h-8 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
-                        {i + 2}
-                      </span>
-                      <p className="text-aubergine-dark/75 font-light text-[15px] leading-relaxed pt-1">{paso}</p>
-                    </li>
-                  );
-                })}
-              </ol>
+              <>
+                <ol className="space-y-4">
+                  {receta.preparacion_es?.slice(1).map((pasoRaw, i) => {
+                    const paso = typeof pasoRaw === "string" ? pasoRaw : (pasoRaw as any).paso || JSON.stringify(pasoRaw);
+                    return (
+                      <li key={i} className="flex items-start gap-4 bg-cream rounded-xl p-4 border border-aubergine-dark/5">
+                        <span className="shrink-0 w-8 h-8 rounded-lg bg-aubergine-dark text-cream text-xs font-bold flex items-center justify-center">
+                          {i + 2}
+                        </span>
+                        <p className="text-aubergine-dark/75 font-light text-[15px] leading-relaxed pt-1">{paso}</p>
+                      </li>
+                    );
+                  })}
+                </ol>
+
+                {/* Voice cooking guide — premium only */}
+                <button
+                  onClick={() => setShowCookGuide(true)}
+                  className="mt-6 w-full flex items-center justify-center gap-2.5 py-3.5 rounded-2xl text-sm font-semibold transition-all hover:opacity-90"
+                  style={{ background: "#1A0A0E", color: "#F5F0E8", border: "1px solid rgba(201,168,76,0.25)" }}
+                >
+                  <ChefHat className="w-4 h-4 text-[#C9A84C]" />
+                  Cocinar con guía de voz
+                </button>
+              </>
             ) : (
               <PreparacionPaywall />
             )}
