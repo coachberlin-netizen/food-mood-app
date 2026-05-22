@@ -895,9 +895,25 @@ export default function Home() {
               Empieza gratis hoy.
             </motion.h2>
             <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.65)" }}>
-              El test, una receta diaria y la guía básica son gratis para siempre.
-              El acompañamiento personalizado completo —con la IA que te conoce y el seguimiento de tus patrones— son 9€/mes. Lo cancelas cuando quieras.
+              El test, una receta diaria y el glosario son gratis para siempre.
             </motion.p>
+            <motion.div variants={fade} className="text-sm font-light text-left max-w-sm mx-auto" style={{ color: "rgba(107,39,55,0.65)" }}>
+              <p className="font-semibold mb-3" style={{ color: "rgba(107,39,55,0.8)" }}>Por 9€/mes, además:</p>
+              <ul className="space-y-2 leading-relaxed">
+                {[
+                  "Recetas generadas para tu mezcla emocional exacta del día — no una categoría genérica",
+                  "FOOD-MOOD Guide, tu asistente IA especializada en el eje intestino-cerebro — hasta 20 conversaciones diarias",
+                  "Historial de tu paleta emocional — observa tus patrones semana a semana",
+                  "Canal privado de Telegram con hallazgos científicos exclusivos y avant-première",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="shrink-0 font-normal" style={{ color: "#C9A84C" }}>—</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-xs" style={{ color: "rgba(107,39,55,0.4)" }}>Sin permanencia · Cancela cuando quieras.</p>
+            </motion.div>
             <motion.div variants={fade} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
               <Link
                 href="/test"
