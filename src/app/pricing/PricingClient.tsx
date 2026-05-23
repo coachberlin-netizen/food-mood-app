@@ -5,17 +5,18 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Check, X, Crown, Sparkles, ArrowRight, Zap, BookOpen,
+  Check, Crown, Sparkles, ArrowRight, Zap, BookOpen,
   ShieldCheck, RefreshCcw, Lock, Loader2, ChevronDown,
 } from "lucide-react";
 import { trackEvent } from "@/components/analytics/AnalyticsProvider";
 
 const FREE_FEATURES = [
-  { text: "Inspiración diaria (lectura)", included: true },
-  { text: "Historial de estados", included: false },
-  { text: "Recetas que responden a cada color", included: false },
+  { text: "Test emocional completo", included: true },
+  { text: "Paleta Emocional — resultado del día (sin recetas)", included: true },
+  { text: "Recetas adaptadas a tu estado del día", included: false },
+  { text: "Historial emocional y patrones semanales", included: false },
+  { text: "Asistente IA FOOD-MOOD Guide", included: false },
   { text: "Glosario científico y Fermentos del Mundo", included: false },
-  { text: "Paleta emocional personalizada completa", included: false },
 ];
 
 const PREMIUM_FEATURES = [
@@ -112,8 +113,11 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
             <ul className="space-y-3.5 mb-10 flex-1">
               {FREE_FEATURES.map((f, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  {f.included ? <Check className="w-4 h-4 text-aubergine-dark/30 shrink-0 mt-0.5" /> : <X className="w-4 h-4 text-aubergine-dark/15 shrink-0 mt-0.5" />}
-                  <span className={`text-sm font-light ${f.included ? "text-aubergine-dark/50" : "text-aubergine-dark/25 line-through"}`}>{f.text}</span>
+                  {f.included
+                    ? <Check className="w-4 h-4 text-[#4A7B6B] shrink-0 mt-0.5" />
+                    : <span className="w-4 text-center text-aubergine-dark/20 shrink-0 mt-0.5 text-sm leading-none select-none">—</span>
+                  }
+                  <span className={`text-sm font-light ${f.included ? "text-aubergine-dark/65" : "text-aubergine-dark/30"}`}>{f.text}</span>
                 </li>
               ))}
             </ul>

@@ -923,7 +923,7 @@ export default function Home() {
               El test, una receta diaria y el glosario son gratis para siempre.
             </motion.p>
             <motion.div variants={fade} className="text-sm font-light text-left max-w-sm mx-auto" style={{ color: "rgba(107,39,55,0.65)" }}>
-              <p className="font-semibold mb-3" style={{ color: "rgba(107,39,55,0.8)" }}>Por 9€/mes, además:</p>
+              <p className="font-semibold mb-3" style={{ color: "rgba(107,39,55,0.8)" }}>Desde 7€/mes (plan trimestral), también:</p>
               <ul className="space-y-2 leading-relaxed">
                 {[
                   "Recetas generadas para tu mezcla emocional exacta del día — no una categoría genérica",
