@@ -33,12 +33,21 @@ export async function POST(req: NextRequest) {
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
+    // Check if already subscribed before upsert
+    const { data: existing } = await supabase
+      .from('leads')
+      .select('email')
+      .eq('email', email.toLowerCase().trim())
+      .maybeSingle()
+
+    const isNew = !existing
+
     // Upsert into leads table (create if not exists)
     const { error } = await supabase
       .from('leads')
       .upsert(
         { email: email.toLowerCase().trim(), source: source || 'quiz', created_at: new Date().toISOString() },
-        { onConflict: 'email' }
+        { onConflict: 'email', ignoreDuplicates: true }
       )
 
     if (error) {
@@ -46,9 +55,9 @@ export async function POST(req: NextRequest) {
       // Don't fail the request — email capture should be best-effort
     }
 
-    // Notify Admin via Resend
+    // Notify Admin via Resend (only for new subscribers)
     const adminEmail = process.env.ADMIN_EMAIL
-    if (adminEmail && process.env.RESEND_API_KEY) {
+    if (isNew && adminEmail && process.env.RESEND_API_KEY) {
       try {
         await resend.emails.send({
           from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
@@ -61,8 +70,8 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Welcome email with free recipe for newsletter subscribers
-    if (source === 'home-lead-magnet' && process.env.RESEND_API_KEY) {
+    // Welcome email — send to ALL new subscribers regardless of source
+    if (isNew && process.env.RESEND_API_KEY) {
       const recipeEmailHtml = `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
