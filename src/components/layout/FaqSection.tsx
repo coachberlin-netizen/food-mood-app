@@ -15,11 +15,11 @@ const FAQs = [
   },
   {
     question: "¿Qué incluye exactamente la experiencia premium?",
-    answer: "Acceso ilimitado a nuestro catálogo completo de recetas emocionales, el mapa interactivo 'Fermentos del Mundo', detalle de ingredientes funcionales, canal privado de Telegram con contenido exclusivo y comunidad de WhatsApp."
+    answer: "Acceso ilimitado a nuestro catálogo completo de recetas emocionales, el mapa interactivo 'Fermentos del Mundo', detalle de ingredientes funcionales, asistente IA y seguimiento emocional personalizado."
   },
   {
-    question: "¿Cómo funciono el canal de Telegram y WhatsApp?",
-    answer: "Al suscribirte recibes un enlace único al canal privado de Telegram donde publicamos hallazgos científicos y protocolos antes que nadie. También tendrás acceso a la comunidad de WhatsApp para consultas directas sobre recetas, fermentos y tu perfil nutricional."
+    question: "¿Cómo funciona el canal de Telegram y WhatsApp?",
+    answer: "Son canales gratuitos y abiertos a cualquiera. Publicamos la newsletter semanal, episodios de podcast y contenido de YouTube — sin suscripción de pago. Únete en t.me/foodmoodapp (Telegram) o en el canal de WhatsApp."
   },
   {
     question: "¿Necesito conocimientos previos de nutrición?",
