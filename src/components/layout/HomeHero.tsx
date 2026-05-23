@@ -277,24 +277,24 @@ export default function HomeHero() {
             <div className="hero-fade-up-5" style={{ marginTop:"36px",display:"flex",flexDirection:"column",gap:"14px",alignItems:"flex-start" }}>
               <Link
                 href="/test"
-                style={{ fontFamily:"sans-serif",fontWeight:500,fontSize:"13px",letterSpacing:"0.18em",textTransform:"uppercase",color:BURG_DEEP,background:GOLD_LIGHT,padding:"16px 36px",display:"inline-block",textDecoration:"none",transition:"background .25s",borderRadius:"2px" }}
+                style={{ fontFamily:"sans-serif",fontWeight:500,fontSize:"15px",letterSpacing:"0.18em",textTransform:"uppercase",color:BURG_DEEP,background:GOLD_LIGHT,padding:"16px 36px",display:"inline-block",textDecoration:"none",transition:"background .25s",borderRadius:"2px" }}
                 onMouseEnter={e => (e.currentTarget.style.background = CREAM)}
                 onMouseLeave={e => (e.currentTarget.style.background = GOLD_LIGHT)}
               >
                 Empieza con el test →
               </Link>
-              <div style={{ display:"flex",flexDirection:"column",gap:"8px",alignItems:"flex-start" }}>
+              <div style={{ display:"flex",flexDirection:"column",gap:"4px",alignItems:"flex-start" }}>
                 <span style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"10px",letterSpacing:"0.20em",textTransform:"uppercase",color:"rgba(245,237,224,.32)" }}>
                   2 minutos · sin registro
                 </span>
-                <a
+                <Link
                   href="/como-funciona"
-                  style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"11px",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(245,237,224,.4)",textDecoration:"none",transition:"color .25s" }}
+                  style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"12px",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(245,237,224,.4)",textDecoration:"none",transition:"color .25s",padding:"8px 0",display:"inline-block" }}
                   onMouseEnter={e => (e.currentTarget.style.color = "rgba(245,237,224,.75)")}
                   onMouseLeave={e => (e.currentTarget.style.color = "rgba(245,237,224,.4)")}
                 >
                   Conocer el método →
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -351,9 +351,9 @@ export default function HomeHero() {
         <button
           type="button"
           onClick={toggleMusic}
+          aria-label={musicOn ? "Pausar sonidos de naturaleza" : "Activar sonidos de naturaleza"}
           className="hero-fade-up-8"
-          style={{ position:"absolute",bottom:"30px",right:"36px",zIndex:10,display:"flex",alignItems:"center",gap:"10px",cursor:"pointer",background:"none",border:"none",padding:0,color:musicOn ? GOLD_LIGHT : "rgba(245,237,224,.55)",transition:"color .3s" }}
-          title="Sonidos de naturaleza"
+          style={{ position:"absolute",bottom:"30px",right:"36px",zIndex:10,display:"flex",alignItems:"center",gap:"10px",cursor:"pointer",background:"none",border:"none",padding:"6px",minWidth:"44px",minHeight:"44px",color:musicOn ? GOLD_LIGHT : "rgba(245,237,224,.55)",transition:"color .3s" }}
         >
           <div style={{ width:"32px",height:"32px",border:"1px solid currentColor",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",transition:"all .3s" }}>
             <div style={{ display:"flex",gap:"2px",alignItems:"center",height:"14px" }}>

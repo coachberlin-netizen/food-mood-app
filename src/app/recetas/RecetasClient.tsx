@@ -360,7 +360,8 @@ export default function RecetasClient({
                 <button
                   type="button"
                   onClick={() => { setQ(""); setPage(1); }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark transition-colors"
+                  aria-label="Limpiar búsqueda"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 p-2 text-aubergine-dark/30 hover:text-aubergine-dark transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -515,9 +516,9 @@ export default function RecetasClient({
 
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-4 pt-12">
-                <button onClick={() => { const p = Math.max(1, page - 1); setPage(p); const sp = new URLSearchParams(searchParams.toString()); sp.set("page", String(p)); router.replace(`/recetas?${sp.toString()}`, { scroll: false }); }} disabled={page <= 1} className="p-2.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronLeft className="w-4 h-4" /></button>
+                <button aria-label="Página anterior" onClick={() => { const p = Math.max(1, page - 1); setPage(p); const sp = new URLSearchParams(searchParams.toString()); sp.set("page", String(p)); router.replace(`/recetas?${sp.toString()}`, { scroll: false }); }} disabled={page <= 1} className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronLeft className="w-4 h-4" /></button>
                 <span className="text-sm font-medium text-aubergine-dark/60">{page} / {totalPages}</span>
-                <button onClick={() => { const p = Math.min(totalPages, page + 1); setPage(p); const sp = new URLSearchParams(searchParams.toString()); sp.set("page", String(p)); router.replace(`/recetas?${sp.toString()}`, { scroll: false }); }} disabled={page >= totalPages} className="p-2.5 rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronRight className="w-4 h-4" /></button>
+                <button aria-label="Página siguiente" onClick={() => { const p = Math.min(totalPages, page + 1); setPage(p); const sp = new URLSearchParams(searchParams.toString()); sp.set("page", String(p)); router.replace(`/recetas?${sp.toString()}`, { scroll: false }); }} disabled={page >= totalPages} className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl border border-aubergine-dark/15 text-aubergine-dark/60 hover:bg-aubergine-dark/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><ChevronRight className="w-4 h-4" /></button>
               </div>
             )}
           </>

@@ -69,7 +69,7 @@ function Toast({ show, message }: { show: boolean; message: string }) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 40 }}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-aubergine-dark text-cream px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 text-sm font-medium"
+          className="fixed bottom-[calc(56px+24px)] md:bottom-8 left-1/2 -translate-x-1/2 z-50 bg-aubergine-dark text-cream px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 text-sm font-medium"
         >
           <Check className="w-4 h-4 text-[#C9A84C]" />
           {message}

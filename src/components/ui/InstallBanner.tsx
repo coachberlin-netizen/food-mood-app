@@ -105,9 +105,10 @@ export function InstallBanner() {
                 <p className="text-white/50 text-xs font-medium tracking-wide">Experiencia nativa completa</p>
               </div>
             </div>
-            <button 
+            <button
               onClick={handleDismiss}
-              className="p-2 bg-white/5 hover:bg-white/10 rounded-full text-white/40 hover:text-white transition-all"
+              aria-label="Cerrar"
+              className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-white/40 hover:text-white transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
             >
               <X className="w-5 h-5" />
             </button>

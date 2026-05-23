@@ -268,7 +268,9 @@ export function TestWizardClient({ test }: { test: EvaluacionTest }) {
         <div className="flex items-center justify-between mb-3">
           <button
             onClick={back}
+            aria-label="Volver"
             className="flex items-center gap-1 text-[#F5F0E8]/40 hover:text-[#F5F0E8]/70 transition-colors"
+            style={{ minWidth: 44, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
