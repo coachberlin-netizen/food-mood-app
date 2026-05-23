@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 const DARK  = "#2d0f16"
 const GOLD  = "#C9A84C"
-const BURG  = "#6B2737"
 const CREAM = "#F5F0E8"
 
 export default function AccesibilidadPage() {
@@ -40,7 +39,7 @@ export default function AccesibilidadPage() {
         </p>
 
         {/* ── Offline ── */}
-        <section className="mb-14">
+        <section id="offline" className="mb-14">
           <h2 className="font-serif text-2xl mb-6" style={{ color: DARK }}>
             📵 Qué funciona sin WiFi
           </h2>
@@ -111,7 +110,7 @@ export default function AccesibilidadPage() {
         </section>
 
         {/* ── Accesibilidad visual ── */}
-        <section className="mb-14">
+        <section id="pantalla" className="mb-14">
           <h2 className="font-serif text-2xl mb-6" style={{ color: DARK }}>
             👁 Ajustes de pantalla
           </h2>

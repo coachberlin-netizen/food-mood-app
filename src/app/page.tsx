@@ -438,7 +438,7 @@ export default function Home() {
             { icon: "🌙", text: "Modo oscuro incluido", href: "/accesibilidad#pantalla" },
             { icon: "♿", text: "Accesible — WCAG 2.1", href: "/accesibilidad" },
           ].map((pill) => (
-            <a
+            <Link
               key={pill.text}
               href={pill.href}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-light transition-opacity hover:opacity-75"
@@ -450,7 +450,7 @@ export default function Home() {
             >
               <span aria-hidden="true">{pill.icon}</span>
               {pill.text}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
