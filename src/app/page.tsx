@@ -902,7 +902,7 @@ export default function Home() {
               <ul className="space-y-2 leading-relaxed">
                 {[
                   "Recetas generadas para tu mezcla emocional exacta del día — no una categoría genérica",
-                  "FOOD-MOOD Guide, tu asistente IA especializada en el eje intestino-cerebro — hasta 20 conversaciones diarias",
+                  "FOOD-MOOD Guide, tu asistente IA especializada en el eje intestino-cerebro — responde sobre recetas, síntomas y hábitos del día",
                   "Historial de tu paleta emocional — observa tus patrones semana a semana",
                   "Canal privado de Telegram con hallazgos científicos exclusivos y avant-première",
                 ].map((item, i) => (
