@@ -281,7 +281,7 @@ export default function HomeHero() {
                 onMouseEnter={e => (e.currentTarget.style.background = CREAM)}
                 onMouseLeave={e => (e.currentTarget.style.background = GOLD_LIGHT)}
               >
-                Empieza con el test →
+                Hacer el test gratis
               </Link>
               <div style={{ display:"flex",flexDirection:"column",gap:"4px",alignItems:"flex-start" }}>
                 <span style={{ fontFamily:"sans-serif",fontWeight:200,fontSize:"10px",letterSpacing:"0.20em",textTransform:"uppercase",color:"rgba(245,237,224,.32)" }}>
