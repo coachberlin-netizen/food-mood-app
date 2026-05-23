@@ -430,6 +430,31 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── TRUST PILLS: offline + a11y ────────────────────────────────────── */}
+      <div className="py-4 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-3">
+          {[
+            { icon: "📵", text: "Funciona sin WiFi", href: "/accesibilidad#offline" },
+            { icon: "🌙", text: "Modo oscuro incluido", href: "/accesibilidad#pantalla" },
+            { icon: "♿", text: "Accesible — WCAG 2.1", href: "/accesibilidad" },
+          ].map((pill) => (
+            <a
+              key={pill.text}
+              href={pill.href}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-light transition-opacity hover:opacity-75"
+              style={{
+                backgroundColor: "rgba(107,39,55,0.06)",
+                border: "1px solid rgba(107,39,55,0.12)",
+                color: "rgba(107,39,55,0.65)",
+              }}
+            >
+              <span aria-hidden="true">{pill.icon}</span>
+              {pill.text}
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* ── 2. ¿TE IDENTIFICAS? ──────────────────────────────────────────────── */}
       <section id="sintomas" aria-label="Síntomas de perimenopausia y menopausia" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
         <div className="max-w-4xl mx-auto">

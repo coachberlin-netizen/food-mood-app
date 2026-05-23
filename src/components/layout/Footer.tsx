@@ -34,7 +34,8 @@ export function Footer() {
               <Link href="/fermentos-del-mundo" className="hover:text-gold transition-colors">Fermentos</Link>
               <Link href="/biblioteca" className="hover:text-gold transition-colors">Biblioteca</Link>
             </div>
-            <div className="flex gap-x-5 text-[11px] tracking-[0.16em] uppercase text-white/65">
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-[11px] tracking-[0.16em] uppercase text-white/65">
+              <Link href="/accesibilidad" className="hover:text-gold transition-colors">Accesibilidad</Link>
               <Link href="/terminos" className="hover:text-gold transition-colors">Términos</Link>
               <Link href="/privacidad" className="hover:text-gold transition-colors">Privacidad</Link>
               <Link href="/aviso-legal" className="hover:text-gold transition-colors">Legal</Link>
