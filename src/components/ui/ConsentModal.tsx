@@ -18,9 +18,9 @@ export function ConsentModal() {
   const [visible, setVisible]   = useState(false)
   const [saving, setSaving]     = useState(false)
   const [consent, setConsent]   = useState<ConsentState>({
-    consent_analytics:           false,
-    consent_newsletter:          false,
-    consent_aggregated_research: false,
+    consent_analytics:           true,
+    consent_newsletter:          true,
+    consent_aggregated_research: true,
   })
   const supabase = createClient()
 
