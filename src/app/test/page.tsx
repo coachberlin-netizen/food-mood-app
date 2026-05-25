@@ -29,7 +29,7 @@ export default function TestPage() {
     <>
       {/* SEO shell — visible to crawlers before JS hydrates */}
       <div className="sr-only">
-        <h1>Test de Estado Emocional — ¿Cómo te sentís hoy?</h1>
+        <h1>Test de Estado Emocional — ¿Cómo te sientes hoy?</h1>
         <p>
           Test gratuito. 5 dimensiones emocionales: energía, ánimo, tensión,
           conexión y claridad. Tu mezcla en porcentajes y las recetas

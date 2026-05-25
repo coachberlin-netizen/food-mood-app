@@ -17,7 +17,7 @@ const SCENES = [
   { id: 'energia',  bg: '#2a1200', accent: 'oklch(78% 0.22 68)',  accentRgb: '240,168,40',  label: 'ENERGÍA',      slug: '/retos/recupera-tu-energia' },
   { id: 'hormonal', bg: '#2e0820', accent: 'oklch(72% 0.22 355)', accentRgb: '235,100,148', label: 'HORMONAL',     slug: '/retos/equilibrio-hormonal-45' },
   { id: 'inflamac', bg: '#061a0c', accent: 'oklch(74% 0.22 148)', accentRgb: '80,210,120',  label: 'INFLAMACIÓN',  slug: '/retos/reset-antiinflamatorio' },
-  { id: 'mental',   bg: '#080a2e', accent: 'oklch(70% 0.22 300)', accentRgb: '175,110,240', label: 'SALUD MENTAL', slug: '/retos/food-mood-reset' },
+  { id: 'mental',   bg: '#080a2e', accent: 'oklch(70% 0.22 300)', accentRgb: '175,110,240', label: 'CLARIDAD MENTAL', slug: '/retos/food-mood-reset' },
 ]
 
 // ── Static mobile hero ────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ const MOBILE_RETOS = [
   { icon: '⚡',  label: 'Energía',      sub: '7 días',     color: 'oklch(78% 0.22 68)',  slug: '/retos/recupera-tu-energia',     price: 19 },
   { icon: '🌸', label: 'Hormonal',     sub: '4 semanas',  color: 'oklch(72% 0.22 355)', slug: '/retos/equilibrio-hormonal-45',  price: 29 },
   { icon: '🌿', label: 'Inflamación',  sub: '7 días',     color: 'oklch(74% 0.22 148)', slug: '/retos/reset-antiinflamatorio',  price: 19 },
-  { icon: '✨', label: 'Salud mental', sub: '21 días',    color: 'oklch(70% 0.22 300)', slug: '/retos/food-mood-reset',         price: 29 },
+  { icon: '✨', label: 'Claridad mental', sub: '21 días',    color: 'oklch(70% 0.22 300)', slug: '/retos/food-mood-reset',         price: 29 },
   { icon: '🍵', label: 'Slow',         sub: '20 días',    color: 'oklch(68% 0.18 165)', slug: '/retos/slow-food-mood',          price: 29 },
 ]
 
@@ -825,7 +825,7 @@ function SceneLabel() {
     [20, 31, '02 — ENERGÍA'],
     [31, 42, '03 — HORMONAL'],
     [42, 53, '04 — INFLAMACIÓN'],
-    [53, 65, '05 — SALUD MENTAL'],
+    [53, 65, '05 — CLARIDAD MENTAL'],
     [65, TOTAL, 'FOOD·MOOD'],
   ]
   const cur = labels.find(([s, e]) => time >= s && time < e)

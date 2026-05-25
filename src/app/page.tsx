@@ -25,7 +25,7 @@ const FAQS = [
   },
   {
     q: "¿Cuándo empiezo a notar algo?",
-    a: "La mayoría nota algo diferente entre el día 3 y el día 4. El cambio que se sostiene aparece en la segunda o tercera semana, cuando el microbioma empieza a reorganizarse. En 90 días tu microbiota puede ser otra. Tu sueño puede mejorar antes.",
+    a: "La mayoría nota algo diferente entre el día 3 y el día 4. El cambio que se sostiene aparece en la segunda o tercera semana, cuando el microbioma empieza a reorganizarse. En 90 días puedes empezar a ver patrones reales. Tu sueño, digestión y energía pueden darte señales antes.",
   },
   {
     q: "¿Puedo cancelar cuando quiera?",
@@ -453,6 +453,36 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* ── IA ESPECIALIZADA ─────────────────────────────────────────────────── */}
+      <section aria-label="IA especializada en nutrición emocional" className="py-14 md:py-20 px-6" style={{ backgroundColor: "#F0EBE2", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4"
+            style={{ color: "rgba(107,39,55,0.45)" }}
+          >
+            No es una IA genérica de recetas
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-serif text-xl md:text-2xl leading-relaxed"
+            style={{ color: "#2C1810" }}
+          >
+            Food·Mood usa una base de conocimiento propia sobre microbiota, perimenopausia, interocepción, crononutrición y eje intestino-cerebro para traducir cómo te sientes en una propuesta concreta: una receta funcional, una microacción y una explicación sencilla.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-4 text-sm font-light"
+            style={{ color: "rgba(44,24,16,0.55)" }}
+          >
+            Sin dietas. Sin culpa. Solo placer guiado por ciencia.
+          </motion.p>
+        </div>
+      </section>
 
       {/* ── 2. ¿TE IDENTIFICAS? ──────────────────────────────────────────────── */}
       <section id="sintomas" aria-label="Síntomas de perimenopausia y menopausia" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
@@ -1060,9 +1090,9 @@ export default function Home() {
             className="space-y-7"
           >
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              En 90 días tu microbiota es otra.{" "}
+              En 90 días puedes empezar a ver patrones reales.{" "}
               <br className="hidden md:block" />
-              <span style={{ color: "#C9A84C" }}>Tu sueño puede cambiar antes.</span>
+              <span style={{ color: "#C9A84C" }}>Tu sueño, digestión y energía pueden darte señales antes.</span>
             </motion.h2>
             <motion.p variants={fade} className="text-base font-light" style={{ color: "rgba(245,240,232,0.55)" }}>
               Empieza hoy con dos minutos. Sin registro. Sin compromiso.
