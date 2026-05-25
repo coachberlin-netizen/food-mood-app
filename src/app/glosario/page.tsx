@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { createClient } from "@/lib/supabase/server"
+import { getPremiumStatus } from "@/lib/premium"
 import GlossaryClient from "./GlossaryClient"
 
 export const dynamic = "force-dynamic"
@@ -70,6 +71,9 @@ export default async function GlosarioPage() {
 
   const terms = data || []
 
+  const { data: { user } } = await supabase.auth.getUser()
+  const isPremium = user ? await getPremiumStatus(supabase, user.id) : false
+
   const definedTermSetSchema = {
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
@@ -131,7 +135,7 @@ export default async function GlosarioPage() {
         )}
       </div>
 
-      <GlossaryClient initialData={terms as any} />
+      <GlossaryClient initialData={terms as any} isPremium={isPremium} />
     </main>
   )
 }

@@ -101,7 +101,7 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
   const { data: { user } } = await supabase.auth.getUser()
   const isPremium = user ? await getPremiumStatus(supabase, user.id) : false
 
-  const isLocked = item.is_premium_detail && !isPremium
+  const isLocked = !isPremium
 
   return (
     <main className="min-h-screen bg-[var(--background)] pb-32 pt-24 md:pt-32">

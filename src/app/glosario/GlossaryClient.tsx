@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import Link from "next/link"
-import { Search, X, Sparkles, Leaf } from "lucide-react"
+import { Search, X, Sparkles, Leaf, Lock } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface GlossaryItem {
@@ -49,7 +49,7 @@ const MOODS = [
   { id: "confort", label: "Confort" },
 ];
 
-export default function GlossaryClient({ initialData }: { initialData: GlossaryItem[] }) {
+export default function GlossaryClient({ initialData, isPremium }: { initialData: GlossaryItem[], isPremium: boolean }) {
   const [search, setSearch] = useState("")
   const [filterCategory, setFilterCategory] = useState<string | null>(null)
   const [filterMood, setFilterMood] = useState<string | null>(null)
@@ -83,9 +83,96 @@ export default function GlossaryClient({ initialData }: { initialData: GlossaryI
     hongo: "Hongos",
   };
 
+  if (!isPremium) {
+    const teaserItems = initialData.slice(0, 6)
+    return (
+      <div className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+        <div className="text-center md:text-left mb-16">
+          <h1 className="text-5xl md:text-7xl font-serif text-aubergine-dark mb-6 leading-tight">
+            El poder de tus <br className="hidden md:block" /> ingredientes
+          </h1>
+          <p className="text-xl text-aubergine-dark/60 font-serif italic max-w-2xl">
+            Descubre la ciencia interactiva detrás de la comida real. Cómo cada especia, semilla y alimento vivo modula tu biología y tu estado de ánimo.
+          </p>
+        </div>
+
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, black 20%, transparent 90%)',
+            maskImage: 'linear-gradient(to bottom, black 20%, transparent 90%)',
+          }}
+        >
+          {teaserItems.map((item) => {
+            const firstMood = item.moods?.[0]
+            const color = firstMood ? (MOOD_COLORS[firstMood]?.color ?? '#C9A84C') : '#C9A84C'
+            return (
+              <div
+                key={item.id}
+                className="pointer-events-none select-none h-full bg-transparent border border-[#6B2737]/10 rounded-[2rem] flex flex-col overflow-hidden shadow-sm"
+              >
+                <div className="w-full h-2 rounded-t-[2rem]" style={{ backgroundColor: color }} />
+                <div className="p-8 flex flex-col flex-1">
+                  {item.category && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-[10px] uppercase tracking-widest font-bold self-start mb-4">
+                      {categoryLabels[item.category] || item.category}
+                    </span>
+                  )}
+                  <h3 className="text-3xl font-serif text-aubergine-dark mb-4">{item.name}</h3>
+                  <p className="text-[15px] font-light text-aubergine-dark/70 italic leading-relaxed line-clamp-3 mb-6 flex-1">
+                    &ldquo;{item.tagline}&rdquo;
+                  </p>
+                  {item.moods && item.moods.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-auto border-t border-[#6B2737]/5 pt-4">
+                      {item.moods.slice(0, 3).map((mood) => {
+                        const colors = MOOD_COLORS[mood] || { color: '#888', bg: '#88815' }
+                        return (
+                          <span
+                            key={mood}
+                            className="text-[10px] px-2 py-1 rounded-md capitalize border border-transparent font-medium"
+                            style={{ backgroundColor: colors.bg, color: colors.color }}
+                          >
+                            {mood}
+                          </span>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <section className="py-24 px-8 md:px-12 bg-[#6B2737] rounded-[2.5rem] text-center relative overflow-hidden shadow-2xl -mt-32">
+          <div className="relative z-10 max-w-2xl mx-auto space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white/90 text-[10px] font-bold uppercase tracking-widest border border-white/20">
+              <Lock className="w-3 h-3" /> Contenido Premium
+            </div>
+            <h2 className="text-3xl md:text-5xl font-serif text-[#F5F0E8] leading-tight">
+              El glosario completo, sólo para miembros
+            </h2>
+            <p className="text-[#F5F0E8]/70 text-lg font-light leading-[1.8]">
+              {initialData.length > 0 ? `${initialData.length}+` : '50+'} ingredientes funcionales con su ciencia, sinergias y cómo modulan tu biología y estado de ánimo.
+            </p>
+            <div className="pt-6">
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-3 bg-[#C9A84C] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#C9A84C]/20 transition-all transform hover:-translate-y-1"
+              >
+                <Sparkles className="w-5 h-5 opacity-80" />
+                Ver planes de acceso
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
   return (
     <div className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
-      
+
       {/* Hero Section */}
       <div className="text-center md:text-left mb-16">
         <h1 className="text-5xl md:text-7xl font-serif text-aubergine-dark mb-6 leading-tight">
