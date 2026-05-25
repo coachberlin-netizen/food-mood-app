@@ -83,10 +83,22 @@ export async function middleware(request: NextRequest) {
   const isAdminRoute = pathname.startsWith('/admin');
   const isRecetasRoute = pathname.startsWith('/recetas');
 
+  // Newsletter articles: require authentication (exclude index and archivo listing pages)
+  const isNewsletterArticle =
+    pathname.startsWith('/newsletter/') &&
+    pathname !== '/newsletter/archivo'
+
   // Redirect unauthenticated users from protected routes (not /recetas — that's public)
   if (isProtectedRoute && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
+    return NextResponse.redirect(url)
+  }
+
+  if (isNewsletterArticle && !user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/auth/login'
+    url.searchParams.set('redirect', pathname)
     return NextResponse.redirect(url)
   }
 
