@@ -4,23 +4,23 @@ import { buildHtml } from '@/lib/editorial-newsletters/18-espectro-emocional'
 import { extractNewsletterParts } from '@/lib/editorial-newsletters/extract-html'
 
 export const metadata: Metadata = {
-  title: 'No sientes una emociÃ³n. Sientes varias a la vez. Y eso tiene una explicaciÃ³n. | FoodÂ·Mood Newsletter NÂº 18',
+  title: 'No sientes una emoción. Sientes varias a la vez. Y eso tiene una explicación. | Food·Mood Newsletter Nº 18',
   description:
-    'El espectro emocional y el eje intestino-cerebro: por quÃ© las emociones se solapan, quÃ© papel juega la interocepciÃ³n y cÃ³mo la alimentaciÃ³n amplÃ­a el rango emocional. Newsletter NÂº 18 de FoodÂ·Mood.',
+    'El espectro emocional y el eje intestino-cerebro: por qué las emociones se solapan, qué papel juega la interocepción y cómo la alimentación amplía el rango emocional. Newsletter Nº 18 de Food·Mood.',
   alternates: { canonical: 'https://www.food-mood.app/newsletter/espectro-emocional' },
   openGraph: {
-    title:         'No sientes una emociÃ³n. Sientes varias a la vez. Y eso tiene una explicaciÃ³n.',
-    description:   'La granularidad emocional, la interocepciÃ³n y el eje intestino-cerebro: cÃ³mo la alimentaciÃ³n amplÃ­a el rango de lo que puedes sentir â€” y nombrar.',
+    title:         'No sientes una emoción. Sientes varias a la vez. Y eso tiene una explicación.',
+    description:   'La granularidad emocional, la interocepción y el eje intestino-cerebro: cómo la alimentación amplía el rango de lo que puedes sentir — y nombrar.',
     url:           'https://www.food-mood.app/newsletter/espectro-emocional',
     type:          'article',
-    siteName:      'FoodÂ·Mood',
+    siteName:      'Food·Mood',
     publishedTime: '2026-05-18',
-    images:        [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter FoodÂ·Mood â€” Espectro emocional' }],
+    images:        [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Newsletter Food·Mood — Espectro emocional' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'No sientes una emociÃ³n. Sientes varias a la vez. Y eso tiene una explicaciÃ³n.',
-    description: 'Granularidad emocional, interocepciÃ³n y gut-brain axis. La ciencia detrÃ¡s de sentir varias cosas a la vez â€” y por quÃ© el kÃ©fir importa mÃ¡s de lo que crees. Newsletter NÂº 18.',
+    title:       'No sientes una emoción. Sientes varias a la vez. Y eso tiene una explicación.',
+    description: 'Granularidad emocional, interocepción y gut-brain axis. La ciencia detrás de sentir varias cosas a la vez — y por qué el kéfir importa más de lo que crees. Newsletter Nº 18.',
     images:      ['/og-image.png'],
   },
 }
@@ -30,23 +30,23 @@ const LD = {
   '@graph': [
     {
       '@type':          'NewsArticle',
-      headline:         'No sientes una emociÃ³n. Sientes varias a la vez. Y eso tiene una explicaciÃ³n.',
-      description:      'El espectro emocional, la interocepciÃ³n y el eje intestino-cerebro: cÃ³mo la alimentaciÃ³n amplÃ­a el rango emocional y la granularidad con la que procesas lo que sientes.',
+      headline:         'No sientes una emoción. Sientes varias a la vez. Y eso tiene una explicación.',
+      description:      'El espectro emocional, la interocepción y el eje intestino-cerebro: cómo la alimentación amplía el rango emocional y la granularidad con la que procesas lo que sientes.',
       url:              'https://www.food-mood.app/newsletter/espectro-emocional',
       datePublished:    '2026-05-18',
       dateModified:     '2026-05-18',
       inLanguage:       'es',
       image:            'https://www.food-mood.app/og-image.png',
-      author:           { '@type': 'Organization', name: 'FoodÂ·Mood', url: 'https://www.food-mood.app' },
-      publisher:        { '@type': 'Organization', name: 'FoodÂ·Mood', url: 'https://www.food-mood.app',
+      author:           { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app' },
+      publisher:        { '@type': 'Organization', name: 'Food·Mood', url: 'https://www.food-mood.app',
                           logo: { '@type': 'ImageObject', url: 'https://www.food-mood.app/og-image.png' } },
       mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://www.food-mood.app/newsletter/espectro-emocional' },
-      isPartOf:         { '@type': 'Periodical', name: 'Newsletter FoodÂ·Mood', url: 'https://www.food-mood.app/newsletter' },
+      isPartOf:         { '@type': 'Periodical', name: 'Newsletter Food·Mood', url: 'https://www.food-mood.app/newsletter' },
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'FoodÂ·Mood',  item: 'https://www.food-mood.app' },
+        { '@type': 'ListItem', position: 1, name: 'Food·Mood',  item: 'https://www.food-mood.app' },
         { '@type': 'ListItem', position: 2, name: 'Newsletter', item: 'https://www.food-mood.app/newsletter' },
         { '@type': 'ListItem', position: 3, name: 'Espectro emocional', item: 'https://www.food-mood.app/newsletter/espectro-emocional' },
       ],
@@ -65,7 +65,7 @@ export default function NewsletterEspectroEmocionalPage() {
           href="/newsletter/archivo"
           style={{ fontSize: 12, color: 'rgba(107,39,55,0.6)', textDecoration: 'none' }}
         >
-          â† Archivo de newsletters
+          ← Archivo de newsletters
         </Link>
       </div>
       <div dangerouslySetInnerHTML={{ __html: body }} />
