@@ -26,7 +26,6 @@ interface Message {
 }
 
 // Detect SpeechRecognition support (cast to any — browser API, not in TS lib by default)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getSpeechRecognition(): (new () => any) | null {
   if (typeof window === "undefined") return null;
   return (
@@ -45,7 +44,6 @@ export function ChatWidget() {
   const [messagesRemaining, setMessagesRemaining] = useState<number | null>(null);
   const [isListening, setIsListening]         = useState(false);
   const [voiceSupported, setVoiceSupported]   = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef                        = useRef<any>(null);
   const { resultMood }                        = useQuizStore();
   const scrollRef                             = useRef<HTMLDivElement>(null);
