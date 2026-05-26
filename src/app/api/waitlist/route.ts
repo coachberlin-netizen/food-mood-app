@@ -1,6 +1,14 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
+import { z } from 'zod'
+
+const waitlistBodySchema = z.object({
+  email:       z.string().email().max(254),
+  name:        z.string().max(100).optional(),
+  source:      z.string().max(100).optional(),
+  mood_result: z.string().max(50).optional(),
+})
 
 export async function GET() {
   try {
@@ -33,12 +41,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { email, name, source, mood_result } = body
-
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+    const parsed = waitlistBodySchema.safeParse(await request.json())
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Email inválido' }, { status: 400 })
     }
+    const { email, name, source, mood_result } = parsed.data
 
     const cookieStore = await cookies()
     const supabase = createServerClient(

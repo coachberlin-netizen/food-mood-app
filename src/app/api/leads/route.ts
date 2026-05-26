@@ -1,6 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { z } from 'zod'
+
+const leadBodySchema = z.object({
+  email:  z.string().email().max(254),
+  source: z.string().max(100).optional(),
+})
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -25,11 +31,11 @@ export async function POST(req: NextRequest) {
       leadRateLimit.set(ip, { count: 1, resetAt: now + window })
     }
 
-    const { email, source } = await req.json()
-
-    if (!email || typeof email !== 'string' || !email.includes('@') || email.length > 254) {
+    const parsed = leadBodySchema.safeParse(await req.json())
+    if (!parsed.success) {
       return NextResponse.json({ error: 'Email inválido' }, { status: 400 })
     }
+    const { email, source } = parsed.data
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 

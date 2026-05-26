@@ -3,6 +3,11 @@ import { createClient } from '@/lib/supabase/server'
 import { isUserAdmin } from '@/lib/admin-config'
 import { getPremiumStatus } from '@/lib/premium'
 import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
+
+const checkoutBodySchema = z.object({
+  plan: z.enum(['monthly', 'quarterly']).default('monthly'),
+})
 
 /**
  * POST /api/checkout
@@ -25,13 +30,15 @@ export async function GET(req: NextRequest) {
 
 async function handleCheckout(req: NextRequest) {
   try {
-    let plan: string | null = null
+    let plan: string = 'monthly'
     if (req.method === 'POST') {
-      const body = await req.json()
-      plan = body.plan
+      const rawBody = await req.json().catch(() => ({}))
+      const parsed = checkoutBodySchema.safeParse(rawBody)
+      plan = parsed.success ? parsed.data.plan : 'monthly'
     } else {
       const { searchParams } = new URL(req.url)
-      plan = searchParams.get('plan')
+      const qsPlan = searchParams.get('plan')
+      plan = qsPlan === 'quarterly' ? 'quarterly' : 'monthly'
     }
 
     // Select Price ID based on plan

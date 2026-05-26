@@ -3,6 +3,15 @@ import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@supabase/supabase-js'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { getRecipeRecommendationByMood, buildPremiumUpsellMessage, UserContext } from '../../../../lib/daily-inspiration'
+import { z } from 'zod'
+
+const messageSchema = z.object({
+  role:    z.enum(['user', 'assistant']),
+  content: z.string().min(1).max(8000),
+})
+const bodySchema = z.object({
+  messages: z.array(messageSchema).min(1).max(50),
+})
 
 const MOOD_MAP: Record<string, string> = {
   'activacion':  'Activación & Energía',
@@ -96,11 +105,11 @@ function extractMoodJSON(text: string): { mood?: string; confidence?: number; cl
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json()
-
-    if (!messages || !Array.isArray(messages)) {
-      return NextResponse.json({ error: 'Missing messages' }, { status: 400 })
+    const parsed = bodySchema.safeParse(await req.json())
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Missing messages', details: parsed.error.flatten() }, { status: 400 })
     }
+    const { messages } = parsed.data
 
     const apiKey = process.env.ANTHROPIC_API_KEY
     if (!apiKey) {

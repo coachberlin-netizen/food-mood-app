@@ -1,14 +1,21 @@
 import { generateRecipeForMood } from '@/lib/claude'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { z } from 'zod'
+
+const bodySchema = z.object({
+  moodId:    z.string().min(1),
+  moodName:  z.string().min(1),
+  userEmail: z.string().email().optional(),
+})
 
 export async function POST(req: Request) {
   try {
-    const { moodId, moodName, userEmail } = await req.json()
-    
-    if (!moodId || !moodName) {
-      return NextResponse.json({ error: 'Faltan parámetros' }, { status: 400 })
+    const parsed = bodySchema.safeParse(await req.json())
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Faltan parámetros', details: parsed.error.flatten() }, { status: 400 })
     }
+    const { moodId, moodName, userEmail } = parsed.data
 
     const supabase = await createClient()
     const now = new Date()
