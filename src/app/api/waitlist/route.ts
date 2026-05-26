@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
@@ -34,7 +35,7 @@ export async function GET() {
 
     return NextResponse.json({ count: count || 0 })
   } catch (error) {
-    console.error('Waitlist GET error:', error)
+    logger.error('Waitlist GET error:', error)
     return NextResponse.json({ error: 'Failed to fetch waitlist count' }, { status: 500 })
   }
 }
@@ -80,7 +81,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: '¡Gracias por unirte!' }, { status: 201 })
   } catch (error) {
-    console.error('Waitlist POST error:', error)
+    logger.error('Waitlist POST error:', error)
     return NextResponse.json({ error: 'Failed to join waitlist' }, { status: 500 })
   }
 }

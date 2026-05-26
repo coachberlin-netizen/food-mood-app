@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
 import { isUserAdmin } from '@/lib/admin-config'
@@ -48,7 +49,7 @@ async function handleCheckout(req: NextRequest) {
         : process.env.STRIPE_PRICE_ID_MONTHLY || process.env.STRIPE_PRICE_ID
 
     if (!priceId) {
-      console.error('[checkout] Missing Stripe Price ID for plan:', plan)
+      logger.error('[checkout] Missing Stripe Price ID for plan:', plan)
       return NextResponse.json(
         { error: 'Plan no configurado' },
         { status: 500 }
@@ -95,7 +96,7 @@ async function handleCheckout(req: NextRequest) {
 
     return NextResponse.json({ url: session.url })
   } catch (err) {
-    console.error('Stripe checkout error:', err)
+    logger.error('Stripe checkout error:', err)
     const message = err instanceof Error ? err.message : 'Error al crear la sesión de pago'
     return NextResponse.json(
       { error: message },

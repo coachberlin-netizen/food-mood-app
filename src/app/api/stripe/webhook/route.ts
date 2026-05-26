@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@supabase/supabase-js'
 import { headers } from 'next/headers'
@@ -21,28 +22,28 @@ export async function POST(req: NextRequest) {
     if (!sig || !webhookSecret) {
       // En local dev sin Stripe CLI activo, permitir bypass solo en desarrollo
       if (process.env.NODE_ENV === 'production') {
-        console.error('❌ CRITICAL: Stripe webhook secret missing in PRODUCTION.')
+        logger.error('❌ CRITICAL: Stripe webhook secret missing in PRODUCTION.')
         return NextResponse.json({ error: 'Signature Verification Failed' }, { status: 400 })
       }
-      console.warn('⚠️ Stripe webhook: sin firma (dev). Usar Stripe CLI para firmas reales.')
+      logger.warn('⚠️ Stripe webhook: sin firma (dev). Usar Stripe CLI para firmas reales.')
       event = JSON.parse(body)
     } else {
       try {
         event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
       } catch (err: any) {
-        console.error(`❌ Webhook Signature Verification Failed: ${err.message}`)
+        logger.error(`❌ Webhook Signature Verification Failed: ${err.message}`)
         return NextResponse.json({ error: 'Signature Verification Failed' }, { status: 400 })
       }
     }
   } catch (err: any) {
-    console.error(`❌ Webhook Error: ${err.message}`)
+    logger.error(`❌ Webhook Error: ${err.message}`)
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 })
   }
 
   // Initialize Supabase Admin
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.RECETAS_SUPABASE_KEY
   if (!serviceKey) {
-    console.error('❌ SUPABASE_SERVICE_ROLE_KEY not configured')
+    logger.error('❌ SUPABASE_SERVICE_ROLE_KEY not configured')
     return NextResponse.json({ error: 'Configuration error' }, { status: 500 })
   }
   const supabaseAdmin = createClient(
@@ -76,7 +77,7 @@ export async function POST(req: NextRequest) {
           ])
 
           if (!challengeData) {
-            console.error(`❌ Reto no encontrado en DB: challenge_id=${challenge_id}. Pago procesado en Stripe pero sin acceso concedido.`)
+            logger.error(`❌ Reto no encontrado en DB: challenge_id=${challenge_id}. Pago procesado en Stripe pero sin acceso concedido.`)
             break
           }
 
@@ -138,13 +139,13 @@ export async function POST(req: NextRequest) {
                   </div>
                 `,
               })
-              console.log(`✅ Reto confirmation email sent to ${retoEmail}`)
+              logger.info(`✅ Reto confirmation email sent to ${retoEmail}`)
             } catch (emailErr: any) {
-              console.error(`⚠️ Reto email failed (non-blocking): ${emailErr.message}`)
+              logger.error(`⚠️ Reto email failed (non-blocking): ${emailErr.message}`)
             }
           }
 
-          console.log(`✅ Reto pagado: user=${user_id} challenge=${challenge_id}`)
+          logger.info(`✅ Reto pagado: user=${user_id} challenge=${challenge_id}`)
         }
         break
       }
@@ -155,7 +156,7 @@ export async function POST(req: NextRequest) {
 
       // Fallback: Si no hay userId en los metadatos, buscamos el usuario por su email del checkout
       if (!userId && customerEmail) {
-        console.log(`Buscando usuario en Supabase por email de checkout: ${customerEmail}`);
+        logger.info(`Buscando usuario en Supabase por email de checkout: ${customerEmail}`);
         const { data: authData, error: authError } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 });
 
         let match = null;
@@ -165,11 +166,11 @@ export async function POST(req: NextRequest) {
 
         if (match) {
           userId = match.id;
-          console.log(`✅ Usuario encontrado vía email: ${userId}`);
+          logger.info(`✅ Usuario encontrado vía email: ${userId}`);
         } else {
           // No crear cuentas sin consentimiento explícito del usuario (GDPR Art. 6)
           // El usuario debe registrarse él mismo; el pago queda registrado en Stripe
-          console.warn(`⚠️ Pago recibido de ${customerEmail} sin cuenta en Food·Mood. Sin auto-provision.`);
+          logger.warn(`⚠️ Pago recibido de ${customerEmail} sin cuenta en Food·Mood. Sin auto-provision.`);
           if (customerEmail && process.env.RESEND_API_KEY) {
             try {
               const resend = new Resend(process.env.RESEND_API_KEY)
@@ -197,16 +198,16 @@ export async function POST(req: NextRequest) {
                   </div>
                 `,
               })
-              console.log(`📧 Email "activa tu cuenta" enviado a ${customerEmail}`)
+              logger.info(`📧 Email "activa tu cuenta" enviado a ${customerEmail}`)
             } catch (emailErr: any) {
-              console.error(`⚠️ Email de activación fallido: ${emailErr.message}`)
+              logger.error(`⚠️ Email de activación fallido: ${emailErr.message}`)
             }
           }
         }
       }
 
       if (userId) {
-        console.log(`🔔 Payment successful for user: ${userId} (${customerEmail || 'No email provided'})`)
+        logger.info(`🔔 Payment successful for user: ${userId} (${customerEmail || 'No email provided'})`)
 
         const { error } = await supabaseAdmin
           .from('profiles')
@@ -217,13 +218,13 @@ export async function POST(req: NextRequest) {
           }, { onConflict: 'id' })
 
         if (error) {
-          console.error(`❌ Error updating profile for user ${userId}:`, error.message)
+          logger.error(`❌ Error updating profile for user ${userId}:`, error.message)
         } else {
-          console.log(`✅ Profile updated (upsert): User ${userId} is now PREMIUM.`)
+          logger.info(`✅ Profile updated (upsert): User ${userId} is now PREMIUM.`)
         }
 
         // ── Email 1: Bienvenida ───────────────────────────────────────────
-        console.log(`📬 Email check: customerEmail="${customerEmail}" RESEND_KEY_SET=${!!process.env.RESEND_API_KEY} FROM=${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app (default)'}`)
+        logger.info(`📬 Email check: customerEmail="${customerEmail}" RESEND_KEY_SET=${!!process.env.RESEND_API_KEY} FROM=${process.env.RESEND_FROM_EMAIL ?? 'hola@food-mood.app (default)'}`)
         if (customerEmail && process.env.RESEND_API_KEY) {
           const resend  = new Resend(process.env.RESEND_API_KEY)
           const appUrl  = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.food-mood.app'
@@ -271,19 +272,19 @@ export async function POST(req: NextRequest) {
               ].join(''),
             })
             if (resendErr) {
-              console.error(`❌ Email 1 Resend error for ${customerEmail}:`, JSON.stringify(resendErr))
+              logger.error(`❌ Email 1 Resend error for ${customerEmail}:`, JSON.stringify(resendErr))
             } else {
-              console.log(`✅ Email 1 (bienvenida) enviado a ${customerEmail} — id: ${resendData?.id}`)
+              logger.info(`✅ Email 1 (bienvenida) enviado a ${customerEmail} — id: ${resendData?.id}`)
             }
           } catch (e: any) {
-            console.error(`❌ Email 1 excepcion para ${customerEmail}:`, e?.message)
+            logger.error(`❌ Email 1 excepcion para ${customerEmail}:`, e?.message)
           }
 
           // ── Email 2: Ultima newsletter de regalo ─────────────────────────
           try {
             const latest    = EDITORIAL_NEWSLETTERS[EDITORIAL_NEWSLETTERS.length - 1]
             const nlHtml    = latest.buildHtml()
-            console.log(`📧 Newsletter #${latest.numero} html length: ${nlHtml.length}`)
+            logger.info(`📧 Newsletter #${latest.numero} html length: ${nlHtml.length}`)
             const { data: nlData, error: nlErr } = await resend.emails.send({
               from,
               to:      customerEmail,
@@ -291,12 +292,12 @@ export async function POST(req: NextRequest) {
               html:    nlHtml,
             })
             if (nlErr) {
-              console.error(`❌ Email 2 Resend error for ${customerEmail}:`, JSON.stringify(nlErr))
+              logger.error(`❌ Email 2 Resend error for ${customerEmail}:`, JSON.stringify(nlErr))
             } else {
-              console.log(`✅ Email 2 (newsletter #${latest.numero}) enviado a ${customerEmail} — id: ${nlData?.id}`)
+              logger.info(`✅ Email 2 (newsletter #${latest.numero}) enviado a ${customerEmail} — id: ${nlData?.id}`)
             }
           } catch (e: any) {
-            console.error(`❌ Email 2 excepcion para ${customerEmail}:`, e?.message)
+            logger.error(`❌ Email 2 excepcion para ${customerEmail}:`, e?.message)
           }
         }
 
@@ -333,13 +334,13 @@ export async function POST(req: NextRequest) {
                 </div>
               `,
             })
-            console.log(`✅ Telegram invite sent to ${customerEmail}`)
+            logger.info(`✅ Telegram invite sent to ${customerEmail}`)
           } catch (tgErr: any) {
-            console.error(`⚠️ Telegram invite failed (non-blocking): ${tgErr.message}`)
+            logger.error(`⚠️ Telegram invite failed (non-blocking): ${tgErr.message}`)
           }
         }
       } else {
-        console.warn(`⚠️ Pago recibido (Email: ${customerEmail}) sin userId resuelto — revisar manualmente en Stripe.`)
+        logger.warn(`⚠️ Pago recibido (Email: ${customerEmail}) sin userId resuelto — revisar manualmente en Stripe.`)
       }
       break
     }
@@ -360,7 +361,7 @@ export async function POST(req: NextRequest) {
 
         if (user) {
           const isPremium = ['active', 'trialing'].includes(status)
-          console.log(`🔄 Subscription ${event.type} for ${email}: status=${status} -> is_premium=${isPremium}`)
+          logger.info(`🔄 Subscription ${event.type} for ${email}: status=${status} -> is_premium=${isPremium}`)
           
           await supabaseAdmin
             .from('profiles')
@@ -386,7 +387,7 @@ export async function POST(req: NextRequest) {
         const user = authData?.users.find(u => u.email?.toLowerCase() === email.toLowerCase())
 
         if (user) {
-          console.log(`🚫 Subscription deleted for ${email}: is_premium=false`)
+          logger.info(`🚫 Subscription deleted for ${email}: is_premium=false`)
           await supabaseAdmin
             .from('profiles')
             .upsert({
@@ -410,10 +411,10 @@ export async function POST(req: NextRequest) {
                   .from('profiles')
                   .update({ telegram_joined: false, telegram_user_id: null, telegram_invite_url: null })
                   .eq('id', user.id)
-                console.log(`✅ Removed from Telegram: user=${user.id}`)
+                logger.info(`✅ Removed from Telegram: user=${user.id}`)
               }
             } catch (tgErr: any) {
-              console.error(`⚠️ Telegram kick failed (non-blocking): ${tgErr.message}`)
+              logger.error(`⚠️ Telegram kick failed (non-blocking): ${tgErr.message}`)
             }
           }
         }
@@ -422,7 +423,7 @@ export async function POST(req: NextRequest) {
     }
 
     default:
-      console.log(`🟡 Unhandled event type ${event.type}`)
+      logger.info(`🟡 Unhandled event type ${event.type}`)
   }
 
   return NextResponse.json({ received: true })

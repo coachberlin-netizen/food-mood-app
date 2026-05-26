@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { SupabaseClient } from '@supabase/supabase-js'
 
 /**
@@ -65,7 +66,7 @@ export async function getPremiumStatus(supabase: SupabaseClient, userId: string)
 
     return false;
   } catch (error) {
-    console.error('Unexpected error checking premium status:', error);
+    logger.error('Unexpected error checking premium status:', error);
     return false;
   }
 }

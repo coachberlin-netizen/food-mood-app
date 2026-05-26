@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import webpush from 'web-push'
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
     const { data: subscriptions, error } = await query
 
     if (error) {
-      console.error('Error fetching subscriptions:', error)
+      logger.error('Error fetching subscriptions:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
         pushSubscription,
         JSON.stringify({ title, body, url: url || '/dashboard' })
       ).catch((err: any) => {
-        console.error('Push error for endpoint:', sub.endpoint, err.message)
+        logger.error('Push error for endpoint:', sub.endpoint, err.message)
         // Optionally delete expired subscriptions here
       })
     })
@@ -58,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, sentCount: notifications.length })
   } catch (err: any) {
-    console.error('Push send error:', err.message)
+    logger.error('Push send error:', err.message)
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }

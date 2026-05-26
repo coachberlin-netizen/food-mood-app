@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Anthropic from '@anthropic-ai/sdk'
@@ -111,7 +112,7 @@ REGLAS: Sin "¡" ni emojis en el texto. Máximo 700 tokens.`
 
     return NextResponse.json({ informe })
   } catch (err) {
-    console.error('[generar-informe] Error:', err)
+    logger.error('[generar-informe] Error:', err)
     return NextResponse.json({ error: 'Error generando el informe' }, { status: 500 })
   }
 }

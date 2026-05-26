@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -38,13 +39,13 @@ export async function POST(req: NextRequest) {
       }, { onConflict: 'user_id, endpoint' })
 
     if (error) {
-      console.error('Error saving subscription:', error)
+      logger.error('Error saving subscription:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
     return NextResponse.json({ success: true })
   } catch (err: any) {
-    console.error('Push subscribe error:', err.message)
+    logger.error('Push subscribe error:', err.message)
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }

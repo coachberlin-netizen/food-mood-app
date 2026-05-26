@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { RECIPE_SYSTEM_PROMPT } from "@/lib/ai/recipe-prompt";
@@ -27,7 +28,7 @@ export async function POST(request: Request) {
         // Reset limit window
         rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
       } else if (userLimit.count >= RATE_LIMIT_MAX) {
-        console.warn(`[Rate Limit] Exceeded for IP: ${ip}`);
+        logger.warn(`[Rate Limit] Exceeded for IP: ${ip}`);
         return getFallbackResponse("Has alcanzado el límite diario de recetas generadas. Te mostramos una de nuestra colección.", 429);
       } else {
         userLimit.count++;
@@ -113,12 +114,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ recipes: recipesWithIds }, { status: 200 });
 
     } catch (parseError) {
-      console.error("[Parse Error] Could not parse Claude JSON:", parseError, messageContent);
+      logger.error("[Parse Error] Could not parse Claude JSON:", parseError, messageContent);
       return getFallbackResponse("Error generando receta personalizada. Intentando usar el recetario principal.", 500, moodId);
     }
     
   } catch (error) {
-    console.error("[API Error] Claude generation failed:", error);
+    logger.error("[API Error] Claude generation failed:", error);
     return getFallbackResponse("Servicio de generación no disponible en este momento.", 503, "m2");
   }
 }

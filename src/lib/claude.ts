@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import Anthropic from '@anthropic-ai/sdk'
 
 const client = new Anthropic({
@@ -42,7 +43,7 @@ Responde SOLO JSON puro (sin markdown, sin bloques de código, solo el objeto JS
     const jsonStr = text.replace(/^```json/g, '').replace(/```$/g, '').trim();
     return JSON.parse(jsonStr);
   } catch (e) {
-    console.error("No se pudo parsear el JSON de Claude:", e, msg.content);
+    logger.error("No se pudo parsear el JSON de Claude:", e, msg.content);
     throw new Error('Claude no devolvió un JSON válido.');
   }
 }

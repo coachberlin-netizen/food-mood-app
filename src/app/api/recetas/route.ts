@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { RECIPE_COLUMNS } from '@/lib/constants'
@@ -45,7 +46,7 @@ export async function GET(req: NextRequest) {
     const { data, error, count } = await query
 
     if (error) {
-      console.error('Supabase query error:', error)
+      logger.error('Supabase query error:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
@@ -88,7 +89,7 @@ export async function GET(req: NextRequest) {
     )
 
   } catch (err: any) {
-    console.error('API /api/recetas error:', err)
+    logger.error('API /api/recetas error:', err)
     return NextResponse.json(
       { error: 'Error interno del servidor', details: err?.message || String(err) },
       { status: 500 }

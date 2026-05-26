@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
     const { data: recetas, error } = await query
 
     if (error) {
-      console.error('Database error in receta-gratis:', error)
+      logger.error('Database error in receta-gratis:', error)
       return NextResponse.json({ error: 'Error fetching recipes' }, { status: 500 })
     }
 
@@ -45,7 +46,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ receta: selectedReceta })
   } catch (err) {
-    console.error('API /api/receta-gratis error:', err)
+    logger.error('API /api/receta-gratis error:', err)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

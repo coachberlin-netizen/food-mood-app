@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from "next/server"
 import { createClient as createServerClient } from "@/lib/supabase/server"
 import { createClient } from "@supabase/supabase-js"
@@ -73,7 +74,7 @@ export async function POST(req: NextRequest) {
 
   const encryptionSecret = process.env.ENCRYPTION_SECRET
   if (!encryptionSecret) {
-    console.error("❌ ENCRYPTION_SECRET no configurado — hash de confirmación GDPR no fiable")
+    logger.error("❌ ENCRYPTION_SECRET no configurado — hash de confirmación GDPR no fiable")
     return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
   }
 

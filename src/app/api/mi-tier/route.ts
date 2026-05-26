@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { getPremiumStatus } from "@/lib/premium";
@@ -28,7 +29,7 @@ export async function GET() {
     });
 
   } catch (error) {
-    console.error('API /api/mi-tier error:', error);
+    logger.error('API /api/mi-tier error:', error);
     return NextResponse.json({ tier: 'free', authenticated: false, isPremium: false });
   }
 }

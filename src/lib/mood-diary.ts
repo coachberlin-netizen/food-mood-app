@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export type DiaryDay = {
@@ -65,7 +66,7 @@ export async function getWeekData(
     .order('session_date', { ascending: true });
 
   if (error) {
-    console.error('Error fetching week data:', error);
+    logger.error('Error fetching week data:', error);
   }
 
   const days: DiaryDay[] = [];
@@ -147,7 +148,7 @@ export async function getMonthData(
     .order('session_date', { ascending: true });
 
   if (error) {
-    console.error('Error fetching month data:', error);
+    logger.error('Error fetching month data:', error);
   }
 
   const days: DiaryDay[] = [];

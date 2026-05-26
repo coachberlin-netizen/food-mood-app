@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { generateRecipeForMood } from '@/lib/claude'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
@@ -57,14 +58,14 @@ export async function POST(req: Request) {
         })
 
       if (insertError) {
-        console.error('Error insertando en historial Supabase:', insertError)
+        logger.error('Error insertando en historial Supabase:', insertError)
         // No rompemos porque la receta sí se generó
       }
     }
 
     return NextResponse.json(recipe)
   } catch (error) {
-    console.error('Error generando receta:', error)
+    logger.error('Error generando receta:', error)
     return NextResponse.json({ error: 'Error interno generando la receta' }, { status: 500 })
   }
 }

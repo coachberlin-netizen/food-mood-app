@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import webpush from 'web-push'
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
@@ -167,7 +168,7 @@ export async function POST(req: NextRequest) {
     .eq('completed', false)
 
   if (enrollErr) {
-    console.error('Error fetching enrollments:', enrollErr)
+    logger.error('Error fetching enrollments:', enrollErr)
     return NextResponse.json({ error: enrollErr.message }, { status: 500 })
   }
 
@@ -184,7 +185,7 @@ export async function POST(req: NextRequest) {
     .in('user_id', userIds)
 
   if (subErr) {
-    console.error('Error fetching subscriptions:', subErr)
+    logger.error('Error fetching subscriptions:', subErr)
     return NextResponse.json({ error: subErr.message }, { status: 500 })
   }
 
@@ -217,7 +218,7 @@ export async function POST(req: NextRequest) {
           { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
           payload
         ).catch((err: any) => {
-          console.error('Push error for user', enrollment.user_id, err.message)
+          logger.error('Push error for user', enrollment.user_id, err.message)
           // Clean up expired subscriptions
           if (err.statusCode === 410) {
             supabase.from('push_subscriptions')

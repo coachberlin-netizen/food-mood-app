@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@supabase/supabase-js'
@@ -183,7 +184,7 @@ export async function POST(req: NextRequest) {
   })
 
   if (safety.flagged) {
-    console.warn(`[agent:flag] ${safety.flagged} user=${user.id}`)
+    logger.warn(`[agent:flag] ${safety.flagged} user=${user.id}`)
   }
 
   return NextResponse.json(safety.response, { status: 200 })

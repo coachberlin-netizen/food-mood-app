@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
 
   if (!upstream.ok) {
     const err = await upstream.text().catch(() => upstream.status.toString())
-    console.error('[TTS] ElevenLabs error:', err)
+    logger.error('[TTS] ElevenLabs error:', err)
     return NextResponse.json({ error: 'TTS upstream failed' }, { status: 502 })
   }
 

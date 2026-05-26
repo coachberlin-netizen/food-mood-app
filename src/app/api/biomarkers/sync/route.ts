@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { getAdapter } from "@/biomarkers/adapters";
@@ -32,7 +33,7 @@ async function runSync(userId?: string) {
       } catch (err) {
         totalErrors++;
         details.push({ userId: user_id, provider, error: String(err) });
-        console.error(`[biomarkers/sync] ${provider}/${user_id}:`, err);
+        logger.error(`[biomarkers/sync] ${provider}/${user_id}:`, err);
       }
     }),
   );

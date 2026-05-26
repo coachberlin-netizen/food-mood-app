@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -49,6 +50,6 @@ export async function POST(req: NextRequest) {
     })
     .eq('id', profile.id)
 
-  console.log(`✅ Telegram joined: user=${profile.id} tg_id=${telegramUser.id}`)
+  logger.info(`✅ Telegram joined: user=${profile.id} tg_id=${telegramUser.id}`)
   return NextResponse.json({ ok: true })
 }

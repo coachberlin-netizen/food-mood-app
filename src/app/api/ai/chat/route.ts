@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
@@ -223,7 +224,7 @@ export async function POST(req: NextRequest) {
       messagesRemaining: DAILY_LIMIT - newCount,
     })
   } catch (err) {
-    console.error('[api/ai/chat] error:', err)
+    logger.error('[api/ai/chat] error:', err)
     return NextResponse.json({ error: 'Error del servicio de IA' }, { status: 502 })
   }
 }

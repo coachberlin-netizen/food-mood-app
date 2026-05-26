@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@supabase/supabase-js'
@@ -226,7 +227,7 @@ export async function POST(req: NextRequest) {
     const error = err as { message?: string; status?: number; error?: { message?: string } }
     const msg = error?.message || error?.error?.message || 'Unknown error'
     const status = error?.status || 500
-    console.error('[chat/mood] Error:', msg, 'Status:', status, 'Full:', JSON.stringify(err))
+    logger.error('[chat/mood] Error:', msg, 'Status:', status, 'Full:', JSON.stringify(err))
     return NextResponse.json(
       { error: msg },
       { status }

@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
@@ -15,7 +16,7 @@ export async function POST(req: NextRequest) {
     const { priceId, planType } = await req.json()
 
     if (!process.env.STRIPE_SECRET_KEY) {
-      console.error('❌ STRIPE_SECRET_KEY is missing from environment variables.')
+      logger.error('❌ STRIPE_SECRET_KEY is missing from environment variables.')
       return NextResponse.json(
         { error: 'STRIPE_SECRET_KEY_NOT_CONFIGURED. Please check Vercel/Env settings.' },
         { status: 500 }
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!priceId) {
-      console.error('❌ Received checkout request without priceId.')
+      logger.error('❌ Received checkout request without priceId.')
       return NextResponse.json(
         { error: 'Missing priceId. Ensure NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY/QUARTERLY is set.' },
         { status: 400 }
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url })
   } catch (err) {
-    console.error('[stripe/checkout] Critical Error:', err)
+    logger.error('[stripe/checkout] Critical Error:', err)
     
     let message = 'Error al crear la sesión de pago'
     if (err instanceof Stripe.errors.StripeError) {

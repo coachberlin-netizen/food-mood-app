@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
@@ -72,7 +73,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url })
   } catch (err) {
-    console.error('[create-checkout] Error:', err)
+    logger.error('[create-checkout] Error:', err)
     return NextResponse.json({ error: 'Error creando sesión de pago' }, { status: 500 })
   }
 }

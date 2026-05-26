@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { generateRecipeImage } from '@/lib/ai/image-generator';
@@ -51,7 +52,7 @@ export async function POST(request: Request) {
       });
 
     if (uploadError) {
-      console.error('Supabase upload error:', uploadError);
+      logger.error('Supabase upload error:', uploadError);
       return NextResponse.json({ error: `Failed to upload to storage: ${uploadError.message}` }, { status: 500 });
     }
 
@@ -61,7 +62,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ url: data.publicUrl, cached: false });
     
   } catch (err: any) {
-    console.error('API Error generating image:', err);
+    logger.error('API Error generating image:', err);
     return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
   }
 }

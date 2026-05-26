@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest) {
     .maybeSingle()
 
   if (fetchErr) {
-    console.error('[restart] fetch error:', fetchErr)
+    logger.error('[restart] fetch error:', fetchErr)
     return NextResponse.json({ error: 'Error de base de datos' }, { status: 500 })
   }
   if (!enrollment)           return NextResponse.json({ error: 'Inscripción no encontrada' }, { status: 404 })
@@ -35,14 +36,14 @@ export async function POST(req: NextRequest) {
     .maybeSingle()
 
   if (updateErr) {
-    console.error('[restart] update error:', updateErr)
+    logger.error('[restart] update error:', updateErr)
     return NextResponse.json({ error: `Error DB: ${updateErr.message}` }, { status: 500 })
   }
   if (!updated) {
-    console.error('[restart] no rows updated for enrollment.id:', enrollment.id)
+    logger.error('[restart] no rows updated for enrollment.id:', enrollment.id)
     return NextResponse.json({ error: 'No se pudo actualizar la inscripción' }, { status: 500 })
   }
 
-  console.log('[restart] OK user:', user.id, 'enrollment:', enrollment.id)
+  logger.info('[restart] OK user:', user.id, 'enrollment:', enrollment.id)
   return NextResponse.json({ ok: true, current_day: updated.current_day })
 }

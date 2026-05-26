@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from "next/server";
 import { getAdapter, WEB_PROVIDERS } from "@/biomarkers/adapters";
 import { BiomarkerStore } from "@/biomarkers/store";
@@ -56,7 +57,7 @@ export async function GET(
     const store = new BiomarkerStore();
     await handleOAuthCallback({ adapter, store, code, userId, redirectUri });
   } catch (err) {
-    console.error("[biomarkers/callback]", err);
+    logger.error("[biomarkers/callback]", err);
     return errorRedirect(appUrl);
   }
 

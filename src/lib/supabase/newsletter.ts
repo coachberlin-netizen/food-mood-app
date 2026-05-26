@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { getPublishedPosts, BlogPost } from './blog';
 
 export interface NewsletterHighlights {
@@ -23,7 +24,7 @@ export async function getWeeklyHighlights(): Promise<NewsletterHighlights> {
       recipes: []
     };
   } catch (error) {
-    console.error('Safe fallback: Error in getWeeklyHighlights:', error);
+    logger.error('Safe fallback: Error in getWeeklyHighlights:', error);
     return { post: null, recipes: [] };
   }
 }

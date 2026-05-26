@@ -1,4 +1,5 @@
 // src/lib/ai/image-generator.ts
+import logger from "@/lib/logger"
 
 const MOOD_STYLING: Record<string, string> = {
   activacion: 'bright morning light, citrus colors, energetic composition',
@@ -47,7 +48,7 @@ Style: editorial food magazine, Kinfolk aesthetic.`;
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error('Gemini Imagen error:', errorText);
+    logger.error('Gemini Imagen error:', errorText);
     throw new Error(`Failed to generate image: ${response.status} ${response.statusText}. Details: ${errorText}`);
   }
 

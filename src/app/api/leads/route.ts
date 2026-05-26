@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
       )
 
     if (error) {
-      console.error('Lead save error:', error)
+      logger.error('Lead save error:', error)
       // Don't fail the request — email capture should be best-effort
     }
 
@@ -72,7 +73,7 @@ export async function POST(req: NextRequest) {
           text: `Nueva suscripción de: ${email}\nOrigen: ${source || 'quiz'}`,
         })
       } catch (emailError) {
-        console.error('Admin notification error:', emailError)
+        logger.error('Admin notification error:', emailError)
       }
     }
 
@@ -138,7 +139,7 @@ export async function POST(req: NextRequest) {
           html: recipeEmailHtml,
         })
       } catch (emailError) {
-        console.error('Welcome recipe email error:', emailError)
+        logger.error('Welcome recipe email error:', emailError)
       }
     }
 

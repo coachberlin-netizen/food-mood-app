@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from "next/server";
 import { getPool } from "@/server/pool";
 import { tick } from "@/notifications/worker";
@@ -11,10 +12,10 @@ export async function GET(req: NextRequest) {
   try {
     const pool = getPool();
     const result = await tick(pool);
-    console.log("[notifications/tick]", result);
+    logger.info("[notifications/tick]", result);
     return NextResponse.json({ ok: true, ...result });
   } catch (err: any) {
-    console.error("[notifications/tick] error:", err.message);
+    logger.error("[notifications/tick] error:", err.message);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

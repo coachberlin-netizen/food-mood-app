@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 export const MOODS = [
@@ -29,9 +30,9 @@ export async function getRecentlySeenRecipeIds(mainSupabase: SupabaseClient, use
 
   if (error || !data) {
     if (error?.code === '42P01') {
-      console.warn('Degradación segura: La tabla user_recipe_history aún no existe. Omitiendo historial.');
+      logger.warn('Degradación segura: La tabla user_recipe_history aún no existe. Omitiendo historial.');
     } else {
-      console.warn('Degradación segura: Error leyendo historial:', error?.message);
+      logger.warn('Degradación segura: Error leyendo historial:', error?.message);
     }
     return [];
   }
@@ -50,9 +51,9 @@ export async function saveRecipeExposure(mainSupabase: SupabaseClient, userId: s
   });
   if (error) {
     if (error.code === '42P01') {
-      console.warn('Degradación segura: La tabla user_recipe_history no existe. No se guarda la exposición.');
+      logger.warn('Degradación segura: La tabla user_recipe_history no existe. No se guarda la exposición.');
     } else {
-      console.warn('Degradación segura: Error guardando exposición:', error.message);
+      logger.warn('Degradación segura: Error guardando exposición:', error.message);
     }
   }
 }

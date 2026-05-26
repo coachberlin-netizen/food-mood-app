@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from './server';
 
 export interface BlogPost {
@@ -36,7 +37,7 @@ export async function getPublishedPosts() {
     .order('published_at', { ascending: false });
 
   if (error) {
-    console.error('Error fetching published posts:', error);
+    logger.error('Error fetching published posts:', error);
     return [];
   }
 
@@ -56,7 +57,7 @@ export async function getPostBySlug(slug: string) {
     .maybeSingle();
 
   if (error) {
-    console.error('Error fetching post by slug:', error);
+    logger.error('Error fetching post by slug:', error);
     return null;
   }
 
@@ -74,7 +75,7 @@ export async function getAllPostsAdmin() {
     .order('created_at', { ascending: false });
 
   if (error) {
-    console.error('Error fetching all posts for admin:', error);
+    logger.error('Error fetching all posts for admin:', error);
     return [];
   }
 
@@ -95,7 +96,7 @@ export async function getPostsByWeekStart(weekStart: string) {
     .order('category', { ascending: true });
 
   if (error) {
-    console.error('Error fetching posts by week_start:', error);
+    logger.error('Error fetching posts by week_start:', error);
     return [];
   }
 
@@ -114,7 +115,7 @@ export async function getPostByIdAdmin(id: string) {
     .maybeSingle();
 
   if (error) {
-    console.error('Error fetching post by id for admin:', error);
+    logger.error('Error fetching post by id for admin:', error);
     return null;
   }
 

@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@supabase/supabase-js'
@@ -27,7 +28,7 @@ export async function POST(req: NextRequest) {
     const serviceKey  = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY
 
     if (!supabaseUrl || !serviceKey) {
-      console.error('[auth/setup] Missing env vars — SUPABASE_SERVICE_ROLE_KEY not set in Vercel')
+      logger.error('[auth/setup] Missing env vars — SUPABASE_SERVICE_ROLE_KEY not set in Vercel')
       return NextResponse.json(
         { error: 'Error de configuración del servidor. Contacta a soporte: falta SUPABASE_SERVICE_ROLE_KEY.' },
         { status: 500 }
@@ -41,7 +42,7 @@ export async function POST(req: NextRequest) {
     // 3. Find the user by email — use getUserByEmail to avoid pagination issues
     const { data: matchData, error: lookupError } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
     if (lookupError) {
-      console.error('[auth/setup] listUsers error:', lookupError)
+      logger.error('[auth/setup] listUsers error:', lookupError)
       return NextResponse.json({ error: `Error buscando usuario: ${lookupError.message}` }, { status: 500 })
     }
 
@@ -93,7 +94,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, email })
   } catch (err: any) {
     const msg = err?.message ?? String(err)
-    console.error('[auth/setup] Unhandled error:', msg)
+    logger.error('[auth/setup] Unhandled error:', msg)
     return NextResponse.json({ error: `Error configurando el alta: ${msg}` }, { status: 500 })
   }
 }

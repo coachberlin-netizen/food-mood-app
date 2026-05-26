@@ -1,3 +1,4 @@
+import logger from "@/lib/logger"
 import { createClient } from '@/lib/supabase/server'
 import { getPremiumStatus } from '@/lib/premium'
 import { NextRequest, NextResponse } from 'next/server'
@@ -50,7 +51,7 @@ export async function GET(
       relacionadas: relacionadas || [],
     })
   } catch (err) {
-    console.error('API /api/recetas/[id] error:', err)
+    logger.error('API /api/recetas/[id] error:', err)
     return NextResponse.json(
       { error: 'Error interno del servidor' },
       { status: 500 }
