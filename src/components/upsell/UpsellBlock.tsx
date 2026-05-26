@@ -57,7 +57,7 @@ export function UpsellBlock() {
           Lo que tu microbioma necesita<br />sobre todo es <em className="text-[#C9A84C] not-italic">variedad</em>
         </h2>
         <p className="text-aubergine-dark/55 font-light text-base max-w-xl mx-auto leading-relaxed">
-          Una sola receta es un primer paso. La variedad real transforma tu eje intestino-cerebro.
+          Una sola receta es un primer paso. La variedad real nutre tu eje intestino-cerebro.
         </p>
       </div>
 

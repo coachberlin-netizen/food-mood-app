@@ -14,11 +14,11 @@ interface LockedReceta {
 }
 
 const MOOD_PHRASES: Record<string, string> = {
-  activacion: "Esta receta activa tu dopamina desde el primer bocado.",
-  calma:      "Diseñada para bajar el cortisol y devolverte al centro.",
+  activacion: "Energía y placer desde el primer bocado.",
+  calma:      "Una receta que invita al descanso y a recuperar el centro.",
   focus:      "Cada ingrediente apoya tu concentración sostenida.",
-  social:     "Un plato que nutre la conexión y la oxitocina.",
-  reset:      "Antiinflamatorio, regenerador, exactamente lo que necesitas.",
+  social:     "Un plato que nutre la conexión — y el placer de compartir.",
+  reset:      "Ingredientes que cuidan tu microbiota y te ayudan a restaurar.",
   confort:    "El abrazo nutricional que tu sistema nervioso pide.",
 };
 

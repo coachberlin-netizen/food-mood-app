@@ -503,7 +503,7 @@ export default function RecetasClient({
                   Viste {Math.min(recetas.length, 9)} de {total} recetas.
                 </p>
                 <p className="text-cream/60 font-light text-sm mb-6 max-w-md mx-auto">
-                  Desbloquea el catálogo completo — cada receta diseñada para tu paleta emocional exacta.
+                  Desbloquea el catálogo completo — cada receta diseñada para tu paleta emocional.
                 </p>
                 <Link
                   href="/pricing"
