@@ -28,20 +28,20 @@ export const metadata: Metadata = {
 }
 
 const INCLUYE = [
-  { icono: 'ðŸ“˜', texto: '7 días de protocolo mitocondrial con evidencia' },
-  { icono: 'ðŸŽ§', texto: '7 audios de apoyo — uno por día' },
-  { icono: 'ðŸ“Š', texto: 'Seguimiento diario de energía y ánimo' },
-  { icono: 'ðŸ“‹', texto: 'Informe personalizado al completar' },
-  { icono: 'â™¾ï¸', texto: 'Acceso de por vida al contenido' },
+  { icono: '📘', texto: '7 días de protocolo mitocondrial con evidencia' },
+  { icono: '🎧', texto: '7 audios de apoyo — uno por día' },
+  { icono: '📊', texto: 'Seguimiento diario de energía y ánimo' },
+  { icono: '📋', texto: 'Informe personalizado al completar' },
+  { icono: '♾️', texto: 'Acceso de por vida al contenido' },
 ]
 
 const MECANISMOS = [
-  { icono: 'âš¡', titulo: 'CoQ10',              desc: 'Motor de la cadena respiratoria' },
-  { icono: 'ðŸ©¸', titulo: 'Hierro + Vit. C',   desc: 'Transporte de oxígeno celular' },
-  { icono: 'ðŸ”‹', titulo: 'Magnesio',           desc: 'Activa el ATP producido' },
-  { icono: 'ðŸŸ', titulo: 'Omega-3 DHA',        desc: 'Fluidez de membrana mitocondrial' },
-  { icono: 'ðŸ”¬', titulo: 'NAD+',               desc: 'Biogénesis de nuevas mitocondrias' },
-  { icono: 'ðŸŒ¿', titulo: 'Adaptógenos',        desc: 'Regulación del cortisol' },
+  { icono: '⚡', titulo: 'CoQ10',              desc: 'Motor de la cadena respiratoria' },
+  { icono: '🩸', titulo: 'Hierro + Vit. C',   desc: 'Transporte de oxígeno celular' },
+  { icono: '🔋', titulo: 'Magnesio',           desc: 'Activa el ATP producido' },
+  { icono: '🐟', titulo: 'Omega-3 DHA',        desc: 'Fluidez de membrana mitocondrial' },
+  { icono: '🔬', titulo: 'NAD+',               desc: 'Biogénesis de nuevas mitocondrias' },
+  { icono: '🌿', titulo: 'Adaptógenos',        desc: 'Regulación del cortisol' },
 ]
 
 const HITOS = [
@@ -108,7 +108,7 @@ export default async function RetoEnergiaPage() {
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
         <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: '#6B2737' }}>
-          â† Ver todos los retos
+          ← Ver todos los retos
         </Link>
       </div>
 
@@ -128,7 +128,7 @@ export default async function RetoEnergiaPage() {
         <div className="text-center py-10">
           <div className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium mb-4"
             style={{ background: '#f5eaec', color: '#6B2737' }}>
-            <span>âš¡</span> 7 días · Basado en evidencia
+            <span>⚡</span> 7 días · Basado en evidencia
           </div>
 
           <h1 className="font-serif text-[28px] font-normal leading-tight mb-3"
@@ -157,7 +157,7 @@ export default async function RetoEnergiaPage() {
                 {icono}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-semibold" style={{ color: '#6B2737' }}>âœ“</span>
+                <span className="text-[13px] font-semibold" style={{ color: '#6B2737' }}>✓</span>
                 <span className="text-sm" style={{ color: '#4a3a3e' }}>{texto}</span>
               </div>
             </div>
@@ -216,7 +216,7 @@ export default async function RetoEnergiaPage() {
         {/* CTA */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6">
           <p className="text-[11px] font-medium uppercase tracking-widest text-center mb-2" style={{ color: '#9e8080' }}>
-            Ãšnete ahora
+            Únete ahora
           </p>
           <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19€</p>
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>

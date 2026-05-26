@@ -28,24 +28,24 @@ export const metadata: Metadata = {
 }
 
 const INCLUYE = [
-  { icono: 'ðŸ“˜', texto: '7 días de protocolo antiinflamatorio con evidencia' },
-  { icono: 'ðŸŽ§', texto: '7 audios de apoyo (4-8 min)' },
-  { icono: 'ðŸ“Š', texto: 'Seguimiento diario de síntomas y bienestar' },
-  { icono: 'ðŸ“‹', texto: 'Informe personalizado al completar' },
-  { icono: 'â™¾ï¸', texto: 'Acceso de por vida al contenido' },
+  { icono: '📘', texto: '7 días de protocolo antiinflamatorio con evidencia' },
+  { icono: '🎧', texto: '7 audios de apoyo (4-8 min)' },
+  { icono: '📊', texto: 'Seguimiento diario de síntomas y bienestar' },
+  { icono: '📋', texto: 'Informe personalizado al completar' },
+  { icono: '♾️', texto: 'Acceso de por vida al contenido' },
 ]
 
 const MECANISMOS = [
-  { icono: 'ðŸ§¬', titulo: 'Curcumina + piperina', desc: 'Inhibición directa de NF-ÎºB' },
-  { icono: 'ðŸŸ', titulo: 'Omega-3 EPA/DHA',      desc: 'Síntesis de resolvinas y protectinas' },
-  { icono: 'ðŸ¦ ', titulo: 'Fermentados',           desc: 'Barrera intestinal anti-LPS' },
-  { icono: 'ðŸ«', titulo: 'Polifenoles',           desc: 'Activación de Nrf2 endógeno' },
-  { icono: 'ðŸ¥¦', titulo: 'Sulforafano',           desc: 'Detoxificación celular fase II' },
-  { icono: 'ðŸŒ™', titulo: 'Ayuno nocturno',        desc: 'Autofagia y limpieza del inflamasoma' },
+  { icono: '🧬', titulo: 'Curcumina + piperina', desc: 'Inhibición directa de NF-κB' },
+  { icono: '🐟', titulo: 'Omega-3 EPA/DHA',      desc: 'Síntesis de resolvinas y protectinas' },
+  { icono: '🦠', titulo: 'Fermentados',           desc: 'Barrera intestinal anti-LPS' },
+  { icono: '🫐', titulo: 'Polifenoles',           desc: 'Activación de Nrf2 endógeno' },
+  { icono: '🥦', titulo: 'Sulforafano',           desc: 'Detoxificación celular fase II' },
+  { icono: '🌙', titulo: 'Ayuno nocturno',        desc: 'Autofagia y limpieza del inflamasoma' },
 ]
 
 const HITOS = [
-  { dia: 1, titulo: 'Día 1 — empieza el reset.',     desc: 'NF-ÎºB inhibido desde la primera leche dorada.',   color: '#5A9B8A' },
+  { dia: 1, titulo: 'Día 1 — empieza el reset.',     desc: 'NF-κB inhibido desde la primera leche dorada.',   color: '#5A9B8A' },
   { dia: 4, titulo: 'Día 4 — punto de inflexión.',   desc: 'La mayoría nota cambios aquí. Nrf2 activo.',       color: '#C9A84C' },
   { dia: 7, titulo: 'Día 7 — reset completado.',     desc: 'Informe personalizado. Seis vías trabajadas.',     color: '#4B8A6B' },
 ]
@@ -108,7 +108,7 @@ export default async function RetoAntiinflamatorioPage() {
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
         <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: '#5A9B8A' }}>
-          â† Ver todos los retos
+          ← Ver todos los retos
         </Link>
       </div>
 
@@ -118,7 +118,7 @@ export default async function RetoAntiinflamatorioPage() {
         <div className="text-center py-10">
           <div className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium mb-4"
             style={{ background: '#e8f4f1', color: '#5A9B8A' }}>
-            <span>ðŸŒ¿</span> 7 días · Basado en evidencia
+            <span>🌿</span> 7 días · Basado en evidencia
           </div>
 
           <h1 className="font-serif text-[28px] font-normal leading-tight mb-3"
@@ -147,7 +147,7 @@ export default async function RetoAntiinflamatorioPage() {
                 {icono}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-semibold" style={{ color: '#5A9B8A' }}>âœ“</span>
+                <span className="text-[13px] font-semibold" style={{ color: '#5A9B8A' }}>✓</span>
                 <span className="text-sm" style={{ color: '#4a3a3e' }}>{texto}</span>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default async function RetoAntiinflamatorioPage() {
         {/* CTA */}
         <div className="bg-white rounded-2xl border border-[#e8ddd5] p-6">
           <p className="text-[11px] font-medium uppercase tracking-widest text-center mb-2" style={{ color: '#9e8080' }}>
-            Ãšnete ahora
+            Únete ahora
           </p>
           <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>19€</p>
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>

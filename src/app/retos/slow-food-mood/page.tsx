@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 const INGREDIENTS = [
   { name: 'Kéfir',                           note: 'Bebida fermentada con lactobacilos vivos que actúan directamente sobre el eje intestino-cerebro y reducen la respuesta al estrés.' },
-  { name: 'Vinagre de kombucha o de manzana', note: 'Ãcido acético con propiedades prebióticas que regulan el pH intestinal y favorecen la producción de serotonina.' },
+  { name: 'Vinagre de kombucha o de manzana', note: 'Ácido acético con propiedades prebióticas que regulan el pH intestinal y favorecen la producción de serotonina.' },
   { name: 'Masa madre',                       note: 'Fermentación láctica de larga duración que predigiere el gluten y produce GABA, el neurotransmisor calmante por excelencia.' },
   { name: 'Legumbres en remojo',              note: 'El remojo de 12-24 horas elimina antinutrientes y activa enzimas que mejoran la biodisponibilidad del triptófano.' },
   { name: 'Caldo de kombu',                   note: 'Caldo hecho con alga kombu seca hervida en agua — rico en minerales y con efecto calmante sobre el sistema nervioso.' },
@@ -117,10 +117,10 @@ export default async function SlowFoodMoodPage() {
 
       <main id="main-content" style={{ backgroundColor: '#F5F0E8' }}>
 
-        {/* â”€â”€ HERO â”€â”€ */}
+        {/* ── HERO ── */}
         <SlowFoodMoodHero />
 
-        {/* â”€â”€ HERO COPY + FIRST CTA â”€â”€ */}
+        {/* ── HERO COPY + FIRST CTA ── */}
         <section className="max-w-2xl mx-auto px-6 py-20 text-center" aria-labelledby="sfm-h1">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] block mb-6" style={{ color: 'rgba(107,39,55,0.4)' }}>
             Calma · Sistema nervioso · Bienestar interior
@@ -138,7 +138,7 @@ export default async function SlowFoodMoodPage() {
           />
         </section>
 
-        {/* â”€â”€ EL PROBLEMA â”€â”€ */}
+        {/* ── EL PROBLEMA ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-problema">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>El problema</p>
@@ -151,7 +151,7 @@ export default async function SlowFoodMoodPage() {
           </div>
         </section>
 
-        {/* â”€â”€ LA SOLUCIÃ“N â”€â”€ */}
+        {/* ── LA SOLUCIÓN ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-solucion">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: 'rgba(107,39,55,0.45)' }}>La solución</p>
           <h2 id="sfm-solucion" className="font-serif text-2xl md:text-3xl font-bold mb-6 leading-tight" style={{ color: '#2d0f16' }}>
@@ -168,7 +168,7 @@ export default async function SlowFoodMoodPage() {
           </blockquote>
         </section>
 
-        {/* â”€â”€ CÃ“MO FUNCIONA (TIMELINE) â”€â”€ */}
+        {/* ── CÓMO FUNCIONA (TIMELINE) ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-timeline">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>El proceso</p>
           <h2 id="sfm-timeline" className="font-serif text-2xl md:text-3xl font-bold mb-10 leading-tight" style={{ color: '#2d0f16' }}>
@@ -210,7 +210,7 @@ export default async function SlowFoodMoodPage() {
           </ol>
         </section>
 
-        {/* â”€â”€ QUÃ‰ INCLUYE â”€â”€ */}
+        {/* ── QUÉ INCLUYE ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-incluye">
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm">
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#6B2737' }}>Contenido</p>
@@ -219,19 +219,19 @@ export default async function SlowFoodMoodPage() {
             </h2>
             <ul className="space-y-4" role="list">
               {[
-                { icon: 'ðŸ§ª', text: '21 preparaciones lentas — fermentos, masas, caldos, reposos' },
-                { icon: 'ðŸŽ§', text: '21 audios de ritual guiado (antes de cocinar, no después)' },
-                { icon: 'ðŸ“”', text: 'Diario de ritmo diario: ¿cuánto tardé? ¿cómo me sentí?' },
-                { icon: 'ðŸ’¬', text: 'Canal privado WhatsApp Premium con comunidad Food·Mood' },
-                { icon: 'ðŸ“Š', text: 'Mapa de tu ritmo mental al día 21' },
-                { icon: 'ðŸ“š', text: 'Base científica descargable con referencias bibliográficas' },
+                { icon: '🧪', text: '21 preparaciones lentas — fermentos, masas, caldos, reposos' },
+                { icon: '🎧', text: '21 audios de ritual guiado (antes de cocinar, no después)' },
+                { icon: '📔', text: 'Diario de ritmo diario: ¿cuánto tardé? ¿cómo me sentí?' },
+                { icon: '💬', text: 'Canal privado WhatsApp Premium con comunidad Food·Mood' },
+                { icon: '📊', text: 'Mapa de tu ritmo mental al día 21' },
+                { icon: '📚', text: 'Base científica descargable con referencias bibliográficas' },
               ].map(({ icon, text }) => (
                 <li key={text} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
                   <span
                     className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold text-[#F5F0E8]"
                     style={{ backgroundColor: '#6B2737' }}
                     aria-hidden="true"
-                  >âœ“</span>
+                  >✓</span>
                   {text}
                 </li>
               ))}
@@ -261,7 +261,7 @@ export default async function SlowFoodMoodPage() {
           </div>
         </section>
 
-        {/* â”€â”€ BASE CIENTÃFICA â”€â”€ */}
+        {/* ── BASE CIENTÍFICA ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-ciencia">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>Ciencia real</p>
           <h2 id="sfm-ciencia" className="font-serif text-2xl md:text-3xl font-bold mb-3 leading-tight" style={{ color: '#2d0f16' }}>
@@ -275,7 +275,7 @@ export default async function SlowFoodMoodPage() {
           </div>
         </section>
 
-        {/* â”€â”€ DIFERENCIACIÃ“N â”€â”€ */}
+        {/* ── DIFERENCIACIÓN ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-diferencia">
           <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: 'rgba(107,39,55,0.04)', border: '1px solid rgba(107,39,55,0.1)' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>Comparativa</p>
@@ -305,7 +305,7 @@ export default async function SlowFoodMoodPage() {
           </div>
         </section>
 
-        {/* â”€â”€ FAQ â”€â”€ */}
+        {/* ── FAQ ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-faq">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>Dudas frecuentes</p>
           <h2 id="sfm-faq" className="font-serif text-2xl md:text-3xl font-bold mb-8 leading-tight" style={{ color: '#2d0f16' }}>
@@ -316,7 +316,7 @@ export default async function SlowFoodMoodPage() {
           </div>
         </section>
 
-        {/* â”€â”€ CTA FINAL â”€â”€ */}
+        {/* ── CTA FINAL ── */}
         <section className="max-w-2xl mx-auto px-6 pb-24" aria-labelledby="sfm-cta" id="cta-compra">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>Fast life. Slow Food·Mood.</p>
@@ -335,10 +335,10 @@ export default async function SlowFoodMoodPage() {
           </div>
         </section>
 
-        {/* â”€â”€ BACK LINK â”€â”€ */}
+        {/* ── BACK LINK ── */}
         <div className="text-center pb-16">
           <a href="/retos" className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
-            â† Ver todos los retos
+            ← Ver todos los retos
           </a>
         </div>
 

@@ -67,32 +67,32 @@ const BEBIDAS = [
   { dia: 4,  nombre: 'Agua de kéfir con frambuesas y agua de rosas',             fase: 'preparar' },
   { dia: 5,  nombre: 'Smoothie tropical de mango, kéfir y cardamomo',            fase: 'preparar' },
   { dia: 6,  nombre: 'Limonada de hibisco fermentada con miel de flores',        fase: 'preparar' },
-  { dia: 7,  nombre: 'âœ¨ Elixir de celebración — kéfir, vainilla, dátil, cacao', fase: 'preparar' },
+  { dia: 7,  nombre: '✨ Elixir de celebración — kéfir, vainilla, dátil, cacao', fase: 'preparar' },
   { dia: 8,  nombre: 'Shot de adaptógenos: ashwagandha, maca y cacao',           fase: 'reforzar' },
   { dia: 9,  nombre: 'Agua de kéfir con membrillo y canela',                     fase: 'reforzar' },
   { dia: 10, nombre: 'Té de hongos reishi con leche de avena fermentada',        fase: 'reforzar' },
   { dia: 11, nombre: 'Kéfir de cabra con pera madura y nuez tostada',            fase: 'reforzar' },
   { dia: 12, nombre: 'Jugo verde fermentado: pepino, apio, manzana, kombucha',   fase: 'reforzar' },
   { dia: 13, nombre: 'Lassi tropical de mango, kéfir y cúrcuma dorada',          fase: 'reforzar' },
-  { dia: 14, nombre: 'âœ¨ Gran elixir: kombucha de hibisco, fresas y albahaca',    fase: 'reforzar' },
+  { dia: 14, nombre: '✨ Gran elixir: kombucha de hibisco, fresas y albahaca',    fase: 'reforzar' },
   { dia: 15, nombre: 'Tónica de kéfir con limón Meyer y miel de manuka',         fase: 'integrar' },
   { dia: 16, nombre: 'Batido cremoso de plátano, kéfir y tahini',                fase: 'integrar' },
   { dia: 17, nombre: 'Kombucha de cereza y cacao oscuro',                         fase: 'integrar' },
   { dia: 18, nombre: 'Agua de kéfir con naranja sanguina y cardamomo',            fase: 'integrar' },
   { dia: 19, nombre: 'Smoothie bowl de kéfir con frutos rojos y cacao',           fase: 'integrar' },
   { dia: 20, nombre: 'Elixir nocturno: kéfir, ashwagandha, miel y pimienta',     fase: 'integrar' },
-  { dia: 21, nombre: 'âœ¨ El Gran Reset — kéfir, vainilla bean y pétalos de rosa', fase: 'integrar' },
+  { dia: 21, nombre: '✨ El Gran Reset — kéfir, vainilla bean y pétalos de rosa', fase: 'integrar' },
 ]
 
 const MECANISMOS = [
-  { icono: 'ðŸ§ ', titulo: 'Tiny Habits', texto: 'Hábitos tan pequeños que la resistencia desaparece. BJ Fogg, Stanford.' },
-  { icono: 'ðŸ¡', titulo: 'Diseño de entorno', texto: 'El entorno decide el 80% de tu comportamiento. Sin esfuerzo consciente.' },
-  { icono: 'ðŸ‹', titulo: 'Ancla hedónica', texto: 'Cada bebida crea una asociación placer—hábito en tu circuito dopaminérgico.' },
-  { icono: 'ðŸªž', titulo: 'Identidad', texto: 'Los hábitos que duran vienen de quién eres, no de lo que quieres lograr.' },
-  { icono: 'âš¡', titulo: 'Anticipación', texto: 'La dopamina se libera anticipando el placer. Usas el deseo a tu favor.' },
-  { icono: 'ðŸ’›', titulo: 'Autocompasión', texto: 'La autocrítica apaga la motivación. La autocompasión la enciende. Kristin Neff.' },
-  { icono: 'ðŸ›¡ï¸', titulo: 'Protocolo de obstáculos', texto: 'WOOP + implementation intentions. Los obstáculos planificados no bloquean.' },
-  { icono: 'ðŸ"', titulo: 'Automaticidad', texto: 'El hábito pasa del córtex prefrontal a los ganglios basales. Ya no requiere decisión.' },
+  { icono: '🧠', titulo: 'Tiny Habits', texto: 'Hábitos tan pequeños que la resistencia desaparece. BJ Fogg, Stanford.' },
+  { icono: '🏡', titulo: 'Diseño de entorno', texto: 'El entorno decide el 80% de tu comportamiento. Sin esfuerzo consciente.' },
+  { icono: '🍋', titulo: 'Ancla hedónica', texto: 'Cada bebida crea una asociación placer—hábito en tu circuito dopaminérgico.' },
+  { icono: '🪞', titulo: 'Identidad', texto: 'Los hábitos que duran vienen de quién eres, no de lo que quieres lograr.' },
+  { icono: '⚡', titulo: 'Anticipación', texto: 'La dopamina se libera anticipando el placer. Usas el deseo a tu favor.' },
+  { icono: '💛', titulo: 'Autocompasión', texto: 'La autocrítica apaga la motivación. La autocompasión la enciende. Kristin Neff.' },
+  { icono: '🛡️', titulo: 'Protocolo de obstáculos', texto: 'WOOP + implementation intentions. Los obstáculos planificados no bloquean.' },
+  { icono: '🔁', titulo: 'Automaticidad', texto: 'El hábito pasa del córtex prefrontal a los ganglios basales. Ya no requiere decisión.' },
 ]
 
 const FAQ = [
@@ -311,11 +311,11 @@ export default async function MicrohabitosPage() {
             >
               21 días · Psicología del comportamiento
             </span>
-            <span className="text-xl" aria-hidden="true">âœ¨</span>
+            <span className="text-xl" aria-hidden="true">✨</span>
           </div>
 
           <div aria-hidden="true" className="absolute top-20 right-6 flex flex-col gap-2 opacity-40">
-            {['ðŸ‹', 'ðŸ«', 'ðŸŒ¿', 'ðŸ¥­', 'ðŸŒº'].map((e, i) => (
+            {['🍋', '🫐', '🌿', '🥭', '🌺'].map((e, i) => (
               <span key={i} className="text-2xl">{e}</span>
             ))}
           </div>
@@ -491,7 +491,7 @@ export default async function MicrohabitosPage() {
                   </span>
                   <span
                     className="font-light"
-                    style={{ color: nombre.startsWith('âœ¨') ? '#C9A84C' : 'rgba(245,240,232,0.7)' }}
+                    style={{ color: nombre.startsWith('✨') ? '#C9A84C' : 'rgba(245,240,232,0.7)' }}
                   >
                     {nombre}
                   </span>
@@ -501,7 +501,7 @@ export default async function MicrohabitosPage() {
           </div>
         </section>
 
-        {/* â"€â"€ QUÃ‰ INCLUYE â"€â"€ */}
+        {/* â"€â"€ QUÉ INCLUYE â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-incluye">
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm">
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#6B2737' }}>Contenido</p>
@@ -510,12 +510,12 @@ export default async function MicrohabitosPage() {
             </h2>
             <ul className="space-y-4" role="list">
               {[
-                { icon: 'ðŸ§ª', text: '21 bebidas funcionales fermentadas — kéfir, kombucha, adaptógenos' },
-                { icon: 'ðŸ§ ', text: '21 micro-hábitos con base en psicología del comportamiento real' },
-                { icon: 'ðŸŽ§', text: '21 audios guiados de 3-5 minutos — uno por día' },
-                { icon: 'ðŸ""', text: 'Diario de reflexión: 3 preguntas mañana, tarde y noche' },
-                { icon: 'ðŸ†', text: '3 hitos de celebración en los días 7, 14 y 21' },
-                { icon: 'â™¾ï¸', text: 'Acceso de por vida — repite el reto cuando lo necesites' },
+                { icon: '🧪', text: '21 bebidas funcionales fermentadas — kéfir, kombucha, adaptógenos' },
+                { icon: '🧠', text: '21 micro-hábitos con base en psicología del comportamiento real' },
+                { icon: '🎧', text: '21 audios guiados de 3-5 minutos — uno por día' },
+                { icon: '📔', text: 'Diario de reflexión: 3 preguntas mañana, tarde y noche' },
+                { icon: '🏆', text: '3 hitos de celebración en los días 7, 14 y 21' },
+                { icon: '♾️', text: 'Acceso de por vida — repite el reto cuando lo necesites' },
               ].map(({ icon, text }) => (
                 <li key={text} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
                   <span
@@ -530,12 +530,12 @@ export default async function MicrohabitosPage() {
           </div>
         </section>
 
-        {/* â"€â"€ PARA QUIÃ‰N â"€â"€ */}
+        {/* â"€â"€ PARA QUIÉN â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-paraquien">
           <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.2)' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>¿Es para ti?</p>
             <h2 id="mh-paraquien" className="font-serif text-xl font-bold mb-6 leading-tight" style={{ color: '#2d0f16' }}>
-              Este reto es para ti siâ€¦
+              Este reto es para ti si…
             </h2>
             <ul className="space-y-3" role="list">
               {[
@@ -547,7 +547,7 @@ export default async function MicrohabitosPage() {
                 'Quieres entender la psicología detrás de tu propio comportamiento',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm font-light" style={{ color: 'rgba(107,39,55,0.75)' }}>
-                  <span style={{ color: '#C9A84C', fontWeight: 700, flexShrink: 0 }}>â†’</span>
+                  <span style={{ color: '#C9A84C', fontWeight: 700, flexShrink: 0 }}>→</span>
                   {item}
                 </li>
               ))}
@@ -608,7 +608,7 @@ export default async function MicrohabitosPage() {
         {/* â"€â"€ BACK LINK â"€â"€ */}
         <div className="text-center pb-16">
           <a href="/retos" className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
-            â† Ver todos los retos
+            ← Ver todos los retos
           </a>
         </div>
 

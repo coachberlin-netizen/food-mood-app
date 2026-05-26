@@ -72,20 +72,20 @@ const FAQ_SCHEMA = {
 }
 
 const INCLUYE = [
-  { icono: 'ðŸ“˜', texto: '28 días de protocolo con recetas funcionales' },
-  { icono: 'ðŸŽ§', texto: '4 audios de apoyo (cronobiología, estrés, sueño, microbiota)' },
-  { icono: 'ðŸ“Š', texto: 'Seguimiento diario de síntomas, energía y bienestar' },
-  { icono: 'ðŸ“‹', texto: 'Seguimiento de progreso inicio vs. fin' },
-  { icono: 'â™¾ï¸', texto: 'Acceso de por vida al contenido' },
+  { icono: '📘', texto: '28 días de protocolo con recetas funcionales' },
+  { icono: '🎧', texto: '4 audios de apoyo (cronobiología, estrés, sueño, microbiota)' },
+  { icono: '📊', texto: 'Seguimiento diario de síntomas, energía y bienestar' },
+  { icono: '📋', texto: 'Seguimiento de progreso inicio vs. fin' },
+  { icono: '♾️', texto: 'Acceso de por vida al contenido' },
 ]
 
 const EJES = [
-  { icono: 'ðŸ§¬', titulo: 'Microbiota y estroboloma', desc: 'Eje microbiotaâ€‘estrógenos' },
-  { icono: 'ðŸ¥‘', titulo: 'Grasas y colesterol',      desc: 'Precursores hormonales' },
-  { icono: 'ðŸŒ¿', titulo: 'Fitoestrógenos',            desc: 'Modulación hormonal suave' },
-  { icono: 'ðŸµ', titulo: 'Triptófano y serotonina',  desc: 'Sueño y estado de ánimo' },
-  { icono: 'ðŸ¥¦', titulo: 'Sulforafano y DIM',         desc: 'Metabolismo de estrógenos' },
-  { icono: 'ðŸŒ™', titulo: 'Cronobiología',             desc: 'Ritmo circadiano y hábitos' },
+  { icono: '🧬', titulo: 'Microbiota y estroboloma', desc: 'Eje microbiota‑estrógenos' },
+  { icono: '🥑', titulo: 'Grasas y colesterol',      desc: 'Precursores hormonales' },
+  { icono: '🌿', titulo: 'Fitoestrógenos',            desc: 'Modulación hormonal suave' },
+  { icono: '🍵', titulo: 'Triptófano y serotonina',  desc: 'Sueño y estado de ánimo' },
+  { icono: '🥦', titulo: 'Sulforafano y DIM',         desc: 'Metabolismo de estrógenos' },
+  { icono: '🌙', titulo: 'Cronobiología',             desc: 'Ritmo circadiano y hábitos' },
 ]
 
 const HITOS = [
@@ -178,7 +178,7 @@ export default async function EquilibrioHormonalPage() {
         {/* Nav */}
         <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
           <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: '#7B4B8C' }}>
-            â† Ver todos los retos
+            ← Ver todos los retos
           </Link>
         </div>
 
@@ -200,7 +200,7 @@ export default async function EquilibrioHormonalPage() {
               className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium mb-4"
               style={{ background: '#f3edf7', color: '#7B4B8C' }}
             >
-              <span>ðŸŒ¸</span> 28 días · Basado en evidencia
+              <span>🌸</span> 28 días · Basado en evidencia
             </div>
 
             <h1
@@ -240,7 +240,7 @@ export default async function EquilibrioHormonalPage() {
                   {icono}
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[13px] font-semibold" style={{ color: '#7B4B8C' }}>âœ“</span>
+                  <span className="text-[13px] font-semibold" style={{ color: '#7B4B8C' }}>✓</span>
                   <span className="text-sm" style={{ color: '#4a3a3e' }}>{texto}</span>
                 </div>
               </div>
@@ -331,7 +331,7 @@ export default async function EquilibrioHormonalPage() {
               className="text-[11px] font-medium uppercase tracking-widest text-center mb-2"
               style={{ color: '#9e8080' }}
             >
-              Ãšnete ahora
+              Únete ahora
             </p>
             <p className="text-[36px] font-bold text-center mb-1" style={{ color: '#2a1a1e' }}>39€</p>
             <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
