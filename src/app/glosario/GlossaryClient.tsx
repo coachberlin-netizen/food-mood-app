@@ -92,7 +92,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
             El poder de tus <br className="hidden md:block" /> ingredientes
           </h1>
           <p className="text-xl text-aubergine-dark/60 font-serif italic max-w-2xl">
-            Descubre la ciencia interactiva detrás de la comida real. Cómo cada especia, semilla y alimento vivo modula tu biología y tu estado de ánimo.
+            Descubre la ciencia interactiva detrás de la comida real. Cómo cada especia, semilla y alimento vivo influye en cómo te sientes — y por qué.
           </p>
         </div>
 
@@ -153,7 +153,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
               El glosario completo, sólo para miembros
             </h2>
             <p className="text-[#F5F0E8]/70 text-lg font-light leading-[1.8]">
-              {initialData.length > 0 ? `${initialData.length}+` : '50+'} ingredientes funcionales con su ciencia, sinergias y cómo modulan tu biología y estado de ánimo.
+              {initialData.length > 0 ? `${initialData.length}+` : '50+'} ingredientes funcionales explicados: su ciencia, sus sinergias y cómo afectan tu cuerpo y tu estado de ánimo.
             </p>
             <div className="pt-6">
               <Link

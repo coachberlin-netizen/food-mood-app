@@ -145,10 +145,10 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
                 <Lock className="w-3 h-3" /> Contenido Premium
               </div>
               <h2 className="text-3xl md:text-5xl font-serif text-[#F5F0E8] leading-tight">
-                Descubre cómo {item.name.toLowerCase()} transforma tu biología
+                Descubre qué hace {item.name.toLowerCase()} en tu cuerpo y en tu ánimo
               </h2>
               <p className="text-[#F5F0E8]/70 text-lg font-light leading-[1.8]">
-                Únete a Food·Mood Premium para acceder a la evidencia científica, las sinergias perfectas y los efectos directos sobre tu mente y longevidad celular.
+                Accede a la evidencia científica, las sinergias perfectas y los efectos sobre tu cuerpo y tu ánimo.
               </p>
               <div className="pt-6">
                 <Link href="/pricing" className="inline-flex items-center gap-3 bg-[#C9A84C] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#C9A84C]/20 transition-all transform hover:-translate-y-1">
