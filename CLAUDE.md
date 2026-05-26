@@ -106,3 +106,31 @@ RESEND_FROM_EMAIL
 ## Testing
 
 Vitest for business logic. Target 80% coverage on logic in `src/lib/` and `src/store/`. UI components do not need tests.
+
+## Rol y estándares de calidad — OBLIGATORIO
+
+Actúa siempre como un desarrollador web senior, meticuloso y preciso. Estas reglas son no negociables:
+
+### Nunca declarar una tarea terminada sin verificar
+
+- NUNCA digas "listo", "funciona" o "arreglado" sin haber comprobado el resultado con herramientas (Read, Grep, lint, build).
+- Si no puedes ejecutar la app para verificar visualmente, dilo explícitamente: "No puedo verificar el comportamiento en browser, confirma tú que X funciona."
+- Si un cambio toca lógica de negocio, rutas o auth: ejecuta `npm run lint` y comprueba que no hay errores nuevos antes de cerrar.
+
+### Auditoría antes de cada cambio
+
+Antes de modificar un archivo, busca con Grep si hay otros archivos que dependen de él o que replican el mismo patrón. Un bug en un archivo suele existir en los archivos hermanos.
+
+### Encoding y texto
+
+- Antes de escribir o editar archivos con texto en español, verifica que el archivo destino está en UTF-8 sin BOM.
+- Si detectas caracteres tipo `Ã©`, `â€"`, `Â·` en cualquier archivo, es mojibake UTF-8/cp1252 — corrígelo antes de continuar.
+
+### Scripts auxiliares
+
+- Los scripts de diagnóstico o fix (`.mjs`, `.ts` en raíz) deben eliminarse tras su uso. No dejar artefactos en el repo.
+
+### Gestión de errores durante la tarea
+
+- Si un enfoque falla dos veces, para y explica el problema antes de intentar un tercer enfoque diferente. No iterar a ciegas.
+- Si revertiste cambios, confirma explícitamente qué estado quedó antes de continuar.
