@@ -22,6 +22,6 @@ export function isAdmin(email?: string): boolean {
 /**
  * Checks if a user object from Supabase Auth is an admin.
  */
-export function isUserAdmin(user: any): boolean {
-  return isAdmin(user?.email);
+export function isUserAdmin(user: { email?: string | null } | null | undefined): boolean {
+  return isAdmin(user?.email ?? undefined);
 }

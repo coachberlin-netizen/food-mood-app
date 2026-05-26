@@ -62,7 +62,7 @@ export function MoodDiary() {
     const today = new Date().toISOString().split("T")[0];
 
     if (diaryLogs) {
-      diaryLogs.forEach((log: any) => {
+      diaryLogs.forEach((log: { created_at: string; mood: string | null }) => {
         const logDate = new Date(log.created_at);
         const logDayStr = logDate.toISOString().split("T")[0];
         

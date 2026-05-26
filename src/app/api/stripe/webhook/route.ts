@@ -349,10 +349,10 @@ export async function POST(req: NextRequest) {
       const subscription = event.data.object
       const status = subscription.status
       const customerId = subscription.customer as string
-      
+
       // Get user by Stripe Customer ID if stored, or by email
       const customer = await stripe.customers.retrieve(customerId)
-      const email = (customer as any).email
+      const email = 'deleted' in customer ? null : customer.email
 
       if (email) {
         const { data: authData } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
@@ -377,9 +377,9 @@ export async function POST(req: NextRequest) {
     case 'customer.subscription.deleted': {
       const subscription = event.data.object
       const customerId = subscription.customer as string
-      
+
       const customer = await stripe.customers.retrieve(customerId)
-      const email = (customer as any).email
+      const email = 'deleted' in customer ? null : customer.email
 
       if (email) {
         const { data: authData } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
