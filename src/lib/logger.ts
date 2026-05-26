@@ -20,11 +20,9 @@ function makeLogFn(method: "info" | "warn" | "error" | "debug") {
     if (typeof first === "string" && rest.length > 0) {
       // console.error("prefix:", value) → pino({ data }, "prefix: value")
       const data = rest.length === 1 ? rest[0] : rest;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (_p[method] as any).call(_p, { data }, first);
     } else {
       // pino-style: logger.error({ err }, "msg") or plain string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (_p[method] as any).call(_p, first, ...rest);
     }
   };
