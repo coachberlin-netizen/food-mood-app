@@ -352,12 +352,12 @@ export default function Home() {
 
               {/* H1 */}
               <h1 className="font-serif text-3xl md:text-[2.6rem] lg:text-5xl font-bold text-white leading-[1.1] mb-6">
-                Hay días en los que la misma comida no te cuida igual.
+                Hay una etapa en la que cuidarte deja de ser opcional.
               </h1>
 
               {/* Subtitle */}
               <p className="text-base md:text-lg font-light leading-relaxed mb-10" style={{ color: "rgba(245,240,232,0.72)" }}>
-                Tu estado emocional, hormonal y mental cambia lo que necesitas y cómo te sienta cada alimento. Por eso, antes de recomendarte recetas, Food·Mood empieza por conocerte.
+                Food·Mood te acompaña con nutrición emocional y preventiva: una IA especializada que traduce cómo te sientes en recetas funcionales, micro-rituales y hábitos diarios para sostener energía, calma, foco y equilibrio hormonal.
               </p>
 
               {/* CTAs */}
