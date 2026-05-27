@@ -22,12 +22,9 @@ import { BiomarkerPanel } from "@/components/biomarkers/BiomarkerPanel"
 import { useLinkedProfessional, usePrescriptions } from "@/hooks/usePrescriptions";
 
 // ── PrescriptionsCard — shown only when patient has unread prescribed content ──
-function PrescriptionsCard() {
-  const { hasLink, professionalName, loading: linkLoading } = useLinkedProfessional()
+function PrescriptionsCardInner({ professionalName }: { professionalName: string | null }) {
   const { unreadCount, loading } = usePrescriptions()
-
-  if (linkLoading || loading || !hasLink || unreadCount === 0) return null
-
+  if (loading || unreadCount === 0) return null
   return (
     <Link
       href="/para-mi"
@@ -50,6 +47,12 @@ function PrescriptionsCard() {
       </div>
     </Link>
   )
+}
+
+function PrescriptionsCard() {
+  const { hasLink, professionalName, loading } = useLinkedProfessional()
+  if (loading || !hasLink) return null
+  return <PrescriptionsCardInner professionalName={professionalName} />
 }
 
 // ── JourneyCard — compact dashboard widget ────────────────────────────────────
