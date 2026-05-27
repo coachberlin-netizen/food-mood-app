@@ -27,9 +27,15 @@ export async function POST(req: NextRequest) {
 
   const { email, password, full_name, professional_title, license_number, bio } = parsed.data
 
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !serviceKey) {
+    logger.error("pro/signup: SUPABASE_SERVICE_ROLE_KEY no configurada en Vercel")
+    return NextResponse.json({ error: "Error de configuración del servidor." }, { status: 500 })
+  }
+
   const admin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    serviceKey,
     { auth: { autoRefreshToken: false, persistSession: false } }
   )
 

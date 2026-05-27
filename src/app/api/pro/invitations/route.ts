@@ -55,9 +55,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Perfil profesional no encontrado." }, { status: 403 })
   }
 
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !serviceKey) {
+    logger.error("pro/invitations: SUPABASE_SERVICE_ROLE_KEY no configurada en Vercel")
+    return NextResponse.json({ error: "Error de configuración del servidor." }, { status: 500 })
+  }
+
   const admin = createServiceClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    serviceKey,
     { auth: { autoRefreshToken: false, persistSession: false } }
   )
 

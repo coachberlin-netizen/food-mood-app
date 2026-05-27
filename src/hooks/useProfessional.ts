@@ -10,9 +10,11 @@ export type Professional = {
   professional_title: string
   license_number: string | null
   bio: string | null
-  subscription_status: string | null
+  subscription_status: string
   subscription_tier: string | null
+  stripe_customer_id: string | null
   created_at: string
+  updated_at: string
 }
 
 export function useProfessional() {
