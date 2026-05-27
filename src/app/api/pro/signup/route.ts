@@ -50,7 +50,8 @@ export async function POST(req: NextRequest) {
   }
 
   const { error: proError } = await admin.from("professionals").insert({
-    user_id:            authData.user.id,
+    id:                 authData.user.id,
+    email,
     full_name,
     professional_title,
     license_number:     license_number || null,

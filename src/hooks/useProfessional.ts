@@ -5,13 +5,13 @@ import { createClient } from "@/lib/supabase/client"
 
 export type Professional = {
   id: string
-  user_id: string
+  email: string
   full_name: string
   professional_title: string
   license_number: string | null
   bio: string | null
-  is_verified: boolean
-  plan: "free" | "starter" | "pro"
+  subscription_status: string | null
+  subscription_tier: string | null
   created_at: string
 }
 

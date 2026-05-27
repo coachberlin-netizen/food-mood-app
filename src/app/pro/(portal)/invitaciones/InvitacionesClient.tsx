@@ -6,14 +6,19 @@ import { createClient } from "@/lib/supabase/client"
 import InvitationCodeCard from "@/components/pro/InvitationCodeCard"
 
 type Invitation = {
-  id:              string
-  invitation_code: string
-  patient_name:    string | null
-  patient_email:   string | null
-  status:          string
-  created_at:      string
-  expires_at:      string
-  used_at:         string | null
+  id:               string
+  invitation_code:  string
+  patient_name:     string | null
+  patient_email:    string | null
+  used_by_user_id:  string | null
+  created_at:       string
+  expires_at:       string
+}
+
+function deriveStatus(inv: Invitation): "used" | "expired" | "pending" {
+  if (inv.used_by_user_id) return "used"
+  if (new Date(inv.expires_at) < new Date()) return "expired"
+  return "pending"
 }
 
 export default function InvitacionesClient() {
@@ -71,21 +76,19 @@ export default function InvitacionesClient() {
   }
 
   const filtered = invitations.filter((i) =>
-    statusFilter === "all" ? true : i.status === statusFilter
+    statusFilter === "all" ? true : deriveStatus(i) === statusFilter
   )
 
   const statusLabel: Record<string, string> = {
-    pending:   "Pendiente",
-    used:      "Canjeado",
-    expired:   "Expirado",
-    cancelled: "Cancelado",
+    pending: "Pendiente",
+    used:    "Canjeado",
+    expired: "Expirado",
   }
 
   const statusColors: Record<string, string> = {
-    pending:   "bg-yellow-100 text-yellow-700",
-    used:      "bg-green-100 text-green-700",
-    expired:   "bg-[#6B2737]/10 text-[#6B2737]/50",
-    cancelled: "bg-red-100 text-red-400",
+    pending: "bg-yellow-100 text-yellow-700",
+    used:    "bg-green-100 text-green-700",
+    expired: "bg-[#6B2737]/10 text-[#6B2737]/50",
   }
 
   return (
@@ -169,7 +172,7 @@ export default function InvitacionesClient() {
 
       {/* Filter */}
       <div className="flex gap-2 mb-4 flex-wrap">
-        {["all", "pending", "used", "expired"].map((s) => (
+        {(["all", "pending", "used", "expired"] as const).map((s) => (
           <button
             key={s}
             onClick={() => setStatusFilter(s)}
@@ -221,9 +224,11 @@ export default function InvitacionesClient() {
                     {inv.patient_name ?? <span className="italic text-[#6B2737]/30">—</span>}
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[inv.status] ?? "bg-gray-100 text-gray-600"}`}>
-                      {statusLabel[inv.status] ?? inv.status}
-                    </span>
+                    {(() => { const s = deriveStatus(inv); return (
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[s]}`}>
+                        {statusLabel[s]}
+                      </span>
+                    )})()}
                   </td>
                   <td className="px-6 py-4 text-sm text-[#6B2737]/40 hidden md:table-cell">
                     {new Date(inv.expires_at).toLocaleDateString("es-ES", {
