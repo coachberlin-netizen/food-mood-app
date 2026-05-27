@@ -68,8 +68,13 @@ function LoginForm() {
         name: data.user?.user_metadata?.name || email.split("@")[0],
       });
 
-      // Read redirect parameter from URL, default to /dashboard
-      const redirectTo = searchParams.get('redirect') || searchParams.get('returnTo') || '/dashboard';
+      // If user has a professional profile and no explicit redirect, send to pro portal
+      const explicitRedirect = searchParams.get('redirect') || searchParams.get('returnTo');
+      let redirectTo = explicitRedirect || '/dashboard';
+      if (!explicitRedirect) {
+        const { data: pro } = await supabase.from('professionals').select('id').maybeSingle();
+        if (pro) redirectTo = '/pro/dashboard';
+      }
 
       await new Promise(resolve => setTimeout(resolve, 100));
       router.replace(redirectTo);

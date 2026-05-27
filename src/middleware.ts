@@ -83,6 +83,12 @@ export async function middleware(request: NextRequest) {
   const isAdminRoute = pathname.startsWith('/admin');
   const isRecetasRoute = pathname.startsWith('/recetas');
 
+  // /pro/* — professional portal (login + signup are public)
+  const isProPortalRoute =
+    pathname.startsWith('/pro') &&
+    !pathname.startsWith('/pro/login') &&
+    !pathname.startsWith('/pro/signup')
+
   // Newsletter articles: require authentication (exclude index and archivo listing pages)
   const isNewsletterArticle =
     pathname.startsWith('/newsletter/') &&
@@ -92,6 +98,13 @@ export async function middleware(request: NextRequest) {
   if (isProtectedRoute && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
+    return NextResponse.redirect(url)
+  }
+
+  if (isProPortalRoute && !user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/pro/login'
+    url.searchParams.set('redirect', pathname)
     return NextResponse.redirect(url)
   }
 
