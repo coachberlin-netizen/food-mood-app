@@ -11,7 +11,8 @@
     "seed-mediterraneas": "ts-node scripts/seed-mediterraneas.ts",
     "qa": "npx tsx scripts/qa-run.ts",
     "qa:rag": "npx tsx scripts/qa-run.ts --rag",
-    "qa:fast": "npx tsx scripts/qa-run.ts --no-judge"
+    "qa:fast": "npx tsx scripts/qa-run.ts --no-judge",
+    "seed:content": "npx tsx scripts/seed-content-library.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
@@ -23,6 +24,7 @@
     "@supabase/ssr": "^0.9.0",
     "@supabase/supabase-js": "^2.100.1",
     "@tailwindcss/typography": "^0.5.19",
+    "@types/dompurify": "^3.0.5",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "@x402/evm": "^2.11.0",
@@ -31,6 +33,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
+    "isomorphic-dompurify": "^3.14.0",
     "lucide-react": "^1.7.0",
     "next": "14.2.35",
     "pino": "^10.3.1",

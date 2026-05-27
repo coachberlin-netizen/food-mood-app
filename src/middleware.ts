@@ -79,7 +79,7 @@ export async function middleware(request: NextRequest) {
 
   // protected routes
   const pathname = request.nextUrl.pathname;
-  const isProtectedRoute = pathname.startsWith('/perfil');
+  const isProtectedRoute = pathname.startsWith('/perfil') || pathname.startsWith('/para-mi');
   const isAdminRoute = pathname.startsWith('/admin');
   const isRecetasRoute = pathname.startsWith('/recetas');
 

@@ -18,7 +18,39 @@ import { OracleCorrelations } from "@/components/dashboard/OracleCorrelations";
 import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 import { FoodMoodIndex } from "@/components/FoodMoodIndex";
-import { BiomarkerPanel } from "@/components/biomarkers/BiomarkerPanel";
+import { BiomarkerPanel } from "@/components/biomarkers/BiomarkerPanel"
+import { useLinkedProfessional, usePrescriptions } from "@/hooks/usePrescriptions";
+
+// ── PrescriptionsCard — shown only when patient has unread prescribed content ──
+function PrescriptionsCard() {
+  const { hasLink, professionalName, loading: linkLoading } = useLinkedProfessional()
+  const { unreadCount, loading } = usePrescriptions()
+
+  if (linkLoading || loading || !hasLink || unreadCount === 0) return null
+
+  return (
+    <Link
+      href="/para-mi"
+      className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
+      style={{ background: "#6B2737" }}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+            Contenido prescrito
+          </p>
+          <p className="text-sm font-semibold" style={{ color: "#F5F0E8" }}>
+            {unreadCount === 1 ? "1 recurso nuevo" : `${unreadCount} recursos nuevos`}
+            {professionalName ? ` de ${professionalName}` : ""}
+          </p>
+        </div>
+        <span className="text-xs font-light" style={{ color: "rgba(245,240,232,0.6)" }}>
+          Ver →
+        </span>
+      </div>
+    </Link>
+  )
+}
 
 // ── JourneyCard — compact dashboard widget ────────────────────────────────────
 function JourneyCard() {
@@ -348,6 +380,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
 
         {/* ── Biomarcadores (solo premium) ── */}
         {isAuthenticated && isPremium && <BiomarkerPanel />}
+
+        {/* ── Prescriptions card (patients with active professional link) ── */}
+        {isAuthenticated && <PrescriptionsCard />}
 
         {/* ── Journey card ── */}
         {isAuthenticated && <JourneyCard />}
