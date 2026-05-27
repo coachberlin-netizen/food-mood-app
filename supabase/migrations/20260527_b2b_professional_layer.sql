@@ -177,37 +177,37 @@ DECLARE
   v_user_id     uuid := auth.uid();
   v_link_id     uuid;
 BEGIN
-  -- 1. Validar que el usuario está autenticado
+  -- 1. Validar sesión activa
   IF v_user_id IS NULL THEN
-    RAISE EXCEPTION 'Debes iniciar sesión para canjear una invitación.';
+    RAISE EXCEPTION 'Acceso no autorizado.';
   END IF;
 
-  -- 2. Buscar la invitación
+  -- 2. Buscar la invitación por código (case-insensitive)
   SELECT * INTO v_invitation
   FROM patient_invitations
   WHERE invitation_code = upper(trim(p_code));
 
   IF NOT FOUND THEN
-    RAISE EXCEPTION 'Código de invitación no válido.';
+    RAISE EXCEPTION 'El código no es válido o ha expirado.';
   END IF;
 
   -- 3. Verificar que no ha sido usada
   IF v_invitation.used_at IS NOT NULL THEN
-    RAISE EXCEPTION 'Este código de invitación ya ha sido utilizado.';
+    RAISE EXCEPTION 'El código ya ha sido utilizado.';
   END IF;
 
   -- 4. Verificar que no ha expirado
   IF v_invitation.expires_at < now() THEN
-    RAISE EXCEPTION 'Este código de invitación ha expirado.';
+    RAISE EXCEPTION 'El código no es válido o ha expirado.';
   END IF;
 
-  -- 5. Verificar que el paciente no está ya vinculado a este profesional
+  -- 5. Verificar que la vinculación no existe ya
   IF EXISTS (
     SELECT 1 FROM professional_patient_links
     WHERE professional_id = v_invitation.professional_id
       AND patient_user_id = v_user_id
   ) THEN
-    RAISE EXCEPTION 'Ya estás vinculada con este profesional.';
+    RAISE EXCEPTION 'Esta vinculación ya existe.';
   END IF;
 
   -- 6. Crear el vínculo profesional-paciente
