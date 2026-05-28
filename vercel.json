@@ -31,6 +31,10 @@
     {
       "path": "/api/biomarkers/sync",
       "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/nudges",
+      "schedule": "0 2 * * *"
     }
   ]
 }

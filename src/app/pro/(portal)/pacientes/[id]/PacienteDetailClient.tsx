@@ -8,6 +8,43 @@ import { ArrowLeft } from "lucide-react"
 
 type Tab = "conductual" | "prescripciones"
 
+type HambreLog = {
+  id: string; logged_at: string
+  physical_hunger: number; emotional_hunger: number
+  interoceptive_clarity: number; decided_to_eat: boolean
+  context_notes: string | null
+}
+
+type MealLog = {
+  id: string; logged_at: string
+  emotion_before: string; intensity_before: number
+  emotion_after: string; intensity_after: number
+  meal_description: string | null
+  post_nervous_system_state: string | null
+  body_change: string | null
+}
+
+type ValuesLog = {
+  id: string; created_at: string
+  core_values: string[]
+  relationship_with_food_vision: string
+  committed_actions: string[]
+}
+
+type IntentionLog = {
+  id: string; created_at: string
+  trigger_situation: string; intended_action: string
+  linked_value: string | null
+  times_triggered: number; times_completed: number
+  is_active: boolean
+}
+
+type NudgeLog = {
+  id: string; generated_at: string; delivered_at: string | null
+  opened_at: string | null; pattern_detected: string
+  nudge_content: string; action_taken: boolean
+}
+
 type CheckIn = {
   id: string
   logged_at: string
@@ -72,6 +109,11 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   const [granularity,      setGranularity]     = useState<GranularityLog[]>([])
   const [dialogues,        setDialogues]       = useState<SocraticDialogue[]>([])
   const [prescriptions,    setPrescriptions]   = useState<{ id: string; prescribed_at: string; read_at: string | null; professional_note: string | null; content_library: { title: string; content_type: string }[] }[]>([])
+  const [hambreLogs,       setHambreLogs]      = useState<HambreLog[]>([])
+  const [mealLogs,         setMealLogs]        = useState<MealLog[]>([])
+  const [valuesLogs,       setValuesLogs]      = useState<ValuesLog[]>([])
+  const [intentions,       setIntentions]      = useState<IntentionLog[]>([])
+  const [nudges,           setNudges]          = useState<NudgeLog[]>([])
   const [expandedDialog,   setExpandedDialog]  = useState<string | null>(null)
   const [loading,          setLoading]         = useState(true)
   const [notFound,         setNotFound]        = useState(false)
@@ -105,7 +147,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       setPatientEmail(invRes.data?.patient_email ?? null)
 
       // Fetch behavioral data in parallel
-      const [checkinsRes, granRes, diagRes, presRes] = await Promise.all([
+      const [checkinsRes, granRes, diagRes, presRes, hambreRes, mealRes, valRes, intRes, nudgeRes] = await Promise.all([
         supabase
           .from("interoceptive_checkins")
           .select("id, logged_at, nervous_system_state, interoceptive_clarity, dominant_sensation")
@@ -130,12 +172,46 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
           .eq("patient_user_id", patientUserId)
           .order("prescribed_at", { ascending: false })
           .limit(30),
+        supabase
+          .from("hunger_thermometer_logs")
+          .select("id, logged_at, physical_hunger, emotional_hunger, interoceptive_clarity, decided_to_eat, context_notes")
+          .eq("user_id", patientUserId)
+          .order("logged_at", { ascending: false })
+          .limit(30),
+        supabase
+          .from("emotional_meal_logs")
+          .select("id, logged_at, emotion_before, intensity_before, emotion_after, intensity_after, meal_description, post_nervous_system_state, body_change")
+          .eq("user_id", patientUserId)
+          .order("logged_at", { ascending: false })
+          .limit(20),
+        supabase
+          .from("values_clarifications")
+          .select("id, created_at, core_values, relationship_with_food_vision, committed_actions")
+          .eq("user_id", patientUserId)
+          .order("created_at", { ascending: false })
+          .limit(5),
+        supabase
+          .from("implementation_intentions")
+          .select("id, created_at, trigger_situation, intended_action, linked_value, times_triggered, times_completed, is_active")
+          .eq("user_id", patientUserId)
+          .order("created_at", { ascending: false }),
+        supabase
+          .from("adaptive_nudges_log")
+          .select("id, generated_at, delivered_at, opened_at, pattern_detected, nudge_content, action_taken")
+          .eq("user_id", patientUserId)
+          .order("generated_at", { ascending: false })
+          .limit(20),
       ])
 
       setCheckins((checkinsRes.data ?? []) as CheckIn[])
       setGranularity((granRes.data ?? []) as GranularityLog[])
       setDialogues((diagRes.data ?? []) as SocraticDialogue[])
       setPrescriptions((presRes.data ?? []) as typeof prescriptions)
+      setHambreLogs((hambreRes.data ?? []) as HambreLog[])
+      setMealLogs((mealRes.data ?? []) as MealLog[])
+      setValuesLogs((valRes.data ?? []) as ValuesLog[])
+      setIntentions((intRes.data ?? []) as IntentionLog[])
+      setNudges((nudgeRes.data ?? []) as NudgeLog[])
       setLoading(false)
     }
 
@@ -328,6 +404,192 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                   </div>
                 ))}
               </div>
+            )}
+          </section>
+
+          {/* Termómetro de hambre */}
+          <section>
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Termómetro de hambre ({hambreLogs.length})
+            </h2>
+            {hambreLogs.length === 0 ? (
+              <p className="text-sm" style={{ color: "rgba(107,39,55,0.35)" }}>Sin registros todavía.</p>
+            ) : (
+              <>
+                {(() => {
+                  const emoTotal  = hambreLogs.reduce((s, h) => s + h.emotional_hunger, 0)
+                  const physTotal = hambreLogs.reduce((s, h) => s + h.physical_hunger, 0)
+                  const pctEmo    = Math.round((emoTotal / (emoTotal + physTotal)) * 100)
+                  return (
+                    <div className="bg-white rounded-xl px-4 py-3 mb-3 flex items-center gap-4" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+                      <div className="flex-1">
+                        <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "rgba(107,39,55,0.4)" }}>% hambre emocional (últimos {hambreLogs.length})</p>
+                        <div className="h-2 rounded-full w-full" style={{ background: "rgba(107,39,55,0.1)" }}>
+                          <div className="h-2 rounded-full" style={{ width: `${pctEmo}%`, background: pctEmo > 60 ? "#dc2626" : "#C9A84C" }} />
+                        </div>
+                      </div>
+                      <span className="text-lg font-bold font-serif shrink-0" style={{ color: pctEmo > 60 ? "#dc2626" : "#6B2737" }}>{pctEmo}%</span>
+                    </div>
+                  )
+                })()}
+                <div className="flex flex-col gap-2">
+                  {hambreLogs.slice(0, 10).map(h => (
+                    <div key={h.id} className="bg-white rounded-xl px-4 py-3 flex items-center gap-3" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+                      <div className="flex-1">
+                        <div className="flex gap-3 text-xs">
+                          <span style={{ color: "#16a34a" }}>F:{h.physical_hunger}</span>
+                          <span style={{ color: h.emotional_hunger > 7 ? "#dc2626" : "#d97706" }}>E:{h.emotional_hunger}</span>
+                          <span style={{ color: "#6b7280" }}>C:{h.interoceptive_clarity}</span>
+                        </div>
+                        {h.context_notes && <p className="text-[11px] font-light mt-0.5 truncate" style={{ color: "rgba(107,39,55,0.5)" }}>{h.context_notes}</p>}
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>{formatDate(h.logged_at)}</p>
+                        <p className="text-[10px] font-medium" style={{ color: h.decided_to_eat ? "#6B2737" : "#6b7280" }}>{h.decided_to_eat ? "Comió" : "No comió"}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </section>
+
+          {/* Registro pre/post comida */}
+          <section>
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Pre/post comida ({mealLogs.length})
+            </h2>
+            {mealLogs.length === 0 ? (
+              <p className="text-sm" style={{ color: "rgba(107,39,55,0.35)" }}>Sin registros todavía.</p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {mealLogs.slice(0, 10).map(m => {
+                  const nssColor = m.post_nervous_system_state
+                    ? (NSS_LABEL[m.post_nervous_system_state]?.color ?? "#6B2737")
+                    : undefined
+                  return (
+                    <div key={m.id} className="bg-white rounded-xl px-4 py-3" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center gap-2 text-xs">
+                          <span style={{ color: "#6B2737" }}>{m.emotion_before} ({m.intensity_before})</span>
+                          <span style={{ color: "rgba(107,39,55,0.3)" }}>→</span>
+                          <span style={{ color: "#6B2737" }}>{m.emotion_after} ({m.intensity_after})</span>
+                        </div>
+                        <span className="text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>{formatDate(m.logged_at)}</span>
+                      </div>
+                      {m.post_nervous_system_state && (
+                        <p className="text-[11px] font-medium" style={{ color: nssColor }}>
+                          NSS post: {NSS_LABEL[m.post_nervous_system_state]?.label ?? m.post_nervous_system_state}
+                          {m.body_change && ` · ${m.body_change}`}
+                        </p>
+                      )}
+                      {m.meal_description && <p className="text-[11px] font-light truncate mt-0.5" style={{ color: "rgba(107,39,55,0.45)" }}>{m.meal_description}</p>}
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </section>
+
+          {/* Valores */}
+          <section>
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Valores núcleo ({valuesLogs.length} sesión{valuesLogs.length !== 1 ? "es" : ""})
+            </h2>
+            {valuesLogs.length === 0 ? (
+              <p className="text-sm" style={{ color: "rgba(107,39,55,0.35)" }}>Sin sesiones todavía.</p>
+            ) : (
+              <div className="flex flex-col gap-3">
+                {valuesLogs.map(v => (
+                  <div key={v.id} className="bg-white rounded-xl px-4 py-3" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+                    <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>{formatDate(v.created_at)}</p>
+                    <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
+                      {v.core_values.map((val, i) => (
+                        <span key={i} className="px-2.5 py-1 rounded-full text-[11px] font-medium" style={{ background: "rgba(107,39,55,0.07)", color: "#6B2737" }}>{val}</span>
+                      ))}
+                    </div>
+                    {v.committed_actions[0] && (
+                      <p className="text-xs italic font-light" style={{ color: "rgba(107,39,55,0.6)", borderLeft: "2px solid #C9A84C", paddingLeft: "8px" }}>
+                        {v.committed_actions[0]}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* Plans if-then */}
+          <section>
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Planes si-entonces ({intentions.filter(i => i.is_active).length} activos)
+            </h2>
+            {intentions.length === 0 ? (
+              <p className="text-sm" style={{ color: "rgba(107,39,55,0.35)" }}>Sin planes todavía.</p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {intentions.map(p => (
+                  <div key={p.id} className="bg-white rounded-xl px-4 py-3 flex items-start gap-3" style={{ border: "1px solid rgba(107,39,55,0.08)", opacity: p.is_active ? 1 : 0.5 }}>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Cuando</p>
+                      <p className="text-xs mb-1 leading-snug" style={{ color: "#2d0f16" }}>{p.trigger_situation}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Yo</p>
+                      <p className="text-xs leading-snug" style={{ color: "#6B2737" }}>{p.intended_action}</p>
+                      {p.linked_value && <p className="text-[10px] font-semibold uppercase tracking-wider mt-1" style={{ color: "#C9A84C" }}>Valor: {p.linked_value}</p>}
+                    </div>
+                    <div className="text-right shrink-0 text-xs" style={{ color: "rgba(107,39,55,0.5)" }}>
+                      <p>{p.times_triggered} activado{p.times_triggered !== 1 ? "s" : ""}</p>
+                      <p style={{ color: p.times_completed > 0 ? "#16a34a" : undefined }}>{p.times_completed} completado{p.times_completed !== 1 ? "s" : ""}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* Nudges */}
+          <section>
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Nudges adaptativos ({nudges.length})
+            </h2>
+            {nudges.length === 0 ? (
+              <p className="text-sm" style={{ color: "rgba(107,39,55,0.35)" }}>Sin nudges generados todavía.</p>
+            ) : (
+              <>
+                {(() => {
+                  const delivered = nudges.filter(n => n.delivered_at).length
+                  const opened    = nudges.filter(n => n.opened_at).length
+                  const acted     = nudges.filter(n => n.action_taken).length
+                  const pct = (n: number) => nudges.length > 0 ? Math.round((n / nudges.length) * 100) : 0
+                  return (
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      {[["Entregados", delivered, pct(delivered)],["Abiertos", opened, pct(opened)],["Accionados", acted, pct(acted)]].map(([label, count, p]) => (
+                        <div key={label as string} className="bg-white rounded-xl p-3 text-center" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+                          <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "rgba(107,39,55,0.4)" }}>{label as string}</p>
+                          <p className="text-lg font-bold font-serif" style={{ color: "#6B2737" }}>{p as number}%</p>
+                          <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.35)" }}>{count as number} de {nudges.length}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                })()}
+                <div className="flex flex-col gap-2">
+                  {nudges.slice(0, 5).map(n => (
+                    <div key={n.id} className="bg-white rounded-xl px-4 py-3" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>{n.pattern_detected.replace(/_/g, " ")}</p>
+                        <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>{formatDate(n.generated_at)}</p>
+                      </div>
+                      <p className="text-xs font-light leading-relaxed" style={{ color: "#2d0f16" }}>{n.nudge_content}</p>
+                      <div className="flex gap-3 mt-1.5 text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>
+                        {n.delivered_at && <span>Entregado</span>}
+                        {n.opened_at && <span>· Abierto</span>}
+                        {n.action_taken && <span style={{ color: "#16a34a" }}>· Accionado</span>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </section>
         </div>

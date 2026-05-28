@@ -83,7 +83,9 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/perfil') ||
     pathname.startsWith('/para-mi') ||
     pathname.startsWith('/registro') ||
-    pathname.startsWith('/practicas');
+    pathname.startsWith('/practicas') ||
+    pathname.startsWith('/setup') ||
+    pathname.startsWith('/herramientas');
   const isAdminRoute = pathname.startsWith('/admin');
   const isRecetasRoute = pathname.startsWith('/recetas');
 

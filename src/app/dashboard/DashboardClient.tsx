@@ -218,6 +218,62 @@ function RetosCard() {
   )
 }
 
+// ── NudgeCard — muestra el último nudge adaptativo no leído ──────────────────
+function NudgeCard() {
+  const [nudge, setNudge] = useState<{ id: string; nudge_content: string; pattern_detected: string } | null>(null)
+  const [dismissed, setDismissed] = useState(false)
+  const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) return
+      const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+      const { data } = await supabase
+        .from("adaptive_nudges_log")
+        .select("id, nudge_content, pattern_detected")
+        .eq("user_id", user.id)
+        .is("delivered_at", null)
+        .gte("generated_at", since)
+        .order("generated_at", { ascending: false })
+        .limit(1)
+        .maybeSingle()
+      if (data) {
+        setNudge(data)
+        // Mark delivered
+        supabase.from("adaptive_nudges_log").update({ delivered_at: new Date().toISOString() }).eq("id", data.id).then(() => {})
+      }
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (!nudge || dismissed) return null
+
+  return (
+    <div className="max-w-[520px] w-full mx-auto rounded-3xl p-5" style={{ backgroundColor: "white", border: "1px solid rgba(201,168,76,0.3)" }}>
+      <div className="flex items-start gap-3">
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "#C9A84C" }}>Para ti hoy</p>
+          <p className="text-sm font-light leading-relaxed" style={{ color: "#2d0f16" }}>{nudge.nudge_content}</p>
+        </div>
+        <button
+          onClick={() => {
+            setDismissed(true)
+            supabase.from("adaptive_nudges_log").update({ opened_at: new Date().toISOString() }).eq("id", nudge.id).then(() => {})
+          }}
+          className="shrink-0 mt-0.5 opacity-40 hover:opacity-70"
+        >
+          <span className="text-lg leading-none" style={{ color: "#6B2737" }}>×</span>
+        </button>
+      </div>
+      <div className="mt-3">
+        <Link href="/practicas" className="text-xs font-medium" style={{ color: "#6B2737" }}>
+          Ir a mis prácticas →
+        </Link>
+      </div>
+    </div>
+  )
+}
+
 // ── WeeklyCard — compact dashboard widget ─────────────────────────────────────
 function PracticasCard() {
   return (
@@ -407,6 +463,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
 
         {/* ── Biomarcadores (solo premium) ── */}
         {isAuthenticated && isPremium && <BiomarkerPanel />}
+
+        {/* ── Nudge card (adaptive JITAI nudge, max 1 per 24h) ── */}
+        {isAuthenticated && <NudgeCard />}
 
         {/* ── Prescriptions card (patients with active professional link) ── */}
         {isAuthenticated && <PrescriptionsCard />}

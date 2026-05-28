@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Brain, BookOpen, MessageSquare } from "lucide-react"
+import { Brain, BookOpen, MessageSquare, Thermometer, Utensils, Heart, Target } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Mis prácticas | Food·Mood",
@@ -16,6 +16,13 @@ const TOOLS = [
     badge:       "Polivagal · Interocepción",
   },
   {
+    href:        "/registro/hambre",
+    icon:        Thermometer,
+    title:       "Termómetro de hambre",
+    description: "Distingue hambre física, emocional y claridad interoceptiva antes de comer.",
+    badge:       "Interocepción · Alimentación consciente",
+  },
+  {
     href:        "/registro/emocion",
     icon:        BookOpen,
     title:       "Registro emocional",
@@ -23,11 +30,32 @@ const TOOLS = [
     badge:       "Granularidad emocional",
   },
   {
+    href:        "/registro/comida",
+    icon:        Utensils,
+    title:       "Pre/post comida",
+    description: "Cómo tu estado emocional y corporal cambia alrededor de las comidas.",
+    badge:       "Alimentación · Estado polivagal",
+  },
+  {
     href:        "/registro/pensamiento",
     icon:        MessageSquare,
     title:       "Diario de pensamientos",
     description: "Explora un pensamiento perturbador con cuestionamiento socrático, ACT y autocompasión.",
     badge:       "TCC · ACT · Autocompasión",
+  },
+  {
+    href:        "/setup/valores",
+    icon:        Heart,
+    title:       "Mis valores",
+    description: "Clarifica los valores que guían tu relación con la alimentación y el cuerpo. 6 turnos.",
+    badge:       "Entrevista motivacional",
+  },
+  {
+    href:        "/herramientas/plan-si-entonces",
+    icon:        Target,
+    title:       "Planes si-entonces",
+    description: "Crea intenciones de implementación concretas y registra su uso.",
+    badge:       "Gollwitzer · ACT",
   },
 ]
 
