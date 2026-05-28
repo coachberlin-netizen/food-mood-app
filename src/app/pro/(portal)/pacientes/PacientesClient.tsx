@@ -1,11 +1,13 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Users } from "lucide-react"
 import { useLinkedPatients } from "@/hooks/useLinkedPatients"
 
 export default function PacientesClient() {
   const { patients, loading } = useLinkedPatients()
+  const router = useRouter()
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
@@ -58,7 +60,11 @@ export default function PacientesClient() {
               </thead>
               <tbody className="divide-y divide-[#6B2737]/5">
                 {patients.map((p) => (
-                  <tr key={p.id} className="hover:bg-[#6B2737]/2 transition-colors">
+                  <tr
+                    key={p.id}
+                    className="hover:bg-[#6B2737]/[0.03] transition-colors cursor-pointer"
+                    onClick={() => router.push(`/pro/pacientes/${p.patient_user_id}`)}
+                  >
                     <td className="px-6 py-4">
                       <p className="font-medium text-[#6B2737]">
                         {p.patient_name ?? <span className="text-[#6B2737]/40 italic">Sin nombre</span>}
