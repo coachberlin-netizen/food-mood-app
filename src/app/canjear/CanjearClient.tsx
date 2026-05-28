@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, Suspense, useMemo } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ArrowRight, CheckCircle, Loader2 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
@@ -186,7 +186,7 @@ function CanjearForm() {
                     onChange={(e) => setCode(e.target.value.toUpperCase())}
                     required
                     maxLength={6}
-                    className="w-full font-mono text-2xl tracking-[0.3em] text-center uppercase rounded-2xl px-5 py-5 focus:outline-none focus:ring-2 transition-all"
+                    className="w-full font-mono text-2xl tracking-[0.3em] text-center uppercase rounded-2xl px-5 py-5 focus:outline-none focus:ring-2 focus:ring-[#6B2737]/20 transition-all"
                     style={{ backgroundColor: "rgba(107,39,55,0.05)", border: "1px solid rgba(107,39,55,0.1)", color: "#6B2737" }}
                     placeholder="A3K9PQ"
                     autoFocus
