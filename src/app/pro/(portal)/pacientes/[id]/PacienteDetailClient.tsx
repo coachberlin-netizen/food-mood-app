@@ -4,9 +4,23 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Loader2, Sparkles } from "lucide-react"
 
-type Tab = "conductual" | "prescripciones"
+type Tab = "conductual" | "prescripciones" | "sesiones"
+
+type SessionPrep = {
+  id: string
+  created_at: string
+  period_start: string
+  period_end: string
+  weekly_summary: string | null
+}
+
+const TAB_LABELS: Record<Tab, string> = {
+  conductual:     "Herramientas conductuales",
+  prescripciones: "Prescripciones",
+  sesiones:       "Sesiones",
+}
 
 type HambreLog = {
   id: string; logged_at: string
@@ -117,6 +131,10 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   const [expandedDialog,   setExpandedDialog]  = useState<string | null>(null)
   const [loading,          setLoading]         = useState(true)
   const [notFound,         setNotFound]        = useState(false)
+  const [sessionPreps,       setSessionPreps]       = useState<SessionPrep[]>([])
+  const [sessionPrepsLoaded, setSessionPrepsLoaded] = useState(false)
+  const [preparandoSesion,   setPreparandoSesion]   = useState(false)
+  const [prepError,          setPrepError]          = useState("")
 
   useEffect(() => {
     const supabase = createClient()
@@ -218,6 +236,33 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
     load()
   }, [patientUserId, router])
 
+  // Lazy-load session preps when the Sesiones tab is first opened
+  useEffect(() => {
+    if (tab !== "sesiones" || sessionPrepsLoaded) return
+    fetch(`/api/pro/session-prep?patient_user_id=${patientUserId}`)
+      .then(r => r.json())
+      .then(d => { setSessionPreps(d.preps ?? []); setSessionPrepsLoaded(true) })
+      .catch(() => setSessionPrepsLoaded(true))
+  }, [tab, patientUserId, sessionPrepsLoaded])
+
+  const handleGenerateSessionPrep = async () => {
+    setPreparandoSesion(true)
+    setPrepError("")
+    try {
+      const res = await fetch("/api/pro/session-prep", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ patient_user_id: patientUserId }),
+      })
+      const d = await res.json()
+      if (!res.ok) { setPrepError((d as { error?: string }).error ?? "Error al generar el informe."); setPreparandoSesion(false); return }
+      router.push(`/pro/sesion/${(d as { id: string }).id}`)
+    } catch {
+      setPrepError("Error al conectar con el servidor.")
+      setPreparandoSesion(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="p-8 flex items-center justify-center">
@@ -247,26 +292,44 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
         <Link href="/pro/pacientes" className="inline-flex items-center gap-2 text-xs mb-4" style={{ color: "rgba(107,39,55,0.5)" }}>
           <ArrowLeft className="w-4 h-4" /> Pacientes
         </Link>
-        <h1 className="text-xl font-serif font-bold" style={{ color: "#6B2737" }}>
-          {patientName ?? <span className="italic opacity-50">Sin nombre</span>}
-        </h1>
-        {patientEmail && <p className="text-xs mt-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>{patientEmail}</p>}
-        {linkedAt && <p className="text-xs mt-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Vinculado/a desde {formatDate(linkedAt)}</p>}
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-xl font-serif font-bold" style={{ color: "#6B2737" }}>
+              {patientName ?? <span className="italic opacity-50">Sin nombre</span>}
+            </h1>
+            {patientEmail && <p className="text-xs mt-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>{patientEmail}</p>}
+            {linkedAt && <p className="text-xs mt-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Vinculado/a desde {formatDate(linkedAt)}</p>}
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            <button
+              onClick={handleGenerateSessionPrep}
+              disabled={preparandoSesion}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold shrink-0 disabled:opacity-60 transition-all hover:brightness-110"
+              style={{ background: "#6B2737", color: "#F5F0E8" }}
+            >
+              {preparandoSesion
+                ? <Loader2 className="w-4 h-4 animate-spin" />
+                : <Sparkles className="w-4 h-4" />}
+              {preparandoSesion ? "Generando..." : "Preparar sesión"}
+            </button>
+            {prepError && <p className="text-[10px] text-red-600">{prepError}</p>}
+          </div>
+        </div>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-1 p-1 rounded-xl mb-6 w-fit" style={{ background: "rgba(107,39,55,0.07)" }}>
-        {(["conductual", "prescripciones"] as Tab[]).map(t => (
+        {(["conductual", "prescripciones", "sesiones"] as Tab[]).map(t => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className="px-4 py-2 rounded-lg text-xs font-semibold capitalize transition-all"
+            className="px-4 py-2 rounded-lg text-xs font-semibold transition-all"
             style={{
               background: tab === t ? "#6B2737" : "transparent",
               color:      tab === t ? "#F5F0E8" : "rgba(107,39,55,0.6)",
             }}
           >
-            {t === "conductual" ? "Herramientas conductuales" : "Prescripciones"}
+            {TAB_LABELS[t]}
           </button>
         ))}
       </div>
@@ -592,6 +655,55 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
               </>
             )}
           </section>
+        </div>
+      )}
+
+      {/* ── TAB SESIONES ───────────────────────────────────────────────────── */}
+      {tab === "sesiones" && (
+        <div>
+          {!sessionPrepsLoaded ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="w-5 h-5 border-2 border-[#6B2737] border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : sessionPreps.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-sm mb-2" style={{ color: "rgba(107,39,55,0.5)" }}>
+                No hay informes de sesión todavía.
+              </p>
+              <p className="text-xs" style={{ color: "rgba(107,39,55,0.35)" }}>
+                Usa el botón &ldquo;Preparar sesión&rdquo; para generar el primero.
+              </p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {sessionPreps.map(sp => (
+                <Link
+                  key={sp.id}
+                  href={`/pro/sesion/${sp.id}`}
+                  className="block bg-white rounded-xl px-5 py-4 transition-all hover:shadow-sm"
+                  style={{ border: "1px solid rgba(107,39,55,0.08)" }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold mb-1" style={{ color: "#C9A84C" }}>
+                        {new Date(sp.period_start).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}
+                        {" — "}
+                        {new Date(sp.period_end).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" })}
+                      </p>
+                      {sp.weekly_summary && (
+                        <p className="text-xs font-light leading-relaxed line-clamp-2" style={{ color: "rgba(107,39,55,0.6)" }}>
+                          {sp.weekly_summary}
+                        </p>
+                      )}
+                    </div>
+                    <p className="text-[10px] shrink-0 mt-0.5" style={{ color: "rgba(107,39,55,0.35)" }}>
+                      {formatDate(sp.created_at)}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
