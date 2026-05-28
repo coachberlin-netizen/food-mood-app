@@ -266,7 +266,14 @@ function NudgeCard() {
         </button>
       </div>
       <div className="mt-3">
-        <Link href="/practicas" className="text-xs font-medium" style={{ color: "#6B2737" }}>
+        <Link
+          href="/practicas"
+          className="text-xs font-medium"
+          style={{ color: "#6B2737" }}
+          onClick={() => {
+            supabase.from("adaptive_nudges_log").update({ action_taken: true }).eq("id", nudge.id).then(() => {})
+          }}
+        >
           Ir a mis prácticas →
         </Link>
       </div>
