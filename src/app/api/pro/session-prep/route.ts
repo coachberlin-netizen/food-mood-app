@@ -139,10 +139,12 @@ export async function POST(req: NextRequest) {
   }
   const latencyMs = Date.now() - startMs
 
-  const rawText = claudeRes.content[0].type === "text" ? claudeRes.content[0].text : ""
+  const rawText = claudeRes.content[0].type === "text" ? claudeRes.content[0].text.trim() : ""
+  // Strip possible markdown code fences that Claude sometimes adds despite instructions
+  const jsonText = rawText.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "").trim()
   let output: SessionPrepOutput
   try {
-    output = JSON.parse(rawText) as SessionPrepOutput
+    output = JSON.parse(jsonText) as SessionPrepOutput
   } catch {
     logger.error({ rawText }, "session-prep: Claude devolvió JSON inválido")
     return NextResponse.json({ error: "Error al procesar el informe. Inténtalo de nuevo." }, { status: 502 })
@@ -152,16 +154,18 @@ export async function POST(req: NextRequest) {
   const tokensIn  = claudeRes.usage.input_tokens
   const tokensOut = claudeRes.usage.output_tokens
   const costEur   = Math.round((tokensIn * 0.000003 + tokensOut * 0.000015) * 0.92 * 100000) / 100000
-  admin.from("agent_interactions").insert({
-    user_id:         user.id,
-    tokens_in:       tokensIn,
-    tokens_out:      tokensOut,
-    cost_eur:        costEur,
-    latency_ms:      latencyMs,
-    model:           "claude-sonnet-4-6",
-    modo:            "session_prep",
-    nivel_evidencia: null,
-  }).then(() => {})
+  Promise.resolve(
+    admin.from("agent_interactions").insert({
+      user_id:         user.id,
+      tokens_in:       tokensIn,
+      tokens_out:      tokensOut,
+      cost_eur:        costEur,
+      latency_ms:      latencyMs,
+      model:           "claude-sonnet-4-6",
+      modo:            "session_prep",
+      nivel_evidencia: null,
+    })
+  ).catch(() => {})
 
   const { data: prep, error: insertErr } = await admin
     .from("session_preps")

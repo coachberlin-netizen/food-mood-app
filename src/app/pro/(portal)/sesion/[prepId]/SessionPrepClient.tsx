@@ -93,8 +93,8 @@ export default function SessionPrepClient({ prepId }: { prepId: string }) {
 
   return (
     <>
-      {/* Hide sidebar and global header when printing */}
-      <style>{`@media print { aside, header, nav { display: none !important; } body { background: white !important; } }`}</style>
+      {/* Hide chrome when printing: aside=ProSidebar, header=global Header, footer=global Footer, nav=BottomNav */}
+      <style>{`@media print { aside, header, footer, nav { display: none !important; } body { background: white !important; } }`}</style>
 
       {/* Print-only header */}
       <div className="hidden print:block mb-6 border-b pb-4" style={{ borderColor: "rgba(107,39,55,0.15)" }}>

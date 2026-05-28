@@ -82,9 +82,12 @@ export async function PATCH(
     .select()
     .maybeSingle()
 
-  if (error || !prep) {
+  if (error) {
     logger.error({ err: error, id }, "session-prep PATCH: error actualizando informe")
     return NextResponse.json({ error: "Error al actualizar el informe." }, { status: 500 })
+  }
+  if (!prep) {
+    return NextResponse.json({ error: "Informe no encontrado." }, { status: 404 })
   }
 
   return NextResponse.json({ prep })
