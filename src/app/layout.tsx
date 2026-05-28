@@ -38,8 +38,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
-  title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
-  description: "Para mujeres 40+ con síntomas de perimenopausia y menopausia. Nutrición neuroactiva: recetas funcionales basadas en el eje intestino-cerebro, sin dietas ni culpa. Empieza gratis.",
+  title: "Food·Mood Pro — Plataforma profesional de psiconutrición",
+  description: "Plataforma para psicólogas, nutricionistas y psiconutricionistas. Captura emoción, interocepción y patrones conductuales del paciente entre sesiones. RGPD · Acceso anticipado.",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
@@ -50,29 +50,29 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     statusBarStyle: "black-translucent",
-    title: "Food·Mood",
+    title: "Food·Mood Pro",
     startupImage: "/icons/icon-512.png",
   },
   openGraph: {
     type: "website",
     url: "https://www.food-mood.app/",
-    title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
-    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Nutrición neuroactiva: recetas funcionales, microacciones y ciencia del eje intestino-cerebro, sin dietas ni culpa.",
-    siteName: "Food·Mood",
+    title: "Food·Mood Pro — Plataforma profesional de psiconutrición asistida por IA",
+    description: "Lo que tu paciente siente entre sesiones también es dato clínico. Plataforma para profesionales de la salud mental y la nutrición.",
+    siteName: "Food·Mood Pro",
     locale: "es_ES",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Food·Mood — Nutrición neuroactiva para perimenopausia y menopausia",
+        alt: "Food·Mood Pro — Plataforma profesional de psiconutrición",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Food·Mood — Acompañamiento real para la perimenopausia y la menopausia",
-    description: "Para mujeres 40+ que sienten que su cuerpo está cambiando. Nutrición neuroactiva y recetas funcionales basadas en el eje intestino-cerebro, sin dietas ni culpa.",
+    title: "Food·Mood Pro — Plataforma profesional de psiconutrición",
+    description: "Lo que tu paciente siente entre sesiones también es dato clínico. Plataforma para psicólogas, nutricionistas y psiconutricionistas.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -109,25 +109,17 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              name: "Food·Mood",
+              name: "Food·Mood Pro",
               url: "https://www.food-mood.app",
-              description: "Nutrición neuroactiva para mujeres 40+ en perimenopausia y menopausia. Recetas funcionales basadas en el eje intestino-cerebro, microacciones y seguimiento de patrones, sin dietas ni culpa.",
-              applicationCategory: "HealthApplication",
-              applicationSubCategory: "NutritionApplication",
-              operatingSystem: "Web, iOS, Android",
+              description: "Plataforma profesional de psiconutrición asistida por IA. Captura emoción, interocepción y patrones conductuales del paciente entre sesiones para psicólogas, nutricionistas y psiconutricionistas.",
+              applicationCategory: "BusinessApplication",
+              applicationSubCategory: "HealthcareApplication",
+              operatingSystem: "Web",
               inLanguage: "es",
               offers: [
-                { "@type": "Offer", name: "Plan Gratuito", price: "0", priceCurrency: "EUR" },
-                { "@type": "Offer", name: "Plan Mensual", price: "9.00", priceCurrency: "EUR" },
-                { "@type": "Offer", name: "Plan Trimestral", price: "21.00", priceCurrency: "EUR" },
+                { "@type": "Offer", name: "Plan Profesional", price: "39.00", priceCurrency: "EUR" },
+                { "@type": "Offer", name: "Plan Clínica", price: "99.00", priceCurrency: "EUR" },
               ],
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.8",
-                ratingCount: "127",
-                bestRating: "5",
-                worstRating: "1",
-              },
             }),
           }}
         />

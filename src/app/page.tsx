@@ -1,85 +1,268 @@
-﻿"use client"
+"use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useId } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { ChevronDown, ArrowRight, Check } from "lucide-react"
+import { ChevronDown, Shield, Lock, Eye, ArrowRight, Check, X } from "lucide-react"
 
-// ─── FAQ data ─────────────────────────────────────────────────────────────────
+// ─── Tipos y constantes ───────────────────────────────────────────────────────
+
+const PROFESSIONAL_TYPES = [
+  "Psicóloga / Psicoterapeuta",
+  "Nutricionista / Dietista",
+  "Psiconutricionista",
+  "Médica / Médico de familia",
+  "Ginecóloga",
+  "Enfermera / Enfermero",
+  "Otro profesional de salud",
+]
+
 const FAQS = [
   {
-    q: "¿Esto es una dieta?",
-    a: "No. Food·Mood no tiene listas de alimentos prohibidos, objetivos de peso ni conteo de calorías. Te proponemos recetas diseñadas para cómo te sientes hoy — sin etiquetas de bueno o malo, sin restricciones.",
+    q: "¿Sustituye a mi software de nutrición o historia clínica?",
+    a: "No. Food·Mood Pro es una capa complementaria centrada en la dimensión emocional, conductual e interoceptiva del paciente. Funciona junto a tu software de historial clínico, no en su lugar.",
   },
   {
-    q: "¿Para quién está pensado?",
-    a: "Principalmente para mujeres a partir de los 40 años que sienten que su cuerpo está cambiando — sueño irregular, niebla mental, sofocos, cambios de humor, digestiones lentas. También para cualquier persona que quiera entender mejor la conexión entre lo que come y cómo se siente.",
+    q: "¿Mis pacientes pagan algo?",
+    a: "No. La companion app del paciente es de acceso por invitación y sin coste para ellos. Tú gestionas el acceso desde tu portal profesional y decides a quién vinculas.",
   },
   {
-    q: "¿Necesito conocimientos de cocina?",
-    a: "No. Las recetas son de 20-30 minutos, 5-7 ingredientes, y se adaptan a tu nivel de energía del día. Si puedes hervir agua, puedes hacer cualquier receta de Food·Mood.",
+    q: "¿Cómo se protegen los datos de mis pacientes?",
+    a: "Cumplimiento RGPD desde el diseño. Datos cifrados en tránsito y en reposo. Hosting en infraestructura europea. Nunca vendemos datos ni los usamos para entrenar modelos de terceros. La IA opera sobre datos del paciente con transparencia explícita (Art. 50 EU AI Act).",
   },
   {
-    q: "¿Es compatible con dieta vegana, vegetariana o sin gluten?",
-    a: "Sí. Cada receta tiene alternativas sin gluten, sin lácteos y veganas claramente marcadas. El check-in diario lo tiene en cuenta para personalizarte mejor.",
-  },
-  {
-    q: "¿Cuándo empiezo a notar algo?",
-    a: "La mayoría nota algo diferente entre el día 3 y el día 4. El cambio que se sostiene aparece en la segunda o tercera semana, cuando el microbioma empieza a reorganizarse. En 90 días puedes empezar a ver patrones reales. Tu sueño, digestión y energía pueden darte señales antes.",
+    q: "¿Necesito conocimientos técnicos para usar la plataforma?",
+    a: "No. El portal profesional está diseñado para que puedas ver lo que importa en menos de dos minutos antes de una sesión. Onboarding asistido incluido en acceso anticipado.",
   },
   {
     q: "¿Puedo cancelar cuando quiera?",
-    a: "Sí. El plan premium mensual es suscripción y puedes cancelarlo en cualquier momento desde tu perfil, sin penalización. El test y una receta diaria básica son gratis para siempre.",
-  },
-  {
-    q: "¿Sustituye a la atención médica o psicológica?",
-    a: "No. Food·Mood es una herramienta de bienestar basada en evidencia nutricional, no un tratamiento médico. Si tienes síntomas que te preocupan o un diagnóstico, consúltalo siempre con tu médica o especialista.",
+    a: "Sí. Sin permanencia, sin penalización. Si cancelas, puedes exportar todos los datos de tus pacientes antes.",
   },
 ]
 
-const FAQ_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
+// ─── Helpers de animación ─────────────────────────────────────────────────────
+
+const fade = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }
+const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }
+
+// ─── Mockup del dashboard profesional ────────────────────────────────────────
+
+function DashboardMock() {
+  return (
+    <div
+      className="rounded-2xl overflow-hidden shadow-2xl"
+      style={{ backgroundColor: "#0f0a0d", border: "1px solid rgba(201,168,76,0.18)", fontFamily: "monospace" }}
+    >
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", backgroundColor: "#140c10" }}>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-bold" style={{ color: "#C9A84C" }}>Food·Mood Pro</span>
+          <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.25)" }}>· Portal profesional</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#22c55e" }} />
+          <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.35)" }}>En línea</span>
+        </div>
+      </div>
+
+      {/* Paciente header */}
+      <div className="px-4 pt-4 pb-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-xs font-semibold text-white">María T. · 46 años</span>
+          <span className="text-[9px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(90,155,138,0.2)", color: "#5A9B8A" }}>Sesión 12</span>
+        </div>
+        <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.35)" }}>Última entrada hace 2h · 18 registros esta semana</span>
+      </div>
+
+      {/* Métricas */}
+      <div className="grid grid-cols-3 gap-px" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+        {[
+          { label: "SN dominante", value: "Ventral", color: "#5A9B8A", sub: "últimas 48h" },
+          { label: "Hambre emocional", value: "7.2 / 10", color: "#C9A84C", sub: "↑ desde el lunes" },
+          { label: "Granularidad", value: "↗ mejora", color: "#A07BBE", sub: "3 sesiones" },
+        ].map((m) => (
+          <div key={m.label} className="px-3 py-3" style={{ backgroundColor: "#0f0a0d" }}>
+            <p className="text-[8px] mb-1" style={{ color: "rgba(255,255,255,0.32)" }}>{m.label}</p>
+            <p className="text-xs font-semibold" style={{ color: m.color }}>{m.value}</p>
+            <p className="text-[8px] mt-0.5" style={{ color: "rgba(255,255,255,0.2)" }}>{m.sub}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Patrón detectado */}
+      <div className="px-4 py-3" style={{ borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <p className="text-[8px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(201,168,76,0.55)" }}>Patrón detectado esta semana</p>
+        <div className="flex items-start gap-2.5">
+          <div className="w-1 h-full rounded-full shrink-0 mt-0.5" style={{ backgroundColor: "#C9A84C", minHeight: 28 }} />
+          <p className="text-[10px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>
+            Hambre emocional alta (≥7) en franja 18:00–19:00h tres días consecutivos. Coincide con registros de estrés laboral.
+          </p>
+        </div>
+      </div>
+
+      {/* Prep de sesión */}
+      <div className="px-4 py-3">
+        <p className="text-[8px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "rgba(255,255,255,0.3)" }}>Prep de sesión · 3 preguntas sugeridas</p>
+        {[
+          "¿Qué ocurre en tu cuerpo a las 18h que identifies como hambre?",
+          "¿Qué has intentado para manejar ese momento? ¿Qué funciona?",
+          "¿Qué necesitarías tener a mano en esa franja para sentirte más segura?",
+        ].map((q, i) => (
+          <div key={i} className="flex items-start gap-2 mb-1.5">
+            <span className="text-[8px] font-mono shrink-0 mt-0.5" style={{ color: "rgba(201,168,76,0.45)" }}>0{i + 1}</span>
+            <p className="text-[9px] font-light" style={{ color: "rgba(245,240,232,0.5)" }}>{q}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
-// ─── Animation helpers ────────────────────────────────────────────────────────
-const fade = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
+// ─── Formulario de acceso anticipado ─────────────────────────────────────────
 
-// ─── FAQ item ─────────────────────────────────────────────────────────────────
-function FaqItem({ faq, isOpen, onToggle }: { faq: typeof FAQS[0]; isOpen: boolean; onToggle: () => void }) {
+function EarlyAccessForm({ onClose }: { onClose?: () => void }) {
+  const id = useId()
+  const [form, setForm]     = useState({ name: "", email: "", professional_type: "", patient_count: "", current_tool: "" })
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle")
+
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    setForm(f => ({ ...f, [k]: e.target.value }))
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!form.name || !form.email || !form.professional_type) return
+    setStatus("loading")
+    try {
+      const r = await fetch("/api/early-access", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) })
+      setStatus(r.ok ? "ok" : "error")
+    } catch {
+      setStatus("error")
+    }
+  }
+
+  const inputClass = "w-full rounded-xl px-4 py-3 text-sm font-light outline-none focus:ring-2 transition-all"
+  const inputStyle = { backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#F5F0E8", caretColor: "#C9A84C" }
+
+  if (status === "ok") {
+    return (
+      <div className="text-center py-8 px-4">
+        <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: "rgba(90,155,138,0.18)", border: "1px solid rgba(90,155,138,0.35)" }}>
+          <Check className="w-7 h-7" style={{ color: "#5A9B8A" }} />
+        </div>
+        <h3 className="font-serif text-xl font-semibold text-white mb-3">Solicitud recibida</h3>
+        <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.65)" }}>
+          Nos pondremos en contacto contigo en los próximos días para concretar el acceso anticipado y el onboarding. Gracias por confiar en Food·Mood Pro.
+        </p>
+        {onClose && (
+          <button onClick={onClose} className="mt-6 text-sm font-light underline" style={{ color: "rgba(245,240,232,0.4)" }}>Cerrar</button>
+        )}
+      </div>
+    )
+  }
+
   return (
-    <div className="border-b border-[#6B2737]/10">
+    <form onSubmit={submit} className="flex flex-col gap-4">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor={`${id}-name`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Nombre *</label>
+          <input id={`${id}-name`} value={form.name} onChange={set("name")} required placeholder="Tu nombre" className={inputClass} style={inputStyle} />
+        </div>
+        <div>
+          <label htmlFor={`${id}-email`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Email profesional *</label>
+          <input id={`${id}-email`} type="email" value={form.email} onChange={set("email")} required placeholder="tu@consulta.com" className={inputClass} style={inputStyle} />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor={`${id}-type`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Tipo de profesional *</label>
+        <select id={`${id}-type`} value={form.professional_type} onChange={set("professional_type")} required className={inputClass} style={{ ...inputStyle, backgroundImage: "none" }}>
+          <option value="">Selecciona…</option>
+          {PROFESSIONAL_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+        </select>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor={`${id}-patients`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Pacientes aprox.</label>
+          <input id={`${id}-patients`} value={form.patient_count} onChange={set("patient_count")} placeholder="Ej. 20–40 por mes" className={inputClass} style={inputStyle} />
+        </div>
+        <div>
+          <label htmlFor={`${id}-tool`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>¿Qué herramienta usas hoy?</label>
+          <input id={`${id}-tool`} value={form.current_tool} onChange={set("current_tool")} placeholder="Ej. Nutrium, Google Sheets…" className={inputClass} style={inputStyle} />
+        </div>
+      </div>
+
+      {status === "error" && (
+        <p className="text-xs text-red-400 text-center">Algo salió mal. Inténtalo de nuevo o escríbenos directamente.</p>
+      )}
+
       <button
-        onClick={onToggle}
-        className="w-full flex items-center justify-between py-6 text-left group"
-        aria-expanded={isOpen}
+        type="submit"
+        disabled={status === "loading"}
+        className="w-full py-4 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
+        style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
       >
-        <span className="text-lg md:text-xl font-serif text-[#2d0f16]/90 group-hover:text-[#6B2737] transition-colors pr-8">
-          {faq.q}
-        </span>
-        <ChevronDown
-          className="w-5 h-5 shrink-0 transition-transform duration-300"
-          style={{ color: isOpen ? "#C9A84C" : "rgba(107,39,55,0.4)", transform: isOpen ? "rotate(180deg)" : undefined }}
-          aria-hidden="true"
-        />
+        {status === "loading" ? "Enviando…" : "Solicitar acceso anticipado →"}
+      </button>
+      <p className="text-[10px] text-center font-light" style={{ color: "rgba(245,240,232,0.3)" }}>
+        Sin compromiso. Nos pondremos en contacto en 24–48 h.
+      </p>
+    </form>
+  )
+}
+
+// ─── Modal de acceso anticipado ───────────────────────────────────────────────
+
+function EarlyAccessModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(0,0,0,0.75)" }}
+          onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
+            className="w-full max-w-xl rounded-2xl overflow-hidden"
+            style={{ backgroundColor: "#1a0d14", border: "1px solid rgba(201,168,76,0.2)" }}
+          >
+            <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#C9A84C" }}>Acceso anticipado</p>
+                <h2 className="font-serif text-lg font-semibold text-white leading-snug">Plazas limitadas en esta fase</h2>
+              </div>
+              <button onClick={onClose} className="p-1.5 rounded-lg transition-colors hover:bg-white/10" aria-label="Cerrar">
+                <X className="w-4 h-4" style={{ color: "rgba(245,240,232,0.45)" }} />
+              </button>
+            </div>
+            <div className="px-6 py-5">
+              <EarlyAccessForm onClose={onClose} />
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+
+function FaqItem({ faq, isOpen, onToggle }: { faq: (typeof FAQS)[0]; isOpen: boolean; onToggle: () => void }) {
+  return (
+    <div style={{ borderBottom: "1px solid rgba(107,39,55,0.1)" }}>
+      <button onClick={onToggle} className="w-full flex items-center justify-between py-5 text-left group" aria-expanded={isOpen}>
+        <span className="text-base md:text-lg font-serif pr-8 group-hover:text-[#6B2737] transition-colors" style={{ color: "#2d0f16" }}>{faq.q}</span>
+        <ChevronDown className="w-4 h-4 shrink-0 transition-transform duration-300" style={{ color: isOpen ? "#C9A84C" : "rgba(107,39,55,0.35)", transform: isOpen ? "rotate(180deg)" : undefined }} />
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
-            className="overflow-hidden"
-          >
-            <p className="pb-6 font-light leading-relaxed text-[15px] sm:pr-12" style={{ color: "rgba(107,39,55,0.65)" }}>
-              {faq.a}
-            </p>
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }} className="overflow-hidden">
+            <p className="pb-5 text-sm font-light leading-relaxed sm:pr-10" style={{ color: "rgba(107,39,55,0.65)" }}>{faq.a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -87,325 +270,175 @@ function FaqItem({ faq, isOpen, onToggle }: { faq: typeof FAQS[0]; isOpen: boole
   )
 }
 
-// ─── Phone screens ────────────────────────────────────────────────────────────
-function TestScreen() {
+// ─── Toggle precio ────────────────────────────────────────────────────────────
+
+function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
+  const [annual, setAnnual] = useState(false)
+
+  const plans = [
+    {
+      name: "Profesional",
+      monthly: 39,
+      description: "Para profesionales independientes con consulta propia.",
+      patients: "Hasta 40 pacientes",
+      features: ["Portal profesional completo", "Companion app para cada paciente", "Resumen semanal de sesión", "Patrones y alertas adaptativas", "Soporte por email"],
+      highlight: false,
+    },
+    {
+      name: "Clínica",
+      monthly: 99,
+      description: "Para equipos multiprofesionales y centros de salud.",
+      patients: "Pacientes ilimitados",
+      features: ["Todo lo de Profesional", "Hasta 5 profesionales", "Panel de equipo compartido", "Exportación de datos", "Soporte prioritario + onboarding"],
+      highlight: true,
+    },
+  ]
+
   return (
-    <div className="h-full flex flex-col p-4" style={{ backgroundColor: "#F5F0E8" }}>
-      <div className="flex justify-between items-center text-[8px] font-medium pt-8 pb-4" style={{ color: "rgba(45,15,22,0.3)" }}>
-        <span>9:41</span><span>●●●</span>
-      </div>
-      <div className="flex gap-0.5 mb-5">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="h-0.5 flex-1 rounded-full" style={{ backgroundColor: i < 2 ? "#C9A84C" : "rgba(107,39,55,0.12)" }} />
-        ))}
-      </div>
-      <p className="text-[8px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(107,39,55,0.6)" }}>Pregunta 2 de 8</p>
-      <h3 className="font-serif text-xs font-bold leading-snug mb-4" style={{ color: "#2d0f16" }}>¿Cómo te sientes ahora mismo?</h3>
-      <div className="flex flex-col gap-1.5">
-        {[
-          { e: "⚡", l: "Activo y con energía", s: true },
-          { e: "🌿", l: "Tranquilo y en calma", s: false },
-          { e: "😰", l: "Con ansiedad", s: false },
-          { e: "😔", l: "Sin energía", s: false },
-        ].map(o => (
-          <div key={o.l} className="flex items-center gap-2 px-3 py-2 rounded-xl text-[9px] font-medium"
-            style={o.s ? { backgroundColor: "#C9A84C", color: "#2d0f16" } : { backgroundColor: "rgba(107,39,55,0.08)", color: "rgba(107,39,55,0.82)" }}>
-            <span>{o.e}</span><span>{o.l}</span>
+    <section id="precios" aria-label="Precios" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-14">
+          <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Precios</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06 }} className="font-serif text-3xl md:text-4xl leading-tight mb-6" style={{ color: "#2d0f16" }}>
+            Pricing de referencia.{" "}
+            <em className="font-light italic" style={{ color: "#6B2737" }}>En esta fase, acceso por solicitud.</em>
+          </motion.h2>
+
+          {/* Toggle */}
+          <div className="inline-flex items-center gap-3 p-1 rounded-full" style={{ backgroundColor: "rgba(107,39,55,0.07)", border: "1px solid rgba(107,39,55,0.1)" }}>
+            <button onClick={() => setAnnual(false)} className="px-4 py-2 rounded-full text-xs font-semibold transition-all" style={{ backgroundColor: !annual ? "white" : "transparent", color: !annual ? "#2d0f16" : "rgba(107,39,55,0.5)", boxShadow: !annual ? "0 1px 4px rgba(0,0,0,0.12)" : undefined }}>Mensual</button>
+            <button onClick={() => setAnnual(true)}  className="px-4 py-2 rounded-full text-xs font-semibold transition-all" style={{ backgroundColor: annual ? "white" : "transparent", color: annual ? "#2d0f16" : "rgba(107,39,55,0.5)", boxShadow: annual ? "0 1px 4px rgba(0,0,0,0.12)" : undefined }}>
+              Anual <span className="ml-1 text-[10px] font-bold" style={{ color: "#5A9B8A" }}>–2 meses</span>
+            </button>
           </div>
-        ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
+          {plans.map((plan) => {
+            const price = annual ? Math.round(plan.monthly * 10 / 12) : plan.monthly
+            return (
+              <motion.div
+                key={plan.name}
+                initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                className="rounded-2xl p-8 flex flex-col relative overflow-hidden"
+                style={{
+                  backgroundColor: plan.highlight ? "#2d0f16" : "white",
+                  border: plan.highlight ? "1px solid rgba(201,168,76,0.3)" : "1px solid rgba(107,39,55,0.1)",
+                }}
+              >
+                {plan.highlight && (
+                  <span className="absolute top-5 right-5 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.25)" }}>
+                    Más popular
+                  </span>
+                )}
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: plan.highlight ? "rgba(201,168,76,0.6)" : "rgba(107,39,55,0.4)" }}>{plan.name}</p>
+                <div className="flex items-end gap-1.5 mb-1">
+                  <span className="font-serif font-bold leading-none" style={{ fontSize: "2.6rem", color: plan.highlight ? "#F5F0E8" : "#2d0f16" }}>{price}€</span>
+                  <span className="text-xs font-light mb-2" style={{ color: plan.highlight ? "rgba(245,240,232,0.4)" : "rgba(107,39,55,0.4)" }}>/mes</span>
+                </div>
+                {annual && <p className="text-[10px] mb-1" style={{ color: plan.highlight ? "rgba(245,240,232,0.35)" : "rgba(107,39,55,0.35)" }}>Facturado anualmente ({plan.monthly * 10}€/año)</p>}
+                <p className="text-xs font-light mb-1.5" style={{ color: plan.highlight ? "rgba(245,240,232,0.55)" : "rgba(107,39,55,0.55)" }}>{plan.description}</p>
+                <p className="text-xs font-semibold mb-5 pb-5" style={{ color: plan.highlight ? "#C9A84C" : "#6B2737", borderBottom: `1px solid ${plan.highlight ? "rgba(201,168,76,0.12)" : "rgba(107,39,55,0.08)"}` }}>{plan.patients}</p>
+                <ul className="flex flex-col gap-2.5 mb-8 flex-1">
+                  {plan.features.map(f => (
+                    <li key={f} className="flex items-center gap-2.5 text-sm font-light">
+                      <Check className="w-3.5 h-3.5 shrink-0" style={{ color: plan.highlight ? "#5A9B8A" : "#6B2737" }} />
+                      <span style={{ color: plan.highlight ? "rgba(245,240,232,0.75)" : "rgba(45,15,22,0.7)" }}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  onClick={onRequestAccess}
+                  className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98]"
+                  style={{
+                    backgroundColor: plan.highlight ? "#C9A84C" : "rgba(107,39,55,0.08)",
+                    color: plan.highlight ? "#0f0a0d" : "#6B2737",
+                    border: plan.highlight ? undefined : "1px solid rgba(107,39,55,0.18)",
+                  }}
+                >
+                  Solicitar acceso anticipado →
+                </button>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        <p className="text-xs text-center font-light" style={{ color: "rgba(107,39,55,0.4)" }}>
+          Las plazas de acceso anticipado incluyen condiciones especiales a cambio de feedback. Sin compromiso de permanencia.
+        </p>
       </div>
-      <div className="mt-auto pt-3">
-        <div className="w-full py-2.5 rounded-xl text-[9px] font-bold text-center text-white" style={{ backgroundColor: "#6B2737" }}>Siguiente →</div>
-      </div>
-    </div>
+    </section>
   )
 }
 
-function PaletaScreen() {
-  return (
-    <div className="h-full flex flex-col p-4" style={{ backgroundColor: "#1e0d12" }}>
-      <div className="flex justify-between items-center text-[8px] font-medium pt-8 pb-4" style={{ color: "rgba(245,240,232,0.55)" }}>
-        <span>9:41</span><span>●●●</span>
-      </div>
-      <p className="text-[8px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(201,168,76,0.9)" }}>Tu paleta de hoy</p>
-      <h3 className="font-serif text-xs font-bold text-white leading-snug mb-5">
-        Estado dominante: <span style={{ color: "#C9A84C" }}>Calma</span>
-      </h3>
-      <div className="flex flex-col gap-3 mb-4">
-        {[
-          { label: "Calma", pct: 68, color: "#5A9B8A" },
-          { label: "Foco", pct: 32, color: "#4A7AB5" },
-          { label: "Energía", pct: 18, color: "#C9A84C" },
-        ].map(b => (
-          <div key={b.label}>
-            <div className="flex justify-between text-[8px] mb-1">
-              <span style={{ color: "rgba(245,240,232,0.8)" }}>{b.label}</span>
-              <span style={{ color: b.color }}>{b.pct}%</span>
-            </div>
-            <div className="w-full h-1 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
-              <div className="h-full rounded-full" style={{ width: `${b.pct}%`, backgroundColor: b.color }} />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex gap-1 mb-5">
-        {["#5A9B8A","#5A9B8A","#5A9B8A","#4A7AB5","#4A7AB5","#C9A84C"].map((c, i) => (
-          <div key={i} className="flex-1 h-5 rounded" style={{ backgroundColor: c, opacity: 0.75 }} />
-        ))}
-      </div>
-      <div className="mt-auto">
-        <div className="w-full py-2.5 rounded-xl text-[9px] font-bold text-center" style={{ backgroundColor: "#C9A84C", color: "#1e0d12" }}>Ver receta del día →</div>
-      </div>
-    </div>
-  )
-}
+// ─── Página ───────────────────────────────────────────────────────────────────
 
-function RecetaScreen() {
-  return (
-    <div className="h-full flex flex-col" style={{ backgroundColor: "#F5F0E8" }}>
-      <div className="h-24 flex flex-col items-center justify-end pb-3 relative" style={{ backgroundColor: "#2d0f16" }}>
-        <div className="absolute top-0 left-0 right-0 flex justify-between items-center text-[8px] font-medium pt-8 px-4" style={{ color: "rgba(245,240,232,0.6)" }}>
-          <span>9:41</span><span>●●●</span>
-        </div>
-        <div className="px-2 py-0.5 rounded-full text-[7px] font-bold uppercase tracking-widest mb-1" style={{ backgroundColor: "rgba(90,155,138,0.25)", color: "#5A9B8A" }}>Calma</div>
-        <p className="font-serif text-[10px] font-bold text-white text-center px-4 leading-tight">Bowl de miso y aguacate</p>
-      </div>
-      <div className="flex flex-col flex-1 p-3 gap-2">
-        <p className="text-[8px] font-light" style={{ color: "rgba(107,39,55,0.7)" }}>Para tu estado de hoy</p>
-        <div className="flex flex-col gap-1">
-          {["Triptófano → serotonina","Omega-3 antiinflamatorio","Magnesio nervioso central"].map(item => (
-            <div key={item} className="flex items-start gap-1.5 text-[8px]" style={{ color: "rgba(107,39,55,0.85)" }}>
-              <span style={{ color: "#C9A84C" }}>·</span>{item}
-            </div>
-          ))}
-        </div>
-        <div className="flex gap-1 flex-wrap">
-          {["🥑 Aguacate","🍶 Miso","🌿 Cilantro"].map(ing => (
-            <span key={ing} className="text-[7px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(107,39,55,0.10)", color: "rgba(107,39,55,0.78)" }}>{ing}</span>
-          ))}
-        </div>
-        <div className="flex gap-2 text-[7px]" style={{ color: "rgba(107,39,55,0.62)" }}>
-          <span>⏱ 20 min</span><span>🌱 Vegano</span>
-        </div>
-        <div className="mt-auto">
-          <div className="w-full py-2 rounded-xl text-[8px] font-bold text-center text-white" style={{ backgroundColor: "#6B2737" }}>Ver receta completa →</div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function PhoneMockup({ screen, featured = false, dimmed = false }: {
-  screen: "test" | "paleta" | "receta"
-  featured?: boolean
-  dimmed?: boolean
-}) {
-  return (
-    <div
-      className="relative mx-auto rounded-[2.5rem] overflow-hidden"
-      style={{
-        width: "100%",
-        aspectRatio: "9/19",
-        border: `${featured ? "2" : "1.5"}px solid ${featured ? "rgba(201,168,76,0.35)" : "rgba(255,255,255,0.07)"}`,
-        boxShadow: featured
-          ? "0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.08)"
-          : "0 20px 40px rgba(0,0,0,0.4)",
-        opacity: dimmed ? 0.82 : 1,
-        backgroundColor: "#111",
-      }}
-    >
-      <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 h-3.5 rounded-full z-10" style={{ backgroundColor: "#000" }} />
-      <div className="absolute inset-[2px] rounded-[2.4rem] overflow-hidden">
-        {screen === "test" && <TestScreen />}
-        {screen === "paleta" && <PaletaScreen />}
-        {screen === "receta" && <RecetaScreen />}
-      </div>
-    </div>
-  )
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
-export default function Home() {
-  const [openFaqs, setOpenFaqs] = useState<Set<number>>(new Set())
+export default function ProLanding() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [openFaqs, setOpenFaqs]   = useState<Set<number>>(new Set())
   const toggleFaq = (i: number) => setOpenFaqs(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s })
-  const [testimoniosOpen, setTestimoniosOpen] = useState(false)
 
-  // WebMCP — expose site tools to AI agents via the browser
-  useEffect(() => {
-    if (typeof navigator === 'undefined' || !('modelContext' in navigator)) return
-    type MC = { registerTool: (tool: object, opts?: object) => void }
-    const mc = (navigator as unknown as { modelContext: MC }).modelContext
-    const ac = new AbortController()
-
-    mc.registerTool({
-      name: 'search_recipes',
-      title: 'Search Food·Mood recipes',
-      description: 'Search functional recipes by emotional state or ingredient.',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          mood:  { type: 'string', description: 'Emotional state — e.g. ansiedad, calma, energía, foco, sueño' },
-          query: { type: 'string', description: 'Free-text ingredient or keyword' },
-        },
-      },
-      execute: async (input: { mood?: string; query?: string }) => {
-        const params = new URLSearchParams()
-        if (input.mood)  params.set('mood', input.mood)
-        if (input.query) params.set('q', input.query)
-        const res = await fetch(`/api/recetas?${params}`)
-        if (!res.ok) return { error: 'Failed to fetch recipes' }
-        return res.json()
-      },
-      annotations: { readOnlyHint: true },
-    }, { signal: ac.signal })
-
-    mc.registerTool({
-      name: 'start_mood_test',
-      title: 'Start the Food·Mood emotional quiz',
-      description: 'Navigates the user to the emotional-state quiz that recommends personalised functional recipes.',
-      inputSchema: { type: 'object', properties: {} },
-      execute: async () => {
-        window.location.href = '/test'
-        return { navigating: true, url: '/test' }
-      },
-    }, { signal: ac.signal })
-
-    mc.registerTool({
-      name: 'subscribe_newsletter',
-      title: 'Subscribe to Food·Mood newsletter',
-      description: 'Subscribe an email address to the weekly Food·Mood newsletter.',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          email: { type: 'string', format: 'email', description: 'Email address to subscribe' },
-        },
-        required: ['email'],
-      },
-      execute: async (input: { email: string }) => {
-        const res = await fetch('/api/leads', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: input.email, source: 'webmcp' }),
-        })
-        if (!res.ok) return { error: 'Subscription failed' }
-        return { success: true, message: 'Subscribed to Food·Mood newsletter' }
-      },
-      annotations: { untrustedContentHint: false },
-    }, { signal: ac.signal })
-
-    return () => ac.abort()
-  }, [])
+  const open = () => setModalOpen(true)
 
   return (
-    <main className="min-h-screen bg-[#F5F0E8] overflow-hidden font-sans font-light">
-
-      {/* Schema.org */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        name: "Cómo funciona Food·Mood",
-        description: "Acompañamiento nutricional basado en el eje intestino-cerebro para mujeres 40+.",
-        step: [
-          { "@type": "HowToStep", position: 1, name: "Cuéntale cómo estás", text: "Dos minutos. Sin tecnicismos. Cómo te sientes hoy y qué te preocupa." },
-          { "@type": "HowToStep", position: 2, name: "Recibe tu propuesta del día", text: "Una receta, una microacción y una explicación corta del porqué." },
-          { "@type": "HowToStep", position: 3, name: "Vuelve mañana", text: "Cuanto más la usas, más te conoce. Cuanto más te conoce, mejor te acompaña." },
-        ],
-      }) }} />
+    <main className="min-h-screen overflow-hidden font-sans font-light" style={{ backgroundColor: "#F5F0E8" }}>
+      <EarlyAccessModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       {/* ── 1. HERO ───────────────────────────────────────────────────────────── */}
-      <section
-        aria-label="Hero"
-        className="relative overflow-hidden"
-        style={{ backgroundColor: "#1a0910" }}
-      >
-        {/* Subtle background texture */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/hero/hero-neurogastronomy.jpg')", opacity: 0.12 }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(135deg, rgba(26,9,16,0.97) 0%, rgba(26,9,16,0.82) 100%)" }}
-          aria-hidden="true"
-        />
+      <section aria-label="Hero" className="relative overflow-hidden" style={{ backgroundColor: "#0f0a0d" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 70% 40%, rgba(107,39,55,0.18) 0%, transparent 70%)" }} aria-hidden="true" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
 
-            {/* ── LEFT: copy ───────────────────────────────────────────────── */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
-            >
-              {/* Eyebrow badge */}
-              <div
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
-                style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.22)" }}
-              >
-                <span className="text-[10px] font-bold uppercase tracking-[0.26em]" style={{ color: "#C9A84C" }}>
-                  Nutrición neuroactiva · Femtech
-                </span>
+            {/* Copy */}
+            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.2, 0.8, 0.2, 1] }}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8" style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)" }}>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#22c55e" }} />
+                <span className="text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: "#C9A84C" }}>Acceso anticipado · Plazas limitadas</span>
               </div>
 
-              {/* H1 */}
-              <h1 className="font-serif text-3xl md:text-[2.6rem] lg:text-5xl font-bold text-white leading-[1.1] mb-6">
-                Hay una etapa en la que cuidarte deja de ser opcional.
+              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.1] mb-6" style={{ letterSpacing: "-0.02em" }}>
+                Lo que tu paciente siente entre sesiones también es{" "}
+                <em className="font-light italic" style={{ color: "#C9A84C" }}>dato clínico.</em>
               </h1>
 
-              {/* Subtitle */}
-              <p className="text-base md:text-lg font-light leading-relaxed mb-10" style={{ color: "rgba(245,240,232,0.72)" }}>
-                Food·Mood te acompaña con nutrición emocional y preventiva: una IA especializada que traduce cómo te sientes en recetas funcionales, micro-rituales y hábitos diarios para sostener energía, calma, foco y equilibrio hormonal.
+              <p className="text-base md:text-lg font-light leading-relaxed mb-10" style={{ color: "rgba(245,240,232,0.65)", maxWidth: "52ch" }}>
+                Food·Mood Pro es una plataforma profesional de psiconutrición asistida por IA que captura emoción, interocepción, hambre emocional, pensamientos y patrones conductuales para convertir el día a día del paciente en información útil para consulta.
               </p>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <Link
-                  href="/test"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-                  style={{ backgroundColor: "#C9A84C", color: "#1a0910" }}
-                >
-                  Hacer el test gratis
-                </Link>
+              <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
                 <button
-                  onClick={() => document.getElementById("sintomas")?.scrollIntoView({ behavior: "smooth" })}
-                  className="inline-flex items-center gap-1.5 text-sm font-light transition-opacity hover:opacity-70 bg-transparent border-none cursor-pointer"
-                  style={{ color: "rgba(245,240,232,0.55)" }}
+                  onClick={open}
+                  className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
+                  style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
+                >
+                  Solicitar acceso anticipado
+                </button>
+                <button
+                  onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
+                  className="inline-flex items-center gap-2 text-sm font-light transition-opacity hover:opacity-70 bg-transparent border-none cursor-pointer"
+                  style={{ color: "rgba(245,240,232,0.5)" }}
                 >
                   Ver cómo funciona <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
+
+              {/* Trust signals */}
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
+                {["RGPD por diseño", "Sin coste para pacientes", "No es dispositivo médico EU AI Act"].map(t => (
+                  <span key={t} className="flex items-center gap-1.5 text-[10px] font-light" style={{ color: "rgba(245,240,232,0.38)" }}>
+                    <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "rgba(245,240,232,0.25)" }} />
+                    {t}
+                  </span>
+                ))}
+              </div>
             </motion.div>
 
-            {/* ── RIGHT: phone mockups ──────────────────────────────────────── */}
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, delay: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-              className="flex flex-col items-center gap-2"
-            >
-              <p className="text-[10px] font-bold uppercase tracking-[0.28em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
-                La app · Simple. Personal. Tuya.
-              </p>
-
-              <div className="flex items-end justify-center gap-4 w-full">
-                {/* Test phone */}
-                <div className="flex flex-col items-center gap-3" style={{ width: 160 }}>
-                  <PhoneMockup screen="test" dimmed />
-                  <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.55)" }}>Test emocional</p>
-                </div>
-                {/* Paleta phone — featured */}
-                <div className="flex flex-col items-center gap-3" style={{ width: 180 }}>
-                  <PhoneMockup screen="paleta" featured />
-                  <p className="text-[11px] font-light" style={{ color: "rgba(245,240,232,0.82)" }}>Tu paleta emocional</p>
-                </div>
-              </div>
-
-              <p className="text-[9px] font-light mt-4" style={{ color: "rgba(245,240,232,0.28)" }}>
-                Interfaz real · Sin filtros
-              </p>
+            {/* Dashboard mockup */}
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.85, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}>
+              <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(201,168,76,0.4)" }}>Vista profesional · Prep de sesión</p>
+              <DashboardMock />
             </motion.div>
 
           </div>
@@ -413,704 +446,302 @@ export default function Home() {
       </section>
 
       {/* ── TRUST BAR ─────────────────────────────────────────────────────────── */}
-      <div style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.08)" }}>
-        <div className="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-center justify-center gap-y-3 gap-x-0">
+      <div style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
+        <div className="max-w-5xl mx-auto px-6 py-4 flex flex-wrap items-center justify-center gap-y-2 gap-x-0">
           {[
-            { icon: "🧬", text: "Nutrición neuroactiva y cronobiología" },
-            { icon: "🌙", text: "Adaptado a tu ciclo menstrual" },
-            { icon: "🧠", text: "Eje intestino–cerebro" },
-            { icon: "🔒", text: "Tus datos, siempre privados" },
+            { text: "Psicólogas · Nutricionistas · Psiconutricionistas" },
+            { text: "Datos cifrados · Hosting EU" },
+            { text: "IA transparente · Art. 50 EU AI Act" },
+            { text: "Sin coste para el paciente" },
           ].map((item, i) => (
-            <div key={i} className="flex items-center gap-2 px-6 md:border-r last:border-r-0" style={{ borderColor: "rgba(107,39,55,0.12)" }}>
-              <span aria-hidden="true">{item.icon}</span>
-              <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.58)" }}>{item.text}</span>
+            <div key={i} className="flex items-center gap-2 px-5 md:border-r last:border-r-0" style={{ borderColor: "rgba(107,39,55,0.1)" }}>
+              <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.52)" }}>{item.text}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ── TRUST PILLS: offline + a11y ────────────────────────────────────── */}
-      <div className="py-4 px-6" style={{ backgroundColor: "#F5F0E8" }}>
-        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-3">
-          {[
-            { icon: "📵", text: "Funciona sin WiFi", href: "/accesibilidad#offline" },
-            { icon: "🌙", text: "Modo oscuro incluido", href: "/accesibilidad#pantalla" },
-            { icon: "♿", text: "Accesible — WCAG 2.1", href: "/accesibilidad" },
-          ].map((pill) => (
-            <Link
-              key={pill.text}
-              href={pill.href}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-light transition-opacity hover:opacity-75"
-              style={{
-                backgroundColor: "rgba(107,39,55,0.06)",
-                border: "1px solid rgba(107,39,55,0.12)",
-                color: "rgba(107,39,55,0.65)",
-              }}
-            >
-              <span aria-hidden="true">{pill.icon}</span>
-              {pill.text}
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* ── IA ESPECIALIZADA ─────────────────────────────────────────────────── */}
-      <section aria-label="IA especializada en nutrición emocional" className="py-14 md:py-20 px-6" style={{ backgroundColor: "#F0EBE2", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4"
-            style={{ color: "rgba(107,39,55,0.45)" }}
-          >
-            No es una IA genérica de recetas
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-xl md:text-2xl leading-relaxed"
-            style={{ color: "#2C1810" }}
-          >
-            Food·Mood usa una base de conocimiento propia sobre microbiota, perimenopausia, interocepción, crononutrición y eje intestino-cerebro para traducir cómo te sientes en una propuesta concreta: una receta funcional, una microacción y una explicación sencilla.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-4 text-sm font-light"
-            style={{ color: "rgba(44,24,16,0.55)" }}
-          >
-            Sin dietas. Sin culpa. Solo placer guiado por ciencia.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* ── 2. ¿TE IDENTIFICAS? ──────────────────────────────────────────────── */}
-      <section id="sintomas" aria-label="Síntomas de perimenopausia y menopausia" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.06 } } }}
-          >
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.45)" }}>
-              Síntomas
-            </motion.p>
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-tight mb-12">
-              ¿Te identificas con alguno de estos?
+      {/* ── 2. EL PROBLEMA ────────────────────────────────────────────────────── */}
+      <section id="como-funciona" aria-label="El problema" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-5xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "rgba(107,39,55,0.4)" }}>El problema</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl leading-tight mb-6" style={{ color: "#2d0f16", maxWidth: "22ch" }}>
+              El software nutricional clásico mide lo tangible.
             </motion.h2>
+            <motion.p variants={fade} className="text-base md:text-lg font-light leading-relaxed mb-14" style={{ color: "rgba(107,39,55,0.65)", maxWidth: "60ch" }}>
+              Pero el cambio real ocurre donde casi nadie tiene visibilidad.
+            </motion.p>
+          </motion.div>
 
-            <motion.div variants={fade} className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 mb-12">
-              {[
-                "Sofocos y sudoración nocturna",
-                "Sueño que se rompe entre las 3 y las 5",
-                "Niebla mental, «no encuentro la palabra»",
-                "Ansiedad que aparece sin causa clara",
-                "Tristeza sin nombre, irritabilidad fácil",
-                "Peso que cambia aunque comas igual que antes",
-                "Hinchazón abdominal, digestiones lentas",
-                "Dolor articular, hombro o cadera que no se va",
-                "Sequedad de piel, ojos, mucosas",
-                "Migrañas que cambian de patrón",
-                "Caída de pelo, cambios en uñas",
-                "Cansancio que no se quita con dormir",
-                "Antojos al final del día que no controlas",
-                "Libido baja, ausente o cambiante",
-              ].map((symptom) => (
-                <div
-                  key={symptom}
-                  className="flex items-center gap-3 py-3"
-                  style={{ borderBottom: "1px solid rgba(107,39,55,0.07)" }}
-                >
-                  <span className="shrink-0 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#6B2737" }} />
-                  <span className="text-sm font-light" style={{ color: "rgba(107,39,55,0.72)" }}>{symptom}</span>
+          <div className="grid md:grid-cols-2 gap-6 mb-14">
+            {/* Lo que ya tienes */}
+            <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl p-7" style={{ backgroundColor: "rgba(90,155,138,0.07)", border: "1px solid rgba(90,155,138,0.18)" }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: "#5A9B8A" }}>Lo que ya tienes cubierto</p>
+              {["Plan nutricional", "Macros y micronutrientes", "Antropometría", "Agenda de citas", "Historia clínica"].map(item => (
+                <div key={item} className="flex items-center gap-3 py-2.5" style={{ borderBottom: "1px solid rgba(90,155,138,0.1)" }}>
+                  <Check className="w-4 h-4 shrink-0" style={{ color: "#5A9B8A" }} />
+                  <span className="text-sm font-light" style={{ color: "rgba(45,15,22,0.7)" }}>{item}</span>
                 </div>
               ))}
             </motion.div>
 
-            <motion.div variants={fade} className="rounded-2xl px-8 py-8" style={{ backgroundColor: "rgba(107,39,55,0.05)", border: "1px solid rgba(107,39,55,0.1)" }}>
-              <p className="text-base font-light leading-relaxed mb-6" style={{ color: "rgba(107,39,55,0.72)" }}>
-                Si has marcado dos o más, hay una transición en curso —perimenopausia o menopausia— que probablemente nadie te ha explicado a fondo. Empieza por el test y le ponemos nombre.
-              </p>
-              <Link
-                href="/test"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:brightness-110"
-                style={{ backgroundColor: "#6B2737", color: "#F5F0E8" }}
-              >
-                Hacer el test gratis <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── 3. LONGEVIDAD FEMENINA ───────────────────────────────────────────── */}
-      <section aria-label="Por qué importa lo que comes ahora" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#f7f5f0" }}>
-        <div className="max-w-5xl mx-auto">
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="text-[10px] font-bold uppercase tracking-[0.32em] mb-12"
-            style={{ color: "#9e4f6e" }}
-          >
-            Por qué importa lo que comes ahora
-          </motion.p>
-
-          {/* Stat card + narrative */}
-          <div className="grid md:grid-cols-2 gap-10 mb-14 items-start">
-
-            {/* Dark stat card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-              className="rounded-2xl p-10 flex flex-col gap-6 relative overflow-hidden"
-              style={{ backgroundColor: "#141210", color: "#e8e4dc" }}
-            >
-              <div
-                className="absolute top-0 right-0 w-44 h-44 pointer-events-none"
-                style={{ background: "radial-gradient(circle at top right, rgba(158,79,110,0.18) 0%, transparent 70%)" }}
-                aria-hidden="true"
-              />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#8a8579" }}>
-                GWI 2026 · OMS
-              </span>
-              <div>
-                <div className="font-serif leading-none" style={{ fontSize: "clamp(3rem,8vw,5rem)", color: "#fff", letterSpacing: "-0.03em" }}>
-                  5 <span className="font-serif italic" style={{ fontSize: "0.52em", color: "rgba(255,255,255,0.42)" }}>años más</span>
+            {/* Lo que no ves */}
+            <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="rounded-2xl p-7" style={{ backgroundColor: "rgba(107,39,55,0.04)", border: "1px solid rgba(107,39,55,0.14)" }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: "#6B2737" }}>Lo que pasa entre sesiones</p>
+              {["El atracón del martes a las 7 pm", "La ansiedad antes de comer", "La desconexión corporal", "El pensamiento autopunitivo", "La adherencia real (no la declarada)"].map(item => (
+                <div key={item} className="flex items-center gap-3 py-2.5" style={{ borderBottom: "1px solid rgba(107,39,55,0.07)" }}>
+                  <span className="text-xs font-mono shrink-0" style={{ color: "rgba(107,39,55,0.3)" }}>?</span>
+                  <span className="text-sm font-light" style={{ color: "rgba(107,39,55,0.65)" }}>{item}</span>
                 </div>
-                <p className="text-sm font-light leading-relaxed mt-3" style={{ color: "#8a8579", maxWidth: "26ch" }}>
-                  Las mujeres viven más que los hombres, pero pasan más años gestionando el declive.
-                </p>
-              </div>
-              <div
-                className="rounded-lg p-4 text-sm font-light leading-relaxed"
-                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", color: "#e8e4dc" }}
-              >
-                <strong className="font-semibold" style={{ color: "#fff" }}>No es cuestión de longevidad. Es cuestión de healthspan.</strong>
-                {" "}Cuántos de esos años se viven con energía, claridad y bienestar real.
-              </div>
-            </motion.div>
-
-            {/* Copy narrative */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: 0.12 }}
-              className="flex flex-col gap-6 pt-2"
-            >
-              <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] text-[#1e1b14]" style={{ letterSpacing: "-0.025em" }}>
-                Vivir más años no es lo mismo que{" "}
-                <em className="font-light italic" style={{ color: "#9e4f6e" }}>vivir bien más años.</em>
-              </h2>
-              <p className="text-base font-light leading-relaxed" style={{ color: "#6b6659", maxWidth: "52ch" }}>
-                La perimenopausia y la menopausia no son el final de nada: son una transición biológica que llega sin manual de instrucciones. Lo que comes —y cómo lo comes— puede cambiar radicalmente cómo transitas esa etapa. La ciencia lo sabe. Food·Mood lo traduce.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Perimenopausia y energía",
-                  "Sueño, cortisol y antojos",
-                  "Microbiota y claridad mental",
-                  "Hormonas y estado de ánimo",
-                ].map((tag) => (
-                  <span
-                    key={tag}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium"
-                    style={{ backgroundColor: "#fff", border: "1px solid rgba(40,30,10,0.10)", color: "#6b6659" }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#9e4f6e" }} aria-hidden="true" />
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  href="/test"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-                  style={{ backgroundColor: "#4a7c59", color: "#fff" }}
-                >
-                  Hacer el test gratis <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/como-funciona"
-                  className="text-sm font-medium transition-colors hover:opacity-70 border-b"
-                  style={{ color: "#6b6659", borderColor: "rgba(40,30,10,0.12)", paddingBottom: "1px" }}
-                >
-                  Ver cómo funciona ↗
-                </Link>
+              ))}
+              <div className="mt-5 rounded-xl px-4 py-3" style={{ backgroundColor: "rgba(107,39,55,0.07)" }}>
+                <p className="text-xs font-light italic" style={{ color: "rgba(107,39,55,0.55)" }}>Vive en WhatsApp, en la memoria y en notas sueltas.</p>
               </div>
             </motion.div>
           </div>
 
-          {/* Feature cards row */}
-          <div className="grid sm:grid-cols-3 gap-4 mb-12">
-            {[
-              {
-                icon: "🧠",
-                title: "Niebla mental y microbiota",
-                body: "Gran parte de la serotonina corporal se produce en el intestino. Por eso, alimentación, microbiota y digestión pueden influir en cómo te sientes, piensas y descansas.",
-              },
-              {
-                icon: "🌙",
-                title: "Sueño roto y cortisol",
-                body: "El patrón de despertar entre las 3 y las 5h no es solo estrés: lo que comes puede influir en la regulación del cortisol y los niveles hormonales.",
-              },
-              {
-                icon: "🔥",
-                title: "Inflamación silenciosa",
-                body: "La bajada de estrógenos favorece procesos inflamatorios. Ciertos alimentos pueden ayudar a modular esa respuesta. Food·Mood te indica cuáles y cuándo.",
-              },
-            ].map((card, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="rounded-xl p-6 flex flex-col gap-3 transition-all hover:-translate-y-0.5 hover:shadow-md"
-                style={{ backgroundColor: "#f7f5f0", border: "1px solid rgba(40,30,10,0.09)" }}
-              >
-                <span className="text-2xl leading-none" aria-hidden="true">{card.icon}</span>
-                <h3 className="font-serif text-base font-semibold leading-snug" style={{ color: "#1e1b14" }}>{card.title}</h3>
-                <p className="text-sm font-light leading-relaxed" style={{ color: "#6b6659" }}>{card.body}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Science note */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl p-7"
-            style={{
-              background: "linear-gradient(105deg, #f5e8ee 0%, #fdf6ee 100%)",
-              border: "1px solid rgba(158,79,110,0.12)",
-            }}
-          >
-            <span className="text-4xl leading-none shrink-0" aria-hidden="true">🔬</span>
-            <div>
-              <strong className="block font-serif text-lg font-semibold mb-1" style={{ color: "#1e1b14" }}>
-                Base científica, no promesas.
-              </strong>
-              <p className="text-sm font-light leading-relaxed" style={{ color: "#6b6659" }}>
-                Cada recomendación está respaldada por literatura sobre perimenopausia, eje intestino-cerebro y psiconutrición. Un equipo experto supervisa cada protocolo. Cuando algo no tiene evidencia clara, te lo decimos.
-              </p>
-            </div>
+          <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl px-8 py-8 text-center" style={{ backgroundColor: "#2d0f16" }}>
+            <p className="font-serif text-xl md:text-2xl text-white leading-relaxed">
+              Tus pacientes no fallan por falta de información.{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Fallan por lo que sienten, repiten y no consiguen ver.</em>
+            </p>
           </motion.div>
-
         </div>
       </section>
 
-      {/* ── 4. TRES COSAS QUE TE DA ──────────────────────────────────────────── */}
-
-      <section aria-label="Qué te ofrece Food·Mood" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
+      {/* ── 3. LA SOLUCIÓN — 4 MÓDULOS ───────────────────────────────────────── */}
+      <section aria-label="La solución" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.55)" }}>
-              Qué te ofrecemos
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              Tres cosas que la app te da,{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>todos los días.</em>
-            </h2>
-          </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-14">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>La solución</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
+              Cuatro módulos.{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Un flujo clínico.</em>
+            </motion.h2>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-5">
             {[
               {
                 num: "01",
-                title: "Entiendes lo que te pasa.",
-                body: "Cada vez que abres la app, te explicamos —con palabras claras, no con tecnicismos— qué está haciendo tu cuerpo y por qué. Sin diagnosticar. Sin asustar.",
-                color: "#C9A84C",
+                title: "Patient Check-in",
+                desc: "El paciente registra diariamente: estado emocional, hambre física vs. emocional, sensación corporal, pensamiento dominante y contexto. 60–90 segundos. Sin fricción.",
+                color: "#5A9B8A",
+                tags: ["Interocepción", "Hambre emocional", "NSS polivagal"],
               },
               {
                 num: "02",
-                title: "Sabes qué comer hoy.",
-                body: "Una receta diseñada para cómo te sientes en este momento, con ingredientes que la ciencia conecta con tu sueño, tu estado de ánimo, tus hormonas y tu energía. Sin pesar nada. Sin contar nada.",
-                color: "#5A9B8A",
+                title: "Professional Dashboard",
+                desc: "Evolución temporal, patrones detectados por IA, alertas suaves y una vista consolidada de todos tus pacientes ordenada por actividad reciente.",
+                color: "#C9A84C",
+                tags: ["Patrones", "Alertas", "Vista global"],
               },
               {
                 num: "03",
-                title: "Aprendes tus patrones.",
-                body: "Día a día empiezas a ver qué te sienta bien y qué no —tu sueño, tu digestión, tu energía—. No es báscula. Es información que te devuelve la confianza en tu cuerpo.",
+                title: "AI Reflection Tools",
+                desc: "Diario socrático, granularidad emocional (Barrett), defusión cognitiva, autocompasión (Neff) y clarificación de valores (Hayes). La IA facilita; el profesional supervisa.",
                 color: "#A07BBE",
+                tags: ["TCC", "ACT", "Autocompasión"],
               },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.5 }}
-                className="rounded-2xl p-7"
-                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: `1px solid ${item.color}22` }}
-              >
-                <span className="font-mono text-xs mb-5 block" style={{ color: `${item.color}80` }}>{item.num}</span>
-                <h3 className="font-serif text-xl font-semibold mb-3 leading-snug" style={{ color: "#F5F0E8" }}>{item.title}</h3>
-                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.58)" }}>{item.body}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. CÓMO FUNCIONA — 3 PASOS ───────────────────────────────────────── */}
-      <section id="como-funciona" aria-label="Cómo funciona Food·Mood" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
-              Cómo funciona
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-tight max-w-xl">
-              Tres pasos.{" "}
-              <em className="font-light italic" style={{ color: "#6B2737" }}>Empiezas hoy.</em>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {[
               {
-                num: "01",
-                title: "Cuéntale cómo estás.",
-                body: "Dos minutos. Sin tecnicismos. Cómo te sientes hoy y qué te preocupa.",
-                tag: "2 min · Sin registro",
+                num: "04",
+                title: "Session Prep",
+                desc: "Antes de cada sesión: resumen semanal automatizado, tres patrones detectados, tres preguntas sugeridas y puntos de intervención priorizados. En menos de dos minutos.",
                 color: "#6B2737",
-                bg: "rgba(107,39,55,0.04)",
+                tags: ["Resumen IA", "Preguntas", "Intervención"],
               },
-              {
-                num: "02",
-                title: "Recibe tu propuesta del día.",
-                body: "Una receta, una microacción y una explicación corta de por qué eso ayuda a tu cuerpo hoy.",
-                tag: "Personalizada · Funcional",
-                color: "#5A9B8A",
-                bg: "rgba(90,155,138,0.06)",
-              },
-              {
-                num: "03",
-                title: "Vuelve mañana.",
-                body: "Cuanto más la usas, más te conoce. Cuanto más te conoce, mejor te acompaña.",
-                tag: "90 días · Patrones reales",
-                color: "#4A7AB5",
-                bg: "rgba(74,122,181,0.06)",
-              },
-            ].map((step, i) => (
+            ].map((mod, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="rounded-2xl p-7 relative overflow-hidden"
-                style={{ backgroundColor: step.bg, border: `1px solid ${step.color}18` }}
+                key={mod.num}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.09, duration: 0.5 }}
+                className="rounded-2xl p-7"
+                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: `1px solid ${mod.color}22` }}
               >
-                <span
-                  className="absolute top-4 right-5 font-serif font-black leading-none select-none pointer-events-none"
-                  style={{ fontSize: "clamp(52px,8vw,80px)", color: step.color, opacity: 0.1 }}
-                >
-                  {step.num}
-                </span>
-                <span
-                  className="inline-block text-[9px] font-bold uppercase tracking-[0.25em] px-2.5 py-1 rounded-full mb-5"
-                  style={{ backgroundColor: `${step.color}12`, color: step.color, border: `1px solid ${step.color}22` }}
-                >
-                  {step.tag}
-                </span>
-                <p className="font-mono text-[10px] mb-2" style={{ color: step.color }}>{step.num}</p>
-                <h3 className="font-serif text-xl font-semibold mb-3 leading-snug" style={{ color: "#2d0f16" }}>{step.title}</h3>
-                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.58)" }}>{step.body}</p>
+                <div className="flex items-center justify-between mb-5">
+                  <span className="font-mono text-[10px]" style={{ color: `${mod.color}70` }}>{mod.num}</span>
+                  <div className="flex gap-1.5">
+                    {mod.tags.map(t => (
+                      <span key={t} className="text-[8px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${mod.color}15`, color: mod.color }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+                <h3 className="font-serif text-xl font-semibold mb-3 text-white leading-snug">{mod.title}</h3>
+                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.55)" }}>{mod.desc}</p>
               </motion.div>
             ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <Link
-              href="/test"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-              style={{ backgroundColor: "#6B2737", color: "#F5F0E8" }}
-            >
-              Hacer el test gratis <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/como-funciona"
-              className="text-sm font-light transition-opacity hover:opacity-60"
-              style={{ color: "rgba(107,39,55,0.5)" }}
-            >
-              Ver el método en detalle →
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── 5. LO QUE FOOD·MOOD NO ES ───────────────────────────────────────── */}
-      <section aria-label="Lo que Food·Mood no es" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#111009" }}>
+      {/* ── 4. BASES CIENTÍFICAS ──────────────────────────────────────────────── */}
+      <section aria-label="Bases científicas" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#f7f4ef" }}>
         <div className="max-w-4xl mx-auto">
-          <div className="mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.45)" }}>
-              Aclaramos
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              Lo que Food·Mood no es.
-            </h2>
-          </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-10">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Marco teórico</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl leading-tight" style={{ color: "#2d0f16" }}>
+              Ciencia que reconoces.{" "}
+              <em className="font-light italic" style={{ color: "#6B2737" }}>Aplicada en consulta.</em>
+            </motion.h2>
+          </motion.div>
 
-          <div>
+          <div className="flex flex-wrap gap-3">
             {[
-              {
-                title: "No es una dieta.",
-                body: "No vas a contar calorías, no te vamos a poner objetivos de peso, no vas a «ser buena» o «ser mala» según lo que comas. Esto no va de bajar kilos.",
-                color: "#C9A84C",
-              },
-              {
-                title: "No es una promesa milagro.",
-                body: "Lo que ofrecemos es acompañamiento real, basado en lo que la ciencia sabe hoy. Algunas cosas las sabemos mucho. Otras menos. Te lo decimos cuando es así.",
-                color: "#5A9B8A",
-              },
-              {
-                title: "No es un sustituto de tu médica o tu psicóloga.",
-                body: "Es algo que va en paralelo, que cuida lo que muchas veces nadie cuida: tu día a día, en la cocina y en el cuerpo.",
-                color: "#A07BBE",
-              },
+              { name: "Lisa Feldman Barrett", area: "Teoría de las emociones construidas · Granularidad emocional" },
+              { name: "Stephen Porges", area: "Teoría polivagal · Sistema nervioso autónomo" },
+              { name: "A.D. Craig / Sahib Khalsa", area: "Interocepción · Señales corporales" },
+              { name: "Steven Hayes", area: "ACT · Defusión cognitiva · Valores" },
+              { name: "Kristin Neff", area: "Autocompasión · Self-compassion" },
+              { name: "Miller & Rollnick", area: "Entrevista motivacional" },
+              { name: "Eje intestino–cerebro", area: "Microbiota · Comunicación bidireccional" },
+            ].map((ref, i) => (
+              <motion.div
+                key={ref.name}
+                initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.06, duration: 0.4 }}
+                className="rounded-xl px-5 py-4"
+                style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.09)" }}
+              >
+                <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>{ref.name}</p>
+                <p className="text-[10px] font-light mt-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>{ref.area}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. CUMPLIMIENTO EUROPEO ───────────────────────────────────────────── */}
+      <section aria-label="Cumplimiento europeo" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-4xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-10">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Confianza y cumplimiento</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl leading-tight" style={{ color: "#2d0f16" }}>
+              Diseñado para cumplir.{" "}
+              <em className="font-light italic" style={{ color: "#6B2737" }}>No para aparentarlo.</em>
+            </motion.h2>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { Icon: Shield, title: "No es dispositivo médico", body: "Fuera del alto riesgo EU AI Act. Herramienta de apoyo clínico, no de diagnóstico automatizado." },
+              { Icon: Eye, title: "Transparencia Art. 50", body: "El paciente sabe en todo momento que interactúa con IA. Sin opacidad, sin sorpresas." },
+              { Icon: Lock, title: "RGPD por diseño", body: "Datos cifrados. Hosting europeo. Nunca entrenamos modelos de terceros con datos de pacientes." },
+              { Icon: Shield, title: "Profesional siempre en el centro", body: "La IA facilita, sugiere y detecta. La decisión clínica es siempre tuya." },
+            ].map(({ Icon, title, body }, i) => (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="rounded-xl p-5"
+                style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.08)" }}
+              >
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: "rgba(107,39,55,0.07)" }}>
+                  <Icon className="w-4 h-4" style={{ color: "#6B2737" }} />
+                </div>
+                <h3 className="text-sm font-semibold mb-2 leading-snug" style={{ color: "#2d0f16" }}>{title}</h3>
+                <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.55)" }}>{body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. POR QUÉ DIFERENCIARTE ─────────────────────────────────────────── */}
+      <section aria-label="Por qué diferenciarte" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
+        <div className="max-w-4xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-14">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>Tu diferencial</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight">
+              El mercado está saturado.{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Lo que te diferencia es el enfoque, no la dieta.</em>
+            </motion.h2>
+          </motion.div>
+
+          <div className="flex flex-col gap-0">
+            {[
+              { label: "Diferenciación", body: "Ofreces algo que muy pocos profesionales tienen: visibilidad real de lo que ocurre entre sesiones." },
+              { label: "Adherencia", body: "Pacientes que entienden sus patrones emocionales y corporales mantienen los cambios. No porque tengan más fuerza de voluntad, sino porque tienen más información." },
+              { label: "Sesiones más profundas", body: "Llegas a la sesión con datos de la semana. Sin depender de lo que el paciente recuerda —o quiere contar." },
+              { label: "Retención", body: "Pacientes que sienten que su profesional los ve entre sesiones no se van. La herramienta crea un vínculo continuo." },
+              { label: "Resultados sostenibles", body: "La adherencia a largo plazo viene de la comprensión, no de la restricción. Tu consulta trabaja con la psicología del cambio, no contra ella." },
             ].map((item, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -12 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="flex gap-7 py-9"
-                style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+                key={item.label}
+                initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.07, duration: 0.45 }}
+                className="flex gap-7 py-8"
+                style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
               >
-                <div className="shrink-0 w-0.5 rounded-full mt-1 self-stretch" style={{ backgroundColor: item.color, minHeight: "1.5rem" }} />
-                <div>
-                  <h3 className="font-serif text-xl md:text-2xl font-semibold mb-3 leading-snug" style={{ color: "#F5F0E8" }}>{item.title}</h3>
-                  <p className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.58)" }}>{item.body}</p>
-                </div>
+                <span className="font-serif text-sm font-semibold shrink-0 w-28 pt-0.5" style={{ color: "#C9A84C" }}>{item.label}</span>
+                <p className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.62)" }}>{item.body}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 6. POR QUÉ CONFIAR ───────────────────────────────────────────────── */}
-      <section aria-label="Por qué confiar en Food·Mood" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
-            <motion.div
-              initial="hidden" whileInView="visible" viewport={{ once: true }}
-              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-              className="space-y-6"
-            >
-              <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "#C9A84C" }}>
-                Base científica
-              </motion.p>
-              <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
-                Por qué confiar en lo que la app te dice.
-              </motion.h2>
-              <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.7)" }}>
-                Detrás de cada recomendación hay diez años de literatura científica sobre perimenopausia, microbiota, sueño, eje intestino-cerebro y psicología nutricional. Un equipo experto en perimenopausia, microbiota y longevidad revisa cada protocolo. Cuando algo no tiene evidencia clara, te lo decimos. Cuando algo es solo una idea, lo marcamos.
-              </motion.p>
-              <motion.p variants={fade} className="text-sm font-semibold tracking-wide mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", color: "#C9A84C" }}>
-                <span aria-hidden="true">✦</span>
-                No somos una caja negra: la IA aprende, las expertas supervisan.
-              </motion.p>
-            </motion.div>
+      {/* ── 7. PRECIOS ────────────────────────────────────────────────────────── */}
+      <PricingSection onRequestAccess={open} />
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <blockquote
-                className="relative rounded-2xl p-8 md:p-10"
-                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.15)" }}
+      {/* ── 8. TESTIMONIOS PLACEHOLDER ───────────────────────────────────────── */}
+      <section aria-label="Lo que dicen los primeros usuarios" className="py-14 px-6" style={{ backgroundColor: "#f7f4ef", borderTop: "1px solid rgba(107,39,55,0.06)" }}>
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-8 text-center" style={{ color: "rgba(107,39,55,0.35)" }}>Early adopters</p>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              { quote: "Por primera vez tengo datos de lo que pasa entre sesiones, no solo lo que el paciente recuerda el día de la cita.", role: "Psiconutricionista, Madrid" },
+              { quote: "La prep de sesión me ahorra 15 minutos de revisión y me lleva directamente a los patrones relevantes de la semana.", role: "Psicóloga clínica, Barcelona" },
+              { quote: "Mis pacientes se sienten acompañadas entre visitas. Eso cambia la relación terapéutica.", role: "Nutricionista, Bilbao" },
+            ].map((t, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.08)" }}
               >
-                <span
-                  className="absolute top-5 left-8 font-serif text-7xl leading-none select-none"
-                  style={{ color: "rgba(201,168,76,0.12)", lineHeight: 1 }}
-                  aria-hidden="true"
-                >
-                  &ldquo;
-                </span>
-                <p className="font-serif text-2xl md:text-3xl font-semibold text-white leading-snug pt-5 relative z-10">
-                  Los hábitos duraderos no se crean con disciplina.{" "}
-                  <em className="font-light italic" style={{ color: "#C9A84C" }}>Se crean con placer.</em>
-                </p>
-              </blockquote>
-            </motion.div>
+                <p className="text-sm font-light leading-relaxed italic mb-5" style={{ color: "rgba(107,39,55,0.7)" }}>&ldquo;{t.quote}&rdquo;</p>
+                <p className="text-[10px] font-medium" style={{ color: "rgba(107,39,55,0.4)" }}>{t.role}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── 7. EMPIEZA GRATIS ────────────────────────────────────────────────── */}
-      <section aria-label="Empieza gratis" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#F5F0E8" }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-            className="space-y-6"
-          >
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "rgba(107,39,55,0.4)" }}>
-              Acceso
-            </motion.p>
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-[#2d0f16] leading-tight">
-              Empieza gratis hoy.
-            </motion.h2>
-            <motion.p variants={fade} className="text-base font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.65)" }}>
-              El test, una receta diaria y el glosario son gratis para siempre.
-            </motion.p>
-            <motion.div variants={fade} className="text-sm font-light text-left max-w-sm mx-auto" style={{ color: "rgba(107,39,55,0.65)" }}>
-              <p className="font-semibold mb-3" style={{ color: "rgba(107,39,55,0.8)" }}>Desde 7€/mes (plan trimestral), también:</p>
-              <ul className="space-y-2 leading-relaxed">
-                {[
-                  "Recetas generadas para tu mezcla emocional exacta del día — no una categoría genérica",
-                  "FOOD-MOOD Guide, tu asistente IA especializada en el eje intestino-cerebro — responde sobre recetas, síntomas y hábitos del día",
-                  "Historial de tu paleta emocional — observa tus patrones semana a semana",
-                  "Historial emocional completo — observa tus patrones semana a semana",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="shrink-0 font-normal" style={{ color: "#C9A84C" }}>—</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-xs" style={{ color: "rgba(107,39,55,0.4)" }}>Sin permanencia · Cancela cuando quieras.</p>
-            </motion.div>
-            <motion.div variants={fade} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <Link
-                href="/test"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-                style={{ backgroundColor: "#6B2737", color: "#F5F0E8" }}
-              >
-                Hacer el test gratis
-              </Link>
-              <Link
-                href="/pricing"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-light border transition-all hover:opacity-75"
-                style={{ borderColor: "rgba(107,39,55,0.22)", color: "rgba(107,39,55,0.58)" }}
-              >
-                Ver detalle de planes
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── 8. TESTIMONIOS ───────────────────────────────────────────────────── */}
-      <section aria-label="Testimonios" className="py-8 md:py-10 px-6" style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid rgba(107,39,55,0.07)" }}>
-        <div className="max-w-4xl mx-auto">
-          <button
-            type="button"
-            onClick={() => setTestimoniosOpen(o => !o)}
-            className="w-full flex items-center justify-between gap-4 py-3 group"
-            aria-expanded={testimoniosOpen}
-          >
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-1.5">
-              {[
-                { name: "Sofía M.", tag: "Usuaria, 48 años" },
-                { name: "Laura P.", tag: "Usuaria, 52 años" },
-                { name: "Carmen V.", tag: "Usuaria, 45 años" },
-              ].map((t, i) => (
-                <span key={i} className="flex items-center gap-2">
-                  <span className="text-sm font-semibold" style={{ color: "#2d0f16" }}>{t.name}</span>
-                  <span className="text-[10px] font-light" style={{ color: "rgba(107,39,55,0.38)" }}>{t.tag}</span>
-                </span>
-              ))}
-            </div>
-            <span className="flex items-center gap-1.5 shrink-0 text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
-              {testimoniosOpen ? "Ocultar" : "Ver opiniones"}
-              <ChevronDown
-                className={`w-4 h-4 transition-transform duration-300 ${testimoniosOpen ? "rotate-180" : ""}`}
-                style={{ color: "#C9A84C" }}
-              />
-            </span>
-          </button>
-
-          <AnimatePresence initial={false}>
-            {testimoniosOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="grid md:grid-cols-3 gap-6 pt-6">
-                  {[
-                    { quote: "Llevaba dos años durmiendo fatal y pensaba que era estrés. Cuando entendí la conexión con lo que comía, todo cambió.", name: "Sofía M.", tag: "Usuaria, 48 años" },
-                    { quote: "Lo que más me ayudó fue entender que no estaba exagerando. Había nombres para lo que sentía y cosas concretas que podía hacer.", name: "Laura P.", tag: "Usuaria, 52 años" },
-                    { quote: "Por fin una app que no me pide que cuente calorías ni que sea perfecta. Solo me pide que cuide cómo me siento.", name: "Carmen V.", tag: "Usuaria, 45 años" },
-                  ].map((t, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="rounded-2xl p-7 flex flex-col gap-4"
-                      style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.08)" }}
-                    >
-                      <p className="text-sm font-light leading-relaxed italic" style={{ color: "rgba(107,39,55,0.72)" }}>
-                        &ldquo;{t.quote}&rdquo;
-                      </p>
-                      <div>
-                        <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>{t.name}</p>
-                        <p className="text-[10px] font-light mt-0.5" style={{ color: "rgba(107,39,55,0.45)" }}>{t.tag}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
-
-      {/* ── 10. FAQ ──────────────────────────────────────────────────────────── */}
+      {/* ── 9. FAQ ────────────────────────────────────────────────────────────── */}
       <section aria-label="Preguntas frecuentes" className="py-20 md:py-28 px-6" style={{ backgroundColor: "white" }}>
         <div className="max-w-3xl mx-auto">
-          <div className="mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
-              Preguntas frecuentes
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl text-[#2d0f16] leading-tight">
-              Las dudas más habituales.
-            </h2>
-          </div>
-          <div>
-            {FAQS.map((faq, i) => (
-              <FaqItem
-                key={i}
-                faq={faq}
-                isOpen={openFaqs.has(i)}
-                onToggle={() => toggleFaq(i)}
-              />
-            ))}
-          </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-12">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Preguntas frecuentes</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl leading-tight" style={{ color: "#2d0f16" }}>Las dudas habituales.</motion.h2>
+          </motion.div>
+          {FAQS.map((faq, i) => <FaqItem key={i} faq={faq} isOpen={openFaqs.has(i)} onToggle={() => toggleFaq(i)} />)}
         </div>
       </section>
 
-      {/* ── 11. CIERRE ───────────────────────────────────────────────────────── */}
-      <section aria-label="Cierre" className="py-24 md:py-32 px-6" style={{ backgroundColor: "#1a0910" }}>
+      {/* ── 10. CTA FINAL ────────────────────────────────────────────────────── */}
+      <section aria-label="Solicitar acceso" className="py-24 md:py-32 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
-            className="space-y-7"
-          >
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              En 90 días puedes empezar a ver patrones reales.{" "}
-              <br className="hidden md:block" />
-              <span style={{ color: "#C9A84C" }}>Tu sueño, digestión y energía pueden darte señales antes.</span>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className="space-y-7">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "rgba(201,168,76,0.45)" }}>Acceso anticipado</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
+              Lo que ocurre entre sesiones{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>ya tiene nombre.</em>
             </motion.h2>
-            <motion.p variants={fade} className="text-base font-light" style={{ color: "rgba(245,240,232,0.55)" }}>
-              Empieza hoy con dos minutos. Sin registro. Sin compromiso.
+            <motion.p variants={fade} className="text-base font-light" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Plazas limitadas en esta fase. Condiciones especiales a cambio de feedback directo.
             </motion.p>
             <motion.div variants={fade} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/test"
+              <button
+                onClick={open}
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all hover:brightness-110 active:scale-95"
-                style={{ backgroundColor: "#C9A84C", color: "#1a0910" }}
+                style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
               >
-                Hacer el test gratis
-              </Link>
-              <Link
-                href="/como-funciona"
-                className="text-sm font-light transition-opacity hover:opacity-60"
-                style={{ color: "rgba(245,240,232,0.4)" }}
-              >
-                o conoce el método primero →
+                Solicitar acceso anticipado
+              </button>
+              <Link href="/pro/login" className="text-sm font-light transition-opacity hover:opacity-60" style={{ color: "rgba(245,240,232,0.38)" }}>
+                Ya tengo acceso → Entrar
               </Link>
             </motion.div>
           </motion.div>
