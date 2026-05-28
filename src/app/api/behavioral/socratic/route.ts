@@ -65,7 +65,8 @@ export async function POST(req: NextRequest) {
 
   const systemFull = [
     SOCRATIC_SYSTEM_PROMPT,
-    contextLine ? `\n\nContexto inicial: ${contextLine}` : "",
+    `\n\nPensamiento inicial de la persona: "${initial_thought}"`,
+    contextLine ? `\nContexto: ${contextLine}` : "",
     isLastTurn
       ? "\n\nEste es el TURNO FINAL (8/8). Formula la pregunta de cierre para que la persona reformule el pensamiento inicial con sus propias palabras."
       : `\n\nTurno actual: ${userTurns + 1} de ${MAX_TURNS}.`,
@@ -82,10 +83,7 @@ export async function POST(req: NextRequest) {
       model:      "claude-haiku-4-5-20251001",
       max_tokens: 400,
       system: [{ type: "text", text: systemFull, cache_control: { type: "ephemeral" } }],
-      messages: [
-        { role: "user", content: `Pensamiento: "${initial_thought}"` },
-        ...messages,
-      ],
+      messages,
     })
 
     const reply = response.content[0]?.type === "text" ? response.content[0].text : ""

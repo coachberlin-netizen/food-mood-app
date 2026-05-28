@@ -64,7 +64,8 @@ export async function POST(req: NextRequest) {
 
   const systemFull = [
     GRANULARITY_SYSTEM_PROMPT,
-    context ? `\nContexto de la persona: "${context}"` : "",
+    `\n\nEmoción inicial de la persona: "${initial_emotion}"`,
+    context ? `\nContexto: "${context}"` : "",
     isLastTurn
       ? "\n\nEste es el TURNO FINAL. Cierra el diálogo sintetizando con el formato exacto: \"Has identificado: X, Y, Z.\""
       : `\n\nTurno actual: ${userTurns + 1} de ${MAX_TURNS}.`,
@@ -81,10 +82,7 @@ export async function POST(req: NextRequest) {
       model:      "claude-haiku-4-5-20251001",
       max_tokens: 350,
       system: [{ type: "text", text: systemFull, cache_control: { type: "ephemeral" } }],
-      messages: [
-        { role: "user", content: `Emoción inicial: "${initial_emotion}"` },
-        ...messages,
-      ],
+      messages,
     })
 
     const reply = response.content[0]?.type === "text" ? response.content[0].text : ""

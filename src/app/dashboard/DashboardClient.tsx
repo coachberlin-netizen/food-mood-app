@@ -219,6 +219,30 @@ function RetosCard() {
 }
 
 // ── WeeklyCard — compact dashboard widget ─────────────────────────────────────
+function PracticasCard() {
+  return (
+    <Link
+      href="/practicas"
+      className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
+      style={{ backgroundColor: "#F5F0E8", border: "1px solid rgba(107,39,55,0.12)" }}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+            Mis prácticas
+          </p>
+          <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>
+            Check-in, emociones y pensamientos
+          </p>
+        </div>
+        <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.45)" }}>
+          Explorar →
+        </span>
+      </div>
+    </Link>
+  )
+}
+
 function WeeklyCard() {
   const d   = new Date()
   const day = d.getDay()
@@ -386,6 +410,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
 
         {/* ── Prescriptions card (patients with active professional link) ── */}
         {isAuthenticated && <PrescriptionsCard />}
+
+        {/* ── Prácticas card ── */}
+        {isAuthenticated && <PracticasCard />}
 
         {/* ── Journey card ── */}
         {isAuthenticated && <JourneyCard />}
