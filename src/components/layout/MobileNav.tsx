@@ -74,34 +74,28 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
             {/* Nav links */}
             <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {isAuthenticated ? (
+                /* Companion app — paciente autenticado */
                 <>
-                  <NavLink href="/"             label="Home"          close={close} />
-                  <NavLink href="/eloraculo"        label="Mi lectura" close={close} />
-                  <NavLink href="/dashboard"     label="Dashboard"     close={close} />
-                  <NavLink href="/test"          label="Test"          close={close} />
-                  <NavLink href="/bol"           label="Mi bol"        close={close} />
-                  <NavLink href="/viaje"         label="Mi viaje"      close={close} />
-                  <NavLink href="/semana"        label="Mi semana"     close={close} />
-                  <NavLink href="/recetas"       label="Recetas"       close={close} />
-                  <NavLink href="/enciclopedia" label="Enciclopedia"  close={close} />
-                  <NavLink href="/servicios"    label="Sesiones 1:1"  close={close} />
-                  <NavLink href="/glosario"      label="Glosario"      close={close} />
-                  <NavLink href="/sintomas"      label="Síntomas"      close={close} />
-                  <NavLink href="/retos"         label="Retos"         close={close} />
-                  <NavLink href="/blog"          label="Newsletter"    close={close} />
+                  <NavLink href="/dashboard"    label="Dashboard"      close={close} />
+                  <NavLink href="/practicas"    label="Mis prácticas"  close={close} />
+                  <NavLink href="/recetas"      label="Recetas"        close={close} />
+                  <NavLink href="/glosario"     label="Glosario"       close={close} />
+                  <NavLink href="/blog"         label="Newsletter"     close={close} />
+                  <NavLink href="/para-mi"      label="Para mí"        close={close} />
                   {!isPremium && <NavLink href="/pricing" label="Planes" close={close} gold />}
                   <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
-                  <NavLink href="/perfil"        label="Mi Perfil"     close={close} />
+                  <NavLink href="/perfil"       label="Mi Perfil"      close={close} />
                 </>
               ) : (
+                /* Landing pública B2B */
                 <>
-                  <NavLink href="/"              label="Inicio"        close={close} />
-                  <NavLink href="/recetas"       label="Recetas"       close={close} />
-                  <NavLink href="/como-funciona" label="Cómo funciona" close={close} />
-                  <NavLink href="/sintomas"      label="Síntomas"      close={close} />
-                  <NavLink href="/glosario"      label="Glosario"      close={close} />
-                  <NavLink href="/blog"          label="Newsletter"    close={close} />
-                  <NavLink href="/pricing"       label="Planes"        close={close} gold />
+                  <NavLink href="/"            label="Para profesionales" close={close} />
+                  <NavLink href="/canjear"     label="Para pacientes"     close={close} />
+                  <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
+                  <NavLink href="/#precios"    label="Precios"            close={close} />
+                  <NavLink href="/blog"        label="Newsletter"         close={close} />
+                  <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
+                  <NavLink href="/pro/login"   label="Entrar al portal"   close={close} gold />
                 </>
               )}
             </nav>
