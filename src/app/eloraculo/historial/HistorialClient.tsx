@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ChevronLeft, Sparkles } from 'lucide-react'
 import { moods } from '@/data/moods'
-import type { OracleScore } from '@/lib/oracle'
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -18,7 +17,7 @@ interface Checkin {
   primary_symptom:   string | null
   oracle_reading:    string | null
   recipe_mood_id:    string | null
-  engine_output:     unknown   // jsonb — cast to OracleScore when accessing
+  engine_output:     unknown
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────
@@ -68,11 +67,8 @@ function SleepDots({ value }: { value: number }) {
 }
 
 function CheckinCard({ checkin, index }: { checkin: Checkin; index: number }) {
-  const moodA       = moods.find(m => m.id === checkin.primary_emotion)
-  const moodB       = checkin.secondary_emotion ? moods.find(m => m.id === checkin.secondary_emotion) : null
-  const firstLine   = checkin.oracle_reading?.split('. ')[0]?.trim()
-  const engineOut   = checkin.engine_output as OracleScore | null
-  const insight     = engineOut?.insight ?? null
+  const moodA     = moods.find(m => m.id === checkin.primary_emotion)
+  const moodB     = checkin.secondary_emotion ? moods.find(m => m.id === checkin.secondary_emotion) : null
 
   return (
     <motion.div
@@ -120,16 +116,6 @@ function CheckinCard({ checkin, index }: { checkin: Checkin; index: number }) {
         )}
       </div>
 
-      {/* Reading first sentence */}
-      {firstLine && (
-        <p
-          className="text-xs leading-relaxed mb-4 line-clamp-2"
-          style={{ color: 'rgba(245,240,232,0.5)' }}
-        >
-          {firstLine}.
-        </p>
-      )}
-
       {/* Metrics row */}
       <div className="flex flex-col gap-2 mb-3">
         <div className="flex items-center gap-3">
@@ -142,17 +128,6 @@ function CheckinCard({ checkin, index }: { checkin: Checkin; index: number }) {
         </div>
       </div>
 
-      {/* Cross-signal insight (from engine_output) */}
-      {insight && (
-        <div
-          className="rounded-xl px-3 py-2.5 mt-1"
-          style={{ background: 'rgba(201,168,76,0.06)', borderLeft: '2px solid rgba(201,168,76,0.25)' }}
-        >
-          <p className="text-[11px] leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>
-            {insight}
-          </p>
-        </div>
-      )}
     </motion.div>
   )
 }
