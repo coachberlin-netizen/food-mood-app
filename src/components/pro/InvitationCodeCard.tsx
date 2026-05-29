@@ -12,7 +12,7 @@ type Invitation = {
 
 export default function InvitationCodeCard({ invitation }: { invitation: Invitation }) {
   const [copied, setCopied] = useState(false)
-  const { toastCopy } = useToast()
+  const { toast } = useToast()
 
   const expiresDate = new Date(invitation.expires_at).toLocaleDateString("es-ES", {
     day: "numeric", month: "long", year: "numeric",
@@ -21,10 +21,14 @@ export default function InvitationCodeCard({ invitation }: { invitation: Invitat
   const shareMessage = `Hola${invitation.patient_name ? `, ${invitation.patient_name}` : ""}. Te comparto tu código de acceso a Food·Mood para vincular nuestra consulta: ${invitation.invitation_code}. Entra en https://food-mood.app/canjear e introdúcelo. Válido hasta el ${expiresDate}.`
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(shareMessage)
-    setCopied(true)
-    toastCopy(`Código ${invitation.invitation_code} copiado`, invitation.invitation_code)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(shareMessage)
+      setCopied(true)
+      toast("Mensaje de invitación copiado")
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      toast("No se pudo copiar. Selecciona el código manualmente.", "error")
+    }
   }
 
   return (

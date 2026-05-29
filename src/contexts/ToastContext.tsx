@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react"
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { CheckCircle, XCircle, Info, X } from "lucide-react"
 
@@ -28,11 +28,14 @@ export function useToast() {
 
 function Toast({ item, onRemove }: { item: ToastItem; onRemove: () => void }) {
   const [copied, setCopied] = useState(false)
+  // Ref keeps the timer stable even as onRemove reference changes across renders
+  const onRemoveRef = useRef(onRemove)
+  useEffect(() => { onRemoveRef.current = onRemove })
 
   useEffect(() => {
-    const t = setTimeout(onRemove, 4000)
+    const t = setTimeout(() => onRemoveRef.current(), 4000)
     return () => clearTimeout(t)
-  }, [onRemove])
+  }, []) // intentionally empty — timer fires once per mount
 
   const handleCopy = async () => {
     if (!item.copyValue) return
