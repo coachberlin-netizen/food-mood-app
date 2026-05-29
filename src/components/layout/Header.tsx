@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { MobileNav } from "./MobileNav"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/store/useAuthStore"
-import { LogOut, User, PieChart, CreditCard, ChevronDown } from "lucide-react"
+import { LogOut, User, PieChart, ChevronDown } from "lucide-react"
 
 interface DropdownItem { label: string; href: string }
 
@@ -128,9 +128,6 @@ export function Header() {
             <nav className="hidden md:flex items-center space-x-7">
               <Link href="/dashboard" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">Dashboard</Link>
               <NavDropdown label="Mi espacio" items={COMPANION_NAV} />
-              {!isPremium && (
-                <Link href="/pricing" className="text-sm font-semibold tracking-wide text-[#C9A84C] hover:text-[#b8953e] transition-colors">Planes</Link>
-              )}
             </nav>
           ) : (
             /* Landing pública B2B */
@@ -225,13 +222,6 @@ export function Header() {
                       <PieChart className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
                       Dashboard
                     </Link>
-                    {!isPremium && (
-                      <Link href="/pricing" onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 text-sm text-[#C9A84C] hover:bg-white/5 transition-colors group font-medium">
-                        <CreditCard className="w-4 h-4 shrink-0 opacity-80" />
-                        Planes Premium
-                      </Link>
-                    )}
                     <div className="h-px bg-cream/10 my-1.5" />
                     <button
                       onClick={handleLogout}

@@ -40,11 +40,11 @@ export function WeeklyHighlights({ highlights }: { highlights: NewsletterHighlig
                     Ver novedades <ArrowRight className="w-4 h-4 ml-1" />
                   </Link>
                   {recipes && recipes.length > 0 && (
-                    <Link 
-                      href="/recetas" 
+                    <Link
+                      href="/para-mi"
                       className="inline-flex items-center justify-center px-6 py-3.5 border border-aubergine-dark/20 rounded-full text-aubergine-dark/80 bg-transparent hover:bg-white hover:border-[#C9A84C] transition-all text-sm font-medium"
                     >
-                      Ver recetas
+                      Ver mis recursos
                     </Link>
                   )}
                 </div>

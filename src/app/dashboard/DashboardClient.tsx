@@ -14,7 +14,6 @@ import { InspirationSection } from "@/components/dashboard/InspirationSection";
 import { PushNotificationBanner } from "@/components/dashboard/PushNotificationBanner";
 import { PaletteWidget } from "@/components/dashboard/PaletteWidget";
 import { OracleWidget } from "@/components/dashboard/OracleWidget";
-import { OracleCorrelations } from "@/components/dashboard/OracleCorrelations";
 import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 import { FoodMoodIndex } from "@/components/FoodMoodIndex";
@@ -464,9 +463,8 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
         {/* ── Paleta emocional ── */}
         <PaletteWidget />
 
-        {/* ── Oracle widget + correlaciones ── */}
+        {/* ── Oracle widget ── */}
         {isAuthenticated && <OracleWidget />}
-        {isAuthenticated && <OracleCorrelations />}
 
         {/* ── Biomarcadores (solo premium) ── */}
         {isAuthenticated && isPremium && <BiomarkerPanel />}
@@ -516,15 +514,8 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
               ) : (
                 <div className="flex flex-col items-center gap-4 py-2">
                   <p className="text-sm font-light text-aubergine-dark/60 text-center">
-                    {isPremium ? "No hay datos suficientes para esta semana." : "Desbloquea tu historial emocional"}
+                    No hay datos suficientes para esta semana.
                   </p>
-                  {!isPremium && (
-                    <Link href="/pricing">
-                      <button type="button" className="px-6 py-2 rounded-full border border-aubergine-dark/20 text-aubergine-dark/60 text-xs font-medium hover:bg-aubergine-dark hover:text-white transition-all">
-                        Ver Planes
-                      </button>
-                    </Link>
-                  )}
                 </div>
               )}
             </div>
@@ -579,47 +570,8 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
               </div>
             </div>
           </section>
-        ) : !isPremium ? (
-          <section className="flex flex-col gap-8">
-            <div className="flex items-center gap-4">
-              <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">Tu plan Food·Mood</h2>
-              <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
-            </div>
-            <div className="bg-gradient-to-br from-aubergine-dark via-aubergine to-aubergine-dark rounded-[1.5rem] p-10 md:p-14 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A84C]/8 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-cream/3 rounded-full blur-3xl" />
-              <div className="relative flex flex-col gap-8">
-                <div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20 mb-4">
-                    <Sparkles className="w-3 h-3" /> Premium
-                  </span>
-                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-cream/90 leading-snug mb-2">Un plan adecuado y variado para ti</h3>
-                  <p className="text-cream/70 font-light text-sm max-w-lg">Cada día una combinación nueva. Sin repeticiones, siempre adaptada a lo que tu cuerpo necesita.</p>
-                </div>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    { icon: "🍽", text: "Recetas sin repetirse", detail: "Variedad real para tu microbiota" },
-                    { icon: "⭐", text: "Recetas de alta cocina funcional", detail: "Platos exclusivos para ti" },
-                    { icon: "🔬", text: "Filtros por mood, edad y sexo", detail: "Ciencia personalizada" },
-                    { icon: "❤️", text: "Favoritos ilimitados", detail: "Guarda las que más te gusten" },
-                  ].map((benefit, i) => (
-                    <li key={i} className="flex items-start gap-3.5 bg-cream/5 rounded-xl p-4 border border-cream/8">
-                      <span className="text-lg shrink-0 mt-0.5">{benefit.icon}</span>
-                      <div>
-                        <p className="text-sm font-medium text-cream/80">{benefit.text}</p>
-                        <p className="text-[11px] text-cream/60 font-light mt-0.5">{benefit.detail}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-col items-start gap-3">
-                  <Link href="/pricing" className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9A84C] hover:bg-[#b8953e] text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"><Sparkles className="w-4 h-4" />Suscribirte — desde 7€/mes</Link>
-                  <p className="text-[11px] text-cream/50 font-light">Cancela cuando quieras · Sin permanencia</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : (
+        ) : null}
+        {isPremium && (
           <section className="flex flex-col gap-8">
             <div className="bg-gradient-to-br from-[#1a1118] via-[#2a1825] to-[#1a1118] rounded-[1.5rem] p-10 md:p-14 relative overflow-hidden border border-[#C9A84C]/20 shadow-luxury">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-[80px]" />
