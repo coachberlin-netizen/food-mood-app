@@ -10,6 +10,7 @@ import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ConsentModal } from "@/components/ui/ConsentModal";
 import { BetaBanner } from "@/components/layout/BetaBanner";
 import { PaletteProvider } from "@/contexts/PaletteContext";
+import { ToastProvider } from "@/contexts/ToastContext";
 import { AccessibilityWidget } from "@/components/ui/AccessibilityWidget";
 import "./globals.css";
 
@@ -146,6 +147,7 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${sourceSerif4.variable} ${playfairDisplay.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
+        <ToastProvider>
         <PaletteProvider>
           <a
             href="#main-content"
@@ -172,6 +174,7 @@ export default function RootLayout({
           </div>
           <BottomNav />
         </PaletteProvider>
+        </ToastProvider>
       </body>
     </html>
   );

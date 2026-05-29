@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Copy, Check, Clock } from "lucide-react"
+import { useToast } from "@/contexts/ToastContext"
 
 type Invitation = {
   invitation_code: string
@@ -11,6 +12,7 @@ type Invitation = {
 
 export default function InvitationCodeCard({ invitation }: { invitation: Invitation }) {
   const [copied, setCopied] = useState(false)
+  const { toastCopy } = useToast()
 
   const expiresDate = new Date(invitation.expires_at).toLocaleDateString("es-ES", {
     day: "numeric", month: "long", year: "numeric",
@@ -21,6 +23,7 @@ export default function InvitationCodeCard({ invitation }: { invitation: Invitat
   const handleCopy = async () => {
     await navigator.clipboard.writeText(shareMessage)
     setCopied(true)
+    toastCopy(`Código ${invitation.invitation_code} copiado`, invitation.invitation_code)
     setTimeout(() => setCopied(false), 2000)
   }
 

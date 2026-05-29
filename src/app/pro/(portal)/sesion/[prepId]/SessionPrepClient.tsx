@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, Printer, Edit3, Check, X, Loader2 } from "lucide-react"
+import { useToast } from "@/contexts/ToastContext"
 
 type KeyPattern        = { pattern: string; evidence: string }
 type InterventionPoint = { point: string; rationale: string }
@@ -34,6 +35,7 @@ export default function SessionPrepClient({ prepId }: { prepId: string }) {
   const [notes,            setNotes]            = useState("")
   const [saving,           setSaving]           = useState(false)
   const [saveError,        setSaveError]        = useState("")
+  const { toast } = useToast()
 
   useEffect(() => {
     fetch(`/api/pro/session-prep/${prepId}`)
@@ -59,15 +61,20 @@ export default function SessionPrepClient({ prepId }: { prepId: string }) {
       })
       if (!res.ok) {
         const d = await res.json().catch(() => ({}))
-        setSaveError((d as { error?: string }).error ?? "Error al guardar.")
+        const msg = (d as { error?: string }).error ?? "Error al guardar."
+        setSaveError(msg)
+        toast(msg, "error")
         setSaving(false)
         return
       }
       const { prep: updated } = await res.json()
       setPrep(updated)
       setEditingQuestions(false)
+      toast("Cambios guardados")
     } catch {
-      setSaveError("Error al conectar con el servidor.")
+      const msg = "Error al conectar con el servidor."
+      setSaveError(msg)
+      toast(msg, "error")
     }
     setSaving(false)
   }
@@ -93,8 +100,16 @@ export default function SessionPrepClient({ prepId }: { prepId: string }) {
 
   return (
     <>
-      {/* Hide chrome when printing: aside=ProSidebar, header=global Header, footer=global Footer, nav=BottomNav */}
-      <style>{`@media print { aside, header, footer, nav { display: none !important; } body { background: white !important; } }`}</style>
+      <style>{`
+        @media print {
+          aside, header, footer, nav, .print\\:hidden { display: none !important; }
+          @page { size: A4; margin: 20mm 18mm; }
+          body { background: white !important; font-size: 11pt !important; color: #1a0a0e !important; }
+          h1, h2, h3 { color: #6B2737 !important; }
+          section { page-break-inside: avoid; margin-bottom: 16pt; }
+          .bg-white { background: white !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; }
+        }
+      `}</style>
 
       {/* Print-only header */}
       <div className="hidden print:block mb-6 border-b pb-4" style={{ borderColor: "rgba(107,39,55,0.15)" }}>

@@ -135,6 +135,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   const [sessionPrepsLoaded, setSessionPrepsLoaded] = useState(false)
   const [preparandoSesion,   setPreparandoSesion]   = useState(false)
   const [prepError,          setPrepError]          = useState("")
+  const [prepMsgIdx,         setPrepMsgIdx]         = useState(0)
 
   useEffect(() => {
     const supabase = createClient()
@@ -245,6 +246,24 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       .catch(() => setSessionPrepsLoaded(true))
   }, [tab, patientUserId, sessionPrepsLoaded])
 
+  const totalRecords = checkins.length + hambreLogs.length + mealLogs.length + granularity.length + dialogues.length
+
+  const PREP_MESSAGES = [
+    `Revisando ${totalRecords} registro${totalRecords !== 1 ? "s" : ""}…`,
+    "Analizando patrones conductuales…",
+    "Identificando temas clave…",
+    "Preparando preguntas de sesión…",
+    "Finalizando informe…",
+  ]
+
+  useEffect(() => {
+    if (!preparandoSesion) { setPrepMsgIdx(0); return }
+    const t = setInterval(() => setPrepMsgIdx(i => Math.min(i + 1, PREP_MESSAGES.length - 1)), 2200)
+    return () => clearInterval(t)
+  // PREP_MESSAGES.length is constant (5); only preparandoSesion toggles the interval
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preparandoSesion])
+
   const handleGenerateSessionPrep = async () => {
     setPreparandoSesion(true)
     setPrepError("")
@@ -300,18 +319,21 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
             {patientEmail && <p className="text-xs mt-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>{patientEmail}</p>}
             {linkedAt && <p className="text-xs mt-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Vinculado/a desde {formatDate(linkedAt)}</p>}
           </div>
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-end gap-1.5">
             <button
               onClick={handleGenerateSessionPrep}
               disabled={preparandoSesion}
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold shrink-0 disabled:opacity-60 transition-all hover:brightness-110"
               style={{ background: "#6B2737", color: "#F5F0E8" }}
             >
-              {preparandoSesion
-                ? <Loader2 className="w-4 h-4 animate-spin" />
-                : <Sparkles className="w-4 h-4" />}
+              {preparandoSesion ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
               {preparandoSesion ? "Generando..." : "Preparar sesión"}
             </button>
+            {preparandoSesion && (
+              <p className="text-[10px] text-right animate-pulse" style={{ color: "rgba(107,39,55,0.45)" }}>
+                {PREP_MESSAGES[prepMsgIdx]}
+              </p>
+            )}
             {prepError && <p className="text-[10px] text-red-600">{prepError}</p>}
           </div>
         </div>
