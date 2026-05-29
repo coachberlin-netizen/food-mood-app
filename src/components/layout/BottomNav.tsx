@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, UtensilsCrossed, Sparkles, CalendarDays, UserCircle, LogIn, BookOpen } from "lucide-react"
+import { Home, Sparkles, BookOpen, Heart, UserCircle, LogIn, UtensilsCrossed } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 
 type Tab = {
@@ -14,21 +14,21 @@ type Tab = {
   badge?: number
 }
 
-const BASE_AUTH_TABS: Tab[] = [
-  { href: "/recetas",    label: "Recetas",  icon: UtensilsCrossed, match: p => p.startsWith("/recetas") },
-  { href: "/evaluacion", label: "Evalúate", icon: Sparkles,        match: p => p.startsWith("/evaluacion") },
-  { href: "/semana",     label: "Semana",   icon: CalendarDays,    match: p => p.startsWith("/semana") },
-  { href: "/perfil",     label: "Perfil",   icon: UserCircle,      match: p => p.startsWith("/perfil") },
+const AUTH_TABS: Tab[] = [
+  { href: "/dashboard",  label: "Inicio",     icon: Home,        match: p => p.startsWith("/dashboard") },
+  { href: "/eloraculo",  label: "Registros",  icon: Sparkles,    match: p => p.startsWith("/eloraculo") },
+  { href: "/practicas",  label: "Prácticas",  icon: BookOpen,    match: p => p.startsWith("/practicas") },
+  { href: "/para-mi",    label: "Para ti",    icon: Heart,       match: p => p.startsWith("/para-mi") },
+  { href: "/perfil",     label: "Mi cuenta",  icon: UserCircle,  match: p => p.startsWith("/perfil") },
 ]
 
 const GUEST_TABS: Tab[] = [
-  { href: "/",           label: "Inicio",   icon: Home,            match: p => p === "/" },
-  { href: "/recetas",    label: "Recetas",  icon: UtensilsCrossed, match: p => p.startsWith("/recetas") },
-  { href: "/evaluacion", label: "Evalúate", icon: Sparkles,        match: p => p.startsWith("/evaluacion") },
-  { href: "/auth/login", label: "Entrar",   icon: LogIn,           match: p => p.startsWith("/auth") },
+  { href: "/",           label: "Inicio",    icon: Home,            match: p => p === "/" },
+  { href: "/recetas",    label: "Recetas",   icon: UtensilsCrossed, match: p => p.startsWith("/recetas") },
+  { href: "/evaluacion", label: "Evalúate",  icon: Sparkles,        match: p => p.startsWith("/evaluacion") },
+  { href: "/auth/login", label: "Entrar",    icon: LogIn,           match: p => p.startsWith("/auth") },
 ]
 
-// Pages with fixed fullscreen overlays — hide bottom nav to avoid z-index confusion
 const HIDE_PREFIXES = ["/evaluacion/", "/auth/"]
 
 const gold   = "#C9A84C"
@@ -37,7 +37,7 @@ const dimmed = "rgba(245,240,232,0.38)"
 export function BottomNav() {
   const pathname = usePathname()
   const [isAuth, setIsAuth] = useState<boolean | null>(null)
-  const [paramiState, setParamiState] = useState<{ hasLink: boolean; unread: number } | null>(null)
+  const [unread,  setUnread]  = useState(0)
 
   useEffect(() => {
     const supabase = createClient()
@@ -49,49 +49,25 @@ export function BottomNav() {
   }, [])
 
   useEffect(() => {
-    if (!isAuth) { setParamiState(null); return }
-
+    if (!isAuth) { setUnread(0); return }
     const supabase = createClient()
     supabase.auth.getUser().then(async ({ data: { user } }) => {
       if (!user) return
-      const { data: link } = await supabase
-        .from("professional_patient_links")
-        .select("id")
-        .eq("patient_user_id", user.id)
-        .eq("status", "active")
-        .limit(1)
-        .maybeSingle()
-      if (!link) return
       const { count } = await supabase
         .from("content_prescriptions")
         .select("id", { count: "exact", head: true })
         .eq("patient_user_id", user.id)
         .is("read_at", null)
-      setParamiState({ hasLink: true, unread: count ?? 0 })
+      setUnread(count ?? 0)
     })
   }, [isAuth])
 
-  // Don't render until auth state is known (avoids flash of guest tabs)
   if (isAuth === null) return null
-
-  // Hide inside wizard steps and auth screens
   if (HIDE_PREFIXES.some(prefix => pathname.startsWith(prefix))) return null
 
-  let tabs: Tab[]
-  if (!isAuth) {
-    tabs = GUEST_TABS
-  } else {
-    const paramiTab: Tab = {
-      href:  "/para-mi",
-      label: "Para ti",
-      icon:  BookOpen,
-      match: p => p.startsWith("/para-mi"),
-      badge: paramiState?.unread ?? 0,
-    }
-    tabs = paramiState?.hasLink
-      ? [...BASE_AUTH_TABS.slice(0, 3), paramiTab, BASE_AUTH_TABS[3]]
-      : BASE_AUTH_TABS
-  }
+  const tabs: Tab[] = !isAuth
+    ? GUEST_TABS
+    : AUTH_TABS.map(t => t.href === "/para-mi" ? { ...t, badge: unread } : t)
 
   return (
     <nav

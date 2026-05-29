@@ -65,11 +65,11 @@ function NavDropdown({ label, items }: { label: string; items: DropdownItem[] })
 
 // Nav de la companion app (usuario paciente autenticado)
 const COMPANION_NAV: DropdownItem[] = [
-  { label: "Dashboard",    href: "/dashboard"  },
+  { label: "Dashboard",     href: "/dashboard" },
   { label: "Mis prácticas", href: "/practicas" },
-  { label: "Recetas",      href: "/recetas"    },
-  { label: "Glosario",     href: "/glosario"   },
-  { label: "Newsletter",   href: "/blog"       },
+  { label: "Para mí",       href: "/para-mi"   },
+  { label: "Glosario",      href: "/glosario"  },
+  { label: "Newsletter",    href: "/blog"      },
 ]
 
 export function Header() {

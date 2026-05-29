@@ -78,11 +78,9 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                 <>
                   <NavLink href="/dashboard"    label="Dashboard"      close={close} />
                   <NavLink href="/practicas"    label="Mis prácticas"  close={close} />
-                  <NavLink href="/recetas"      label="Recetas"        close={close} />
+                  <NavLink href="/para-mi"      label="Para mí"        close={close} />
                   <NavLink href="/glosario"     label="Glosario"       close={close} />
                   <NavLink href="/blog"         label="Newsletter"     close={close} />
-                  <NavLink href="/para-mi"      label="Para mí"        close={close} />
-                  {!isPremium && <NavLink href="/pricing" label="Planes" close={close} gold />}
                   <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
                   <NavLink href="/perfil"       label="Mi Perfil"      close={close} />
                 </>

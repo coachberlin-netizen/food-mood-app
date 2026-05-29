@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState } from "react"
 import Link from "next/link"
 import { usePrescriptions, useLinkedProfessional } from "@/hooks/usePrescriptions"
 import { BookOpen, Video, FileText, Dumbbell, ChevronRight, CheckCircle, Circle } from "lucide-react"
@@ -41,16 +40,9 @@ const FILTERS: { key: Filter; label: string }[] = [
 ]
 
 export default function ParaMiClient() {
-  const router = useRouter()
   const { hasLink, professionalName, loading: linkLoading } = useLinkedProfessional()
   const { prescriptions, loading } = usePrescriptions()
   const [filter, setFilter] = useState<Filter>("all")
-
-  useEffect(() => {
-    if (!linkLoading && !hasLink) {
-      router.replace("/dashboard")
-    }
-  }, [hasLink, linkLoading, router])
 
   if (linkLoading || loading) {
     return (
@@ -60,7 +52,19 @@ export default function ParaMiClient() {
     )
   }
 
-  if (!hasLink) return null
+  if (!hasLink) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20 text-center" style={{ background: "#F5F0E8" }}>
+        <BookOpen className="w-12 h-12 mb-6" style={{ color: "rgba(107,39,55,0.2)" }} />
+        <h1 className="font-serif text-2xl font-black mb-3" style={{ color: "#2d0f16" }}>
+          Aún no tienes un profesional vinculado
+        </h1>
+        <p className="text-sm font-light max-w-xs leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>
+          Cuando tu profesional de salud te vincule a través de Food·Mood, aquí encontrarás el contenido que te prescriba.
+        </p>
+      </div>
+    )
+  }
 
   const filtered = prescriptions.filter(p => {
     if (filter === "unread") return !p.read_at

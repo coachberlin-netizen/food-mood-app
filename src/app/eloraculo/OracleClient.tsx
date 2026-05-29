@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, Loader2, CheckCircle2, ArrowRight, BookOpen, Sparkles } from 'lucide-react'
+import { ChevronLeft, Loader2, CheckCircle2, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import { moods } from '@/data/moods'
 import { SYMPTOMS } from '@/data/symptoms'
@@ -87,10 +87,6 @@ function getMixedSliders(emotions: string[]) {
     conexion:  Math.round((a.conexion  + b.conexion)  / 2),
   }
 }
-
-// ── Brand accent colours ─────────────────────────────────────────────
-const BURGUNDY = '#6B2737'
-const NARANJA  = '#E8621C'
 
 // ── Shared card style ────────────────────────────────────────────────
 
@@ -308,80 +304,19 @@ function StepNota({
 
 // ── Result screen ────────────────────────────────────────────────────
 
-function FadeCard({
-  delay = 0,
-  accent = BURGUNDY,
-  label,
-  children,
-}: {
-  delay?: number
-  accent?: string
-  label?: string
-  children: React.ReactNode
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.4, ease: 'easeOut' }}
-      className="rounded-3xl p-8 md:p-10 border"
-      style={{
-        borderColor: accent + '35',
-        background: `linear-gradient(150deg, ${accent}16 0%, ${accent}07 100%)`,
-      }}
-    >
-      {label && (
-        <p className="text-[11px] font-black tracking-[0.26em] uppercase mb-5" style={{ color: accent }}>
-          {label}
-        </p>
-      )}
-      {children}
-    </motion.div>
-  )
-}
-
-function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremium: boolean; onReset: () => void }) {
-  const [recipe, setRecipe] = useState<{ id: string; nombre_es: string; tiempo_preparacion_min: number; tipo_plato: string } | null>(null)
-  const [saved, setSaved] = useState(false)
+function OracleResult({ data, isPremium: _isPremium, onReset }: { data: OracleData; isPremium: boolean; onReset: () => void }) {
+  const [saved,  setSaved]  = useState(false)
   const [saving, setSaving] = useState(false)
-  const [claudeReading, setClaudeReading] = useState<string | null>(null)
-  const [loadingClaude, setLoadingClaude] = useState(isPremium) // starts true for premium; prevents race condition
   const autoSavedRef = useRef(false)
 
   const score = scoreCheckin(data)
 
   const moodA = moods.find(m => m.id === data.emotions[0])
   const moodB = data.emotions[1] ? moods.find(m => m.id === data.emotions[1]) : null
-  const recipeMood = moods.find(m => m.id === score.recipeQuery.moodId)
 
   const accentColor = moodA && moodB
     ? mixColors(moodA.color, moodB.color, 0.5)
     : moodA?.color ?? '#C9A84C'
-
-  useEffect(() => {
-    if (recipeMood) {
-      const supabase = createClient()
-      supabase
-        .from('recetas')
-        .select('id, nombre_es, tiempo_preparacion_min, tipo_plato')
-        .eq('mood_es', recipeMood.nombre)
-        .limit(1)
-        .maybeSingle()
-        .then(({ data: r }) => { if (r) setRecipe(r) })
-    }
-
-    if (isPremium) {
-      fetch('/api/oracle/reading', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ input: data }),
-      })
-        .then(r => r.ok ? r.json() : null)
-        .then(json => { if (json?.reading) setClaudeReading(json.reading) })
-        .finally(() => setLoadingClaude(false))
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const handleSave = useCallback(async () => {
     const supabase = createClient()
@@ -402,7 +337,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
           mood_dominante:    palette.moodDominante,
           mood_secundario:   palette.moodSecundario,
           color_resultado:   palette.colorMezclado,
-          recetas_sugeridas: recipe ? [recipe.id] : [],
+          recetas_sugeridas: [],
         }
       }
 
@@ -421,7 +356,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
             // 'skip' means user declined — store null
             cycle_phase:       data.cyclePhase === 'skip' ? null : data.cyclePhase,
             notes:             data.notes || null,
-            oracle_reading:    claudeReading ?? score.reading,
+            oracle_reading:    score.reading,
             recipe_mood_id:    score.recipeQuery.moodId,
             suggested_action:  { focus: score.nutritionPriority, ritual: score.ritual } satisfies OracleSuggestedAction,
             emotional_mix: {
@@ -441,16 +376,14 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
     } finally {
       setSaving(false)
     }
-  }, [data, accentColor, recipe, claudeReading, score])
+  }, [data, accentColor, score])
 
-  // Auto-save: non-premium immediately on mount, premium after AI reading arrives
   useEffect(() => {
     if (autoSavedRef.current || saved) return
-    if (isPremium && loadingClaude) return  // wait until AI reading is ready
     autoSavedRef.current = true
     handleSave()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadingClaude])
+  }, [])
 
   if (!moodA) return null
 
@@ -478,7 +411,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
           transition={{ delay: 0.25 }}
           className="text-[#F5F0E8] font-serif text-2xl font-light mb-1"
         >
-          Lectura completada
+          Registro completado
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
@@ -486,7 +419,7 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
           transition={{ delay: 0.35 }}
           className="text-[#F5F0E8]/35 text-xs"
         >
-          Hoy has sumado una nueva señal a tu mapa bioemocional
+          Tu estado de hoy ha sido registrado
         </motion.p>
       </motion.div>
 
@@ -519,106 +452,43 @@ function OracleResult({ data, isPremium, onReset }: { data: OracleData; isPremiu
       </motion.div>
 
       <div className="space-y-6">
-        {/* Claude premium reading */}
-        {isPremium && (loadingClaude || claudeReading) && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.4 }}
-            className="rounded-3xl p-8 md:p-10 border"
-            style={{ borderColor: accentColor + '35', background: `linear-gradient(150deg, ${accentColor}18 0%, ${accentColor}08 100%)` }}
-          >
-            <div className="flex items-center gap-2 mb-5">
-              <Sparkles className="w-4 h-4" style={{ color: accentColor }} />
-              <p className="text-[11px] font-black tracking-[0.26em] uppercase" style={{ color: accentColor }}>
-                Lectura personalizada
-              </p>
-            </div>
-            {loadingClaude && !claudeReading ? (
-              <div className="space-y-3 animate-pulse">
-                <div className="h-4 rounded bg-white/8 w-full" />
-                <div className="h-4 rounded bg-white/8 w-5/6" />
-                <div className="h-4 rounded bg-white/8 w-4/6" />
-              </div>
-            ) : (
-              <p className="text-[#F5F0E8]/90 text-base md:text-lg leading-relaxed font-light">{claudeReading}</p>
-            )}
-          </motion.div>
-        )}
-
-        {/* Rule-based oracle reading */}
-        <FadeCard delay={isPremium ? 0.55 : 0.45} accent={BURGUNDY} label="Lo que estamos observando">
-          <p className="text-[#F5F0E8]/85 text-base md:text-lg leading-relaxed font-light">{score.reading}</p>
-        </FadeCard>
-
-        {/* Pattern insight — only when a cross-signal pattern is detected */}
-        {score.insight && (
-          <FadeCard delay={0.55} accent={NARANJA} label="Patrón detectado">
-            <div className="flex items-start gap-4">
-              <div className="w-1.5 self-stretch rounded-full shrink-0 mt-1" style={{ background: NARANJA + '70' }} />
-              <p className="text-[#F5F0E8]/85 text-base md:text-lg leading-relaxed font-light">{score.insight}</p>
-            </div>
-          </FadeCard>
-        )}
-
-        {/* Nutrition focus */}
-        <FadeCard delay={0.65} accent={NARANJA} label="Lo que podría ayudarte hoy">
-          <ul className="space-y-4">
-            {score.nutritionPriority.map((f, i) => (
-              <li key={i} className="flex items-start gap-3 text-base md:text-lg text-[#F5F0E8]/80 leading-snug">
-                <span className="shrink-0 mt-1 font-bold" style={{ color: NARANJA }}>—</span>
-                {f}
-              </li>
-            ))}
-          </ul>
-        </FadeCard>
-
-        {/* Ritual */}
-        <FadeCard delay={0.75} accent={BURGUNDY} label="Tu siguiente pequeño paso">
-          <p className="text-[#F5F0E8]/80 text-base md:text-lg leading-relaxed font-light">{score.ritual}</p>
-        </FadeCard>
-
-        {/* Recipe */}
-        {recipe && (
-          <FadeCard delay={0.85} accent={NARANJA} label="Tu recomendación Food·Mood">
-            <p className="text-[#F5F0E8] font-serif text-xl md:text-2xl mb-2 leading-snug">{recipe.nombre_es}</p>
-            <p className="text-[#F5F0E8]/40 text-sm mb-6">{recipe.tiempo_preparacion_min} min · {recipe.tipo_plato}</p>
-            {isPremium ? (
-              <Link href={`/recetas/${recipe.id}`} className="inline-flex items-center gap-2 text-sm font-semibold transition-colors" style={{ color: NARANJA }}>
-                Ver receta completa <ArrowRight className="w-4 h-4" />
-              </Link>
-            ) : (
-              <Link href="/pricing" className="inline-flex items-center gap-2 text-sm font-semibold text-[#F5F0E8]/50 hover:text-[#F5F0E8] transition-colors">
-                Hazte Premium para ver la receta <ArrowRight className="w-4 h-4" />
-              </Link>
-            )}
-          </FadeCard>
-        )}
+        {/* Neutral confirmation */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.4 }}
+          className="rounded-3xl p-8 border text-center"
+          style={{ borderColor: 'rgba(201,168,76,0.2)', background: 'rgba(201,168,76,0.05)' }}
+        >
+          <p className="text-[#F5F0E8]/70 text-base leading-relaxed font-light">
+            Tu check-in ha sido registrado. Tu profesional tendrá acceso a tu evolución en la próxima sesión.
+          </p>
+        </motion.div>
 
         {/* CTAs */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95 }} className="space-y-3 pt-2">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="space-y-3 pt-2">
           {saved ? (
             <div className="space-y-3">
               <div className="flex items-center justify-center gap-2 py-3 text-sm" style={{ color: accentColor }}>
                 <CheckCircle2 className="w-4 h-4" />
-                Lectura guardada en tu historial
+                Registro guardado
               </div>
               <Link
                 href="/eloraculo/historial"
                 className="w-full flex items-center justify-center gap-2 rounded-2xl py-3 text-sm font-medium border transition-colors hover:bg-white/5"
                 style={{ color: 'rgba(245,240,232,0.5)', borderColor: 'rgba(245,240,232,0.1)' }}
               >
-                Ver mi historial →
+                Ver mis registros →
               </Link>
             </div>
           ) : saving ? (
             <div className="flex items-center justify-center gap-2 py-4 text-sm" style={{ color: 'rgba(245,240,232,0.35)' }}>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Guardando lectura…
+              Guardando registro…
             </div>
           ) : null}
           <button onClick={onReset} className="w-full py-3 text-[#F5F0E8]/35 text-sm hover:text-[#F5F0E8]/60 transition-colors">
-            Nueva lectura
+            Nuevo registro
           </button>
         </motion.div>
       </div>
@@ -666,13 +536,13 @@ function ConsentScreen({ onAccept, onDecline }: { onAccept: () => void; onDeclin
             Tus datos de salud
           </h2>
           <p className="text-[#F5F0E8]/50 text-sm leading-relaxed">
-            El Oráculo registra información sobre tu estado emocional, síntomas, ciclo y descanso —
+            Este registro captura información sobre tu estado emocional, síntomas, ciclo y descanso —
             datos de categoría especial según el RGPD (Art. 9).
           </p>
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3 text-sm text-[#F5F0E8]/60 leading-relaxed">
-          <p>✦ Solo <strong className="text-[#F5F0E8]/80">tú puedes ver</strong> tus lecturas — están cifradas y no se usan para publicidad.</p>
+          <p>✦ Solo <strong className="text-[#F5F0E8]/80">tú y tu profesional</strong> podéis ver tus registros — están cifrados y no se usan para publicidad.</p>
           <p>✦ <strong className="text-[#F5F0E8]/80">Puedes borrar</strong> todos tus datos en cualquier momento desde tu perfil.</p>
           <p>✦ Nunca compartimos datos de salud con terceros ni con herramientas de analítica.</p>
           <p className="text-[#F5F0E8]/30 text-xs pt-1">Base legal: consentimiento explícito · Art. 9(2)(a) RGPD</p>
@@ -684,7 +554,7 @@ function ConsentScreen({ onAccept, onDecline }: { onAccept: () => void; onDeclin
             onClick={handleAccept}
             className="w-full py-4 rounded-[60px] bg-[#6B2737] text-[#F5F0E8] font-semibold text-sm hover:bg-[#5a212e] transition-all disabled:opacity-50"
           >
-            {saving ? 'Guardando…' : 'Entendido, empezar mi lectura'}
+            {saving ? 'Guardando…' : 'Entendido, empezar mi registro'}
           </button>
           <button
             onClick={onDecline}
@@ -779,12 +649,12 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
             Food·Mood · Check-in diario
           </p>
           <h1 className="font-serif text-4xl md:text-5xl text-[#F5F0E8] font-light leading-tight mb-4">
-            El Oráculo<br />
-            <em className="italic text-[#C9A84C]">Bioquímico</em>
+            Registro<br />
+            <em className="italic text-[#C9A84C]">emocional</em>
           </h1>
           <p className="text-[#F5F0E8]/55 text-base max-w-xs mx-auto leading-relaxed mb-12">
-            Tu cuerpo habla. Tus emociones también.<br />
-            Registra cómo estás hoy y recibe una lectura personalizada.
+            Registra tu estado emocional y físico de hoy.<br />
+            Los datos ayudan a tu profesional a preparar vuestra sesión.
           </p>
           <button
             onClick={() => {
@@ -793,7 +663,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
             }}
             className="inline-flex items-center gap-3 bg-[#6B2737] text-[#F5F0E8] rounded-[60px] px-10 py-4 text-base font-semibold hover:bg-[#5a212e] transition-all hover:scale-105 active:scale-95"
           >
-            Empezar mi lectura <ArrowRight className="w-4 h-4" />
+            Empezar mi registro
           </button>
           <p className="text-[#F5F0E8]/25 text-xs mt-5">6 preguntas · menos de 2 minutos</p>
         </motion.div>
@@ -872,7 +742,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
           disabled={!canAdvance}
           className="w-full bg-[#6B2737] text-[#F5F0E8] rounded-2xl py-4 text-sm font-semibold transition-all hover:bg-[#5a212e] disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          {step === STEPS.length - 1 ? 'Ver mi lectura →' : 'Continuar →'}
+          {step === STEPS.length - 1 ? 'Guardar mi registro →' : 'Continuar →'}
         </button>
         {step >= 3 && (
           <button onClick={next} className="w-full mt-2 py-2.5 text-[#F5F0E8]/30 text-xs hover:text-[#F5F0E8]/50 transition-colors">

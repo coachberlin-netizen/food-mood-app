@@ -5,22 +5,23 @@ import { getPremiumStatus } from '@/lib/premium'
 import OracleClient from './OracleClient'
 
 export const metadata: Metadata = {
-  title: 'El Oráculo Bioquímico — IA de nutrición emocional femenina | Food·Mood',
+  title: 'Check-in diario — Registro emocional | Food·Mood',
   description:
-    'Tecnología femtech basada en neurociencia nutricional. Registra tu estado emocional, energía y ciclo menstrual y recibe cada día una lectura personalizada desde el eje intestino-cerebro. Postbióticos, crononutrición y regulación del sistema nervioso.',
+    'Registra tu estado emocional, energía, síntomas y ciclo. Los datos van a tu profesional de salud para preparar vuestra próxima sesión.',
   alternates: { canonical: 'https://www.food-mood.app/eloraculo' },
+  robots: { index: false },
   openGraph: {
-    title: 'El Oráculo Bioquímico — IA femtech de nutrición emocional | Food·Mood',
+    title: 'Check-in diario — Food·Mood',
     description:
-      'Tu cuerpo habla. Tus emociones también. IA femtech que conecta ciclo menstrual, estado emocional y microbioma para darte una lectura nutricional personalizada cada día.',
+      'Registra tu estado emocional y físico de hoy. Herramienta de seguimiento para pacientes de Food·Mood.',
     url: 'https://www.food-mood.app/eloraculo',
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'El Oráculo Bioquímico — Food·Mood femtech IA' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Check-in diario — Food·Mood' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'El Oráculo Bioquímico — IA femtech de nutrición emocional | Food·Mood',
-    description: 'IA que conecta ciclo, emociones y microbioma para darte una lectura nutricional personalizada cada día.',
+    title: 'Check-in diario — Food·Mood',
+    description: 'Registra tu estado emocional y físico de hoy.',
   },
 }
 

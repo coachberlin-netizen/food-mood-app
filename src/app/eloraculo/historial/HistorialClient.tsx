@@ -170,12 +170,12 @@ export default function HistorialClient({ checkins }: { checkins: Checkin[] }) {
           className="inline-flex items-center gap-1 text-xs mb-6 transition-opacity hover:opacity-70"
           style={{ color: 'rgba(245,240,232,0.35)' }}
         >
-          <ChevronLeft className="w-3.5 h-3.5" /> El Oráculo
+          <ChevronLeft className="w-3.5 h-3.5" /> Check-in diario
         </Link>
         <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-2" style={{ color: '#C9A84C' }}>
           Food·Mood · Historial
         </p>
-        <h1 className="font-serif text-3xl font-light text-[#F5F0E8]">Tus lecturas</h1>
+        <h1 className="font-serif text-3xl font-light text-[#F5F0E8]">Tus registros</h1>
         {checkins.length > 0 && (
           <p className="text-[10px] mt-1" style={{ color: 'rgba(245,240,232,0.3)' }}>
             {checkins.length} check-in{checkins.length !== 1 ? 's' : ''} registrados
@@ -188,14 +188,14 @@ export default function HistorialClient({ checkins }: { checkins: Checkin[] }) {
         <div className="flex flex-col items-center py-20 text-center">
           <Sparkles className="w-8 h-8 mb-5" style={{ color: 'rgba(201,168,76,0.3)' }} />
           <p className="text-sm mb-6" style={{ color: 'rgba(245,240,232,0.4)' }}>
-            Aún no has registrado ninguna lectura
+            Aún no has registrado ningún check-in
           </p>
           <Link
             href="/eloraculo"
             className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold transition-colors hover:opacity-90"
             style={{ background: '#6B2737', color: '#F5F0E8' }}
           >
-            Hacer mi primera lectura
+            Hacer mi primer registro
           </Link>
         </div>
       )}
@@ -215,7 +215,7 @@ export default function HistorialClient({ checkins }: { checkins: Checkin[] }) {
             className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold transition-colors hover:opacity-90"
             style={{ background: '#6B2737', color: '#F5F0E8' }}
           >
-            Nueva lectura de hoy
+            Nuevo registro
           </Link>
         </div>
       )}

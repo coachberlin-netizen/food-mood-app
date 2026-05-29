@@ -68,7 +68,7 @@ export function OracleWidget() {
       >
         <div className="flex items-center justify-between mb-3">
           <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
-            ✦ El Oráculo Bioquímico
+            ✦ Check-in diario
           </p>
           {ago !== null && (
             <span className="text-[10px]" style={{ color: 'rgba(245,240,232,0.25)' }}>
@@ -77,10 +77,10 @@ export function OracleWidget() {
           )}
         </div>
         <p className="font-serif text-lg font-light mb-4 leading-snug" style={{ color: '#F5F0E8' }}>
-          {checkin ? 'Aún no has hecho tu lectura de hoy' : 'Descubre lo que tu cuerpo está diciendo hoy'}
+          {checkin ? 'Aún no has hecho tu registro de hoy' : 'Registra tu estado emocional y físico de hoy'}
         </p>
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: '#C9A84C' }}>
-          Empezar lectura <ArrowRight className="w-3 h-3" />
+          Hacer mi registro <ArrowRight className="w-3 h-3" />
         </span>
       </Link>
     )
@@ -100,7 +100,7 @@ export function OracleWidget() {
     >
       <div className="flex items-center justify-between mb-3">
         <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
-          ✦ El Oráculo · Hoy
+          ✦ Check-in · Hoy
         </p>
         <div className="flex items-center gap-3">
           <Link

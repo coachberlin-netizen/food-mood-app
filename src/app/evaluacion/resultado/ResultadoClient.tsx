@@ -310,13 +310,13 @@ function ValoracionResult({
             className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-semibold transition-all"
             style={{ background: 'rgba(201,168,76,0.12)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.25)' }}
           >
-            Explorar el Oráculo diario <ArrowRight className="w-4 h-4" />
+            Ir a mi check-in diario <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            href="/recetas"
+            href="/practicas"
             className="w-full flex items-center justify-center gap-2 bg-[#6B2737] text-[#F5F0E8] rounded-2xl py-4 text-sm font-semibold hover:bg-[#5a212e] transition-all"
           >
-            Ver recetas personalizadas <ArrowRight className="w-4 h-4" />
+            Ver mis herramientas <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
       </div>

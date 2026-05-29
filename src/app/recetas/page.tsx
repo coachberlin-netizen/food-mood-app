@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import RecetasClient from "./RecetasClient";
 import { createClient } from "@/lib/supabase/server";
-import { getPremiumStatus } from "@/lib/premium";
 import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -23,7 +22,31 @@ export const metadata: Metadata = {
 export default async function RecetasPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const isPremium = user ? await getPremiumStatus(supabase, user.id) : false;
+
+  if (user) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20 text-center" style={{ background: "#F5F0E8" }}>
+        <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: "#C9A84C" }}>
+          Recetas
+        </p>
+        <h1 className="font-serif text-2xl font-black mb-3" style={{ color: "#2d0f16" }}>
+          Las recetas las prescribe tu profesional
+        </h1>
+        <p className="text-sm font-light max-w-sm leading-relaxed mb-8" style={{ color: "rgba(107,39,55,0.6)" }}>
+          Tu profesional de salud seleccionará las recetas más adecuadas para ti. Las encontrarás en la sección Para ti.
+        </p>
+        <a
+          href="/para-mi"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all hover:brightness-110"
+          style={{ background: "#6B2737", color: "#F5F0E8" }}
+        >
+          Ir a Para ti
+        </a>
+      </div>
+    );
+  }
+
+  const isPremium = false;
 
   // Fetch first 9 free recipes for SSR — enough to fill the first viewport
   const { data: initialRecetas, count } = await supabase

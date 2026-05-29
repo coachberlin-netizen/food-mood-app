@@ -7,7 +7,7 @@ import HistorialClient from './HistorialClient'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Historial · El Oráculo — Food·Mood',
+  title: 'Historial de registros — Food·Mood',
   robots: { index: false },
 }
 
