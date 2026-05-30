@@ -629,9 +629,6 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       )}
 
       {/* ── Latest session prep (always visible) ───────────────────────────── */}
-      {latestPrep === undefined && (
-        <div className="mb-5 h-16 rounded-xl animate-pulse" style={{ background: "rgba(107,39,55,0.04)" }} />
-      )}
       {latestPrep && (
         <Link
           href={`/pro/sesion/${latestPrep.id}`}
