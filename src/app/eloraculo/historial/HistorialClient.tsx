@@ -160,19 +160,32 @@ export default function HistorialClient({ checkins }: { checkins: Checkin[] }) {
 
       {/* Empty state */}
       {checkins.length === 0 && (
-        <div className="flex flex-col items-center py-20 text-center">
-          <Sparkles className="w-8 h-8 mb-5" style={{ color: 'rgba(201,168,76,0.3)' }} />
-          <p className="text-sm mb-6" style={{ color: 'rgba(245,240,232,0.4)' }}>
-            Aún no has registrado ningún check-in
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className="flex flex-col items-center py-20 text-center px-6"
+        >
+          <div
+            className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
+            style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.15)' }}
+          >
+            <Sparkles className="w-6 h-6" style={{ color: 'rgba(201,168,76,0.5)' }} />
+          </div>
+          <p className="font-serif text-xl font-light mb-3" style={{ color: '#F5F0E8' }}>
+            Tu espacio está esperando
+          </p>
+          <p className="text-sm font-light leading-relaxed max-w-xs mb-8" style={{ color: 'rgba(245,240,232,0.4)' }}>
+            Cada check-in es un momento de escucha. Empieza hoy y en 7 días tendrás una imagen real de tus patrones.
           </p>
           <Link
             href="/eloraculo"
-            className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold transition-colors hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold transition-all hover:opacity-90 hover:scale-105"
             style={{ background: '#6B2737', color: '#F5F0E8' }}
           >
-            Hacer mi primer registro
+            Empezar mi registro
           </Link>
-        </div>
+        </motion.div>
       )}
 
       {/* Cards */}

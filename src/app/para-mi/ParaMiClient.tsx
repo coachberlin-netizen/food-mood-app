@@ -108,11 +108,33 @@ export default function ParaMiClient() {
         </div>
 
         {filtered.length === 0 ? (
-          <p className="text-center text-sm font-light py-16" style={{ color: "rgba(107,39,55,0.5)" }}>
-            {prescriptions.length === 0
-              ? "Aún no tienes contenido prescrito por tu profesional. Cuando lo haga, aparecerá aquí."
-              : "No hay contenido en este filtro."}
-          </p>
+          prescriptions.length === 0 ? (
+            <div className="flex flex-col items-center text-center py-16 px-4">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
+                style={{ background: "rgba(107,39,55,0.06)", border: "1px solid rgba(107,39,55,0.12)" }}
+              >
+                <BookOpen className="w-6 h-6" style={{ color: "rgba(107,39,55,0.3)" }} />
+              </div>
+              <p className="font-serif text-xl font-black mb-2" style={{ color: "#2d0f16" }}>
+                Aún no hay contenido prescrito
+              </p>
+              <p className="text-sm font-light leading-relaxed max-w-xs mb-8" style={{ color: "rgba(107,39,55,0.55)" }}>
+                Cuando tu profesional te prescriba recursos, los encontrarás aquí. Mientras tanto, puedes explorar tus prácticas.
+              </p>
+              <Link
+                href="/practicas"
+                className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold transition-all hover:opacity-90"
+                style={{ background: "#6B2737", color: "#F5F0E8" }}
+              >
+                Explorar mis prácticas
+              </Link>
+            </div>
+          ) : (
+            <p className="text-center text-sm font-light py-12" style={{ color: "rgba(107,39,55,0.45)" }}>
+              No hay contenido en este filtro.
+            </p>
+          )
         ) : (
           <ul className="flex flex-col gap-4">
             {filtered.map(p => {

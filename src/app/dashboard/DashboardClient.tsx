@@ -455,6 +455,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
     <div className="min-h-screen bg-transparent">
       <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-24">
 
+        {/* ── Check-in diario — first thing authenticated users see ── */}
+        {isAuthenticated && <OracleWidget />}
+
         {/* ── Índice Food·Mood ── */}
         <div className="max-w-[520px] w-full mx-auto">
           <FoodMoodIndex />
@@ -462,9 +465,6 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
 
         {/* ── Paleta emocional ── */}
         <PaletteWidget />
-
-        {/* ── Oracle widget ── */}
-        {isAuthenticated && <OracleWidget />}
 
         {/* ── Biomarcadores (solo premium) ── */}
         {isAuthenticated && isPremium && <BiomarkerPanel />}
@@ -512,10 +512,17 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
                   animate={true}
                 />
               ) : (
-                <div className="flex flex-col items-center gap-4 py-2">
-                  <p className="text-sm font-light text-aubergine-dark/60 text-center">
-                    No hay datos suficientes para esta semana.
+                <div className="flex flex-col items-center gap-3 py-4 text-center">
+                  <p className="text-sm font-light text-aubergine-dark/60">
+                    Aún no hay registros esta semana.
                   </p>
+                  <Link
+                    href="/eloraculo"
+                    className="text-xs font-medium transition-opacity hover:opacity-80"
+                    style={{ color: "#6B2737" }}
+                  >
+                    Hacer mi primer check-in →
+                  </Link>
                 </div>
               )}
             </div>
