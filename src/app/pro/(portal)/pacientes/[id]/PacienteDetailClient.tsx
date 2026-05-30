@@ -6,6 +6,8 @@ import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { ArrowLeft, Loader2, Sparkles } from "lucide-react"
 
+// ── Types ─────────────────────────────────────────────────────────────────────
+
 type Tab = "conductual" | "prescripciones" | "sesiones"
 
 type SessionPrep = {
@@ -16,10 +18,12 @@ type SessionPrep = {
   weekly_summary: string | null
 }
 
-const TAB_LABELS: Record<Tab, string> = {
-  conductual:     "Herramientas conductuales",
-  prescripciones: "Prescripciones",
-  sesiones:       "Sesiones",
+type Prescription = {
+  id: string
+  prescribed_at: string
+  read_at: string | null
+  professional_note: string | null
+  content_library: { title: string; content_type: string }[]
 }
 
 type HambreLog = {
@@ -88,6 +92,14 @@ type SocraticDialogue = {
   conversation: { role: string; content: string }[]
 }
 
+// ── Static config ─────────────────────────────────────────────────────────────
+
+const TAB_LABELS: Record<Tab, string> = {
+  conductual:     "Herramientas conductuales",
+  prescripciones: "Prescripciones",
+  sesiones:       "Sesiones",
+}
+
 const NSS_LABEL: Record<string, { label: string; color: string }> = {
   ventral:             { label: "Calma / conexión",        color: "#16a34a" },
   sympathetic_active:  { label: "Activación positiva",     color: "#d97706" },
@@ -97,9 +109,51 @@ const NSS_LABEL: Record<string, { label: string; color: string }> = {
   mixed:               { label: "Estado mixto",            color: "#a855f7" },
 }
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" })
 }
+
+function computeInsight(
+  checkins: CheckIn[],
+  hambreLogs: HambreLog[],
+  granularity: GranularityLog[],
+): string | null {
+  const parts: string[] = []
+
+  if (checkins.length >= 3) {
+    const recent = checkins.slice(0, 14)
+    const counts: Record<string, number> = {}
+    recent.forEach(c => { counts[c.nervous_system_state] = (counts[c.nervous_system_state] ?? 0) + 1 })
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1])
+    if (sorted.length > 0) {
+      const [topState, topCount] = sorted[0]
+      const pct = Math.round((topCount / recent.length) * 100)
+      parts.push(`${NSS_LABEL[topState]?.label ?? topState} en el ${pct}% de los últimos ${recent.length} check-ins`)
+    }
+  }
+
+  if (hambreLogs.length >= 3) {
+    const emoTotal  = hambreLogs.reduce((s, h) => s + h.emotional_hunger, 0)
+    const physTotal = hambreLogs.reduce((s, h) => s + h.physical_hunger, 0)
+    const pct = Math.round((emoTotal / (emoTotal + physTotal)) * 100)
+    parts.push(`${pct}% de hambre emocional`)
+  }
+
+  if (granularity.length >= 3) {
+    const emoCounts: Record<string, number> = {}
+    granularity.flatMap(g => g.final_emotion_words).forEach(em => {
+      emoCounts[em] = (emoCounts[em] ?? 0) + 1
+    })
+    const top = Object.entries(emoCounts).sort((a, b) => b[1] - a[1])[0]
+    if (top) parts.push(`"${top[0]}" es la emoción más nombrada`)
+  }
+
+  return parts.length > 0 ? parts.join(" · ") : null
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
 
 function ScoreBar({ score }: { score: number }) {
   const labels = ["","Básica","Nombrada","Doble","Triple","Rica"]
@@ -113,30 +167,92 @@ function ScoreBar({ score }: { score: number }) {
   )
 }
 
+function NSSHeatmap({ checkins }: { checkins: CheckIn[] }) {
+  if (checkins.length < 2) return null
+
+  const today = new Date()
+  const days = Array.from({ length: 28 }, (_, i) => {
+    const d = new Date(today)
+    d.setDate(today.getDate() - (27 - i))
+    return d
+  })
+
+  const byDate = new Map<string, CheckIn>()
+  checkins.forEach(c => {
+    const key = new Date(c.logged_at).toLocaleDateString("en-CA")
+    if (!byDate.has(key)) byDate.set(key, c)
+  })
+
+  return (
+    <div className="bg-white rounded-xl p-4 mb-4" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+      <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(107,39,55,0.4)" }}>
+        NSS · últimos 28 días
+      </p>
+      <div className="grid grid-cols-7 gap-1">
+        {days.map((day, i) => {
+          const key = day.toLocaleDateString("en-CA")
+          const c   = byDate.get(key)
+          const nss = c ? NSS_LABEL[c.nervous_system_state] : null
+          const isToday = day.toDateString() === today.toDateString()
+          return (
+            <div
+              key={i}
+              className="aspect-square rounded-sm"
+              title={c ? `${formatDate(c.logged_at)}: ${nss?.label ?? c.nervous_system_state}` : undefined}
+              style={{
+                background:    nss ? nss.color + "90" : "rgba(107,39,55,0.05)",
+                outline:       isToday ? "1.5px solid rgba(201,168,76,0.5)" : undefined,
+                outlineOffset: isToday ? "2px" : undefined,
+              }}
+            />
+          )
+        })}
+      </div>
+      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-3">
+        {Object.entries(NSS_LABEL).map(([key, { label, color }]) => {
+          const count = days.filter(d => byDate.get(d.toLocaleDateString("en-CA"))?.nervous_system_state === key).length
+          if (count === 0) return null
+          return (
+            <span key={key} className="inline-flex items-center gap-1 text-[9px]" style={{ color: "rgba(107,39,55,0.5)" }}>
+              <span className="w-2 h-2 rounded-full inline-block" style={{ background: color }} />
+              {label} ({count})
+            </span>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+
 export default function PacienteDetailClient({ patientUserId }: { patientUserId: string }) {
   const router = useRouter()
-  const [tab,              setTab]             = useState<Tab>("conductual")
-  const [patientName,      setPatientName]     = useState<string | null>(null)
-  const [patientEmail,     setPatientEmail]    = useState<string | null>(null)
-  const [linkedAt,         setLinkedAt]        = useState<string | null>(null)
-  const [checkins,         setCheckins]        = useState<CheckIn[]>([])
-  const [granularity,      setGranularity]     = useState<GranularityLog[]>([])
-  const [dialogues,        setDialogues]       = useState<SocraticDialogue[]>([])
-  const [prescriptions,    setPrescriptions]   = useState<{ id: string; prescribed_at: string; read_at: string | null; professional_note: string | null; content_library: { title: string; content_type: string }[] }[]>([])
-  const [hambreLogs,       setHambreLogs]      = useState<HambreLog[]>([])
-  const [mealLogs,         setMealLogs]        = useState<MealLog[]>([])
-  const [valuesLogs,       setValuesLogs]      = useState<ValuesLog[]>([])
-  const [intentions,       setIntentions]      = useState<IntentionLog[]>([])
-  const [nudges,           setNudges]          = useState<NudgeLog[]>([])
-  const [expandedDialog,   setExpandedDialog]  = useState<string | null>(null)
-  const [loading,          setLoading]         = useState(true)
-  const [notFound,         setNotFound]        = useState(false)
-  const [sessionPreps,       setSessionPreps]       = useState<SessionPrep[]>([])
-  const [sessionPrepsLoaded, setSessionPrepsLoaded] = useState(false)
-  const [preparandoSesion,   setPreparandoSesion]   = useState(false)
-  const [prepError,          setPrepError]          = useState("")
-  const [prepMsgIdx,         setPrepMsgIdx]         = useState(0)
+  const [tab,              setTab]              = useState<Tab>("conductual")
+  const [patientName,      setPatientName]      = useState<string | null>(null)
+  const [patientEmail,     setPatientEmail]     = useState<string | null>(null)
+  const [linkedAt,         setLinkedAt]         = useState<string | null>(null)
+  const [checkins,         setCheckins]         = useState<CheckIn[]>([])
+  const [granularity,      setGranularity]      = useState<GranularityLog[]>([])
+  const [dialogues,        setDialogues]        = useState<SocraticDialogue[]>([])
+  const [prescriptions,    setPrescriptions]    = useState<Prescription[]>([])
+  const [hambreLogs,       setHambreLogs]       = useState<HambreLog[]>([])
+  const [mealLogs,         setMealLogs]         = useState<MealLog[]>([])
+  const [valuesLogs,       setValuesLogs]       = useState<ValuesLog[]>([])
+  const [intentions,       setIntentions]       = useState<IntentionLog[]>([])
+  const [nudges,           setNudges]           = useState<NudgeLog[]>([])
+  const [expandedDialog,   setExpandedDialog]   = useState<string | null>(null)
+  const [loading,          setLoading]          = useState(true)
+  const [notFound,         setNotFound]         = useState(false)
+  const [sessionPreps,        setSessionPreps]        = useState<SessionPrep[]>([])
+  const [sessionPrepsLoaded,  setSessionPrepsLoaded]  = useState(false)
+  const [preparandoSesion,    setPreparandoSesion]    = useState(false)
+  const [prepError,           setPrepError]           = useState("")
+  const [prepMsgIdx,          setPrepMsgIdx]          = useState(0)
+  const [latestPrep,          setLatestPrep]          = useState<SessionPrep | null | undefined>(undefined)
+  const [prescriptionsLoaded, setPrescriptionsLoaded] = useState(false)
 
+  // Initial data load — everything except prescriptions (lazy) and all session preps (lazy)
   useEffect(() => {
     const supabase = createClient()
 
@@ -144,7 +260,6 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.replace("/pro/login"); return }
 
-      // Verify link exists (professional can only see linked patients)
       const [linkRes, invRes] = await Promise.all([
         supabase
           .from("professional_patient_links")
@@ -165,8 +280,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       setPatientName(invRes.data?.patient_name ?? null)
       setPatientEmail(invRes.data?.patient_email ?? null)
 
-      // Fetch behavioral data in parallel
-      const [checkinsRes, granRes, diagRes, presRes, hambreRes, mealRes, valRes, intRes, nudgeRes] = await Promise.all([
+      const [checkinsRes, granRes, diagRes, latestPrepRes, hambreRes, mealRes, valRes, intRes, nudgeRes] = await Promise.all([
         supabase
           .from("interoceptive_checkins")
           .select("id, logged_at, nervous_system_state, interoceptive_clarity, dominant_sensation")
@@ -186,11 +300,12 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
           .order("started_at", { ascending: false })
           .limit(20),
         supabase
-          .from("content_prescriptions")
-          .select("id, prescribed_at, read_at, professional_note, content_library(title, content_type)")
+          .from("session_preps")
+          .select("id, created_at, period_start, period_end, weekly_summary")
           .eq("patient_user_id", patientUserId)
-          .order("prescribed_at", { ascending: false })
-          .limit(30),
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle(),
         supabase
           .from("hunger_thermometer_logs")
           .select("id, logged_at, physical_hunger, emotional_hunger, interoceptive_clarity, decided_to_eat, context_notes")
@@ -225,7 +340,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       setCheckins((checkinsRes.data ?? []) as CheckIn[])
       setGranularity((granRes.data ?? []) as GranularityLog[])
       setDialogues((diagRes.data ?? []) as SocraticDialogue[])
-      setPrescriptions((presRes.data ?? []) as typeof prescriptions)
+      setLatestPrep(latestPrepRes.data ?? null)
       setHambreLogs((hambreRes.data ?? []) as HambreLog[])
       setMealLogs((mealRes.data ?? []) as MealLog[])
       setValuesLogs((valRes.data ?? []) as ValuesLog[])
@@ -237,7 +352,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
     load()
   }, [patientUserId, router])
 
-  // Lazy-load session preps when the Sesiones tab is first opened
+  // Lazy-load full session prep list when Sesiones tab is first opened
   useEffect(() => {
     if (tab !== "sesiones" || sessionPrepsLoaded) return
     fetch(`/api/pro/session-prep?patient_user_id=${patientUserId}`)
@@ -245,6 +360,23 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       .then(d => { setSessionPreps(d.preps ?? []); setSessionPrepsLoaded(true) })
       .catch(() => setSessionPrepsLoaded(true))
   }, [tab, patientUserId, sessionPrepsLoaded])
+
+  // Lazy-load prescriptions when Prescripciones tab is first opened
+  useEffect(() => {
+    if (tab !== "prescripciones" || prescriptionsLoaded) return
+    const supabase = createClient()
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) { setPrescriptionsLoaded(true); return }
+      const { data } = await supabase
+        .from("content_prescriptions")
+        .select("id, prescribed_at, read_at, professional_note, content_library(title, content_type)")
+        .eq("patient_user_id", patientUserId)
+        .order("prescribed_at", { ascending: false })
+        .limit(30)
+      setPrescriptions((data ?? []) as Prescription[])
+      setPrescriptionsLoaded(true)
+    })
+  }, [tab, patientUserId, prescriptionsLoaded])
 
   const totalRecords = checkins.length + hambreLogs.length + mealLogs.length + granularity.length + dialogues.length
 
@@ -302,12 +434,13 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   }
 
   const uniqueEmotions = [...new Set(granularity.flatMap(g => g.final_emotion_words))]
+  const insight = computeInsight(checkins, hambreLogs, granularity)
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
 
-      {/* Header */}
-      <div className="mb-6">
+      {/* ── Header ─────────────────────────────────────────────────────────── */}
+      <div className="mb-5">
         <Link href="/pro/pacientes" className="inline-flex items-center gap-2 text-xs mb-4" style={{ color: "rgba(107,39,55,0.5)" }}>
           <ArrowLeft className="w-4 h-4" /> Pacientes
         </Link>
@@ -339,7 +472,48 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
         </div>
       </div>
 
-      {/* Tabs */}
+      {/* ── Pattern insight ─────────────────────────────────────────────────── */}
+      {insight && (
+        <div className="mb-4 rounded-xl px-4 py-3" style={{ background: "rgba(107,39,55,0.04)", border: "1px solid rgba(107,39,55,0.08)" }}>
+          <p className="text-[9px] font-bold uppercase tracking-wider mb-1" style={{ color: "rgba(107,39,55,0.4)" }}>
+            Patrón detectado
+          </p>
+          <p className="text-xs leading-relaxed" style={{ color: "#2d0f16" }}>{insight}</p>
+        </div>
+      )}
+
+      {/* ── Latest session prep (always visible) ───────────────────────────── */}
+      {latestPrep === undefined && (
+        <div className="mb-5 h-16 rounded-xl animate-pulse" style={{ background: "rgba(107,39,55,0.04)" }} />
+      )}
+      {latestPrep && (
+        <Link
+          href={`/pro/sesion/${latestPrep.id}`}
+          className="mb-5 block rounded-xl px-5 py-4 bg-white transition-all hover:shadow-sm"
+          style={{ border: "1px solid rgba(107,39,55,0.08)", borderLeftWidth: 3, borderLeftColor: "#C9A84C" }}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <p className="text-[9px] font-bold uppercase tracking-wider mb-1" style={{ color: "#C9A84C" }}>
+                Último informe de sesión
+              </p>
+              <p className="text-[10px] mb-1" style={{ color: "rgba(107,39,55,0.5)" }}>
+                {new Date(latestPrep.period_start).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}
+                {" — "}
+                {new Date(latestPrep.period_end).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" })}
+              </p>
+              {latestPrep.weekly_summary && (
+                <p className="text-xs font-light leading-relaxed line-clamp-2" style={{ color: "rgba(107,39,55,0.6)" }}>
+                  {latestPrep.weekly_summary}
+                </p>
+              )}
+            </div>
+            <span className="text-xs shrink-0 mt-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Ver →</span>
+          </div>
+        </Link>
+      )}
+
+      {/* ── Tabs ───────────────────────────────────────────────────────────── */}
       <div className="flex gap-1 p-1 rounded-xl mb-6 w-fit" style={{ background: "rgba(107,39,55,0.07)" }}>
         {(["conductual", "prescripciones", "sesiones"] as Tab[]).map(t => (
           <button
@@ -359,6 +533,9 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       {/* ── TAB CONDUCTUAL ─────────────────────────────────────────────────── */}
       {tab === "conductual" && (
         <div className="flex flex-col gap-8">
+
+          {/* NSS heatmap (A3) */}
+          <NSSHeatmap checkins={checkins} />
 
           {/* Check-ins interoceptivos */}
           <section>
@@ -604,7 +781,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
             )}
           </section>
 
-          {/* Plans if-then */}
+          {/* Planes si-entonces */}
           <section>
             <h2 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
               Planes si-entonces ({intentions.filter(i => i.is_active).length} activos)
@@ -732,7 +909,11 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       {/* ── TAB PRESCRIPCIONES ─────────────────────────────────────────────── */}
       {tab === "prescripciones" && (
         <div>
-          {prescriptions.length === 0 ? (
+          {!prescriptionsLoaded ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="w-5 h-5 border-2 border-[#6B2737] border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : prescriptions.length === 0 ? (
             <p className="text-sm" style={{ color: "rgba(107,39,55,0.35)" }}>Sin prescripciones todavía.</p>
           ) : (
             <div className="flex flex-col gap-3">

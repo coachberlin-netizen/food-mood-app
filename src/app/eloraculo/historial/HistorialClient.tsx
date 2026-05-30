@@ -34,6 +34,65 @@ function formatDate(iso: string) {
 
 // ── Sub-components ───────────────────────────────────────────────────
 
+function EmotionCalendar({ checkins }: { checkins: Checkin[] }) {
+  const today = new Date()
+  const days  = Array.from({ length: 28 }, (_, i) => {
+    const d = new Date(today)
+    d.setDate(today.getDate() - (27 - i))
+    return d
+  })
+
+  const byDate = new Map<string, Checkin>()
+  checkins.forEach(c => {
+    const key = new Date(c.created_at).toLocaleDateString("en-CA")
+    if (!byDate.has(key)) byDate.set(key, c)
+  })
+
+  const present = moods.filter(m =>
+    days.some(d => byDate.get(d.toLocaleDateString("en-CA"))?.primary_emotion === m.id)
+  )
+
+  return (
+    <div className="mb-6 rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.1)" }}>
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "rgba(245,240,232,0.3)" }}>
+        Últimos 28 días
+      </p>
+      <div className="grid grid-cols-7 gap-1.5">
+        {days.map((day, i) => {
+          const key  = day.toLocaleDateString("en-CA")
+          const c    = byDate.get(key)
+          const mood = c ? moods.find(m => m.id === c.primary_emotion) : null
+          const isToday = day.toDateString() === today.toDateString()
+          return (
+            <div
+              key={i}
+              className="aspect-square rounded-sm"
+              style={{
+                background:    mood ? mood.color + "bb" : "rgba(255,255,255,0.05)",
+                outline:       isToday ? "1.5px solid rgba(201,168,76,0.6)" : undefined,
+                outlineOffset: isToday ? "2px" : undefined,
+              }}
+            />
+          )
+        })}
+      </div>
+      {present.length > 0 && (
+        <div className="flex flex-wrap gap-x-3 gap-y-1 mt-3">
+          {present.map(m => {
+            const count = days.filter(d => byDate.get(d.toLocaleDateString("en-CA"))?.primary_emotion === m.id).length
+            return (
+              <span key={m.id} className="inline-flex items-center gap-1 text-[9px]" style={{ color: "rgba(245,240,232,0.4)" }}>
+                <span className="w-2 h-2 rounded-full inline-block" style={{ background: m.color }} />
+                {m.nombre} ({count})
+              </span>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function EnergyBar({ value }: { value: number }) {
   return (
     <div className="flex items-center gap-2">
@@ -187,6 +246,9 @@ export default function HistorialClient({ checkins }: { checkins: Checkin[] }) {
           </Link>
         </motion.div>
       )}
+
+      {/* Emotion heatmap */}
+      {checkins.length > 0 && <EmotionCalendar checkins={checkins} />}
 
       {/* Cards */}
       <div className="space-y-3">
