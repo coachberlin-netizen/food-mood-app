@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { ArrowLeft, Loader2, Sparkles } from "lucide-react"
+import { moods } from "@/data/moods"
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -77,6 +78,13 @@ type GranularityLog = {
   initial_emotion_word: string
   final_emotion_words: string[]
   granularity_score: number
+}
+
+type OracleCheckin = {
+  id: string
+  created_at: string
+  primary_emotion: string
+  secondary_emotion: string | null
 }
 
 type SocraticDialogue = {
@@ -167,6 +175,136 @@ function ScoreBar({ score }: { score: number }) {
   )
 }
 
+function OracleEmotionHeatmap({ checkins }: { checkins: OracleCheckin[] }) {
+  if (checkins.length === 0) return null
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  // Align grid to Monday of the week 4 weeks ago → 5 rows × 7 cols
+  const dow = today.getDay() === 0 ? 6 : today.getDay() - 1   // Mon=0 … Sun=6
+  const gridStart = new Date(today)
+  gridStart.setDate(today.getDate() - dow - 28)
+
+  const gridDays = Array.from({ length: 35 }, (_, i) => {
+    const d = new Date(gridStart)
+    d.setDate(gridStart.getDate() + i)
+    return d
+  })
+
+  const byDate = new Map<string, OracleCheckin>()
+  checkins.forEach(c => {
+    const key = new Date(c.created_at).toLocaleDateString("en-CA")
+    if (!byDate.has(key)) byDate.set(key, c)
+  })
+
+  // 28-day window stats
+  const windowStart = new Date(today)
+  windowStart.setDate(today.getDate() - 27)
+  const daysInWindow  = gridDays.filter(d => d >= windowStart && d <= today)
+  const checkedInWindow = daysInWindow.filter(d => byDate.has(d.toLocaleDateString("en-CA"))).length
+
+  // Current consecutive streak (backwards from today)
+  let streak = 0
+  const streakCur = new Date(today)
+  while (byDate.has(streakCur.toLocaleDateString("en-CA"))) {
+    streak++
+    streakCur.setDate(streakCur.getDate() - 1)
+  }
+
+  // Mood counts (primary, in-window only)
+  const moodCounts = new Map<string, number>()
+  daysInWindow.forEach(d => {
+    const c = byDate.get(d.toLocaleDateString("en-CA"))
+    if (c) moodCounts.set(c.primary_emotion, (moodCounts.get(c.primary_emotion) ?? 0) + 1)
+  })
+
+  const DAY_LABELS = ["L", "M", "X", "J", "V", "S", "D"]
+
+  return (
+    <div className="bg-white rounded-xl p-4 mb-4" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(107,39,55,0.4)" }}>
+          Paleta emocional · 5 semanas
+        </p>
+        <div className="flex items-center gap-3">
+          {streak > 0 && (
+            <span className="text-[10px] font-semibold" style={{ color: "#C9A84C" }}>
+              {streak} día{streak !== 1 ? "s" : ""} seguido{streak !== 1 ? "s" : ""}
+            </span>
+          )}
+          <span className="text-[10px]" style={{ color: "rgba(107,39,55,0.35)" }}>
+            {checkedInWindow}/28 días
+          </span>
+        </div>
+      </div>
+
+      {/* Day headers */}
+      <div className="grid grid-cols-7 gap-1 mb-1">
+        {DAY_LABELS.map(l => (
+          <div key={l} className="text-center text-[8px] font-medium" style={{ color: "rgba(107,39,55,0.25)" }}>
+            {l}
+          </div>
+        ))}
+      </div>
+
+      {/* Calendar cells */}
+      <div className="grid grid-cols-7 gap-1">
+        {gridDays.map((day, i) => {
+          const key     = day.toLocaleDateString("en-CA")
+          const c       = byDate.get(key)
+          const isFuture = day > today
+          const isToday  = day.toDateString() === today.toDateString()
+          const moodA   = c ? moods.find(m => m.id === c.primary_emotion) : null
+          const moodB   = c?.secondary_emotion ? moods.find(m => m.id === c.secondary_emotion) : null
+
+          const bg = isFuture
+            ? "rgba(107,39,55,0.02)"
+            : moodA && moodB
+            ? `linear-gradient(135deg, ${moodA.color}cc 50%, ${moodB.color}cc 50%)`
+            : moodA
+            ? moodA.color + "cc"
+            : "rgba(107,39,55,0.06)"
+
+          const title = c
+            ? `${day.toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" })}: ${moodA?.nombre ?? c.primary_emotion}${moodB ? ` + ${moodB.nombre}` : ""}`
+            : undefined
+
+          return (
+            <div
+              key={i}
+              className="aspect-square rounded-sm"
+              title={title}
+              style={{
+                background:    bg,
+                opacity:       isFuture ? 0.25 : 1,
+                outline:       isToday ? "1.5px solid rgba(201,168,76,0.6)" : undefined,
+                outlineOffset: isToday ? "2px" : undefined,
+              }}
+            />
+          )
+        })}
+      </div>
+
+      {/* Legend */}
+      {moodCounts.size > 0 && (
+        <div className="flex flex-wrap gap-x-3 gap-y-1 mt-3">
+          {moods
+            .filter(m => moodCounts.has(m.id))
+            .map(m => (
+              <span key={m.id} className="inline-flex items-center gap-1 text-[9px]" style={{ color: "rgba(107,39,55,0.5)" }}>
+                <span className="w-2 h-2 rounded-full inline-block" style={{ background: m.color }} />
+                {m.nombre} ({moodCounts.get(m.id)})
+              </span>
+            ))
+          }
+        </div>
+      )}
+    </div>
+  )
+}
+
 function NSSHeatmap({ checkins }: { checkins: CheckIn[] }) {
   if (checkins.length < 2) return null
 
@@ -251,6 +389,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   const [prepMsgIdx,          setPrepMsgIdx]          = useState(0)
   const [latestPrep,          setLatestPrep]          = useState<SessionPrep | null | undefined>(undefined)
   const [prescriptionsLoaded, setPrescriptionsLoaded] = useState(false)
+  const [oracleCheckins,      setOracleCheckins]      = useState<OracleCheckin[]>([])
 
   // Initial data load — everything except prescriptions (lazy) and all session preps (lazy)
   useEffect(() => {
@@ -280,7 +419,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       setPatientName(invRes.data?.patient_name ?? null)
       setPatientEmail(invRes.data?.patient_email ?? null)
 
-      const [checkinsRes, granRes, diagRes, latestPrepRes, hambreRes, mealRes, valRes, intRes, nudgeRes] = await Promise.all([
+      const [checkinsRes, granRes, diagRes, latestPrepRes, hambreRes, mealRes, valRes, intRes, nudgeRes, oracleRes] = await Promise.all([
         supabase
           .from("interoceptive_checkins")
           .select("id, logged_at, nervous_system_state, interoceptive_clarity, dominant_sensation")
@@ -335,6 +474,12 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
           .eq("user_id", patientUserId)
           .order("generated_at", { ascending: false })
           .limit(20),
+        supabase
+          .from("oracle_checkins")
+          .select("id, created_at, primary_emotion, secondary_emotion")
+          .eq("user_id", patientUserId)
+          .order("created_at", { ascending: false })
+          .limit(60),
       ])
 
       setCheckins((checkinsRes.data ?? []) as CheckIn[])
@@ -346,6 +491,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       setValuesLogs((valRes.data ?? []) as ValuesLog[])
       setIntentions((intRes.data ?? []) as IntentionLog[])
       setNudges((nudgeRes.data ?? []) as NudgeLog[])
+      setOracleCheckins((oracleRes.data ?? []) as OracleCheckin[])
       setLoading(false)
     }
 
@@ -534,7 +680,10 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       {tab === "conductual" && (
         <div className="flex flex-col gap-8">
 
-          {/* NSS heatmap (A3) */}
+          {/* Emotional palette heatmap — 5-week calendar (A3) */}
+          <OracleEmotionHeatmap checkins={oracleCheckins} />
+
+          {/* NSS heatmap — nervous system states */}
           <NSSHeatmap checkins={checkins} />
 
           {/* Check-ins interoceptivos */}
