@@ -2,7 +2,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Quiénes Somos | Food·Mood — Ciencia con propósito",
-  description: "Conoce al equipo de psicólogos, tecnólogos alimentarios y especialistas en longevidad detrás de Food·Mood. Ciencia del eje intestino-cerebro aplicada a tu bienestar diario.",
+  description: "El equipo detrás de Food·Mood: psicólogos, nutricionistas y tecnólogos. Ciencia del eje intestino-cerebro aplicada al bienestar real.",
   alternates: {
     canonical: "/quienes-somos",
   },

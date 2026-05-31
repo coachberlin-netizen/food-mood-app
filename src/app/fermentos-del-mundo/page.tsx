@@ -7,7 +7,7 @@ import { getPremiumStatus } from "@/lib/premium"
 
 export const metadata: Metadata = {
   title: "Mapa de Fermentos del Mundo — Kimchi, Kéfir, Kombucha | Food·Mood",
-  description: "16 fermentos de 12 países: qué son, cómo afectan tu microbiota y tu estado emocional. Kimchi, kéfir, miso, kombucha, tempeh y más, explicados con ciencia.",
+  description: "16 fermentos de 12 países: cómo afectan tu microbiota y estado emocional. Kimchi, kéfir, miso, kombucha, tempeh y más, con ciencia.",
   alternates: { canonical: "/fermentos-del-mundo" },
   openGraph: {
     title: "Mapa de Fermentos del Mundo — Food·Mood",

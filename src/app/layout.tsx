@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
   title: "Food·Mood Pro — Plataforma profesional de psiconutrición",
-  description: "Plataforma para psicólogas, nutricionistas y psiconutricionistas. Captura emoción, interocepción y patrones conductuales del paciente entre sesiones. RGPD · Acceso anticipado.",
+  description: "Herramienta clínica para psicólogas y nutricionistas: registra emoción, interocepción y conducta del paciente entre sesiones. Cumple RGPD.",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
