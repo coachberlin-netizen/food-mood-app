@@ -3,7 +3,8 @@
 import { useState, useEffect, Suspense, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { ArrowRight, CheckCircle, Loader2 } from "lucide-react"
+import { AnimatePresence, motion } from "framer-motion"
+import { ArrowRight, CalendarDays, CheckCircle2, Loader2, Sparkles } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 
 // Vista pública — para visitantes sin cuenta que aterrizan en /canjear
@@ -70,6 +71,153 @@ function CanjearPublic() {
           </Link>
         </div>
       </div>
+    </div>
+  )
+}
+
+// ── 3-screen onboarding after successful link ─────────────────────────
+
+const SLIDE = {
+  enter:  { opacity: 0, x: 32 },
+  center: { opacity: 1, x: 0   },
+  exit:   { opacity: 0, x: -32 },
+}
+
+function OnboardingFlow() {
+  const [step, setStep] = useState(0)
+
+  return (
+    <div>
+      {/* Progress dots */}
+      <div className="flex justify-center gap-1.5 mb-8">
+        {[0, 1, 2].map(i => (
+          <div
+            key={i}
+            className="rounded-full transition-all duration-300"
+            style={{
+              width:      i === step ? 20 : 6,
+              height:     6,
+              background: i === step ? "#6B2737" : "rgba(107,39,55,0.15)",
+            }}
+          />
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        {step === 0 && (
+          <motion.div
+            key="step-0"
+            variants={SLIDE} initial="enter" animate="center" exit="exit"
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="text-center"
+          >
+            <div
+              className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
+              style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)" }}
+            >
+              <CheckCircle2 className="w-7 h-7" style={{ color: "#C9A84C" }} />
+            </div>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+              Vinculación completada
+            </p>
+            <h2 className="font-serif text-2xl font-bold mb-4" style={{ color: "#2d0f16" }}>
+              Tu consulta está conectada
+            </h2>
+            <p className="text-sm font-light leading-relaxed mb-8" style={{ color: "rgba(107,39,55,0.65)" }}>
+              Tu profesional puede acompañar tu proceso en Food·Mood. Verá tus patrones de bienestar — no mensajes individuales — para entender cómo apoyarte mejor.
+            </p>
+            <button
+              onClick={() => setStep(1)}
+              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold transition-all hover:brightness-110"
+              style={{ backgroundColor: "#6B2737", color: "#F5F0E8" }}
+            >
+              ¿Cómo funciona? <ArrowRight className="w-4 h-4" />
+            </button>
+          </motion.div>
+        )}
+
+        {step === 1 && (
+          <motion.div
+            key="step-1"
+            variants={SLIDE} initial="enter" animate="center" exit="exit"
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="text-center"
+          >
+            <div
+              className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
+              style={{ background: "rgba(107,39,55,0.07)", border: "1px solid rgba(107,39,55,0.12)" }}
+            >
+              <CalendarDays className="w-7 h-7" style={{ color: "#6B2737" }} />
+            </div>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+              Tu check-in diario
+            </p>
+            <h2 className="font-serif text-2xl font-bold mb-4" style={{ color: "#2d0f16" }}>
+              Tu voz, tu ritmo
+            </h2>
+            <p className="text-sm font-light leading-relaxed mb-8" style={{ color: "rgba(107,39,55,0.65)" }}>
+              Cada día, en menos de 90 segundos, registras cómo estás emocionalmente y físicamente. Tu profesional ve los patrones — nunca tus palabras exactas — para acompañarte desde un lugar de comprensión real.
+            </p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => setStep(2)}
+                className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold transition-all hover:brightness-110"
+                style={{ backgroundColor: "#6B2737", color: "#F5F0E8" }}
+              >
+                Entendido <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setStep(0)}
+                className="text-xs font-light transition-opacity hover:opacity-60"
+                style={{ color: "rgba(107,39,55,0.45)" }}
+              >
+                Volver
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {step === 2 && (
+          <motion.div
+            key="step-2"
+            variants={SLIDE} initial="enter" animate="center" exit="exit"
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="text-center"
+          >
+            <div
+              className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
+              style={{ background: "rgba(107,39,55,0.07)", border: "1px solid rgba(107,39,55,0.12)" }}
+            >
+              <Sparkles className="w-7 h-7" style={{ color: "#6B2737" }} />
+            </div>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+              Tu primer registro
+            </p>
+            <h2 className="font-serif text-2xl font-bold mb-4" style={{ color: "#2d0f16" }}>
+              ¿Empezamos hoy?
+            </h2>
+            <p className="text-sm font-light leading-relaxed mb-8" style={{ color: "rgba(107,39,55,0.65)" }}>
+              El primer paso es el más importante. Tómate 90 segundos ahora para hacer tu primer check-in. Tu profesional verá que has comenzado.
+            </p>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/eloraculo"
+                className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold transition-all hover:brightness-110"
+                style={{ backgroundColor: "#6B2737", color: "#F5F0E8" }}
+              >
+                Hacer mi primer registro <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/dashboard"
+                className="text-xs font-light transition-opacity hover:opacity-60"
+                style={{ color: "rgba(107,39,55,0.45)" }}
+              >
+                Explorar el dashboard primero
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -144,22 +292,7 @@ function CanjearForm() {
 
         <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm" style={{ border: "1px solid rgba(107,39,55,0.1)" }}>
           {success ? (
-            <div className="text-center space-y-4">
-              <div className="flex justify-center">
-                <CheckCircle className="w-12 h-12 text-green-500" />
-              </div>
-              <h1 className="text-xl font-serif font-bold" style={{ color: "#6B2737" }}>Vinculación completada</h1>
-              <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.6)" }}>
-                Tu consulta ha quedado vinculada correctamente. Desde ahora tu profesional puede acompañar tu proceso en Food·Mood.
-              </p>
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-xl text-sm font-medium transition-all hover:brightness-110"
-                style={{ backgroundColor: "#6B2737", color: "white" }}
-              >
-                Ir a mi dashboard <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <OnboardingFlow />
           ) : (
             <>
               <h1 className="text-2xl font-serif font-bold text-center mb-2" style={{ color: "#2d0f16" }}>

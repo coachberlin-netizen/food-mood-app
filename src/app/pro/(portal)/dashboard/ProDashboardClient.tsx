@@ -5,6 +5,7 @@ import { Users, MailOpen, Clock } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useProfessional } from "@/hooks/useProfessional"
 import Link from "next/link"
+import ProAlertsPanel from "@/components/pro/ProAlertsPanel"
 
 type RecentPatient = {
   id: string
@@ -70,6 +71,8 @@ export default function ProDashboardClient() {
           <p className="text-sm text-[#6B2737]/60 mt-1">{professional.professional_title}</p>
         )}
       </div>
+
+      <ProAlertsPanel />
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
