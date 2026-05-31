@@ -234,7 +234,7 @@ function EarlyAccessModal({ open, onClose }: { open: boolean; onClose: () => voi
             <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#C9A84C" }}>Acceso anticipado</p>
-                <h2 className="font-serif text-lg font-semibold text-white leading-snug">Plazas limitadas en esta fase</h2>
+                <h2 className="font-serif text-lg font-semibold text-white leading-snug">Solicita tu acceso — te respondemos en 48h</h2>
               </div>
               <button onClick={onClose} className="p-1.5 rounded-lg transition-colors hover:bg-white/10" aria-label="Cerrar">
                 <X className="w-4 h-4" style={{ color: "rgba(245,240,232,0.45)" }} />
@@ -453,6 +453,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
                     </li>
                   ))}
                 </ul>
+                {/* TODO Institución: reemplazar onRequestAccess por flujo de demo/contacto enterprise cuando esté listo */}
                 <button
                   onClick={onRequestAccess}
                   className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98]"
