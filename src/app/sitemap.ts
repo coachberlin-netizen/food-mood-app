@@ -2,40 +2,52 @@ import { MetadataRoute } from 'next';
 import { SYMPTOMS } from '@/data/symptoms';
 import { createClient } from '@supabase/supabase-js';
 
+type StaticRoute = {
+  route: string;
+  priority: number;
+  freq: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+  lastMod?: string; // ISO date — omit to use current date
+};
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.food-mood.app';
 
-  // Initialize Supabase client
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
   const supabase = createClient(supabaseUrl, supabaseKey);
 
-  // Static Pages
-  const staticRoutes: { route: string; priority: number; freq: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never' }[] = [
-    { route: '',                    priority: 1.0, freq: 'weekly'  },
-    { route: '/paleta',             priority: 0.9, freq: 'weekly'  },
-    { route: '/paleta/ansiedad',   priority: 0.8, freq: 'monthly' },
-    { route: '/paleta/melancolia', priority: 0.8, freq: 'monthly' },
-    { route: '/paleta/estres',     priority: 0.8, freq: 'monthly' },
-    { route: '/paleta/agotamiento', priority: 0.8, freq: 'monthly' },
-    { route: '/pricing',            priority: 0.9, freq: 'weekly'  },
-    { route: '/retos',              priority: 0.8, freq: 'weekly'  },
-    { route: '/test',               priority: 0.8, freq: 'weekly'  },
-    { route: '/como-funciona',      priority: 0.8, freq: 'monthly' },
-    { route: '/recetas',            priority: 0.8, freq: 'weekly'  },
-    { route: '/blog',               priority: 0.7, freq: 'weekly'  },
-    { route: '/sintomas',           priority: 0.7, freq: 'monthly' },
-    { route: '/glosario',           priority: 0.7, freq: 'monthly' },
-    { route: '/fermentos-del-mundo', priority: 0.7, freq: 'monthly' },
-    { route: '/quienes-somos',      priority: 0.6, freq: 'monthly' },
-    { route: '/saber-mas',          priority: 0.6, freq: 'monthly' },
-    { route: '/corporate-wellness', priority: 0.8, freq: 'monthly' },
-    { route: '/servicios',          priority: 0.8, freq: 'monthly' },
+  // Static pages — Pro pages get high priority, B2C consumer pages are deprioritized
+  // so that Google correctly identifies the site's primary audience (health professionals).
+  const staticRoutes: StaticRoute[] = [
+    // ── Pro marketing pages (primary signal) ──────────────────────────
+    { route: '',                     priority: 1.0, freq: 'weekly',  lastMod: '2026-05-31' },
+    { route: '/como-funciona',       priority: 0.9, freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/corporate-wellness',  priority: 0.9, freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/servicios',           priority: 0.9, freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/quienes-somos',       priority: 0.7, freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/saber-mas',           priority: 0.6, freq: 'monthly' },
+
+    // ── Editorial & authority content ─────────────────────────────────
+    { route: '/blog',                priority: 0.75, freq: 'weekly', lastMod: '2026-05-25' },
+    { route: '/glosario',            priority: 0.65, freq: 'monthly' },
+    { route: '/fermentos-del-mundo', priority: 0.65, freq: 'monthly' },
+
+    // ── B2C consumer pages (deprioritized — not the primary audience) ─
+    { route: '/pricing',             priority: 0.4, freq: 'monthly', lastMod: '2025-09-01' },
+    { route: '/paleta',              priority: 0.5, freq: 'monthly', lastMod: '2025-09-01' },
+    { route: '/paleta/ansiedad',     priority: 0.4, freq: 'monthly', lastMod: '2025-09-01' },
+    { route: '/paleta/melancolia',   priority: 0.4, freq: 'monthly', lastMod: '2025-09-01' },
+    { route: '/paleta/estres',       priority: 0.4, freq: 'monthly', lastMod: '2025-09-01' },
+    { route: '/paleta/agotamiento',  priority: 0.4, freq: 'monthly', lastMod: '2025-09-01' },
+    { route: '/test',                priority: 0.5, freq: 'monthly', lastMod: '2025-09-01' },
+    { route: '/recetas',             priority: 0.6, freq: 'weekly' },
+    { route: '/sintomas',            priority: 0.6, freq: 'monthly' },
+    { route: '/retos',               priority: 0.6, freq: 'weekly' },
   ];
 
-  const staticPages = staticRoutes.map(({ route, priority, freq }) => ({
+  const staticPages = staticRoutes.map(({ route, priority, freq, lastMod }) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
+    lastModified: lastMod ? new Date(lastMod) : new Date(),
     changeFrequency: freq,
     priority,
   }));
@@ -62,29 +74,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/recetas/${recipe.id}`,
     lastModified: recipe.updated_at ? new Date(recipe.updated_at) : new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: 0.6,
   }));
 
   // Symptoms
   const symptomPages = SYMPTOMS.map((symptom) => ({
     url: `${baseUrl}/sintomas/${symptom.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date('2025-09-01'),
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: 0.6,
   }));
 
   // Reto landing pages
   const { data: challenges } = await supabase
     .from('challenges')
     .select('slug, updated_at')
-    .eq('is_active', true)
+    .eq('is_active', true);
 
   const retoPages = (challenges || []).map((ch) => ({
     url: `${baseUrl}/retos/${ch.slug}`,
     lastModified: ch.updated_at ? new Date(ch.updated_at) : new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.85,
-  }))
+    priority: 0.6,
+  }));
 
   // Editorial newsletter pages
   const newsletterEditorialPages = [
@@ -99,7 +111,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { slug: 'colageno-huesos-menopausia',   date: '2026-05-25' },
     { slug: 'emociones-menopausia',          date: '2026-06-01' },
     { slug: 'fermentos-del-mundo',            date: '2026-06-08' },
-    { slug: 'mosaico-emocional',               date: '2026-06-15' },
+    { slug: 'mosaico-emocional',               date: '2026-06-22' },
     { slug: 'lactobacillus-ph-vaginal',         date: '2026-06-22' },
     { slug: 'metabolismo-35',                    date: '2026-06-29' },
     { slug: 'reset-mitocondrial',                date: '2026-07-06' },
@@ -108,14 +120,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified:    new Date(nl.date),
     changeFrequency: 'monthly' as const,
     priority:        0.7,
-  }))
+  }));
 
   const newsletterIndexPage = {
     url:             `${baseUrl}/newsletter/archivo`,
     lastModified:    new Date(),
     changeFrequency: 'weekly' as const,
     priority:        0.75,
-  }
+  };
 
   return [...staticPages, ...blogPages, ...recipePages, ...symptomPages, ...retoPages, newsletterIndexPage, ...newsletterEditorialPages];
 }

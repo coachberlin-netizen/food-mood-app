@@ -133,7 +133,7 @@ export default function RootLayout({
               name: "Food·Mood",
               url: "https://www.food-mood.app",
               logo: "https://www.food-mood.app/icons/icon-512.png",
-              description: "Plataforma de nutrición neuroactiva basada en el eje intestino-cerebro para mujeres 40+ en perimenopausia y menopausia.",
+              description: "Plataforma profesional de psiconutrición para psicólogas, nutricionistas y psiconutricionistas. Herramienta clínica de seguimiento emocional e interoceptivo entre sesiones.",
               sameAs: [],
               contactPoint: {
                 "@type": "ContactPoint",
