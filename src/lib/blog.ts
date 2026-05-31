@@ -28,6 +28,11 @@ function slugFromFilename(filename: string): string {
   return filename.replace(/\.(mdx?|md)$/, '')
 }
 
+// Normalise to a path — strips https://www.food-mood.app prefix if present.
+function toPath(canonical: string): string {
+  return canonical.replace(/^https?:\/\/www\.food-mood\.app/, '')
+}
+
 function estimateReadingTime(text: string): number {
   return Math.max(1, Math.round(text.trim().split(/\s+/).length / 200))
 }
@@ -51,7 +56,7 @@ export function getAllMdxPosts(): MdxPostMeta[] {
         author: fm.author || 'Susana Ferreras Díez',
         authorCredentials: fm.authorCredentials || '',
         keywords: fm.keywords || [],
-        canonical: fm.canonical || `/blog/${slug}`,
+        canonical: toPath(fm.canonical || `/blog/${slug}`),
         readingTimeMinutes: estimateReadingTime(content),
       } satisfies MdxPostMeta
     })
@@ -78,7 +83,7 @@ export async function getMdxPostBySlug(slug: string): Promise<MdxPost | null> {
       author: fm.author || 'Susana Ferreras Díez',
       authorCredentials: fm.authorCredentials || '',
       keywords: fm.keywords || [],
-      canonical: fm.canonical || `/blog/${fileSlug}`,
+      canonical: toPath(fm.canonical || `/blog/${fileSlug}`),
       readingTimeMinutes: estimateReadingTime(content),
       contentHtml: await markdownToHtml(content),
     }
