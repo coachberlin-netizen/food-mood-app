@@ -151,7 +151,7 @@ function EarlyAccessForm({ onClose }: { onClose?: () => void }) {
         </div>
         <h3 className="font-serif text-xl font-semibold text-white mb-3">Solicitud recibida</h3>
         <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.65)" }}>
-          Nos pondremos en contacto contigo en los próximos días para concretar el acceso anticipado y el onboarding. Gracias por confiar en Food·Mood Pro.
+          Nos pondremos en contacto en las próximas 48 horas para concretar el acceso y el onboarding. Gracias por confiar en Food·Mood Pro.
         </p>
         {onClose && (
           <button onClick={onClose} className="mt-6 text-sm font-light underline" style={{ color: "rgba(245,240,232,0.4)" }}>Cerrar</button>
@@ -270,12 +270,99 @@ function FaqItem({ faq, isOpen, onToggle }: { faq: (typeof FAQS)[0]; isOpen: boo
   )
 }
 
+// ─── Onboarding steps ────────────────────────────────────────────────────────
+
+const ONBOARDING_STEPS = [
+  {
+    n: 1,
+    title: "Solicitas acceso",
+    desc: "Rellenas el formulario en 2 minutos. Nos ponemos en contacto en menos de 48h para concretar el onboarding y resolver cualquier duda.",
+    time: "2 min de tu tiempo",
+    color: "#C9A84C",
+  },
+  {
+    n: 2,
+    title: "Configuras tu perfil",
+    desc: "Defines tu especialidad y flujo de trabajo en el portal profesional. Onboarding asistido incluido. Sin curva de aprendizaje.",
+    time: "5 min de configuración",
+    color: "#5A9B8A",
+  },
+  {
+    n: 3,
+    title: "Invitas a tu primer paciente",
+    desc: "Generas un código desde tu portal y lo compartes. Tu paciente empieza a registrar desde el primer día. Sin app store, desde el navegador.",
+    time: "30 segundos de invitación",
+    color: "#A07BBE",
+  },
+]
+
+function OnboardingSteps({ onRequestAccess }: { onRequestAccess: () => void }) {
+  return (
+    <section aria-label="Cómo empezar" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0f0a0d" }}>
+      <div className="max-w-4xl mx-auto">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-14">
+          <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
+            Empieza en menos de 10 minutos
+          </motion.p>
+          <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
+            ¿Qué ocurre después{" "}
+            <em className="font-light italic" style={{ color: "#C9A84C" }}>de clicar?</em>
+          </motion.h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-5 mb-12">
+          {ONBOARDING_STEPS.map((step, i) => (
+            <motion.div
+              key={step.n}
+              initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.45 }}
+              className="rounded-2xl p-7"
+              style={{ backgroundColor: "rgba(255,255,255,0.04)", border: `1px solid ${step.color}25` }}
+            >
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center mb-5"
+                style={{ backgroundColor: step.color + "18", border: `1px solid ${step.color}38` }}
+              >
+                <span className="text-sm font-bold font-mono" style={{ color: step.color }}>{step.n}</span>
+              </div>
+              <h3 className="font-serif text-lg font-semibold text-white mb-3 leading-snug">{step.title}</h3>
+              <p className="text-sm font-light leading-relaxed mb-5" style={{ color: "rgba(245,240,232,0.55)" }}>{step.desc}</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: step.color + "80" }}>{step.time}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <motion.button
+            initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            onClick={onRequestAccess}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
+            style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
+          >
+            Solicitar acceso — respuesta en 48h
+          </motion.button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Toggle precio ────────────────────────────────────────────────────────────
+
+type Plan = {
+  name: string
+  monthly: number | null
+  description: string
+  patients: string
+  features: string[]
+  highlight: boolean
+  cta: string
+}
 
 function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
   const [annual, setAnnual] = useState(false)
 
-  const plans = [
+  const plans: Plan[] = [
     {
       name: "Profesional",
       monthly: 39,
@@ -283,6 +370,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
       patients: "Hasta 40 pacientes",
       features: ["Portal profesional completo", "Companion app para cada paciente", "Resumen semanal de sesión", "Patrones y alertas adaptativas", "Soporte por email"],
       highlight: false,
+      cta: "Solicitar acceso →",
     },
     {
       name: "Clínica",
@@ -291,12 +379,22 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
       patients: "Pacientes ilimitados",
       features: ["Todo lo de Profesional", "Hasta 5 profesionales", "Panel de equipo compartido", "Exportación de datos", "Soporte prioritario + onboarding"],
       highlight: true,
+      cta: "Solicitar acceso →",
+    },
+    {
+      name: "Institución",
+      monthly: null,
+      description: "Para hospitales, clínicas universitarias y redes de salud.",
+      patients: "Escala personalizada",
+      features: ["Todo lo de Clínica", "Profesionales ilimitados", "Integración con HIS / EMR", "SLA dedicado", "Formación presencial del equipo", "Precio a medida"],
+      highlight: false,
+      cta: "Hablemos →",
     },
   ]
 
   return (
     <section id="precios" aria-label="Precios" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Precios</motion.p>
           <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06 }} className="font-serif text-3xl md:text-4xl leading-tight mb-6" style={{ color: "#2d0f16" }}>
@@ -313,14 +411,16 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
+        <div className="grid md:grid-cols-3 gap-5 mb-10">
           {plans.map((plan) => {
-            const price = annual ? Math.round(plan.monthly * 10 / 12) : plan.monthly
+            const price = plan.monthly !== null
+              ? (annual ? Math.round(plan.monthly * 10 / 12) : plan.monthly)
+              : null
             return (
               <motion.div
                 key={plan.name}
                 initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="rounded-2xl p-8 flex flex-col relative overflow-hidden"
+                className="rounded-2xl p-7 flex flex-col relative overflow-hidden"
                 style={{
                   backgroundColor: plan.highlight ? "#2d0f16" : "white",
                   border: plan.highlight ? "1px solid rgba(201,168,76,0.3)" : "1px solid rgba(107,39,55,0.1)",
@@ -333,10 +433,16 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
                 )}
                 <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: plan.highlight ? "rgba(201,168,76,0.6)" : "rgba(107,39,55,0.4)" }}>{plan.name}</p>
                 <div className="flex items-end gap-1.5 mb-1">
-                  <span className="font-serif font-bold leading-none" style={{ fontSize: "2.6rem", color: plan.highlight ? "#F5F0E8" : "#2d0f16" }}>{price}€</span>
-                  <span className="text-xs font-light mb-2" style={{ color: plan.highlight ? "rgba(245,240,232,0.4)" : "rgba(107,39,55,0.4)" }}>/mes</span>
+                  {price !== null ? (
+                    <>
+                      <span className="font-serif font-bold leading-none" style={{ fontSize: "2.4rem", color: plan.highlight ? "#F5F0E8" : "#2d0f16" }}>{price}€</span>
+                      <span className="text-xs font-light mb-2" style={{ color: plan.highlight ? "rgba(245,240,232,0.4)" : "rgba(107,39,55,0.4)" }}>/mes</span>
+                    </>
+                  ) : (
+                    <span className="font-serif font-bold leading-none" style={{ fontSize: "1.9rem", color: "#2d0f16" }}>A medida</span>
+                  )}
                 </div>
-                {annual && <p className="text-[10px] mb-1" style={{ color: plan.highlight ? "rgba(245,240,232,0.35)" : "rgba(107,39,55,0.35)" }}>Facturado anualmente ({plan.monthly * 10}€/año)</p>}
+                {annual && plan.monthly !== null && <p className="text-[10px] mb-1" style={{ color: plan.highlight ? "rgba(245,240,232,0.35)" : "rgba(107,39,55,0.35)" }}>Facturado anualmente ({plan.monthly * 10}€/año)</p>}
                 <p className="text-xs font-light mb-1.5" style={{ color: plan.highlight ? "rgba(245,240,232,0.55)" : "rgba(107,39,55,0.55)" }}>{plan.description}</p>
                 <p className="text-xs font-semibold mb-5 pb-5" style={{ color: plan.highlight ? "#C9A84C" : "#6B2737", borderBottom: `1px solid ${plan.highlight ? "rgba(201,168,76,0.12)" : "rgba(107,39,55,0.08)"}` }}>{plan.patients}</p>
                 <ul className="flex flex-col gap-2.5 mb-8 flex-1">
@@ -356,7 +462,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
                     border: plan.highlight ? undefined : "1px solid rgba(107,39,55,0.18)",
                   }}
                 >
-                  Solicitar acceso anticipado →
+                  {plan.cta}
                 </button>
               </motion.div>
             )
@@ -413,7 +519,7 @@ export default function ProLanding() {
                   className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
                   style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
                 >
-                  Solicitar acceso anticipado
+                  Solicitar acceso — respuesta en 48h
                 </button>
                 <button
                   onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
@@ -681,10 +787,13 @@ export default function ProLanding() {
         </div>
       </section>
 
-      {/* ── 7. PRECIOS ────────────────────────────────────────────────────────── */}
+      {/* ── 7. ONBOARDING STEPS ─────────────────────────────────────────────── */}
+      <OnboardingSteps onRequestAccess={open} />
+
+      {/* ── 8. PRECIOS ──────────────────────────────────────────────────────── */}
       <PricingSection onRequestAccess={open} />
 
-      {/* ── 8. TESTIMONIOS PLACEHOLDER ───────────────────────────────────────── */}
+      {/* ── 9. TESTIMONIOS PLACEHOLDER ───────────────────────────────────────── */}
       <section aria-label="Lo que dicen los primeros usuarios" className="py-14 px-6" style={{ backgroundColor: "#f7f4ef", borderTop: "1px solid rgba(107,39,55,0.06)" }}>
         <div className="max-w-4xl mx-auto">
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-8 text-center" style={{ color: "rgba(107,39,55,0.35)" }}>Early adopters</p>
@@ -709,7 +818,7 @@ export default function ProLanding() {
         </div>
       </section>
 
-      {/* ── 9. FAQ ────────────────────────────────────────────────────────────── */}
+      {/* ── 10. FAQ ───────────────────────────────────────────────────────────── */}
       <section aria-label="Preguntas frecuentes" className="py-20 md:py-28 px-6" style={{ backgroundColor: "white" }}>
         <div className="max-w-3xl mx-auto">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-12">
@@ -720,7 +829,7 @@ export default function ProLanding() {
         </div>
       </section>
 
-      {/* ── 10. CTA FINAL ────────────────────────────────────────────────────── */}
+      {/* ── 11. CTA FINAL ────────────────────────────────────────────────────── */}
       <section id="acceso" aria-label="Solicitar acceso" className="py-24 md:py-32 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-3xl mx-auto text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className="space-y-7">
@@ -738,7 +847,7 @@ export default function ProLanding() {
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all hover:brightness-110 active:scale-95"
                 style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
               >
-                Solicitar acceso anticipado
+                Solicitar acceso — respuesta en 48h
               </button>
               <Link href="/pro/login" className="text-sm font-light transition-opacity hover:opacity-60" style={{ color: "rgba(245,240,232,0.38)" }}>
                 Ya tengo acceso → Entrar
