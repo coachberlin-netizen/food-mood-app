@@ -9,7 +9,19 @@ import { moods } from "@/data/moods"
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-type Tab = "conductual" | "prescripciones" | "sesiones"
+type Tab = "conductual" | "prescripciones" | "sesiones" | "asignaciones"
+
+type TherapeuticAssignment = {
+  id: string
+  tool_slug: string
+  title: string
+  instruction: string
+  frequency_per_week: number
+  due_date: string | null
+  is_active: boolean
+  created_at: string
+  completions_this_week: number
+}
 
 type SessionPrep = {
   id: string
@@ -106,6 +118,17 @@ const TAB_LABELS: Record<Tab, string> = {
   conductual:     "Herramientas conductuales",
   prescripciones: "Prescripciones",
   sesiones:       "Sesiones",
+  asignaciones:   "Asignaciones",
+}
+
+const TOOL_LABELS: Record<string, string> = {
+  "registro/interoceptivo": "Check-in interoceptivo",
+  "registro/hambre":        "Termómetro de hambre",
+  "registro/emocion":       "Registro emocional",
+  "registro/comida":        "Pre/post comida",
+  "registro/pensamiento":   "Diario de pensamientos",
+  "setup/valores":          "Clarificación de valores",
+  "setup/intenciones":      "Planes si-entonces",
 }
 
 const NSS_LABEL: Record<string, { label: string; color: string }> = {
@@ -390,6 +413,16 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   const [latestPrep,          setLatestPrep]          = useState<SessionPrep | null | undefined>(undefined)
   const [prescriptionsLoaded, setPrescriptionsLoaded] = useState(false)
   const [oracleCheckins,      setOracleCheckins]      = useState<OracleCheckin[]>([])
+  const [assignments,         setAssignments]         = useState<TherapeuticAssignment[]>([])
+  const [assignmentsLoaded,   setAssignmentsLoaded]   = useState(false)
+  const [showNewAssignment,   setShowNewAssignment]   = useState(false)
+  const [asgTitle,            setAsgTitle]            = useState("")
+  const [asgInstruction,      setAsgInstruction]      = useState("")
+  const [asgToolSlug,         setAsgToolSlug]         = useState("registro/interoceptivo")
+  const [asgFreq,             setAsgFreq]             = useState(3)
+  const [asgDueDate,          setAsgDueDate]          = useState("")
+  const [asgSaving,           setAsgSaving]           = useState(false)
+  const [asgError,            setAsgError]            = useState("")
 
   // Initial data load — everything except prescriptions (lazy) and all session preps (lazy)
   useEffect(() => {
@@ -507,6 +540,30 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       .catch(() => setSessionPrepsLoaded(true))
   }, [tab, patientUserId, sessionPrepsLoaded])
 
+  // Lazy-load assignments when Asignaciones tab is first opened
+  useEffect(() => {
+    if (tab !== "asignaciones" || assignmentsLoaded) return
+    const supabase = createClient()
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) { setAssignmentsLoaded(true); return }
+      const weekStart = new Date()
+      weekStart.setDate(weekStart.getDate() - 6)
+      weekStart.setHours(0, 0, 0, 0)
+      const { data } = await supabase
+        .from("therapeutic_assignments")
+        .select("id, tool_slug, title, instruction, frequency_per_week, due_date, is_active, created_at, assignment_completions(completed_at)")
+        .eq("patient_user_id", patientUserId)
+        .order("created_at", { ascending: false })
+        .limit(30)
+      const rows = (data ?? []) as (TherapeuticAssignment & { assignment_completions: { completed_at: string }[] })[]
+      setAssignments(rows.map(r => ({
+        ...r,
+        completions_this_week: r.assignment_completions.filter(c => new Date(c.completed_at) >= weekStart).length,
+      })))
+      setAssignmentsLoaded(true)
+    })
+  }, [tab, patientUserId, assignmentsLoaded])
+
   // Lazy-load prescriptions when Prescripciones tab is first opened
   useEffect(() => {
     if (tab !== "prescripciones" || prescriptionsLoaded) return
@@ -558,6 +615,29 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
       setPrepError("Error al conectar con el servidor.")
       setPreparandoSesion(false)
     }
+  }
+
+  const handleCreateAssignment = async () => {
+    if (!asgTitle.trim() || !asgInstruction.trim()) return
+    setAsgSaving(true)
+    setAsgError("")
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { setAsgError("Error de autenticación."); setAsgSaving(false); return }
+    const { error } = await supabase.from("therapeutic_assignments").insert({
+      professional_id:    user.id,
+      patient_user_id:    patientUserId,
+      tool_slug:          asgToolSlug,
+      title:              asgTitle.trim(),
+      instruction:        asgInstruction.trim(),
+      frequency_per_week: asgFreq,
+      due_date:           asgDueDate || null,
+    })
+    if (error) { setAsgError("Error al crear la asignación."); setAsgSaving(false); return }
+    setAsgSaving(false)
+    setShowNewAssignment(false)
+    setAsgTitle(""); setAsgInstruction(""); setAsgFreq(3); setAsgDueDate("")
+    setAssignmentsLoaded(false)
   }
 
   if (loading) {
@@ -658,7 +738,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
 
       {/* ── Tabs ───────────────────────────────────────────────────────────── */}
       <div className="flex gap-1 p-1 rounded-xl mb-6 w-fit" style={{ background: "rgba(107,39,55,0.07)" }}>
-        {(["conductual", "prescripciones", "sesiones"] as Tab[]).map(t => (
+        {(["conductual", "prescripciones", "sesiones", "asignaciones"] as Tab[]).map(t => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -1085,6 +1165,200 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                   </div>
                 )
               })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── TAB ASIGNACIONES ───────────────────────────────────────────────── */}
+      {tab === "asignaciones" && (
+        <div>
+          <div className="flex items-center justify-between mb-5">
+            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Asignaciones terapéuticas
+            </p>
+            <button
+              onClick={() => setShowNewAssignment(true)}
+              className="px-3 py-1.5 rounded-lg text-xs font-semibold"
+              style={{ background: "#6B2737", color: "#F5F0E8" }}
+            >
+              + Nueva
+            </button>
+          </div>
+
+          {!assignmentsLoaded ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="w-5 h-5 border-2 border-[#6B2737] border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : assignments.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-sm mb-2" style={{ color: "rgba(107,39,55,0.5)" }}>Sin asignaciones todavía.</p>
+              <p className="text-xs" style={{ color: "rgba(107,39,55,0.35)" }}>
+                Crea una asignación para guiar el trabajo entre sesiones.
+              </p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+
+              {/* Resumen semanal de adherencia */}
+              {assignments.filter(a => a.is_active).length > 0 && (
+                <div className="bg-white rounded-xl px-4 py-3 mb-2" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
+                  <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: "rgba(107,39,55,0.4)" }}>
+                    Adherencia esta semana
+                  </p>
+                  {assignments.filter(a => a.is_active).map(a => {
+                    const pct = Math.min(100, Math.round((a.completions_this_week / a.frequency_per_week) * 100))
+                    return (
+                      <div key={a.id} className="mb-2 last:mb-0">
+                        <div className="flex items-center justify-between text-xs mb-1">
+                          <span style={{ color: "#2d0f16" }}>{a.title}</span>
+                          <span style={{ color: pct >= 100 ? "#16a34a" : "rgba(107,39,55,0.5)" }}>
+                            {a.completions_this_week}/{a.frequency_per_week}×
+                          </span>
+                        </div>
+                        <div className="h-1.5 rounded-full w-full" style={{ background: "rgba(107,39,55,0.1)" }}>
+                          <div
+                            className="h-1.5 rounded-full"
+                            style={{ width: `${pct}%`, background: pct >= 100 ? "#16a34a" : "#C9A84C" }}
+                          />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+
+              {/* Lista completa */}
+              {assignments.map(a => (
+                <div
+                  key={a.id}
+                  className="bg-white rounded-xl px-4 py-3"
+                  style={{ border: "1px solid rgba(107,39,55,0.08)", opacity: a.is_active ? 1 : 0.55 }}
+                >
+                  <div className="flex items-start justify-between gap-3 mb-1">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium" style={{ color: "#2d0f16" }}>{a.title}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>
+                        {TOOL_LABELS[a.tool_slug] ?? a.tool_slug} · {a.frequency_per_week}×/semana
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>
+                        {formatDate(a.created_at)}
+                      </p>
+                      {a.due_date && (
+                        <p className="text-[10px] font-medium" style={{ color: "#6B2737" }}>
+                          Hasta {new Date(a.due_date).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <p
+                    className="text-xs font-light leading-relaxed"
+                    style={{ color: "rgba(107,39,55,0.6)", borderLeft: "2px solid rgba(201,168,76,0.3)", paddingLeft: "8px" }}
+                  >
+                    {a.instruction}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* ── Modal nueva asignación ─────────────────────────────────────── */}
+          {showNewAssignment && (
+            <div
+              className="fixed inset-0 z-50 flex items-end md:items-center justify-center px-4 pb-6"
+              style={{ background: "rgba(15,10,13,0.75)" }}
+              onClick={e => { if (e.target === e.currentTarget) setShowNewAssignment(false) }}
+            >
+              <div className="w-full max-w-lg bg-white rounded-2xl p-6 max-h-[90vh] overflow-y-auto">
+                <h3 className="font-serif text-lg font-bold mb-5" style={{ color: "#2d0f16" }}>
+                  Nueva asignación terapéutica
+                </h3>
+
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5" style={{ color: "#6B2737" }}>Herramienta</label>
+                    <select
+                      value={asgToolSlug}
+                      onChange={e => setAsgToolSlug(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-xl text-sm border outline-none"
+                      style={{ borderColor: "rgba(107,39,55,0.2)", color: "#2d0f16" }}
+                    >
+                      {Object.entries(TOOL_LABELS).map(([slug, label]) => (
+                        <option key={slug} value={slug}>{label}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5" style={{ color: "#6B2737" }}>Título de la asignación</label>
+                    <input
+                      type="text"
+                      value={asgTitle}
+                      onChange={e => setAsgTitle(e.target.value)}
+                      placeholder="Ej: Observar la hambre antes de cenar"
+                      className="w-full px-3 py-2.5 rounded-xl text-sm border outline-none"
+                      style={{ borderColor: "rgba(107,39,55,0.2)", color: "#2d0f16" }}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5" style={{ color: "#6B2737" }}>Instrucción para la paciente</label>
+                    <textarea
+                      value={asgInstruction}
+                      onChange={e => setAsgInstruction(e.target.value)}
+                      placeholder="Mensaje que verá al abrir la herramienta. Qué observar, qué intención llevar…"
+                      rows={3}
+                      className="w-full px-3 py-2.5 rounded-xl text-sm border outline-none resize-none"
+                      style={{ borderColor: "rgba(107,39,55,0.2)", color: "#2d0f16" }}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold mb-1.5" style={{ color: "#6B2737" }}>Veces por semana</label>
+                      <input
+                        type="number" min={1} max={7}
+                        value={asgFreq}
+                        onChange={e => setAsgFreq(Math.min(7, Math.max(1, Number(e.target.value))))}
+                        className="w-full px-3 py-2.5 rounded-xl text-sm border outline-none"
+                        style={{ borderColor: "rgba(107,39,55,0.2)", color: "#2d0f16" }}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold mb-1.5" style={{ color: "#6B2737" }}>Fecha límite (opcional)</label>
+                      <input
+                        type="date"
+                        value={asgDueDate}
+                        onChange={e => setAsgDueDate(e.target.value)}
+                        className="w-full px-3 py-2.5 rounded-xl text-sm border outline-none"
+                        style={{ borderColor: "rgba(107,39,55,0.2)", color: "#2d0f16" }}
+                      />
+                    </div>
+                  </div>
+
+                  {asgError && <p className="text-xs text-red-600">{asgError}</p>}
+
+                  <div className="flex gap-3 pt-1">
+                    <button
+                      onClick={() => setShowNewAssignment(false)}
+                      className="flex-1 py-2.5 rounded-xl text-sm font-medium"
+                      style={{ background: "rgba(107,39,55,0.07)", color: "#6B2737" }}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      onClick={handleCreateAssignment}
+                      disabled={asgSaving || !asgTitle.trim() || !asgInstruction.trim()}
+                      className="flex-1 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-60"
+                      style={{ background: "#6B2737", color: "#F5F0E8" }}
+                    >
+                      {asgSaving ? "Guardando…" : "Crear asignación"}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>

@@ -3,6 +3,9 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { ArrowLeft, Send, Check } from "lucide-react"
+import { useActiveAssignment } from "@/hooks/useAssignments"
+import { AssignmentInstructionBanner } from "@/components/assignments/AssignmentInstructionBanner"
+import { createAssignmentCompletion } from "@/lib/assignments-client"
 
 type Message = { role: "user" | "assistant"; content: string }
 type Phase   = "input" | "dialogue" | "confirm" | "done"
@@ -40,6 +43,7 @@ function GranularityBar({ score }: { score: number }) {
 }
 
 export default function EmocionClient() {
+  const { assignment } = useActiveAssignment("registro/emocion")
   const [phase,          setPhase]         = useState<Phase>("input")
   const [initial,        setInitial]       = useState("")
   const [context,        setContext]       = useState("")
@@ -114,6 +118,7 @@ export default function EmocionClient() {
       if (!res.ok) throw new Error()
       const { granularity_score } = await res.json()
       setScore(granularity_score)
+      if (assignment?.id) createAssignmentCompletion(assignment.id).catch(() => {})
       setPhase("done")
     } catch {
       setError("Error al guardar. Inténtalo de nuevo.")
@@ -137,6 +142,7 @@ export default function EmocionClient() {
         </p>
 
         {/* ── FASE INPUT ─────────────────────────────────────────────── */}
+        {phase === "input" && <AssignmentInstructionBanner assignment={assignment} />}
         {phase === "input" && (
           <div>
             <p className="text-sm font-medium mb-4" style={{ color: "#2d0f16" }}>¿Cómo te sientes ahora?</p>

@@ -3,6 +3,9 @@
 import { useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Check } from "lucide-react"
+import { useActiveAssignment } from "@/hooks/useAssignments"
+import { AssignmentInstructionBanner } from "@/components/assignments/AssignmentInstructionBanner"
+import { createAssignmentCompletion } from "@/lib/assignments-client"
 
 type Phase = "pre" | "meal" | "post" | "done"
 
@@ -53,6 +56,7 @@ function IntensitySlider({ label, value, onChange }: { label: string; value: num
 }
 
 export default function ComidaClient() {
+  const { assignment } = useActiveAssignment("registro/comida")
   const [phase,          setPhase]         = useState<Phase>("pre")
   const [emotionBefore,  setEmotionBefore]  = useState("")
   const [intensityBefore, setIntensityBefore] = useState(5)
@@ -87,6 +91,7 @@ export default function ComidaClient() {
         }),
       })
       if (!res.ok) throw new Error()
+      if (assignment?.id) createAssignmentCompletion(assignment.id).catch(() => {})
       setPhase("done")
     } catch {
       setError("Error al guardar. Inténtalo de nuevo.")
@@ -133,6 +138,8 @@ export default function ComidaClient() {
 
         <h1 className="font-serif text-2xl font-black mb-1" style={{ color: "#2d0f16" }}>Registro emocional pre/post comida</h1>
         <p className="text-xs font-light mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>Cómo te afecta la comida en tu estado emocional y corporal</p>
+
+        {phase === "pre" && <AssignmentInstructionBanner assignment={assignment} />}
 
         {/* ── PRE ── */}
         {phase === "pre" && (

@@ -7,6 +7,7 @@ export type PatientData = {
   intentions:  { trigger_situation: string; intended_action: string; linked_value: string | null; times_triggered: number; times_completed: number }[]
   nudges:      { generated_at: string; pattern_detected: string; action_taken: boolean }[]
   values:      { core_values: string[]; relationship_with_food_vision: string; committed_actions: string[] }[]
+  assignments: { title: string; tool_slug: string; frequency_per_week: number; completions_this_week: number; instruction: string }[]
 }
 
 export type SessionPrepOutput = {
@@ -55,7 +56,8 @@ Reglas de contenido:
 - suggested_questions: 4-6 preguntas abiertas, evita sí/no, basadas en los patrones detectados
 - intervention_points: 2-4 entradas, concretas y accionables
 - Nunca mencionar restricción calórica, pérdida de peso ni juicio moral sobre la alimentación
-- Hablar desde el marco eje intestino-cerebro, regulación SNA, neurobiología afectiva`
+- Hablar desde el marco eje intestino-cerebro, regulación SNA, neurobiología afectiva
+- Si hay asignaciones terapéuticas activas, incluir en weekly_summary un párrafo sobre adherencia a las mismas y en intervention_points qué ajustes sugiere según el nivel de cumplimiento`
 }
 
 export function buildUserMessage(data: PatientData, periodStart: string, periodEnd: string): string {
@@ -159,6 +161,21 @@ export function buildUserMessage(data: PatientData, periodStart: string, periodE
   } else {
     for (const n of data.nudges) {
       lines.push(`- ${d(n.generated_at)}: patrón=${n.pattern_detected.replace(/_/g, " ")}, ${n.action_taken ? "accionado" : "no accionado"}`)
+    }
+  }
+  lines.push("")
+
+  // Asignaciones terapéuticas activas
+  lines.push(`== ASIGNACIONES TERAPÉUTICAS ACTIVAS (${data.assignments.length}) ==`)
+  if (data.assignments.length === 0) {
+    lines.push("Sin asignaciones activas.")
+  } else {
+    for (const a of data.assignments) {
+      const adherencia = a.frequency_per_week > 0
+        ? `${a.completions_this_week}/${a.frequency_per_week} completadas esta semana`
+        : "sin objetivo semanal"
+      lines.push(`- "${a.title}" (herramienta: ${a.tool_slug}) | frecuencia: ${a.frequency_per_week}×/semana | ${adherencia}`)
+      lines.push(`  Instrucción: ${a.instruction}`)
     }
   }
 

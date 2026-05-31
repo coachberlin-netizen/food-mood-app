@@ -3,6 +3,9 @@
 import { useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Check } from "lucide-react"
+import { useActiveAssignment } from "@/hooks/useAssignments"
+import { AssignmentInstructionBanner } from "@/components/assignments/AssignmentInstructionBanner"
+import { createAssignmentCompletion } from "@/lib/assignments-client"
 
 type Phase = "sliders" | "decision" | "done"
 
@@ -35,6 +38,7 @@ function Slider({
 }
 
 export default function HambreClient() {
+  const { assignment } = useActiveAssignment("registro/hambre")
   const [phase,     setPhase]    = useState<Phase>("sliders")
   const [physical,  setPhysical]  = useState(5)
   const [emotional, setEmotional] = useState(5)
@@ -65,6 +69,7 @@ export default function HambreClient() {
         }),
       })
       if (!res.ok) throw new Error()
+      if (assignment?.id) createAssignmentCompletion(assignment.id).catch(() => {})
       setPhase("done")
     } catch {
       setError("Error al guardar. Inténtalo de nuevo.")
@@ -111,6 +116,8 @@ export default function HambreClient() {
 
         <h1 className="font-serif text-2xl font-black mb-1" style={{ color: "#2d0f16" }}>Termómetro de hambre</h1>
         <p className="text-xs font-light mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>Distingue hambre física, emocional y claridad interoceptiva</p>
+
+        {phase === "sliders" && <AssignmentInstructionBanner assignment={assignment} />}
 
         {phase === "sliders" && (
           <div className="flex flex-col gap-4">

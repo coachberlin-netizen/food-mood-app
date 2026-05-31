@@ -75,9 +75,12 @@ export async function POST(req: NextRequest) {
   const since       = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString()
   const periodStart = since.split("T")[0]
 
+  // Period for assignment completions: last 7 days (rolling week)
+  const weekStart = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString()
+
   // Gather patient data in parallel (admin bypasses patient-only RLS)
   const [
-    checkinsRes, granRes, diagRes, hambreRes, mealRes, intRes, nudgeRes, valRes,
+    checkinsRes, granRes, diagRes, hambreRes, mealRes, intRes, nudgeRes, valRes, assignmentsRes,
   ] = await Promise.all([
     admin.from("interoceptive_checkins")
       .select("logged_at, nervous_system_state, interoceptive_clarity, dominant_sensation")
@@ -103,7 +106,17 @@ export async function POST(req: NextRequest) {
     admin.from("values_clarifications")
       .select("core_values, relationship_with_food_vision, committed_actions")
       .eq("user_id", patient_user_id).order("created_at", { ascending: false }).limit(1),
+    admin.from("therapeutic_assignments")
+      .select("title, tool_slug, frequency_per_week, instruction, assignment_completions(completed_at)")
+      .eq("patient_user_id", patient_user_id)
+      .eq("is_active", true),
   ])
+
+  const weekStartDate = new Date(weekStart)
+  const rawAssignments = (assignmentsRes.data ?? []) as {
+    title: string; tool_slug: string; frequency_per_week: number; instruction: string
+    assignment_completions: { completed_at: string }[]
+  }[]
 
   const patientData = {
     checkins:    (checkinsRes.data  ?? []) as { logged_at: string; nervous_system_state: string; interoceptive_clarity: number; dominant_sensation: string | null }[],
@@ -114,6 +127,13 @@ export async function POST(req: NextRequest) {
     intentions:  (intRes.data       ?? []) as { trigger_situation: string; intended_action: string; linked_value: string | null; times_triggered: number; times_completed: number }[],
     nudges:      (nudgeRes.data     ?? []) as { generated_at: string; pattern_detected: string; action_taken: boolean }[],
     values:      (valRes.data       ?? []) as { core_values: string[]; relationship_with_food_vision: string; committed_actions: string[] }[],
+    assignments: rawAssignments.map(a => ({
+      title:                a.title,
+      tool_slug:            a.tool_slug,
+      frequency_per_week:   a.frequency_per_week,
+      instruction:          a.instruction,
+      completions_this_week: a.assignment_completions.filter(c => new Date(c.completed_at) >= weekStartDate).length,
+    })),
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {

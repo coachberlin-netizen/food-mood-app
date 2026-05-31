@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Home, Sparkles, BookOpen, Heart, UserCircle, LogIn, UtensilsCrossed } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
+import { useAssignmentsBadge } from "@/hooks/useAssignments"
 
 type Tab = {
   href: string
@@ -38,6 +39,7 @@ export function BottomNav() {
   const pathname = usePathname()
   const [isAuth, setIsAuth] = useState<boolean | null>(null)
   const [unread,  setUnread]  = useState(0)
+  const pendingAssignments = useAssignmentsBadge()
 
   useEffect(() => {
     const supabase = createClient()
@@ -67,7 +69,11 @@ export function BottomNav() {
 
   const tabs: Tab[] = !isAuth
     ? GUEST_TABS
-    : AUTH_TABS.map(t => t.href === "/para-mi" ? { ...t, badge: unread } : t)
+    : AUTH_TABS.map(t => {
+        if (t.href === "/para-mi")    return { ...t, badge: unread }
+        if (t.href === "/practicas")  return { ...t, badge: pendingAssignments }
+        return t
+      })
 
   return (
     <nav

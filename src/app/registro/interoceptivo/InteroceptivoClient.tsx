@@ -4,6 +4,9 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Check } from "lucide-react"
+import { useActiveAssignment } from "@/hooks/useAssignments"
+import { AssignmentInstructionBanner } from "@/components/assignments/AssignmentInstructionBanner"
+import { createAssignmentCompletion } from "@/lib/assignments-client"
 
 type NSSState =
   | "ventral" | "sympathetic_active" | "sympathetic_anxious"
@@ -48,6 +51,7 @@ function StepIndicator({ current, total }: { current: number; total: number }) {
 
 export default function InteroceptivoClient() {
   const router = useRouter()
+  const { assignment } = useActiveAssignment("registro/interoceptivo")
   const [step,         setStep]         = useState<1 | 2 | 3>(1)
   const [nss,          setNss]          = useState<NSSState | null>(null)
   const [secondary,    setSecondary]    = useState<SecondaryState | null>(null)
@@ -90,6 +94,7 @@ export default function InteroceptivoClient() {
         }),
       })
       if (!res.ok) throw new Error()
+      if (assignment?.id) createAssignmentCompletion(assignment.id).catch(() => {})
       setDone(true)
     } catch {
       setError("Error al guardar. Inténtalo de nuevo.")
@@ -147,6 +152,8 @@ export default function InteroceptivoClient() {
 
         <h1 className="font-serif text-2xl font-black mb-1" style={{ color: "#2d0f16" }}>Check-in interoceptivo</h1>
         <p className="text-xs font-light mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>60–90 segundos · 3 pasos</p>
+
+        {step === 1 && <AssignmentInstructionBanner assignment={assignment} />}
 
         <StepIndicator current={step} total={3} />
 

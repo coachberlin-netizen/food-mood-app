@@ -18,7 +18,8 @@ import { WeekMosaic } from "@/components/diary/WeekMosaic";
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary";
 import { FoodMoodIndex } from "@/components/FoodMoodIndex";
 import { BiomarkerPanel } from "@/components/biomarkers/BiomarkerPanel"
-import { useLinkedProfessional, usePrescriptions } from "@/hooks/usePrescriptions";
+import { useLinkedProfessional, usePrescriptions } from "@/hooks/usePrescriptions"
+import { useAssignmentsBadge } from "@/hooks/useAssignments"
 
 // ── PrescriptionsCard — shown only when patient has unread prescribed content ──
 function PrescriptionsCardInner({ professionalName }: { professionalName: string | null }) {
@@ -52,6 +53,32 @@ function PrescriptionsCard() {
   const { hasLink, professionalName, loading } = useLinkedProfessional()
   if (loading || !hasLink) return null
   return <PrescriptionsCardInner professionalName={professionalName} />
+}
+
+function AssignmentsCard() {
+  const pending = useAssignmentsBadge()
+  if (pending === 0) return null
+  return (
+    <Link
+      href="/mis-asignaciones"
+      className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
+      style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)" }}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+            Asignaciones de tu profesional
+          </p>
+          <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>
+            {pending === 1 ? "1 práctica pendiente esta semana" : `${pending} prácticas pendientes esta semana`}
+          </p>
+        </div>
+        <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.5)" }}>
+          Ver →
+        </span>
+      </div>
+    </Link>
+  )
 }
 
 // ── JourneyCard — compact dashboard widget ────────────────────────────────────
@@ -474,6 +501,9 @@ export default function DashboardClient({ initialIsPremium, weeklyHighlightsSlot
 
         {/* ── Prescriptions card (patients with active professional link) ── */}
         {isAuthenticated && <PrescriptionsCard />}
+
+        {/* ── Assignments card ── */}
+        {isAuthenticated && <AssignmentsCard />}
 
         {/* ── Prácticas card ── */}
         {isAuthenticated && <PracticasCard />}

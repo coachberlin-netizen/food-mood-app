@@ -658,6 +658,13 @@ export default function ProLanding() {
                 color: "#6B2737",
                 tags: ["Resumen IA", "Preguntas", "Intervención"],
               },
+              {
+                num: "05",
+                title: "Therapeutic Assignments",
+                desc: "No solo ves lo que pasa entre sesiones. Puedes guiarlo. Asigna herramientas específicas, con instrucción personalizada y frecuencia semanal. El paciente las ve al abrir la app. Tú ves la adherencia.",
+                color: "#5A9B8A",
+                tags: ["Asignaciones", "Adherencia", "Guía"],
+              },
             ].map((mod, i) => (
               <motion.div
                 key={mod.num}
@@ -771,6 +778,7 @@ export default function ProLanding() {
               { label: "Adherencia", body: "Pacientes que entienden sus patrones emocionales y corporales mantienen los cambios. No porque tengan más fuerza de voluntad, sino porque tienen más información." },
               { label: "Sesiones más profundas", body: "Llegas a la sesión con datos de la semana. Sin depender de lo que el paciente recuerda —o quiere contar." },
               { label: "Retención", body: "Pacientes que sienten que su profesional los ve entre sesiones no se van. La herramienta crea un vínculo continuo." },
+              { label: "Guía activa", body: "No solo ves lo que pasa entre sesiones. Puedes guiarlo. Las asignaciones terapéuticas llevan tu criterio clínico al momento exacto en que el paciente lo necesita." },
               { label: "Resultados sostenibles", body: "La adherencia a largo plazo viene de la comprensión, no de la restricción. Tu consulta trabaja con la psicología del cambio, no contra ella." },
             ].map((item, i) => (
               <motion.div

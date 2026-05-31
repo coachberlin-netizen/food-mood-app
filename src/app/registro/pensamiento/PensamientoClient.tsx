@@ -3,6 +3,9 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { ArrowLeft, Send, Check, ArrowRight } from "lucide-react"
+import { useActiveAssignment } from "@/hooks/useAssignments"
+import { AssignmentInstructionBanner } from "@/components/assignments/AssignmentInstructionBanner"
+import { createAssignmentCompletion } from "@/lib/assignments-client"
 
 type Message = { role: "user" | "assistant"; content: string }
 type Phase = "disclaimer" | "setup" | "dialogue" | "closing" | "done"
@@ -31,6 +34,7 @@ function IntensitySlider({ label, value, onChange }: { label: string; value: num
 }
 
 export default function PensamientoClient() {
+  const { assignment } = useActiveAssignment("registro/pensamiento")
   const [phase,         setPhase]        = useState<Phase>("disclaimer")
   const [disclaimerOk,  setDisclaimerOk] = useState(false)
   const [thought,       setThought]      = useState("")
@@ -106,6 +110,7 @@ export default function PensamientoClient() {
         }),
       })
       if (!res.ok) throw new Error()
+      if (assignment?.id) createAssignmentCompletion(assignment.id).catch(() => {})
       setPhase("done")
     } catch {
       setError("Error al guardar. Inténtalo de nuevo.")
@@ -124,6 +129,8 @@ export default function PensamientoClient() {
 
         <h1 className="font-serif text-2xl font-black mb-1" style={{ color: "#2d0f16" }}>Diario de pensamientos</h1>
         <p className="text-xs font-light mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>Diálogo socrático asistido por IA — TCC · ACT · Autocompasión</p>
+
+        {phase === "setup" && <AssignmentInstructionBanner assignment={assignment} />}
 
         {/* ── DISCLAIMER ─────────────────────────────────────────────── */}
         {phase === "disclaimer" && (
