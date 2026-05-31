@@ -199,15 +199,14 @@ export default function QuienesSomosPage() {
               </p>
 
               <div className="space-y-5 text-aubergine-dark/75 leading-relaxed text-base font-light">
-                {/* [SUSANA COMPLETAR] — Sustituir con tu bio real */}
                 <p>
-                  [SUSANA COMPLETAR — Párrafo 1: quién eres, tu formación, tu trayectoria. 3-4 líneas en primera persona.]
+                  Soy psicóloga y tecnóloga de alimentos, con formación en gerontología y más de una década dedicada a entender cómo lo que comemos y lo que sentimos se influyen mutuamente. Mi carrera nació en la intersección entre la ciencia de los alimentos, la psicología del comportamiento y el eje intestino-cerebro — un cruce que sigue siendo poco frecuente en el mundo clínico y que es exactamente el fundamento de Food·Mood.
                 </p>
                 <p>
-                  [SUSANA COMPLETAR — Párrafo 2: tu especialización en psiconutrición y eje intestino-cerebro. Por qué te apasiona. 3-4 líneas.]
+                  Construí Food·Mood Pro porque los profesionales que ya trabajan la dimensión emocional de la alimentación merecen herramientas que estén a la altura de su enfoque. El software nutricional clásico captura macros, medidas y citas. Lo que ocurre entre sesiones — el estado del sistema nervioso, la hambre emocional, los pensamientos alrededor de la comida, los patrones que se repiten — sigue quedando en notas sueltas y en lo que el paciente recuerda contarte. Food·Mood Pro existe para cambiar eso.
                 </p>
                 <p>
-                  [SUSANA COMPLETAR — Párrafo 3 (el origen de Food·Mood Pro): el momento o la situación clínica que te hizo ver que faltaba una herramienta así. 3-4 líneas.]
+                  Antes de Food·Mood, fundé UMYKO, una empresa de kombucha artesanal que me enseñó todo lo que la academia no enseña sobre fermentación, microbiota y la relación entre el intestino y el bienestar cotidiano. Soy autora de <em>Food·Mood — El placer de estar bien</em> y <em>Food·Mood: Síntomas &amp; Soluciones</em>. Trabajo desde Ibiza.
                 </p>
               </div>
 
