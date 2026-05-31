@@ -15,6 +15,7 @@ const NAV = [
 export default function ProSidebar() {
   const pathname = usePathname()
   const router   = useRouter()
+  // TODO: mover a ProAlertsContext si >50 pacientes — actualmente doble fetch (sidebar + dashboard)
   const { alerts } = useProAlerts()
 
   const handleSignOut = async () => {
