@@ -26,6 +26,7 @@ export function Footer() {
         <div className="border-t border-white/10 pt-5">
           <div className="flex flex-wrap justify-between items-start gap-y-3 mb-5">
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-[11px] tracking-[0.16em] uppercase text-white/55">
+              <Link href="/quienes-somos" className="hover:text-gold transition-colors">Equipo</Link>
               <Link href="/privacidad"   className="hover:text-gold transition-colors">Privacidad</Link>
               <Link href="/terminos"     className="hover:text-gold transition-colors">Términos</Link>
               <Link href="/aviso-legal"  className="hover:text-gold transition-colors">Legal</Link>

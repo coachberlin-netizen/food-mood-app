@@ -98,6 +98,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="apple-touch-startup-image" href="/icons/icon-512.png" />
+        <link rel="alternate" type="application/rss+xml" title="Blog · Food·Mood Pro" href="https://www.food-mood.app/rss.xml" />
         {/* Anti-FOUC: restore accessibility preferences before first paint */}
         <script
           dangerouslySetInnerHTML={{
