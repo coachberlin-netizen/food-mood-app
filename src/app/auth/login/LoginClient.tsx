@@ -124,7 +124,7 @@ function LoginForm() {
         </div>
 
         <div className="bg-cream rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full">
-          <h1 className="text-2xl font-serif font-bold text-aubergine-dark mb-2 text-center">Bienvenido de nuevo</h1>
+          <h1 className="text-2xl font-serif font-bold text-aubergine-dark mb-2 text-center">Bienvenida de nuevo</h1>
           <p className="text-aubergine-dark/60 text-center text-sm mb-6">Conecta con tu estado interior hoy.</p>
 
           {error && (
