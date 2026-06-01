@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: "¿Necesito conocimientos técnicos para usar la plataforma?",
-    a: "No. El portal profesional está diseñado para que puedas ver lo que importa en menos de dos minutos antes de una sesión. Onboarding asistido incluido en acceso anticipado.",
+    a: "No. El portal profesional está diseñado para que puedas ver lo que importa en menos de dos minutos antes de una sesión. Incorporación asistida incluida en acceso anticipado.",
   },
   {
     q: "¿Puedo cancelar cuando quiera?",
@@ -100,9 +100,9 @@ function DashboardMock() {
         </div>
       </div>
 
-      {/* Prep de sesión */}
+      {/* Preparación de sesión */}
       <div className="px-4 py-3">
-        <p className="text-[8px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "rgba(255,255,255,0.3)" }}>Prep de sesión · 3 preguntas sugeridas</p>
+        <p className="text-[8px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "rgba(255,255,255,0.3)" }}>Preparación de sesión · 3 preguntas sugeridas</p>
         {[
           "¿Qué ocurre en tu cuerpo a las 18h que identifies como hambre?",
           "¿Qué has intentado para manejar ese momento? ¿Qué funciona?",
@@ -151,7 +151,7 @@ function EarlyAccessForm({ onClose }: { onClose?: () => void }) {
         </div>
         <h3 className="font-serif text-xl font-semibold text-white mb-3">Solicitud recibida</h3>
         <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.65)" }}>
-          Nos pondremos en contacto en las próximas 48 horas para concretar el acceso y el onboarding. Gracias por confiar en Food·Mood Pro.
+          Nos pondremos en contacto en las próximas 48 horas para concretar el acceso y la incorporación. Gracias por confiar en Food·Mood Pro.
         </p>
         {onClose && (
           <button onClick={onClose} className="mt-6 text-sm font-light underline" style={{ color: "rgba(245,240,232,0.4)" }}>Cerrar</button>
@@ -276,14 +276,14 @@ const ONBOARDING_STEPS = [
   {
     n: 1,
     title: "Solicitas acceso",
-    desc: "Rellenas el formulario en 2 minutos. Nos ponemos en contacto en menos de 48h para concretar el onboarding y resolver cualquier duda.",
+    desc: "Rellenas el formulario en 2 minutos. Nos ponemos en contacto en menos de 48h para concretar la incorporación y resolver cualquier duda.",
     time: "2 min de tu tiempo",
     color: "#C9A84C",
   },
   {
     n: 2,
     title: "Configuras tu perfil",
-    desc: "Defines tu especialidad y flujo de trabajo en el portal profesional. Onboarding asistido incluido. Sin curva de aprendizaje.",
+    desc: "Defines tu especialidad y flujo de trabajo en el portal profesional. Incorporación asistida incluida. Sin curva de aprendizaje.",
     time: "5 min de configuración",
     color: "#5A9B8A",
   },
@@ -377,7 +377,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
       monthly: 99,
       description: "Para equipos multiprofesionales y centros de salud.",
       patients: "Pacientes ilimitados",
-      features: ["Todo lo de Profesional", "Hasta 5 profesionales", "Panel de equipo compartido", "Exportación de datos", "Soporte prioritario + onboarding"],
+      features: ["Todo lo de Profesional", "Hasta 5 profesionales", "Panel de equipo compartido", "Exportación de datos", "Soporte prioritario + incorporación"],
       highlight: true,
       cta: "Solicitar acceso →",
     },
@@ -398,7 +398,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
         <div className="text-center mb-14">
           <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Precios</motion.p>
           <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06 }} className="font-serif text-3xl md:text-4xl leading-tight mb-6" style={{ color: "#2d0f16" }}>
-            Pricing de referencia.{" "}
+            Precios de referencia.{" "}
             <em className="font-light italic" style={{ color: "#6B2737" }}>En esta fase, acceso por solicitud.</em>
           </motion.h2>
 
@@ -544,7 +544,7 @@ export default function ProLanding() {
 
             {/* Dashboard mockup */}
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.85, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}>
-              <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(201,168,76,0.4)" }}>Vista profesional · Prep de sesión</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(201,168,76,0.4)" }}>Vista profesional · Preparación de sesión</p>
               <DashboardMock />
             </motion.div>
 
@@ -632,28 +632,28 @@ export default function ProLanding() {
             {[
               {
                 num: "01",
-                title: "Patient Check-in",
+                title: "Registro diario del paciente",
                 desc: "El paciente registra diariamente: estado emocional, hambre física vs. emocional, sensación corporal, pensamiento dominante y contexto. 60–90 segundos. Sin fricción.",
                 color: "#5A9B8A",
                 tags: ["Interocepción", "Hambre emocional", "NSS polivagal"],
               },
               {
                 num: "02",
-                title: "Professional Dashboard",
+                title: "Panel del profesional",
                 desc: "Evolución temporal, patrones detectados por IA, alertas suaves y una vista consolidada de todos tus pacientes ordenada por actividad reciente.",
                 color: "#C9A84C",
                 tags: ["Patrones", "Alertas", "Vista global"],
               },
               {
                 num: "03",
-                title: "AI Reflection Tools",
+                title: "Herramientas de reflexión con IA",
                 desc: "Diario socrático, granularidad emocional (Barrett), defusión cognitiva, autocompasión (Neff) y clarificación de valores (Hayes). La IA facilita; el profesional supervisa.",
                 color: "#A07BBE",
                 tags: ["TCC", "ACT", "Autocompasión"],
               },
               {
                 num: "04",
-                title: "Session Prep",
+                title: "Preparación de sesión",
                 desc: "Antes de cada sesión: resumen semanal automatizado, tres patrones detectados, tres preguntas sugeridas y puntos de intervención priorizados. En menos de dos minutos.",
                 color: "#6B2737",
                 tags: ["Resumen IA", "Preguntas", "Intervención"],
@@ -706,7 +706,7 @@ export default function ProLanding() {
               { name: "Stephen Porges", area: "Teoría polivagal · Sistema nervioso autónomo" },
               { name: "A.D. Craig / Sahib Khalsa", area: "Interocepción · Señales corporales" },
               { name: "Steven Hayes", area: "ACT · Defusión cognitiva · Valores" },
-              { name: "Kristin Neff", area: "Autocompasión · Self-compassion" },
+              { name: "Kristin Neff", area: "Autocompasión · Compasión hacia una misma" },
               { name: "Miller & Rollnick", area: "Entrevista motivacional" },
               { name: "Eje intestino–cerebro", area: "Microbiota · Comunicación bidireccional" },
             ].map((ref, i) => (
@@ -805,7 +805,7 @@ export default function ProLanding() {
       {/* ── 9. TESTIMONIOS PLACEHOLDER ───────────────────────────────────────── */}
       <section aria-label="Lo que dicen los primeros usuarios" className="py-14 px-6" style={{ backgroundColor: "#f7f4ef", borderTop: "1px solid rgba(107,39,55,0.06)" }}>
         <div className="max-w-4xl mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-8 text-center" style={{ color: "rgba(107,39,55,0.35)" }}>Early adopters</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-8 text-center" style={{ color: "rgba(107,39,55,0.35)" }}>Primeras voces</p>
           <div className="grid md:grid-cols-3 gap-5">
             {[
               { quote: "Por primera vez tengo datos de lo que pasa entre sesiones, no solo lo que el paciente recuerda el día de la cita.", role: "Psiconutricionista, Madrid" },
