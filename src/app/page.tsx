@@ -660,7 +660,7 @@ export default function ProLanding() {
               },
               {
                 num: "05",
-                title: "Therapeutic Assignments",
+                title: "Asignaciones entre sesiones",
                 desc: "No solo ves lo que pasa entre sesiones. Puedes guiarlo. Asigna herramientas específicas, con instrucción personalizada y frecuencia semanal. El paciente las ve al abrir la app. Tú ves la adherencia.",
                 color: "#5A9B8A",
                 tags: ["Asignaciones", "Adherencia", "Guía"],
