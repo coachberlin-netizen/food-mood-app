@@ -10,6 +10,15 @@ import {
   type TestInput,
   type FoodInput,
 } from "@/lib/calculate-index"
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion"
+
+const STREAK_MILESTONES = new Set([3, 7, 14, 21, 30])
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -323,6 +332,26 @@ export function FoodMoodIndex() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // ── Animations ───────────────────────────────────────────────────────────
+
+  const prefersReduced = useReducedMotion()
+  const count          = useMotionValue(0)
+  const displayCount   = useTransform(count, Math.round)
+  const [showTrend, setShowTrend] = useState(false)
+
+  useEffect(() => {
+    if (indexValue == null) return
+    setShowTrend(false)
+    if (prefersReduced) { count.set(indexValue); setShowTrend(true); return }
+    const controls = animate(count, indexValue, {
+      duration:   0.6,
+      ease:       "easeOut",
+      onComplete: () => setShowTrend(true),
+    })
+    return controls.stop
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexValue, prefersReduced])
+
   // ── Derived stats ────────────────────────────────────────────────────────
 
   const vals30 = history.map(d => d.index_value)
@@ -368,15 +397,29 @@ export function FoodMoodIndex() {
             Tu índice hoy
           </p>
           {streak > 0 ? (
-            <div
-              className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+            <motion.div
+              key={streak}
+              className="relative flex items-center gap-1.5 px-3 py-1 rounded-full"
               style={{ backgroundColor: "#6B2737" }}
+              initial={{ scale: 1 }}
+              animate={prefersReduced ? {} : { scale: [1, 1.15, 1] }}
+              transition={{ duration: 0.4, type: "spring", stiffness: 300 }}
             >
+              {/* Milestone gold pulse ring */}
+              {STREAK_MILESTONES.has(streak) && !prefersReduced && (
+                <motion.span
+                  className="absolute inset-0 rounded-full pointer-events-none"
+                  style={{ border: "2px solid #C9A84C" }}
+                  initial={{ scale: 1, opacity: 0.7 }}
+                  animate={{ scale: 1.8, opacity: 0 }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                />
+              )}
               <span className="text-xs">🔥</span>
               <span className="text-xs font-bold text-white">
                 {streak} {streak === 1 ? "día" : "días"}
               </span>
-            </div>
+            </motion.div>
           ) : (
             <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.3)" }}>
               Empieza hoy tu racha
@@ -384,9 +427,9 @@ export function FoodMoodIndex() {
           )}
         </div>
 
-        {/* Big number */}
+        {/* Big number — count-up animation */}
         <div className="flex flex-col items-center mb-5">
-          <p
+          <motion.p
             className="font-serif leading-none"
             style={{
               fontSize: "clamp(64px, 18vw, 96px)",
@@ -394,8 +437,8 @@ export function FoodMoodIndex() {
               fontWeight: 700,
             }}
           >
-            {hasData ? indexValue : "—"}
-          </p>
+            {hasData ? displayCount : "—"}
+          </motion.p>
           <p
             className="text-base font-medium mt-1"
             style={{ color: "rgba(255,255,255,0.75)" }}
@@ -403,9 +446,12 @@ export function FoodMoodIndex() {
             {hasData ? indexLabel(indexValue!) : "Sin datos de hoy"}
           </p>
 
-          {/* Trend */}
-          {trend != null && (
-            <p
+          {/* Trend — fades in after count-up */}
+          {trend != null && showTrend && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
               className="text-sm font-semibold mt-1"
               style={{
                 color: trend > 0 ? "#5A9B8A" : trend < 0 ? "#C04060" : "rgba(255,255,255,0.4)",
@@ -413,7 +459,7 @@ export function FoodMoodIndex() {
             >
               {trend > 0 ? `↑ ${trend}` : trend < 0 ? `↓ ${Math.abs(trend)}` : "—"}{" "}
               {trend !== 0 && "puntos vs ayer"}
-            </p>
+            </motion.p>
           )}
         </div>
 

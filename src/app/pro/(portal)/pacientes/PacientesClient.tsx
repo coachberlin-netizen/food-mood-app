@@ -59,7 +59,7 @@ function PatientCard({ p, flagSeverity }: { p: LinkedPatient; flagSeverity?: "so
   return (
     <Link
       href={`/pro/pacientes/${p.patient_user_id}`}
-      className="block group bg-white rounded-2xl transition-all hover:shadow-md hover:-translate-y-0.5"
+      className="block group bg-white rounded-2xl card-hover"
       style={{
         border: "1px solid rgba(107,39,55,0.08)",
         borderLeftWidth: 3,
@@ -208,7 +208,7 @@ export default function PacientesClient() {
           </div>
           <Link
             href="/pro/invitaciones"
-            className="mt-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all hover:brightness-110"
+            className="btn-press mt-2 px-5 py-2.5 min-h-[44px] rounded-xl text-sm font-medium"
             style={{ background: "#6B2737", color: "#F5F0E8" }}
           >
             Crear invitación

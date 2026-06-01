@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Home, Sparkles, BookOpen, Heart, UserCircle, LogIn, UtensilsCrossed } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useAssignmentsBadge } from "@/hooks/useAssignments"
+import { motion } from "framer-motion"
 
 type Tab = {
   href: string
@@ -93,9 +94,18 @@ export function BottomNav() {
               key={href}
               href={href}
               aria-current={active ? "page" : undefined}
-              className="flex-1 flex flex-col items-center justify-center gap-1 py-2.5 min-h-[56px] transition-colors"
+              className="relative flex-1 flex flex-col items-center justify-center gap-1 py-2.5 min-h-[56px] transition-colors"
               style={{ color: active ? gold : dimmed }}
             >
+              {/* Sliding active indicator */}
+              {active && (
+                <motion.span
+                  layoutId="bnav-indicator"
+                  className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-8 rounded-full"
+                  style={{ background: gold }}
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
               <div className="relative">
                 <Icon
                   className="w-[22px] h-[22px]"

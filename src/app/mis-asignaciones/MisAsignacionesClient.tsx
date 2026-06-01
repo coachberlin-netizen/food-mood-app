@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowLeft, ExternalLink, CheckCircle2, Circle } from "lucide-react"
+import { ArrowLeft, ExternalLink, Circle } from "lucide-react"
 import { usePatientAssignments } from "@/hooks/useAssignments"
+import { motion } from "framer-motion"
 
 const TOOL_LABELS: Record<string, string> = {
   "registro/interoceptivo": "Check-in interoceptivo",
@@ -16,11 +17,20 @@ const TOOL_LABELS: Record<string, string> = {
 
 function ProgressDots({ done, total }: { done: number; total: number }) {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1.5">
       {Array.from({ length: total }, (_, i) => (
-        i < done
-          ? <CheckCircle2 key={i} className="w-3.5 h-3.5" style={{ color: "#16a34a" }} />
-          : <Circle       key={i} className="w-3.5 h-3.5" style={{ color: "rgba(107,39,55,0.2)" }} />
+        i < done ? (
+          <motion.span
+            key={i}
+            className="block w-3 h-3 rounded-full"
+            style={{ background: "#C9A84C" }}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3, delay: i * 0.08, type: "spring", stiffness: 300, damping: 15 }}
+          />
+        ) : (
+          <Circle key={i} className="w-3 h-3" style={{ color: "rgba(107,39,55,0.2)" }} />
+        )
       ))}
     </div>
   )
@@ -41,7 +51,7 @@ export function MisAsignacionesClient() {
         </Link>
 
         <h1 className="font-serif text-2xl font-black mb-1" style={{ color: "#2d0f16" }}>Mis asignaciones</h1>
-        <p className="text-xs font-light mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>Prácticas asignadas por tu profesional esta semana</p>
+        <p className="text-xs mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>Prácticas asignadas por tu profesional esta semana</p>
 
         {loading ? (
           <div className="flex items-center justify-center py-16">
@@ -109,8 +119,8 @@ export function MisAsignacionesClient() {
                     </div>
 
                     <p
-                      className="text-xs font-light leading-relaxed mb-3"
-                      style={{ color: "rgba(107,39,55,0.65)", borderLeft: "2px solid rgba(201,168,76,0.35)", paddingLeft: "8px" }}
+                      className="text-xs leading-relaxed mb-3"
+                      style={{ color: "rgba(107,39,55,0.65)", borderLeft: "2px solid rgba(201,168,76,0.35)", paddingLeft: "8px", lineHeight: "1.6" }}
                     >
                       {a.instruction}
                     </p>
@@ -120,7 +130,7 @@ export function MisAsignacionesClient() {
                       {!complete ? (
                         <Link
                           href={toolHref}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
+                          className="btn-press inline-flex items-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-full text-xs font-semibold"
                           style={{ background: "#6B2737", color: "#F5F0E8" }}
                         >
                           Hacer ahora

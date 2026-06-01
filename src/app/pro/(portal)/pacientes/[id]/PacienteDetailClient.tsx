@@ -447,7 +447,7 @@ function AttentionFlagsSection({
               {!flag.reviewed_at && (
                 <button
                   onClick={() => onReview(flag.id)}
-                  className="text-[10px] font-medium px-2 py-1 rounded-lg transition-colors hover:opacity-80"
+                  className="btn-press text-[10px] font-medium px-3 py-2 min-h-[44px] rounded-lg"
                   style={{ background: "#FEF3C7", color: "#92400E" }}
                 >
                   Marcar vista
@@ -460,7 +460,7 @@ function AttentionFlagsSection({
                   await onDismiss(flag.id)
                   setDismissingId(null)
                 }}
-                className="p-1 rounded-lg transition-colors hover:opacity-70"
+                className="touch-target rounded-lg transition-colors hover:opacity-70"
                 title="Descartar señal"
                 style={{ color: "rgba(107,39,55,0.3)" }}
               >
@@ -779,7 +779,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
             <button
               onClick={handleGenerateSessionPrep}
               disabled={preparandoSesion}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold shrink-0 disabled:opacity-60 transition-all hover:brightness-110"
+              className="btn-press flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold shrink-0"
               style={{ background: "#6B2737", color: "#F5F0E8" }}
             >
               {preparandoSesion ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
@@ -848,7 +848,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
           <button
             key={t}
             onClick={() => setTab(t)}
-            className="px-4 py-2 rounded-lg text-xs font-semibold transition-all"
+            className="px-4 py-2 min-h-[44px] rounded-lg text-xs font-semibold transition-all"
             style={{
               background: tab === t ? "#6B2737" : "transparent",
               color:      tab === t ? "#F5F0E8" : "rgba(107,39,55,0.6)",

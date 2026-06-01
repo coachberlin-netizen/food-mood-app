@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, Check } from "lucide-react"
+import { ArrowLeft, ArrowRight } from "lucide-react"
+import { motion, useReducedMotion } from "framer-motion"
 import { useActiveAssignment } from "@/hooks/useAssignments"
 import { AssignmentInstructionBanner } from "@/components/assignments/AssignmentInstructionBanner"
 import { createAssignmentCompletion } from "@/lib/assignments-client"
@@ -50,7 +51,8 @@ function StepIndicator({ current, total }: { current: number; total: number }) {
 }
 
 export default function InteroceptivoClient() {
-  const router = useRouter()
+  const router         = useRouter()
+  const prefersReduced = useReducedMotion()
   const { assignment } = useActiveAssignment("registro/interoceptivo")
   const [step,         setStep]         = useState<1 | 2 | 3>(1)
   const [nss,          setNss]          = useState<NSSState | null>(null)
@@ -109,8 +111,30 @@ export default function InteroceptivoClient() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-5 py-12" style={{ background: "#F5F0E8" }}>
         <div className="max-w-md w-full text-center">
-          <div className="w-14 h-14 rounded-full bg-[#6B2737] flex items-center justify-center mx-auto mb-6">
-            <Check className="w-7 h-7 text-white" />
+          <div className="relative w-14 h-14 mx-auto mb-6">
+            {/* Ripple ring */}
+            {!prefersReduced && (
+              <span
+                className="ripple-ring absolute inset-0 rounded-full"
+                style={{ background: "rgba(107,39,55,0.3)" }}
+              />
+            )}
+            {/* Confirmation circle */}
+            <motion.div
+              className="w-14 h-14 rounded-full bg-[#6B2737] flex items-center justify-center"
+              initial={prefersReduced ? false : { scale: 0.6, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            >
+              <motion.svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <motion.path
+                  d="M4 12 L9 17 L20 6"
+                  initial={prefersReduced ? false : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.4, ease: "easeOut", delay: prefersReduced ? 0 : 0.2 }}
+                />
+              </motion.svg>
+            </motion.div>
           </div>
           <h2 className="font-serif text-2xl font-bold mb-3" style={{ color: "#2d0f16" }}>
             Check-in guardado
@@ -151,7 +175,7 @@ export default function InteroceptivoClient() {
         </Link>
 
         <h1 className="font-serif text-2xl font-black mb-1" style={{ color: "#2d0f16" }}>Check-in interoceptivo</h1>
-        <p className="text-xs font-light mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>60–90 segundos · 3 pasos</p>
+        <p className="text-xs mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>60–90 segundos · 3 pasos</p>
 
         {step === 1 && <AssignmentInstructionBanner assignment={assignment} />}
 
@@ -216,7 +240,7 @@ export default function InteroceptivoClient() {
             <button
               onClick={() => setStep(2)}
               disabled={!nss || (nss === "mixed" && !secondary)}
-              className="mt-8 w-full py-3.5 rounded-full text-sm font-medium flex items-center justify-center gap-2 transition-opacity disabled:opacity-40"
+              className="btn-press mt-8 w-full py-3.5 min-h-[44px] rounded-full text-sm font-semibold flex items-center justify-center gap-2"
               style={{ background: "#6B2737", color: "#F5F0E8" }}
             >
               Siguiente <ArrowRight className="w-4 h-4" />
@@ -228,7 +252,7 @@ export default function InteroceptivoClient() {
         {step === 2 && (
           <div>
             <h2 className="text-sm font-semibold mb-1" style={{ color: "#2d0f16" }}>Escaneo corporal</h2>
-            <p className="text-xs font-light mb-5" style={{ color: "rgba(107,39,55,0.5)" }}>
+            <p className="text-xs mb-5" style={{ color: "rgba(107,39,55,0.5)", lineHeight: "1.6" }}>
               Cierra los ojos 15 segundos. ¿Dónde lo notas en el cuerpo?
             </p>
             <div className="grid grid-cols-2 gap-2 mb-6">
@@ -307,7 +331,7 @@ export default function InteroceptivoClient() {
         {step === 3 && (
           <div>
             <h2 className="text-sm font-semibold mb-1" style={{ color: "#2d0f16" }}>Claridad interoceptiva</h2>
-            <p className="text-xs font-light mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>
+            <p className="text-xs mb-6" style={{ color: "rgba(107,39,55,0.5)", lineHeight: "1.6" }}>
               ¿Con qué claridad distingues lo que sientes en el cuerpo ahora mismo?
             </p>
 
@@ -352,7 +376,7 @@ export default function InteroceptivoClient() {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex-1 py-3.5 rounded-full text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-60"
+                className="flex-1 btn-press py-3.5 min-h-[44px] rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 style={{ background: "#6B2737", color: "#F5F0E8" }}
               >
                 {saving ? "Guardando..." : "Guardar check-in"}

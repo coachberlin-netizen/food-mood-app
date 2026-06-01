@@ -64,7 +64,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
 }
 
@@ -72,6 +72,51 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* ── Button micro-interactions ──────────────────────────────────────────────── */
+.btn-press {
+  transition: all 150ms ease;
+}
+.btn-press:hover:not(:disabled) {
+  filter: saturate(1.15);
+}
+.btn-press:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.btn-press:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transition: none;
+}
+
+/* ── Desktop-only card hover lift ───────────────────────────────────────────── */
+.card-hover {
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+@media (hover: hover) {
+  .card-hover:hover {
+    box-shadow: 0 4px 16px rgba(107, 39, 55, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+/* ── Ripple ring (check-in confirmation) ────────────────────────────────────── */
+@keyframes ripple-ring {
+  0%   { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.ripple-ring {
+  animation: ripple-ring 600ms ease-out forwards;
+}
+
+/* ── Touch target helper (expands tap area without changing visuals) ─────────── */
+.touch-target {
+  min-width:  44px;
+  min-height: 44px;
+  display:    inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
