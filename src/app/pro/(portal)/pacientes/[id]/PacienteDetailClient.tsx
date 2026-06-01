@@ -1304,7 +1304,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5" style={{ color: "#6B2737" }}>Instrucción para la paciente</label>
+                    <label className="block text-xs font-semibold mb-1.5" style={{ color: "#6B2737" }}>Instrucción de práctica</label>
                     <textarea
                       value={asgInstruction}
                       onChange={e => setAsgInstruction(e.target.value)}
