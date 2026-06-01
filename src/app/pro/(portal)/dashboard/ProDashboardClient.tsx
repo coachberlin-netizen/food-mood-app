@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Users, MailOpen, Clock } from "lucide-react"
+import { Users, MailOpen, Clock, AlertTriangle } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useProfessional } from "@/hooks/useProfessional"
+import { useAttentionFlagsSummary } from "@/hooks/useAttentionFlags"
 import Link from "next/link"
 import ProAlertsPanel from "@/components/pro/ProAlertsPanel"
 
@@ -23,6 +24,7 @@ type Stats = {
 export default function ProDashboardClient() {
   const { professional } = useProfessional()
   const [stats, setStats] = useState<Stats | null>(null)
+  const { patientsWithFlags } = useAttentionFlagsSummary()
 
   useEffect(() => {
     const supabase = createClient()
@@ -71,6 +73,22 @@ export default function ProDashboardClient() {
           <p className="text-sm text-[#6B2737]/60 mt-1">{professional.professional_title}</p>
         )}
       </div>
+
+      {patientsWithFlags > 0 && (
+        <Link
+          href="/pro/pacientes"
+          className="mb-6 flex items-center gap-3 px-5 py-4 rounded-xl transition-all hover:brightness-95"
+          style={{ background: "#FEF3C7", border: "1px solid #F59E0B33" }}
+        >
+          <AlertTriangle className="w-5 h-5 shrink-0" style={{ color: "#D97706" }} />
+          <p className="text-sm font-medium" style={{ color: "#92400E" }}>
+            {patientsWithFlags === 1
+              ? "1 paciente con señales de atención recientes"
+              : `${patientsWithFlags} pacientes con señales de atención recientes`}
+          </p>
+          <span className="ml-auto text-xs shrink-0" style={{ color: "#92400E" }}>Ver →</span>
+        </Link>
+      )}
 
       <ProAlertsPanel />
 

@@ -1,13 +1,21 @@
+export type AttentionFlagSummary = {
+  flag_type:   string
+  severity:    "soft" | "moderate"
+  detected_at: string
+  evidence:    Record<string, unknown>
+}
+
 export type PatientData = {
-  checkins:    { logged_at: string; nervous_system_state: string; interoceptive_clarity: number; dominant_sensation: string | null }[]
-  granularity: { logged_at: string; initial_emotion_word: string; final_emotion_words: string[]; granularity_score: number }[]
-  dialogues:   { started_at: string; initial_thought: string; final_alternative_thought: string | null; emotion_before: string | null; emotion_after: string | null; intensity_before: number | null; intensity_after: number | null }[]
-  hambre:      { logged_at: string; physical_hunger: number; emotional_hunger: number; interoceptive_clarity: number; decided_to_eat: boolean; context_notes: string | null }[]
-  meals:       { logged_at: string; emotion_before: string; intensity_before: number; emotion_after: string; intensity_after: number; meal_description: string | null; post_nervous_system_state: string | null }[]
-  intentions:  { trigger_situation: string; intended_action: string; linked_value: string | null; times_triggered: number; times_completed: number }[]
-  nudges:      { generated_at: string; pattern_detected: string; action_taken: boolean }[]
-  values:      { core_values: string[]; relationship_with_food_vision: string; committed_actions: string[] }[]
-  assignments: { title: string; tool_slug: string; frequency_per_week: number; completions_this_week: number; instruction: string }[]
+  checkins:       { logged_at: string; nervous_system_state: string; interoceptive_clarity: number; dominant_sensation: string | null }[]
+  granularity:    { logged_at: string; initial_emotion_word: string; final_emotion_words: string[]; granularity_score: number }[]
+  dialogues:      { started_at: string; initial_thought: string; final_alternative_thought: string | null; emotion_before: string | null; emotion_after: string | null; intensity_before: number | null; intensity_after: number | null }[]
+  hambre:         { logged_at: string; physical_hunger: number; emotional_hunger: number; interoceptive_clarity: number; decided_to_eat: boolean; context_notes: string | null }[]
+  meals:          { logged_at: string; emotion_before: string; intensity_before: number; emotion_after: string; intensity_after: number; meal_description: string | null; post_nervous_system_state: string | null }[]
+  intentions:     { trigger_situation: string; intended_action: string; linked_value: string | null; times_triggered: number; times_completed: number }[]
+  nudges:         { generated_at: string; pattern_detected: string; action_taken: boolean }[]
+  values:         { core_values: string[]; relationship_with_food_vision: string; committed_actions: string[] }[]
+  assignments:    { title: string; tool_slug: string; frequency_per_week: number; completions_this_week: number; instruction: string }[]
+  attentionFlags: AttentionFlagSummary[]
 }
 
 export type SessionPrepOutput = {
@@ -57,7 +65,8 @@ Reglas de contenido:
 - intervention_points: 2-4 entradas, concretas y accionables
 - Nunca mencionar restricción calórica, pérdida de peso ni juicio moral sobre la alimentación
 - Hablar desde el marco eje intestino-cerebro, regulación SNA, neurobiología afectiva
-- Si hay asignaciones terapéuticas activas, incluir en weekly_summary un párrafo sobre adherencia a las mismas y en intervention_points qué ajustes sugiere según el nivel de cumplimiento`
+- Si hay asignaciones terapéuticas activas, incluir en weekly_summary un párrafo sobre adherencia a las mismas y en intervention_points qué ajustes sugiere según el nivel de cumplimiento
+- Si hay señales de atención moderadas, priorizarlas como foco en suggested_questions e intervention_points; no usar los términos "trastorno", "TCA", "diagnóstico" ni "riesgo clínico"`
 }
 
 export function buildUserMessage(data: PatientData, periodStart: string, periodEnd: string): string {
@@ -177,6 +186,20 @@ export function buildUserMessage(data: PatientData, periodStart: string, periodE
       lines.push(`- "${a.title}" (herramienta: ${a.tool_slug}) | frecuencia: ${a.frequency_per_week}×/semana | ${adherencia}`)
       lines.push(`  Instrucción: ${a.instruction}`)
     }
+  }
+  lines.push("")
+
+  // Señales de atención (solo moderadas para no saturar el contexto)
+  const moderateFlags = data.attentionFlags.filter(f => f.severity === "moderate")
+  lines.push(`== SEÑALES DE ATENCIÓN ACTIVAS (${moderateFlags.length} moderadas de ${data.attentionFlags.length} total) ==`)
+  if (moderateFlags.length === 0) {
+    lines.push("Sin señales de atención moderadas activas.")
+  } else {
+    for (const f of moderateFlags) {
+      const count = typeof f.evidence?.count === "number" ? `, ${f.evidence.count} ocurrencias` : ""
+      lines.push(`- ${f.flag_type.replace(/_/g, " ")} (detectada ${f.detected_at.split("T")[0]}${count})`)
+    }
+    lines.push("NOTA: Estas señales son indicadores de patrón, no diagnóstico. Integrar en el análisis clínico con criterio profesional.")
   }
 
   return lines.join("\n")

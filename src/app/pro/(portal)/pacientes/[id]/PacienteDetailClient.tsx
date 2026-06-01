@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft, Loader2, Sparkles } from "lucide-react"
+import { ArrowLeft, Loader2, Sparkles, AlertTriangle, X } from "lucide-react"
+import { usePatientAttentionFlags, getFlagLabel, type AttentionFlag } from "@/hooks/useAttentionFlags"
 import { moods } from "@/data/moods"
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -385,6 +386,100 @@ function NSSHeatmap({ checkins }: { checkins: CheckIn[] }) {
   )
 }
 
+// ── AttentionFlagsSection ─────────────────────────────────────────────────────
+
+const DISCLAIMER = "Estas señales se generan automáticamente a partir de patrones en los registros del paciente. No constituyen diagnóstico clínico ni evaluación psicológica. La interpretación y la decisión de actuación corresponden siempre al profesional."
+
+function AttentionFlagsSection({
+  flags,
+  onReview,
+  onDismiss,
+}: {
+  flags:     AttentionFlag[]
+  onReview:  (id: string) => Promise<void>
+  onDismiss: (id: string) => Promise<void>
+}) {
+  const [dismissingId, setDismissingId] = useState<string | null>(null)
+
+  const hasModerate = flags.some(f => f.severity === "moderate")
+
+  return (
+    <div className="mb-5 rounded-xl overflow-hidden" style={{ border: "1px solid #F59E0B44", borderLeftWidth: 3, borderLeftColor: "#F59E0B" }}>
+      <div className="px-5 py-3 flex items-center gap-2" style={{ background: "#FFFBEB" }}>
+        <AlertTriangle className="w-4 h-4 shrink-0" style={{ color: "#D97706" }} />
+        <p className="text-xs font-semibold" style={{ color: "#92400E" }}>
+          Señales de atención
+          {hasModerate && (
+            <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase" style={{ background: "#F59E0B", color: "#fff" }}>
+              Moderada
+            </span>
+          )}
+        </p>
+      </div>
+
+      <div className="bg-white divide-y divide-amber-100">
+        {flags.map(flag => (
+          <div key={flag.id} className="px-5 py-3 flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="text-xs font-semibold" style={{ color: "#92400E" }}>
+                  {getFlagLabel(flag.flag_type)}
+                </span>
+                <span
+                  className="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded"
+                  style={{
+                    background: flag.severity === "moderate" ? "#F59E0B22" : "#FEF3C7",
+                    color:      flag.severity === "moderate" ? "#D97706"   : "#B45309",
+                  }}
+                >
+                  {flag.severity === "moderate" ? "Moderada" : "Leve"}
+                </span>
+                {flag.reviewed_at && (
+                  <span className="text-[9px]" style={{ color: "rgba(107,39,55,0.35)" }}>Vista</span>
+                )}
+              </div>
+              <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.45)" }}>
+                Detectada {new Date(flag.detected_at).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}
+                {typeof flag.evidence?.count === "number" && ` · ${flag.evidence.count} ocurrencias en 14 días`}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              {!flag.reviewed_at && (
+                <button
+                  onClick={() => onReview(flag.id)}
+                  className="text-[10px] font-medium px-2 py-1 rounded-lg transition-colors hover:opacity-80"
+                  style={{ background: "#FEF3C7", color: "#92400E" }}
+                >
+                  Marcar vista
+                </button>
+              )}
+              <button
+                disabled={dismissingId === flag.id}
+                onClick={async () => {
+                  setDismissingId(flag.id)
+                  await onDismiss(flag.id)
+                  setDismissingId(null)
+                }}
+                className="p-1 rounded-lg transition-colors hover:opacity-70"
+                title="Descartar señal"
+                style={{ color: "rgba(107,39,55,0.3)" }}
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="px-5 py-3" style={{ background: "#FFFBEB" }}>
+        <p className="text-[9px] leading-relaxed" style={{ color: "rgba(146,64,14,0.6)" }}>
+          {DISCLAIMER}
+        </p>
+      </div>
+    </div>
+  )
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function PacienteDetailClient({ patientUserId }: { patientUserId: string }) {
@@ -423,6 +518,8 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   const [asgDueDate,          setAsgDueDate]          = useState("")
   const [asgSaving,           setAsgSaving]           = useState(false)
   const [asgError,            setAsgError]            = useState("")
+
+  const { flags: attentionFlags, review: reviewFlag, dismiss: dismissFlag } = usePatientAttentionFlags(patientUserId)
 
   // Initial data load — everything except prescriptions (lazy) and all session preps (lazy)
   useEffect(() => {
@@ -734,6 +831,15 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
             <span className="text-xs shrink-0 mt-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Ver →</span>
           </div>
         </Link>
+      )}
+
+      {/* ── Señales de atención ────────────────────────────────────────────── */}
+      {attentionFlags.length > 0 && (
+        <AttentionFlagsSection
+          flags={attentionFlags}
+          onReview={reviewFlag}
+          onDismiss={dismissFlag}
+        />
       )}
 
       {/* ── Tabs ───────────────────────────────────────────────────────────── */}

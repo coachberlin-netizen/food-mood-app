@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Users, Flame, AlertCircle } from "lucide-react"
 import { useLinkedPatients, type LinkedPatient } from "@/hooks/useLinkedPatients"
+import { useAttentionFlagsSummary } from "@/hooks/useAttentionFlags"
 
 // ── SN state config ──────────────────────────────────────────────────────────
 
@@ -50,7 +51,7 @@ function Sparkline({ values }: { values: number[] }) {
 
 // ── Patient card ─────────────────────────────────────────────────────────────
 
-function PatientCard({ p }: { p: LinkedPatient }) {
+function PatientCard({ p, flagSeverity }: { p: LinkedPatient; flagSeverity?: "soft" | "moderate" }) {
   const sn          = p.sn_state ? SN_CONFIG[p.sn_state] : null
   const borderColor = sn?.color ?? "rgba(107,39,55,0.12)"
   const noActivity  = p.recent_checkins === 0
@@ -80,6 +81,13 @@ function PatientCard({ p }: { p: LinkedPatient }) {
             )}
           </div>
           <div className="flex items-center gap-1.5 shrink-0 mt-0.5">
+            {flagSeverity && (
+              <span
+                className="w-2.5 h-2.5 rounded-full shrink-0"
+                style={{ background: "#F59E0B" }}
+                title="Señales de atención activas"
+              />
+            )}
             {p.recent_checkins > 0 && (
               <span
                 className="inline-flex items-center justify-center w-5 h-5 rounded-full text-[9px] font-bold"
@@ -162,7 +170,8 @@ function SkeletonCard() {
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function PacientesClient() {
-  const { patients, loading } = useLinkedPatients()
+  const { patients, loading }   = useLinkedPatients()
+  const { summary: flagSummary } = useAttentionFlagsSummary()
 
   return (
     <div className="p-6 md:p-8 max-w-5xl mx-auto">
@@ -207,7 +216,7 @@ export default function PacientesClient() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {patients.map(p => <PatientCard key={p.id} p={p} />)}
+          {patients.map(p => <PatientCard key={p.id} p={p} flagSeverity={flagSummary.get(p.patient_user_id)} />)}
         </div>
       )}
 

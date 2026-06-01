@@ -35,6 +35,10 @@
     {
       "path": "/api/cron/nudges",
       "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/attention-flags",
+      "schedule": "0 3 * * *"
     }
   ]
 }

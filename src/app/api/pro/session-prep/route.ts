@@ -5,7 +5,7 @@ import { cookies } from "next/headers"
 import { z } from "zod"
 import Anthropic from "@anthropic-ai/sdk"
 import logger from "@/lib/logger"
-import { buildSystemPrompt, buildUserMessage, type SessionPrepOutput } from "@/lib/pro/session-prep-prompt"
+import { buildSystemPrompt, buildUserMessage, type SessionPrepOutput, type AttentionFlagSummary } from "@/lib/pro/session-prep-prompt"
 
 const GenerateSchema = z.object({
   patient_user_id: z.string().uuid(),
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
 
   // Gather patient data in parallel (admin bypasses patient-only RLS)
   const [
-    checkinsRes, granRes, diagRes, hambreRes, mealRes, intRes, nudgeRes, valRes, assignmentsRes,
+    checkinsRes, granRes, diagRes, hambreRes, mealRes, intRes, nudgeRes, valRes, assignmentsRes, flagsRes,
   ] = await Promise.all([
     admin.from("interoceptive_checkins")
       .select("logged_at, nervous_system_state, interoceptive_clarity, dominant_sensation")
@@ -110,6 +110,12 @@ export async function POST(req: NextRequest) {
       .select("title, tool_slug, frequency_per_week, instruction, assignment_completions(completed_at)")
       .eq("patient_user_id", patient_user_id)
       .eq("is_active", true),
+    admin.from("professional_attention_flags")
+      .select("flag_type, severity, detected_at, evidence")
+      .eq("professional_id", professional.id)
+      .eq("patient_user_id", patient_user_id)
+      .eq("is_active", true)
+      .order("detected_at", { ascending: false }),
   ])
 
   const weekStartDate = new Date(weekStart)
@@ -134,6 +140,7 @@ export async function POST(req: NextRequest) {
       instruction:          a.instruction,
       completions_this_week: a.assignment_completions.filter(c => new Date(c.completed_at) >= weekStartDate).length,
     })),
+    attentionFlags: (flagsRes.data ?? []) as AttentionFlagSummary[],
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
