@@ -82,7 +82,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                   <NavLink href="/glosario"     label="Glosario"       close={close} />
                   <NavLink href="/blog"         label="Newsletter"     close={close} />
                   <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
-                  <NavLink href="/perfil"       label="Mi Perfil"      close={close} />
+                  <NavLink href="/configuracion" label="Configuración"  close={close} />
                 </>
               ) : (
                 /* Landing pública B2B */

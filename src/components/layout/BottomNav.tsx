@@ -21,7 +21,7 @@ const AUTH_TABS: Tab[] = [
   { href: "/eloraculo",  label: "Registros",  icon: Sparkles,    match: p => p.startsWith("/eloraculo") },
   { href: "/practicas",  label: "Prácticas",  icon: BookOpen,    match: p => p.startsWith("/practicas") },
   { href: "/para-mi",    label: "Para ti",    icon: Heart,       match: p => p.startsWith("/para-mi") },
-  { href: "/perfil",     label: "Mi cuenta",  icon: UserCircle,  match: p => p.startsWith("/perfil") },
+  { href: "/configuracion", label: "Mi cuenta",  icon: UserCircle,  match: p => p.startsWith("/configuracion") },
 ]
 
 const GUEST_TABS: Tab[] = [

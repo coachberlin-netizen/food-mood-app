@@ -212,10 +212,10 @@ export function Header() {
                     <div className="px-2 pb-2 mb-2 border-b border-[#C9A84C]/15">
                       <p className="text-[10px] uppercase tracking-widest text-cream/40 px-3 py-1">Mi cuenta</p>
                     </div>
-                    <Link href="/perfil" onClick={() => setIsMenuOpen(false)}
+                    <Link href="/configuracion" onClick={() => setIsMenuOpen(false)}
                       className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group">
                       <User className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
-                      Mi Perfil
+                      Configuración
                     </Link>
                     <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}
                       className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group">
