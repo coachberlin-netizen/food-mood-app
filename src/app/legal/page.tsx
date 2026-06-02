@@ -49,6 +49,19 @@ export default function LegalPage() {
       </section>
 
       <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3" style={{ color: "#6B2737" }}>Alcance en trastornos de la conducta alimentaria</h2>
+        <p className="text-sm leading-relaxed mb-3">
+          Food·Mood Pro no es una herramienta para el tratamiento de trastornos de la conducta alimentaria. Está diseñada como apoyo en consulta nutricional y de psiconutrición general.
+        </p>
+        <p className="text-sm leading-relaxed mb-3">
+          Ante la sospecha de un TCA, recomendamos la derivación a un equipo especializado multidisciplinar.
+        </p>
+        <p className="text-sm leading-relaxed">
+          La plataforma puede integrarse como apoyo adyacente únicamente bajo criterio y supervisión de un profesional cualificado en TCA.
+        </p>
+      </section>
+
+      <section className="mb-10">
         <h2 className="text-lg font-semibold mb-3" style={{ color: "#6B2737" }}>Cumplimiento normativo</h2>
         <p className="text-sm leading-relaxed mb-3">
           El sistema de señales está diseñado para cumplir el artículo 50 del Reglamento de IA de la UE (EU AI Act), que exige explicabilidad total en sistemas de apoyo a la toma de decisiones. Todas las reglas son públicas, auditables y no dependen de modelos de aprendizaje automático.
