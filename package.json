@@ -15,7 +15,7 @@
     "seed:content": "npx tsx scripts/seed-content-library.ts",
     "seed:cortisol": "npx tsx scripts/seed-cortisol-protocol.ts",
     "seed:intestino-cerebro": "npx tsx scripts/seed-intestino-cerebro.ts",
-    "seed:menopausia": "npx tsx scripts/seed-menopausia.ts"
+    "seed:menopausia": "npx tsx scripts/seeds/seed-menopausia.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",

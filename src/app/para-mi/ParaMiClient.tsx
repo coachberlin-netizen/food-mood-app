@@ -95,7 +95,7 @@ export default function ParaMiClient() {
             <button
               key={key}
               onClick={() => setFilter(key)}
-              className="px-4 py-1.5 rounded-full text-xs font-medium transition-colors"
+              className="px-4 py-3 rounded-full text-xs font-medium transition-colors min-h-[44px] flex items-center"
               style={{
                 background: filter === key ? "#6B2737" : "transparent",
                 color:      filter === key ? "#F5F0E8" : "#6B2737",
@@ -182,7 +182,7 @@ export default function ParaMiClient() {
 
                         {p.patient_protocol_id && p.protocol_stage && (
                           <span
-                            className="inline-block mt-1.5 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
+                            className="inline-block mt-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
                             style={{ background: "rgba(107,39,55,0.07)", color: "rgba(107,39,55,0.5)" }}
                           >
                             {p.patient_protocols?.clinical_protocols?.name ?? "Protocolo"} · Etapa {p.protocol_stage}
