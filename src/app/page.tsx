@@ -250,6 +250,85 @@ function EarlyAccessModal({ open, onClose }: { open: boolean; onClose: () => voi
   )
 }
 
+// ─── Formulario inline (hero + CTA final) ────────────────────────────────────
+
+function HeroForm() {
+  const id = useId()
+  const [form, setForm]     = useState({ name: "", email: "", professional_type: "" })
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle")
+
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+    setForm(f => ({ ...f, [k]: e.target.value }))
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!form.name || !form.email || !form.professional_type) return
+    setStatus("loading")
+    try {
+      const r = await fetch("/api/early-access", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) })
+      setStatus(r.ok ? "ok" : "error")
+    } catch {
+      setStatus("error")
+    }
+  }
+
+  if (status === "ok") {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+        className="flex items-start gap-3 rounded-2xl px-5 py-4"
+        style={{ backgroundColor: "rgba(90,155,138,0.12)", border: "1px solid rgba(90,155,138,0.28)" }}
+      >
+        <Check className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#5A9B8A" }} />
+        <div>
+          <p className="text-sm font-semibold text-white">Solicitud recibida</p>
+          <p className="text-xs font-light mt-0.5" style={{ color: "rgba(245,240,232,0.6)" }}>
+            Te contactamos en menos de 48h para concretar la demo. Gracias.
+          </p>
+        </div>
+      </motion.div>
+    )
+  }
+
+  const inputCls = "w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
+  const inputSt  = { backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F0E8", caretColor: "#C9A84C" }
+  const labelSt  = { color: "rgba(245,240,232,0.5)" }
+
+  return (
+    <form onSubmit={submit} className="flex flex-col gap-3 w-full">
+      <div className="grid sm:grid-cols-2 gap-3">
+        <div>
+          <label htmlFor={`${id}-n`} className="block text-[11px] font-medium mb-1.5" style={labelSt}>Nombre *</label>
+          <input id={`${id}-n`} value={form.name} onChange={set("name")} required placeholder="Tu nombre" className={inputCls} style={inputSt} />
+        </div>
+        <div>
+          <label htmlFor={`${id}-e`} className="block text-[11px] font-medium mb-1.5" style={labelSt}>Email profesional *</label>
+          <input id={`${id}-e`} type="email" value={form.email} onChange={set("email")} required placeholder="tu@consulta.com" className={inputCls} style={inputSt} />
+        </div>
+      </div>
+      <div>
+        <label htmlFor={`${id}-t`} className="block text-[11px] font-medium mb-1.5" style={labelSt}>Especialidad *</label>
+        <select id={`${id}-t`} value={form.professional_type} onChange={set("professional_type")} required className={inputCls} style={{ ...inputSt, backgroundImage: "none" }}>
+          <option value="">Selecciona…</option>
+          {PROFESSIONAL_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+        </select>
+      </div>
+      {status === "error" && <p className="text-xs text-red-400">Algo salió mal. Inténtalo de nuevo.</p>}
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
+        style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 28px rgba(201,168,76,0.32), 0 4px 14px rgba(0,0,0,0.4)" }}
+      >
+        {status === "loading" ? "Enviando…" : "Solicitar demo de 15 min →"}
+      </button>
+      <p className="text-[11px] text-center" style={{ color: "rgba(245,240,232,0.32)" }}>
+        Te contactamos en menos de 48h · Sin compromiso · Sin tarjeta
+      </p>
+    </form>
+  )
+}
+
 // ─── FAQ Item ─────────────────────────────────────────────────────────────────
 
 function FaqItem({ faq, isOpen, onToggle }: { faq: (typeof FAQS)[0]; isOpen: boolean; onToggle: () => void }) {
@@ -520,31 +599,23 @@ export default function ProLanding() {
                 Food·Mood Pro es una plataforma profesional que integra psicología práctica, IA y seguimiento entre sesiones para ayudarte a trabajar adherencia, hambre emocional, pensamientos, señales corporales y cambio de conducta con datos reales antes de cada consulta.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
-                <button
-                  onClick={open}
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-                  style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 32px rgba(201,168,76,0.35), 0 4px 16px rgba(0,0,0,0.4)" }}
-                >
-                  Solicitar acceso anticipado
-                </button>
-                <button
-                  onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
-                  className="inline-flex items-center gap-2 text-sm font-light transition-opacity hover:opacity-70 bg-transparent border-none cursor-pointer"
-                  style={{ color: "rgba(245,240,232,0.5)" }}
-                >
-                  Ver cómo funciona <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
+              <HeroForm />
 
-              {/* Trust signals */}
-              <div className="flex flex-wrap gap-x-5 gap-y-2">
+              {/* Trust signals + scroll link */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2">
                 {["RGPD por diseño", "Sin coste para pacientes", "No es dispositivo médico", "EU AI Act"].map(t => (
-                  <span key={t} className="flex items-center gap-1.5 text-[10px] font-light" style={{ color: "rgba(245,240,232,0.38)" }}>
-                    <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "rgba(245,240,232,0.25)" }} />
+                  <span key={t} className="flex items-center gap-1.5 text-[10px] font-light" style={{ color: "rgba(245,240,232,0.35)" }}>
+                    <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "rgba(245,240,232,0.22)" }} />
                     {t}
                   </span>
                 ))}
+                <button
+                  onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
+                  className="flex items-center gap-1 text-[10px] font-light transition-opacity hover:opacity-70 bg-transparent border-none cursor-pointer ml-auto"
+                  style={{ color: "rgba(245,240,232,0.38)" }}
+                >
+                  Ver cómo funciona <ArrowRight className="w-3 h-3" />
+                </button>
               </div>
             </motion.div>
 
@@ -1020,26 +1091,22 @@ export default function ProLanding() {
 
       {/* ── 12. CTA FINAL ────────────────────────────────────────────────────── */}
       <section id="acceso" aria-label="Solicitar acceso" className="py-24 md:py-32 px-6" style={{ backgroundColor: "#0f0a0d" }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className="space-y-7">
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em]" style={{ color: "rgba(201,168,76,0.45)" }}>Acceso anticipado</motion.p>
-            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
-              Lo que ocurre entre sesiones{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>ya tiene nombre.</em>
+        <div className="max-w-xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className="space-y-6">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.2em] text-center" style={{ color: "rgba(201,168,76,0.45)" }}>Acceso anticipado</motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight text-center" style={{ letterSpacing: "-0.02em" }}>
+              La capa psicológica que le faltaba.{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Ahora con plazas abiertas.</em>
             </motion.h2>
-            <motion.p variants={fade} className="text-base font-light" style={{ color: "rgba(245,240,232,0.5)" }}>
-              Plazas limitadas en esta fase. Condiciones especiales a cambio de feedback directo.
+            <motion.p variants={fade} className="text-sm font-light text-center" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Demo de 15 min personalizada · Incorporación asistida · Sin permanencia
             </motion.p>
-            <motion.div variants={fade} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={open}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all hover:brightness-110 active:scale-95"
-                style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 32px rgba(201,168,76,0.35), 0 4px 16px rgba(0,0,0,0.4)" }}
-              >
-                Solicitar acceso — respuesta en 48h
-              </button>
-              <Link href="/pro/login" className="text-sm font-light transition-opacity hover:opacity-60" style={{ color: "rgba(245,240,232,0.38)" }}>
-                Ya tengo acceso → Entrar
+            <motion.div variants={fade}>
+              <HeroForm />
+            </motion.div>
+            <motion.div variants={fade} className="text-center">
+              <Link href="/pro/login" className="text-xs font-light transition-opacity hover:opacity-60" style={{ color: "rgba(245,240,232,0.3)" }}>
+                Ya tengo acceso → Entrar al portal
               </Link>
             </motion.div>
           </motion.div>
