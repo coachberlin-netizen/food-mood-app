@@ -16,6 +16,8 @@ export type Prescription = {
   prescribed_at: string
   read_at: string | null
   professional_note: string | null
+  patient_protocol_id: string | null
+  protocol_stage: number | null
   content_library: PrescriptionContent
   professionals: { full_name: string } | null
 }
@@ -45,6 +47,8 @@ export function usePrescriptions(): PrescriptionsState {
           prescribed_at,
           read_at,
           professional_note,
+          patient_protocol_id,
+          protocol_stage,
           content_library (
             id,
             title,

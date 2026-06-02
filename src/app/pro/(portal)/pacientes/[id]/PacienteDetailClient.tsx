@@ -4,13 +4,42 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft, Loader2, Sparkles, AlertTriangle, X } from "lucide-react"
+import { ArrowLeft, Loader2, Sparkles, AlertTriangle, X, FlaskConical, ChevronRight, Pause, Play } from "lucide-react"
 import { usePatientAttentionFlags, getFlagLabel, type AttentionFlag } from "@/hooks/useAttentionFlags"
 import { moods } from "@/data/moods"
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 type Tab = "conductual" | "prescripciones" | "sesiones" | "asignaciones"
+
+type ClinicalProtocol = {
+  id:           string
+  name:         string
+  slug:         string
+  description:  string
+  duration_days: number
+  stages:       ProtocolStage[]
+}
+
+type ProtocolStage = {
+  stage:         number
+  name:          string
+  days:          string
+  day_end:       number
+  tools:         string[]
+  content_slugs: string[]
+  description:   string
+}
+
+type PatientProtocolState = {
+  id:                   string
+  current_stage:        number
+  status:               string
+  started_at:           string
+  days_elapsed:         number
+  stage_completion_pct: number
+  clinical_protocols:   ClinicalProtocol
+}
 
 type TherapeuticAssignment = {
   id: string
@@ -519,6 +548,17 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
   const [asgSaving,           setAsgSaving]           = useState(false)
   const [asgError,            setAsgError]            = useState("")
 
+  // Protocol state
+  const [activeProtocol,      setActiveProtocol]      = useState<PatientProtocolState | null | undefined>(undefined)
+  const [protocolLoading,     setProtocolLoading]     = useState(true)
+  const [showProtocolDrawer,  setShowProtocolDrawer]  = useState(false)
+  const [availableProtocols,  setAvailableProtocols]  = useState<ClinicalProtocol[]>([])
+  const [protocolsLoading,    setProtocolsLoading]    = useState(false)
+  const [activatingProtocol,  setActivatingProtocol]  = useState(false)
+  const [protocolError,       setProtocolError]       = useState("")
+  const [advancingStage,      setAdvancingStage]      = useState(false)
+  const [pausingProtocol,     setPausingProtocol]     = useState(false)
+
   const { flags: attentionFlags, review: reviewFlag, dismiss: dismissFlag } = usePatientAttentionFlags(patientUserId)
 
   // Initial data load — everything except prescriptions (lazy) and all session preps (lazy)
@@ -627,6 +667,83 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
 
     load()
   }, [patientUserId, router])
+
+  // Load active protocol for this patient
+  useEffect(() => {
+    fetch(`/api/pro/protocols/patient/${patientUserId}`)
+      .then(r => r.json())
+      .then(d => { setActiveProtocol(d.protocol ?? null); setProtocolLoading(false) })
+      .catch(() => { setActiveProtocol(null); setProtocolLoading(false) })
+  }, [patientUserId])
+
+  // Load available protocol templates when drawer opens
+  useEffect(() => {
+    if (!showProtocolDrawer || availableProtocols.length > 0) return
+    setProtocolsLoading(true)
+    const supabase = createClient()
+    supabase
+      .from("clinical_protocols")
+      .select("id, name, slug, description, duration_days, stages")
+      .eq("is_active", true)
+      .order("created_at", { ascending: true })
+      .then(({ data }) => {
+        setAvailableProtocols((data ?? []) as unknown as ClinicalProtocol[])
+        setProtocolsLoading(false)
+      })
+  }, [showProtocolDrawer, availableProtocols.length])
+
+  const handleActivateProtocol = async (protocolId: string) => {
+    setActivatingProtocol(true)
+    setProtocolError("")
+    const res = await fetch("/api/pro/protocols/activate", {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ patient_user_id: patientUserId, protocol_id: protocolId }),
+    })
+    const d = await res.json() as { error?: string; id?: string }
+    if (!res.ok) { setProtocolError(d.error ?? "Error al activar el protocolo."); setActivatingProtocol(false); return }
+    setShowProtocolDrawer(false)
+    setActivatingProtocol(false)
+    // Reload protocol state
+    const r2 = await fetch(`/api/pro/protocols/patient/${patientUserId}`)
+    const d2 = await r2.json() as { protocol: PatientProtocolState | null }
+    setActiveProtocol(d2.protocol ?? null)
+    // Reload assignments tab
+    setAssignmentsLoaded(false)
+  }
+
+  const handleAdvanceStage = async () => {
+    if (!activeProtocol) return
+    setAdvancingStage(true)
+    const res = await fetch(`/api/pro/protocols/${activeProtocol.id}`, {
+      method:  "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ action: "advance_stage" }),
+    })
+    const d = await res.json() as { current_stage?: number; status?: string; error?: string }
+    setAdvancingStage(false)
+    if (!res.ok) { setProtocolError(d.error ?? "Error al avanzar etapa."); return }
+    // Reload protocol state
+    const r2 = await fetch(`/api/pro/protocols/patient/${patientUserId}`)
+    const d2 = await r2.json() as { protocol: PatientProtocolState | null }
+    setActiveProtocol(d2.protocol ?? null)
+    setAssignmentsLoaded(false)
+  }
+
+  const handleTogglePauseProtocol = async () => {
+    if (!activeProtocol) return
+    setPausingProtocol(true)
+    const action = activeProtocol.status === "paused" ? "resume" : "pause"
+    const res = await fetch(`/api/pro/protocols/${activeProtocol.id}`, {
+      method:  "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ action }),
+    })
+    const d = await res.json() as { status?: string; error?: string }
+    setPausingProtocol(false)
+    if (!res.ok) { setProtocolError(d.error ?? "Error al pausar el protocolo."); return }
+    setActiveProtocol(prev => prev ? { ...prev, status: d.status ?? prev.status } : prev)
+  }
 
   // Lazy-load full session prep list when Sesiones tab is first opened
   useEffect(() => {
@@ -776,15 +893,27 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
             {linkedAt && <p className="text-xs mt-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Vinculado/a desde {formatDate(linkedAt)}</p>}
           </div>
           <div className="flex flex-col items-end gap-1.5">
-            <button
-              onClick={handleGenerateSessionPrep}
-              disabled={preparandoSesion}
-              className="btn-press flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold shrink-0"
-              style={{ background: "#6B2737", color: "#F5F0E8" }}
-            >
-              {preparandoSesion ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-              {preparandoSesion ? "Generando..." : "Preparar sesión"}
-            </button>
+            <div className="flex gap-2">
+              {!activeProtocol && !protocolLoading && (
+                <button
+                  onClick={() => setShowProtocolDrawer(true)}
+                  className="btn-press flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold shrink-0"
+                  style={{ background: "rgba(107,39,55,0.08)", color: "#6B2737", border: "1px solid rgba(107,39,55,0.15)" }}
+                >
+                  <FlaskConical className="w-4 h-4" />
+                  Iniciar protocolo
+                </button>
+              )}
+              <button
+                onClick={handleGenerateSessionPrep}
+                disabled={preparandoSesion}
+                className="btn-press flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold shrink-0"
+                style={{ background: "#6B2737", color: "#F5F0E8" }}
+              >
+                {preparandoSesion ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                {preparandoSesion ? "Generando..." : "Preparar sesión"}
+              </button>
+            </div>
             {preparandoSesion && (
               <p className="text-[10px] text-right animate-pulse" style={{ color: "rgba(107,39,55,0.45)" }}>
                 {PREP_MESSAGES[prepMsgIdx]}
@@ -840,6 +969,113 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
           onReview={reviewFlag}
           onDismiss={dismissFlag}
         />
+      )}
+
+      {/* ── Protocolo activo ───────────────────────────────────────────────── */}
+      {protocolError && (
+        <p className="text-xs text-red-600 mb-3">{protocolError}</p>
+      )}
+      {activeProtocol && activeProtocol.status !== "abandoned" && (
+        <div className="mb-6 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(107,39,55,0.12)", borderLeftWidth: 3, borderLeftColor: "#6B2737" }}>
+          <div className="px-5 py-4 bg-white">
+            <div className="flex items-start justify-between gap-3 mb-3">
+              <div>
+                <div className="flex items-center gap-2 mb-0.5">
+                  <FlaskConical className="w-3.5 h-3.5" style={{ color: "#6B2737" }} />
+                  <p className="text-xs font-bold" style={{ color: "#6B2737" }}>
+                    {activeProtocol.clinical_protocols.name}
+                  </p>
+                  {activeProtocol.status === "paused" && (
+                    <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded" style={{ background: "rgba(107,39,55,0.08)", color: "rgba(107,39,55,0.5)" }}>
+                      Pausado
+                    </span>
+                  )}
+                </div>
+                <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.5)" }}>
+                  Día {activeProtocol.days_elapsed} de {activeProtocol.clinical_protocols.duration_days}
+                </p>
+              </div>
+              <div className="flex gap-2 shrink-0">
+                <button
+                  onClick={handleAdvanceStage}
+                  disabled={advancingStage || activeProtocol.status === "paused" || activeProtocol.status === "completed"}
+                  className="btn-press flex items-center gap-1.5 px-3 py-2 min-h-[36px] rounded-lg text-[10px] font-semibold disabled:opacity-40"
+                  style={{ background: "#6B2737", color: "#F5F0E8" }}
+                >
+                  {advancingStage ? <Loader2 className="w-3 h-3 animate-spin" /> : <ChevronRight className="w-3 h-3" />}
+                  Siguiente etapa
+                </button>
+                <button
+                  onClick={handleTogglePauseProtocol}
+                  disabled={pausingProtocol}
+                  className="btn-press flex items-center gap-1.5 px-3 py-2 min-h-[36px] rounded-lg text-[10px] font-semibold"
+                  style={{ background: "rgba(107,39,55,0.08)", color: "#6B2737" }}
+                >
+                  {activeProtocol.status === "paused"
+                    ? <Play className="w-3 h-3" />
+                    : <Pause className="w-3 h-3" />
+                  }
+                  {activeProtocol.status === "paused" ? "Reanudar" : "Pausar"}
+                </button>
+              </div>
+            </div>
+
+            {/* Stage progress bar */}
+            <div className="flex gap-1 mb-3">
+              {activeProtocol.clinical_protocols.stages.map(s => {
+                const isActive   = s.stage === activeProtocol.current_stage
+                const isDone     = s.stage < activeProtocol.current_stage
+                return (
+                  <div
+                    key={s.stage}
+                    className="flex-1 h-2 rounded-full transition-all"
+                    style={{
+                      background: isDone
+                        ? "#16a34a"
+                        : isActive
+                        ? "#6B2737"
+                        : "rgba(107,39,55,0.12)",
+                    }}
+                    title={`Etapa ${s.stage}: ${s.name}`}
+                  />
+                )
+              })}
+            </div>
+
+            {/* Current stage detail */}
+            {(() => {
+              const current = activeProtocol.clinical_protocols.stages.find(
+                s => s.stage === activeProtocol.current_stage
+              )
+              if (!current) return null
+              return (
+                <div>
+                  <p className="text-xs font-semibold mb-0.5" style={{ color: "#2d0f16" }}>
+                    Etapa {current.stage}: {current.name}
+                    <span className="ml-2 text-[10px] font-normal" style={{ color: "rgba(107,39,55,0.5)" }}>
+                      días {current.days}
+                    </span>
+                  </p>
+                  <p className="text-[10px] font-light" style={{ color: "rgba(107,39,55,0.6)" }}>{current.description}</p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <div className="flex-1 h-1.5 rounded-full" style={{ background: "rgba(107,39,55,0.1)" }}>
+                      <div
+                        className="h-1.5 rounded-full"
+                        style={{
+                          width: `${activeProtocol.stage_completion_pct}%`,
+                          background: activeProtocol.stage_completion_pct >= 70 ? "#16a34a" : "#C9A84C",
+                        }}
+                      />
+                    </div>
+                    <span className="text-[10px] font-semibold shrink-0" style={{ color: activeProtocol.stage_completion_pct >= 70 ? "#16a34a" : "#C9A84C" }}>
+                      {activeProtocol.stage_completion_pct}%
+                    </span>
+                  </div>
+                </div>
+              )
+            })()}
+          </div>
+        </div>
       )}
 
       {/* ── Tabs ───────────────────────────────────────────────────────────── */}
@@ -1370,7 +1606,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
             </div>
           )}
 
-          {/* ── Modal nueva asignación ─────────────────────────────────────── */}
+          {/* ── Modal nueva asignación ───────────────────────────────────────── */}
           {showNewAssignment && (
             <div
               className="fixed inset-0 z-50 flex items-end md:items-center justify-center px-4 pb-6"
@@ -1467,6 +1703,92 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* ── Drawer: Iniciar protocolo ────────────────────────────────────────── */}
+      {showProtocolDrawer && (
+        <div
+          className="fixed inset-0 z-50 flex items-end md:items-center justify-center px-4 pb-6"
+          style={{ background: "rgba(15,10,13,0.75)" }}
+          onClick={e => { if (e.target === e.currentTarget) setShowProtocolDrawer(false) }}
+        >
+          <div className="w-full max-w-lg bg-white rounded-2xl max-h-[90vh] overflow-y-auto">
+            <div className="px-6 py-5 border-b" style={{ borderColor: "rgba(107,39,55,0.08)" }}>
+              <div className="flex items-center justify-between">
+                <h3 className="font-serif text-lg font-bold" style={{ color: "#2d0f16" }}>
+                  Iniciar protocolo clínico
+                </h3>
+                <button onClick={() => setShowProtocolDrawer(false)} className="touch-target" style={{ color: "rgba(107,39,55,0.4)" }}>
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-xs mt-1 font-light" style={{ color: "rgba(107,39,55,0.5)" }}>
+                Activa un protocolo de 28 días para {patientName ?? "este paciente"}
+              </p>
+            </div>
+
+            <div className="p-6">
+              {protocolsLoading ? (
+                <div className="flex justify-center py-8">
+                  <div className="w-5 h-5 border-2 border-[#6B2737] border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : availableProtocols.length === 0 ? (
+                <p className="text-sm text-center py-8" style={{ color: "rgba(107,39,55,0.4)" }}>No hay protocolos disponibles.</p>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  {availableProtocols.map(protocol => (
+                    <div key={protocol.id} className="rounded-xl p-5" style={{ border: "1px solid rgba(107,39,55,0.12)" }}>
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                          <p className="text-sm font-bold" style={{ color: "#2d0f16" }}>{protocol.name}</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: "#C9A84C" }}>
+                            {protocol.duration_days} días · {protocol.stages.length} etapas
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => handleActivateProtocol(protocol.id)}
+                          disabled={activatingProtocol}
+                          className="btn-press flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-semibold shrink-0 disabled:opacity-60"
+                          style={{ background: "#6B2737", color: "#F5F0E8" }}
+                        >
+                          {activatingProtocol && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                          Activar para {patientName ?? "este paciente"}
+                        </button>
+                      </div>
+
+                      {protocol.description && (
+                        <p className="text-xs font-light leading-relaxed mb-4" style={{ color: "rgba(107,39,55,0.6)" }}>
+                          {protocol.description}
+                        </p>
+                      )}
+
+                      <div className="flex flex-col gap-2">
+                        {protocol.stages.map(stage => (
+                          <div key={stage.stage} className="flex items-start gap-3 rounded-lg px-3 py-2" style={{ background: "rgba(107,39,55,0.03)" }}>
+                            <span
+                              className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5"
+                              style={{ background: "#6B2737", color: "#F5F0E8", fontSize: "9px", fontWeight: 700 }}
+                            >
+                              {stage.stage}
+                            </span>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[10px] font-semibold" style={{ color: "#2d0f16" }}>
+                                {stage.name}
+                                <span className="ml-1.5 font-normal" style={{ color: "rgba(107,39,55,0.4)" }}>días {stage.days}</span>
+                              </p>
+                              <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>{stage.description}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  {protocolError && <p className="text-xs text-red-600 mt-2">{protocolError}</p>}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

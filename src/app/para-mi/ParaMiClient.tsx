@@ -180,6 +180,15 @@ export default function ParaMiClient() {
                           Prescrito el {formatDate(p.prescribed_at)}
                         </p>
 
+                        {p.patient_protocol_id && p.protocol_stage && (
+                          <span
+                            className="inline-block mt-1.5 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
+                            style={{ background: "rgba(107,39,55,0.07)", color: "rgba(107,39,55,0.5)" }}
+                          >
+                            Protocolo Cortisol · Etapa {p.protocol_stage}
+                          </span>
+                        )}
+
                         {p.professional_note && (
                           <div
                             className="mt-3 px-3 py-2 rounded-lg text-xs font-light italic leading-relaxed"

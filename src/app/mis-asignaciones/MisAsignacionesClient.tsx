@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowLeft, ExternalLink, Circle } from "lucide-react"
 import { usePatientAssignments } from "@/hooks/useAssignments"
+import { useActivePatientProtocol } from "@/hooks/useActivePatientProtocol"
 import { motion } from "framer-motion"
 
 const TOOL_LABELS: Record<string, string> = {
@@ -38,6 +39,7 @@ function ProgressDots({ done, total }: { done: number; total: number }) {
 
 export function MisAsignacionesClient() {
   const { assignments, loading } = usePatientAssignments()
+  const { protocol, loading: protocolLoading } = useActivePatientProtocol()
 
   const total   = assignments.length
   const pending = assignments.filter(a => a.completions_this_week < a.frequency_per_week).length
@@ -52,6 +54,56 @@ export function MisAsignacionesClient() {
 
         <h1 className="font-serif text-2xl font-black mb-1" style={{ color: "#2d0f16" }}>Mis asignaciones</h1>
         <p className="text-xs mb-6" style={{ color: "rgba(107,39,55,0.5)" }}>Prácticas asignadas por tu profesional esta semana</p>
+
+        {/* Card de protocolo activo */}
+        {!protocolLoading && protocol && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="bg-white rounded-2xl px-5 py-4 mb-6"
+            style={{ border: "1px solid rgba(107,39,55,0.12)", borderLeftWidth: 3, borderLeftColor: "#6B2737" }}
+          >
+            <p className="text-[9px] font-bold uppercase tracking-wider mb-1" style={{ color: "#6B2737" }}>
+              Protocolo activo
+            </p>
+            <p className="text-sm font-bold mb-0.5" style={{ color: "#2d0f16" }}>
+              {protocol.protocol_name} — Día {protocol.days_elapsed} de {protocol.duration_days}
+            </p>
+            <p className="text-xs font-light mb-3" style={{ color: "rgba(107,39,55,0.6)" }}>
+              {protocol.stage_name}
+            </p>
+
+            {/* 5 stage circles */}
+            <div className="flex items-center gap-1.5">
+              {Array.from({ length: protocol.total_stages }, (_, i) => {
+                const stageNum = i + 1
+                const isDone   = stageNum < protocol.current_stage
+                const isActive = stageNum === protocol.current_stage
+                return (
+                  <div
+                    key={stageNum}
+                    className="w-5 h-5 rounded-full flex items-center justify-center"
+                    style={{
+                      background: isDone
+                        ? "#16a34a"
+                        : isActive
+                        ? "#6B2737"
+                        : "rgba(107,39,55,0.12)",
+                    }}
+                  >
+                    <span style={{ fontSize: "8px", fontWeight: 700, color: isActive || isDone ? "#fff" : "rgba(107,39,55,0.3)" }}>
+                      {stageNum}
+                    </span>
+                  </div>
+                )
+              })}
+              <span className="text-[10px] ml-1" style={{ color: "rgba(107,39,55,0.45)" }}>
+                Etapa {protocol.current_stage} de {protocol.total_stages}
+              </span>
+            </div>
+          </motion.div>
+        )}
 
         {loading ? (
           <div className="flex items-center justify-center py-16">
