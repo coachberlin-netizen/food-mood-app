@@ -1,6 +1,13 @@
 import { readFileSync } from 'fs'
 import { createClient } from '@supabase/supabase-js'
 
+// Uso: node scripts/create-demo-user.mjs <password>
+const DEMO_PASSWORD = process.argv[2]
+if (!DEMO_PASSWORD) {
+  console.error('Uso: node scripts/create-demo-user.mjs <contraseña>')
+  process.exit(1)
+}
+
 const env = readFileSync('.env.local', 'utf8')
 const supabaseUrl = env.match(/NEXT_PUBLIC_SUPABASE_URL="?([^"\n]+)/)?.[1]
 const serviceKey  = env.match(/SUPABASE_SERVICE_ROLE_KEY="?([^"\n]+)/)?.[1]
@@ -14,32 +21,30 @@ const admin = createClient(supabaseUrl, serviceKey, {
   auth: { autoRefreshToken: false, persistSession: false },
 })
 
-const DEMO_EMAIL    = 'demo-pro@food-mood.app'
-const DEMO_PASSWORD = 'FoodMood2026!'
+const DEMO_EMAIL = 'demo-pro@food-mood.app'
 
 async function run() {
   console.log('\nCreando cuenta demo profesional…\n')
 
-  // 1. Crear usuario en auth (confirmar email directamente)
   const { data: authData, error: authError } = await admin.auth.admin.createUser({
-    email:            DEMO_EMAIL,
-    password:         DEMO_PASSWORD,
-    email_confirm:    true,
+    email:         DEMO_EMAIL,
+    password:      DEMO_PASSWORD,
+    email_confirm: true,
     user_metadata: {
-      name:             'Demo Profesional',
+      name:              'Demo Profesional',
       professional_type: 'Nutricionista / Dietista',
     },
   })
 
   if (authError) {
     if (authError.message.includes('already been registered')) {
-      console.log(`ℹ️  El usuario ${DEMO_EMAIL} ya existe. Continuando con el perfil profesional…`)
+      console.log(`ℹ️  El usuario ${DEMO_EMAIL} ya existe. Actualizando perfil profesional…`)
       const { data: existing } = await admin.auth.admin.listUsers()
       const found = existing?.users?.find(u => u.email === DEMO_EMAIL)
       if (found) {
+        await admin.auth.admin.updateUserById(found.id, { password: DEMO_PASSWORD })
         await upsertProfessional(found.id)
         console.log('\n✅  Cuenta demo lista.')
-        printCredentials()
       }
       return
     }
@@ -49,11 +54,8 @@ async function run() {
 
   const userId = authData.user.id
   console.log(`✅  Usuario creado: ${DEMO_EMAIL} (id: ${userId})`)
-
   await upsertProfessional(userId)
-
-  console.log('\n✅  Cuenta demo lista.')
-  printCredentials()
+  console.log('\n✅  Cuenta demo lista. Email: ' + DEMO_EMAIL)
 }
 
 async function upsertProfessional(userId) {
@@ -73,16 +75,6 @@ async function upsertProfessional(userId) {
     process.exit(1)
   }
   console.log('✅  Perfil profesional creado/actualizado.')
-}
-
-function printCredentials() {
-  console.log('\n─────────────────────────────────────')
-  console.log('  CREDENCIALES DE DEMO')
-  console.log('─────────────────────────────────────')
-  console.log(`  Email:      ${DEMO_EMAIL}`)
-  console.log(`  Contraseña: ${DEMO_PASSWORD}`)
-  console.log(`  Portal:     /pro/login`)
-  console.log('─────────────────────────────────────\n')
 }
 
 run().catch(err => { console.error(err); process.exit(1) })
