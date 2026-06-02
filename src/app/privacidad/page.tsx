@@ -192,11 +192,11 @@ export default function PrivacidadPage() {
             </ul>
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <Link
-                href="/perfil"
+                href="/configuracion"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-opacity hover:opacity-80"
                 style={{ backgroundColor: BURGUNDY, color: "#F5F0E8" }}
               >
-                Ir a mi Perfil →
+                Ir a Configuración →
               </Link>
               <a
                 href="mailto:info@food-mood.app"
