@@ -500,18 +500,22 @@ export default function ProLanding() {
 
             {/* Copy */}
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.2, 0.8, 0.2, 1] }}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8" style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)" }}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6" style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)" }}>
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#22c55e" }} />
                 <span className="text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: "#C9A84C" }}>Acceso anticipado · Plazas limitadas</span>
               </div>
 
+              <p className="text-sm font-medium mb-4" style={{ color: "rgba(245,240,232,0.5)" }}>
+                Psicología práctica para consultas nutricionales
+              </p>
+
               <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.1] mb-6" style={{ letterSpacing: "-0.02em" }}>
-                Lo que tu paciente siente entre sesiones también es{" "}
-                <em className="font-light italic" style={{ color: "#C9A84C" }}>dato clínico.</em>
+                La capa psicológica que le faltaba{" "}
+                <em className="font-light italic" style={{ color: "#C9A84C" }}>al software nutricional.</em>
               </h1>
 
               <p className="text-base md:text-lg font-light leading-relaxed mb-10" style={{ color: "rgba(245,240,232,0.65)", maxWidth: "52ch" }}>
-                Food·Mood Pro es una plataforma profesional de psiconutrición asistida por IA que captura emoción, interocepción, hambre emocional, pensamientos y patrones conductuales para convertir el día a día del paciente en información útil para consulta.
+                Food·Mood Pro es una plataforma profesional que integra psicología práctica, IA y seguimiento entre sesiones para ayudarte a trabajar adherencia, hambre emocional, pensamientos, señales corporales y cambio de conducta con datos reales antes de cada consulta.
               </p>
 
               <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
@@ -520,7 +524,7 @@ export default function ProLanding() {
                   className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
                   style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
                 >
-                  Solicitar acceso — respuesta en 48h
+                  Solicitar acceso anticipado
                 </button>
                 <button
                   onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
@@ -533,7 +537,7 @@ export default function ProLanding() {
 
               {/* Trust signals */}
               <div className="flex flex-wrap gap-x-5 gap-y-2">
-                {["RGPD por diseño", "Sin coste para pacientes", "No es dispositivo médico EU AI Act"].map(t => (
+                {["RGPD por diseño", "Sin coste para pacientes", "No es dispositivo médico", "EU AI Act"].map(t => (
                   <span key={t} className="flex items-center gap-1.5 text-[10px] font-light" style={{ color: "rgba(245,240,232,0.38)" }}>
                     <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "rgba(245,240,232,0.25)" }} />
                     {t}
@@ -574,10 +578,10 @@ export default function ProLanding() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-5" style={{ color: "rgba(107,39,55,0.4)" }}>El problema</motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl leading-tight mb-6" style={{ color: "#2d0f16", maxWidth: "22ch" }}>
-              El software nutricional clásico mide lo tangible.
+              El software nutricional cubre lo que se mide.
             </motion.h2>
             <motion.p variants={fade} className="text-base md:text-lg font-light leading-relaxed mb-14" style={{ color: "rgba(107,39,55,0.65)", maxWidth: "60ch" }}>
-              Pero el cambio real ocurre donde casi nadie tiene visibilidad.
+              La psicología del cambio ocurre donde nadie tiene visibilidad.
             </motion.p>
           </motion.div>
 
@@ -596,7 +600,7 @@ export default function ProLanding() {
             {/* Lo que no ves */}
             <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="rounded-2xl p-7" style={{ backgroundColor: "rgba(107,39,55,0.04)", border: "1px solid rgba(107,39,55,0.14)" }}>
               <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: "#6B2737" }}>Lo que pasa entre sesiones</p>
-              {["El atracón del martes a las 7 pm", "La ansiedad antes de comer", "La desconexión corporal", "El pensamiento autopunitivo", "La adherencia real (no la declarada)"].map(item => (
+              {["El atracón del martes a las 7 pm", "La ansiedad antes de comer", "La desconexión corporal", "Los patrones de pensamiento alrededor de la comida", "La adherencia real (no la declarada)"].map(item => (
                 <div key={item} className="flex items-center gap-3 py-2.5" style={{ borderBottom: "1px solid rgba(107,39,55,0.07)" }}>
                   <span className="text-xs font-mono shrink-0" style={{ color: "rgba(107,39,55,0.3)" }}>?</span>
                   <span className="text-sm font-light" style={{ color: "rgba(107,39,55,0.65)" }}>{item}</span>
@@ -617,53 +621,91 @@ export default function ProLanding() {
         </div>
       </section>
 
-      {/* ── 3. LA SOLUCIÓN — 4 MÓDULOS ───────────────────────────────────────── */}
+      {/* ── 3. LA SOLUCIÓN ───────────────────────────────────────────────────── */}
       <section aria-label="La solución" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-5xl mx-auto">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-14">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-10">
             <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>La solución</motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
-              Cuatro módulos.{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Un flujo clínico.</em>
+              Tres resultados.{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Un flujo integrado.</em>
             </motion.h2>
           </motion.div>
+
+          {/* 3 beneficios */}
+          <div className="grid md:grid-cols-3 gap-5 mb-14">
+            {[
+              {
+                num: "01",
+                label: "Mejora la adherencia",
+                body: "Detecta qué ocurre entre sesiones: bloqueos, pensamientos repetidos, hambre emocional, momentos críticos y señales tempranas de abandono. Sin depender de lo que el paciente recuerda contarte.",
+                color: "#5A9B8A",
+              },
+              {
+                num: "02",
+                label: "Prepara mejores consultas",
+                body: "Llega a sesión con resumen semanal automático, tres patrones relevantes de la semana y preguntas sugeridas listas para usar. En menos de dos minutos.",
+                color: "#C9A84C",
+              },
+              {
+                num: "03",
+                label: "Aplica psicología sin complicar tu flujo",
+                body: "Usa herramientas guiadas basadas en diario socrático, defusión cognitiva, autocompasión, valores y entrevista motivacional. La IA facilita el proceso; tú supervisas y decides.",
+                color: "#A07BBE",
+              },
+            ].map((b, i) => (
+              <motion.div
+                key={b.num}
+                initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.45 }}
+                className="rounded-2xl p-7"
+                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: `1px solid ${b.color}25` }}
+              >
+                <div className="w-8 h-8 rounded-full flex items-center justify-center mb-5" style={{ backgroundColor: b.color + "18", border: `1px solid ${b.color}35` }}>
+                  <span className="text-xs font-bold font-mono" style={{ color: b.color }}>{b.num}</span>
+                </div>
+                <h3 className="font-serif text-lg font-semibold text-white mb-3 leading-snug">{b.label}</h3>
+                <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.55)" }}>{b.body}</p>
+              </motion.div>
+            ))}
+          </div>
 
           <div className="grid md:grid-cols-2 gap-5">
             {[
               {
                 num: "01",
-                title: "Registro diario del paciente",
-                desc: "El paciente registra diariamente: estado emocional, hambre física vs. emocional, sensación corporal, pensamiento dominante y contexto. 60–90 segundos. Sin fricción.",
+                title: "Check-in conductual del paciente",
+                desc: "El paciente registra diariamente: hambre física y emocional, estado del sistema nervioso, pensamiento dominante y contexto. 60–90 segundos. Sin fricción. Sin app store.",
                 color: "#5A9B8A",
-                tags: ["Interocepción", "Hambre emocional", "NSS polivagal"],
+                tags: ["Hambre", "Cuerpo", "Pensamiento", "Conducta", "Adherencia"],
               },
               {
                 num: "02",
-                title: "Panel del profesional",
-                desc: "Evolución temporal, patrones detectados por IA, alertas suaves y una vista consolidada de todos tus pacientes ordenada por actividad reciente.",
+                title: "Panel profesional de patrones",
+                desc: "Evolución temporal, patrones conductuales detectados por IA, alertas suaves y una vista consolidada de todos tus pacientes ordenada por actividad reciente.",
                 color: "#C9A84C",
-                tags: ["Patrones", "Alertas", "Vista global"],
+                tags: ["Patrones", "Bloqueos", "Evolución", "Señales de cambio"],
               },
               {
                 num: "03",
-                title: "Herramientas de reflexión con IA",
-                desc: "Diario socrático, granularidad emocional (Barrett), defusión cognitiva, autocompasión (Neff) y clarificación de valores (Hayes). La IA facilita; el profesional supervisa.",
+                title: "Herramientas de psicología práctica",
+                desc: "Diario socrático, defusión cognitiva, granularidad emocional, autocompasión y clarificación de valores. La IA facilita el ejercicio; el profesional supervisa el proceso.",
                 color: "#A07BBE",
-                tags: ["TCC", "ACT", "Autocompasión"],
+                tags: ["TCC", "ACT", "Autocompasión", "Valores", "EM"],
               },
               {
                 num: "04",
-                title: "Preparación de sesión",
-                desc: "Antes de cada sesión: resumen semanal automatizado, tres patrones detectados, tres preguntas sugeridas y puntos de intervención priorizados. En menos de dos minutos.",
+                title: "Preparación automática de sesión",
+                desc: "Antes de cada sesión: resumen semanal, tres patrones detectados, tres preguntas sugeridas y puntos de intervención priorizados. En menos de dos minutos.",
                 color: "#6B2737",
-                tags: ["Resumen IA", "Preguntas", "Intervención"],
+                tags: ["Resumen", "Patrones", "Preguntas", "Intervención"],
               },
               {
                 num: "05",
-                title: "Asignaciones entre sesiones",
-                desc: "No solo ves lo que pasa entre sesiones. Puedes guiarlo. Asigna herramientas específicas, con instrucción personalizada y frecuencia semanal. El paciente las ve al abrir la app. Tú ves la adherencia.",
+                title: "Asignaciones terapéuticas",
+                desc: "Asigna herramientas específicas entre sesiones con instrucción personalizada. El paciente las recibe en su app. Tú ves la adherencia y los resultados antes de la siguiente consulta.",
                 color: "#5A9B8A",
-                tags: ["Asignaciones", "Adherencia", "Guía"],
+                tags: ["Guía activa", "Adherencia", "Seguimiento", "Conducta"],
               },
             ].map((mod, i) => (
               <motion.div
@@ -693,10 +735,10 @@ export default function ProLanding() {
       <section aria-label="Bases científicas" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#f7f4ef" }}>
         <div className="max-w-4xl mx-auto">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-10">
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Marco teórico</motion.p>
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>Fundamento clínico</motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl leading-tight" style={{ color: "#2d0f16" }}>
-              Ciencia que reconoces.{" "}
-              <em className="font-light italic" style={{ color: "#6B2737" }}>Aplicada en consulta.</em>
+              Marcos clínicos que ya usas.{" "}
+              <em className="font-light italic" style={{ color: "#6B2737" }}>Integrados en el flujo de trabajo.</em>
             </motion.h2>
           </motion.div>
 
@@ -767,15 +809,15 @@ export default function ProLanding() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-14">
             <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>Tu diferencial</motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight">
-              El mercado está saturado.{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Lo que te diferencia es el enfoque, no la dieta.</em>
+              El mercado de nutrición está saturado.{" "}
+              <em className="font-light italic" style={{ color: "#C9A84C" }}>Lo que te diferencia no es lo que recetas — es lo que ves y aplicas entre sesiones.</em>
             </motion.h2>
           </motion.div>
 
           <div className="flex flex-col gap-0">
             {[
               { label: "Diferenciación", body: "Ofreces algo que muy pocos profesionales tienen: visibilidad real de lo que ocurre entre sesiones." },
-              { label: "Adherencia", body: "Pacientes que entienden sus patrones emocionales y corporales mantienen los cambios. No porque tengan más fuerza de voluntad, sino porque tienen más información." },
+              { label: "Adherencia", body: "Pacientes que entienden sus patrones conductuales y corporales mantienen los cambios. No porque tengan más fuerza de voluntad, sino porque tienen más información." },
               { label: "Sesiones más profundas", body: "Llegas a la sesión con datos de la semana. Sin depender de lo que el paciente recuerda —o quiere contar." },
               { label: "Retención", body: "Pacientes que sienten que su profesional los ve entre sesiones no se van. La herramienta crea un vínculo continuo." },
               { label: "Guía activa", body: "No solo ves lo que pasa entre sesiones. Puedes guiarlo. Las asignaciones terapéuticas llevan tu criterio clínico al momento exacto en que el paciente lo necesita." },
@@ -838,7 +880,23 @@ export default function ProLanding() {
         </div>
       </section>
 
-      {/* ── 11. CTA FINAL ────────────────────────────────────────────────────── */}
+      {/* ── 11. PULL QUOTE ───────────────────────────────────────────────────── */}
+      <section aria-label="Propuesta de valor" className="py-16 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-3xl mx-auto">
+          <motion.blockquote
+            initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="rounded-2xl px-8 py-10"
+            style={{ border: "1px solid rgba(107,39,55,0.15)" }}
+          >
+            <p className="font-serif text-xl md:text-2xl leading-relaxed" style={{ color: "#6B2737" }}>
+              Food·Mood Pro no sustituye tu criterio profesional. Te da la capa psicológica y conductual que normalmente se pierde entre una consulta y la siguiente.
+            </p>
+          </motion.blockquote>
+        </div>
+      </section>
+
+      {/* ── 12. CTA FINAL ────────────────────────────────────────────────────── */}
       <section id="acceso" aria-label="Solicitar acceso" className="py-24 md:py-32 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-3xl mx-auto text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className="space-y-7">

@@ -39,8 +39,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
-  title: "Food·Mood Pro — Plataforma profesional de psiconutrición",
-  description: "Herramienta clínica para psicólogas y nutricionistas: registra emoción, interocepción y conducta del paciente entre sesiones. Cumple RGPD.",
+  title: "Food·Mood Pro — Psicología práctica para consultas nutricionales",
+  description: "La plataforma que integra TCC, ACT e interocepción al seguimiento entre sesiones. Adherencia, preparación de consulta y herramientas conductuales para nutricionistas y psiconutricionistas.",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://www.food-mood.app/",
-    title: "Food·Mood Pro — Plataforma profesional de psiconutrición asistida por IA",
-    description: "Lo que tu paciente siente entre sesiones también es dato clínico. Plataforma para profesionales de la salud mental y la nutrición.",
+    title: "Food·Mood Pro — La capa psicológica que le faltaba al software nutricional",
+    description: "Aplica psicología práctica entre sesiones. Herramientas de TCC, ACT e interocepción para nutricionistas, psicólogas y psiconutricionistas.",
     siteName: "Food·Mood Pro",
     locale: "es_ES",
     images: [
@@ -72,8 +72,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Food·Mood Pro — Plataforma profesional de psiconutrición",
-    description: "Lo que tu paciente siente entre sesiones también es dato clínico. Plataforma para psicólogas, nutricionistas y psiconutricionistas.",
+    title: "Food·Mood Pro — La capa psicológica que le faltaba al software nutricional",
+    description: "Aplica psicología práctica entre sesiones. Herramientas de TCC, ACT e interocepción para nutricionistas, psicólogas y psiconutricionistas.",
     images: ["/og-image.png"],
   },
   icons: {
