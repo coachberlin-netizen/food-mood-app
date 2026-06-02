@@ -116,7 +116,7 @@ export async function middleware(request: NextRequest) {
 
   if (isNewsletterArticle && !user) {
     const url = request.nextUrl.clone()
-    url.pathname = '/auth/login'
+    url.pathname = '/pro/login'
     url.searchParams.set('redirect', pathname)
     return NextResponse.redirect(url)
   }
