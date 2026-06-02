@@ -185,7 +185,7 @@ export default function ParaMiClient() {
                             className="inline-block mt-1.5 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
                             style={{ background: "rgba(107,39,55,0.07)", color: "rgba(107,39,55,0.5)" }}
                           >
-                            Protocolo Cortisol · Etapa {p.protocol_stage}
+                            {p.patient_protocols?.clinical_protocols?.name ?? "Protocolo"} · Etapa {p.protocol_stage}
                           </span>
                         )}
 

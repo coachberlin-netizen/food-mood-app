@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
     professional_id:    user.id,
     patient_user_id,
     tool_slug:          toolSlug,
-    title:              `${TOOL_LABELS[toolSlug] ?? toolSlug} — Protocolo Cortisol`,
+    title:              `${TOOL_LABELS[toolSlug] ?? toolSlug} — ${protocol.name}`,
     instruction:        stage1.description,
     frequency_per_week: 3,
     due_date:           dueDate.toISOString().split("T")[0],

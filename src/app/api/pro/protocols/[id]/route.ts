@@ -100,7 +100,7 @@ export async function PATCH(
   // advance_stage
   const { data: protocol } = await admin
     .from("clinical_protocols")
-    .select("stages, duration_days")
+    .select("name, stages, duration_days")
     .eq("id", pp.protocol_id)
     .maybeSingle()
 
@@ -138,7 +138,7 @@ export async function PATCH(
     professional_id:     user.id,
     patient_user_id:     pp.patient_user_id,
     tool_slug:           toolSlug,
-    title:               `${TOOL_LABELS[toolSlug] ?? toolSlug} — Protocolo Cortisol`,
+    title:               `${TOOL_LABELS[toolSlug] ?? toolSlug} — ${protocol.name}`,
     instruction:         nextStage.description,
     frequency_per_week:  3,
     due_date:            dueDate.toISOString().split("T")[0],

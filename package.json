@@ -13,7 +13,8 @@
     "qa:rag": "npx tsx scripts/qa-run.ts --rag",
     "qa:fast": "npx tsx scripts/qa-run.ts --no-judge",
     "seed:content": "npx tsx scripts/seed-content-library.ts",
-    "seed:cortisol": "npx tsx scripts/seed-cortisol-protocol.ts"
+    "seed:cortisol": "npx tsx scripts/seed-cortisol-protocol.ts",
+    "seed:intestino-cerebro": "npx tsx scripts/seed-intestino-cerebro.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",

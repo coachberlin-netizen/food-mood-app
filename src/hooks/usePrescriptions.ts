@@ -20,6 +20,7 @@ export type Prescription = {
   protocol_stage: number | null
   content_library: PrescriptionContent
   professionals: { full_name: string } | null
+  patient_protocols: { clinical_protocols: { name: string } | null } | null
 }
 
 export type PrescriptionsState = {
@@ -58,6 +59,11 @@ export function usePrescriptions(): PrescriptionsState {
           ),
           professionals (
             full_name
+          ),
+          patient_protocols (
+            clinical_protocols (
+              name
+            )
           )
         `)
         .eq("patient_user_id", user.id)
