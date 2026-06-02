@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useId } from "react"
+import React, { useState, useId, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { ChevronDown, Shield, Lock, Eye, ArrowRight, Check, X } from "lucide-react"
@@ -329,7 +329,372 @@ function HeroForm() {
   )
 }
 
-// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+// ─── App Preview ─────────────────────────────────────────────────────────────
+
+const APP_SCREENS = [
+  {
+    id: "checkin",
+    label: "Check-in del paciente",
+    desc: "60 segundos al día. El paciente registra hambre, cuerpo, pensamiento y emoción sin necesidad de app ni cuenta.",
+    color: "#5A9B8A",
+    screen: () => (
+      <div className="flex flex-col h-full" style={{ backgroundColor: "#F5F0E8" }}>
+        {/* Status bar */}
+        <div className="flex justify-between items-center px-5 pt-3 pb-1">
+          <span className="text-[9px] font-semibold" style={{ color: "#2d0f16" }}>18:42</span>
+          <div className="flex gap-1 items-center">
+            <div className="flex gap-0.5">{[1,2,3,4].map(i=><div key={i} className="w-0.5 rounded-full" style={{ height: 4+i*1.5, backgroundColor: "#2d0f16", opacity: 0.5 }} />)}</div>
+            <div className="w-3 h-1.5 rounded-sm border ml-1" style={{ borderColor: "rgba(45,15,22,0.4)" }}><div className="w-2/3 h-full rounded-sm" style={{ backgroundColor: "#2d0f16", opacity: 0.5 }} /></div>
+          </div>
+        </div>
+
+        <div className="flex-1 px-5 py-3 flex flex-col gap-3 overflow-hidden">
+          <div>
+            <p className="text-[9px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#5A9B8A" }}>Check-in · hoy</p>
+            <p className="text-sm font-serif font-semibold leading-snug" style={{ color: "#2d0f16" }}>¿Cómo está tu cuerpo ahora mismo?</p>
+          </div>
+
+          {/* Hambre física */}
+          <div className="rounded-xl px-3.5 py-3" style={{ backgroundColor: "white", border: "1px solid rgba(90,155,138,0.18)" }}>
+            <p className="text-[9px] font-semibold mb-2" style={{ color: "rgba(45,15,22,0.55)" }}>Hambre física</p>
+            <div className="flex gap-1 items-center">
+              {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                <div key={n} className="flex-1 rounded-full transition-all" style={{ height: 6, backgroundColor: n <= 3 ? "#5A9B8A" : "rgba(90,155,138,0.15)" }} />
+              ))}
+            </div>
+            <div className="flex justify-between mt-1">
+              <span className="text-[8px]" style={{ color: "rgba(45,15,22,0.3)" }}>Nada</span>
+              <span className="text-[8px] font-medium" style={{ color: "#5A9B8A" }}>3 · Leve</span>
+              <span className="text-[8px]" style={{ color: "rgba(45,15,22,0.3)" }}>Mucha</span>
+            </div>
+          </div>
+
+          {/* Estado nervioso */}
+          <div className="rounded-xl px-3.5 py-3" style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.1)" }}>
+            <p className="text-[9px] font-semibold mb-2" style={{ color: "rgba(45,15,22,0.55)" }}>Estado del sistema nervioso</p>
+            <div className="flex gap-1.5 flex-wrap">
+              {[
+                { l: "Tranquila", c: "#5A9B8A", on: false },
+                { l: "Activada", c: "#C9A84C", on: true },
+                { l: "Ansiosa", c: "#6B2737", on: false },
+                { l: "Agotada", c: "#A07BBE", on: false },
+              ].map(({ l, c, on }) => (
+                <span key={l} className="text-[8px] font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: on ? c + "22" : "rgba(45,15,22,0.05)", color: on ? c : "rgba(45,15,22,0.4)", border: `1px solid ${on ? c + "45" : "transparent"}` }}>{l}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Pensamiento */}
+          <div className="rounded-xl px-3.5 py-3" style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.1)" }}>
+            <p className="text-[9px] font-semibold mb-1.5" style={{ color: "rgba(45,15,22,0.55)" }}>Pensamiento dominante ahora</p>
+            <p className="text-[10px] font-light" style={{ color: "rgba(45,15,22,0.45)" }}>"Necesito comer algo antes de esa reunión"</p>
+          </div>
+
+          <button className="w-full py-2.5 rounded-xl text-[11px] font-bold mt-auto" style={{ backgroundColor: "#5A9B8A", color: "white" }}>
+            Guardar registro →
+          </button>
+        </div>
+
+        {/* Home indicator */}
+        <div className="flex justify-center pb-2"><div className="w-10 h-1 rounded-full" style={{ backgroundColor: "rgba(45,15,22,0.18)" }} /></div>
+      </div>
+    ),
+  },
+  {
+    id: "panel",
+    label: "Panel profesional",
+    desc: "Antes de cada sesión, el profesional llega con el contexto de la semana: patrones, señales y tres preguntas listas.",
+    color: "#C9A84C",
+    screen: () => (
+      <div className="flex flex-col h-full" style={{ backgroundColor: "#0f0a0d" }}>
+        {/* Status bar */}
+        <div className="flex justify-between items-center px-5 pt-3 pb-1">
+          <span className="text-[9px] font-semibold text-white opacity-60">9:15</span>
+          <div className="flex gap-0.5 items-center">
+            {[1,2,3,4].map(i=><div key={i} className="w-0.5 rounded-full bg-white opacity-50" style={{ height: 4+i*1.5 }} />)}
+          </div>
+        </div>
+
+        <div className="flex-1 px-4 py-2 flex flex-col gap-2.5 overflow-hidden">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[8px] font-bold uppercase tracking-widest" style={{ color: "rgba(201,168,76,0.5)" }}>Preparación de sesión</p>
+              <p className="text-xs font-semibold text-white mt-0.5">Ana M. · Sesión 7</p>
+            </div>
+            <span className="text-[8px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(90,155,138,0.2)", color: "#5A9B8A" }}>14 registros</span>
+          </div>
+
+          {/* Patrón */}
+          <div className="rounded-xl p-3" style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(201,168,76,0.2)" }}>
+            <p className="text-[8px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "rgba(201,168,76,0.55)" }}>Patrón esta semana</p>
+            <div className="flex items-start gap-2">
+              <div className="w-0.5 rounded-full shrink-0 mt-0.5" style={{ minHeight: 24, backgroundColor: "#C9A84C" }} />
+              <p className="text-[9px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.7)" }}>
+                Hambre emocional ≥7 en franja 18–19h, 4 de 5 días laborables. Coincide con pensamiento dominante de estrés laboral.
+              </p>
+            </div>
+          </div>
+
+          {/* Métricas */}
+          <div className="grid grid-cols-3 gap-1.5">
+            {[
+              { l: "Adherencia", v: "87%", c: "#5A9B8A" },
+              { l: "H. emocional", v: "6.8", c: "#C9A84C" },
+              { l: "Estado SN", v: "Ventral", c: "#A07BBE" },
+            ].map(m => (
+              <div key={m.l} className="rounded-lg px-2 py-2" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
+                <p className="text-[7px] mb-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>{m.l}</p>
+                <p className="text-[10px] font-semibold" style={{ color: m.c }}>{m.v}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Preguntas */}
+          <div className="rounded-xl p-3" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
+            <p className="text-[8px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.25)" }}>3 preguntas sugeridas</p>
+            {[
+              "¿Qué sientes en el cuerpo a las 18h que identificas como hambre?",
+              "¿Qué has probado para manejar ese momento?",
+            ].map((q, i) => (
+              <div key={i} className="flex items-start gap-1.5 mb-1.5">
+                <span className="text-[7px] font-mono shrink-0 mt-0.5" style={{ color: "rgba(201,168,76,0.4)" }}>0{i+1}</span>
+                <p className="text-[8px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>{q}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-center pb-2"><div className="w-10 h-1 rounded-full bg-white opacity-10" /></div>
+      </div>
+    ),
+  },
+  {
+    id: "herramienta",
+    label: "Herramienta de psicología",
+    desc: "El profesional asigna ejercicios guiados de TCC o ACT. El paciente los recibe y completa entre sesiones.",
+    color: "#A07BBE",
+    screen: () => (
+      <div className="flex flex-col h-full" style={{ backgroundColor: "#F5F0E8" }}>
+        {/* Status bar */}
+        <div className="flex justify-between items-center px-5 pt-3 pb-1">
+          <span className="text-[9px] font-semibold" style={{ color: "#2d0f16" }}>20:05</span>
+          <div className="flex gap-0.5 items-center">
+            {[1,2,3,4].map(i=><div key={i} className="w-0.5 rounded-full" style={{ height: 4+i*1.5, backgroundColor: "#2d0f16", opacity: 0.5 }} />)}
+          </div>
+        </div>
+
+        <div className="flex-1 px-5 py-2 flex flex-col gap-3 overflow-hidden">
+          {/* Header */}
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "rgba(160,123,190,0.18)", border: "1px solid rgba(160,123,190,0.3)" }}>
+              <span className="text-[8px]" style={{ color: "#A07BBE" }}>✦</span>
+            </div>
+            <div>
+              <p className="text-[8px] font-bold uppercase tracking-widest" style={{ color: "#A07BBE" }}>Asignación · Diario socrático</p>
+              <p className="text-[9px]" style={{ color: "rgba(45,15,22,0.4)" }}>Asignada por tu profesional</p>
+            </div>
+          </div>
+
+          {/* Pregunta principal */}
+          <div className="rounded-xl px-4 py-3.5" style={{ backgroundColor: "white", border: "1px solid rgba(160,123,190,0.2)" }}>
+            <p className="text-[10px] font-semibold leading-snug" style={{ color: "#2d0f16" }}>
+              Cuando sientes esa urgencia de comer por la tarde… ¿qué pensamiento aparece justo antes?
+            </p>
+          </div>
+
+          {/* Respuesta */}
+          <div className="rounded-xl px-4 py-3" style={{ backgroundColor: "white", border: "1px solid rgba(45,15,22,0.1)", flex: 1 }}>
+            <p className="text-[9px] font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.55)" }}>
+              "Si no como algo ahora no voy a poder rendir en la reunión. Y luego me arrepiento porque…"
+            </p>
+            <span className="inline-block w-0.5 h-3 ml-0.5 animate-pulse" style={{ backgroundColor: "#A07BBE", verticalAlign: "middle" }} />
+          </div>
+
+          {/* Progreso */}
+          <div>
+            <div className="flex justify-between mb-1">
+              <p className="text-[8px]" style={{ color: "rgba(45,15,22,0.4)" }}>Paso 2 de 4</p>
+              <p className="text-[8px] font-medium" style={{ color: "#A07BBE" }}>50%</p>
+            </div>
+            <div className="w-full rounded-full h-1" style={{ backgroundColor: "rgba(160,123,190,0.15)" }}>
+              <div className="h-1 rounded-full w-1/2" style={{ backgroundColor: "#A07BBE" }} />
+            </div>
+          </div>
+
+          <button className="w-full py-2.5 rounded-xl text-[11px] font-bold" style={{ backgroundColor: "#A07BBE", color: "white" }}>
+            Continuar →
+          </button>
+        </div>
+
+        <div className="flex justify-center pb-2"><div className="w-10 h-1 rounded-full" style={{ backgroundColor: "rgba(45,15,22,0.18)" }} /></div>
+      </div>
+    ),
+  },
+]
+
+function PhoneFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="relative mx-auto overflow-hidden"
+      style={{
+        width: 220,
+        height: 440,
+        borderRadius: 36,
+        backgroundColor: "#1a0d14",
+        boxShadow: "0 0 0 2px rgba(255,255,255,0.08), 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.8) inset",
+        padding: 2,
+      }}
+    >
+      {/* Inner screen */}
+      <div className="w-full h-full rounded-[34px] overflow-hidden relative" style={{ backgroundColor: "#F5F0E8" }}>
+        {/* Dynamic island */}
+        <div
+          className="absolute top-2.5 left-1/2 z-20 -translate-x-1/2"
+          style={{ width: 72, height: 9, borderRadius: 10, backgroundColor: "#0f0a0d" }}
+        />
+        {children}
+      </div>
+
+      {/* Side buttons */}
+      <div className="absolute -left-[3px] top-20 w-1 h-7 rounded-l-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
+      <div className="absolute -left-[3px] top-32 w-1 h-10 rounded-l-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
+      <div className="absolute -right-[3px] top-24 w-1 h-14 rounded-r-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
+    </div>
+  )
+}
+
+function AppPreviewSection() {
+  const [active, setActive] = useState(0)
+  const [dir, setDir]       = useState(1)
+
+  const go = useCallback((next: number) => {
+    setDir(next > active ? 1 : -1)
+    setActive(next)
+  }, [active])
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setDir(1)
+      setActive(prev => (prev + 1) % APP_SCREENS.length)
+    }, 5000)
+    return () => clearInterval(t)
+  }, [])
+
+  const Screen = APP_SCREENS[active].screen
+
+  return (
+    <section aria-label="Cómo funciona en la práctica" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0f0a0d" }}>
+      <div className="max-w-5xl mx-auto">
+
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-14">
+          <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
+            En la práctica
+          </motion.p>
+          <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
+            Así funciona{" "}
+            <em className="font-light italic" style={{ color: "#C9A84C" }}>el ciclo completo.</em>
+          </motion.h2>
+        </motion.div>
+
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+          {/* Teléfono */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="shrink-0"
+          >
+            <PhoneFrame>
+              <AnimatePresence mode="wait" custom={dir}>
+                <motion.div
+                  key={active}
+                  custom={dir}
+                  initial={{ opacity: 0, x: dir * 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: dir * -30 }}
+                  transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
+                  className="absolute inset-0"
+                >
+                  <Screen />
+                </motion.div>
+              </AnimatePresence>
+            </PhoneFrame>
+
+            {/* Dots */}
+            <div className="flex justify-center gap-2 mt-5">
+              {APP_SCREENS.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => go(i)}
+                  aria-label={s.label}
+                  className="rounded-full transition-all"
+                  style={{
+                    width: i === active ? 20 : 6,
+                    height: 6,
+                    backgroundColor: i === active ? APP_SCREENS[i].color : "rgba(255,255,255,0.18)",
+                  }}
+                />
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Texto + pasos */}
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-col gap-3">
+              {APP_SCREENS.map((s, i) => (
+                <motion.button
+                  key={s.id}
+                  onClick={() => go(i)}
+                  initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.45 }}
+                  className="text-left rounded-2xl px-5 py-4 transition-all w-full"
+                  style={{
+                    backgroundColor: i === active ? "rgba(255,255,255,0.07)" : "transparent",
+                    border: `1px solid ${i === active ? s.color + "40" : "rgba(255,255,255,0.05)"}`,
+                  }}
+                >
+                  <div className="flex items-center gap-3 mb-1">
+                    <span
+                      className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[9px] font-bold font-mono"
+                      style={{ backgroundColor: s.color + (i === active ? "28" : "14"), color: s.color }}
+                    >
+                      {i + 1}
+                    </span>
+                    <p className="text-sm font-semibold" style={{ color: i === active ? "white" : "rgba(245,240,232,0.5)" }}>
+                      {s.label}
+                    </p>
+                  </div>
+                  <AnimatePresence>
+                    {i === active && (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="text-sm font-light leading-relaxed pl-8 overflow-hidden"
+                        style={{ color: "rgba(245,240,232,0.55)" }}
+                      >
+                        {s.desc}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              ))}
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-xs font-light mt-6 pl-1"
+              style={{ color: "rgba(245,240,232,0.28)" }}
+            >
+              El paciente usa su navegador — sin instalar nada. El profesional accede desde el portal web.
+            </motion.p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function FaqItem({ faq, isOpen, onToggle }: { faq: (typeof FAQS)[0]; isOpen: boolean; onToggle: () => void }) {
   return (
@@ -803,6 +1168,9 @@ export default function ProLanding() {
           </div>
         </div>
       </section>
+
+      {/* ── 3.5. APP PREVIEW ─────────────────────────────────────────────────── */}
+      <AppPreviewSection />
 
       {/* ── 4. BASES CIENTÍFICAS ──────────────────────────────────────────────── */}
       <section aria-label="Bases científicas" className="py-20 md:py-24 px-6" style={{ backgroundColor: "#f7f4ef" }}>
