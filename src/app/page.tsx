@@ -337,7 +337,7 @@ function OnboardingSteps({ onRequestAccess }: { onRequestAccess: () => void }) {
             initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             onClick={onRequestAccess}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-            style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
+            style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 28px rgba(201,168,76,0.3), 0 4px 16px rgba(0,0,0,0.35)" }}
           >
             Solicitar acceso — respuesta en 48h
           </motion.button>
@@ -493,19 +493,21 @@ export default function ProLanding() {
 
       {/* ── 1. HERO ───────────────────────────────────────────────────────────── */}
       <section aria-label="Hero" className="relative overflow-hidden" style={{ backgroundColor: "#0f0a0d" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 70% 40%, rgba(107,39,55,0.18) 0%, transparent 70%)" }} aria-hidden="true" />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 110% 70% at 65% 25%, rgba(107,39,55,0.32) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 95% 90%, rgba(201,168,76,0.07) 0%, transparent 55%)" }} aria-hidden="true" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
 
             {/* Copy */}
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.2, 0.8, 0.2, 1] }}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6" style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)" }}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6" style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.25)" }}>
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#22c55e" }} />
-                <span className="text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: "#C9A84C" }}>Acceso anticipado · Plazas limitadas</span>
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.28em]" style={{ color: "#C9A84C" }}>
+                  Acceso anticipado<span className="hidden sm:inline"> · Plazas limitadas</span>
+                </span>
               </div>
 
-              <p className="text-sm font-medium mb-4" style={{ color: "rgba(245,240,232,0.5)" }}>
+              <p className="text-xs sm:text-sm font-medium mb-4 tracking-wide" style={{ color: "rgba(245,240,232,0.6)" }}>
                 Psicología práctica para consultas nutricionales
               </p>
 
@@ -522,7 +524,7 @@ export default function ProLanding() {
                 <button
                   onClick={open}
                   className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-                  style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
+                  style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 32px rgba(201,168,76,0.35), 0 4px 16px rgba(0,0,0,0.4)" }}
                 >
                   Solicitar acceso anticipado
                 </button>
@@ -566,7 +568,7 @@ export default function ProLanding() {
             { text: "Sin coste para el paciente" },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2 px-5 md:border-r last:border-r-0" style={{ borderColor: "rgba(107,39,55,0.1)" }}>
-              <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.52)" }}>{item.text}</span>
+              <span className="text-xs font-medium" style={{ color: "rgba(107,39,55,0.68)" }}>{item.text}</span>
             </div>
           ))}
         </div>
@@ -659,9 +661,9 @@ export default function ProLanding() {
                 initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.45 }}
                 className="rounded-2xl p-7"
-                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: `1px solid ${b.color}25` }}
+                style={{ backgroundColor: "rgba(255,255,255,0.07)", border: `1px solid ${b.color}35` }}
               >
-                <div className="w-8 h-8 rounded-full flex items-center justify-center mb-5" style={{ backgroundColor: b.color + "18", border: `1px solid ${b.color}35` }}>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center mb-5" style={{ backgroundColor: b.color + "22", border: `1px solid ${b.color}45` }}>
                   <span className="text-xs font-bold font-mono" style={{ color: b.color }}>{b.num}</span>
                 </div>
                 <h3 className="font-serif text-lg font-semibold text-white mb-3 leading-snug">{b.label}</h3>
@@ -713,13 +715,13 @@ export default function ProLanding() {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 transition={{ delay: i * 0.09, duration: 0.5 }}
                 className="rounded-2xl p-7"
-                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: `1px solid ${mod.color}22` }}
+                style={{ backgroundColor: "rgba(255,255,255,0.07)", border: `1px solid ${mod.color}32` }}
               >
-                <div className="flex items-center justify-between mb-5">
-                  <span className="font-mono text-[10px]" style={{ color: `${mod.color}70` }}>{mod.num}</span>
-                  <div className="flex gap-1.5">
+                <div className="flex flex-col gap-2 mb-5">
+                  <span className="font-mono text-[10px]" style={{ color: `${mod.color}80` }}>{mod.num}</span>
+                  <div className="flex flex-wrap gap-1.5">
                     {mod.tags.map(t => (
-                      <span key={t} className="text-[8px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${mod.color}15`, color: mod.color }}>{t}</span>
+                      <span key={t} className="text-[8px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${mod.color}18`, color: mod.color }}>{t}</span>
                     ))}
                   </div>
                 </div>
@@ -827,11 +829,11 @@ export default function ProLanding() {
                 key={item.label}
                 initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                 transition={{ delay: i * 0.07, duration: 0.45 }}
-                className="flex gap-7 py-8"
+                className="flex flex-col sm:flex-row gap-1 sm:gap-7 py-7 sm:py-8"
                 style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
               >
-                <span className="font-serif text-sm font-semibold shrink-0 w-28 pt-0.5" style={{ color: "#C9A84C" }}>{item.label}</span>
-                <p className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.62)" }}>{item.body}</p>
+                <span className="font-serif text-sm font-semibold sm:shrink-0 sm:w-28 sm:pt-0.5" style={{ color: "#C9A84C" }}>{item.label}</span>
+                <p className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.65)" }}>{item.body}</p>
               </motion.div>
             ))}
           </div>
@@ -843,6 +845,126 @@ export default function ProLanding() {
 
       {/* ── 8. PRECIOS ──────────────────────────────────────────────────────── */}
       <PricingSection onRequestAccess={open} />
+
+      {/* ── 8.5. PROTOCOLO CORTISOL ──────────────────────────────────────────── */}
+      <section aria-label="Protocolo Cortisol" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#F5F0E8" }}>
+        <div className="max-w-4xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-14">
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(107,39,55,0.4)" }}>
+              Protocolo clínico · 28 días
+            </motion.p>
+            <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl leading-tight" style={{ color: "#2d0f16" }}>
+              Sin regular el estrés, la nutrición{" "}
+              <em className="font-light italic" style={{ color: "#6B2737" }}>se queda a medias.</em>
+            </motion.h2>
+            <motion.p variants={fade} className="mt-5 text-lg font-light leading-relaxed max-w-2xl" style={{ color: "rgba(45,15,22,0.65)" }}>
+              Food·Mood Pro convierte el cortisol en una variable clínica accionable dentro del flujo de consulta.
+            </motion.p>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            className="text-base font-light leading-relaxed max-w-3xl mb-14"
+            style={{ color: "rgba(45,15,22,0.6)" }}
+          >
+            La mayoría de los planes nutricionales ignoran el impacto del estrés crónico sobre la adherencia, el hambre emocional y el metabolismo. Food·Mood Pro integra evaluación del eje HPA, nutrición adaptógena, rutinas de regulación, higiene del sueño y seguimiento con IA en un protocolo clínico de 28 días que el profesional activa en segundos.
+          </motion.p>
+
+          {/* Efecto dominó */}
+          <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 mb-14">
+            {[
+              { num: "01", label: "Cortisol elevado", body: "Antojos e impulsos alimentarios" },
+              { num: "02", label: "HPA activado",     body: "Digestión comprometida" },
+              { num: "03", label: "Sueño alterado",   body: "Ghrelina / leptina desreguladas" },
+              { num: "04", label: "Estrés crónico",   body: "Inflamación silenciosa" },
+              { num: "05", label: "Desconexión",      body: "Adherencia imposible" },
+            ].map((item, i) => (
+              <motion.div
+                key={item.num}
+                initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+                className="rounded-xl px-4 py-5"
+                style={{ background: "white", border: "1px solid rgba(107,39,55,0.1)" }}
+              >
+                <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>{item.num}</p>
+                <p className="text-sm font-semibold mb-1 leading-tight" style={{ color: "#6B2737" }}>{item.label}</p>
+                <p className="text-xs font-light leading-snug" style={{ color: "rgba(45,15,22,0.55)" }}>{item.body}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Feature card */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="rounded-2xl px-8 py-8 mb-10"
+            style={{ background: "#2d0f16", border: "1px solid rgba(201,168,76,0.15)" }}
+          >
+            <div className="flex items-start gap-6 flex-wrap md:flex-nowrap">
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>Incluido en Food·Mood Pro</p>
+                <h3 className="font-serif text-2xl font-bold text-white mb-3">Protocolo Cortisol</h3>
+                <p className="text-sm font-light leading-relaxed mb-4" style={{ color: "rgba(245,240,232,0.6)" }}>
+                  Cuestionario de estrés · Nutrición adaptógena · Rutinas de relajación · Higiene de sueño · Seguimiento adaptativo con IA.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["28 días", "5 etapas", "Activa en un clic"].map(tag => (
+                    <span
+                      key={tag}
+                      className="text-[10px] font-semibold px-2.5 py-1 rounded-full"
+                      style={{ background: "rgba(201,168,76,0.12)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.2)" }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 shrink-0 w-full md:w-60">
+                {[
+                  { stage: 1, name: "Evaluación del eje HPA",          days: "1-7" },
+                  { stage: 2, name: "Nutrición adaptógena",            days: "8-14" },
+                  { stage: 3, name: "Rutinas de regulación",           days: "15-19" },
+                  { stage: 4, name: "Higiene de sueño y cronobiología", days: "20-24" },
+                  { stage: 5, name: "Seguimiento y ajuste con IA",     days: "25-28" },
+                ].map(s => (
+                  <div key={s.stage} className="flex items-center gap-2.5">
+                    <span
+                      className="w-4 h-4 rounded-full flex items-center justify-center shrink-0"
+                      style={{ background: "rgba(201,168,76,0.15)", fontSize: "8px", fontWeight: 700, color: "#C9A84C" }}
+                    >
+                      {s.stage}
+                    </span>
+                    <p className="text-[10px] font-light" style={{ color: "rgba(245,240,232,0.55)" }}>
+                      <span className="font-medium" style={{ color: "rgba(245,240,232,0.8)" }}>{s.name}</span>
+                      {" · "}días {s.days}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Para nutricionistas */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            {[
+              "No solo diseñes dietas. Diseña regulación.",
+              "Incluye estrés, sueño y carga emocional en el mismo protocolo clínico.",
+            ].map((quote, i) => (
+              <motion.blockquote
+                key={i}
+                initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.12, duration: 0.4 }}
+                className="flex-1 rounded-xl px-5 py-4"
+                style={{ background: "white", border: "1px solid rgba(107,39,55,0.1)", borderLeft: "3px solid #C9A84C" }}
+              >
+                <p className="text-sm font-light leading-relaxed italic" style={{ color: "#6B2737" }}>
+                  &ldquo;{quote}&rdquo;
+                </p>
+              </motion.blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── 9. TESTIMONIOS PLACEHOLDER ───────────────────────────────────────── */}
       <section aria-label="Lo que dicen los primeros usuarios" className="py-14 px-6" style={{ backgroundColor: "#f7f4ef", borderTop: "1px solid rgba(107,39,55,0.06)" }}>
@@ -887,7 +1009,7 @@ export default function ProLanding() {
             initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="rounded-2xl px-8 py-10"
-            style={{ border: "1px solid rgba(107,39,55,0.15)" }}
+            style={{ borderTop: "1px solid rgba(107,39,55,0.12)", borderRight: "1px solid rgba(107,39,55,0.12)", borderBottom: "1px solid rgba(107,39,55,0.12)", borderLeft: "5px solid #6B2737", boxShadow: "0 4px 24px rgba(107,39,55,0.08)" }}
           >
             <p className="font-serif text-xl md:text-2xl leading-relaxed" style={{ color: "#6B2737" }}>
               Food·Mood Pro no sustituye tu criterio profesional. Te da la capa psicológica y conductual que normalmente se pierde entre una consulta y la siguiente.
@@ -912,7 +1034,7 @@ export default function ProLanding() {
               <button
                 onClick={open}
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all hover:brightness-110 active:scale-95"
-                style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
+                style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 32px rgba(201,168,76,0.35), 0 4px 16px rgba(0,0,0,0.4)" }}
               >
                 Solicitar acceso — respuesta en 48h
               </button>
