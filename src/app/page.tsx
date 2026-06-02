@@ -387,7 +387,7 @@ const APP_SCREENS = [
           {/* Pensamiento */}
           <div className="rounded-xl px-3.5 py-3" style={{ backgroundColor: "white", border: "1px solid rgba(107,39,55,0.1)" }}>
             <p className="text-[9px] font-semibold mb-1.5" style={{ color: "rgba(45,15,22,0.55)" }}>Pensamiento dominante ahora</p>
-            <p className="text-[10px] font-light" style={{ color: "rgba(45,15,22,0.45)" }}>"Necesito comer algo antes de esa reunión"</p>
+            <p className="text-[10px] font-light" style={{ color: "rgba(45,15,22,0.45)" }}>&ldquo;Necesito comer algo antes de esa reunión&rdquo;</p>
           </div>
 
           <button className="w-full py-2.5 rounded-xl text-[11px] font-bold mt-auto" style={{ backgroundColor: "#5A9B8A", color: "white" }}>
@@ -505,7 +505,7 @@ const APP_SCREENS = [
           {/* Respuesta */}
           <div className="rounded-xl px-4 py-3" style={{ backgroundColor: "white", border: "1px solid rgba(45,15,22,0.1)", flex: 1 }}>
             <p className="text-[9px] font-light leading-relaxed" style={{ color: "rgba(45,15,22,0.55)" }}>
-              "Si no como algo ahora no voy a poder rendir en la reunión. Y luego me arrepiento porque…"
+              &ldquo;Si no como algo ahora no voy a poder rendir en la reunión. Y luego me arrepiento porque…&rdquo;
             </p>
             <span className="inline-block w-0.5 h-3 ml-0.5 animate-pulse" style={{ backgroundColor: "#A07BBE", verticalAlign: "middle" }} />
           </div>

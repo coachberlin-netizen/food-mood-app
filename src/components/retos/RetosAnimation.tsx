@@ -240,27 +240,31 @@ export function RetosAnimation() {
   const t   = useLoopTime(TOTAL)
   const seg = currentSegment(t)
 
+  const segKind         = seg.kind
+  const segFeatureIndex = seg.kind === "feature" ? (seg as FeatureSeg).index : -1
+  const segIntroWhich   = seg.kind === "intro"   ? (seg as IntroSeg).which   : -1
+
   const theme = useMemo(() => {
-    if (seg.kind === "feature") return CHALLENGES[(seg as FeatureSeg).index]
-    if (seg.kind === "outro")   return CHALLENGES[CHALLENGES.length - 1]
+    if (segKind === "feature") return CHALLENGES[segFeatureIndex]
+    if (segKind === "outro")   return CHALLENGES[CHALLENGES.length - 1]
     return { bg: "#F1ECE1", ink: "#15140F", inkSoft: "#15140F99", accent: "#B85A1F" }
-  }, [seg.kind, seg.kind === "feature" ? (seg as FeatureSeg).index : -1])
+  }, [segKind, segFeatureIndex])
 
   const [washKey, setWashKey] = useState(0)
   const lastId = useRef<string | null>(null)
   useEffect(() => {
-    const id = seg.kind === "feature" ? `f-${(seg as FeatureSeg).index}`
-             : seg.kind === "intro"   ? `i-${(seg as IntroSeg).which}`
+    const id = segKind === "feature" ? `f-${segFeatureIndex}`
+             : segKind === "intro"   ? `i-${segIntroWhich}`
              : "outro"
     if (lastId.current !== null && lastId.current !== id) setWashKey(k => k + 1)
     lastId.current = id
-  }, [seg.kind, seg.kind === "feature" ? (seg as FeatureSeg).index : seg.kind === "intro" ? (seg as IntroSeg).which : 0])
+  }, [segKind, segFeatureIndex, segIntroWhich])
 
   const counter = useMemo(() => {
-    if (seg.kind === "feature") return { num: String((seg as FeatureSeg).index + 1).padStart(2, "0"), total: "08" }
-    if (seg.kind === "outro")   return { num: "08", total: "08" }
+    if (segKind === "feature") return { num: String(segFeatureIndex + 1).padStart(2, "0"), total: "08" }
+    if (segKind === "outro")   return { num: "08", total: "08" }
     return { num: "00", total: "08" }
-  }, [seg.kind, seg.kind === "feature" ? (seg as FeatureSeg).index : -1])
+  }, [segKind, segFeatureIndex])
 
   const featureIndex    = seg.kind === "feature" ? (seg as FeatureSeg).index : seg.kind === "outro" ? 7 : -1
   const featureProgress = seg.kind === "feature" ? seg.local / seg.dur : 0
