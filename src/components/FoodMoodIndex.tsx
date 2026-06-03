@@ -59,11 +59,11 @@ function todayISO() {
 }
 
 function indexLabel(v: number): string {
-  if (v >= 85) return "Excepcional"
-  if (v >= 70) return "Muy bueno"
+  if (v >= 85) return "Día muy activo"
+  if (v >= 70) return "Con energía"
   if (v >= 55) return "Equilibrado"
-  if (v >= 40) return "Mejorable"
-  if (v >= 25) return "Difícil"
+  if (v >= 40) return "Día tranquilo"
+  if (v >= 25) return "Jornada intensa"
   return "Jornada exigente"
 }
 
@@ -422,7 +422,7 @@ export function FoodMoodIndex() {
             </motion.div>
           ) : (
             <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.3)" }}>
-              Empieza hoy tu racha
+              Tu racha empieza de nuevo hoy
             </span>
           )}
         </div>
@@ -445,6 +445,12 @@ export function FoodMoodIndex() {
           >
             {hasData ? indexLabel(indexValue!) : "Sin datos de hoy"}
           </p>
+          <p
+            className="text-[10px] font-light mt-1.5 text-center"
+            style={{ color: "rgba(255,255,255,0.2)" }}
+          >
+            Un reflejo de tu día, no una nota.
+          </p>
 
           {/* Trend — fades in after count-up */}
           {trend != null && showTrend && (
@@ -454,11 +460,11 @@ export function FoodMoodIndex() {
               transition={{ duration: 0.3 }}
               className="text-sm font-semibold mt-1"
               style={{
-                color: trend > 0 ? "#5A9B8A" : trend < 0 ? "#C04060" : "rgba(255,255,255,0.4)",
+                color: trend > 0 ? "#5A9B8A" : trend < 0 ? "rgba(245,240,232,0.4)" : "rgba(255,255,255,0.4)",
               }}
             >
-              {trend > 0 ? `↑ ${trend}` : trend < 0 ? `↓ ${Math.abs(trend)}` : "—"}{" "}
-              {trend !== 0 && "puntos vs ayer"}
+              {trend > 0 ? `↑ ${trend}` : trend < 0 ? `↓ ${Math.abs(trend)}` : "→"}{" "}
+              {trend !== 0 && "vs ayer"}
             </motion.p>
           )}
         </div>
@@ -468,7 +474,7 @@ export function FoodMoodIndex() {
           {[
             { label: "Ø 7 días",  value: avg7d },
             { label: "Ø 30 días", value: avg30d },
-            { label: "Mejor mes", value: best },
+            { label: "Máximo del mes", value: best },
           ].map(s => (
             <div
               key={s.label}
@@ -523,7 +529,7 @@ export function FoodMoodIndex() {
             className="text-[10px] font-bold uppercase tracking-widest mb-3"
             style={{ color: "#6B2737" }}
           >
-            Completa tu día
+            Registros de hoy
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             {!todayTest && (
@@ -562,14 +568,12 @@ export function FoodMoodIndex() {
               </Link>
             )}
           </div>
-          {hasData && (
+          {!hasData && (
             <p
               className="text-[10px] mt-2 text-center"
               style={{ color: "rgba(107,39,55,0.45)" }}
             >
-              {!todayTest && !todayBol
-                ? "El índice se calculará cuando completes alguna de las dos"
-                : "Completa la otra actividad para afinar tu índice"}
+              El índice se calculará cuando hagas alguno de los registros
             </p>
           )}
         </div>
