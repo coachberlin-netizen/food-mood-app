@@ -23,7 +23,7 @@ function daysAgo(iso: string) {
   return Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000)
 }
 
-export function OracleWidget() {
+export function CheckInWidget() {
   const [checkin, setCheckin] = useState<LastCheckin | null | undefined>(undefined)
 
   useEffect(() => {
@@ -56,7 +56,6 @@ export function OracleWidget() {
 
   const doneToday = checkin && isToday(checkin.created_at)
 
-  // ── CTA: no check-in today ────────────────────────────────────────
   if (!doneToday) {
     const ago = checkin ? daysAgo(checkin.created_at) : null
 
@@ -86,7 +85,6 @@ export function OracleWidget() {
     )
   }
 
-  // ── Summary: check-in done today ─────────────────────────────────
   const moodA = moods.find(m => m.id === checkin.primary_emotion)
   const moodB = checkin.secondary_emotion ? moods.find(m => m.id === checkin.secondary_emotion) : null
   const firstSentence = checkin.oracle_reading?.split('. ')[0]?.trim()

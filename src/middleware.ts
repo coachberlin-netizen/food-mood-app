@@ -80,6 +80,7 @@ export async function middleware(request: NextRequest) {
   // protected routes
   const pathname = request.nextUrl.pathname;
   const isProtectedRoute =
+    pathname.startsWith('/dashboard') ||
     pathname.startsWith('/configuracion') ||
     pathname.startsWith('/para-mi') ||
     pathname.startsWith('/registro') ||
