@@ -41,12 +41,12 @@ export async function GET() {
 
   const prompt = `Eres analista de patrones de bienestar para la app Food·Mood (psiconutrición, eje intestino-cerebro).
 
-A continuación tienes el diario de los últimos días de una usuaria. Cada línea es una entrada.
+A continuación tienes el diario de los últimos días de esta persona. Cada línea es una entrada.
 
 DIARIO:
 ${formatted}
 
-Tu tarea: detectar 2 o 3 patrones concretos que la usuaria sola no vería.
+Tu tarea: detectar 2 o 3 patrones concretos que esta persona sola no vería.
 Un patrón válido es una correlación que aparece al menos 3 veces: poco sueño → ciertos estados, cenas tardías → peor mañana siguiente, proteína → mejor foco, variedad alimentaria → más calma, etc.
 
 Reglas:

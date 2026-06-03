@@ -46,7 +46,7 @@ export default function PrivacidadPage() {
             {
               icon: "🚫",
               title: "No los vendemos",
-              body: "Nunca hemos vendido datos de usuarias. Nunca lo haremos. No es nuestro modelo de negocio.",
+              body: "Nunca hemos vendido datos de usuarios. Nunca lo haremos. No es nuestro modelo de negocio.",
             },
             {
               icon: "🗑️",

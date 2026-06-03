@@ -51,7 +51,7 @@ function ProLoginForm() {
     const { data: pro } = await supabase.from("professionals").select("id").maybeSingle()
     if (!pro) {
       await supabase.auth.signOut()
-      setError("Cuenta no registrada como profesional. Accede desde el área de usuarias si tienes cuenta de consumidora.")
+      setError("Cuenta no registrada como profesional. Si tienes cuenta de usuario, accede desde el área principal.")
       setLoading(false)
       return
     }

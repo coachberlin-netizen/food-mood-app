@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'missing_fields' }, { status: 400 })
   }
 
-  const systemPrompt = `Eres la guía de cocina de Food·Mood. La usuaria está cocinando ahora mismo y tiene las manos ocupadas.
+  const systemPrompt = `Eres la guía de cocina de Food·Mood. La persona está cocinando ahora mismo y tiene las manos ocupadas.
 
 Receta: ${recipeName}
 Ingredientes: ${ingredients?.join(', ') ?? 'no especificados'}

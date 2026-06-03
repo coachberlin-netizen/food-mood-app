@@ -133,7 +133,7 @@ export function NewsletterGate({ children }: { children: ReactNode }) {
                   <div className="flex flex-col items-center gap-3 py-4">
                     <CheckCircle2 className="w-10 h-10" style={{ color: '#6B2737' }} />
                     <p className="text-sm font-semibold text-center" style={{ color: '#2d0f16' }}>
-                      ¡Bienvenida! Abriendo el archivo…
+                      ¡Perfecto! Abriendo el archivo…
                     </p>
                   </div>
                 ) : (

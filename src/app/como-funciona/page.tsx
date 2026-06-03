@@ -161,7 +161,7 @@ export default function ComoFuncionaPage() {
             <Body>
               <p>
                 El test inicial recoge la mínima información necesaria para que la app deje de tratarte
-                como “una usuaria genérica” y empiece a tratarte como tú.
+                como “un perfil genérico” y empiece a tratarte como tú.
               </p>
               <Item>Cómo te sientes hoy, en tus palabras o eligiendo entre mezclas —no una sola etiqueta: una paleta.</Item>
               <Item>Tu edad y la etapa hormonal en la que estás, si la sabes.</Item>
@@ -270,7 +270,7 @@ export default function ComoFuncionaPage() {
               </p>
               <p>
                 Al cabo de 90 días —el tiempo que tu microbiota, la comunidad de bacterias que vive en tu intestino, tarda en reorganizarse—
-                muchas usuarias notan cambios reales: el sueño se ha asentado un poco, la niebla mental afloja,
+                muchas personas notan cambios reales: el sueño se ha asentado un poco, la niebla mental afloja,
                 las digestiones son más cómodas, los antojos vespertinos se han calmado.
               </p>
               <p style={{ color: `${BURG}70` }}>
