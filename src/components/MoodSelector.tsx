@@ -12,21 +12,21 @@ type Estado = {
 
 const ESTADOS: Estado[] = [
   // Estados difíciles / bajos
-  { label: "Agotada",              desc: "sin fuerzas para nada",              mood: "Reset"      },
-  { label: "Ansiosa",              desc: "nervios, pensamientos acelerados",   mood: "Calma"      },
-  { label: "Triste o vacía",       desc: "me falta algo que no sé nombrar",    mood: "Confort"    },
+  { label: "Agotado/a",            desc: "sin fuerzas para nada",              mood: "Reset"      },
+  { label: "Ansioso/a",            desc: "nervios, pensamientos acelerados",   mood: "Calma"      },
+  { label: "Triste o vacío/a",     desc: "me falta algo que no sé nombrar",    mood: "Confort"    },
   { label: "Irritable",            desc: "todo me molesta más de lo normal",   mood: "Calma"      },
-  { label: "Abrumada",             desc: "demasiado a la vez",                 mood: "Reset"      },
-  { label: "Bloqueada",            desc: "no consigo arrancar con nada",       mood: "Activación" },
-  { label: "Sola",                 desc: "desconectada, quiero presencia",     mood: "Social"     },
-  { label: "Aburrida",             desc: "nada me despierta interés, todo plano", mood: "Activación" },
-  { label: "Con niebla mental",    desc: "lenta, confusa, dispersa",           mood: "Focus"      },
+  { label: "Abrumado/a",           desc: "demasiado a la vez",                 mood: "Reset"      },
+  { label: "Bloqueado/a",          desc: "no consigo arrancar con nada",       mood: "Activación" },
+  { label: "Solo/a",               desc: "desconectado/a, quiero presencia",   mood: "Social"     },
+  { label: "Aburrido/a",           desc: "nada me despierta interés, todo plano", mood: "Activación" },
+  { label: "Con niebla mental",    desc: "lento/a, confuso/a, disperso/a",     mood: "Focus"      },
   { label: "Con el cuerpo pesado", desc: "digestión lenta, hinchazón",         mood: "Reset"      },
   // Sin saber
   { label: "Sin saber qué quiero", desc: "necesito que algo me oriente",       mood: "Focus"      },
   // Estados funcionales / positivos
-  { label: "Con energía",          desc: "lista para arrancar",                mood: "Activación" },
-  { label: "Tranquila",            desc: "quiero mantenerlo así",              mood: "Calma"      },
+  { label: "Con energía",          desc: "listo/a para arrancar",              mood: "Activación" },
+  { label: "Tranquilo/a",          desc: "quiero mantenerlo así",              mood: "Calma"      },
   { label: "En modo trabajo",      desc: "quiero rendir y estar presente",     mood: "Focus"      },
   { label: "Con ganas de compartir", desc: "me apetece gente y mesa llena",   mood: "Social"     },
   { label: "En reset",             desc: "limpiando, restaurando el cuerpo",   mood: "Reset"      },

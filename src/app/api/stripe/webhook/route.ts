@@ -317,7 +317,7 @@ export async function POST(req: NextRequest) {
               subject: 'Tu acceso al canal privado de Telegram — Food·Mood',
               html: `
                 <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2d0f16">
-                  <h1 style="font-size:24px;font-weight:400;margin-bottom:8px">Bienvenida al canal privado ✨</h1>
+                  <h1 style="font-size:24px;font-weight:400;margin-bottom:8px">Ya tienes acceso al canal privado ✨</h1>
                   <p style="font-size:15px;line-height:1.6;color:#6b4452">
                     Como miembro premium de Food·Mood tienes acceso exclusivo a nuestro canal privado de Telegram,
                     donde compartimos contenido científico, novedades y recomendaciones antes que nadie.

@@ -262,7 +262,7 @@ export default function HomeHero() {
             {/* H1 */}
             <h1 className="hero-fade-up-2" style={{ fontFamily:"Georgia,serif",fontWeight:400,fontSize:"clamp(36px,4.6vw,62px)",lineHeight:1.1,color:CREAM,marginBottom:0 }}>
               No estás imaginándolo.<br />
-              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>Y no estás sola.</em>
+              <em style={{ fontStyle:"italic",color:GOLD_LIGHT,fontWeight:400 }}>Y no estás solo/a.</em>
             </h1>
 
             {/* Divider */}
