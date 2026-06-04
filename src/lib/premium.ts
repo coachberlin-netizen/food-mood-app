@@ -45,11 +45,11 @@ export async function getPremiumStatus(supabase: SupabaseClient, userId: string)
     // 2. Check profiles table (Direct flag or level)
     const { data: profileData } = await supabase
       .from('profiles')
-      .select('is_premium')
+      .select('is_premium, premium_level')
       .eq('id', userId)
       .maybeSingle();
 
-    if (profileData?.is_premium === true) {
+    if (profileData?.is_premium === true || (profileData?.premium_level ?? 0) > 0) {
       return true;
     }
 
