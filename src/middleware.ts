@@ -115,9 +115,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // newsletters are professional-only — redirect to pro login, not consumer auth
   if (isNewsletterArticle && !user) {
     const url = request.nextUrl.clone()
-    url.pathname = '/auth/login'
+    url.pathname = '/pro/login'
     url.searchParams.set('redirect', pathname)
     return NextResponse.redirect(url)
   }

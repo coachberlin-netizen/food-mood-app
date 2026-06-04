@@ -39,12 +39,12 @@ export function useProAlerts() {
           .not("used_by_user_id", "is", null),
         supabase
           .from("oracle_checkins")
-          .select("patient_user_id, created_at")
+          .select("user_id, created_at")
           .order("created_at", { ascending: false })
           .limit(500),
         supabase
           .from("interoceptive_checkins")
-          .select("patient_user_id, created_at, nervous_system_state")
+          .select("user_id, created_at, nervous_system_state")
           .order("created_at", { ascending: false })
           .limit(300),
       ])
@@ -62,17 +62,17 @@ export function useProAlerts() {
       // group oracle checkins by patient (already ordered DESC by created_at)
       const oracleByPatient = new Map<string, string[]>()
       for (const row of oracle) {
-        const arr = oracleByPatient.get(row.patient_user_id) ?? []
+        const arr = oracleByPatient.get(row.user_id) ?? []
         arr.push(row.created_at)
-        oracleByPatient.set(row.patient_user_id, arr)
+        oracleByPatient.set(row.user_id, arr)
       }
 
       // group intero checkins by patient (already ordered DESC)
       const interoByPatient = new Map<string, { created_at: string; nervous_system_state: string }[]>()
       for (const row of intero) {
-        const arr = interoByPatient.get(row.patient_user_id) ?? []
+        const arr = interoByPatient.get(row.user_id) ?? []
         arr.push({ created_at: row.created_at, nervous_system_state: row.nervous_system_state })
-        interoByPatient.set(row.patient_user_id, arr)
+        interoByPatient.set(row.user_id, arr)
       }
 
       const result: ProAlert[] = []
