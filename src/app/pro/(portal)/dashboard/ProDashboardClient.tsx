@@ -70,7 +70,7 @@ export default function ProDashboardClient() {
           {professional ? `Hola, ${professional.full_name.split(" ")[0]}` : "Dashboard"}
         </h1>
         {professional && (
-          <p className="text-sm text-[#6B2737]/60 mt-1">{professional.professional_title}</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-[#6B2737]/40 mt-1">Profesional</p>
         )}
       </div>
 
