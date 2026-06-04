@@ -37,7 +37,8 @@ export default function ProDashboardClient() {
       supabase
         .from("patient_invitations")
         .select("id", { count: "exact", head: true })
-        .eq("status", "pending"),
+        .is("used_at", null)
+        .gt("expires_at", new Date().toISOString()),
       supabase
         .from("professional_patient_links")
         .select("id, patient_user_id, linked_at")
