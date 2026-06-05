@@ -808,7 +808,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
   const plans: Plan[] = [
     {
       name: "Profesional",
-      monthly: 79,
+      monthly: 59,
       description: "Para profesionales independientes con consulta propia.",
       patients: "Hasta 40 pacientes",
       features: ["Portal profesional completo", "Companion app para cada paciente", "Resumen semanal de sesión", "Patrones y alertas adaptativas", "Soporte por email"],
