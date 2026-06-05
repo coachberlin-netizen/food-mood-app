@@ -118,100 +118,128 @@ function DashboardMock() {
   )
 }
 
-// ─── Formulario de acceso anticipado ─────────────────────────────────────────
+// ─── Formulario de demo unificado ────────────────────────────────────────────
 
-function EarlyAccessForm({ onClose }: { onClose?: () => void }) {
+const PATIENT_COUNT_OPTIONS = ["1-10", "11-30", "31-100", "Más de 100"] as const
+const CALENDLY_BASE = "https://calendly.com/foodmoodapp"
+
+function DemoRequestForm({ onClose, compact = false }: { onClose?: () => void; compact?: boolean }) {
   const id = useId()
-  const [form, setForm]     = useState({ name: "", email: "", professional_type: "", patient_count: "", current_tool: "" })
+  const [form, setForm]     = useState({ name: "", email: "", professional_type: "", patient_count: "", ciudad: "" })
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle")
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setForm(f => ({ ...f, [k]: e.target.value }))
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.professional_type) return
     setStatus("loading")
     try {
-      const r = await fetch("/api/early-access", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) })
+      const r = await fetch("/api/early-access", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(form),
+      })
       setStatus(r.ok ? "ok" : "error")
     } catch {
       setStatus("error")
     }
   }
 
-  const inputClass = "w-full rounded-xl px-4 py-3 text-sm font-light outline-none focus:ring-2 transition-all"
-  const inputStyle = { backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#F5F0E8", caretColor: "#C9A84C" }
+  const calendlyUrl = `${CALENDLY_BASE}?name=${encodeURIComponent(form.name)}&email=${encodeURIComponent(form.email)}`
+
+  const gap     = compact ? "gap-3" : "gap-4"
+  const py      = compact ? "py-3"  : "py-3.5"
+  const labelSz = compact ? "text-[11px]" : "text-xs"
+  const inputCls = `w-full rounded-xl px-4 ${py} text-sm outline-none transition-all`
+  const inputSt  = { backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F0E8", caretColor: "#C9A84C" }
 
   if (status === "ok") {
     return (
-      <div className="text-center py-8 px-4">
-        <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: "rgba(90,155,138,0.18)", border: "1px solid rgba(90,155,138,0.35)" }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center text-center py-6 gap-5">
+        <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "rgba(90,155,138,0.18)", border: "1px solid rgba(90,155,138,0.35)" }}>
           <Check className="w-7 h-7" style={{ color: "#5A9B8A" }} />
         </div>
-        <h3 className="font-serif text-xl font-semibold text-white mb-3">Solicitud recibida</h3>
-        <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.65)" }}>
-          Nos pondremos en contacto en las próximas 48 horas para concretar el acceso y la incorporación. Gracias por confiar en Food·Mood Pro.
+        <div>
+          <p className="font-serif text-lg font-semibold text-white mb-1.5">Formulario recibido</p>
+          <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.65)" }}>
+            Te hemos enviado el one-pager por email. Ahora elige tu horario:
+          </p>
+        </div>
+        <a
+          href={calendlyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98]"
+          style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 24px rgba(201,168,76,0.35), 0 4px 12px rgba(0,0,0,0.35)" }}
+        >
+          Reservar demo de 15 min <ArrowRight className="w-4 h-4" />
+        </a>
+        <p className="text-[11px]" style={{ color: "rgba(245,240,232,0.3)" }}>
+          Sin permanencia · Sin tarjeta de crédito
         </p>
         {onClose && (
-          <button onClick={onClose} className="mt-6 text-sm font-light underline" style={{ color: "rgba(245,240,232,0.4)" }}>Cerrar</button>
+          <button onClick={onClose} className="text-xs underline" style={{ color: "rgba(245,240,232,0.35)" }}>Cerrar</button>
         )}
-      </div>
+      </motion.div>
     )
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-4">
-      <div className="grid sm:grid-cols-2 gap-4">
+    <form onSubmit={submit} className={`flex flex-col ${gap} w-full`}>
+      <div className="grid sm:grid-cols-2 gap-3">
         <div>
-          <label htmlFor={`${id}-name`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Nombre *</label>
-          <input id={`${id}-name`} value={form.name} onChange={set("name")} required placeholder="Tu nombre" className={inputClass} style={inputStyle} />
+          <label htmlFor={`${id}-n`} className={`block ${labelSz} font-medium mb-1.5`} style={{ color: "rgba(245,240,232,0.55)" }}>Nombre *</label>
+          <input id={`${id}-n`} value={form.name} onChange={set("name")} required placeholder="Tu nombre" className={inputCls} style={inputSt} />
         </div>
         <div>
-          <label htmlFor={`${id}-email`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Email profesional *</label>
-          <input id={`${id}-email`} type="email" value={form.email} onChange={set("email")} required placeholder="tu@consulta.com" className={inputClass} style={inputStyle} />
+          <label htmlFor={`${id}-e`} className={`block ${labelSz} font-medium mb-1.5`} style={{ color: "rgba(245,240,232,0.55)" }}>Email profesional *</label>
+          <input id={`${id}-e`} type="email" value={form.email} onChange={set("email")} required placeholder="tu@consulta.com" className={inputCls} style={inputSt} />
         </div>
       </div>
 
       <div>
-        <label htmlFor={`${id}-type`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Tipo de profesional *</label>
-        <select id={`${id}-type`} value={form.professional_type} onChange={set("professional_type")} required className={inputClass} style={{ ...inputStyle, backgroundImage: "none" }}>
+        <label htmlFor={`${id}-t`} className={`block ${labelSz} font-medium mb-1.5`} style={{ color: "rgba(245,240,232,0.55)" }}>Especialidad *</label>
+        <select id={`${id}-t`} value={form.professional_type} onChange={set("professional_type")} required className={inputCls} style={{ ...inputSt, backgroundImage: "none" }}>
           <option value="">Selecciona…</option>
           {PROFESSIONAL_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 gap-3">
         <div>
-          <label htmlFor={`${id}-patients`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>Pacientes aprox.</label>
-          <input id={`${id}-patients`} value={form.patient_count} onChange={set("patient_count")} placeholder="Ej. 20–40 por mes" className={inputClass} style={inputStyle} />
+          <label htmlFor={`${id}-p`} className={`block ${labelSz} font-medium mb-1.5`} style={{ color: "rgba(245,240,232,0.55)" }}>Nº de pacientes *</label>
+          <select id={`${id}-p`} value={form.patient_count} onChange={set("patient_count")} required className={inputCls} style={{ ...inputSt, backgroundImage: "none" }}>
+            <option value="">Selecciona…</option>
+            {PATIENT_COUNT_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+          </select>
         </div>
         <div>
-          <label htmlFor={`${id}-tool`} className="block text-xs font-medium mb-1.5" style={{ color: "rgba(245,240,232,0.55)" }}>¿Qué herramienta usas hoy?</label>
-          <input id={`${id}-tool`} value={form.current_tool} onChange={set("current_tool")} placeholder="Ej. Nutrium, Google Sheets…" className={inputClass} style={inputStyle} />
+          <label htmlFor={`${id}-c`} className={`block ${labelSz} font-medium mb-1.5`} style={{ color: "rgba(245,240,232,0.55)" }}>Ciudad *</label>
+          <input id={`${id}-c`} value={form.ciudad} onChange={set("ciudad")} required placeholder="Ej. Madrid" className={inputCls} style={inputSt} />
         </div>
       </div>
 
       {status === "error" && (
-        <p className="text-xs text-red-400 text-center">Algo salió mal. Inténtalo de nuevo o escríbenos directamente.</p>
+        <p className="text-xs text-red-400 text-center">Algo salió mal. Inténtalo de nuevo.</p>
       )}
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full py-4 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
-        style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
+        className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
+        style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 28px rgba(201,168,76,0.32), 0 4px 14px rgba(0,0,0,0.4)" }}
       >
-        {status === "loading" ? "Enviando…" : "Solicitar acceso anticipado →"}
+        {status === "loading" ? "Enviando…" : "Solicitar demo de 15 min →"}
       </button>
-      <p className="text-[10px] text-center font-light" style={{ color: "rgba(245,240,232,0.3)" }}>
-        Sin compromiso. Nos pondremos en contacto en 24–48 h.
+      <p className={`${compact ? "text-[11px]" : "text-[10px]"} text-center font-light`} style={{ color: "rgba(245,240,232,0.3)" }}>
+        15 min · Sin compromiso · Sin tarjeta
       </p>
     </form>
   )
 }
 
-// ─── Modal de acceso anticipado ───────────────────────────────────────────────
+// ─── Modal de demo ────────────────────────────────────────────────────────────
 
 function EarlyAccessModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
@@ -233,15 +261,15 @@ function EarlyAccessModal({ open, onClose }: { open: boolean; onClose: () => voi
           >
             <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#C9A84C" }}>Acceso anticipado</p>
-                <h2 className="font-serif text-lg font-semibold text-white leading-snug">Solicita tu acceso — te respondemos en 48h</h2>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#C9A84C" }}>Demo personalizada · 15 min</p>
+                <h2 className="font-serif text-lg font-semibold text-white leading-snug">Cuéntanos sobre tu consulta</h2>
               </div>
               <button onClick={onClose} className="p-1.5 rounded-lg transition-colors hover:bg-white/10" aria-label="Cerrar">
                 <X className="w-4 h-4" style={{ color: "rgba(245,240,232,0.45)" }} />
               </button>
             </div>
             <div className="px-6 py-5">
-              <EarlyAccessForm onClose={onClose} />
+              <DemoRequestForm onClose={onClose} />
             </div>
           </motion.div>
         </motion.div>
@@ -250,83 +278,10 @@ function EarlyAccessModal({ open, onClose }: { open: boolean; onClose: () => voi
   )
 }
 
-// ─── Formulario inline (hero + CTA final) ────────────────────────────────────
+// ─── Alias para compatibilidad con uso inline (hero + CTA final) ──────────────
 
 function HeroForm() {
-  const id = useId()
-  const [form, setForm]     = useState({ name: "", email: "", professional_type: "" })
-  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle")
-
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-    setForm(f => ({ ...f, [k]: e.target.value }))
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!form.name || !form.email || !form.professional_type) return
-    setStatus("loading")
-    try {
-      const r = await fetch("/api/early-access", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) })
-      setStatus(r.ok ? "ok" : "error")
-    } catch {
-      setStatus("error")
-    }
-  }
-
-  if (status === "ok") {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-        className="flex items-start gap-3 rounded-2xl px-5 py-4"
-        style={{ backgroundColor: "rgba(90,155,138,0.12)", border: "1px solid rgba(90,155,138,0.28)" }}
-      >
-        <Check className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#5A9B8A" }} />
-        <div>
-          <p className="text-sm font-semibold text-white">Solicitud recibida</p>
-          <p className="text-xs font-light mt-0.5" style={{ color: "rgba(245,240,232,0.6)" }}>
-            Te contactamos en menos de 48h para concretar la demo. Gracias.
-          </p>
-        </div>
-      </motion.div>
-    )
-  }
-
-  const inputCls = "w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
-  const inputSt  = { backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F0E8", caretColor: "#C9A84C" }
-  const labelSt  = { color: "rgba(245,240,232,0.5)" }
-
-  return (
-    <form onSubmit={submit} className="flex flex-col gap-3 w-full">
-      <div className="grid sm:grid-cols-2 gap-3">
-        <div>
-          <label htmlFor={`${id}-n`} className="block text-[11px] font-medium mb-1.5" style={labelSt}>Nombre *</label>
-          <input id={`${id}-n`} value={form.name} onChange={set("name")} required placeholder="Tu nombre" className={inputCls} style={inputSt} />
-        </div>
-        <div>
-          <label htmlFor={`${id}-e`} className="block text-[11px] font-medium mb-1.5" style={labelSt}>Email profesional *</label>
-          <input id={`${id}-e`} type="email" value={form.email} onChange={set("email")} required placeholder="tu@consulta.com" className={inputCls} style={inputSt} />
-        </div>
-      </div>
-      <div>
-        <label htmlFor={`${id}-t`} className="block text-[11px] font-medium mb-1.5" style={labelSt}>Especialidad *</label>
-        <select id={`${id}-t`} value={form.professional_type} onChange={set("professional_type")} required className={inputCls} style={{ ...inputSt, backgroundImage: "none" }}>
-          <option value="">Selecciona…</option>
-          {PROFESSIONAL_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
-        </select>
-      </div>
-      {status === "error" && <p className="text-xs text-red-400">Algo salió mal. Inténtalo de nuevo.</p>}
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
-        style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 28px rgba(201,168,76,0.32), 0 4px 14px rgba(0,0,0,0.4)" }}
-      >
-        {status === "loading" ? "Enviando…" : "Solicitar demo de 15 min →"}
-      </button>
-      <p className="text-[11px] text-center" style={{ color: "rgba(245,240,232,0.32)" }}>
-        Te contactamos en menos de 48h · Sin compromiso · Sin tarjeta
-      </p>
-    </form>
-  )
+  return <DemoRequestForm compact />
 }
 
 // ─── App Preview ─────────────────────────────────────────────────────────────
