@@ -95,10 +95,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Este paciente ya tiene un protocolo activo." }, { status: 409 })
   }
 
-  // Load protocol definition
+  // Load protocol definition (including challenge_id for program-type entries)
   const { data: protocol, error: protocolErr } = await admin
     .from("clinical_protocols")
-    .select("id, name, stages, duration_days")
+    .select("id, name, stages, duration_days, challenge_id")
     .eq("id", protocol_id)
     .eq("is_active", true)
     .maybeSingle()
@@ -107,11 +107,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Protocolo no encontrado." }, { status: 404 })
   }
 
-  const stages = protocol.stages as ProtocolStage[]
-  const stage1 = stages.find(s => s.stage === 1)
-  if (!stage1) return NextResponse.json({ error: "El protocolo no tiene etapa 1 definida." }, { status: 500 })
-
-  // Create patient_protocols row
+  // Create patient_protocols row (tracks assignment at the professional level for all types)
   const { data: patientProtocol, error: ppErr } = await admin
     .from("patient_protocols")
     .insert({
@@ -128,6 +124,33 @@ export async function POST(req: NextRequest) {
     logger.error({ err: ppErr }, "protocols/activate: error creating patient_protocol")
     return NextResponse.json({ error: "Error al crear el protocolo." }, { status: 500 })
   }
+
+  // ── Programa (challenge_id present): enroll via user_challenges ──────
+  if (protocol.challenge_id) {
+    const { error: enrollErr } = await admin
+      .from("user_challenges")
+      .upsert(
+        {
+          user_id:      patient_user_id,
+          challenge_id: protocol.challenge_id,
+          start_date:   new Date().toISOString().split("T")[0],
+          paid:         true,
+        },
+        { onConflict: "user_id,challenge_id", ignoreDuplicates: true }
+      )
+
+    if (enrollErr) {
+      logger.error({ err: enrollErr, challenge_id: protocol.challenge_id }, "protocols/activate: error enrolling in challenge")
+    }
+
+    logger.info({ patient_user_id, protocol_id, challenge_id: protocol.challenge_id, patient_protocol_id: patientProtocol.id }, "Program activated via challenge enrollment")
+    return NextResponse.json({ id: patientProtocol.id }, { status: 201 })
+  }
+
+  // ── Protocolo clínico (stages-based) ────────────────────────────────
+  const stages = protocol.stages as ProtocolStage[]
+  const stage1 = stages.find(s => s.stage === 1)
+  if (!stage1) return NextResponse.json({ error: "El protocolo no tiene etapa 1 definida." }, { status: 500 })
 
   const startedAt = new Date(patientProtocol.started_at)
   const dueDate   = new Date(startedAt)
