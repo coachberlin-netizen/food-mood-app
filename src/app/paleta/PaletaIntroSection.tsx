@@ -306,7 +306,7 @@ export function PaletaIntroSection() {
           style={{ backgroundColor: "#2d0f16" }}
         >
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: "#FF6B35" }}>
               Empieza ahora
             </p>
             <p className="font-serif text-lg font-light leading-snug" style={{ color: "#F7F0E6" }}>
@@ -316,7 +316,7 @@ export function PaletaIntroSection() {
           <Link
             href="/test"
             className="inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-sm shrink-0 transition-all hover:opacity-90 hover:scale-[1.02] shadow-lg whitespace-nowrap"
-            style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+            style={{ backgroundColor: "#FF6B35", color: "#2d0f16" }}
           >
             Descubrir mi paleta →
           </Link>

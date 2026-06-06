@@ -92,7 +92,7 @@ function MobileHero() {
                 </div>
                 <span style={{
                   fontFamily: 'Georgia, serif', fontSize: 15, fontWeight: 700,
-                  color: '#C9A84C', letterSpacing: '-0.01em',
+                  color: '#FF6B35', letterSpacing: '-0.01em',
                 }}>{r.price}€</span>
               </div>
             </Link>

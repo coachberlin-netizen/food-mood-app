@@ -120,7 +120,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
           animate={{ opacity: 1, scale: 1 }}
           className="bg-cream p-8 md:p-12 rounded-[2.5rem] shadow-luxury border border-aubergine-dark/5 max-w-md w-full text-center"
         >
-          <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 flex items-center justify-center text-[#C9A84C] mx-auto mb-8">
+          <div className="w-16 h-16 rounded-full bg-[#FF6B35]/10 flex items-center justify-center text-[#FF6B35] mx-auto mb-8">
             <Droplets className="w-8 h-8" />
           </div>
           <h2 className="text-2xl md:text-3xl font-serif text-aubergine-dark mb-4 leading-tight">
@@ -136,7 +136,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
               placeholder="tu@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-6 py-4 rounded-xl bg-white border border-aubergine-dark/10 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 text-aubergine-dark font-light"
+              className="w-full px-6 py-4 rounded-xl bg-white border border-aubergine-dark/10 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]/20 text-aubergine-dark font-light"
             />
             <button
               onClick={() => setIsSubmitted(true)}
@@ -169,7 +169,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
           <div className="w-20 h-20 rounded-full bg-white shadow-sm flex items-center justify-center text-4xl mx-auto mb-8 border border-aubergine-dark/5">
             {moodData?.emoji || moodStyle.emoji}
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-4 block">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF6B35] mb-4 block">
             Perfil de Microbioma
           </span>
           <div className="flex flex-col items-center gap-4 mb-6">
@@ -197,7 +197,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
           transition={{ delay: 0.2 }}
         >
           <div className="flex items-center gap-2 mb-6">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B35]">
               🎁 Tu receta gratuita
             </span>
             <div className="flex-1 h-px bg-aubergine-dark/10" />
@@ -240,9 +240,9 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
 
               {/* Base ácida */}
               {(receta.ingrediente_firma || receta.base_acida) && (
-                <div className="bg-gradient-to-br from-[#C9A84C]/10 via-cream to-[#C9A84C]/5 rounded-xl p-5 mb-8 border border-[#C9A84C]/20 relative overflow-hidden">
-                  <Droplets className="absolute top-3 right-3 w-10 h-10 text-[#C9A84C] opacity-15" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-1.5 block">
+                <div className="bg-gradient-to-br from-[#FF6B35]/10 via-cream to-[#FF6B35]/5 rounded-xl p-5 mb-8 border border-[#FF6B35]/20 relative overflow-hidden">
+                  <Droplets className="absolute top-3 right-3 w-10 h-10 text-[#FF6B35] opacity-15" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B35] mb-1.5 block">
                     Ingrediente firma
                   </span>
                   <p className="text-base font-serif text-aubergine-dark font-semibold">
@@ -298,12 +298,12 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
               {/* Si está restringida */}
               {(receta.isRestricted && !isPremium) && (
                 <div className="mb-8 bg-gradient-to-br from-aubergine-dark to-aubergine rounded-xl p-8 text-center shadow-lg relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B35]/5 rounded-full blur-3xl" />
                   <h3 className="text-xl font-serif text-cream mb-3 relative">Descubre esta receta</h3>
                   <p className="text-sm font-light text-cream/70 mb-6 relative">
                     Hazte premium para desbloquear los ingredientes, la preparación y todo el mapa Food·Mood.
                   </p>
-                  <a href="/pricing" className="inline-flex relative items-center gap-2 px-8 py-3 bg-[#C9A84C] text-white rounded-full text-sm font-semibold hover:bg-[#b8953e] transition-colors">
+                  <a href="/pricing" className="inline-flex relative items-center gap-2 px-8 py-3 bg-[#FF6B35] text-white rounded-full text-sm font-semibold hover:bg-[#b8953e] transition-colors">
                     Ver plan Premium
                   </a>
                 </div>
@@ -312,8 +312,8 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
               {/* Nota Food·Mood */}
               {receta.nota_food_mood_es && (
                 <div className="bg-gradient-to-br from-aubergine-dark to-aubergine rounded-xl p-6 text-cream/90 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-3 block relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B35]/5 rounded-full blur-3xl" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B35] mb-3 block relative">
                     🧬 Nota Food·Mood
                   </span>
                   <p className="text-sm font-light leading-[1.85] text-cream/80 relative">
@@ -374,9 +374,9 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
             transition={{ delay: 0.6 }}
             className="bg-gradient-to-br from-aubergine-dark to-aubergine rounded-[2.5rem] p-10 md:p-14 text-center shadow-luxury relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-3xl opacity-30" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF6B35]/10 rounded-full blur-3xl opacity-30" />
             <div className="relative z-10">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-4 block">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF6B35] mb-4 block">
                 Acceso Premium
               </span>
               <h2 className="text-3xl md:text-4xl font-serif text-cream mb-6">
@@ -396,7 +396,7 @@ export default function ResultadoClient({ initialIsPremium, initialUser, moodPar
                       window.location.href = "/auth/login?redirect=/pricing";
                     }
                   }}
-                  className="flex-1 px-8 py-4.5 bg-[#C9A84C] text-white rounded-2xl text-sm font-semibold hover:bg-[#b8953e] transition-all shadow-lg flex flex-col gap-0.5 items-center justify-center group"
+                  className="flex-1 px-8 py-4.5 bg-[#FF6B35] text-white rounded-2xl text-sm font-semibold hover:bg-[#b8953e] transition-all shadow-lg flex flex-col gap-0.5 items-center justify-center group"
                 >
                   <span>{isAuthenticated ? "Suscribirme ahora" : "Plan Trimestral"}</span>
                   <span className="text-[10px] opacity-80 group-hover:opacity-100 uppercase tracking-wider">Sólo 7€/mes</span>

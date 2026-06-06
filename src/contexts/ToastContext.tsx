@@ -47,7 +47,7 @@ function Toast({ item, onRemove }: { item: ToastItem; onRemove: () => void }) {
   const icons: Record<ToastVariant, React.ReactNode> = {
     success: <CheckCircle className="w-4 h-4 shrink-0" style={{ color: "#10B981" }} />,
     error:   <XCircle    className="w-4 h-4 shrink-0" style={{ color: "#EF4444" }} />,
-    info:    <Info       className="w-4 h-4 shrink-0" style={{ color: "#C9A84C" }} />,
+    info:    <Info       className="w-4 h-4 shrink-0" style={{ color: "#FF6B35" }} />,
   }
 
   return (
@@ -60,7 +60,7 @@ function Toast({ item, onRemove }: { item: ToastItem; onRemove: () => void }) {
       className="flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl pointer-events-auto"
       style={{
         background: "#2d0f16",
-        border: "1px solid rgba(201,168,76,0.2)",
+        border: "1px solid rgba(255,107,53,0.2)",
         color: "#F5F0E8",
         minWidth: 240,
         maxWidth: 340,
@@ -73,8 +73,8 @@ function Toast({ item, onRemove }: { item: ToastItem; onRemove: () => void }) {
           onClick={handleCopy}
           className="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg transition-all"
           style={{
-            background: copied ? "rgba(16,185,129,0.2)" : "rgba(201,168,76,0.15)",
-            color: copied ? "#10B981" : "#C9A84C",
+            background: copied ? "rgba(16,185,129,0.2)" : "rgba(255,107,53,0.15)",
+            color: copied ? "#10B981" : "#FF6B35",
           }}
         >
           {copied ? "Copiado" : "Copiar"}

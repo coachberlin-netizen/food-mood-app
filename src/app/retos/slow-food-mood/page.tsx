@@ -141,7 +141,7 @@ export default async function SlowFoodMoodPage() {
         {/* ── EL PROBLEMA ── */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="sfm-problema">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>El problema</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#FF6B35' }}>El problema</p>
             <h2 id="sfm-problema" className="font-serif text-2xl md:text-3xl font-bold mb-6 leading-tight" style={{ color: '#F5F0E8' }}>
               El bienestar no llega<br />con más información.
             </h2>
@@ -162,7 +162,7 @@ export default async function SlowFoodMoodPage() {
           </p>
           <blockquote
             className="border-l-4 pl-5 py-1 italic font-serif text-xl"
-            style={{ borderColor: '#C9A84C', color: 'rgba(107,39,55,0.8)' }}
+            style={{ borderColor: '#FF6B35', color: 'rgba(107,39,55,0.8)' }}
           >
             &ldquo;Tu sistema nervioso no se calma con información. Se calma con experiencia repetida, sensorial y encarnada.&rdquo;
           </blockquote>
@@ -198,9 +198,9 @@ export default async function SlowFoodMoodPage() {
               <div
                 aria-hidden="true"
                 className="absolute -left-4 top-1 w-4 h-4 rounded-full border-2 border-white"
-                style={{ backgroundColor: '#C9A84C' }}
+                style={{ backgroundColor: '#FF6B35' }}
               />
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#C9A84C' }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#FF6B35' }}>
                 Al completar
               </p>
               <h3 className="text-sm font-semibold" style={{ color: '#2d0f16' }}>
@@ -248,7 +248,7 @@ export default async function SlowFoodMoodPage() {
                     <span
                       aria-hidden="true"
                       className="w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{ backgroundColor: '#C9A84C' }}
+                      style={{ backgroundColor: '#FF6B35' }}
                     />
                     {name}
                   </dt>
@@ -319,7 +319,7 @@ export default async function SlowFoodMoodPage() {
         {/* ── CTA FINAL ── */}
         <section className="max-w-2xl mx-auto px-6 pb-24" aria-labelledby="sfm-cta" id="cta-compra">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>Fast life. Slow Food·Mood.</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#FF6B35' }}>Fast life. Slow Food·Mood.</p>
             <h2 id="sfm-cta" className="font-serif text-3xl md:text-4xl font-black mb-4 leading-tight" style={{ color: '#F5F0E8' }}>
               ¿Listo para ir más despacio?
             </h2>

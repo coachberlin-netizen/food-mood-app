@@ -37,9 +37,9 @@ export function ExtractoDia() {
   const ev = EVIDENCE_LABELS[data.kb.nivel_evidencia_general] ?? EVIDENCE_LABELS.B
 
   return (
-    <div className="rounded-3xl p-6 mb-8" style={{ backgroundColor: '#fff', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 2px 20px rgba(201,168,76,0.06)' }}>
+    <div className="rounded-3xl p-6 mb-8" style={{ backgroundColor: '#fff', border: '1px solid rgba(255,107,53,0.25)', boxShadow: '0 2px 20px rgba(255,107,53,0.06)' }}>
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-[10px] font-bold uppercase tracking-[0.4em]" style={{ color: '#C9A84C' }}>
+        <span className="text-[10px] font-bold uppercase tracking-[0.4em]" style={{ color: '#FF6B35' }}>
           Extracto del día
         </span>
         <span

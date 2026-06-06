@@ -1,6 +1,6 @@
 const BURG  = '#6B2737'
 const CREAM = '#F5F0E8'
-const GOLD  = '#C9A84C'
+const GOLD  = '#FF6B35'
 const INK   = '#1a1a1a'
 const MUTED = '#7a6a6a'
 

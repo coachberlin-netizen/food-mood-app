@@ -78,7 +78,7 @@ export function PaletteWidget() {
     >
       <div className="flex items-center gap-6">
         <div className="w-[80px] h-[80px] rounded-full bg-aubergine-dark/5 flex items-center justify-center border border-aubergine-dark/10">
-          <Sparkles className="w-8 h-8 text-[#C9A84C] opacity-40" />
+          <Sparkles className="w-8 h-8 text-[#FF6B35] opacity-40" />
         </div>
         <div className="flex flex-col">
           <h3 className="font-serif text-xl text-[#6B2737] font-semibold">

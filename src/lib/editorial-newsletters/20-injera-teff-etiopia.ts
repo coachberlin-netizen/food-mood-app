@@ -13,10 +13,10 @@ export function buildHtml(): string {
 
   .header { background: #2d0f16; padding: 48px 44px 44px; }
   .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #6B2737; letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
-  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; }
+  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #FF6B35; margin-bottom: 8px; }
   .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.45); margin-bottom: 32px; }
   .header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 34px; font-weight: 700; color: #F5F0E8; line-height: 1.18; margin-bottom: 0; }
-  .header-title em { font-style: italic; color: #C9A84C; font-weight: 400; }
+  .header-title em { font-style: italic; color: #FF6B35; font-weight: 400; }
 
   .intro { padding: 36px 44px; border-bottom: 1px solid #e0d5c8; }
   .intro p { font-size: 15px; line-height: 1.80; color: #4a3a3e; font-weight: 300; margin-bottom: 16px; }
@@ -27,12 +27,12 @@ export function buildHtml(): string {
   /* TIMELINE */
   .timeline-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; background: #1e0b11; }
   .timeline-table { width: 100%; border-collapse: collapse; }
-  .timeline-table td { padding: 16px 10px; vertical-align: top; border-right: 1px solid rgba(201,168,76,0.15); }
+  .timeline-table td { padding: 16px 10px; vertical-align: top; border-right: 1px solid rgba(255,107,53,0.15); }
   .timeline-table td:last-child { border-right: none; }
-  .timeline-hour { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 8px; }
+  .timeline-hour { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #FF6B35; line-height: 1; margin-bottom: 8px; }
   .timeline-text { font-size: 11px; font-weight: 300; color: rgba(245,240,232,0.65); line-height: 1.60; }
-  .timeline-note { margin-top: 16px; font-size: 11px; font-style: italic; color: rgba(201,168,76,0.60); line-height: 1.55; }
-  .timeline-section-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 18px; }
+  .timeline-note { margin-top: 16px; font-size: 11px; font-style: italic; color: rgba(255,107,53,0.60); line-height: 1.55; }
+  .timeline-section-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,107,53,0.55); margin-bottom: 18px; }
 
   /* COMPARATIVA TEFF/TRIGO */
   .comp-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
@@ -44,29 +44,29 @@ export function buildHtml(): string {
   .comp-table tbody tr:last-child { border-bottom: none; }
   .comp-table tbody td { padding: 12px 12px; font-size: 13px; font-weight: 300; color: #4a3a3e; line-height: 1.50; vertical-align: middle; }
   .td-nutriente { font-weight: 700; color: #2a1a1e; }
-  .td-valor-teff { color: #C9A84C; font-weight: 700; }
+  .td-valor-teff { color: #FF6B35; font-weight: 700; }
   .td-valor-trigo { color: #9e8080; }
   .comp-note { margin-top: 12px; font-size: 11px; font-style: italic; color: #9e8080; line-height: 1.55; }
 
   /* FERMENTOS AFRICA */
   .africa-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
   .africa-card { background: #2d0f16; padding: 20px 22px; margin-bottom: 0; }
-  .africa-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #C9A84C; margin-bottom: 6px; line-height: 1.2; }
-  .africa-origin { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(201,168,76,0.50); margin-bottom: 10px; }
+  .africa-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #FF6B35; margin-bottom: 6px; line-height: 1.2; }
+  .africa-origin { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,107,53,0.50); margin-bottom: 10px; }
   .africa-text { font-size: 12px; font-weight: 300; color: rgba(245,240,232,0.72); line-height: 1.65; }
 
   /* BLOQUES DE PUNTOS */
   .puntos-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
   .punto-item { margin-bottom: 28px; }
   .punto-item:last-child { margin-bottom: 0; }
-  .punto-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #C9A84C; font-weight: 700; line-height: 1; margin-bottom: 6px; }
+  .punto-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #FF6B35; font-weight: 700; line-height: 1; margin-bottom: 6px; }
   .punto-text { font-size: 15px; font-weight: 300; color: #4a3a3e; line-height: 1.78; }
   .punto-text strong { color: #2a1a1e; font-weight: 700; }
   .punto-ref { font-size: 11px; font-style: italic; color: #9e8080; margin-top: 6px; display: block; }
 
   /* RECETA */
   .recipe-wrap { padding: 36px 44px; background: #2d0f16; }
-  .recipe-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+  .recipe-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #FF6B35; margin-bottom: 6px; }
   .recipe-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #F5F0E8; line-height: 1.25; margin-bottom: 24px; }
   .recipe-col-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 10px; }
   .recipe-item { font-size: 14px; font-weight: 300; color: rgba(245,240,232,0.88); line-height: 1.65; margin-bottom: 6px; }
@@ -81,7 +81,7 @@ export function buildHtml(): string {
   .biblio-item { font-size: 11px; font-weight: 300; color: #7a6a6e; line-height: 1.65; margin-bottom: 5px; }
 
   /* PULL QUOTE */
-  .pullquote { background: #C9A84C; padding: 36px 44px; }
+  .pullquote { background: #FF6B35; padding: 36px 44px; }
   .pullquote-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2d0f16; line-height: 1.45; text-align: center; }
 
   /* CTA */
@@ -269,13 +269,13 @@ export function buildHtml(): string {
         </td>
         <td width="55%" valign="top">
           <p class="recipe-col-label">Preparaci&oacute;n (proceso de 48h m&iacute;nimo)</p>
-          <p class="recipe-prep"><strong style="color:#C9A84C;">D&iacute;a 1, noche.</strong> Mezcla harina de teff con agua y sal. Tapa con un pa&ntilde;o y deja fermentar a temperatura ambiente 48 horas &mdash; o 24h si hace calor. Ver&aacute;s burbujear: eso es la fermentaci&oacute;n activa.</p>
+          <p class="recipe-prep"><strong style="color:#FF6B35;">D&iacute;a 1, noche.</strong> Mezcla harina de teff con agua y sal. Tapa con un pa&ntilde;o y deja fermentar a temperatura ambiente 48 horas &mdash; o 24h si hace calor. Ver&aacute;s burbujear: eso es la fermentaci&oacute;n activa.</p>
           <br>
-          <p class="recipe-prep"><strong style="color:#C9A84C;">D&iacute;a 3.</strong> La masa debe tener olor ligeramente &aacute;cido y agradable. Cocina en sart&eacute;n antiadherente sin aceite, calor medio-alto, vuelta &uacute;nica (como un blini). Sirve con tahini, miel cruda y frutos rojos.</p>
+          <p class="recipe-prep"><strong style="color:#FF6B35;">D&iacute;a 3.</strong> La masa debe tener olor ligeramente &aacute;cido y agradable. Cocina en sart&eacute;n antiadherente sin aceite, calor medio-alto, vuelta &uacute;nica (como un blini). Sirve con tahini, miel cruda y frutos rojos.</p>
         </td>
       </tr>
     </table>
-    <div style="margin-top: 24px; border-top: 1px solid rgba(201,168,76,0.20); padding-top: 20px;">
+    <div style="margin-top: 24px; border-top: 1px solid rgba(255,107,53,0.20); padding-top: 20px;">
       <p class="recipe-note-label">Nota Food&middot;Mood</p>
       <p class="recipe-note">La fermentaci&oacute;n espont&aacute;nea activa lactobacilos del entorno que pueden generar metabolitos de inter&eacute;s para el microbioma. El tahini aporta calcio y tript&oacute;fano. La miel cruda contiene oligosac&aacute;ridos con posible efecto prebi&oacute;tico. Un desayuno que viene de tres d&iacute;as de paciencia y sabe a algo que no hab&iacute;as probado antes.</p>
     </div>

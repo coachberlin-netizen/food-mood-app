@@ -55,7 +55,7 @@ const steps = [
         <circle cx="12" cy="12" r="1" fill="currentColor" />
       </svg>
     ),
-    color: "#C9A84C",
+    color: "#FF6B35",
     isAction: true,
     link: "/viaje"
   }

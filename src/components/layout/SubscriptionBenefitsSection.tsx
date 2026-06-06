@@ -33,7 +33,7 @@ const benefits = [
     title: "Semana de datos",
     description: "Cada domingo: tus correlaciones personales + el newsletter curated de nuestro equipo.",
     watercolor: "/images/textures/blob-gold.png",
-    color: "#C9A84C"
+    color: "#FF6B35"
   },
   {
     title: "Retos de transformación",
@@ -117,9 +117,9 @@ export function SubscriptionBenefitsSection() {
           className="mt-20 md:mt-28 rounded-3xl px-10 py-16 md:px-20 md:py-20 text-center relative overflow-hidden"
           style={{ backgroundColor: '#2d0f16' }}
         >
-          <div className="absolute top-0 right-0 w-72 h-72 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" style={{ backgroundColor: 'rgba(201,168,76,0.06)' }} />
+          <div className="absolute top-0 right-0 w-72 h-72 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" style={{ backgroundColor: 'rgba(255,107,53,0.06)' }} />
           <div className="relative z-10 max-w-2xl mx-auto">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] block mb-5" style={{ color: '#C9A84C' }}>
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] block mb-5" style={{ color: '#FF6B35' }}>
               Tu viaje empieza hoy
             </span>
             <h3 className="text-3xl md:text-5xl font-serif font-black text-white mb-6 leading-tight">
@@ -133,7 +133,7 @@ export function SubscriptionBenefitsSection() {
               <Link
                 href="/test"
                 className="px-10 py-4 rounded-full text-sm font-bold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
-                style={{ backgroundColor: '#6B2737', border: '1px solid rgba(201,168,76,0.3)' }}
+                style={{ backgroundColor: '#6B2737', border: '1px solid rgba(255,107,53,0.3)' }}
               >
                 Hacer mi test gratuito →
               </Link>

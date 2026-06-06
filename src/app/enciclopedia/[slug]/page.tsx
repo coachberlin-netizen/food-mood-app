@@ -25,7 +25,7 @@ const MOOD_COLORS: Record<string, string> = {
   Activación: '#E30B5D',
   Calma:      '#5A9B8A',
   Focus:      '#4A90D9',
-  Social:     '#C9A84C',
+  Social:     '#FF6B35',
   Reset:      '#7B68EE',
   Confort:    '#E8845A',
 }
@@ -129,7 +129,7 @@ export default async function KbDetailPage({ params }: Props) {
         {/* Table of contents */}
         {kb.sections.length > 3 && (
           <nav className="rounded-2xl p-5 mb-8" style={{ backgroundColor: 'rgba(26,22,18,0.03)', border: '1px solid rgba(26,22,18,0.07)' }}>
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-3" style={{ color: '#C9A84C' }}>Índice</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-3" style={{ color: '#FF6B35' }}>Índice</p>
             <ol className="space-y-1.5">
               {kb.sections.map((s, i) => (
                 <li key={s.anchor}>

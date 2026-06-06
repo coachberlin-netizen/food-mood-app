@@ -86,7 +86,7 @@ export function NewsletterGate({ children }: { children: ReactNode }) {
         >
           {/* Header */}
           <div className="px-8 pt-8 pb-6 text-center" style={{ backgroundColor: '#2d0f16' }}>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: '#FF6B35' }}>
               Archivo exclusivo
             </p>
             <h2 className="font-serif text-2xl font-bold leading-tight mb-2" style={{ color: '#F5F0E8' }}>
@@ -188,7 +188,7 @@ export function NewsletterGate({ children }: { children: ReactNode }) {
               <>
                 {codeOk ? (
                   <div className="flex flex-col items-center gap-3 py-4">
-                    <CheckCircle2 className="w-10 h-10" style={{ color: '#C9A84C' }} />
+                    <CheckCircle2 className="w-10 h-10" style={{ color: '#FF6B35' }} />
                     <p className="text-sm font-semibold text-center" style={{ color: '#2d0f16' }}>
                       Código válido. Abriendo el archivo…
                     </p>
@@ -212,7 +212,7 @@ export function NewsletterGate({ children }: { children: ReactNode }) {
                         style={{
                           backgroundColor: 'rgba(107,39,55,0.04)',
                           border:          codeError
-                            ? '1.5px solid #C9A84C'
+                            ? '1.5px solid #FF6B35'
                             : '1.5px solid rgba(107,39,55,0.15)',
                           color: '#2d0f16',
                         }}
@@ -221,12 +221,12 @@ export function NewsletterGate({ children }: { children: ReactNode }) {
                       />
                     </div>
                     {codeError && (
-                      <p className="text-xs" style={{ color: '#C9A84C' }}>{codeError}</p>
+                      <p className="text-xs" style={{ color: '#FF6B35' }}>{codeError}</p>
                     )}
                     <button
                       type="submit"
                       className="w-full py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-opacity"
-                      style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+                      style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}
                     >
                       Canjear código <ArrowRight className="w-4 h-4" />
                     </button>

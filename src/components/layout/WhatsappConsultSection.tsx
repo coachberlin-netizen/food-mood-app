@@ -21,7 +21,7 @@ export function WhatsappConsultSection({
           
           {/* Left Column: Heading and Context */}
           <div className="flex flex-col">
-            <h2 className="text-xs font-sans tracking-[0.2em] uppercase text-[#C9A84C] font-semibold mb-6">
+            <h2 className="text-xs font-sans tracking-[0.2em] uppercase text-[#FF6B35] font-semibold mb-6">
               Acompañamiento
             </h2>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-aubergine-dark leading-[1.15] mb-6 max-w-lg">
@@ -35,7 +35,7 @@ export function WhatsappConsultSection({
           {/* Right Column: Bullets and Action Box */}
           <div className="flex flex-col bg-cream rounded-3xl p-8 md:p-12 border border-aubergine-dark/5 shadow-sm relative overflow-hidden">
             {/* Subtle aesthetic accent */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9A84C]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B35]/5 rounded-full blur-3xl pointer-events-none" />
 
             <ul className="flex flex-col gap-6 mb-10 relative z-10">
               {[
@@ -44,7 +44,7 @@ export function WhatsappConsultSection({
                 "Canal cercano por escrito con tiempos de respuesta claros, pausados y realistas."
               ].map((bullet, idx) => (
                 <li key={idx} className="flex items-start gap-4">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]/60 mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35]/60 mt-2 shrink-0" />
                   <p className="text-[15px] leading-relaxed text-aubergine-dark/80 font-light">
                     {bullet}
                   </p>

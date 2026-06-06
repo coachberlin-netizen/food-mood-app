@@ -111,7 +111,7 @@ export function VoiceMoodCheckin() {
   }
 
   // ── Derived ──────────────────────────────────────────────────────────────────
-  const moodColor = detectedMood ? (MOOD_COLORS[detectedMood] ?? "#C9A84C") : "#C9A84C"
+  const moodColor = detectedMood ? (MOOD_COLORS[detectedMood] ?? "#FF6B35") : "#FF6B35"
   const moodLabel = detectedMood ? (MOOD_LABELS[detectedMood] ?? detectedMood) : null
 
   const orbBusy      = phase === "processing" || phase === "transcribing"

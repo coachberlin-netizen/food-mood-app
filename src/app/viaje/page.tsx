@@ -96,7 +96,7 @@ function MosaicGrid({
               aspectRatio: "1",
               backgroundColor: bg,
               opacity: isFuture ? 0.4 : 1,
-              outline: isToday ? "2px solid #C9A84C" : "none",
+              outline: isToday ? "2px solid #FF6B35" : "none",
               outlineOffset: "1px",
               animation: isToday ? "pulse-gold 2s ease-in-out infinite" : "none",
             }}
@@ -251,7 +251,7 @@ export default function ViajePage() {
     return (
       <main style={{ backgroundColor: "#F5F0E8", minHeight: "100vh" }}>
         <div className="max-w-[520px] mx-auto px-4 py-16 flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#C9A84C] border-t-transparent animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#FF6B35] border-t-transparent animate-spin" />
         </div>
       </main>
     )
@@ -289,8 +289,8 @@ export default function ViajePage() {
     <main style={{ backgroundColor: "#F5F0E8", minHeight: "100vh" }}>
       <style>{`
         @keyframes pulse-gold {
-          0%, 100% { outline-color: #C9A84C; }
-          50%       { outline-color: rgba(201,168,76,0.3); }
+          0%, 100% { outline-color: #FF6B35; }
+          50%       { outline-color: rgba(255,107,53,0.3); }
         }
       `}</style>
 
@@ -299,7 +299,7 @@ export default function ViajePage() {
         {/* ── Header ── */}
         <div className="flex items-center justify-between mb-8">
           <Link href="/" className="font-serif text-xl font-semibold" style={{ color: "#2d0f16" }}>
-            Food<span style={{ color: "#C9A84C" }}>·</span>Mood
+            Food<span style={{ color: "#FF6B35" }}>·</span>Mood
           </Link>
           <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.5)" }}>
             Viaje {journey?.journey_number ?? 1}
@@ -313,14 +313,14 @@ export default function ViajePage() {
         >
           <p
             className="text-[10px] font-bold uppercase tracking-widest mb-2"
-            style={{ color: "#C9A84C" }}
+            style={{ color: "#FF6B35" }}
           >
             Tu viaje de 90 días
           </p>
           <div className="flex items-end gap-3 mb-4">
             <span
               className="font-serif font-black leading-none"
-              style={{ fontSize: "clamp(64px,20vw,80px)", color: "#C9A84C" }}
+              style={{ fontSize: "clamp(64px,20vw,80px)", color: "#FF6B35" }}
             >
               {currentDay}
             </span>
@@ -333,7 +333,7 @@ export default function ViajePage() {
           >
             <div
               className="h-2 rounded-full transition-all duration-1000"
-              style={{ width: `${Math.max(2, progressPct)}%`, backgroundColor: "#C9A84C" }}
+              style={{ width: `${Math.max(2, progressPct)}%`, backgroundColor: "#FF6B35" }}
             />
           </div>
 
@@ -354,7 +354,7 @@ export default function ViajePage() {
         >
           <p
             className="text-[10px] font-bold uppercase tracking-widest mb-1"
-            style={{ color: "#C9A84C" }}
+            style={{ color: "#FF6B35" }}
           >
             Tu paleta emocional
           </p>
@@ -376,7 +376,7 @@ export default function ViajePage() {
               <div className="flex items-center gap-1.5">
                 <div
                   className="w-3 h-3 rounded-[2px]"
-                  style={{ outline: "2px solid #C9A84C", outlineOffset: "1px", backgroundColor: "#e8e0d0" }}
+                  style={{ outline: "2px solid #FF6B35", outlineOffset: "1px", backgroundColor: "#e8e0d0" }}
                 />
                 <span className="text-[9px]" style={{ color: "rgba(107,39,55,0.5)" }}>Hoy</span>
               </div>
@@ -398,7 +398,7 @@ export default function ViajePage() {
               className="p-4 rounded-2xl"
               style={{
                 backgroundColor: "white",
-                borderLeft: "4px solid rgba(201,168,76,0.35)",
+                borderLeft: "4px solid rgba(255,107,53,0.35)",
                 boxShadow: "0 1px 6px rgba(0,0,0,0.05)",
               }}
             >
@@ -412,7 +412,7 @@ export default function ViajePage() {
               className="p-4 rounded-2xl"
               style={{
                 backgroundColor: "white",
-                borderLeft: "4px solid rgba(201,168,76,0.35)",
+                borderLeft: "4px solid rgba(255,107,53,0.35)",
                 boxShadow: "0 1px 6px rgba(0,0,0,0.05)",
               }}
             >
@@ -428,14 +428,14 @@ export default function ViajePage() {
                   className="p-4 rounded-2xl"
                   style={{
                     backgroundColor: "white",
-                    borderLeft: "4px solid #C9A84C",
+                    borderLeft: "4px solid #FF6B35",
                     boxShadow: "0 1px 6px rgba(0,0,0,0.06)",
                   }}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span
                       className="text-[9px] font-bold uppercase tracking-widest"
-                      style={{ color: "#C9A84C" }}
+                      style={{ color: "#FF6B35" }}
                     >
                       {c.factor_a.replace(/_/g, " ")} → {c.factor_b.replace(/_/g, " ")}
                     </span>
@@ -486,7 +486,7 @@ export default function ViajePage() {
                   <div>
                     <p
                       className="text-[10px] font-bold uppercase tracking-widest"
-                      style={{ color: unlocked ? "#C9A84C" : "rgba(107,39,55,0.3)" }}
+                      style={{ color: unlocked ? "#FF6B35" : "rgba(107,39,55,0.3)" }}
                     >
                       Día {m.day}
                     </p>
@@ -520,7 +520,7 @@ export default function ViajePage() {
                 <p className="text-[9px] uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                   Días registrados
                 </p>
-                <p className="font-serif text-2xl font-bold" style={{ color: "#C9A84C" }}>
+                <p className="font-serif text-2xl font-bold" style={{ color: "#FF6B35" }}>
                   {registeredDays}
                   <span className="text-xs font-light text-white/40"> / {Math.min(currentDay, 90)}</span>
                 </p>
@@ -529,7 +529,7 @@ export default function ViajePage() {
                 <p className="text-[9px] uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                   Consistencia
                 </p>
-                <p className="font-serif text-2xl font-bold" style={{ color: "#C9A84C" }}>
+                <p className="font-serif text-2xl font-bold" style={{ color: "#FF6B35" }}>
                   {Math.round((registeredDays / Math.max(1, currentDay)) * 100)}%
                 </p>
               </div>
@@ -537,7 +537,7 @@ export default function ViajePage() {
                 <p className="text-[9px] uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                   Correlaciones
                 </p>
-                <p className="font-serif text-2xl font-bold" style={{ color: "#C9A84C" }}>
+                <p className="font-serif text-2xl font-bold" style={{ color: "#FF6B35" }}>
                   {correlations.length}
                 </p>
               </div>
@@ -545,7 +545,7 @@ export default function ViajePage() {
                 <p className="text-[9px] uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                   Días restantes
                 </p>
-                <p className="font-serif text-2xl font-bold" style={{ color: "#C9A84C" }}>
+                <p className="font-serif text-2xl font-bold" style={{ color: "#FF6B35" }}>
                   {Math.max(0, 90 - currentDay)}
                 </p>
               </div>
@@ -559,7 +559,7 @@ export default function ViajePage() {
             className="p-5 rounded-3xl mb-6 text-center"
             style={{ backgroundColor: "#6B2737" }}
           >
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
               Casi lo tienes
             </p>
             <p className="font-serif text-lg font-bold text-white mb-1">
@@ -595,7 +595,7 @@ export default function ViajePage() {
               }}
             >
               {item.label}
-              <span style={{ color: "#C9A84C" }}>→</span>
+              <span style={{ color: "#FF6B35" }}>→</span>
             </Link>
           ))}
         </div>

@@ -105,7 +105,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
         >
           {teaserItems.map((item) => {
             const firstMood = item.moods?.[0]
-            const color = firstMood ? (MOOD_COLORS[firstMood]?.color ?? '#C9A84C') : '#C9A84C'
+            const color = firstMood ? (MOOD_COLORS[firstMood]?.color ?? '#FF6B35') : '#FF6B35'
             return (
               <div
                 key={item.id}
@@ -114,7 +114,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
                 <div className="w-full h-2 rounded-t-[2rem]" style={{ backgroundColor: color }} />
                 <div className="p-8 flex flex-col flex-1">
                   {item.category && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-[10px] uppercase tracking-widest font-bold self-start mb-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF6B35]/10 text-[#FF6B35] text-[10px] uppercase tracking-widest font-bold self-start mb-4">
                       {categoryLabels[item.category] || item.category}
                     </span>
                   )}
@@ -158,7 +158,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
             <div className="pt-6">
               <Link
                 href="/pricing"
-                className="inline-flex items-center gap-3 bg-[#C9A84C] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#C9A84C]/20 transition-all transform hover:-translate-y-1"
+                className="inline-flex items-center gap-3 bg-[#FF6B35] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#FF6B35]/20 transition-all transform hover:-translate-y-1"
               >
                 <Sparkles className="w-5 h-5 opacity-80" />
                 Ver planes de acceso
@@ -193,7 +193,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
             placeholder="Busca por ingrediente o beneficio..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-12 pr-10 py-4 bg-cream rounded-full border border-aubergine-dark/10 text-aubergine-dark placeholder:text-aubergine-dark/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 transition-shadow shadow-sm"
+            className="w-full pl-12 pr-10 py-4 bg-cream rounded-full border border-aubergine-dark/10 text-aubergine-dark placeholder:text-aubergine-dark/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2 transition-shadow shadow-sm"
           />
           {search && (
             <button type="button" onClick={() => setSearch("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-aubergine-dark/30 hover:text-aubergine-dark p-1" aria-label="Limpiar búsqueda">
@@ -232,7 +232,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
           <div className="flex-1 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
             <button 
               onClick={() => setFilterCategory(null)}
-              className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors ${!filterCategory ? 'text-[#C9A84C]' : 'text-aubergine-dark/40 hover:text-[#C9A84C]'}`}
+              className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors ${!filterCategory ? 'text-[#FF6B35]' : 'text-aubergine-dark/40 hover:text-[#FF6B35]'}`}
             >
               Cualquiera
             </button>
@@ -240,7 +240,7 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
               <button 
                 key={c.id}
                 onClick={() => setFilterCategory(c.id)}
-                className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors ${filterCategory === c.id ? 'bg-[#C9A84C]/10 text-[#C9A84C]' : 'text-aubergine-dark/50 hover:bg-[#C9A84C]/5'}`}
+                className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors ${filterCategory === c.id ? 'bg-[#FF6B35]/10 text-[#FF6B35]' : 'text-aubergine-dark/50 hover:bg-[#FF6B35]/5'}`}
               >
                 {c.label}
               </button>
@@ -266,14 +266,14 @@ export default function GlossaryClient({ initialData, isPremium }: { initialData
                   {/* Mood colour header — instant render */}
                   {(() => {
                     const firstMood = item.moods?.[0]
-                    const color = firstMood ? (MOOD_COLORS[firstMood]?.color ?? "#C9A84C") : "#C9A84C"
+                    const color = firstMood ? (MOOD_COLORS[firstMood]?.color ?? "#FF6B35") : "#FF6B35"
                     return (
                       <div className="w-full h-2 rounded-t-[2rem]" style={{ backgroundColor: color }} />
                     )
                   })()}
                   <div className="p-8 flex flex-col flex-1">
                   {item.category && (
-                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-[10px] uppercase tracking-widest font-bold self-start mb-4">
+                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF6B35]/10 text-[#FF6B35] text-[10px] uppercase tracking-widest font-bold self-start mb-4">
                        {categoryLabels[item.category] || item.category}
                      </span>
                   )}

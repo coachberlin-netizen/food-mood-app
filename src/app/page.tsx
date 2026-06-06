@@ -51,12 +51,12 @@ function DashboardMock() {
   return (
     <div
       className="rounded-2xl overflow-hidden shadow-2xl"
-      style={{ backgroundColor: "#0f0a0d", border: "1px solid rgba(201,168,76,0.18)", fontFamily: "monospace" }}
+      style={{ backgroundColor: "#0f0a0d", border: "1px solid rgba(255,107,53,0.18)", fontFamily: "monospace" }}
     >
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", backgroundColor: "#140c10" }}>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold" style={{ color: "#C9A84C" }}>Food·Mood Pro</span>
+          <span className="text-[10px] font-bold" style={{ color: "#FF6B35" }}>Food·Mood Pro</span>
           <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.25)" }}>· Portal profesional</span>
         </div>
         <div className="flex items-center gap-1.5">
@@ -78,7 +78,7 @@ function DashboardMock() {
       <div className="grid grid-cols-3 gap-px" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
         {[
           { label: "SN dominante", value: "Ventral", color: "#5A9B8A", sub: "últimas 48h" },
-          { label: "Hambre emocional", value: "7.2 / 10", color: "#C9A84C", sub: "↑ desde el lunes" },
+          { label: "Hambre emocional", value: "7.2 / 10", color: "#FF6B35", sub: "↑ desde el lunes" },
           { label: "Granularidad", value: "↗ mejora", color: "#A07BBE", sub: "3 sesiones" },
         ].map((m) => (
           <div key={m.label} className="px-3 py-3" style={{ backgroundColor: "#0f0a0d" }}>
@@ -91,9 +91,9 @@ function DashboardMock() {
 
       {/* Patrón detectado */}
       <div className="px-4 py-3" style={{ borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-        <p className="text-[8px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(201,168,76,0.55)" }}>Patrón detectado esta semana</p>
+        <p className="text-[8px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(255,107,53,0.55)" }}>Patrón detectado esta semana</p>
         <div className="flex items-start gap-2.5">
-          <div className="w-1 h-full rounded-full shrink-0 mt-0.5" style={{ backgroundColor: "#C9A84C", minHeight: 28 }} />
+          <div className="w-1 h-full rounded-full shrink-0 mt-0.5" style={{ backgroundColor: "#FF6B35", minHeight: 28 }} />
           <p className="text-[10px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>
             Hambre emocional alta (≥7) en franja 18:00–19:00h tres días consecutivos. Coincide con registros de estrés laboral.
           </p>
@@ -102,14 +102,14 @@ function DashboardMock() {
 
       {/* Preparación de sesión */}
       <div className="px-4 py-3">
-        <p className="text-[8px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "rgba(255,255,255,0.3)" }}>Preparación de sesión · 3 preguntas sugeridas</p>
+        <p className="text-[8px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "#FF6B35" }}>Preparación de sesión · 3 preguntas sugeridas</p>
         {[
           "¿Qué ocurre en tu cuerpo a las 18h que identifies como hambre?",
           "¿Qué has intentado para manejar ese momento? ¿Qué funciona?",
           "¿Qué necesitarías tener a mano en esa franja para sentirte más segura?",
         ].map((q, i) => (
           <div key={i} className="flex items-start gap-2 mb-1.5">
-            <span className="text-[8px] font-mono shrink-0 mt-0.5" style={{ color: "rgba(201,168,76,0.45)" }}>0{i + 1}</span>
+            <span className="text-[8px] font-mono shrink-0 mt-0.5" style={{ color: "rgba(255,107,53,0.45)" }}>0{i + 1}</span>
             <p className="text-[9px] font-light" style={{ color: "rgba(245,240,232,0.5)" }}>{q}</p>
           </div>
         ))}
@@ -152,7 +152,7 @@ function DemoRequestForm({ onClose, compact = false }: { onClose?: () => void; c
   const py      = compact ? "py-3"  : "py-3.5"
   const labelSz = compact ? "text-[11px]" : "text-xs"
   const inputCls = `w-full rounded-xl px-4 ${py} text-sm outline-none transition-all`
-  const inputSt  = { backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F0E8", caretColor: "#C9A84C" }
+  const inputSt  = { backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F0E8", caretColor: "#FF6B35" }
 
   if (status === "ok") {
     return (
@@ -171,7 +171,7 @@ function DemoRequestForm({ onClose, compact = false }: { onClose?: () => void; c
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98]"
-          style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 24px rgba(201,168,76,0.35), 0 4px 12px rgba(0,0,0,0.35)" }}
+          style={{ backgroundColor: "#FF6B35", color: "#0f0a0d", boxShadow: "0 0 24px rgba(255,107,53,0.35), 0 4px 12px rgba(0,0,0,0.35)" }}
         >
           Reservar demo de 15 min <ArrowRight className="w-4 h-4" />
         </a>
@@ -228,7 +228,7 @@ function DemoRequestForm({ onClose, compact = false }: { onClose?: () => void; c
         type="submit"
         disabled={status === "loading"}
         className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
-        style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 28px rgba(201,168,76,0.32), 0 4px 14px rgba(0,0,0,0.4)" }}
+        style={{ backgroundColor: "#FF6B35", color: "#0f0a0d", boxShadow: "0 0 28px rgba(255,107,53,0.32), 0 4px 14px rgba(0,0,0,0.4)" }}
       >
         {status === "loading" ? "Enviando…" : "Solicitar demo de 15 min →"}
       </button>
@@ -257,11 +257,11 @@ function EarlyAccessModal({ open, onClose }: { open: boolean; onClose: () => voi
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
             transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
             className="w-full max-w-xl rounded-2xl overflow-hidden"
-            style={{ backgroundColor: "#1a0d14", border: "1px solid rgba(201,168,76,0.2)" }}
+            style={{ backgroundColor: "#1a0d14", border: "1px solid rgba(255,107,53,0.2)" }}
           >
             <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#C9A84C" }}>Demo personalizada · 15 min</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#FF6B35" }}>Demo personalizada · 15 min</p>
                 <h2 className="font-serif text-lg font-semibold text-white leading-snug">Cuéntanos sobre tu consulta</h2>
               </div>
               <button onClick={onClose} className="p-1.5 rounded-lg transition-colors hover:bg-white/10" aria-label="Cerrar">
@@ -330,7 +330,7 @@ const APP_SCREENS = [
             <div className="flex gap-1.5 flex-wrap">
               {[
                 { l: "Tranquila", c: "#5A9B8A", on: false },
-                { l: "Activada", c: "#C9A84C", on: true },
+                { l: "Activada", c: "#FF6B35", on: true },
                 { l: "Ansiosa", c: "#6B2737", on: false },
                 { l: "Agotada", c: "#A07BBE", on: false },
               ].map(({ l, c, on }) => (
@@ -359,7 +359,7 @@ const APP_SCREENS = [
     id: "panel",
     label: "Panel profesional",
     desc: "Antes de cada sesión, el profesional llega con el contexto de la semana: patrones, señales y tres preguntas listas.",
-    color: "#C9A84C",
+    color: "#FF6B35",
     screen: () => (
       <div className="flex flex-col h-full" style={{ backgroundColor: "#0f0a0d" }}>
         {/* Status bar */}
@@ -373,17 +373,17 @@ const APP_SCREENS = [
         <div className="flex-1 px-4 py-2 flex flex-col gap-2.5 overflow-hidden">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[8px] font-bold uppercase tracking-widest" style={{ color: "rgba(201,168,76,0.5)" }}>Preparación de sesión</p>
+              <p className="text-[8px] font-bold uppercase tracking-widest" style={{ color: "#FF6B35" }}>Preparación de sesión</p>
               <p className="text-xs font-semibold text-white mt-0.5">Ana M. · Sesión 7</p>
             </div>
             <span className="text-[8px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(90,155,138,0.2)", color: "#5A9B8A" }}>14 registros</span>
           </div>
 
           {/* Patrón */}
-          <div className="rounded-xl p-3" style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(201,168,76,0.2)" }}>
-            <p className="text-[8px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "rgba(201,168,76,0.55)" }}>Patrón esta semana</p>
+          <div className="rounded-xl p-3" style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,107,53,0.2)" }}>
+            <p className="text-[8px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "rgba(255,107,53,0.55)" }}>Patrón esta semana</p>
             <div className="flex items-start gap-2">
-              <div className="w-0.5 rounded-full shrink-0 mt-0.5" style={{ minHeight: 24, backgroundColor: "#C9A84C" }} />
+              <div className="w-0.5 rounded-full shrink-0 mt-0.5" style={{ minHeight: 24, backgroundColor: "#FF6B35" }} />
               <p className="text-[9px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.7)" }}>
                 Hambre emocional ≥7 en franja 18–19h, 4 de 5 días laborables. Coincide con pensamiento dominante de estrés laboral.
               </p>
@@ -394,7 +394,7 @@ const APP_SCREENS = [
           <div className="grid grid-cols-3 gap-1.5">
             {[
               { l: "Adherencia", v: "87%", c: "#5A9B8A" },
-              { l: "H. emocional", v: "6.8", c: "#C9A84C" },
+              { l: "H. emocional", v: "6.8", c: "#FF6B35" },
               { l: "Estado SN", v: "Ventral", c: "#A07BBE" },
             ].map(m => (
               <div key={m.l} className="rounded-lg px-2 py-2" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
@@ -412,7 +412,7 @@ const APP_SCREENS = [
               "¿Qué has probado para manejar ese momento?",
             ].map((q, i) => (
               <div key={i} className="flex items-start gap-1.5 mb-1.5">
-                <span className="text-[7px] font-mono shrink-0 mt-0.5" style={{ color: "rgba(201,168,76,0.4)" }}>0{i+1}</span>
+                <span className="text-[7px] font-mono shrink-0 mt-0.5" style={{ color: "rgba(255,107,53,0.4)" }}>0{i+1}</span>
                 <p className="text-[8px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>{q}</p>
               </div>
             ))}
@@ -542,12 +542,12 @@ function AppPreviewSection() {
       <div className="max-w-5xl mx-auto">
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-14">
-          <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
+          <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(255,107,53,0.5)" }}>
             En la práctica
           </motion.p>
           <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
             Así funciona{" "}
-            <em className="font-light italic" style={{ color: "#C9A84C" }}>el ciclo completo.</em>
+            <em className="font-light italic" style={{ color: "#FF6B35" }}>el ciclo completo.</em>
           </motion.h2>
         </motion.div>
 
@@ -655,7 +655,7 @@ function FaqItem({ faq, isOpen, onToggle }: { faq: (typeof FAQS)[0]; isOpen: boo
     <div style={{ borderBottom: "1px solid rgba(107,39,55,0.1)" }}>
       <button onClick={onToggle} className="w-full flex items-center justify-between py-5 text-left group" aria-expanded={isOpen}>
         <span className="text-base md:text-lg font-serif pr-8 group-hover:text-[#6B2737] transition-colors" style={{ color: "#2d0f16" }}>{faq.q}</span>
-        <ChevronDown className="w-4 h-4 shrink-0 transition-transform duration-300" style={{ color: isOpen ? "#C9A84C" : "rgba(107,39,55,0.35)", transform: isOpen ? "rotate(180deg)" : undefined }} />
+        <ChevronDown className="w-4 h-4 shrink-0 transition-transform duration-300" style={{ color: isOpen ? "#FF6B35" : "rgba(107,39,55,0.35)", transform: isOpen ? "rotate(180deg)" : undefined }} />
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (
@@ -676,7 +676,7 @@ const ONBOARDING_STEPS = [
     title: "Solicitas acceso",
     desc: "Rellenas el formulario en 2 minutos. Nos ponemos en contacto en menos de 48h para concretar la incorporación y resolver cualquier duda.",
     time: "2 min de tu tiempo",
-    color: "#C9A84C",
+    color: "#FF6B35",
   },
   {
     n: 2,
@@ -699,12 +699,12 @@ function OnboardingSteps({ onRequestAccess }: { onRequestAccess: () => void }) {
     <section aria-label="Cómo empezar" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0f0a0d" }}>
       <div className="max-w-4xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-14">
-          <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>
+          <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(255,107,53,0.5)" }}>
             Empieza en menos de 10 minutos
           </motion.p>
           <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight">
             ¿Qué ocurre después{" "}
-            <em className="font-light italic" style={{ color: "#C9A84C" }}>de clicar?</em>
+            <em className="font-light italic" style={{ color: "#FF6B35" }}>de clicar?</em>
           </motion.h2>
         </motion.div>
 
@@ -735,7 +735,7 @@ function OnboardingSteps({ onRequestAccess }: { onRequestAccess: () => void }) {
             initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             onClick={onRequestAccess}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-            style={{ backgroundColor: "#C9A84C", color: "#0f0a0d", boxShadow: "0 0 28px rgba(201,168,76,0.3), 0 4px 16px rgba(0,0,0,0.35)" }}
+            style={{ backgroundColor: "#FF6B35", color: "#0f0a0d", boxShadow: "0 0 28px rgba(255,107,53,0.3), 0 4px 16px rgba(0,0,0,0.35)" }}
           >
             Solicitar acceso — respuesta en 48h
           </motion.button>
@@ -821,15 +821,15 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
                 className="rounded-2xl p-7 flex flex-col relative overflow-hidden"
                 style={{
                   backgroundColor: plan.highlight ? "#2d0f16" : "white",
-                  border: plan.highlight ? "1px solid rgba(201,168,76,0.3)" : "1px solid rgba(107,39,55,0.1)",
+                  border: plan.highlight ? "1px solid rgba(255,107,53,0.3)" : "1px solid rgba(107,39,55,0.1)",
                 }}
               >
                 {plan.highlight && (
-                  <span className="absolute top-5 right-5 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.25)" }}>
+                  <span className="absolute top-5 right-5 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ backgroundColor: "rgba(255,107,53,0.15)", color: "#FF6B35", border: "1px solid rgba(255,107,53,0.25)" }}>
                     Más popular
                   </span>
                 )}
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: plan.highlight ? "rgba(201,168,76,0.6)" : "rgba(107,39,55,0.4)" }}>{plan.name}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: plan.highlight ? "rgba(255,107,53,0.6)" : "rgba(107,39,55,0.4)" }}>{plan.name}</p>
                 <div className="flex items-end gap-1.5 mb-1">
                   {price !== null ? (
                     <>
@@ -842,7 +842,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
                 </div>
                 {annual && plan.monthly !== null && <p className="text-[10px] mb-1" style={{ color: plan.highlight ? "rgba(245,240,232,0.35)" : "rgba(107,39,55,0.35)" }}>Facturado anualmente ({plan.monthly * 10}€/año)</p>}
                 <p className="text-xs font-light mb-1.5" style={{ color: plan.highlight ? "rgba(245,240,232,0.55)" : "rgba(107,39,55,0.55)" }}>{plan.description}</p>
-                <p className="text-xs font-semibold mb-5 pb-5" style={{ color: plan.highlight ? "#C9A84C" : "#6B2737", borderBottom: `1px solid ${plan.highlight ? "rgba(201,168,76,0.12)" : "rgba(107,39,55,0.08)"}` }}>{plan.patients}</p>
+                <p className="text-xs font-semibold mb-5 pb-5" style={{ color: plan.highlight ? "#FF6B35" : "#6B2737", borderBottom: `1px solid ${plan.highlight ? "rgba(255,107,53,0.12)" : "rgba(107,39,55,0.08)"}` }}>{plan.patients}</p>
                 <ul className="flex flex-col gap-2.5 mb-8 flex-1">
                   {plan.features.map(f => (
                     <li key={f} className="flex items-center gap-2.5 text-sm font-light">
@@ -856,7 +856,7 @@ function PricingSection({ onRequestAccess }: { onRequestAccess: () => void }) {
                   onClick={onRequestAccess}
                   className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-[0.98]"
                   style={{
-                    backgroundColor: plan.highlight ? "#C9A84C" : "rgba(107,39,55,0.08)",
+                    backgroundColor: plan.highlight ? "#FF6B35" : "rgba(107,39,55,0.08)",
                     color: plan.highlight ? "#0f0a0d" : "#6B2737",
                     border: plan.highlight ? undefined : "1px solid rgba(107,39,55,0.18)",
                   }}
@@ -891,16 +891,16 @@ export default function ProLanding() {
 
       {/* ── 1. HERO ───────────────────────────────────────────────────────────── */}
       <section aria-label="Hero" className="relative overflow-hidden" style={{ backgroundColor: "#0f0a0d" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 110% 70% at 65% 25%, rgba(107,39,55,0.32) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 95% 90%, rgba(201,168,76,0.07) 0%, transparent 55%)" }} aria-hidden="true" />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 110% 70% at 65% 25%, rgba(107,39,55,0.32) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 95% 90%, rgba(255,107,53,0.07) 0%, transparent 55%)" }} aria-hidden="true" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
 
             {/* Copy */}
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.2, 0.8, 0.2, 1] }}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6" style={{ backgroundColor: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.25)" }}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6" style={{ backgroundColor: "rgba(255,107,53,0.1)", border: "1px solid rgba(255,107,53,0.25)" }}>
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#22c55e" }} />
-                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.28em]" style={{ color: "#C9A84C" }}>
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.28em]" style={{ color: "#FF6B35" }}>
                   Acceso anticipado<span className="hidden sm:inline"> · Plazas limitadas</span>
                 </span>
               </div>
@@ -911,7 +911,7 @@ export default function ProLanding() {
 
               <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.1] mb-6" style={{ letterSpacing: "-0.02em" }}>
                 La capa psicológica que le faltaba{" "}
-                <em className="font-light italic" style={{ color: "#C9A84C" }}>al software nutricional.</em>
+                <em className="font-light italic" style={{ color: "#FF6B35" }}>al software nutricional.</em>
               </h1>
 
               <p className="text-base md:text-lg font-light leading-relaxed mb-10" style={{ color: "rgba(245,240,232,0.65)", maxWidth: "52ch" }}>
@@ -940,7 +940,7 @@ export default function ProLanding() {
 
             {/* Dashboard mockup */}
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.85, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}>
-              <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "rgba(201,168,76,0.4)" }}>Vista profesional · Preparación de sesión</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#FF6B35" }}>Vista profesional · Preparación de sesión</p>
               <DashboardMock />
             </motion.div>
 
@@ -1007,7 +1007,7 @@ export default function ProLanding() {
           <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl px-8 py-8 text-center" style={{ backgroundColor: "#2d0f16" }}>
             <p className="font-serif text-xl md:text-2xl text-white leading-relaxed">
               Tus pacientes no fallan por falta de información.{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Fallan por lo que sienten, repiten y no consiguen ver.</em>
+              <em className="font-light italic" style={{ color: "#FF6B35" }}>Fallan por lo que sienten, repiten y no consiguen ver.</em>
             </p>
           </motion.div>
         </div>
@@ -1017,10 +1017,10 @@ export default function ProLanding() {
       <section aria-label="La solución" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-5xl mx-auto">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-10">
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>La solución</motion.p>
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(255,107,53,0.5)" }}>La solución</motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
               Tres resultados.{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Un flujo integrado.</em>
+              <em className="font-light italic" style={{ color: "#FF6B35" }}>Un flujo integrado.</em>
             </motion.h2>
           </motion.div>
 
@@ -1037,7 +1037,7 @@ export default function ProLanding() {
                 num: "02",
                 label: "Prepara mejores consultas",
                 body: "Llega a sesión con resumen semanal automático, tres patrones relevantes de la semana y preguntas sugeridas listas para usar. En menos de dos minutos.",
-                color: "#C9A84C",
+                color: "#FF6B35",
               },
               {
                 num: "03",
@@ -1075,7 +1075,7 @@ export default function ProLanding() {
                 num: "02",
                 title: "Panel profesional de patrones",
                 desc: "Evolución temporal, patrones conductuales detectados por IA, alertas suaves y una vista consolidada de todos tus pacientes ordenada por actividad reciente.",
-                color: "#C9A84C",
+                color: "#FF6B35",
                 tags: ["Patrones", "Bloqueos", "Evolución", "Señales de cambio"],
               },
               {
@@ -1202,10 +1202,10 @@ export default function ProLanding() {
       <section aria-label="Por qué diferenciarte" className="py-20 md:py-28 px-6" style={{ backgroundColor: "#2d0f16" }}>
         <div className="max-w-4xl mx-auto">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-14">
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(201,168,76,0.5)" }}>Tu diferencial</motion.p>
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: "rgba(255,107,53,0.5)" }}>Tu diferencial</motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-5xl text-white leading-tight">
               El mercado de nutrición está saturado.{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Lo que te diferencia no es lo que recetas — es lo que ves y aplicas entre sesiones.</em>
+              <em className="font-light italic" style={{ color: "#FF6B35" }}>Lo que te diferencia no es lo que recetas — es lo que ves y aplicas entre sesiones.</em>
             </motion.h2>
           </motion.div>
 
@@ -1225,7 +1225,7 @@ export default function ProLanding() {
                 className="flex flex-col sm:flex-row gap-1 sm:gap-7 py-7 sm:py-8"
                 style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
               >
-                <span className="font-serif text-sm font-semibold sm:shrink-0 sm:w-28 sm:pt-0.5" style={{ color: "#C9A84C" }}>{item.label}</span>
+                <span className="font-serif text-sm font-semibold sm:shrink-0 sm:w-28 sm:pt-0.5" style={{ color: "#FF6B35" }}>{item.label}</span>
                 <p className="text-base font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.65)" }}>{item.body}</p>
               </motion.div>
             ))}
@@ -1279,7 +1279,7 @@ export default function ProLanding() {
                 className="rounded-xl px-4 py-5"
                 style={{ background: "white", border: "1px solid rgba(107,39,55,0.1)" }}
               >
-                <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>{item.num}</p>
+                <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>{item.num}</p>
                 <p className="text-sm font-semibold mb-1 leading-tight" style={{ color: "#6B2737" }}>{item.label}</p>
                 <p className="text-xs font-light leading-snug" style={{ color: "rgba(45,15,22,0.55)" }}>{item.body}</p>
               </motion.div>
@@ -1291,11 +1291,11 @@ export default function ProLanding() {
             initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="rounded-2xl px-8 py-8 mb-10"
-            style={{ background: "#2d0f16", border: "1px solid rgba(201,168,76,0.15)" }}
+            style={{ background: "#2d0f16", border: "1px solid rgba(255,107,53,0.15)" }}
           >
             <div className="flex items-start gap-6 flex-wrap md:flex-nowrap">
               <div className="flex-1 min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>Incluido en Food·Mood Pro</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>Incluido en Food·Mood Pro</p>
                 <h3 className="font-serif text-2xl font-bold text-white mb-3">Protocolo Cortisol</h3>
                 <p className="text-sm font-light leading-relaxed mb-4" style={{ color: "rgba(245,240,232,0.6)" }}>
                   Cuestionario de estrés · Nutrición adaptógena · Rutinas de relajación · Higiene de sueño · Seguimiento adaptativo con IA.
@@ -1305,7 +1305,7 @@ export default function ProLanding() {
                     <span
                       key={tag}
                       className="text-[10px] font-semibold px-2.5 py-1 rounded-full"
-                      style={{ background: "rgba(201,168,76,0.12)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.2)" }}
+                      style={{ background: "rgba(255,107,53,0.12)", color: "#FF6B35", border: "1px solid rgba(255,107,53,0.2)" }}
                     >
                       {tag}
                     </span>
@@ -1323,7 +1323,7 @@ export default function ProLanding() {
                   <div key={s.stage} className="flex items-center gap-2.5">
                     <span
                       className="w-4 h-4 rounded-full flex items-center justify-center shrink-0"
-                      style={{ background: "rgba(201,168,76,0.15)", fontSize: "8px", fontWeight: 700, color: "#C9A84C" }}
+                      style={{ background: "rgba(255,107,53,0.15)", fontSize: "8px", fontWeight: 700, color: "#FF6B35" }}
                     >
                       {s.stage}
                     </span>
@@ -1348,7 +1348,7 @@ export default function ProLanding() {
                 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 transition={{ delay: i * 0.12, duration: 0.4 }}
                 className="flex-1 rounded-xl px-5 py-4"
-                style={{ background: "white", border: "1px solid rgba(107,39,55,0.1)", borderLeft: "3px solid #C9A84C" }}
+                style={{ background: "white", border: "1px solid rgba(107,39,55,0.1)", borderLeft: "3px solid #FF6B35" }}
               >
                 <p className="text-sm font-light leading-relaxed italic" style={{ color: "#6B2737" }}>
                   &ldquo;{quote}&rdquo;
@@ -1415,10 +1415,10 @@ export default function ProLanding() {
       <section id="acceso" aria-label="Solicitar acceso" className="py-24 md:py-32 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-xl mx-auto">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className="space-y-6">
-            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.2em] text-center" style={{ color: "rgba(201,168,76,0.45)" }}>Acceso anticipado</motion.p>
+            <motion.p variants={fade} className="text-[10px] font-bold uppercase tracking-[0.2em] text-center" style={{ color: "rgba(255,107,53,0.45)" }}>Acceso anticipado</motion.p>
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl text-white leading-tight text-center" style={{ letterSpacing: "-0.02em" }}>
               La capa psicológica que le faltaba.{" "}
-              <em className="font-light italic" style={{ color: "#C9A84C" }}>Ahora con plazas abiertas.</em>
+              <em className="font-light italic" style={{ color: "#FF6B35" }}>Ahora con plazas abiertas.</em>
             </motion.h2>
             <motion.p variants={fade} className="text-sm font-light text-center" style={{ color: "rgba(245,240,232,0.5)" }}>
               Demo de 15 min personalizada · Incorporación asistida · Sin permanencia

@@ -91,7 +91,7 @@ export default async function BlogPage() {
                   >
                     <div className="p-8">
                       <div className="flex items-center gap-4 mb-4">
-                        <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                        <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#FF6B35]">
                           <Calendar className="w-3.5 h-3.5" />
                           <time dateTime={post.date}>
                             {new Date(post.date).toLocaleDateString('es-ES', {

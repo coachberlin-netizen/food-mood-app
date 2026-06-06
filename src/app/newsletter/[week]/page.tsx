@@ -127,7 +127,7 @@ export default async function NewsletterEditionPage({ params }: Props) {
                       <h3 className="font-serif text-lg font-bold leading-snug mb-2" style={{ color: '#2d0f16' }}>
                         {item.url ? (
                           <a href={item.url} target="_blank" rel="noopener noreferrer"
-                            className="hover:underline" style={{ textDecorationColor: '#C9A84C' }}>
+                            className="hover:underline" style={{ textDecorationColor: '#FF6B35' }}>
                             {item.title}
                           </a>
                         ) : item.title}

@@ -23,14 +23,14 @@ body{background:#EDE8DF;font-family:'DM Sans',Georgia,sans-serif;color:#2a1a1e;-
 <div style="background:#3D1A0E;padding:48px 40px 40px;position:relative;overflow:hidden">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:32px;position:relative;z-index:1">
     <span style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;color:rgba(245,240,232,0.45);letter-spacing:.04em">Food·Mood</span>
-    <div style="width:4px;height:4px;border-radius:50%;background:#C9A84C"></div>
+    <div style="width:4px;height:4px;border-radius:50%;background:#FF6B35"></div>
     <span style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;color:rgba(245,240,232,0.45);letter-spacing:.04em">Slow Food·Mood</span>
   </div>
-  <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:5px 14px;margin-bottom:24px;position:relative;z-index:1">
+  <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,53,0.15);border:1px solid rgba(255,107,53,0.3);border-radius:20px;padding:5px 14px;margin-bottom:24px;position:relative;z-index:1">
     <span>🍅</span>
-    <span style="font-size:11px;color:#C9A84C;font-weight:500;letter-spacing:.06em">Fast life. Slow Food·Mood.</span>
+    <span style="font-size:11px;color:#FF6B35;font-weight:500;letter-spacing:.06em">Fast life. Slow Food·Mood.</span>
   </div>
-  <p style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C9A84C;margin-bottom:20px;position:relative;z-index:1">Newsletter · Nº 03 · Fermentación lenta</p>
+  <p style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FF6B35;margin-bottom:20px;position:relative;z-index:1">Newsletter · Nº 03 · Fermentación lenta</p>
   <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:38px;font-weight:400;color:#F5F0E8;line-height:1.1;margin-bottom:20px;position:relative;z-index:1">
     Salsa de tomate<br/>fermentada.<br/>
     <em style="font-style:italic;color:#E8845A">24 a 48 horas.</em>
@@ -86,11 +86,11 @@ body{background:#EDE8DF;font-family:'DM Sans',Georgia,sans-serif;color:#2a1a1e;-
 
   <div style="display:flex;align-items:center;gap:0;margin:20px 0;flex-wrap:wrap">
     <div style="background:#fff;border:1px solid #e8ddd5;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:500;color:#6B2737;text-align:center">Licopeno</div>
-    <div style="font-size:16px;color:#C9A84C;padding:0 6px">→</div>
+    <div style="font-size:16px;color:#FF6B35;padding:0 6px">→</div>
     <div style="background:#fff;border:1px solid #e8ddd5;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:500;color:#6B2737;text-align:center">Barrera hematoencefálica</div>
-    <div style="font-size:16px;color:#C9A84C;padding:0 6px">→</div>
+    <div style="font-size:16px;color:#FF6B35;padding:0 6px">→</div>
     <div style="background:#fff;border:1px solid #e8ddd5;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:500;color:#6B2737;text-align:center">Neuroprotección</div>
-    <div style="font-size:16px;color:#C9A84C;padding:0 6px">→</div>
+    <div style="font-size:16px;color:#FF6B35;padding:0 6px">→</div>
     <div style="background:#fff;border:1px solid #e8ddd5;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:500;color:#6B2737;text-align:center">Antiapoptosis</div>
   </div>
 
@@ -135,19 +135,19 @@ body{background:#EDE8DF;font-family:'DM Sans',Georgia,sans-serif;color:#2a1a1e;-
 
       <p style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:#9e8080;margin-bottom:10px">Ingredientes</p>
       <p style="font-size:11px;font-weight:500;color:#9e8080;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px;padding-top:12px;border-top:1px solid #f0e8e0">Base</p>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span>600 g de tomates maduros — cuanto más rojos, más licopeno</span></div>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span>1 cucharadita de sal marina sin refinar (no sal de mesa yodada — interfiere con la fermentación)</span></div>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span>2 dientes de ajo</span></div>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span>1 cucharada de aceite de oliva virgen extra</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span>600 g de tomates maduros — cuanto más rojos, más licopeno</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span>1 cucharadita de sal marina sin refinar (no sal de mesa yodada — interfiere con la fermentación)</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span>2 dientes de ajo</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span>1 cucharada de aceite de oliva virgen extra</span></div>
 
       <p style="font-size:11px;font-weight:500;color:#9e8080;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px;padding-top:12px;border-top:1px solid #f0e8e0">Aromáticos</p>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span>4–5 hojas de albahaca fresca</span></div>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span>1 cucharadita de orégano seco</span></div>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span style="color:#9e8080;font-style:italic">1 pizca de pimienta negra — opcional, potencia la absorción de carotenoides</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span>4–5 hojas de albahaca fresca</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span>1 cucharadita de orégano seco</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span style="color:#9e8080;font-style:italic">1 pizca de pimienta negra — opcional, potencia la absorción de carotenoides</span></div>
 
       <p style="font-size:11px;font-weight:500;color:#9e8080;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px;padding-top:12px;border-top:1px solid #f0e8e0">Para arrancar la fermentación</p>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span>1 cucharada de salmuera de chucrut crudo sin pasteurizar o de kéfir de leche</span></div>
-      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px"></div><span style="color:#9e8080;font-style:italic">Alternativa si no tienes: el propio tomate fermentará solo con la sal — solo tardará un poco más</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span>1 cucharada de salmuera de chucrut crudo sin pasteurizar o de kéfir de leche</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4"><div style="width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px"></div><span style="color:#9e8080;font-style:italic">Alternativa si no tienes: el propio tomate fermentará solo con la sal — solo tardará un poco más</span></div>
 
       <div style="border-top:1px solid #f0e8e0;padding-top:16px;margin:16px 0">
         <p style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:#9e8080;margin-bottom:10px">Preparación</p>
@@ -166,7 +166,7 @@ body{background:#EDE8DF;font-family:'DM Sans',Georgia,sans-serif;color:#2a1a1e;-
         </div>
         <div style="display:flex;gap:12px;margin-bottom:12px;font-size:13px;color:#4a3a3e;line-height:1.55">
           <div style="width:22px;height:22px;border-radius:50%;background:#6B2737;color:#F5F0E8;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">4</div>
-          <div><strong>Espera a que baje a temperatura ambiente.</strong><span style="display:block;font-size:11px;color:#C9A84C;font-weight:500;margin-top:3px">⚠ Nunca fermentar caliente — mata las bacterias lácticas.</span></div>
+          <div><strong>Espera a que baje a temperatura ambiente.</strong><span style="display:block;font-size:11px;color:#FF6B35;font-weight:500;margin-top:3px">⚠ Nunca fermentar caliente — mata las bacterias lácticas.</span></div>
         </div>
         <div style="display:flex;gap:12px;margin-bottom:12px;font-size:13px;color:#4a3a3e;line-height:1.55">
           <div style="width:22px;height:22px;border-radius:50%;background:#6B2737;color:#F5F0E8;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">5</div>

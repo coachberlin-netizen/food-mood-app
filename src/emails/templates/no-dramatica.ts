@@ -11,13 +11,13 @@ export const NEWSLETTER_NO_DRAMATICA_HTML = `<!DOCTYPE html>
 
   .header { background: #2a1a1e; padding: 48px 40px 40px; position: relative; overflow: hidden; }
   .header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 240px; height: 240px; border-radius: 50%; background: rgba(107,39,55,0.18); }
-  .header::after { content: ''; position: absolute; bottom: -20px; left: -20px; width: 140px; height: 140px; border-radius: 50%; background: rgba(201,168,76,0.10); }
+  .header::after { content: ''; position: absolute; bottom: -20px; left: -20px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,107,53,0.10); }
   .logo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 32px; position: relative; z-index: 1; }
   .logo-text { font-family: Georgia, serif; font-size: 16px; color: rgba(245,240,232,0.5); letter-spacing: .04em; }
-  .logo-dot { width: 4px; height: 4px; border-radius: 50%; background: #C9A84C; display: inline-block; }
-  .header-eyebrow { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #C9A84C; margin-bottom: 20px; position: relative; z-index: 1; font-family: Arial, sans-serif; }
+  .logo-dot { width: 4px; height: 4px; border-radius: 50%; background: #FF6B35; display: inline-block; }
+  .header-eyebrow { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #FF6B35; margin-bottom: 20px; position: relative; z-index: 1; font-family: Arial, sans-serif; }
   .header-title { font-family: Georgia, serif; font-size: 38px; font-weight: 400; color: #F5F0E8; line-height: 1.1; margin-bottom: 20px; position: relative; z-index: 1; }
-  .header-title em { font-style: italic; color: #C9A84C; }
+  .header-title em { font-style: italic; color: #FF6B35; }
   .header-subtitle { font-size: 15px; color: rgba(245,240,232,0.7); line-height: 1.65; position: relative; z-index: 1; max-width: 440px; font-family: Arial, sans-serif; }
 
   .intro { padding: 36px 40px 28px; border-bottom: 1px solid #e0d5c8; }
@@ -29,7 +29,7 @@ export const NEWSLETTER_NO_DRAMATICA_HTML = `<!DOCTYPE html>
 
   .pullquote { margin: 0; padding: 28px 40px; background: #6B2737; position: relative; }
   .pullquote-text { font-family: Georgia, serif; font-size: 20px; font-style: italic; color: #F5F0E8; line-height: 1.5; position: relative; z-index: 1; }
-  .pullquote-text em { color: #C9A84C; font-style: normal; }
+  .pullquote-text em { color: #FF6B35; font-style: normal; }
 
   .ciencia { padding: 32px 40px; border-bottom: 1px solid #e0d5c8; }
   .section-label { font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #9e8080; margin-bottom: 16px; font-family: Arial, sans-serif; }
@@ -53,12 +53,12 @@ export const NEWSLETTER_NO_DRAMATICA_HTML = `<!DOCTYPE html>
   .receta-body { padding: 20px 24px; }
   .ing-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: #9e8080; margin-bottom: 10px; font-family: Arial, sans-serif; }
   .ing-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #4a3a3e; padding: 4px 0; line-height: 1.4; font-family: Arial, sans-serif; }
-  .ing-dot { width: 5px; height: 5px; border-radius: 50%; background: #C9A84C; flex-shrink: 0; margin-top: 6px; display: inline-block; }
+  .ing-dot { width: 5px; height: 5px; border-radius: 50%; background: #FF6B35; flex-shrink: 0; margin-top: 6px; display: inline-block; }
   .ing-opcional { color: #9e8080; font-style: italic; }
   .receta-pasos { border-top: 1px solid #f0e8e0; padding-top: 16px; margin: 16px 0; }
   .paso { display: flex; gap: 12px; margin-bottom: 10px; font-size: 13px; color: #4a3a3e; line-height: 1.5; font-family: Arial, sans-serif; }
   .paso-num { width: 22px; height: 22px; border-radius: 50%; background: #6B2737; color: #F5F0E8; font-size: 11px; font-weight: 500; text-align: center; line-height: 22px; flex-shrink: 0; }
-  .paso-warning { font-size: 11px; color: #C9A84C; font-weight: 500; }
+  .paso-warning { font-size: 11px; color: #FF6B35; font-weight: 500; }
   .receta-nota { background: #f5eaec; border-radius: 10px; padding: 12px 14px; font-size: 12px; color: #7a5c63; line-height: 1.6; border-left: 3px solid #6B2737; font-family: Arial, sans-serif; }
   .receta-nota strong { color: #6B2737; }
 

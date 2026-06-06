@@ -63,11 +63,11 @@ export function PushNotificationBanner() {
 
   return (
     <div className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:w-96 z-50 animate-in slide-in-from-bottom-8 duration-500">
-      <div className="bg-aubergine-dark text-cream p-5 rounded-2xl shadow-luxury border border-[#C9A84C]/20 flex flex-col gap-4">
+      <div className="bg-aubergine-dark text-cream p-5 rounded-2xl shadow-luxury border border-[#FF6B35]/20 flex flex-col gap-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#C9A84C]/10 flex items-center justify-center">
-              <Bell className="w-5 h-5 text-[#C9A84C]" />
+            <div className="w-10 h-10 rounded-full bg-[#FF6B35]/10 flex items-center justify-center">
+              <Bell className="w-5 h-5 text-[#FF6B35]" />
             </div>
             <div>
               <p className="text-sm font-semibold">¿Quieres tu receta diaria?</p>
@@ -82,7 +82,7 @@ export function PushNotificationBanner() {
         <div className="flex items-center gap-3 pt-1">
           <button
             onClick={handleSubscribe}
-            className="flex-1 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
+            className="flex-1 bg-[#FF6B35] hover:bg-[#b8953e] text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
           >
             Sí, actívalo
           </button>

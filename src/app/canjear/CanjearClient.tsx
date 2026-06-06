@@ -17,7 +17,7 @@ function CanjearPublic() {
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <Link href="/" className="inline-block">
-            <span className="text-3xl font-serif font-bold" style={{ color: "#6B2737" }}>Food<span style={{ color: "#C9A84C" }}>·</span>Mood</span>
+            <span className="text-3xl font-serif font-bold" style={{ color: "#6B2737" }}>Food<span style={{ color: "#FF6B35" }}>·</span>Mood</span>
           </Link>
         </div>
 
@@ -113,11 +113,11 @@ function OnboardingFlow() {
           >
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
-              style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)" }}
+              style={{ background: "rgba(255,107,53,0.12)", border: "1px solid rgba(255,107,53,0.25)" }}
             >
-              <CheckCircle2 className="w-7 h-7" style={{ color: "#C9A84C" }} />
+              <CheckCircle2 className="w-7 h-7" style={{ color: "#FF6B35" }} />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
               Vinculación completada
             </p>
             <h2 className="font-serif text-2xl font-bold mb-4" style={{ color: "#2d0f16" }}>
@@ -149,7 +149,7 @@ function OnboardingFlow() {
             >
               <CalendarDays className="w-7 h-7" style={{ color: "#6B2737" }} />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
               Tu check-in diario
             </p>
             <h2 className="font-serif text-2xl font-bold mb-4" style={{ color: "#2d0f16" }}>
@@ -190,7 +190,7 @@ function OnboardingFlow() {
             >
               <Sparkles className="w-7 h-7" style={{ color: "#6B2737" }} />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
               Tu primer registro
             </p>
             <h2 className="font-serif text-2xl font-bold mb-4" style={{ color: "#2d0f16" }}>
@@ -286,7 +286,7 @@ function CanjearForm() {
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <Link href="/" className="inline-block">
-            <span className="text-3xl font-serif font-bold" style={{ color: "#6B2737" }}>Food<span style={{ color: "#C9A84C" }}>·</span>Mood</span>
+            <span className="text-3xl font-serif font-bold" style={{ color: "#6B2737" }}>Food<span style={{ color: "#FF6B35" }}>·</span>Mood</span>
           </Link>
         </div>
 

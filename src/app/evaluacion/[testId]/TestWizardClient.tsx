@@ -11,7 +11,7 @@ import { getSessionKey } from '@/data/evaluacion-tests'
 
 const cardBase = 'w-full rounded-2xl p-4 text-left transition-all border-2 cursor-pointer'
 const cardIdle = 'border-transparent bg-white/5 hover:bg-white/8'
-const cardSelected = 'border-[#C9A84C] bg-[#C9A84C]/10'
+const cardSelected = 'border-[#FF6B35] bg-[#FF6B35]/10'
 
 // ── Question renderers ───────────────────────────────────────────────────────
 
@@ -140,7 +140,7 @@ function TextInput({
         onChange={e => onChange(e.target.value)}
         placeholder={opcional ? 'Opcional — escribe lo que quieras compartir' : 'Tu respuesta…'}
         rows={4}
-        className="w-full rounded-2xl bg-white/5 border border-white/10 p-4 text-[#F5F0E8] text-sm placeholder:text-[#F5F0E8]/25 focus:outline-none focus:border-[#C9A84C]/50 resize-none"
+        className="w-full rounded-2xl bg-white/5 border border-white/10 p-4 text-[#F5F0E8] text-sm placeholder:text-[#F5F0E8]/25 focus:outline-none focus:border-[#FF6B35]/50 resize-none"
       />
     </div>
   )

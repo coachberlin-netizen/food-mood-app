@@ -26,7 +26,7 @@ export function ExpertTeamSection() {
         {/* Intro */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-20 lg:mb-28">
            <div className="col-span-1 lg:col-span-4">
-             <h2 className="text-xs font-sans tracking-[0.2em] uppercase text-[#C9A84C] mb-6 font-semibold">
+             <h2 className="text-xs font-sans tracking-[0.2em] uppercase text-[#FF6B35] mb-6 font-semibold">
               El equipo interdisciplinar
             </h2>
           </div>
@@ -50,7 +50,7 @@ export function ExpertTeamSection() {
             >
               {/* Role Title Column */}
               <div className="lg:col-span-4 flex items-start pt-1">
-                <h4 className="text-xl md:text-2xl font-serif font-medium text-aubergine-dark group-hover:text-[#C9A84C] transition-colors duration-500">
+                <h4 className="text-xl md:text-2xl font-serif font-medium text-aubergine-dark group-hover:text-[#FF6B35] transition-colors duration-500">
                   {role.role}
                 </h4>
               </div>
@@ -61,7 +61,7 @@ export function ExpertTeamSection() {
                   {role.description}
                 </p>
                 <div className="flex items-start gap-4">
-                  <span className="shrink-0 w-6 h-px bg-[#C9A84C] mt-2.5" />
+                  <span className="shrink-0 w-6 h-px bg-[#FF6B35] mt-2.5" />
                   <p className="text-sm font-sans tracking-wide text-aubergine-dark/60 leading-relaxed max-w-xl">
                     <span className="font-semibold text-aubergine-dark/80 uppercase mr-1">Cómo retransmite tu viaje:</span> 
                     {role.impact}
@@ -74,7 +74,7 @@ export function ExpertTeamSection() {
 
         {/* Closing Thought */}
         <div className="mt-20 md:mt-24 max-w-4xl flex flex-col items-start gap-8">
-          <p className="text-lg md:text-[22px] font-serif text-aubergine-dark/60 leading-relaxed italic border-l-2 border-[#C9A84C]/40 pl-6 md:pl-10">
+          <p className="text-lg md:text-[22px] font-serif text-aubergine-dark/60 leading-relaxed italic border-l-2 border-[#FF6B35]/40 pl-6 md:pl-10">
             &ldquo;Food Mood combina estratégicamente la sofisticación científica estructural humana con el alcance nativo de la tecnología. El resultado hace que entender la intrincada relación diaria entre tu mente, lo que sientes y lo que comes, sea infinitamente más sencillo, intuitivo y sostenible.&rdquo;
           </p>
         </div>

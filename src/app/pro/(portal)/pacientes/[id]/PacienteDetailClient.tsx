@@ -283,7 +283,7 @@ function OracleEmotionHeatmap({ checkins }: { checkins: OracleCheckin[] }) {
         </p>
         <div className="flex items-center gap-3">
           {streak > 0 && (
-            <span className="text-[10px] font-semibold" style={{ color: "#C9A84C" }}>
+            <span className="text-[10px] font-semibold" style={{ color: "#FF6B35" }}>
               {streak} día{streak !== 1 ? "s" : ""} seguido{streak !== 1 ? "s" : ""}
             </span>
           )}
@@ -332,7 +332,7 @@ function OracleEmotionHeatmap({ checkins }: { checkins: OracleCheckin[] }) {
               style={{
                 background:    bg,
                 opacity:       isFuture ? 0.25 : 1,
-                outline:       isToday ? "1.5px solid rgba(201,168,76,0.6)" : undefined,
+                outline:       isToday ? "1.5px solid rgba(255,107,53,0.6)" : undefined,
                 outlineOffset: isToday ? "2px" : undefined,
               }}
             />
@@ -392,7 +392,7 @@ function NSSHeatmap({ checkins }: { checkins: CheckIn[] }) {
               title={c ? `${formatDate(c.logged_at)}: ${nss?.label ?? c.nervous_system_state}` : undefined}
               style={{
                 background:    nss ? nss.color + "90" : "rgba(107,39,55,0.05)",
-                outline:       isToday ? "1.5px solid rgba(201,168,76,0.5)" : undefined,
+                outline:       isToday ? "1.5px solid rgba(255,107,53,0.5)" : undefined,
                 outlineOffset: isToday ? "2px" : undefined,
               }}
             />
@@ -939,11 +939,11 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
         <Link
           href={`/pro/sesion/${latestPrep.id}`}
           className="mb-5 block rounded-xl px-5 py-4 bg-white transition-all hover:shadow-sm"
-          style={{ border: "1px solid rgba(107,39,55,0.08)", borderLeftWidth: 3, borderLeftColor: "#C9A84C" }}
+          style={{ border: "1px solid rgba(107,39,55,0.08)", borderLeftWidth: 3, borderLeftColor: "#FF6B35" }}
         >
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
-              <p className="text-[9px] font-bold uppercase tracking-wider mb-1" style={{ color: "#C9A84C" }}>
+              <p className="text-[9px] font-bold uppercase tracking-wider mb-1" style={{ color: "#FF6B35" }}>
                 Último informe de sesión
               </p>
               <p className="text-[10px] mb-1" style={{ color: "rgba(107,39,55,0.5)" }}>
@@ -1063,11 +1063,11 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                         className="h-1.5 rounded-full"
                         style={{
                           width: `${activeProtocol.stage_completion_pct}%`,
-                          background: activeProtocol.stage_completion_pct >= 70 ? "#16a34a" : "#C9A84C",
+                          background: activeProtocol.stage_completion_pct >= 70 ? "#16a34a" : "#FF6B35",
                         }}
                       />
                     </div>
-                    <span className="text-[10px] font-semibold shrink-0" style={{ color: activeProtocol.stage_completion_pct >= 70 ? "#16a34a" : "#C9A84C" }}>
+                    <span className="text-[10px] font-semibold shrink-0" style={{ color: activeProtocol.stage_completion_pct >= 70 ? "#16a34a" : "#FF6B35" }}>
                       {activeProtocol.stage_completion_pct}%
                     </span>
                   </div>
@@ -1127,7 +1127,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                       </div>
                       <div className="text-right shrink-0">
                         <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>{formatDate(c.logged_at)}</p>
-                        <p className="text-xs font-semibold mt-0.5" style={{ color: "#C9A84C" }}>Claridad {c.interoceptive_clarity}/10</p>
+                        <p className="text-xs font-semibold mt-0.5" style={{ color: "#FF6B35" }}>Claridad {c.interoceptive_clarity}/10</p>
                       </div>
                     </div>
                   )
@@ -1221,7 +1221,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                                 className="max-w-[85%] px-3 py-2 rounded-xl text-xs leading-relaxed"
                                 style={m.role === "user"
                                   ? { background: "rgba(107,39,55,0.08)", color: "#2d0f16" }
-                                  : { background: "rgba(201,168,76,0.08)", color: "#2d0f16", border: "1px solid rgba(201,168,76,0.2)" }
+                                  : { background: "rgba(255,107,53,0.08)", color: "#2d0f16", border: "1px solid rgba(255,107,53,0.2)" }
                                 }
                               >
                                 {m.content}
@@ -1255,7 +1255,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                       <div className="flex-1">
                         <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "rgba(107,39,55,0.4)" }}>% hambre emocional (últimos {hambreLogs.length})</p>
                         <div className="h-2 rounded-full w-full" style={{ background: "rgba(107,39,55,0.1)" }}>
-                          <div className="h-2 rounded-full" style={{ width: `${pctEmo}%`, background: pctEmo > 60 ? "#dc2626" : "#C9A84C" }} />
+                          <div className="h-2 rounded-full" style={{ width: `${pctEmo}%`, background: pctEmo > 60 ? "#dc2626" : "#FF6B35" }} />
                         </div>
                       </div>
                       <span className="text-lg font-bold font-serif shrink-0" style={{ color: pctEmo > 60 ? "#dc2626" : "#6B2737" }}>{pctEmo}%</span>
@@ -1339,7 +1339,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                       ))}
                     </div>
                     {v.committed_actions[0] && (
-                      <p className="text-xs italic font-light" style={{ color: "rgba(107,39,55,0.6)", borderLeft: "2px solid #C9A84C", paddingLeft: "8px" }}>
+                      <p className="text-xs italic font-light" style={{ color: "rgba(107,39,55,0.6)", borderLeft: "2px solid #FF6B35", paddingLeft: "8px" }}>
                         {v.committed_actions[0]}
                       </p>
                     )}
@@ -1365,7 +1365,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                       <p className="text-xs mb-1 leading-snug" style={{ color: "#2d0f16" }}>{p.trigger_situation}</p>
                       <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: "rgba(107,39,55,0.4)" }}>Yo</p>
                       <p className="text-xs leading-snug" style={{ color: "#6B2737" }}>{p.intended_action}</p>
-                      {p.linked_value && <p className="text-[10px] font-semibold uppercase tracking-wider mt-1" style={{ color: "#C9A84C" }}>Valor: {p.linked_value}</p>}
+                      {p.linked_value && <p className="text-[10px] font-semibold uppercase tracking-wider mt-1" style={{ color: "#FF6B35" }}>Valor: {p.linked_value}</p>}
                     </div>
                     <div className="text-right shrink-0 text-xs" style={{ color: "rgba(107,39,55,0.5)" }}>
                       <p>{p.times_triggered} activado{p.times_triggered !== 1 ? "s" : ""}</p>
@@ -1407,7 +1407,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                   {nudges.slice(0, 5).map(n => (
                     <div key={n.id} className="bg-white rounded-xl px-4 py-3" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
                       <div className="flex items-center justify-between mb-1">
-                        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>{n.pattern_detected.replace(/_/g, " ")}</p>
+                        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#FF6B35" }}>{n.pattern_detected.replace(/_/g, " ")}</p>
                         <p className="text-[10px]" style={{ color: "rgba(107,39,55,0.4)" }}>{formatDate(n.generated_at)}</p>
                       </div>
                       <p className="text-xs font-light leading-relaxed" style={{ color: "#2d0f16" }}>{n.nudge_content}</p>
@@ -1452,7 +1452,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-bold mb-1" style={{ color: "#C9A84C" }}>
+                      <p className="text-xs font-bold mb-1" style={{ color: "#FF6B35" }}>
                         {new Date(sp.period_start).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}
                         {" — "}
                         {new Date(sp.period_end).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" })}
@@ -1491,7 +1491,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                   <div key={p.id} className="bg-white rounded-xl px-4 py-3 flex items-start gap-3" style={{ border: "1px solid rgba(107,39,55,0.08)" }}>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate mb-0.5" style={{ color: "#2d0f16" }}>{lib?.title}</p>
-                      <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>{lib?.content_type}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#FF6B35" }}>{lib?.content_type}</p>
                       {p.professional_note && (
                         <p className="text-xs italic mt-1 font-light" style={{ color: "rgba(107,39,55,0.6)" }}>
                           {p.professional_note}
@@ -1561,7 +1561,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                         <div className="h-1.5 rounded-full w-full" style={{ background: "rgba(107,39,55,0.1)" }}>
                           <div
                             className="h-1.5 rounded-full"
-                            style={{ width: `${pct}%`, background: pct >= 100 ? "#16a34a" : "#C9A84C" }}
+                            style={{ width: `${pct}%`, background: pct >= 100 ? "#16a34a" : "#FF6B35" }}
                           />
                         </div>
                       </div>
@@ -1580,7 +1580,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                   <div className="flex items-start justify-between gap-3 mb-1">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium" style={{ color: "#2d0f16" }}>{a.title}</p>
-                      <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>
+                      <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#FF6B35" }}>
                         {TOOL_LABELS[a.tool_slug] ?? a.tool_slug} · {a.frequency_per_week}×/semana
                       </p>
                     </div>
@@ -1597,7 +1597,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                   </div>
                   <p
                     className="text-xs font-light leading-relaxed"
-                    style={{ color: "rgba(107,39,55,0.6)", borderLeft: "2px solid rgba(201,168,76,0.3)", paddingLeft: "8px" }}
+                    style={{ color: "rgba(107,39,55,0.6)", borderLeft: "2px solid rgba(255,107,53,0.3)", paddingLeft: "8px" }}
                   >
                     {a.instruction}
                   </p>
@@ -1742,7 +1742,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <div>
                           <p className="text-sm font-bold" style={{ color: "#2d0f16" }}>{protocol.name}</p>
-                          <p className="text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: "#C9A84C" }}>
+                          <p className="text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: "#FF6B35" }}>
                             {protocol.duration_days} días · {protocol.stages.length} etapas
                           </p>
                         </div>

@@ -69,7 +69,7 @@ function ScienceSection() {
 
               {/* Modelos dimensionales */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-3">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-3">
                   Modelos continuos de emoción
                 </p>
                 <p className="mb-3">
@@ -98,7 +98,7 @@ function ScienceSection() {
 
               {/* Granularidad emocional */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-3">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-3">
                   Granularidad emocional y autorregulación
                 </p>
                 <p className="mb-3">
@@ -108,15 +108,15 @@ function ScienceSection() {
                 </p>
                 <ul className="space-y-2 pl-4 mb-3">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                    <span className="text-[#FF6B35] shrink-0 mt-0.5">—</span>
                     Personas con alta granularidad muestran menos síntomas de ansiedad y depresión ante el estrés.
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                    <span className="text-[#FF6B35] shrink-0 mt-0.5">—</span>
                     Alta granularidad se asocia con estrategias de regulación más específicas y eficaces.
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#C9A84C] shrink-0 mt-0.5">—</span>
+                    <span className="text-[#FF6B35] shrink-0 mt-0.5">—</span>
                     Baja granularidad se relaciona con afrontamiento más problemático (incluyendo conductas desadaptativas).
                   </li>
                 </ul>
@@ -138,7 +138,7 @@ function ScienceSection() {
 
               {/* Teoría de la Emoción Construida — Barrett */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-3">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-3">
                   Teoría de la Emoción Construida — por qué no existen etiquetas fijas
                 </p>
                 <p className="mb-3">
@@ -282,7 +282,7 @@ const EditorialIntro = ({ onStart }: { onStart: () => void }) => (
         </p>
       </div>
       <div className="bg-white px-8 md:px-12 py-8">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-4">
           El mecanismo
         </p>
         <div className="flex flex-col md:flex-row gap-4">

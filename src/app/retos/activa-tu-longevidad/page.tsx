@@ -52,7 +52,7 @@ const MECANISMOS = [
 
 const HITOS = [
   { dia: 1,  titulo: 'Día 1 — señalización de longevidad.',  desc: 'Telómeros y antioxidantes. El primer bocado ya cuenta.',       color: COLOR      },
-  { dia: 5,  titulo: 'Día 5 — punto de inflexión interior.', desc: 'Autofagia, colágeno, NAD+ y microbioma en marcha.',           color: '#C9A84C'  },
+  { dia: 5,  titulo: 'Día 5 — punto de inflexión interior.', desc: 'Autofagia, colágeno, NAD+ y microbioma en marcha.',           color: '#FF6B35'  },
   { dia: 10, titulo: 'Día 10 — el protocolo es tuyo.',       desc: 'La mesa de las zonas azules. Un estilo de vida, no una dieta.', color: '#4B8A6B' },
 ]
 
@@ -323,7 +323,7 @@ export default async function RetoLongevidadPage() {
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
             Acceso completo · 10 días
           </p>
-          <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-medium text-center mb-4" style={{ color: '#FF6B35' }}>
             Solo quedan algunas plazas esta semana
           </p>
           <BuyRetoButton slug="activa-tu-longevidad" challengeId={challengeId} precio={19} yaComprado={yaComprado} />

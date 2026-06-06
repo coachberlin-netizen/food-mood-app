@@ -114,7 +114,7 @@ export function PaywallModal({ receta, onClose }: Props) {
               <Link
                 href="/pricing"
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold text-white transition-all hover:opacity-90"
-                style={{ backgroundColor: "#C9A84C" }}
+                style={{ backgroundColor: "#FF6B35" }}
               >
                 <Sparkles size={15} />
                 Desbloquear — desde 7€/mes

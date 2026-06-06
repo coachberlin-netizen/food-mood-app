@@ -99,7 +99,7 @@ export default function PaletteResultView({
       <motion.div
         variants={lineVariants}
         className="mt-10 w-[60px] h-[1px]"
-        style={{ background: "#C9A84C", margin: "0 auto" }}
+        style={{ background: "#FF6B35", margin: "0 auto" }}
       />
     </motion.div>
   );

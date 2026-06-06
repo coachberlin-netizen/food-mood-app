@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Tus datos se quedan en servidores de la UE. No los vendemos. Puedes borrarlos cuando quieras.",
 }
 
-const GOLD = "#C9A84C"
+const GOLD = "#FF6B35"
 const BURGUNDY = "#6B2737"
 const DARK = "#2d0f16"
 

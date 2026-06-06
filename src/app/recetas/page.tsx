@@ -26,7 +26,7 @@ export default async function RecetasPage() {
   if (user) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20 text-center" style={{ background: "#F5F0E8" }}>
-        <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: "#C9A84C" }}>
+        <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: "#FF6B35" }}>
           Recetas
         </p>
         <h1 className="font-serif text-2xl font-black mb-3" style={{ color: "#2d0f16" }}>

@@ -77,7 +77,7 @@ export default function ParaMiClient() {
       <div className="max-w-2xl mx-auto px-5 py-10 pb-28">
 
         <header className="mb-8">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
             Contenido prescrito
           </p>
           <h1 className="font-serif text-3xl font-black" style={{ color: "#2d0f16" }}>
@@ -161,8 +161,8 @@ export default function ParaMiClient() {
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <Icon className="w-3.5 h-3.5 shrink-0" style={{ color: "#C9A84C" }} />
-                          <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>
+                          <Icon className="w-3.5 h-3.5 shrink-0" style={{ color: "#FF6B35" }} />
+                          <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#FF6B35" }}>
                             {contentTypeLabel(p.content_library.content_type)}
                           </span>
                           {p.content_library.duration_minutes && (
@@ -195,7 +195,7 @@ export default function ParaMiClient() {
                             style={{
                               background:  "#F5F0E8",
                               color:       "#6B2737",
-                              borderLeft:  "3px solid #C9A84C",
+                              borderLeft:  "3px solid #FF6B35",
                             }}
                           >
                             {p.professional_note}

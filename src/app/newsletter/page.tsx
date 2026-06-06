@@ -98,10 +98,10 @@ export default async function NewsletterArchivePage() {
           {/* CTA suscripción — acceso a ediciones pasadas */}
           <div
             className="mb-10 rounded-3xl p-8 flex flex-col sm:flex-row sm:items-center gap-6"
-            style={{ background: 'linear-gradient(135deg, #2d0f16 0%, #1E1A0E 100%)', border: '1px solid rgba(201,168,76,0.15)' }}
+            style={{ background: 'linear-gradient(135deg, #2d0f16 0%, #1E1A0E 100%)', border: '1px solid rgba(255,107,53,0.15)' }}
           >
             <div className="flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3" style={{ color: '#C9A84C' }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3" style={{ color: '#FF6B35' }}>
                 16 ediciones · Neurociencia aplicada
               </p>
               <h2 className="font-serif text-xl font-bold leading-snug mb-2" style={{ color: '#F5F0E8' }}>
@@ -115,7 +115,7 @@ export default async function NewsletterArchivePage() {
             <Link
               href="/auth/login"
               className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-opacity hover:opacity-90 whitespace-nowrap"
-              style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+              style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}
             >
               Acceder a las 16 ediciones →
             </Link>
@@ -144,7 +144,7 @@ export default async function NewsletterArchivePage() {
                         <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: 'rgba(107,39,55,0.4)' }}>
                           Nº {weekNum}
                         </p>
-                        <p className="text-base font-semibold mb-2 leading-snug group-hover:underline" style={{ color: '#2d0f16', textDecorationColor: '#C9A84C' }}>
+                        <p className="text-base font-semibold mb-2 leading-snug group-hover:underline" style={{ color: '#2d0f16', textDecorationColor: '#FF6B35' }}>
                           {formatWeekRange(ed.week_start)}
                         </p>
                         <div className="flex flex-wrap gap-1.5">
@@ -157,7 +157,7 @@ export default async function NewsletterArchivePage() {
                         </div>
                       </div>
                       <div className="shrink-0 text-right">
-                        <p className="text-2xl font-black font-serif" style={{ color: '#C9A84C' }}>{ed.count}</p>
+                        <p className="text-2xl font-black font-serif" style={{ color: '#FF6B35' }}>{ed.count}</p>
                         <p className="text-[10px] font-light" style={{ color: 'rgba(45,15,22,0.35)' }}>
                           {ed.count === 1 ? 'ítem' : 'ítems'}
                         </p>
@@ -175,7 +175,7 @@ export default async function NewsletterArchivePage() {
             style={{ backgroundColor: '#6B2737' }}
           >
             <div className="flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(201,168,76,0.8)' }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(255,107,53,0.8)' }}>
                 5 ediciones disponibles
               </p>
               <h2 className="font-serif text-xl font-bold leading-snug mb-1" style={{ color: '#F5F0E8' }}>
@@ -188,7 +188,7 @@ export default async function NewsletterArchivePage() {
             <Link
               href="/newsletter/archivo"
               className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-opacity hover:opacity-90 whitespace-nowrap"
-              style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+              style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}
             >
               Ver archivo →
             </Link>
@@ -196,7 +196,7 @@ export default async function NewsletterArchivePage() {
 
           {/* Suscripción */}
           <div className="mt-6 rounded-3xl p-10" style={{ backgroundColor: '#2d0f16' }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#FF6B35' }}>
               Únete
             </p>
             <h2 className="font-serif text-2xl font-bold mb-3 leading-tight" style={{ color: '#F5F0E8' }}>
@@ -207,7 +207,7 @@ export default async function NewsletterArchivePage() {
             </p>
             <Link href="/auth/login"
               className="inline-block px-6 py-3 rounded-full text-sm font-bold transition-opacity hover:opacity-90"
-              style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}>
+              style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}>
               Crear cuenta gratis →
             </Link>
           </div>

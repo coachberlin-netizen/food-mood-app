@@ -397,7 +397,7 @@ export default function SintomasPage() {
         {/* ── Header ── */}
         <div className="flex items-center justify-between mb-8">
           <Link href="/" className="font-serif text-xl font-semibold" style={{ color: "#2d0f16" }}>
-            Food<span style={{ color: "#C9A84C" }}>·</span>Mood
+            Food<span style={{ color: "#FF6B35" }}>·</span>Mood
           </Link>
           <div className="flex items-center gap-3">
             {streak > 0 && (
@@ -414,7 +414,7 @@ export default function SintomasPage() {
 
         {/* ── Intro ── */}
         <div className="mb-7">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
             30 segundos · Sin escribir · Cada día
           </p>
           <h1 className="font-serif text-3xl font-bold leading-tight mb-3" style={{ color: "#2d0f16" }}>
@@ -479,8 +479,8 @@ export default function SintomasPage() {
 
         {/* ── Patrón detectado ── */}
         {logCount >= 7 && (
-          <div className="mb-6 p-4 rounded-2xl" style={{ backgroundColor: "white", borderLeft: "4px solid #C9A84C" }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+          <div className="mb-6 p-4 rounded-2xl" style={{ backgroundColor: "white", borderLeft: "4px solid #FF6B35" }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
               Patrón detectado
             </p>
             <p className="text-sm font-medium" style={{ color: "#2d0f16" }}>
@@ -490,7 +490,7 @@ export default function SintomasPage() {
         )}
 
         {logCount > 0 && logCount < 7 && (
-          <div className="mb-6 p-4 rounded-2xl" style={{ backgroundColor: "white", borderLeft: "4px solid rgba(201,168,76,0.35)" }}>
+          <div className="mb-6 p-4 rounded-2xl" style={{ backgroundColor: "white", borderLeft: "4px solid rgba(255,107,53,0.35)" }}>
             <p className="text-sm" style={{ color: "rgba(107,39,55,0.6)" }}>
               Llevas {logCount} {logCount === 1 ? "día" : "días"}. Los patrones aparecen a partir del día 7 — sigue registrando.
             </p>
@@ -499,10 +499,10 @@ export default function SintomasPage() {
 
         {/* ── Journey 90 días ── */}
         <div className="mb-8 p-5 rounded-3xl" style={{ backgroundColor: "#2d0f16" }}>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>Tu viaje</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#FF6B35" }}>Tu viaje</p>
           <p className="font-serif text-xl font-semibold text-white mb-3">Día {Math.max(1, dayNumber)} de 90</p>
           <div className="w-full h-2 rounded-full mb-4" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
-            <div className="h-2 rounded-full" style={{ width: `${Math.max(2, progressPct)}%`, backgroundColor: "#C9A84C", transition: "width 0.8s ease" }} />
+            <div className="h-2 rounded-full" style={{ width: `${Math.max(2, progressPct)}%`, backgroundColor: "#FF6B35", transition: "width 0.8s ease" }} />
           </div>
           <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
             Para entenderte mejor y encontrar soluciones holísticas. 90 días es el ciclo biológico real del cambio.

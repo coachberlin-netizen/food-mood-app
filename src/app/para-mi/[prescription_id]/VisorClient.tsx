@@ -154,8 +154,8 @@ export default function VisorClient({ prescriptionId }: { prescriptionId: string
 
         <header className="mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <Icon className="w-4 h-4" style={{ color: "#C9A84C" }} />
-            <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>
+            <Icon className="w-4 h-4" style={{ color: "#FF6B35" }} />
+            <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#FF6B35" }}>
               {contentTypeLabel(lib.content_type)}
               {lib.duration_minutes ? ` · ${lib.duration_minutes} min` : ""}
             </span>
@@ -176,7 +176,7 @@ export default function VisorClient({ prescriptionId }: { prescriptionId: string
             style={{
               background:  "white",
               color:       "#6B2737",
-              borderLeft:  "3px solid #C9A84C",
+              borderLeft:  "3px solid #FF6B35",
             }}
           >
             {prescription.professional_note}

@@ -34,7 +34,7 @@ export default async function ResultadoPage({
     <Suspense
       fallback={
         <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full border-2 border-aubergine-dark/10 border-t-[#C9A84C] animate-spin" />
+          <div className="w-10 h-10 rounded-full border-2 border-aubergine-dark/10 border-t-[#FF6B35] animate-spin" />
         </div>
       }
     >

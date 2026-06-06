@@ -30,7 +30,7 @@ function PrescriptionsCardInner({ professionalName }: { professionalName: string
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#FF6B35" }}>
             Contenido prescrito
           </p>
           <p className="text-sm font-semibold" style={{ color: "#F5F0E8" }}>
@@ -60,11 +60,11 @@ function AssignmentsCard() {
     <Link
       href="/mis-asignaciones"
       className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
-      style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)" }}
+      style={{ background: "rgba(255,107,53,0.12)", border: "1px solid rgba(255,107,53,0.25)" }}
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#FF6B35" }}>
             Asignaciones de tu profesional
           </p>
           <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>
@@ -109,10 +109,10 @@ function NudgeCard() {
   if (!nudge || dismissed) return null
 
   return (
-    <div className="max-w-[520px] w-full mx-auto rounded-3xl p-5" style={{ backgroundColor: "white", border: "1px solid rgba(201,168,76,0.3)" }}>
+    <div className="max-w-[520px] w-full mx-auto rounded-3xl p-5" style={{ backgroundColor: "white", border: "1px solid rgba(255,107,53,0.3)" }}>
       <div className="flex items-start gap-3">
         <div className="flex-1 min-w-0">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "#C9A84C" }}>Para ti hoy</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "#FF6B35" }}>Para ti hoy</p>
           <p className="text-sm font-light leading-relaxed" style={{ color: "#2d0f16" }}>{nudge.nudge_content}</p>
         </div>
         <button
@@ -151,7 +151,7 @@ function PracticasCard() {
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#FF6B35" }}>
             Mis prácticas
           </p>
           <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>
@@ -206,7 +206,7 @@ function JourneyCard() {
       style={{ backgroundColor: "#2d0f16" }}
     >
       <div className="flex items-center justify-between mb-3">
-        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#C9A84C" }}>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#FF6B35" }}>
           Tu viaje
         </p>
         <span className="text-xs font-light" style={{ color: "rgba(255,255,255,0.4)" }}>
@@ -214,12 +214,12 @@ function JourneyCard() {
         </span>
       </div>
       <p className="font-serif text-2xl font-black text-white mb-3">
-        Día <span style={{ color: "#C9A84C" }}>{day}</span> de 90
+        Día <span style={{ color: "#FF6B35" }}>{day}</span> de 90
       </p>
       <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
         <div
           className="h-1.5 rounded-full"
-          style={{ width: `${Math.max(2, pct)}%`, backgroundColor: "#C9A84C" }}
+          style={{ width: `${Math.max(2, pct)}%`, backgroundColor: "#FF6B35" }}
         />
       </div>
     </Link>
@@ -247,7 +247,7 @@ function WeeklyCard() {
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#FF6B35" }}>
             Tu semana
           </p>
           <p className="text-sm font-semibold" style={{ color: "#2d0f16" }}>
@@ -437,7 +437,7 @@ export default function DashboardClient({
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-gradient-to-br from-[#1a1118] via-[#2a1825] to-[#1a1118] rounded-[2rem] p-8 md:p-12 shadow-2xl border border-[#C9A84C]/20 overflow-hidden"
+              className="relative w-full max-w-2xl bg-gradient-to-br from-[#1a1118] via-[#2a1825] to-[#1a1118] rounded-[2rem] p-8 md:p-12 shadow-2xl border border-[#FF6B35]/20 overflow-hidden"
             >
               <button
                 type="button"
@@ -447,11 +447,11 @@ export default function DashboardClient({
               >
                 <X className="w-6 h-6" aria-hidden="true" />
               </button>
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-[80px]" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF6B35]/10 rounded-full blur-[80px]" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#C2714F]/10 rounded-full blur-[60px]" />
               <div className="relative flex flex-col items-center text-center gap-6 z-10">
-                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20">
-                  <Star className="w-4 h-4 fill-[#C9A84C]" /> Acceso activado
+                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FF6B35]/15 text-[#FF6B35] text-[10px] font-bold uppercase tracking-widest border border-[#FF6B35]/20">
+                  <Star className="w-4 h-4 fill-[#FF6B35]" /> Acceso activado
                 </span>
                 <h2 className="text-3xl md:text-5xl font-serif font-black text-cream/95 leading-tight drop-shadow-sm">
                   Aquí empieza<br />tu acompañamiento.
@@ -463,14 +463,14 @@ export default function DashboardClient({
                   <Link
                     href="/eloraculo"
                     onClick={handleCloseWelcome}
-                    className="inline-flex items-center justify-center px-8 py-4 bg-[#C9A84C] text-white text-sm font-bold rounded-full shadow-lg hover:bg-[#b8953e] hover:scale-105 transition-all"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-[#FF6B35] text-white text-sm font-bold rounded-full shadow-lg hover:bg-[#b8953e] hover:scale-105 transition-all"
                   >
                     Hacer mi primer check-in →
                   </Link>
                   <Link
                     href="/practicas"
                     onClick={handleCloseWelcome}
-                    className="inline-flex items-center justify-center px-8 py-4 border border-[#C9A84C]/40 text-cream text-sm font-medium rounded-full hover:bg-cream/5 transition-all"
+                    className="inline-flex items-center justify-center px-8 py-4 border border-[#FF6B35]/40 text-cream text-sm font-medium rounded-full hover:bg-cream/5 transition-all"
                   >
                     Mis prácticas
                   </Link>

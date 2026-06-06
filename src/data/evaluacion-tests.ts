@@ -33,7 +33,7 @@ export const EVALUACION_TESTS: EvaluacionTest[] = [
     subtitulo: 'Tus hábitos alimentarios actuales',
     descripcion: 'Mapea tus patrones de alimentación, preferencias y restricciones para recibir orientación personalizada.',
     duracion: '4 min',
-    color: '#C9A84C',
+    color: '#FF6B35',
     tag: 'Fundamentos',
     preguntas: [
       {

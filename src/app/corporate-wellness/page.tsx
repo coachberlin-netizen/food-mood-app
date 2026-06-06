@@ -131,7 +131,7 @@ export default function CorporateWellnessPage() {
       {/* ── Hero ── */}
       <section className="py-24 md:py-32 px-6" style={{ backgroundColor: '#2d0f16' }}>
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-6" style={{ color: '#C9A84C' }}>
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-6" style={{ color: '#FF6B35' }}>
             Food·Mood for Work · Corporate Wellness
           </p>
           <h1 className="font-serif text-4xl md:text-6xl font-bold leading-tight mb-6" style={{ color: '#F5F0E8' }}>
@@ -146,7 +146,7 @@ export default function CorporateWellnessPage() {
             <a
               href="mailto:info@food-mood.app?subject=Piloto%20Corporate%20Wellness"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90"
-              style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+              style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}
             >
               Solicitar piloto para empresa <ArrowRight className="w-4 h-4" />
             </a>
@@ -169,7 +169,7 @@ export default function CorporateWellnessPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
                 Por qué funciona
               </p>
               <h2 className="font-serif text-3xl md:text-4xl font-bold leading-tight mb-6" style={{ color: '#2d0f16' }}>
@@ -198,7 +198,7 @@ export default function CorporateWellnessPage() {
                   className="flex items-center gap-3 rounded-xl px-5 py-4 border"
                   style={{ borderColor: 'rgba(107,39,55,0.08)', backgroundColor: '#FEFBF4' }}
                 >
-                  <Check className="w-4 h-4 shrink-0" style={{ color: '#C9A84C' }} />
+                  <Check className="w-4 h-4 shrink-0" style={{ color: '#FF6B35' }} />
                   <span className="text-sm font-medium" style={{ color: '#2d0f16' }}>{item}</span>
                 </div>
               ))}
@@ -211,7 +211,7 @@ export default function CorporateWellnessPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#FEFBF4' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
               Por qué no existe en ningún otro sitio
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#2d0f16' }}>
@@ -226,8 +226,8 @@ export default function CorporateWellnessPage() {
               style={{ backgroundColor: 'white', border: '1px solid rgba(107,39,55,0.1)' }}
             >
               <div className="flex items-center gap-3">
-                <Headphones className="w-5 h-5 shrink-0" style={{ color: '#C9A84C' }} strokeWidth={1.5} />
-                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+                <Headphones className="w-5 h-5 shrink-0" style={{ color: '#FF6B35' }} strokeWidth={1.5} />
+                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#FF6B35' }}>
                   Biblioteca de audio propietaria
                 </p>
               </div>
@@ -241,7 +241,7 @@ export default function CorporateWellnessPage() {
               </p>
               <div
                 className="mt-auto rounded-lg px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-center"
-                style={{ backgroundColor: 'rgba(201,168,76,0.08)', color: 'rgba(107,39,55,0.5)' }}
+                style={{ backgroundColor: 'rgba(255,107,53,0.08)', color: 'rgba(107,39,55,0.5)' }}
               >
                 IP defensible · Barrera de entrada real
               </div>
@@ -253,8 +253,8 @@ export default function CorporateWellnessPage() {
               style={{ backgroundColor: 'white', border: '1px solid rgba(107,39,55,0.1)' }}
             >
               <div className="flex items-center gap-3">
-                <BarChart2 className="w-5 h-5 shrink-0" style={{ color: '#C9A84C' }} strokeWidth={1.5} />
-                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+                <BarChart2 className="w-5 h-5 shrink-0" style={{ color: '#FF6B35' }} strokeWidth={1.5} />
+                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#FF6B35' }}>
                   Índice Food·Mood
                 </p>
               </div>
@@ -269,7 +269,7 @@ export default function CorporateWellnessPage() {
               </p>
               <div
                 className="mt-auto rounded-lg px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-center"
-                style={{ backgroundColor: 'rgba(201,168,76,0.08)', color: 'rgba(107,39,55,0.5)' }}
+                style={{ backgroundColor: 'rgba(255,107,53,0.08)', color: 'rgba(107,39,55,0.5)' }}
               >
                 Dataset propietario · Motor de recomendación futuro
               </div>
@@ -282,7 +282,7 @@ export default function CorporateWellnessPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'white' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
               Contenido del reto
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#2d0f16' }}>
@@ -296,7 +296,7 @@ export default function CorporateWellnessPage() {
                 className="rounded-2xl p-6 border"
                 style={{ backgroundColor: 'white', borderColor: 'rgba(107,39,55,0.08)' }}
               >
-                <Icon className="w-5 h-5 mb-3" style={{ color: '#C9A84C' }} strokeWidth={1.5} />
+                <Icon className="w-5 h-5 mb-3" style={{ color: '#FF6B35' }} strokeWidth={1.5} />
                 <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.7)' }}>
                   {text}
                 </p>
@@ -310,7 +310,7 @@ export default function CorporateWellnessPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d0f16' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
               Impacto medible
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#F5F0E8' }}>
@@ -344,9 +344,9 @@ export default function CorporateWellnessPage() {
               <div
                 key={stat.metric}
                 className="rounded-2xl p-6 flex flex-col gap-3"
-                style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(201,168,76,0.15)' }}
+                style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,107,53,0.15)' }}
               >
-                <p className="font-serif text-4xl font-black" style={{ color: '#C9A84C' }}>
+                <p className="font-serif text-4xl font-black" style={{ color: '#FF6B35' }}>
                   {stat.metric}
                 </p>
                 <p className="text-sm font-light leading-relaxed flex-1" style={{ color: 'rgba(245,240,232,0.7)' }}>
@@ -368,7 +368,7 @@ export default function CorporateWellnessPage() {
       <section id="programa" className="py-20 md:py-28 px-6 bg-white">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
               Programa día a día
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#2d0f16' }}>
@@ -414,7 +414,7 @@ export default function CorporateWellnessPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d0f16' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
               Lista de compra semanal
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#F5F0E8' }}>
@@ -441,13 +441,13 @@ export default function CorporateWellnessPage() {
               },
             ].map((cat) => (
               <div key={cat.label} className="rounded-2xl p-5" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#FF6B35' }}>
                   {cat.label}
                 </p>
                 <ul className="space-y-1.5">
                   {cat.items.map((item) => (
                     <li key={item} className="text-xs font-light flex items-start gap-1.5" style={{ color: 'rgba(245,240,232,0.6)' }}>
-                      <span style={{ color: '#C9A84C' }}>·</span> {item}
+                      <span style={{ color: '#FF6B35' }}>·</span> {item}
                     </li>
                   ))}
                 </ul>
@@ -461,7 +461,7 @@ export default function CorporateWellnessPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#FEFBF4' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
               Planes
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold" style={{ color: '#2d0f16' }}>
@@ -481,7 +481,7 @@ export default function CorporateWellnessPage() {
               >
                 <p
                   className="text-[10px] font-bold uppercase tracking-widest mb-2"
-                  style={{ color: plan.highlight ? '#C9A84C' : 'rgba(107,39,55,0.4)' }}
+                  style={{ color: plan.highlight ? '#FF6B35' : 'rgba(107,39,55,0.4)' }}
                 >
                   {plan.name}
                 </p>
@@ -501,7 +501,7 @@ export default function CorporateWellnessPage() {
                   href={`mailto:info@food-mood.app?subject=${encodeURIComponent(plan.cta + ' — ' + plan.name)}`}
                   className="block w-full py-3 rounded-full text-sm font-bold text-center transition-all hover:opacity-90"
                   style={{
-                    backgroundColor: plan.highlight ? '#C9A84C' : 'transparent',
+                    backgroundColor: plan.highlight ? '#FF6B35' : 'transparent',
                     color: plan.highlight ? '#2d0f16' : '#2d0f16',
                     border: plan.highlight ? 'none' : '2px solid rgba(107,39,55,0.2)',
                   }}
@@ -537,7 +537,7 @@ export default function CorporateWellnessPage() {
       {/* ── CTA final ── */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d0f16' }}>
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#FF6B35' }}>
             Empieza con un piloto
           </p>
           <h2 className="font-serif text-3xl md:text-5xl font-bold leading-tight mb-6" style={{ color: '#F5F0E8' }}>
@@ -550,7 +550,7 @@ export default function CorporateWellnessPage() {
           <a
             href="mailto:info@food-mood.app?subject=Quiero%20un%20piloto%20Food·Mood%20for%20Work"
             className="inline-flex items-center gap-2 px-10 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90"
-            style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+            style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}
           >
             Quiero un piloto para mi empresa <ArrowRight className="w-4 h-4" />
           </a>

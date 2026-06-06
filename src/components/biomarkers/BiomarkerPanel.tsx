@@ -51,12 +51,12 @@ export function BiomarkerPanel() {
 
   return (
     <div className="max-w-[520px] w-full mx-auto rounded-3xl overflow-hidden"
-      style={{ backgroundColor: "#120a0e", border: "1px solid rgba(201,168,76,0.15)" }}>
+      style={{ backgroundColor: "#120a0e", border: "1px solid rgba(255,107,53,0.15)" }}>
 
       {/* Header */}
       <div className="px-6 pt-6 pb-4 flex items-center justify-between">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#FF6B35" }}>
             Biomarcadores
           </p>
           <p className="text-sm font-light" style={{ color: "rgba(255,255,255,0.5)" }}>
@@ -82,7 +82,7 @@ export function BiomarkerPanel() {
                   style={{ color: "rgba(255,255,255,0.4)" }}>
                   {label}
                 </span>
-                <span className="text-xl font-serif font-black" style={{ color: "#C9A84C" }}>
+                <span className="text-xl font-serif font-black" style={{ color: "#FF6B35" }}>
                   {key === "sleep_h" ? value.toFixed(1) : Math.round(value)}
                   <span className="text-xs font-sans font-light ml-1"
                     style={{ color: "rgba(255,255,255,0.4)" }}>{unit}</span>
@@ -104,18 +104,18 @@ export function BiomarkerPanel() {
             <div
               key={id}
               className="flex items-center justify-between rounded-2xl px-4 py-3"
-              style={{ backgroundColor: connected ? "rgba(201,168,76,0.08)" : "rgba(255,255,255,0.03)" }}
+              style={{ backgroundColor: connected ? "rgba(255,107,53,0.08)" : "rgba(255,255,255,0.03)" }}
             >
               <div className="flex items-center gap-2.5">
                 <span className="text-base">{emoji}</span>
-                <span className="text-sm font-medium" style={{ color: connected ? "#C9A84C" : "rgba(255,255,255,0.55)" }}>
+                <span className="text-sm font-medium" style={{ color: connected ? "#FF6B35" : "rgba(255,255,255,0.55)" }}>
                   {label}
                 </span>
               </div>
               {connected ? (
                 <span
                   className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full"
-                  style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C" }}>
+                  style={{ backgroundColor: "rgba(255,107,53,0.15)", color: "#FF6B35" }}>
                   Conectado
                 </span>
               ) : (

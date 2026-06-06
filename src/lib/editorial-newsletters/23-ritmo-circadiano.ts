@@ -12,37 +12,37 @@ export function buildHtml(): string {
   .wrapper { max-width: 680px; margin: 0 auto; background: #F5F0E8; }
   .header { background: #2d0f16; padding: 48px 44px 44px; }
   .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #6B2737; letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
-  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; }
+  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #FF6B35; margin-bottom: 8px; }
   .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.45); margin-bottom: 32px; }
   .header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; color: #F5F0E8; line-height: 1.20; }
-  .header-title em { font-style: italic; color: #C9A84C; font-weight: 400; }
+  .header-title em { font-style: italic; color: #FF6B35; font-weight: 400; }
   .intro { padding: 36px 44px; border-bottom: 1px solid #e0d5c8; }
   .intro p { font-size: 15px; line-height: 1.82; color: #4a3a3e; font-weight: 300; margin-bottom: 18px; }
   .intro p:last-child { margin-bottom: 0; }
   .intro strong { font-weight: 700; color: #2a1a1e; }
   .section-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 18px; }
-  .section-label-gold { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 14px; }
+  .section-label-gold { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,107,53,0.65); margin-bottom: 14px; }
   .g1-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; background: #18090e; }
   .clock-block { border-left: 3px solid #6B2737; border-radius: 0 8px 8px 0; padding: 14px 16px 14px 18px; background: #2d0f16; }
-  .clock-time { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: #C9A84C; margin-bottom: 4px; }
+  .clock-time { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: #FF6B35; margin-bottom: 4px; }
   .clock-hormone { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; color: #F5F0E8; margin-bottom: 6px; }
   .clock-desc { font-size: 12px; font-weight: 300; line-height: 1.60; color: rgba(245,240,232,0.65); font-style: italic; }
   .g2-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
   .franja-block { margin-bottom: 16px; border-radius: 8px; overflow: hidden; }
   .franja-block:last-child { margin-bottom: 0; }
   .franja-header { background: #6B2737; padding: 10px 16px; }
-  .franja-time { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #C9A84C; margin-bottom: 2px; }
+  .franja-time { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FF6B35; margin-bottom: 2px; }
   .franja-macro { font-size: 13px; font-weight: 700; color: #F5F0E8; }
   .franja-body { background: #fff; border: 1px solid #e0d5c8; border-top: none; border-radius: 0 0 8px 8px; padding: 14px 16px; }
   .franja-foods { font-size: 13px; font-weight: 300; color: #4a3a3e; margin-bottom: 8px; line-height: 1.55; }
-  .franja-mec { font-size: 11.5px; font-style: italic; color: rgba(201,168,76,0.70); line-height: 1.60; }
+  .franja-mec { font-size: 11.5px; font-style: italic; color: rgba(255,107,53,0.70); line-height: 1.60; }
   .g3-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
   .cost-table { width: 100%; border-collapse: collapse; }
   .cost-cell { width: 50%; vertical-align: top; padding: 6px; }
   .cost-block { background: #2d0f16; border-radius: 10px; padding: 18px 20px; }
-  .cost-indicator { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; }
+  .cost-indicator { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FF6B35; margin-bottom: 8px; }
   .cost-body { font-size: 12px; font-weight: 300; line-height: 1.65; color: rgba(245,240,232,0.70); }
-  .cost-cite { font-size: 10px; color: rgba(201,168,76,0.40); font-style: italic; margin-top: 6px; }
+  .cost-cite { font-size: 10px; color: rgba(255,107,53,0.40); font-style: italic; margin-top: 6px; }
   .ajustes-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
   .ajuste-item { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid #e8ddd5; }
   .ajuste-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
@@ -51,15 +51,15 @@ export function buildHtml(): string {
   .ajuste-body { font-size: 13.5px; font-weight: 300; line-height: 1.78; color: #4a3a3e; }
   .ajuste-cite { font-size: 11px; color: rgba(107,39,55,0.50); font-style: italic; margin-top: 8px; }
   .receta-wrap { padding: 32px 44px; background: #2d0f16; }
-  .receta-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 10px; }
-  .receta-title { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: #C9A84C; line-height: 1.25; margin-bottom: 20px; }
+  .receta-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,107,53,0.55); margin-bottom: 10px; }
+  .receta-title { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: #FF6B35; line-height: 1.25; margin-bottom: 20px; }
   .receta-subtitle { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.40); margin-bottom: 10px; margin-top: 18px; }
   .receta-list { list-style: none; padding: 0; }
   .receta-list li { font-size: 13px; font-weight: 300; color: rgba(245,240,232,0.80); line-height: 1.65; padding: 3px 0 3px 14px; position: relative; }
-  .receta-list li::before { content: "—"; position: absolute; left: 0; color: rgba(201,168,76,0.50); }
+  .receta-list li::before { content: "—"; position: absolute; left: 0; color: rgba(255,107,53,0.50); }
   .receta-steps { font-size: 13.5px; font-weight: 300; line-height: 1.80; color: rgba(245,240,232,0.75); }
-  .receta-nota { margin-top: 22px; padding: 18px 20px; border: 1px solid rgba(201,168,76,0.20); border-radius: 8px; }
-  .receta-nota-label { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 8px; }
+  .receta-nota { margin-top: 22px; padding: 18px 20px; border: 1px solid rgba(255,107,53,0.20); border-radius: 8px; }
+  .receta-nota-label { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,107,53,0.55); margin-bottom: 8px; }
   .receta-nota-body { font-size: 12.5px; font-weight: 300; line-height: 1.72; color: rgba(245,240,232,0.65); font-style: italic; }
   .biblio-wrap { padding: 28px 44px; border-bottom: 1px solid #e0d5c8; background: #faf7f2; }
   .biblio-title { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 14px; }
@@ -67,7 +67,7 @@ export function buildHtml(): string {
   .biblio-list li { font-size: 11.5px; font-weight: 300; color: #7a6a6e; line-height: 1.68; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid #ece5db; }
   .biblio-list li:last-child { border-bottom: none; margin-bottom: 0; }
   .biblio-author { font-weight: 700; color: #4a3a3e; }
-  .quote-wrap { padding: 40px 44px; background: #C9A84C; }
+  .quote-wrap { padding: 40px 44px; background: #FF6B35; }
   .quote-text { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 700; color: #2d0f16; line-height: 1.38; text-align: center; }
   .quote-text em { font-style: italic; font-weight: 400; }
   .cta-wrap { padding: 36px 44px; text-align: center; border-bottom: 1px solid #e0d5c8; }
@@ -114,7 +114,7 @@ export function buildHtml(): string {
             <div class="clock-block" style="margin-top:8px;"><div class="clock-time">17:00 &ndash; 19:00</div><div class="clock-hormone">Cortisol en descenso &middot; Temperatura corporal pico</div><div class="clock-desc">&ldquo;Ventana para ejercicio f&iacute;sico seg&uacute;n cronobiolog&iacute;a. Las cenas tard&iacute;as en este periodo pueden interferir con la transici&oacute;n hacia el reposo.&rdquo;</div></div>
             <div class="clock-block" style="margin-top:8px;"><div class="clock-time">21:00 &ndash; 23:00</div><div class="clock-hormone">Melatonina en ascenso</div><div class="clock-desc">&ldquo;La luz artificial y la ingesta cal&oacute;rica tard&iacute;a pueden suprimir su producci&oacute;n seg&uacute;n varios estudios de cronobiolog&iacute;a.&rdquo;</div></div>
             <div class="clock-block" style="margin-top:8px;border-left-color:rgba(107,39,55,0.40);"><div class="clock-time">03:00 &ndash; 05:00</div><div class="clock-hormone">Melatonina pico &middot; Temperatura corporal m&iacute;nima</div><div class="clock-desc">&ldquo;El sistema digestivo reduce su actividad al m&iacute;nimo. La ingesta en esta franja se asocia con mayor impacto metab&oacute;lico negativo.&rdquo;</div></div>
-            <p style="margin-top:16px;font-size:10.5px;font-style:italic;color:rgba(201,168,76,0.40);line-height:1.65;">Fuente: Hall, Rosbash &amp; Young, Nobel Lecture 2017; Garaulet &amp; G&oacute;mez-Abell&aacute;n, 2014.</p>
+            <p style="margin-top:16px;font-size:10.5px;font-style:italic;color:rgba(255,107,53,0.40);line-height:1.65;">Fuente: Hall, Rosbash &amp; Young, Nobel Lecture 2017; Garaulet &amp; G&oacute;mez-Abell&aacute;n, 2014.</p>
           </td>
         </tr>
         <tr>

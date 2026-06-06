@@ -52,7 +52,7 @@ export function ExpertiseSection() {
                 </p>
                 
                 <div className="flex items-start gap-3 mt-1">
-                  <span className="w-1.5 h-1.5 rounded-sm bg-[#C9A84C]/50 mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-sm bg-[#FF6B35]/50 mt-2 shrink-0" />
                   <p className="text-[13px] md:text-sm font-light text-aubergine-dark/60 leading-relaxed max-w-lg">
                     <span className="font-semibold text-aubergine-dark/80 tracking-wide">De qué te sirve:</span> {pillar.outcome}
                   </p>

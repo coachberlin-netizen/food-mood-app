@@ -38,7 +38,7 @@ const FASES = [
     concepto: 'Tiny Habits · Diseño de entorno · Ancla hedónica · Identidad · Dopamina · Autocompasión',
     descripcion: 'Construyes el andamio. Cada hábito es tan pequeño que la resistencia desaparece. Cada bebida crea una asociación placer—acción en tu circuito de dopamina.',
     hito: 'Día 7 — Elixir de celebración: kéfir con vainilla, dátil y cacao',
-    color: '#C9A84C',
+    color: '#FF6B35',
   },
   {
     num: '02',
@@ -277,7 +277,7 @@ export default async function MicrohabitosPage() {
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold"
-        style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+        style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}
       >
         Saltar al contenido
       </a>
@@ -300,14 +300,14 @@ export default async function MicrohabitosPage() {
             aria-hidden="true"
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse 70% 60% at 60% 30%, rgba(201,168,76,0.12) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 70%, rgba(107,39,55,0.25) 0%, transparent 60%)',
+              background: 'radial-gradient(ellipse 70% 60% at 60% 30%, rgba(255,107,53,0.12) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 70%, rgba(107,39,55,0.25) 0%, transparent 60%)',
             }}
           />
 
           <div className="absolute top-8 left-6 right-6 flex justify-between items-center">
             <span
               className="text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full"
-              style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}
+              style={{ backgroundColor: 'rgba(255,107,53,0.15)', color: '#FF6B35', border: '1px solid rgba(255,107,53,0.3)' }}
             >
               21 días · Psicología del comportamiento
             </span>
@@ -321,7 +321,7 @@ export default async function MicrohabitosPage() {
           </div>
 
           <div className="relative z-10 max-w-2xl mx-auto px-6 pb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-5" style={{ color: 'rgba(201,168,76,0.6)' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-5" style={{ color: 'rgba(255,107,53,0.6)' }}>
               Hábitos · Placer · Neurociencia
             </p>
             <h1
@@ -331,7 +331,7 @@ export default async function MicrohabitosPage() {
             >
               El placer no es<br />
               la recompensa.<br />
-              <span style={{ color: '#C9A84C' }}>Es el mecanismo.</span>
+              <span style={{ color: '#FF6B35' }}>Es el mecanismo.</span>
             </h1>
             <p className="text-lg font-light leading-relaxed mb-10" style={{ color: 'rgba(245,240,232,0.6)', maxWidth: '440px' }}>
               21 días para crear un hábito real sin fuerza de voluntad. Un micro-hábito + una teoría psicológica + una bebida funcional como ancla hedónica. Cada día.
@@ -341,17 +341,17 @@ export default async function MicrohabitosPage() {
 
             <div className="flex items-center gap-6 mt-8">
               <div className="text-center">
-                <p className="text-2xl font-black" style={{ color: '#C9A84C' }}>21</p>
+                <p className="text-2xl font-black" style={{ color: '#FF6B35' }}>21</p>
                 <p className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(245,240,232,0.35)' }}>días</p>
               </div>
               <div style={{ width: '1px', height: '36px', backgroundColor: 'rgba(245,240,232,0.1)' }} aria-hidden="true" />
               <div className="text-center">
-                <p className="text-2xl font-black" style={{ color: '#C9A84C' }}>8</p>
+                <p className="text-2xl font-black" style={{ color: '#FF6B35' }}>8</p>
                 <p className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(245,240,232,0.35)' }}>mecanismos</p>
               </div>
               <div style={{ width: '1px', height: '36px', backgroundColor: 'rgba(245,240,232,0.1)' }} aria-hidden="true" />
               <div className="text-center">
-                <p className="text-2xl font-black" style={{ color: '#C9A84C' }}>29€</p>
+                <p className="text-2xl font-black" style={{ color: '#FF6B35' }}>29€</p>
                 <p className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(245,240,232,0.35)' }}>acceso de por vida</p>
               </div>
             </div>
@@ -361,7 +361,7 @@ export default async function MicrohabitosPage() {
         {/* â"€â"€ EL PROBLEMA â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 py-20" aria-labelledby="mh-problema">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#2d0f16' }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#C9A84C' }}>El problema real</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: '#FF6B35' }}>El problema real</p>
             <h2 id="mh-problema" className="font-serif text-2xl md:text-3xl font-bold mb-6 leading-tight" style={{ color: '#F5F0E8' }}>
               La fuerza de voluntad<br />no es la solución.
             </h2>
@@ -385,7 +385,7 @@ export default async function MicrohabitosPage() {
           </p>
           <blockquote
             className="border-l-4 pl-5 py-1 italic font-serif text-xl"
-            style={{ borderColor: '#C9A84C', color: 'rgba(107,39,55,0.8)' }}
+            style={{ borderColor: '#FF6B35', color: 'rgba(107,39,55,0.8)' }}
           >
             &ldquo;Cada vez que experimentas placer, el cerebro libera dopamina y graba la ruta neural que llevó a ese placer.&rdquo;
           </blockquote>
@@ -473,7 +473,7 @@ export default async function MicrohabitosPage() {
         {/* â"€â"€ 21 BEBIDAS â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-bebidas">
           <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: '#2d0f16' }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>Las 21 anclas</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#FF6B35' }}>Las 21 anclas</p>
             <h2 id="mh-bebidas" className="font-serif text-2xl font-bold mb-2 leading-tight" style={{ color: '#F5F0E8' }}>
               21 bebidas funcionales fermentadas.
             </h2>
@@ -485,13 +485,13 @@ export default async function MicrohabitosPage() {
                 <li key={dia} className="flex items-baseline gap-3 text-sm">
                   <span
                     className="text-[10px] font-black shrink-0 w-5 text-right"
-                    style={{ color: 'rgba(201,168,76,0.45)' }}
+                    style={{ color: 'rgba(255,107,53,0.45)' }}
                   >
                     {dia}
                   </span>
                   <span
                     className="font-light"
-                    style={{ color: nombre.startsWith('✨') ? '#C9A84C' : 'rgba(245,240,232,0.7)' }}
+                    style={{ color: nombre.startsWith('✨') ? '#FF6B35' : 'rgba(245,240,232,0.7)' }}
                   >
                     {nombre}
                   </span>
@@ -520,7 +520,7 @@ export default async function MicrohabitosPage() {
                 <li key={text} className="flex items-start gap-3 text-sm" style={{ color: '#2d0f16' }}>
                   <span
                     className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold text-[#F5F0E8]"
-                    style={{ backgroundColor: '#C9A84C' }}
+                    style={{ backgroundColor: '#FF6B35' }}
                     aria-hidden="true"
                   >✓</span>
                   {text}
@@ -532,7 +532,7 @@ export default async function MicrohabitosPage() {
 
         {/* â"€â"€ PARA QUIÉN â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 pb-20" aria-labelledby="mh-paraquien">
-          <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.2)' }}>
+          <div className="rounded-3xl p-8 md:p-10" style={{ backgroundColor: 'rgba(255,107,53,0.06)', border: '1px solid rgba(255,107,53,0.2)' }}>
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'rgba(107,39,55,0.45)' }}>¿Es para ti?</p>
             <h2 id="mh-paraquien" className="font-serif text-xl font-bold mb-6 leading-tight" style={{ color: '#2d0f16' }}>
               Este reto es para ti si…
@@ -547,7 +547,7 @@ export default async function MicrohabitosPage() {
                 'Quieres entender la psicología detrás de tu propio comportamiento',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm font-light" style={{ color: 'rgba(107,39,55,0.75)' }}>
-                  <span style={{ color: '#C9A84C', fontWeight: 700, flexShrink: 0 }}>→</span>
+                  <span style={{ color: '#FF6B35', fontWeight: 700, flexShrink: 0 }}>→</span>
                   {item}
                 </li>
               ))}
@@ -572,7 +572,7 @@ export default async function MicrohabitosPage() {
                   <span
                     className="shrink-0 mt-0.5 transition-transform group-open:rotate-45"
                     aria-hidden="true"
-                    style={{ color: '#C9A84C', fontSize: '1.25rem', lineHeight: 1 }}
+                    style={{ color: '#FF6B35', fontSize: '1.25rem', lineHeight: 1 }}
                   >+</span>
                 </summary>
                 <p className="text-sm font-light leading-relaxed mt-3" style={{ color: 'rgba(107,39,55,0.65)' }}>
@@ -586,7 +586,7 @@ export default async function MicrohabitosPage() {
         {/* â"€â"€ CTA FINAL â"€â"€ */}
         <section className="max-w-2xl mx-auto px-6 pb-24" aria-labelledby="mh-cta" id="cta-compra">
           <div className="rounded-3xl p-10 md:p-14" style={{ backgroundColor: '#1a0a0d' }}>
-            <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-5" style={{ color: '#C9A84C' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-5" style={{ color: '#FF6B35' }}>
               El placer como arquitecto
             </p>
             <h2
@@ -595,7 +595,7 @@ export default async function MicrohabitosPage() {
               style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', color: '#F5F0E8' }}
             >
               21 días para que el hábito<br />
-              <span style={{ color: '#C9A84C' }}>ocurra solo.</span>
+              <span style={{ color: '#FF6B35' }}>ocurra solo.</span>
             </h2>
             <p className="text-base font-light mb-8 leading-relaxed" style={{ color: 'rgba(245,240,232,0.55)' }}>
               Sin fuerza de voluntad. Sin restricción. Sin culpa.<br />

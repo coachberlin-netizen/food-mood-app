@@ -109,7 +109,7 @@ export default function ServiciosPage() {
         <section className="bg-aubergine-dark pt-36 pb-24 px-6 relative overflow-hidden">
           {/* Fondo sutil */}
           <div className="absolute inset-0 pointer-events-none" style={{
-            background: 'radial-gradient(ellipse 60% 50% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,107,53,0.08) 0%, transparent 70%)',
           }} />
 
           <div className="max-w-4xl mx-auto text-center relative z-10">

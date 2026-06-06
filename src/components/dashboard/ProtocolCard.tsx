@@ -15,10 +15,10 @@ export function ProtocolCard() {
     <Link
       href="/practicas"
       className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
-      style={{ backgroundColor: '#2d0f16', border: '1px solid rgba(201,168,76,0.15)' }}
+      style={{ backgroundColor: '#2d0f16', border: '1px solid rgba(255,107,53,0.15)' }}
     >
       <div className="flex items-center justify-between mb-3">
-        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#FF6B35' }}>
           Protocolo activo
         </p>
         <span className="text-[10px]" style={{ color: 'rgba(245,240,232,0.3)' }}>
@@ -34,7 +34,7 @@ export function ProtocolCard() {
       <div className="w-full h-1 rounded-full" style={{ backgroundColor: 'rgba(245,240,232,0.08)' }}>
         <motion.div
           className="h-1 rounded-full"
-          style={{ backgroundColor: '#C9A84C' }}
+          style={{ backgroundColor: '#FF6B35' }}
           initial={{ width: 0 }}
           animate={{ width: `${Math.max(1, pct)}%` }}
           transition={{ duration: 0.8, ease: 'easeOut' }}

@@ -10,7 +10,7 @@ export function buildHtml(): string {
   :root {
     --burgundy: #6B2737;
     --cream: #F5F0E8;
-    --gold: #C9A84C;
+    --gold: #FF6B35;
     --dark: #2C1810;
     --muted: #8B7355;
     --teal: #4A7C7E;
@@ -104,7 +104,7 @@ export function buildHtml(): string {
     font-size: 14px; font-weight: 300;
     color: rgba(245,240,232,0.62);
     line-height: 1.8; max-width: 440px;
-    border-left: 2px solid rgba(201,168,76,0.6);
+    border-left: 2px solid rgba(255,107,53,0.6);
     padding-left: 18px;
   }
 
@@ -199,7 +199,7 @@ export function buildHtml(): string {
   .sintomas-block .disclaimer {
     border-left: 2px solid var(--gold);
     padding: 14px 18px;
-    background: rgba(201,168,76,0.07);
+    background: rgba(255,107,53,0.07);
   }
   .sintomas-block .disclaimer p {
     font-size: 13px; font-weight: 300;
@@ -343,7 +343,7 @@ export function buildHtml(): string {
     font-size: 14px; font-weight: 300;
     font-style: italic; color: rgba(245,240,232,0.65);
     line-height: 1.75; margin-bottom: 22px;
-    border-left: 2px solid rgba(201,168,76,0.5);
+    border-left: 2px solid rgba(255,107,53,0.5);
     padding-left: 16px;
   }
 

@@ -111,7 +111,7 @@ export function AccessibilityWidget() {
             <a
               href="mailto:info@food-mood.app"
               className="underline underline-offset-2"
-              style={{ color: "#C9A84C" }}
+              style={{ color: "#FF6B35" }}
             >
               escríbenos
             </a>

@@ -35,12 +35,12 @@ export function EvaluacionLanding() {
         transition={{ duration: 0.5 }}
         className="pt-12 pb-8 text-center"
       >
-        <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.3em] uppercase mb-4">
+        <p className="text-[#FF6B35] text-[10px] font-medium tracking-[0.3em] uppercase mb-4">
           Food·Mood · Evaluación Gratuita
         </p>
         <h1 className="font-serif text-3xl md:text-4xl text-[#F5F0E8] font-light leading-tight mb-4">
           Tu perfil nutricional<br />
-          <em className="italic text-[#C9A84C]">personalizado</em>
+          <em className="italic text-[#FF6B35]">personalizado</em>
         </h1>
         <p className="text-[#F5F0E8]/55 text-sm leading-relaxed max-w-sm mx-auto">
           Completa uno o más tests y recibe una valoración orientativa generada por IA.
@@ -53,10 +53,10 @@ export function EvaluacionLanding() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mb-6 rounded-2xl border border-[#C9A84C]/30 bg-[#C9A84C]/8 p-4 flex items-center justify-between"
+          className="mb-6 rounded-2xl border border-[#FF6B35]/30 bg-[#FF6B35]/8 p-4 flex items-center justify-between"
         >
           <div>
-            <p className="text-[#C9A84C] text-sm font-semibold">
+            <p className="text-[#FF6B35] text-sm font-semibold">
               {totalCompletados} {totalCompletados === 1 ? 'test completado' : 'tests completados'}
             </p>
             <p className="text-[#F5F0E8]/40 text-xs mt-0.5">

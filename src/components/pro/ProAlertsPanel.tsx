@@ -15,8 +15,8 @@ const ALERT_META: Record<ProAlertType, {
     icon:   Clock,
     label:  "Sin registro",
     color:  "#92691A",
-    bg:     "rgba(201,168,76,0.08)",
-    border: "rgba(201,168,76,0.25)",
+    bg:     "rgba(255,107,53,0.08)",
+    border: "rgba(255,107,53,0.25)",
   },
   high_tension: {
     icon:   AlertTriangle,

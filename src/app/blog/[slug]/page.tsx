@@ -133,7 +133,7 @@ export default async function BlogPostPage({
             <header className="mb-16">
               <div className="flex flex-wrap items-center gap-4 mb-6">
                 {displayDate && (
-                  <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                  <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#FF6B35]">
                     <Calendar className="w-3.5 h-3.5" />
                     <span>{displayDate}</span>
                   </div>
@@ -246,7 +246,7 @@ export default async function BlogPostPage({
         <article className="max-w-4xl mx-auto px-6">
           <header className="mb-16">
             <div className="flex flex-wrap items-center gap-4 mb-6">
-              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#FF6B35]">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>{displayDate}</span>
               </div>

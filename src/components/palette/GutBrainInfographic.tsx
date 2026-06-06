@@ -66,7 +66,7 @@ export default function GutBrainInfographic() {
                 cy="50"
                 r="45"
                 fill="none"
-                stroke="#C9A84C33"
+                stroke="#FF6B3533"
                 strokeWidth="2"
               />
               <motion.circle
@@ -74,7 +74,7 @@ export default function GutBrainInfographic() {
                 cy="50"
                 r="45"
                 fill="none"
-                stroke="#C9A84C"
+                stroke="#FF6B35"
                 strokeWidth="3"
                 strokeDasharray="283"
                 initial={{ strokeDashoffset: 283 }}
@@ -85,10 +85,10 @@ export default function GutBrainInfographic() {
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-3xl font-serif italic text-[#C9A84C] font-bold">50%</span>
+              <span className="text-3xl font-serif italic text-[#FF6B35] font-bold">50%</span>
             </div>
           </div>
-          <h4 className="text-[14px] uppercase tracking-[0.2em] text-[#C9A84C]/60 font-bold mb-2">Dopamina</h4>
+          <h4 className="text-[14px] uppercase tracking-[0.2em] text-[#FF6B35]/60 font-bold mb-2">Dopamina</h4>
           <p className="text-xs text-[#7a7974] font-light text-center leading-relaxed">
             Se sintetiza en el entorno gastrointestinal, regulando tu motivación.
           </p>
@@ -110,7 +110,7 @@ export default function GutBrainInfographic() {
             <svg width="60" height="140" viewBox="0 0 60 140" className="overflow-visible">
               <defs>
                 <linearGradient id="flowGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-                  <stop offset="0%" stopColor="#C9A84C" />
+                  <stop offset="0%" stopColor="#FF6B35" />
                   <stop offset="100%" stopColor="#FAF9F6" />
                 </linearGradient>
               </defs>

@@ -57,7 +57,7 @@ export function BlogTabs({ posts }: { posts: BlogPost[] }) {
             onClick={() => setTab(t.id)}
             className="px-5 py-3 text-sm font-medium transition-all border-b-2 -mb-px"
             style={tab === t.id
-              ? { color: "#6B2737", borderColor: "#C9A84C" }
+              ? { color: "#6B2737", borderColor: "#FF6B35" }
               : { color: "rgba(107,39,55,0.4)", borderColor: "transparent" }
             }
           >
@@ -75,7 +75,7 @@ export function BlogTabs({ posts }: { posts: BlogPost[] }) {
               href={`/newsletter/${nl.slug}`}
               className="group flex items-baseline gap-4 py-4 hover:bg-[#6B2737]/3 -mx-3 px-3 rounded-xl transition-colors"
             >
-              <span className="font-serif text-xs shrink-0 w-6 text-right" style={{ color: "#C9A84C", opacity: 0.6 }}>
+              <span className="font-serif text-xs shrink-0 w-6 text-right" style={{ color: "#FF6B35", opacity: 0.6 }}>
                 {nl.numero}
               </span>
               <span className="text-[15px] font-light flex-1 leading-snug transition-colors" style={{ color: "#2d0f16" }}
@@ -111,9 +111,9 @@ export function BlogTabs({ posts }: { posts: BlogPost[] }) {
               return (
                 <div key={key}>
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="h-px bg-[#C9A84C] opacity-30 flex-1" />
+                    <div className="h-px bg-[#FF6B35] opacity-30 flex-1" />
                     <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#6B2737] whitespace-nowrap">{label}</span>
-                    <div className="h-px bg-[#C9A84C] opacity-30 flex-1" />
+                    <div className="h-px bg-[#FF6B35] opacity-30 flex-1" />
                   </div>
                   {curated.length > 0 && (
                     <div className="grid md:grid-cols-2 gap-4 mb-8">

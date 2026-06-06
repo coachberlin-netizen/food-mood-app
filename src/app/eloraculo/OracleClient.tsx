@@ -81,7 +81,7 @@ function getMixedSliders(emotions: string[]) {
 
 const cardBase     = 'w-full rounded-2xl p-4 text-left transition-all border-2 cursor-pointer'
 const cardIdle     = 'border-transparent bg-white/5 hover:bg-white/8'
-const cardSelected = 'border-[#C9A84C] bg-[#C9A84C]/10'
+const cardSelected = 'border-[#FF6B35] bg-[#FF6B35]/10'
 
 // ── Screen 1 — Emotion ───────────────────────────────────────────────
 
@@ -132,7 +132,7 @@ function Screen1Emocion({ value, onChange }: { value: string[]; onChange: (v: st
               <div className="flex items-center justify-between mb-2">
                 <div className="w-3 h-3 rounded-full" style={{ background: m.color }} />
                 {isSelected && (
-                  <span className="text-[9px] font-medium text-[#C9A84C] uppercase tracking-wider">
+                  <span className="text-[9px] font-medium text-[#FF6B35] uppercase tracking-wider">
                     {idx === 0 ? 'Principal' : 'Secundaria'}
                   </span>
                 )}
@@ -177,7 +177,7 @@ function Screen2EnergiaSueno({
               onClick={() => onEnergy(n)}
               className={`rounded-xl py-3 text-sm font-medium transition-all border-2 ${
                 energyLevel === n
-                  ? 'border-[#C9A84C] bg-[#C9A84C]/15 text-[#C9A84C]'
+                  ? 'border-[#FF6B35] bg-[#FF6B35]/15 text-[#FF6B35]'
                   : 'border-transparent bg-white/5 text-[#F5F0E8]/60 hover:bg-white/10'
               }`}
             >
@@ -210,7 +210,7 @@ function Screen2EnergiaSueno({
                   <div
                     key={i}
                     className="w-2 h-2 rounded-full"
-                    style={{ background: i <= opt.value ? '#C9A84C' : 'rgba(255,255,255,0.15)' }}
+                    style={{ background: i <= opt.value ? '#FF6B35' : 'rgba(255,255,255,0.15)' }}
                   />
                 ))}
               </div>
@@ -267,7 +267,7 @@ function Screen3SenalesContexto({
           onChange={e => onNotes(e.target.value)}
           placeholder="¿Algo más que quieras registrar hoy?"
           rows={3}
-          className="w-full rounded-2xl bg-white/5 border border-white/10 p-4 text-[#F5F0E8] text-sm placeholder:text-[#F5F0E8]/25 focus:outline-none focus:border-[#C9A84C]/50 resize-none"
+          className="w-full rounded-2xl bg-white/5 border border-white/10 p-4 text-[#F5F0E8] text-sm placeholder:text-[#F5F0E8]/25 focus:outline-none focus:border-[#FF6B35]/50 resize-none"
         />
         <p className="text-[#F5F0E8]/20 text-[10px] mt-1 px-1">
           Cifradas y solo visibles para ti y tu profesional.
@@ -292,7 +292,7 @@ function OracleResult({ data, isPremium: _isPremium, onReset }: { data: OracleDa
 
   const accentColor = moodA && moodB
     ? mixColors(moodA.color, moodB.color, 0.5)
-    : moodA?.color ?? '#C9A84C'
+    : moodA?.color ?? '#FF6B35'
 
   const handleSave = useCallback(async () => {
     const supabase = createClient()
@@ -429,7 +429,7 @@ function OracleResult({ data, isPremium: _isPremium, onReset }: { data: OracleDa
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.4 }}
           className="rounded-3xl p-8 border text-center"
-          style={{ borderColor: 'rgba(201,168,76,0.2)', background: 'rgba(201,168,76,0.05)' }}
+          style={{ borderColor: 'rgba(255,107,53,0.2)', background: 'rgba(255,107,53,0.05)' }}
         >
           <p className="text-[#F5F0E8]/70 text-base leading-relaxed font-light">
             Tu check-in ha sido registrado. Tu profesional tendrá acceso a tu evolución en la próxima sesión.
@@ -499,7 +499,7 @@ function ConsentScreen({ onAccept, onDecline }: { onAccept: () => void; onDeclin
     >
       <div className="max-w-sm w-full space-y-6">
         <div className="text-center">
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.3em] uppercase mb-4">
+          <p className="text-[#FF6B35] text-[10px] font-medium tracking-[0.3em] uppercase mb-4">
             Antes de empezar
           </p>
           <h2 className="font-serif text-2xl text-[#F5F0E8] font-light leading-tight mb-3">
@@ -615,12 +615,12 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
         className="min-h-screen bg-[#1A0A0E] flex flex-col items-center justify-center px-6 py-16 text-center"
       >
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.3em] uppercase mb-6">
+          <p className="text-[#FF6B35] text-[10px] font-medium tracking-[0.3em] uppercase mb-6">
             Food·Mood · Check-in diario
           </p>
           <h1 className="font-serif text-4xl md:text-5xl text-[#F5F0E8] font-light leading-tight mb-4">
             Registro<br />
-            <em className="italic text-[#C9A84C]">emocional</em>
+            <em className="italic text-[#FF6B35]">emocional</em>
           </h1>
           <p className="text-[#F5F0E8]/55 text-base max-w-xs mx-auto leading-relaxed mb-12">
             Registra tu estado emocional y físico de hoy.<br />
@@ -655,7 +655,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="text-center flex-1 px-4">
-            <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.2em] uppercase">
+            <p className="text-[#FF6B35] text-[10px] font-medium tracking-[0.2em] uppercase">
               {currentScreen.n} de {SCREENS_META.length}
             </p>
             <p className="text-[#F5F0E8]/50 text-xs mt-0.5">{currentScreen.label}</p>
@@ -665,7 +665,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
         <div className="h-1 bg-white/8 rounded-full overflow-hidden">
           <motion.div
             className="h-full rounded-full"
-            style={{ background: '#C9A84C' }}
+            style={{ background: '#FF6B35' }}
             animate={{ width: `${((step + 1) / SCREENS_META.length) * 100}%` }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
           />

@@ -102,7 +102,7 @@ export function CookingGuide({ receta, onClose }: Props) {
           </button>
 
           <div className="text-center">
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#C9A84C]">
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#FF6B35]">
               Guía de cocina
             </p>
             <p className="text-[#F5F0E8]/35 text-[10px] mt-0.5">
@@ -121,7 +121,7 @@ export function CookingGuide({ receta, onClose }: Props) {
             aria-label={ttsEnabled ? "Silenciar voz" : "Activar voz"}
           >
             {ttsEnabled
-              ? <Volume2 className="w-4 h-4 text-[#C9A84C]" />
+              ? <Volume2 className="w-4 h-4 text-[#FF6B35]" />
               : <VolumeX className="w-4 h-4 text-[#F5F0E8]/30" />
             }
           </button>
@@ -130,7 +130,7 @@ export function CookingGuide({ receta, onClose }: Props) {
         {/* Progress bar */}
         <div className="h-0.5 bg-white/8 rounded-full overflow-hidden">
           <motion.div
-            className="h-full rounded-full bg-[#C9A84C]"
+            className="h-full rounded-full bg-[#FF6B35]"
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
           />
@@ -151,7 +151,7 @@ export function CookingGuide({ receta, onClose }: Props) {
             {/* Step number badge */}
             <div
               className="w-10 h-10 rounded-2xl flex items-center justify-center mb-5 text-sm font-bold"
-              style={{ background: "rgba(201,168,76,0.15)", color: "#C9A84C" }}
+              style={{ background: "rgba(255,107,53,0.15)", color: "#FF6B35" }}
             >
               {stepIndex + 1}
             </div>
@@ -169,11 +169,11 @@ export function CookingGuide({ receta, onClose }: Props) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   className="mt-6 rounded-2xl px-4 py-3"
-                  style={{ background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)" }}
+                  style={{ background: "rgba(255,107,53,0.08)", border: "1px solid rgba(255,107,53,0.2)" }}
                 >
                   {aiLoading
                     ? <div className="flex items-center gap-2">
-                        <Loader2 className="w-3.5 h-3.5 text-[#C9A84C] animate-spin" />
+                        <Loader2 className="w-3.5 h-3.5 text-[#FF6B35] animate-spin" />
                         <span className="text-[#F5F0E8]/40 text-sm">Consultando…</span>
                       </div>
                     : <p className="text-[#F5F0E8]/75 text-sm leading-relaxed">{aiAnswer}</p>
@@ -197,7 +197,7 @@ export function CookingGuide({ receta, onClose }: Props) {
               className="flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-medium transition-all disabled:opacity-40"
               style={
                 isRecording
-                  ? { background: "rgba(201,168,76,0.2)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.5)" }
+                  ? { background: "rgba(255,107,53,0.2)", color: "#FF6B35", border: "1px solid rgba(255,107,53,0.5)" }
                   : { background: "rgba(245,240,232,0.06)", color: "rgba(245,240,232,0.5)", border: "1px solid rgba(245,240,232,0.1)" }
               }
               aria-label={isRecording ? "Dejar de grabar" : "Hacer una pregunta por voz"}

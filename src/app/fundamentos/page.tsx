@@ -49,7 +49,7 @@ export default function FundamentosPage() {
                   {pillar.description}
                 </p>
                 <div className="flex items-start gap-4 p-6 bg-cream rounded-xl">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] mt-2 shrink-0" />
                   <p className="text-sm font-light text-aubergine-dark/60 leading-relaxed">
                     <span className="font-semibold text-aubergine-dark/80 uppercase mr-2 tracking-wider">De qué te sirve:</span>
                     {pillar.outcome}

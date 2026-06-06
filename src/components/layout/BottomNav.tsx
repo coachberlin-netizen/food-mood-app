@@ -33,7 +33,7 @@ const GUEST_TABS: Tab[] = [
 
 const HIDE_PREFIXES = ["/evaluacion/", "/auth/"]
 
-const gold   = "#C9A84C"
+const gold   = "#FF6B35"
 const dimmed = "rgba(245,240,232,0.38)"
 
 export function BottomNav() {
@@ -82,7 +82,7 @@ export function BottomNav() {
       className="fixed bottom-0 left-0 right-0 z-40 md:hidden"
       style={{
         background: "#1A0A0E",
-        borderTop: "1px solid rgba(201,168,76,0.12)",
+        borderTop: "1px solid rgba(255,107,53,0.12)",
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >

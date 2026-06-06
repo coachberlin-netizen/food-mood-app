@@ -53,7 +53,7 @@ function EmotionCalendar({ checkins }: { checkins: Checkin[] }) {
   )
 
   return (
-    <div className="mb-6 rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.1)" }}>
+    <div className="mb-6 rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,107,53,0.1)" }}>
       <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "rgba(245,240,232,0.3)" }}>
         Últimos 28 días
       </p>
@@ -69,7 +69,7 @@ function EmotionCalendar({ checkins }: { checkins: Checkin[] }) {
               className="aspect-square rounded-sm"
               style={{
                 background:    mood ? mood.color + "bb" : "rgba(255,255,255,0.05)",
-                outline:       isToday ? "1.5px solid rgba(201,168,76,0.6)" : undefined,
+                outline:       isToday ? "1.5px solid rgba(255,107,53,0.6)" : undefined,
                 outlineOffset: isToday ? "2px" : undefined,
               }}
             />
@@ -101,7 +101,7 @@ function EnergyBar({ value }: { value: number }) {
           <div
             key={i}
             className="w-[5px] h-3 rounded-sm"
-            style={{ background: i < value ? '#C9A84C' : 'rgba(255,255,255,0.1)' }}
+            style={{ background: i < value ? '#FF6B35' : 'rgba(255,255,255,0.1)' }}
           />
         ))}
       </div>
@@ -117,7 +117,7 @@ function SleepDots({ value }: { value: number }) {
         <div
           key={i}
           className="w-2 h-2 rounded-full"
-          style={{ background: i < value ? '#C9A84C' : 'rgba(255,255,255,0.1)' }}
+          style={{ background: i < value ? '#FF6B35' : 'rgba(255,255,255,0.1)' }}
         />
       ))}
       <span className="text-[10px]" style={{ color: 'rgba(245,240,232,0.3)' }}>{value}/5</span>
@@ -135,7 +135,7 @@ function CheckinCard({ checkin, index }: { checkin: Checkin; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04, duration: 0.28 }}
       className="rounded-2xl p-5 border"
-      style={{ backgroundColor: '#120609', borderColor: 'rgba(201,168,76,0.1)' }}
+      style={{ backgroundColor: '#120609', borderColor: 'rgba(255,107,53,0.1)' }}
     >
       {/* Date + dominant need */}
       <div className="flex items-center justify-between mb-3">
@@ -145,7 +145,7 @@ function CheckinCard({ checkin, index }: { checkin: Checkin; index: number }) {
         {checkin.recipe_mood_id && (
           <span
             className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
-            style={{ color: '#C9A84C', background: 'rgba(201,168,76,0.1)' }}
+            style={{ color: '#FF6B35', background: 'rgba(255,107,53,0.1)' }}
           >
             {checkin.recipe_mood_id}
           </span>
@@ -206,7 +206,7 @@ export default function HistorialClient({ checkins }: { checkins: Checkin[] }) {
         >
           <ChevronLeft className="w-3.5 h-3.5" /> Check-in diario
         </Link>
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-2" style={{ color: '#C9A84C' }}>
+        <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-2" style={{ color: '#FF6B35' }}>
           Food·Mood · Historial
         </p>
         <h1 className="font-serif text-3xl font-light text-[#F5F0E8]">Tus registros</h1>
@@ -227,9 +227,9 @@ export default function HistorialClient({ checkins }: { checkins: Checkin[] }) {
         >
           <div
             className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
-            style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.15)' }}
+            style={{ background: 'rgba(255,107,53,0.08)', border: '1px solid rgba(255,107,53,0.15)' }}
           >
-            <Sparkles className="w-6 h-6" style={{ color: 'rgba(201,168,76,0.5)' }} />
+            <Sparkles className="w-6 h-6" style={{ color: 'rgba(255,107,53,0.5)' }} />
           </div>
           <p className="font-serif text-xl font-light mb-3" style={{ color: '#F5F0E8' }}>
             Tu espacio está esperando

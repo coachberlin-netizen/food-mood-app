@@ -87,7 +87,7 @@ function EvolucionChart({ inicio, mitad, final: fin }: {
         if (p.val == null) return null
         const barH = animated ? (p.val / MAX) * chartH : 0
         const y = PAD_T + chartH - barH
-        const colors = ['#e8ddd5', '#C9A84C', '#6B2737']
+        const colors = ['#e8ddd5', '#FF6B35', '#6B2737']
         return (
           <rect key={i}
             x={p.x - BAR_W / 2} y={y} width={BAR_W} height={barH}
@@ -115,7 +115,7 @@ function EvolucionChart({ inicio, mitad, final: fin }: {
       {points.map((p, i) => {
         const y = yFor(p.val)
         if (y == null) return null
-        const colors = ['#a08070', '#C9A84C', '#6B2737']
+        const colors = ['#a08070', '#FF6B35', '#6B2737']
         return (
           <g key={i} opacity={animated ? 1 : 0} style={{ transition: `opacity 0.3s ease ${0.3 + i * 0.1}s` }}>
             <circle cx={p.x} cy={y} r={5} fill={colors[i]} />
@@ -163,10 +163,10 @@ function descargarPDF(informe: Informe) {
   .mejora { border-radius:8px; padding:8px 12px; margin-bottom:10px; font-weight:500; }
   .logro { display:flex; gap:10px; margin-bottom:8px; align-items:flex-start; }
   .logro-num { background:#f5eaec; color:#6B2737; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; }
-  .patron { border-left:4px solid #C9A84C; padding:12px 16px; background:#fafaf5; border-radius:0 8px 8px 0; margin-bottom:14px; }
+  .patron { border-left:4px solid #FF6B35; padding:12px 16px; background:#fafaf5; border-radius:0 8px 8px 0; margin-bottom:14px; }
   .siguiente { background:#f5eaec; border-radius:8px; padding:12px; }
   .cierre { background:#6B2737; color:#F5F0E8; border-radius:12px; padding:20px; text-align:center; margin-top:24px; font-style:italic; font-size:15px; line-height:1.7; }
-  .logo { color:#C9A84C; font-weight:700; font-size:13px; margin-bottom:4px; letter-spacing:.1em; }
+  .logo { color:#FF6B35; font-weight:700; font-size:13px; margin-bottom:4px; letter-spacing:.1em; }
   @media print { body { padding:24px; } }
 </style>
 </head>
@@ -182,8 +182,8 @@ function descargarPDF(informe: Informe) {
       <div class="dot-num" style="color:#a08070">${ev.inicio ?? '—'}</div>
       <div class="dot-lbl">Día 1</div>
     </div>
-    <div class="dot" style="border-color:#C9A84C">
-      <div class="dot-num" style="color:#C9A84C">${ev.mitad ?? '—'}</div>
+    <div class="dot" style="border-color:#FF6B35">
+      <div class="dot-num" style="color:#FF6B35">${ev.mitad ?? '—'}</div>
       <div class="dot-lbl">Día 4</div>
     </div>
     <div class="dot" style="border-color:#6B2737">
@@ -308,7 +308,7 @@ export default function InformePersonalizado({ challengeId, slug, informeExisten
         <div className="grid grid-cols-3 gap-2.5 mb-3.5">
           {[
             { label: 'Día 1', valor: ev.inicio, color: '#a08070', border: '#e8ddd5' },
-            { label: 'Día 4', valor: ev.mitad,  color: '#C9A84C', border: '#C9A84C' },
+            { label: 'Día 4', valor: ev.mitad,  color: '#FF6B35', border: '#FF6B35' },
             { label: 'Día 7', valor: ev.final,  color: '#6B2737', border: '#6B2737' },
           ].map(({ label, valor, color, border }) => (
             <div key={label} className="text-center rounded-xl py-3"
@@ -361,7 +361,7 @@ export default function InformePersonalizado({ challengeId, slug, informeExisten
 
       {/* Patrón observado */}
       <div className="rounded-2xl p-5"
-        style={{ background: '#fafaf5', border: '1px solid #e8ddd5', borderLeft: '4px solid #C9A84C' }}>
+        style={{ background: '#fafaf5', border: '1px solid #e8ddd5', borderLeft: '4px solid #FF6B35' }}>
         <div className="flex items-center gap-1.5 mb-2.5">
           <span className="text-base">💡</span>
           <p className="text-[11px] font-medium uppercase tracking-widest" style={{ color: '#7a5a00' }}>

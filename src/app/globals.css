@@ -171,7 +171,7 @@ body {
   color: rgba(26,22,18,0.6);
 }
 .kb-section blockquote {
-  border-left: 3px solid #C9A84C;
+  border-left: 3px solid #FF6B35;
   padding-left: 1rem;
   margin: 1.25rem 0;
   color: rgba(26,22,18,0.6);
@@ -188,7 +188,7 @@ body {
   padding: 0.5rem 0.75rem;
   font-weight: 600;
   color: #1A1612;
-  border-bottom: 2px solid rgba(201,168,76,0.3);
+  border-bottom: 2px solid rgba(255,107,53,0.3);
 }
 .kb-section td {
   padding: 0.4rem 0.75rem;

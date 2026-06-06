@@ -170,7 +170,7 @@ export default function ValoresClient() {
                 <div className="flex justify-start">
                   <div className="px-4 py-3 rounded-2xl bg-white" style={{ border: "1px solid rgba(107,39,55,0.1)" }}>
                     <div className="flex gap-1">
-                      {[0,1,2].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#C9A84C", animationDelay: `${i * 150}ms` }} />)}
+                      {[0,1,2].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#FF6B35", animationDelay: `${i * 150}ms` }} />)}
                     </div>
                   </div>
                 </div>
@@ -276,12 +276,12 @@ export default function ValoresClient() {
               ))}
             </div>
             {editableAction && (
-              <div className="max-w-xs mb-6 px-4 py-3 rounded-xl text-sm font-light italic text-left leading-relaxed" style={{ background: "white", color: "#6B2737", borderLeft: "3px solid #C9A84C" }}>
+              <div className="max-w-xs mb-6 px-4 py-3 rounded-xl text-sm font-light italic text-left leading-relaxed" style={{ background: "white", color: "#6B2737", borderLeft: "3px solid #FF6B35" }}>
                 Esta semana: {editableAction}
               </div>
             )}
             <div className="flex flex-col gap-3 w-full max-w-xs">
-              <Link href="/herramientas/plan-si-entonces" className="block w-full py-3 rounded-full text-sm font-medium text-center" style={{ background: "#C9A84C", color: "white" }}>
+              <Link href="/herramientas/plan-si-entonces" className="block w-full py-3 rounded-full text-sm font-medium text-center" style={{ background: "#FF6B35", color: "white" }}>
                 Crear un plan si-entonces →
               </Link>
               <Link href="/practicas" className="block w-full py-3 rounded-full text-sm font-medium text-center" style={{ background: "#6B2737", color: "#F5F0E8" }}>

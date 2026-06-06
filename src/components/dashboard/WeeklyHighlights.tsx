@@ -14,7 +14,7 @@ export function WeeklyHighlights({ highlights }: { highlights: NewsletterHighlig
         <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
           Novedades de la semana
         </h2>
-        <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
+        <div className="h-px bg-[#FF6B35] flex-1 opacity-20"></div>
       </div>
 
       <div className="bg-cream rounded-[1.5rem] p-8 md:p-10 border border-aubergine-dark/20 shadow-sm flex flex-col min-h-[200px] overflow-hidden relative">
@@ -42,7 +42,7 @@ export function WeeklyHighlights({ highlights }: { highlights: NewsletterHighlig
                   {recipes && recipes.length > 0 && (
                     <Link
                       href="/para-mi"
-                      className="inline-flex items-center justify-center px-6 py-3.5 border border-aubergine-dark/20 rounded-full text-aubergine-dark/80 bg-transparent hover:bg-white hover:border-[#C9A84C] transition-all text-sm font-medium"
+                      className="inline-flex items-center justify-center px-6 py-3.5 border border-aubergine-dark/20 rounded-full text-aubergine-dark/80 bg-transparent hover:bg-white hover:border-[#FF6B35] transition-all text-sm font-medium"
                     >
                       Ver mis recursos
                     </Link>
@@ -61,7 +61,7 @@ export function WeeklyHighlights({ highlights }: { highlights: NewsletterHighlig
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-[#1a1118]/5 to-[#2a1825]/5 flex items-center justify-center">
-                    <Sparkles className="w-12 h-12 text-[#C9A84C]/40" />
+                    <Sparkles className="w-12 h-12 text-[#FF6B35]/40" />
                   </div>
                 )}
               </div>
@@ -70,15 +70,15 @@ export function WeeklyHighlights({ highlights }: { highlights: NewsletterHighlig
             {/* Recipes Grid (Only visible if recipes exist) */}
             {recipes && recipes.length > 0 && (
               <div className="flex flex-col gap-5 pt-8 border-t border-aubergine-dark/10">
-                <h4 className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                <h4 className="text-[11px] font-bold uppercase tracking-widest text-[#FF6B35]">
                   Recetas Destacadas
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {recipes.map((recipe: any) => (
                     <Link href={`/recetas/${recipe.id}`} key={recipe.id} className="group">
-                      <div className="flex flex-col h-full bg-white/60 p-5 rounded-2xl border border-aubergine-dark/5 hover:border-[#C9A84C]/40 hover:shadow-md transition-all gap-3 overflow-hidden cursor-pointer">
+                      <div className="flex flex-col h-full bg-white/60 p-5 rounded-2xl border border-aubergine-dark/5 hover:border-[#FF6B35]/40 hover:shadow-md transition-all gap-3 overflow-hidden cursor-pointer">
                         <div className="flex justify-between items-start gap-2">
-                           <span className="text-[9px] font-bold uppercase tracking-wider text-[#C9A84C] truncate">
+                           <span className="text-[9px] font-bold uppercase tracking-wider text-[#FF6B35] truncate">
                              {recipe.mood_es || recipe.tipo_plato}
                            </span>
                            {(recipe.premium_level ?? 0) === 2 && (
@@ -102,8 +102,8 @@ export function WeeklyHighlights({ highlights }: { highlights: NewsletterHighlig
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center text-center gap-6 py-8 relative z-10 w-full h-full my-auto">
-            <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 flex items-center justify-center mb-2">
-              <Sparkles className="w-6 h-6 text-[#C9A84C]" />
+            <div className="w-16 h-16 rounded-full bg-[#FF6B35]/10 flex items-center justify-center mb-2">
+              <Sparkles className="w-6 h-6 text-[#FF6B35]" />
             </div>
             <h3 className="text-3xl md:text-4xl font-serif font-black text-aubergine-dark">
               Lo último salido de nuestra cocina editorial
@@ -123,7 +123,7 @@ export function WeeklyHighlights({ highlights }: { highlights: NewsletterHighlig
         )}
         
         {/* Soft Background Accents */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/5 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF6B35]/5 rounded-full blur-[80px] pointer-events-none" />
       </div>
     </section>
   );

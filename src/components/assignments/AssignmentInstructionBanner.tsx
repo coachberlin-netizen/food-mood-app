@@ -8,11 +8,11 @@ export function AssignmentInstructionBanner({ assignment }: { assignment: Active
   return (
     <div
       className="mb-5 rounded-xl px-4 py-3.5"
-      style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)" }}
+      style={{ background: "rgba(255,107,53,0.06)", border: "1px solid rgba(255,107,53,0.25)" }}
     >
       <div className="flex items-center gap-2 mb-1.5">
-        <ClipboardList className="w-3.5 h-3.5 shrink-0" style={{ color: "#C9A84C" }} />
-        <p className="text-[9px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>
+        <ClipboardList className="w-3.5 h-3.5 shrink-0" style={{ color: "#FF6B35" }} />
+        <p className="text-[9px] font-bold uppercase tracking-wider" style={{ color: "#FF6B35" }}>
           Asignación{assignment.professional_name ? ` de ${assignment.professional_name}` : ""}
         </p>
       </div>

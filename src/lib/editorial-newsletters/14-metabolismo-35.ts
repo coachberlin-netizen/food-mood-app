@@ -11,14 +11,14 @@ export function buildHtml(): string {
   body{background:#EDE8DF;font-family:'DM Sans',Georgia,sans-serif;color:#2a1a1e;-webkit-font-smoothing:antialiased}
   .wrapper{max-width:620px;margin:0 auto;background:#F5F0E8}
   .header{background:#111010;padding:48px 40px 40px;position:relative;overflow:hidden}
-  .header::before{content:'';position:absolute;top:-40px;right:-30px;width:280px;height:280px;border-radius:50%;background:rgba(201,168,76,0.1)}
+  .header::before{content:'';position:absolute;top:-40px;right:-30px;width:280px;height:280px;border-radius:50%;background:rgba(255,107,53,0.1)}
   .header::after{content:'';position:absolute;bottom:-30px;left:-20px;width:180px;height:180px;border-radius:50%;background:rgba(107,39,55,0.12)}
   .logo-row{display:flex;align-items:center;gap:8px;margin-bottom:32px;position:relative;z-index:1}
   .logo-text{font-family:'DM Serif Display',serif;font-size:16px;color:rgba(245,240,232,0.4);letter-spacing:.04em}
-  .logo-dot{width:4px;height:4px;border-radius:50%;background:#C9A84C}
-  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C9A84C;margin-bottom:20px;position:relative;z-index:1}
+  .logo-dot{width:4px;height:4px;border-radius:50%;background:#FF6B35}
+  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FF6B35;margin-bottom:20px;position:relative;z-index:1}
   .h-title{font-family:'DM Serif Display',serif;font-size:38px;font-weight:400;color:#F5F0E8;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
-  .h-title em{font-style:italic;color:#C9A84C}
+  .h-title em{font-style:italic;color:#FF6B35}
   .h-sub{font-size:15px;color:rgba(245,240,232,0.65);line-height:1.65;position:relative;z-index:1;max-width:460px}
   .intro{padding:36px 40px 28px;border-bottom:1px solid #e0d5c8}
   .lead{font-family:'DM Serif Display',serif;font-size:22px;color:#6B2737;line-height:1.35;margin-bottom:20px}
@@ -28,9 +28,9 @@ export function buildHtml(): string {
   .bt strong{color:#2a1a1e;font-weight:500}
   .bt em{color:#6B2737;font-style:italic}
   .pullquote{padding:28px 40px;background:#6B2737;position:relative}
-  .pullquote::before{content:'"';font-family:'DM Serif Display',serif;font-size:80px;color:rgba(201,168,76,0.2);position:absolute;top:0;left:30px;line-height:1}
+  .pullquote::before{content:'"';font-family:'DM Serif Display',serif;font-size:80px;color:rgba(255,107,53,0.2);position:absolute;top:0;left:30px;line-height:1}
   .pq-text{font-family:'DM Serif Display',serif;font-size:20px;font-style:italic;color:#F5F0E8;line-height:1.5;position:relative;z-index:1}
-  .pq-text em{color:#C9A84C;font-style:normal}
+  .pq-text em{color:#FF6B35;font-style:normal}
   .cambios{padding:32px 40px;border-bottom:1px solid #e0d5c8}
   .sl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9e8080;margin-bottom:20px}
   .cambio-card{background:#fff;border-radius:14px;border:1px solid #e8ddd5;padding:18px 20px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start}
@@ -67,22 +67,22 @@ export function buildHtml(): string {
   .rbody{padding:20px 24px}
   .ingl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:#9e8080;margin-bottom:10px}
   .ii{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4}
-  .id{width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px}
+  .id{width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px}
   .iop{color:#9e8080;font-style:italic}
   .rpasos{border-top:1px solid #f0e8e0;padding-top:16px;margin:16px 0}
   .paso{display:flex;gap:12px;margin-bottom:12px;font-size:13px;color:#4a3a3e;line-height:1.55}
   .pn{width:22px;height:22px;border-radius:50%;background:#6B2737;color:#F5F0E8;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
   .ptip{display:block;font-size:11px;color:#9e8080;font-style:italic;margin-top:3px}
-  .rnota{background:#fdf5e0;border-radius:10px;padding:14px 16px;font-size:12px;color:#7a5a00;line-height:1.65;border-left:3px solid #C9A84C;margin-top:4px}
+  .rnota{background:#fdf5e0;border-radius:10px;padding:14px 16px;font-size:12px;color:#7a5a00;line-height:1.65;border-left:3px solid #FF6B35;margin-top:4px}
   .rnota strong{color:#7a5a00}
   .cta-section{padding:36px 40px;background:#111010;border-bottom:1px solid #1a1a1a;text-align:center}
-  .cta-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:16px}
+  .cta-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#FF6B35;margin-bottom:16px}
   .cta-title{font-family:'DM Serif Display',serif;font-size:26px;color:#F5F0E8;font-weight:400;margin-bottom:12px;line-height:1.2}
-  .cta-title em{font-style:italic;color:#C9A84C}
+  .cta-title em{font-style:italic;color:#FF6B35}
   .cta-desc{font-size:14px;color:rgba(245,240,232,0.65);line-height:1.65;margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto}
   .cta-doble{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
-  .cta-btn-a{display:inline-block;background:#C9A84C;color:#111010;font-size:14px;font-weight:600;padding:13px 24px;border-radius:30px;text-decoration:none;letter-spacing:.02em}
-  .cta-btn-b{display:inline-block;background:transparent;color:#C9A84C;font-size:14px;font-weight:500;padding:13px 24px;border-radius:30px;text-decoration:none;border:1px solid rgba(201,168,76,0.4);letter-spacing:.02em}
+  .cta-btn-a{display:inline-block;background:#FF6B35;color:#111010;font-size:14px;font-weight:600;padding:13px 24px;border-radius:30px;text-decoration:none;letter-spacing:.02em}
+  .cta-btn-b{display:inline-block;background:transparent;color:#FF6B35;font-size:14px;font-weight:500;padding:13px 24px;border-radius:30px;text-decoration:none;border:1px solid rgba(255,107,53,0.4);letter-spacing:.02em}
   .cta-precio{font-size:12px;color:rgba(245,240,232,0.35);margin-top:10px}
   .cierre{padding:28px 40px;border-bottom:1px solid #e0d5c8}
   .cierre-text{font-size:14px;line-height:1.8;color:#7a5c63}

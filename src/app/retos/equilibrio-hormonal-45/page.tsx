@@ -111,7 +111,7 @@ const HITOS = [
     dia: '22–28',
     titulo: 'Semana 4 — consolidación',
     desc: 'Protocolo permanente. Consolidación del equilibrio hormonal.',
-    color: '#C9A84C',
+    color: '#FF6B35',
   },
 ]
 
@@ -337,7 +337,7 @@ export default async function EquilibrioHormonalPage() {
             <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
               Acceso completo · 28 días
             </p>
-            <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
+            <p className="text-xs font-medium text-center mb-4" style={{ color: '#FF6B35' }}>
               Pago único · Acceso de por vida
             </p>
             <BuyRetoButton slug="equilibrio-hormonal-45" challengeId={challengeId} precio={39} yaComprado={yaComprado} />

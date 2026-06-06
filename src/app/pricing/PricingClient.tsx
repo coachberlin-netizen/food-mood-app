@@ -127,14 +127,14 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
           {/* MONTHLY */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-cream rounded-2xl border border-aubergine-dark/10 p-8 md:p-10 flex flex-col">
             <div className="mb-8">
-              <div className="flex items-center gap-2 mb-3"><Crown className="w-4 h-4 text-[#C9A84C]" /><span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">Mensual</span></div>
+              <div className="flex items-center gap-2 mb-3"><Crown className="w-4 h-4 text-[#FF6B35]" /><span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#FF6B35]">Mensual</span></div>
               <div className="flex items-end gap-1 mt-1 mb-2"><span className="text-5xl font-serif text-aubergine-dark">9€</span><span className="text-aubergine-dark/40 font-light text-sm mb-2">/mes</span></div>
               <p className="text-xs text-aubergine-dark/35 font-medium mb-1">Sin compromiso · Cancela en cualquier momento</p>
               <p className="text-sm text-aubergine-dark/45 font-light">Ideal si quieres probar un mes antes de comprometerte. Mismo acceso completo que el trimestral.</p>
             </div>
             <ul className="space-y-3.5 mb-10 flex-1">
               {PREMIUM_FEATURES.map((f, i) => (
-                <li key={i} className="flex items-start gap-3"><Check className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" /><span className="text-sm font-light text-aubergine-dark/60">{f.text}</span></li>
+                <li key={i} className="flex items-start gap-3"><Check className="w-4 h-4 text-[#FF6B35] shrink-0 mt-0.5" /><span className="text-sm font-light text-aubergine-dark/60">{f.text}</span></li>
               ))}
             </ul>
             {isPremium ? (
@@ -147,27 +147,27 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
           </motion.div>
 
           {/* QUARTERLY */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="relative bg-cream rounded-2xl border-2 border-[#C9A84C]/40 p-8 md:p-10 flex flex-col shadow-luxury">
-            <div className="absolute -top-3 right-6"><span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#C9A84C] text-white text-[10px] font-bold uppercase tracking-wider shadow-md"><Zap className="w-3 h-3" />Más popular</span></div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="relative bg-cream rounded-2xl border-2 border-[#FF6B35]/40 p-8 md:p-10 flex flex-col shadow-luxury">
+            <div className="absolute -top-3 right-6"><span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FF6B35] text-white text-[10px] font-bold uppercase tracking-wider shadow-md"><Zap className="w-3 h-3" />Más popular</span></div>
             <div className="mb-8">
-              <div className="flex items-center gap-2 mb-3"><Sparkles className="w-4 h-4 text-[#C9A84C]" /><span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">Trimestral</span></div>
+              <div className="flex items-center gap-2 mb-3"><Sparkles className="w-4 h-4 text-[#FF6B35]" /><span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#FF6B35]">Trimestral</span></div>
               <div className="flex items-end gap-1 mt-1 mb-1">
                 <span className="text-5xl font-serif text-aubergine-dark">21€</span>
                 <span className="text-aubergine-dark/40 font-light text-sm mb-2">facturados cada 3 meses</span>
               </div>
-              <p className="text-sm text-[#C9A84C] font-semibold mb-1">Equivale a 7€/mes · Ahorra un 22%</p>
+              <p className="text-sm text-[#FF6B35] font-semibold mb-1">Equivale a 7€/mes · Ahorra un 22%</p>
               <p className="text-sm text-aubergine-dark/45 font-light">Tu paleta emocional completa. Recetas que responden a cada color.</p>
             </div>
             <ul className="space-y-3.5 mb-10 flex-1">
               {PREMIUM_FEATURES.map((f, i) => (
-                <li key={i} className="flex items-start gap-3"><Check className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" /><span className="text-sm font-light text-aubergine-dark/60">{f.text}</span></li>
+                <li key={i} className="flex items-start gap-3"><Check className="w-4 h-4 text-[#FF6B35] shrink-0 mt-0.5" /><span className="text-sm font-light text-aubergine-dark/60">{f.text}</span></li>
               ))}
             </ul>
             {isPremium ? (
               <div className="w-full py-4 rounded-xl bg-aubergine-dark/5 text-aubergine-dark/40 text-sm font-medium text-center">Plan actual</div>
             ) : (
               <>
-                <button onClick={() => handleCheckout("quarterly")} disabled={isCheckingOut} className="w-full py-4 rounded-xl bg-[#C9A84C] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50">
+                <button onClick={() => handleCheckout("quarterly")} disabled={isCheckingOut} className="w-full py-4 rounded-xl bg-[#FF6B35] hover:bg-[#b8953e] text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50">
                   {isCheckingOut ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Suscribirme por 21€/trimestre<ArrowRight className="w-4 h-4" /></>}
                 </button>
                 <p className="text-center text-[10px] text-aubergine-dark/30 mt-3 font-light">21€ facturados trimestralmente · Cancela cuando quieras</p>
@@ -189,11 +189,11 @@ export default function PricingClient({ initialIsPremium, initialIsAuthenticated
         {/* ── Retos como add-on ── */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}
           className="max-w-3xl mx-auto mb-10 rounded-2xl border border-aubergine-dark/10 bg-cream overflow-hidden flex flex-col md:flex-row">
-          <div className="md:w-2 bg-[#C9A84C] shrink-0" />
+          <div className="md:w-2 bg-[#FF6B35] shrink-0" />
           <div className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 flex-1">
             <div className="text-3xl select-none">⚡</div>
             <div className="flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-1">Retos de transformación — pago único</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B35] mb-1">Retos de transformación — pago único</p>
               <h3 className="font-serif text-xl text-aubergine-dark mb-2">No son una suscripción</h3>
               <p className="text-sm text-aubergine-dark/55 font-light leading-relaxed">
                 Los retos (7 días desde 19€, 28 días desde 29€) son programas intensivos de pago único.

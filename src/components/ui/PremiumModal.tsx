@@ -27,7 +27,7 @@ export function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-lg bg-cream rounded-[2rem] p-8 md:p-12 shadow-luxury z-50 overflow-hidden"
           >
             {/* Gold Decorative Line */}
-            <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent opacity-80" />
+            <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-[#FF6B35] to-transparent opacity-80" />
             
             <button
               onClick={onClose}
@@ -37,7 +37,7 @@ export function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
             </button>
 
             <div className="flex flex-col items-center text-center space-y-6">
-              <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 flex items-center justify-center text-[#C9A84C]">
+              <div className="w-16 h-16 rounded-full bg-[#FF6B35]/10 flex items-center justify-center text-[#FF6B35]">
                 <Sparkles className="w-8 h-8" />
               </div>
               
@@ -58,7 +58,7 @@ export function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
                   "Soporte premium personalizado"
                 ].map((feature, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#C9A84C] shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-[#FF6B35] shrink-0" />
                     <span className="text-aubergine-dark/80 text-sm">{feature}</span>
                   </div>
                 ))}

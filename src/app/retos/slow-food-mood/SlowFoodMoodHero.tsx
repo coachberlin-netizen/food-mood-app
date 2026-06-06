@@ -39,7 +39,7 @@ const KEYFRAMES = `
   }
   @keyframes sfm-glow {
     0%, 100% { text-shadow: none; }
-    50%       { text-shadow: 0 0 28px rgba(201,168,76,0.25); }
+    50%       { text-shadow: 0 0 28px rgba(255,107,53,0.25); }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -190,8 +190,8 @@ export default function SlowFoodMoodHero() {
             bottom: '-10%', left: `${b.x}%`,
             width: b.size, height: b.size,
             borderRadius: '50%',
-            border: '1.5px solid #C9A84C',
-            background: 'radial-gradient(circle at 35% 35%, rgba(201,168,76,0.18), rgba(201,168,76,0.04))',
+            border: '1.5px solid #FF6B35',
+            background: 'radial-gradient(circle at 35% 35%, rgba(255,107,53,0.18), rgba(255,107,53,0.04))',
             '--sfm-bub-op': b.op,
             '--sfm-drift':  b.drift,
             animation: `sfm-float-up ${b.dur}s ${b.delay}s ease-in-out infinite`,
@@ -259,19 +259,19 @@ export default function SlowFoodMoodHero() {
           <div style={{
             width: '100%', maxWidth: '520px',
             height: '1px',
-            background: 'rgba(201,168,76,0.22)',
+            background: 'rgba(255,107,53,0.22)',
             marginTop: '2.4rem',
             position: 'relative', overflow: 'hidden',
           }}>
             <div style={{
               position: 'absolute', top: 0, left: 0,
               height: '100%', width: `${lineW}%`,
-              background: 'linear-gradient(90deg, rgba(201,168,76,0.5), #C9A84C)',
+              background: 'linear-gradient(90deg, rgba(255,107,53,0.5), #FF6B35)',
               transition: `width ${lineW > 0 ? '3.2s' : '0s'} cubic-bezier(0.25,0.46,0.45,0.94)`,
             }} />
             <div style={{
               position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)',
-              width: 5, height: 5, borderRadius: '50%', background: '#C9A84C',
+              width: 5, height: 5, borderRadius: '50%', background: '#FF6B35',
               opacity: lineW >= 98 ? 1 : 0, transition: 'opacity 0.8s ease 0.2s',
             }} />
           </div>

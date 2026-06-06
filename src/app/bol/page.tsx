@@ -529,11 +529,11 @@ export default function BolPage() {
         {insights.length > 0 && (
           <div style={{
             background: "white", borderRadius: 20, padding: "16px 20px",
-            borderLeft: "4px solid #C9A84C",
+            borderLeft: "4px solid #FF6B35",
             boxShadow: "0 2px 16px rgba(0,0,0,0.05)",
             marginBottom: 20,
           }}>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#C9A84C", marginBottom: 8 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#FF6B35", marginBottom: 8 }}>
               Tu análisis
             </p>
             <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
@@ -555,7 +555,7 @@ export default function BolPage() {
           <div style={{ background: "#F0E8DE", borderRadius: 6, height: 6, overflow: "hidden" }}>
             <div style={{
               height: "100%", borderRadius: 6,
-              background: "linear-gradient(90deg, #6B2737, #C9A84C)",
+              background: "linear-gradient(90deg, #6B2737, #FF6B35)",
               width: `${Math.max(1.5, progressPct)}%`,
               transition: "width 1s ease",
             }} />
@@ -575,7 +575,7 @@ export default function BolPage() {
             background: saved
               ? "linear-gradient(135deg, #4A9B5A, #5BA86A)"
               : totalSelected > 0
-              ? "linear-gradient(135deg, #6B2737, #C9A84C)"
+              ? "linear-gradient(135deg, #6B2737, #FF6B35)"
               : "#EFE8DE",
             color: totalSelected > 0 ? "#fff" : "#C0B0A0",
             fontFamily: "system-ui, sans-serif", fontSize: 15, fontWeight: 600,

@@ -187,7 +187,7 @@ export default function SessionPrepClient({ prepId }: { prepId: string }) {
                       </p>
                       <p
                         className="text-xs font-light leading-relaxed"
-                        style={{ color: "rgba(107,39,55,0.55)", borderLeft: "2px solid rgba(201,168,76,0.5)", paddingLeft: "8px" }}
+                        style={{ color: "rgba(107,39,55,0.55)", borderLeft: "2px solid rgba(255,107,53,0.5)", paddingLeft: "8px" }}
                       >
                         {kp.evidence}
                       </p>
@@ -272,7 +272,7 @@ export default function SessionPrepClient({ prepId }: { prepId: string }) {
               <div className="flex flex-col gap-4">
                 {prep.intervention_points.map((ip, i) => (
                   <div key={i} className="flex gap-3">
-                    <div className="shrink-0 w-1.5 h-1.5 rounded-full mt-2" style={{ background: "#C9A84C" }} />
+                    <div className="shrink-0 w-1.5 h-1.5 rounded-full mt-2" style={{ background: "#FF6B35" }} />
                     <div>
                       <p className="text-sm font-semibold mb-1" style={{ color: "#2d0f16" }}>{ip.point}</p>
                       <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(107,39,55,0.55)" }}>{ip.rationale}</p>

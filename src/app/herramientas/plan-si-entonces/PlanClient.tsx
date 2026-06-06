@@ -105,7 +105,7 @@ export default function PlanClient() {
         {/* ── FORMULARIO ── */}
         {showForm && (
           <div className="bg-white rounded-2xl p-5 mb-6" style={{ border: "1px solid rgba(107,39,55,0.1)" }}>
-            <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: "#C9A84C" }}>Nuevo plan</p>
+            <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: "#FF6B35" }}>Nuevo plan</p>
             <div className="mb-3">
               <label className="text-xs font-semibold block mb-1.5" style={{ color: "#6B2737" }}>
                 Cuando... (situación concreta)
@@ -196,7 +196,7 @@ export default function PlanClient() {
                   <p className="text-xs font-light mb-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>Yo</p>
                   <p className="text-sm leading-snug mb-3" style={{ color: "#6B2737" }}>{p.intended_action}</p>
                   {p.linked_value && (
-                    <p className="text-[10px] font-semibold uppercase tracking-wider mb-3" style={{ color: "#C9A84C" }}>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider mb-3" style={{ color: "#FF6B35" }}>
                       Valor: {p.linked_value}
                     </p>
                   )}

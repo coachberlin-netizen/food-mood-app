@@ -165,7 +165,7 @@ export default function AdminNewsletterPage() {
                 >
                   <div className="flex items-center gap-2">
                     {isNext && (
-                      <span className="text-[9px] font-bold uppercase tracking-widest text-[#C9A84C]">Próxima →</span>
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-[#FF6B35]">Próxima →</span>
                     )}
                     <StatusBadge status={edition.status} />
                   </div>

@@ -65,7 +65,7 @@ export default function PracticasPage() {
       <div className="max-w-2xl mx-auto px-5 py-10 pb-28">
 
         <header className="mb-8">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
             Herramientas
           </p>
           <h1 className="font-serif text-3xl font-black" style={{ color: "#2d0f16" }}>Mis prácticas</h1>
@@ -87,7 +87,7 @@ export default function PracticasPage() {
                     <Icon className="w-5 h-5" style={{ color: "#6B2737" }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "#C9A84C" }}>
+                    <span className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "#FF6B35" }}>
                       {badge}
                     </span>
                     <h2 className="font-serif text-base font-bold mb-1" style={{ color: "#2d0f16" }}>{title}</h2>

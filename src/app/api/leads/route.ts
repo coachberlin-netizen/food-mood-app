@@ -86,21 +86,21 @@ export async function POST(req: NextRequest) {
 <div style="max-width:600px;margin:32px auto;background:#F5F0E8;">
 
   <div style="background:#2C1810;padding:22px 40px;display:flex;align-items:center;justify-content:space-between;">
-    <span style="font-size:18px;font-weight:300;color:#F5F0E8;letter-spacing:3px;text-transform:uppercase;">Food<span style="color:#C9A84C;">·</span>Mood</span>
-    <span style="font-family:sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#C9A84C;">Tu receta gratis</span>
+    <span style="font-size:18px;font-weight:300;color:#F5F0E8;letter-spacing:3px;text-transform:uppercase;">Food<span style="color:#FF6B35;">·</span>Mood</span>
+    <span style="font-family:sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#FF6B35;">Tu receta gratis</span>
   </div>
 
   <div style="background:#6B2737;padding:44px 40px;">
-    <p style="font-family:sans-serif;font-size:9px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin:0 0 16px;">Anti-ansiedad · 20 min · fácil</p>
+    <p style="font-family:sans-serif;font-size:9px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#FF6B35;margin:0 0 16px;">Anti-ansiedad · 20 min · fácil</p>
     <h1 style="font-size:34px;font-weight:300;line-height:1.15;color:#F5F0E8;margin:0 0 20px;">Curry suave de garbanzos<br/>con espinacas y cúrcuma</h1>
-    <p style="font-family:sans-serif;font-size:14px;font-weight:300;line-height:1.8;color:rgba(245,240,232,0.7);border-left:2px solid #C9A84C;padding-left:16px;margin:0;">Para cuando crees que el problema es enorme. Antes de decidir nada, prepara esto. Cinco minutos activos. Luego decides.</p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:300;line-height:1.8;color:rgba(245,240,232,0.7);border-left:2px solid #FF6B35;padding-left:16px;margin:0;">Para cuando crees que el problema es enorme. Antes de decidir nada, prepara esto. Cinco minutos activos. Luego decides.</p>
   </div>
 
   <div style="padding:32px 40px;background:#F0EBE2;border-bottom:1px solid rgba(107,39,55,0.1);">
-    <p style="font-family:sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;margin:0 0 8px;">La ciencia detrás</p>
+    <p style="font-family:sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#FF6B35;margin:0 0 8px;">La ciencia detrás</p>
     <h4 style="font-size:20px;font-weight:400;color:#6B2737;margin:0 0 12px;">¿Por qué funciona?</h4>
     <p style="font-family:sans-serif;font-size:14px;font-weight:300;line-height:1.75;color:#3A2A1E;margin:0 0 14px;">Los garbanzos son una de las fuentes vegetales más ricas en <strong style="color:#6B2737;">triptófano</strong>, el aminoácido precursor de la serotonina. La <strong style="color:#6B2737;">curcumina</strong> de la cúrcuma inhibe la enzima IDO — la misma que el estrés crónico activa para desviar el triptófano hacia la quinurenina. Combinarlos no es casualidad: es bioquímica aplicada al plato.</p>
-    <span style="font-family:sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#C9A84C;">Triptófano · Curcumina · Quinurenina</span>
+    <span style="font-family:sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#FF6B35;">Triptófano · Curcumina · Quinurenina</span>
   </div>
 
   <div style="padding:32px 40px;border-bottom:1px solid rgba(107,39,55,0.1);">
@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
   </div>
 
   <div style="background:#2C1810;padding:18px 40px;text-align:center;">
-    <p style="font-size:14px;font-weight:300;color:#F5F0E8;letter-spacing:3px;text-transform:uppercase;margin:0 0 3px;">Food<span style="color:#C9A84C;">·</span>Mood</p>
+    <p style="font-size:14px;font-weight:300;color:#F5F0E8;letter-spacing:3px;text-transform:uppercase;margin:0 0 3px;">Food<span style="color:#FF6B35;">·</span>Mood</p>
     <p style="font-family:sans-serif;font-size:10px;color:rgba(245,240,232,0.25);margin:0;letter-spacing:1px;">food-mood.app · © 2026</p>
   </div>
 

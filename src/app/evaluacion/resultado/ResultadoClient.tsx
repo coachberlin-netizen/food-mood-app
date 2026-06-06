@@ -33,12 +33,12 @@ function LoginGate() {
       <div className="max-w-sm w-full space-y-6">
         <div
           className="w-16 h-16 rounded-full mx-auto flex items-center justify-center"
-          style={{ background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.3)' }}
+          style={{ background: 'rgba(255,107,53,0.15)', border: '1px solid rgba(255,107,53,0.3)' }}
         >
-          <Sparkles className="w-7 h-7 text-[#C9A84C]" />
+          <Sparkles className="w-7 h-7 text-[#FF6B35]" />
         </div>
         <div>
-          <p className="text-[#C9A84C] text-[10px] font-medium tracking-[0.3em] uppercase mb-3">
+          <p className="text-[#FF6B35] text-[10px] font-medium tracking-[0.3em] uppercase mb-3">
             Un paso más
           </p>
           <h2 className="font-serif text-2xl text-[#F5F0E8] font-light leading-tight mb-3">
@@ -90,7 +90,7 @@ function LoadingValoracion({ testsCount }: { testsCount: number }) {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-        className="w-14 h-14 rounded-full border-2 border-[#C9A84C]/20 border-t-[#C9A84C]/70 mb-6"
+        className="w-14 h-14 rounded-full border-2 border-[#FF6B35]/20 border-t-[#FF6B35]/70 mb-6"
       />
       <h2 className="font-serif text-2xl text-[#F5F0E8] font-light mb-2">
         Analizando tus respuestas…
@@ -170,9 +170,9 @@ function ValoracionResult({
           animate={{ scale: 1 }}
           transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 20 }}
           className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center"
-          style={{ background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.3)' }}
+          style={{ background: 'rgba(255,107,53,0.15)', border: '1px solid rgba(255,107,53,0.3)' }}
         >
-          <Sparkles className="w-6 h-6 text-[#C9A84C]" />
+          <Sparkles className="w-6 h-6 text-[#FF6B35]" />
         </motion.div>
 
         <motion.h1
@@ -270,12 +270,12 @@ function ValoracionResult({
         </FadeSection>
 
         {/* Recomendaciones */}
-        <FadeSection delay={0.85} label="Recomendaciones" color="#C9A84C">
+        <FadeSection delay={0.85} label="Recomendaciones" color="#FF6B35">
           <ul className="space-y-3">
             {valoracion.recomendaciones.map((r, i) => (
               <li key={i} className="flex items-start gap-3 text-[#F5F0E8]/80 text-sm leading-relaxed">
                 <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5"
-                  style={{ background: 'rgba(201,168,76,0.2)', color: '#C9A84C' }}>
+                  style={{ background: 'rgba(255,107,53,0.2)', color: '#FF6B35' }}>
                   {i + 1}
                 </span>
                 {r}
@@ -308,7 +308,7 @@ function ValoracionResult({
           <Link
             href="/eloraculo"
             className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-semibold transition-all"
-            style={{ background: 'rgba(201,168,76,0.12)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.25)' }}
+            style={{ background: 'rgba(255,107,53,0.12)', color: '#FF6B35', border: '1px solid rgba(255,107,53,0.25)' }}
           >
             Ir a mi check-in diario <ArrowRight className="w-4 h-4" />
           </Link>

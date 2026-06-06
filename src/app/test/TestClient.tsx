@@ -242,7 +242,7 @@ function EmailGate({
         aria-labelledby="email-gate-title"
         className="bg-[#F5F0E8] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl"
       >
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-4">Tu estado está listo</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-4">Tu estado está listo</p>
         <h2 id="email-gate-title" className="font-serif text-2xl text-[#2d0f16] mb-3 leading-snug">
           ¿Dónde te lo enviamos?
         </h2>
@@ -261,7 +261,7 @@ function EmailGate({
             maxLength={254}
             aria-label="Tu dirección de email"
             aria-describedby={error ? "email-gate-error" : undefined}
-            className="w-full px-4 py-3 rounded-xl border border-[#6B2737]/15 bg-white text-[#2d0f16] text-sm placeholder:text-[#6B2737]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/40"
+            className="w-full px-4 py-3 rounded-xl border border-[#6B2737]/15 bg-white text-[#2d0f16] text-sm placeholder:text-[#6B2737]/30 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]/40"
           />
           {error && (
             <p id="email-gate-error" role="alert" className="text-xs text-red-500 text-left">
@@ -334,7 +334,7 @@ function MosaicoEmocional({ isSubscriber }: { isSubscriber: boolean }) {
   return (
     <section className="mt-12 pt-10 border-t border-[#6B2737]/8">
       <div className="mb-5">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-1">Diario emocional</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-1">Diario emocional</p>
         <h2 className="font-serif text-2xl text-[#2d0f16]">Tu mosaico emocional</h2>
         <p className="text-xs text-[#6B2737]/40 font-light mt-1">28 días · un color por día</p>
       </div>
@@ -469,7 +469,7 @@ function ResultModal({
           transition: "transform 300ms ease-out",
         }}
       >
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-5">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-5">
           Tu estado de hoy
         </p>
 
@@ -661,7 +661,7 @@ export default function TestClient() {
 
           {/* Header */}
           <header className="text-center mb-10">
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#C9A84C] mb-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#FF6B35] mb-3">
               Test de estado
             </p>
             <h1 className="font-serif text-3xl md:text-4xl text-[#2d0f16] leading-tight">

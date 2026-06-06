@@ -43,7 +43,7 @@ function NavDropdown({ label, items }: { label: string; items: DropdownItem[] })
           style={{
             backgroundColor: "#2d0f16",
             borderRadius: "10px",
-            border: "1px solid rgba(201,168,76,0.2)",
+            border: "1px solid rgba(255,107,53,0.2)",
             boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
           }}
         >
@@ -52,7 +52,7 @@ function NavDropdown({ label, items }: { label: string; items: DropdownItem[] })
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className="block px-4 py-2.5 text-sm text-cream/75 hover:text-[#C9A84C] hover:bg-white/5 transition-colors"
+              className="block px-4 py-2.5 text-sm text-cream/75 hover:text-[#FF6B35] hover:bg-white/5 transition-colors"
             >
               {l}
             </Link>
@@ -153,7 +153,7 @@ export function Header() {
           <span className="font-serif text-xl sm:text-2xl font-semibold tracking-tight text-cream">
             Food<span className="text-gold">·</span>Mood
             {!isAuthenticated && (
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest ml-1.5 align-middle" style={{ color: "#C9A84C", opacity: 0.75 }}>Pro</span>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest ml-1.5 align-middle" style={{ color: "#FF6B35", opacity: 0.75 }}>Pro</span>
             )}
           </span>
         </Link>
@@ -168,7 +168,7 @@ export function Header() {
               <Link
                 href="/#acceso"
                 className="hidden md:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
-                style={{ backgroundColor: "#C9A84C", color: "#0f0a0d" }}
+                style={{ backgroundColor: "#FF6B35", color: "#0f0a0d" }}
               >
                 Solicitar acceso
               </Link>
@@ -186,20 +186,20 @@ export function Header() {
               aria-haspopup="menu"
             >
               <div className="relative flex items-center justify-center" style={{ width: 32, height: 32 }}>
-                <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: "#C9A84C", opacity: 0.18 }} />
-                <span className="relative rounded-full" style={{ width: 10, height: 10, backgroundColor: "#C9A84C", boxShadow: "0 0 6px 2px rgba(201,168,76,0.5)" }} />
+                <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: "#FF6B35", opacity: 0.18 }} />
+                <span className="relative rounded-full" style={{ width: 10, height: 10, backgroundColor: "#FF6B35", boxShadow: "0 0 6px 2px rgba(255,107,53,0.5)" }} />
               </div>
             </button>
 
             {isMenuOpen && (
               <div
                 className="absolute top-full right-0 mt-3 w-56 py-2 z-50 overflow-hidden"
-                style={{ backgroundColor: "#2d0f16", borderRadius: "12px", border: "1px solid rgba(201,168,76,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.45)" }}
+                style={{ backgroundColor: "#2d0f16", borderRadius: "12px", border: "1px solid rgba(255,107,53,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.45)" }}
               >
                 {isAuthenticated === false ? (
                   <div className="px-2 py-1">
                     <Link href="/pro/login" onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors">
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#FF6B35] hover:bg-white/5 transition-colors">
                       Entrar al portal profesional
                     </Link>
                     <Link href="/canjear" onClick={() => setIsMenuOpen(false)}
@@ -209,16 +209,16 @@ export function Header() {
                   </div>
                 ) : (
                   <>
-                    <div className="px-2 pb-2 mb-2 border-b border-[#C9A84C]/15">
+                    <div className="px-2 pb-2 mb-2 border-b border-[#FF6B35]/15">
                       <p className="text-[10px] uppercase tracking-widest text-cream/40 px-3 py-1">Mi cuenta</p>
                     </div>
                     <Link href="/configuracion" onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group">
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#FF6B35] hover:bg-white/5 transition-colors group">
                       <User className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
                       Configuración
                     </Link>
                     <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#C9A84C] hover:bg-white/5 transition-colors group">
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-cream/80 hover:text-[#FF6B35] hover:bg-white/5 transition-colors group">
                       <PieChart className="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
                       Dashboard
                     </Link>

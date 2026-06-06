@@ -43,7 +43,7 @@ function FaqItem({ faq, isOpen, onClick }: { faq: typeof FAQs[0], isOpen: boolea
           {faq.question}
         </span>
         <ChevronDown 
-          className={`w-5 h-5 text-aubergine-dark/40 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isOpen ? "rotate-180 text-[#C9A84C]" : "group-hover:text-aubergine-dark"}`} 
+          className={`w-5 h-5 text-aubergine-dark/40 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isOpen ? "rotate-180 text-[#FF6B35]" : "group-hover:text-aubergine-dark"}`} 
         />
       </button>
       <AnimatePresence initial={false}>

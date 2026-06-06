@@ -16,7 +16,7 @@ const MOOD_COLORS: Record<string, string> = {
   Activación: '#E30B5D',
   Calma:      '#5A9B8A',
   Focus:      '#4A90D9',
-  Social:     '#C9A84C',
+  Social:     '#FF6B35',
   Reset:      '#7B68EE',
   Confort:    '#E8845A',
 }
@@ -54,7 +54,7 @@ export default async function EnciclopediaPage() {
     return (
       <div className="min-h-[calc(100svh-80px)] flex items-center justify-center p-6" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-sm w-full text-center space-y-6">
-          <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center border" style={{ backgroundColor: 'rgba(201,168,76,0.08)', borderColor: 'rgba(201,168,76,0.25)' }}>
+          <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center border" style={{ backgroundColor: 'rgba(255,107,53,0.08)', borderColor: 'rgba(255,107,53,0.25)' }}>
             <span className="text-2xl">📚</span>
           </div>
           <div className="space-y-3">
@@ -63,7 +63,7 @@ export default async function EnciclopediaPage() {
               16 artículos científicos sobre longevidad, microbiota, hormonas y psicología alimentaria. Incluido en la membresía Premium.
             </p>
           </div>
-          <Link href="/pricing" className="inline-flex px-8 py-3.5 rounded-2xl text-sm font-bold" style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}>
+          <Link href="/pricing" className="inline-flex px-8 py-3.5 rounded-2xl text-sm font-bold" style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}>
             Ver membresía →
           </Link>
         </div>
@@ -79,7 +79,7 @@ export default async function EnciclopediaPage() {
 
         {/* Header */}
         <header className="mb-10">
-          <span className="text-[10px] font-bold uppercase tracking-[0.5em]" style={{ color: '#C9A84C' }}>
+          <span className="text-[10px] font-bold uppercase tracking-[0.5em]" style={{ color: '#FF6B35' }}>
             Enciclopedia
           </span>
           <h1 className="font-serif text-4xl md:text-5xl mt-3 mb-3 leading-tight" style={{ color: '#1A1612' }}>

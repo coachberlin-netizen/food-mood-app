@@ -87,7 +87,7 @@ export default function ConfiguracionPage() {
       <div className="max-w-xl mx-auto px-5 py-10">
 
         <header className="mb-10">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
             Tu cuenta
           </p>
           <h1 className="font-serif text-3xl font-black" style={{ color: "#2d0f16" }}>
@@ -222,7 +222,7 @@ export default function ConfiguracionPage() {
             className="w-full flex items-center gap-3 px-5 py-4 text-left text-sm transition-colors hover:bg-[#F5F0E8] disabled:opacity-50"
             style={{ color: "#2d0f16", borderBottom: "1px solid rgba(107,39,55,0.06)" }}
           >
-            <Download className="w-4 h-4 shrink-0" style={{ color: "#C9A84C" }} />
+            <Download className="w-4 h-4 shrink-0" style={{ color: "#FF6B35" }} />
             {exportLoading ? "Preparando exportación…" : "Exportar mis datos"}
           </button>
           <button

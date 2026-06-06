@@ -147,7 +147,7 @@ export function AppDemo() {
           {/* ── STEP 0 · Test ── */}
           {step === 0 && (
             <div className="p-8 md:p-12">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-6" style={{ color: "#C9A84C" }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-6" style={{ color: "#FF6B35" }}>
                 Paso 1 de 3 · Tu estado emocional
               </p>
               <h3 className="text-2xl md:text-3xl font-serif text-cream mb-2">
@@ -309,7 +309,7 @@ export function AppDemo() {
                       setStep(2);
                     }}
                     className="mt-2 inline-flex items-center gap-2 font-bold text-sm px-6 py-3 rounded-xl transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-                    style={{ backgroundColor: "#C9A84C", color: "#0f0608" }}
+                    style={{ backgroundColor: "#FF6B35", color: "#0f0608" }}
                   >
                     Ver mi receta para {activeMood.label.toLowerCase()} →
                   </button>
@@ -352,7 +352,7 @@ export function AppDemo() {
                 </div>
                 <div
                   className="md:w-56 shrink-0 rounded-2xl p-6 flex flex-col gap-4 text-center border"
-                  style={{ backgroundColor: "#1a1118", borderColor: "rgba(201,168,76,0.2)" }}
+                  style={{ backgroundColor: "#1a1118", borderColor: "rgba(255,107,53,0.2)" }}
                 >
                   <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,237,224,0.72)" }}>
                     Esta receta incluye preparación completa, variaciones y notas
@@ -361,7 +361,7 @@ export function AppDemo() {
                   <Link
                     href="/auth/register"
                     className="block font-bold text-sm py-3 px-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-                    style={{ backgroundColor: "#C9A84C", color: "#0f0608" }}
+                    style={{ backgroundColor: "#FF6B35", color: "#0f0608" }}
                   >
                     Crear cuenta gratis
                   </Link>

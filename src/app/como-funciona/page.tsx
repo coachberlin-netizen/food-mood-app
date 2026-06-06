@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 // ── Design tokens ──────────────────────────────────────────────────────────────
 const BURG  = "#6B2737"
 const CREAM = "#F5F0E8"
-const GOLD  = "#C9A84C"
+const GOLD  = "#FF6B35"
 
 // ── Mood palette ───────────────────────────────────────────────────────────────
 const MOODS = [

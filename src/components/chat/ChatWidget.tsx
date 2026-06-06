@@ -191,7 +191,7 @@ export function ChatWidget() {
         style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1.5rem)" }}
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
-        <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#C9A84C] rounded-full scale-0 group-hover:scale-100 transition-transform flex items-center justify-center">
+        <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#FF6B35] rounded-full scale-0 group-hover:scale-100 transition-transform flex items-center justify-center">
           <Sparkles className="w-2 h-2 text-white" />
         </div>
       </button>
@@ -215,8 +215,8 @@ export function ChatWidget() {
             {/* Header */}
             <div className="bg-aubergine-dark p-5 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#C9A84C]/20 flex items-center justify-center border border-[#C9A84C]/30">
-                  <ChefHat className="w-4 h-4 text-[#C9A84C]" />
+                <div className="w-9 h-9 rounded-full bg-[#FF6B35]/20 flex items-center justify-center border border-[#FF6B35]/30">
+                  <ChefHat className="w-4 h-4 text-[#FF6B35]" />
                 </div>
                 <div>
                   <h3 className="text-cream text-sm font-bold">Asistente Food·Mood</h3>
@@ -265,8 +265,8 @@ export function ChatWidget() {
             {/* ── No subscription ── */}
             {accessState === "no-subscription" && (
               <div className="flex-1 flex flex-col items-center justify-center p-8 text-center gap-5">
-                <div className="w-12 h-12 rounded-full bg-[#C9A84C]/10 flex items-center justify-center border border-[#C9A84C]/20">
-                  <Sparkles className="w-5 h-5 text-[#C9A84C]" />
+                <div className="w-12 h-12 rounded-full bg-[#FF6B35]/10 flex items-center justify-center border border-[#FF6B35]/20">
+                  <Sparkles className="w-5 h-5 text-[#FF6B35]" />
                 </div>
                 <div className="space-y-2">
                   <h4 className="font-serif font-black text-aubergine-dark text-lg leading-tight">
@@ -279,7 +279,7 @@ export function ChatWidget() {
                 <Link
                   href="/pricing"
                   className="px-7 py-3 rounded-2xl text-sm font-semibold transition-colors text-white"
-                  style={{ backgroundColor: "#C9A84C" }}
+                  style={{ backgroundColor: "#FF6B35" }}
                 >
                   Ver planes
                 </Link>
@@ -376,11 +376,11 @@ export function ChatWidget() {
                         className="w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90 shrink-0"
                         style={{
                           backgroundColor: isListening
-                            ? "rgba(201,168,76,0.15)"
+                            ? "rgba(255,107,53,0.15)"
                             : "rgba(63,26,34,0.07)",
-                          color: isListening ? "#C9A84C" : "rgba(63,26,34,0.4)",
+                          color: isListening ? "#FF6B35" : "rgba(63,26,34,0.4)",
                           border: isListening
-                            ? "1px solid rgba(201,168,76,0.4)"
+                            ? "1px solid rgba(255,107,53,0.4)"
                             : "1px solid transparent",
                         }}
                       >
@@ -407,13 +407,13 @@ export function ChatWidget() {
                   {showCounter && (
                     <p
                       className="text-[10px] text-center mt-2 font-medium"
-                      style={{ color: messagesRemaining! <= 2 ? "#C9A84C" : "rgba(45,15,22,0.3)" }}
+                      style={{ color: messagesRemaining! <= 2 ? "#FF6B35" : "rgba(45,15,22,0.3)" }}
                     >
                       {messagesRemaining} {messagesRemaining === 1 ? "pregunta" : "preguntas"} restantes hoy
                     </p>
                   )}
                   {limitReached && (
-                    <p className="text-[10px] text-center mt-2 font-medium" style={{ color: "#C9A84C" }}>
+                    <p className="text-[10px] text-center mt-2 font-medium" style={{ color: "#FF6B35" }}>
                       Límite diario alcanzado — Vuelve mañana 🌙
                     </p>
                   )}

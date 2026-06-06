@@ -39,8 +39,8 @@ export default function TestimoniosPage() {
 
         <section className="space-y-16">
           {testimonios.map((t, i) => (
-            <div key={i} className="border-l-2 border-[#C9A84C]/20 pl-8 py-2">
-              <span className="text-[10px] uppercase tracking-widest text-[#C9A84C] font-semibold mb-4 block">
+            <div key={i} className="border-l-2 border-[#FF6B35]/20 pl-8 py-2">
+              <span className="text-[10px] uppercase tracking-widest text-[#FF6B35] font-semibold mb-4 block">
                 {t.mood}
               </span>
               <p className="text-xl md:text-2xl font-serif text-aubergine-dark/80 leading-relaxed italic mb-4">

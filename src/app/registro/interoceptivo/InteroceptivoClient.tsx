@@ -140,7 +140,7 @@ export default function InteroceptivoClient() {
             Check-in guardado
           </h2>
           {needsRegulation && (
-            <div className="mb-6 px-5 py-4 rounded-2xl text-sm text-left leading-relaxed" style={{ background: "white", borderLeft: "3px solid #C9A84C", color: "#6B2737" }}>
+            <div className="mb-6 px-5 py-4 rounded-2xl text-sm text-left leading-relaxed" style={{ background: "white", borderLeft: "3px solid #FF6B35", color: "#6B2737" }}>
               <p className="font-semibold mb-1">Tu sistema nervioso está activado.</p>
               <p className="font-light">Cuando estés lista/o, una respiración lenta puede ayudar a recuperar el equilibrio. Inhala 4 segundos, mantén 2, exhala 6.</p>
             </div>
@@ -295,7 +295,7 @@ export default function InteroceptivoClient() {
                           onClick={() => updateLocation(loc.zone, "quality", loc.quality === q ? "" : q)}
                           className="px-2.5 py-1 rounded-full text-[10px] font-medium transition-colors"
                           style={{
-                            background:  loc.quality === q ? "#C9A84C" : "rgba(201,168,76,0.1)",
+                            background:  loc.quality === q ? "#FF6B35" : "rgba(255,107,53,0.1)",
                             color:       loc.quality === q ? "white" : "#6B2737",
                           }}
                         >

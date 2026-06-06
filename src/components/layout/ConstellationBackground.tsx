@@ -13,7 +13,7 @@ const NODES = [
   { emoji: '🥑', emotion: 'equilibrio',    color: '#6DB33F', top: '42%', left: '5%',  delay: 1.2, dx: 16,  dy: -6  },
   { emoji: '🍋', emotion: 'claridad',      color: '#FFD700', top: '52%', left: '91%', delay: 0.8, dx: -14, dy: 10  },
   { emoji: '🥦', emotion: 'reset',         color: '#4CAF50', top: '87%', left: '11%', delay: 1.8, dx: 12,  dy: -10 },
-  { emoji: '🫚', emotion: 'longevidad',    color: '#C9A84C', top: '7%',  left: '87%', delay: 2.5, dx: -10, dy: 16  },
+  { emoji: '🫚', emotion: 'longevidad',    color: '#FF6B35', top: '7%',  left: '87%', delay: 2.5, dx: -10, dy: 16  },
 ];
 
 const CONNECTIONS: [number, number][] = [

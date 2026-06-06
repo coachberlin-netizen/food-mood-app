@@ -11,7 +11,7 @@ const steps = [
     title: "Escucha",
     subtitle: "Tus emociones",
     icon: <Ear className="w-8 h-8 md:w-10 md:h-10" />,
-    color: "#C9A84C"
+    color: "#FF6B35"
   },
   {
     id: "02",
@@ -108,7 +108,7 @@ export function MethodFlowDiagram() {
              <div className="absolute inset-2 rounded-full border border-dashed border-aubergine-dark/5 group-hover:rotate-45 transition-transform duration-1000" />
              <div 
                 className="text-aubergine-dark group-hover:text-gold transition-colors duration-300"
-                style={{ color: step.id === "01" ? "#C9A84C" : undefined }}
+                style={{ color: step.id === "01" ? "#FF6B35" : undefined }}
              >
                 {step.icon}
              </div>

@@ -36,7 +36,7 @@ interface WeeklyDigestEmailProps {
 
 const BURG  = "#6B2737"
 const CREAM = "#F5F0E8"
-const GOLD  = "#C9A84C"
+const GOLD  = "#FF6B35"
 const DARK  = "#2d0f16"
 
 const CATEGORY_EMOJI: Record<string, string> = {
@@ -122,7 +122,7 @@ export default function WeeklyDigestEmail({
 
             {/* Récord */}
             {recordBroken && (
-              <Section style={{ backgroundColor: "rgba(201,168,76,0.15)", borderRadius: "10px", padding: "10px 14px", marginBottom: "20px" }}>
+              <Section style={{ backgroundColor: "rgba(255,107,53,0.15)", borderRadius: "10px", padding: "10px 14px", marginBottom: "20px" }}>
                 <Text style={{ color: GOLD, fontSize: "13px", margin: 0 }}>
                   🏆 ¡Nuevo récord personal esta semana!
                 </Text>

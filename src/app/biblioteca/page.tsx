@@ -1284,7 +1284,7 @@ export default function BibliotecaPage() {
 
         {/* Header */}
         <header className="text-center mb-16">
-          <span className="text-sm font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+          <span className="text-sm font-bold uppercase tracking-widest" style={{ color: '#FF6B35' }}>
             Transparencia científica
           </span>
           <h1 className="font-serif text-4xl md:text-6xl mt-4 mb-6" style={{ color: '#1A1612' }}>
@@ -1329,7 +1329,7 @@ export default function BibliotecaPage() {
                         <p className="text-sm mb-3" style={{ color: 'rgba(26,22,18,0.6)' }}>
                           <span className="font-semibold">{ref.autores}</span>
                           {' '}
-                          <span style={{ color: '#C9A84C', fontWeight: 600 }}>({ref.ano})</span>
+                          <span style={{ color: '#FF6B35', fontWeight: 600 }}>({ref.ano})</span>
                           {'. '}
                           <em>{ref.revista}</em>
                           {ref.volumen && `, ${ref.volumen}`}

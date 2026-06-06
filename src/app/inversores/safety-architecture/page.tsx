@@ -142,7 +142,7 @@ export default function SafetyArchitecturePage() {
       {/* Top bar — hidden on print */}
       <div className="no-print" style={s.topbar}>
         <p style={{ fontFamily: 'serif', fontSize: 18, color: '#F5F0E8', fontWeight: 700, margin: 0 }}>
-          Food<span style={{ color: '#C9A84C' }}>·</span>Mood
+          Food<span style={{ color: '#FF6B35' }}>·</span>Mood
         </p>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <button
@@ -154,7 +154,7 @@ export default function SafetyArchitecturePage() {
           <button
             onClick={() => window.print()}
             style={{
-              backgroundColor: '#C9A84C',
+              backgroundColor: '#FF6B35',
               color: '#0f0608',
               fontWeight: 700,
               fontSize: 12,

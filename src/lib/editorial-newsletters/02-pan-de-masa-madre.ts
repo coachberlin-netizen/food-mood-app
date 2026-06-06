@@ -1,6 +1,6 @@
 const BURG  = '#6B2737'
 const CREAM = '#F5F0E8'
-const GOLD  = '#C9A84C'
+const GOLD  = '#FF6B35'
 const INK   = '#1a1a1a'
 const MUTED = '#7a6a6a'
 
@@ -64,7 +64,7 @@ export function buildHtml(): string {
     <p style="font-size:17px;line-height:1.8;color:${INK};margin:0 0 48px">A vivir, básicamente.</p>
     <p style="font-size:17px;line-height:1.8;color:${INK};margin:0 0 48px">Eso que burbujea en el tarro de tu abuela no es magia. Es un ecosistema. Un jardín microscópico. Con su propio equilibrio, su propio carácter, su propio sabor.</p>
 
-    <div style="background:#fff;border-radius:20px;padding:44px 40px;border:1px solid rgba(201,168,76,0.35);text-align:center">
+    <div style="background:#fff;border-radius:20px;padding:44px 40px;border:1px solid rgba(255,107,53,0.35);text-align:center">
       <p style="font-family:Georgia,serif;font-style:italic;font-size:22px;line-height:1.5;color:${BURG};margin:0 0 20px">"Una masa madre bien cuidada<br>puede vivir más de 100 años.<br>Hay panaderías en San Francisco<br>con masa madre de <span style="color:${GOLD}">1849.</span>"</p>
       <p style="font-size:12px;font-style:italic;color:${MUTED};margin:0">Dato verificable — Boudin Bakery, SF, fundada 1849</p>
     </div>

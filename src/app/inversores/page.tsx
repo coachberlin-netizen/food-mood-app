@@ -31,9 +31,9 @@ function Gate({ wrong }: { wrong: boolean }) {
       <div style={{ width: '100%', maxWidth: 400, textAlign: 'center' }}>
         <div style={{ marginBottom: 32 }}>
           <p style={{ fontFamily: 'serif', fontSize: 28, color: '#F5F0E8', fontWeight: 700, marginBottom: 6 }}>
-            Food<span style={{ color: '#C9A84C' }}>·</span>Mood
+            Food<span style={{ color: '#FF6B35' }}>·</span>Mood
           </p>
-          <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', marginBottom: 24 }}>
+          <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,107,53,0.7)', marginBottom: 24 }}>
             Investor Access
           </p>
           <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.5)', lineHeight: 1.6 }}>
@@ -52,7 +52,7 @@ function Gate({ wrong }: { wrong: boolean }) {
               width: '100%',
               padding: '14px 18px',
               borderRadius: 12,
-              border: wrong ? '1.5px solid #c0392b' : '1.5px solid rgba(201,168,76,0.25)',
+              border: wrong ? '1.5px solid #c0392b' : '1.5px solid rgba(255,107,53,0.25)',
               backgroundColor: 'rgba(245,240,232,0.05)',
               color: '#F5F0E8',
               fontSize: 15,
@@ -69,7 +69,7 @@ function Gate({ wrong }: { wrong: boolean }) {
           <button
             type="submit"
             style={{
-              backgroundColor: '#C9A84C',
+              backgroundColor: '#FF6B35',
               color: '#0f0608',
               fontWeight: 700,
               fontSize: 14,
@@ -88,7 +88,7 @@ function Gate({ wrong }: { wrong: boolean }) {
           ¿Sin acceso?{' '}
           <a
             href="mailto:info@food-mood.app?subject=Food·Mood — Solicitud de acceso investor deck"
-            style={{ color: '#C9A84C', textDecoration: 'none', fontWeight: 600 }}
+            style={{ color: '#FF6B35', textDecoration: 'none', fontWeight: 600 }}
           >
             info@food-mood.app
           </a>
@@ -105,16 +105,16 @@ function InvestorDeck() {
       {/* Top bar */}
       <div style={{ backgroundColor: '#0f0608', padding: '14px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <p style={{ fontFamily: 'serif', fontSize: 20, color: '#F5F0E8', fontWeight: 700 }}>
-          Food<span style={{ color: '#C9A84C' }}>·</span>Mood
+          Food<span style={{ color: '#FF6B35' }}>·</span>Mood
         </p>
-        <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C' }}>
+        <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FF6B35' }}>
           Investment Brief · Confidential · 2026
         </span>
       </div>
 
       {/* Pitch Deck CTA block */}
       <div style={{ backgroundColor: '#2d0f16', padding: '36px 40px', textAlign: 'center' }}>
-        <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 12 }}>
+        <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#FF6B35', marginBottom: 12 }}>
           Pitch Deck · 2026
         </p>
         <p style={{ fontFamily: 'serif', fontSize: 26, color: '#F5F0E8', fontWeight: 700, marginBottom: 8, lineHeight: 1.2 }}>
@@ -131,7 +131,7 @@ function InvestorDeck() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: 8,
-            backgroundColor: '#C9A84C',
+            backgroundColor: '#FF6B35',
             color: '#0f0608',
             fontWeight: 700,
             fontSize: 14,
@@ -388,10 +388,10 @@ function InvestorDeck() {
             ].map(([app, es, gut, w45, habit, model, price]) => (
               <tr key={app} style={{ borderBottom: '1px solid #F0EDE4' }}>
                 <td style={{ padding: '6px 8px 6px 0', color: '#2A2218', fontSize: 9.5 }}>{app}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: es === '✗' ? '#C0B8B0' : es === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{es}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: gut === '✗' ? '#C0B8B0' : gut === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{gut}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: w45 === '✗' ? '#C0B8B0' : w45 === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{w45}</td>
-                <td style={{ padding: '6px 8px 6px 0', color: habit === '✗' ? '#C0B8B0' : habit === '△' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{habit}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: es === '✗' ? '#C0B8B0' : es === '△' ? '#FF6B35' : '#3A8C62', fontSize: 9 }}>{es}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: gut === '✗' ? '#C0B8B0' : gut === '△' ? '#FF6B35' : '#3A8C62', fontSize: 9 }}>{gut}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: w45 === '✗' ? '#C0B8B0' : w45 === '△' ? '#FF6B35' : '#3A8C62', fontSize: 9 }}>{w45}</td>
+                <td style={{ padding: '6px 8px 6px 0', color: habit === '✗' ? '#C0B8B0' : habit === '△' ? '#FF6B35' : '#3A8C62', fontSize: 9 }}>{habit}</td>
                 <td style={{ padding: '6px 8px 6px 0', color: '#3D3028', fontSize: 9 }}>{model}</td>
                 <td style={{ padding: '6px 0', color: '#3D3028', fontSize: 9, fontFamily: 'monospace' }}>{price}</td>
               </tr>
@@ -444,7 +444,7 @@ function InvestorDeck() {
 
         {/* GLP-1 callout */}
         <div style={{ background: '#FFF8EE', border: '1px solid #E8D9B0', borderRadius: 5, padding: '10px 14px', marginBottom: 12 }}>
-          <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 5 }}>Market shift · GLP-1 agonists (Ozempic, Wegovy)</p>
+          <p style={{ fontFamily: 'monospace', fontSize: 7, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#FF6B35', marginBottom: 5 }}>Market shift · GLP-1 agonists (Ozempic, Wegovy)</p>
           <p style={{ fontSize: 9.5, color: '#2A2218', lineHeight: 1.65 }}>
             GLP-1 agonists (Ozempic, Wegovy) producing 15–20% body weight reduction are reshaping behavioral weight-management. Incumbents are pivoting toward GLP-1 companion programs; the legacy calorie / behavior-tracking model is under structural pressure. <strong style={{ color: '#1A1612' }}>Food·Mood operates in a different lane</strong> — emotional wellbeing, menopausal wellbeing and gut-brain habit formation are complementary to, not replaceable by, a prescription.
           </p>
@@ -476,9 +476,9 @@ function InvestorDeck() {
             },
           ].map(({ label, text }, i) => (
             <div key={label} style={{ display: 'flex', gap: 14, marginBottom: i < 2 ? 18 : 0 }}>
-              <span style={{ color: '#C9A84C', fontFamily: 'monospace', fontSize: 14, fontWeight: 700, flexShrink: 0, lineHeight: 1.4 }}>·</span>
+              <span style={{ color: '#FF6B35', fontFamily: 'monospace', fontSize: 14, fontWeight: 700, flexShrink: 0, lineHeight: 1.4 }}>·</span>
               <p style={{ fontSize: 10.5, color: '#F5F0E8', lineHeight: 1.7, margin: 0 }}>
-                <strong style={{ color: '#C9A84C' }}>{label}</strong> — {text}
+                <strong style={{ color: '#FF6B35' }}>{label}</strong> — {text}
               </p>
             </div>
           ))}
@@ -809,8 +809,8 @@ function InvestorDeck() {
                 ].map(([risk, prob, impact, mit]) => (
                   <tr key={risk} style={{ borderBottom: '1px solid #F0EDE4' }}>
                     <td style={{ padding: '6px 8px 6px 0', color: '#1A1612', fontSize: 9, fontWeight: 500 }}>{risk}</td>
-                    <td style={{ padding: '6px 8px 6px 0', color: prob === 'Medium' ? '#C9A84C' : '#3A8C62', fontSize: 9 }}>{prob}</td>
-                    <td style={{ padding: '6px 8px 6px 0', color: impact === 'High' ? '#B85450' : '#C9A84C', fontSize: 9 }}>{impact}</td>
+                    <td style={{ padding: '6px 8px 6px 0', color: prob === 'Medium' ? '#FF6B35' : '#3A8C62', fontSize: 9 }}>{prob}</td>
+                    <td style={{ padding: '6px 8px 6px 0', color: impact === 'High' ? '#B85450' : '#FF6B35', fontSize: 9 }}>{impact}</td>
                     <td style={{ padding: '6px 0', color: '#3D3028', fontSize: 9, lineHeight: 1.5 }}>{mit}</td>
                   </tr>
                 ))}

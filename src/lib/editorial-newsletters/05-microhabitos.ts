@@ -11,12 +11,12 @@ export function buildHtml(): string {
   body { background: #EDE8DF; font-family: 'DM Sans', Georgia, sans-serif; color: #2a1a1e; -webkit-font-smoothing: antialiased; }
   .wrapper { max-width: 620px; margin: 0 auto; background: #F5F0E8; }
   .header { background: #1E1A0E; padding: 48px 40px 40px; position: relative; overflow: hidden; }
-  .header::before { content: ''; position: absolute; top: -50px; right: -30px; width: 280px; height: 280px; border-radius: 50%; background: rgba(201,168,76,0.12); }
+  .header::before { content: ''; position: absolute; top: -50px; right: -30px; width: 280px; height: 280px; border-radius: 50%; background: rgba(255,107,53,0.12); }
   .header::after { content: ''; position: absolute; bottom: -20px; left: -30px; width: 180px; height: 180px; border-radius: 50%; background: rgba(107,39,55,0.10); }
   .logo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 32px; position: relative; z-index: 1; }
   .logo-text { font-family: 'DM Serif Display', Georgia, serif; font-size: 16px; color: rgba(245,240,232,0.4); letter-spacing: .04em; }
-  .logo-dot { width: 4px; height: 4px; border-radius: 50%; background: #C9A84C; }
-  .header-eyebrow { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #C9A84C; margin-bottom: 20px; position: relative; z-index: 1; }
+  .logo-dot { width: 4px; height: 4px; border-radius: 50%; background: #FF6B35; }
+  .header-eyebrow { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #FF6B35; margin-bottom: 20px; position: relative; z-index: 1; }
   .header-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 38px; font-weight: 400; color: #F5F0E8; line-height: 1.1; margin-bottom: 20px; position: relative; z-index: 1; }
   .header-title em { font-style: italic; color: #E8C45A; }
   .header-subtitle { font-size: 15px; color: rgba(245,240,232,0.65); line-height: 1.65; position: relative; z-index: 1; max-width: 460px; }
@@ -38,7 +38,7 @@ export function buildHtml(): string {
   .ciencia-body strong { color: #6B2737; font-weight: 500; }
   .cadena { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 20px 0; }
   .cadena-paso { background: #fff; border: 1px solid #e8ddd5; border-radius: 10px; padding: 9px 13px; font-size: 12px; font-weight: 500; color: #6B2737; flex-shrink: 0; }
-  .cadena-arrow { font-size: 14px; color: #C9A84C; padding: 0 4px; flex-shrink: 0; }
+  .cadena-arrow { font-size: 14px; color: #FF6B35; padding: 0 4px; flex-shrink: 0; }
   .mecanismo-row { display: flex; gap: 12px; background: #fff; border-radius: 12px; border: 1px solid #e8ddd5; padding: 14px 16px; margin: 14px 0; align-items: flex-start; }
   .mecanismo-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
   .mecanismo-text { font-size: 13px; line-height: 1.6; color: #4a3a3e; }
@@ -63,23 +63,23 @@ export function buildHtml(): string {
   .receta-body { padding: 20px 24px; }
   .ing-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: #9e8080; margin-bottom: 10px; }
   .ing-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #4a3a3e; padding: 4px 0; line-height: 1.4; }
-  .ing-dot { width: 5px; height: 5px; border-radius: 50%; background: #C9A84C; flex-shrink: 0; margin-top: 6px; }
+  .ing-dot { width: 5px; height: 5px; border-radius: 50%; background: #FF6B35; flex-shrink: 0; margin-top: 6px; }
   .ing-opcional { color: #9e8080; font-style: italic; }
   .receta-pasos { border-top: 1px solid #f0e8e0; padding-top: 16px; margin: 16px 0; }
   .paso { display: flex; gap: 12px; margin-bottom: 12px; font-size: 13px; color: #4a3a3e; line-height: 1.55; }
   .paso-num { width: 22px; height: 22px; border-radius: 50%; background: #6B2737; color: #F5F0E8; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
   .paso-tip { display: block; font-size: 11px; color: #9e8080; font-style: italic; margin-top: 3px; }
-  .receta-nota { background: #fdf5e0; border-radius: 10px; padding: 14px 16px; font-size: 12px; color: #7a5a00; line-height: 1.65; border-left: 3px solid #C9A84C; margin-top: 4px; }
+  .receta-nota { background: #fdf5e0; border-radius: 10px; padding: 14px 16px; font-size: 12px; color: #7a5a00; line-height: 1.65; border-left: 3px solid #FF6B35; margin-top: 4px; }
   .receta-nota strong { color: #7a5a00; }
   .cta-reto { padding: 36px 40px; background: #1E1A0E; border-bottom: 1px solid #e0d5c8; text-align: center; }
-  .cta-reto-eyebrow { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #C9A84C; margin-bottom: 16px; }
+  .cta-reto-eyebrow { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #FF6B35; margin-bottom: 16px; }
   .cta-reto-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 26px; color: #F5F0E8; font-weight: 400; margin-bottom: 12px; line-height: 1.2; }
   .cta-reto-title em { font-style: italic; color: #E8C45A; }
   .cta-reto-desc { font-size: 14px; color: rgba(245,240,232,0.65); line-height: 1.65; margin-bottom: 24px; max-width: 440px; margin-left: auto; margin-right: auto; }
   .cta-incluye { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; text-align: left; max-width: 360px; margin-left: auto; margin-right: auto; }
   .cta-incluye-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(245,240,232,0.75); }
-  .cta-incluye-check { color: #C9A84C; font-weight: 700; flex-shrink: 0; }
-  .cta-btn-grande { display: inline-block; background: #C9A84C; color: #1E1A0E; font-size: 15px; font-weight: 600; padding: 15px 32px; border-radius: 30px; text-decoration: none; letter-spacing: .02em; }
+  .cta-incluye-check { color: #FF6B35; font-weight: 700; flex-shrink: 0; }
+  .cta-btn-grande { display: inline-block; background: #FF6B35; color: #1E1A0E; font-size: 15px; font-weight: 600; padding: 15px 32px; border-radius: 30px; text-decoration: none; letter-spacing: .02em; }
   .cta-precio { font-size: 12px; color: rgba(245,240,232,0.4); margin-top: 10px; }
   .cierre { padding: 28px 40px; border-bottom: 1px solid #e0d5c8; }
   .cierre-text { font-size: 14px; line-height: 1.8; color: #7a5c63; }

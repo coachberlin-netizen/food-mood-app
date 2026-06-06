@@ -61,7 +61,7 @@ export default async function FermentosDelMundoPage() {
             Cada cultura descubrió que fermentar alimentos cambia cómo te sientes. Ahora la ciencia explica por qué.
           </p>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-aubergine-dark/15 text-aubergine-dark font-sans text-xs tracking-[0.1em] uppercase">
-            16 fermentos de 12 países <span className="text-[#C9A84C]">—</span> 1 eje intestino-cerebro
+            16 fermentos de 12 países <span className="text-[#FF6B35]">—</span> 1 eje intestino-cerebro
           </div>
         </div>
       </section>

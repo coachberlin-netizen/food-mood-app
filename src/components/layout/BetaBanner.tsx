@@ -5,7 +5,7 @@ export function BetaBanner() {
     <div
       style={{
         backgroundColor: '#2d0f16',
-        borderBottom: '1px solid rgba(201,168,76,0.2)',
+        borderBottom: '1px solid rgba(255,107,53,0.2)',
         padding: '8px 20px',
         display: 'flex',
         alignItems: 'center',
@@ -18,9 +18,9 @@ export function BetaBanner() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span
           style={{
-            backgroundColor: 'rgba(201,168,76,0.18)',
-            border: '1px solid rgba(201,168,76,0.4)',
-            color: '#C9A84C',
+            backgroundColor: 'rgba(255,107,53,0.18)',
+            border: '1px solid rgba(255,107,53,0.4)',
+            color: '#FF6B35',
             fontSize: 9,
             fontWeight: 700,
             letterSpacing: '0.18em',
@@ -50,7 +50,7 @@ export function BetaBanner() {
           display: 'inline-flex',
           alignItems: 'center',
           gap: 6,
-          backgroundColor: '#C9A84C',
+          backgroundColor: '#FF6B35',
           color: '#2d0f16',
           fontSize: 11,
           fontWeight: 700,

@@ -383,7 +383,7 @@ export default function QuienesSomosPage() {
                         <span className="text-xs font-bold text-aubergine-dark/40">{ref.id}</span>
                       </div>
                       <div className="flex-grow">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-2 block">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-2 block">
                           {ref.category}
                         </span>
                         <h4 className="text-lg md:text-xl font-serif font-semibold text-aubergine-dark mb-2 leading-relaxed">
@@ -426,7 +426,7 @@ export default function QuienesSomosPage() {
             className="relative rounded-[2.5rem] bg-gradient-to-br from-aubergine-dark to-[#301620] p-12 md:p-20 text-center text-cream overflow-hidden shadow-2xl"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#C9A84C]/5 rounded-full blur-[80px]" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FF6B35]/5 rounded-full blur-[80px]" />
             <div className="relative z-10 flex flex-col items-center">
               <h2 className="text-3xl md:text-4xl font-serif text-cream mb-6 leading-tight">
                 ¿Eres profesional de la salud?

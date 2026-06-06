@@ -41,7 +41,7 @@ function Sparkline({ values }: { values: number[] }) {
           className="w-1 rounded-sm"
           style={{
             height: `${Math.max(2, Math.round((v / max) * 20))}px`,
-            background: i === values.length - 1 ? "#C9A84C" : "rgba(107,39,55,0.2)",
+            background: i === values.length - 1 ? "#FF6B35" : "rgba(107,39,55,0.2)",
           }}
         />
       ))}

@@ -172,7 +172,7 @@ export default function FermentosClient({
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
                 </div>
 
-                <h4 className="text-xl font-serif text-aubergine-dark font-medium mb-3 group-hover:text-[#C9A84C] transition-colors">
+                <h4 className="text-xl font-serif text-aubergine-dark font-medium mb-3 group-hover:text-[#FF6B35] transition-colors">
                   {ferment.name}
                 </h4>
 
@@ -230,7 +230,7 @@ export default function FermentosClient({
                     <path d="M18 6L6 18M6 6l12 12"></path>
                   </svg>
                 </button>
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-2" style={{ color: MOOD_COLORS[selectedFerment.mood] || "#C9A84C" }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-2" style={{ color: MOOD_COLORS[selectedFerment.mood] || "#FF6B35" }}>
                   {selectedFerment.country} · {selectedFerment.ferment_type}
                 </p>
                 <h2 className="font-serif text-3xl font-bold text-[#F5F0E8] leading-tight mb-2">
@@ -274,7 +274,7 @@ export default function FermentosClient({
                     <ul className="space-y-1.5">
                       {selectedFerment.ingredients.map((ing, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm font-light text-aubergine-dark/80">
-                          <span className="text-[#C9A84C] mt-0.5 shrink-0">—</span>
+                          <span className="text-[#FF6B35] mt-0.5 shrink-0">—</span>
                           {ing}
                         </li>
                       ))}
@@ -323,7 +323,7 @@ export default function FermentosClient({
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-lg bg-gradient-to-b from-[#6B2737] to-[#1a1118] rounded-[2rem] p-10 shadow-2xl border border-[#C9A84C]/30 text-center"
+              className="relative w-full max-w-lg bg-gradient-to-b from-[#6B2737] to-[#1a1118] rounded-[2rem] p-10 shadow-2xl border border-[#FF6B35]/30 text-center"
             >
               <button
                 onClick={() => setShowUpgradeModal(false)}
@@ -334,7 +334,7 @@ export default function FermentosClient({
                 </svg>
               </button>
 
-              <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/20 mb-6 text-[#C9A84C]">
+              <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-[#FF6B35]/10 border border-[#FF6B35]/20 mb-6 text-[#FF6B35]">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <circle cx="12" cy="12" r="10"></circle>
                   <path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"></path>
@@ -351,7 +351,7 @@ export default function FermentosClient({
               <div className="flex flex-col gap-3 w-full">
                 <Link
                   href="/pricing"
-                  className="w-full inline-flex items-center justify-center px-8 py-4 bg-[#C9A84C] text-white text-sm font-bold rounded-full shadow-lg hover:bg-[#b8953e] transition-colors"
+                  className="w-full inline-flex items-center justify-center px-8 py-4 bg-[#FF6B35] text-white text-sm font-bold rounded-full shadow-lg hover:bg-[#b8953e] transition-colors"
                 >
                   Explorar con Premium — Desde 7€/mes
                 </Link>

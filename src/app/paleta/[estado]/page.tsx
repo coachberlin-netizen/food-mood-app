@@ -258,7 +258,7 @@ export default async function EstadoPage({
         {/* La ciencia */}
         <section aria-label="La ciencia detrás de este estado" className="bg-[#2d0f16] py-16 px-6">
           <div className="max-w-4xl mx-auto">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#FF6B35" }}>
               La ciencia
             </p>
             <p className="font-serif text-xl md:text-2xl font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.8)" }}>
@@ -270,7 +270,7 @@ export default async function EstadoPage({
         {/* Nutrientes clave */}
         <section aria-label="Nutrientes clave para este estado" className="py-20 px-6 bg-white">
           <div className="max-w-4xl mx-auto">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-3" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-3" style={{ color: "#FF6B35" }}>
               Nutrientes clave
             </p>
             <h2 className="font-serif text-3xl md:text-4xl text-[#2d0f16] mb-12 leading-tight">
@@ -302,7 +302,7 @@ export default async function EstadoPage({
         {/* Recetas sugeridas */}
         <section aria-label="Recetas sugeridas para este estado" className="py-20 px-6" style={{ backgroundColor: "#F5F0E8" }}>
           <div className="max-w-4xl mx-auto">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-3" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-3" style={{ color: "#FF6B35" }}>
               Recetas para este estado
             </p>
             <h2 className="font-serif text-3xl md:text-4xl text-[#2d0f16] mb-12 leading-tight">
@@ -366,7 +366,7 @@ export default async function EstadoPage({
         {/* CTA principal + estados relacionados */}
         <section aria-label="Descubre tu paleta completa" className="py-20 px-6" style={{ backgroundColor: "#2d0f16" }}>
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#FF6B35" }}>
               Tu mezcla real
             </p>
             <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight mb-6">
@@ -379,7 +379,7 @@ export default async function EstadoPage({
             <Link
               href="/paleta?test=1"
               className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-sm transition-all hover:opacity-90 hover:scale-[1.02] shadow-xl mb-16"
-              style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+              style={{ backgroundColor: "#FF6B35", color: "#2d0f16" }}
             >
               Descubrir mi paleta — es gratis <ArrowRight className="w-4 h-4" />
             </Link>

@@ -12,11 +12,11 @@ export function buildHtml(): string {
   .wrapper{max-width:620px;margin:0 auto;background:#F5F0E8}
   .header{background:#1A100E;padding:48px 40px 40px;position:relative;overflow:hidden}
   .header::before{content:'';position:absolute;top:-50px;right:-30px;width:260px;height:260px;border-radius:50%;background:rgba(180,80,40,0.15)}
-  .header::after{content:'';position:absolute;bottom:-20px;left:-20px;width:160px;height:160px;border-radius:50%;background:rgba(201,168,76,0.08)}
+  .header::after{content:'';position:absolute;bottom:-20px;left:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,107,53,0.08)}
   .logo-row{display:flex;align-items:center;gap:8px;margin-bottom:32px;position:relative;z-index:1}
   .logo-text{font-family:'DM Serif Display',serif;font-size:16px;color:rgba(245,240,232,0.4);letter-spacing:.04em}
-  .logo-dot{width:4px;height:4px;border-radius:50%;background:#C9A84C}
-  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C9A84C;margin-bottom:20px;position:relative;z-index:1}
+  .logo-dot{width:4px;height:4px;border-radius:50%;background:#FF6B35}
+  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FF6B35;margin-bottom:20px;position:relative;z-index:1}
   .h-title{font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:#F5F0E8;line-height:1.1;margin-bottom:18px;position:relative;z-index:1}
   .h-title em{font-style:italic;color:#E8A058}
   .h-sub{font-size:15px;color:rgba(245,240,232,0.65);line-height:1.65;position:relative;z-index:1;max-width:460px}
@@ -60,23 +60,23 @@ export function buildHtml(): string {
   .rbody{padding:20px 24px}
   .ingl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:#9e8080;margin-bottom:10px}
   .ii{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#4a3a3e;padding:4px 0;line-height:1.4}
-  .id{width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:6px}
+  .id{width:5px;height:5px;border-radius:50%;background:#FF6B35;flex-shrink:0;margin-top:6px}
   .iop{color:#9e8080;font-style:italic}
   .rpasos{border-top:1px solid #f0e8e0;padding-top:16px;margin:16px 0}
   .paso{display:flex;gap:12px;margin-bottom:12px;font-size:13px;color:#4a3a3e;line-height:1.55}
   .pn{width:22px;height:22px;border-radius:50%;background:#6B2737;color:#F5F0E8;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
   .ptip{display:block;font-size:11px;color:#9e8080;font-style:italic;margin-top:3px}
-  .rnota{background:#fdf5e0;border-radius:10px;padding:14px 16px;font-size:12px;color:#7a5a00;line-height:1.65;border-left:3px solid #C9A84C;margin-top:4px}
+  .rnota{background:#fdf5e0;border-radius:10px;padding:14px 16px;font-size:12px;color:#7a5a00;line-height:1.65;border-left:3px solid #FF6B35;margin-top:4px}
   .rnota strong{color:#7a5a00}
   .cta-reto{padding:36px 40px;background:#1A100E;text-align:center;border-bottom:1px solid #2a1a0e}
-  .cta-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:16px}
+  .cta-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#FF6B35;margin-bottom:16px}
   .cta-title{font-family:'DM Serif Display',serif;font-size:26px;color:#F5F0E8;font-weight:400;margin-bottom:12px;line-height:1.2}
-  .cta-title em{font-style:italic;color:#C9A84C}
+  .cta-title em{font-style:italic;color:#FF6B35}
   .cta-desc{font-size:14px;color:rgba(245,240,232,0.65);line-height:1.65;margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto}
   .cta-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;text-align:left;max-width:360px;margin-left:auto;margin-right:auto}
   .cta-li{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(245,240,232,0.75)}
-  .cta-check{color:#C9A84C;font-weight:700;flex-shrink:0}
-  .cta-btn{display:inline-block;background:#C9A84C;color:#1A100E;font-size:15px;font-weight:600;padding:15px 32px;border-radius:30px;text-decoration:none;letter-spacing:.02em}
+  .cta-check{color:#FF6B35;font-weight:700;flex-shrink:0}
+  .cta-btn{display:inline-block;background:#FF6B35;color:#1A100E;font-size:15px;font-weight:600;padding:15px 32px;border-radius:30px;text-decoration:none;letter-spacing:.02em}
   .cta-precio{font-size:12px;color:rgba(245,240,232,0.4);margin-top:10px}
   .cierre{padding:28px 40px;border-bottom:1px solid #e0d5c8}
   .cierre-text{font-size:14px;line-height:1.8;color:#7a5c63}

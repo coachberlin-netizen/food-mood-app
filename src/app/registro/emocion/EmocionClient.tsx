@@ -213,7 +213,7 @@ export default function EmocionClient() {
                   <div className="px-4 py-3 rounded-2xl bg-white" style={{ border: "1px solid rgba(107,39,55,0.1)" }}>
                     <div className="flex gap-1">
                       {[0,1,2].map(i => (
-                        <div key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#C9A84C", animationDelay: `${i * 150}ms` }} />
+                        <div key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#FF6B35", animationDelay: `${i * 150}ms` }} />
                       ))}
                     </div>
                   </div>

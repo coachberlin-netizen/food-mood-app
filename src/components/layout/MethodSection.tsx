@@ -51,7 +51,7 @@ export function MethodSection() {
                 className={`flex flex-col gap-3 pb-12 ${idx !== steps.length - 1 ? 'border-b border-aubergine-dark/10 mb-12' : ''}`}
               >
                 <div className="flex items-center gap-4 mb-2">
-                  <span className="text-[11px] font-sans tracking-[0.3em] font-semibold text-[#C9A84C] uppercase">
+                  <span className="text-[11px] font-sans tracking-[0.3em] font-semibold text-[#FF6B35] uppercase">
                     Paso {step.num}
                   </span>
                 </div>

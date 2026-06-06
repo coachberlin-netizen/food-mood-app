@@ -192,11 +192,11 @@ function NewsletterList() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: 'rgba(201,168,76,0.9)' }}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,107,53,0.9)' }}>
                     {nl.tag}
                   </p>
                   <p className="text-base font-semibold mb-1.5 leading-snug group-hover:underline"
-                    style={{ color: '#2d0f16', textDecorationColor: '#C9A84C' }}>
+                    style={{ color: '#2d0f16', textDecorationColor: '#FF6B35' }}>
                     {nl.subject}
                   </p>
                   <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(45,15,22,0.5)' }}>
@@ -204,7 +204,7 @@ function NewsletterList() {
                   </p>
                 </div>
 
-                <span className="shrink-0 mt-1 text-sm font-bold transition-transform group-hover:translate-x-0.5" style={{ color: '#C9A84C' }}>
+                <span className="shrink-0 mt-1 text-sm font-bold transition-transform group-hover:translate-x-0.5" style={{ color: '#FF6B35' }}>
                   →
                 </span>
               </div>
@@ -214,7 +214,7 @@ function NewsletterList() {
 
         {/* Footer */}
         <div className="mt-14 rounded-3xl p-10 text-center" style={{ backgroundColor: '#2d0f16' }}>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#FF6B35' }}>
             Cada semana
           </p>
           <p className="font-serif text-xl font-bold mb-2" style={{ color: '#F5F0E8' }}>

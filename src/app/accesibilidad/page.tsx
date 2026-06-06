@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 const DARK  = "#2d0f16"
-const GOLD  = "#C9A84C"
+const GOLD  = "#FF6B35"
 const CREAM = "#F5F0E8"
 
 export default function AccesibilidadPage() {

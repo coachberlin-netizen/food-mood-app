@@ -14,10 +14,10 @@ export function buildHtml(): string {
   /* HEADER */
   .header { background: #2d0f16; padding: 48px 44px 44px; }
   .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #6B2737; letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
-  .header-numero { font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; }
+  .header-numero { font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #FF6B35; margin-bottom: 8px; }
   .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.45); margin-bottom: 32px; }
   .header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 34px; font-weight: 700; color: #F5F0E8; line-height: 1.18; margin-bottom: 16px; }
-  .header-title em { font-style: italic; color: #C9A84C; font-weight: 400; }
+  .header-title em { font-style: italic; color: #FF6B35; font-weight: 400; }
 
   /* INTRO */
   .intro { padding: 36px 44px; border-bottom: 1px solid #e0d5c8; }
@@ -36,7 +36,7 @@ export function buildHtml(): string {
   .spectrum-table tbody tr { background: #3d151f; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .spectrum-table tbody tr:last-child { border-bottom: none; }
   .spectrum-table tbody td { padding: 12px 12px; font-size: 13px; font-weight: 300; color: rgba(245,240,232,0.85); line-height: 1.4; vertical-align: top; }
-  .spectrum-table .td-estado { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #C9A84C; }
+  .spectrum-table .td-estado { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #FF6B35; }
   .spectrum-table .td-neuro { font-weight: 400; color: rgba(245,240,232,0.95); }
   .spectrum-note { margin-top: 12px; font-size: 11px; font-style: italic; color: #9e8080; line-height: 1.55; }
 
@@ -45,33 +45,33 @@ export function buildHtml(): string {
   .axis-step-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
   .axis-step-table td { vertical-align: top; padding: 0; }
   .axis-step { background: #F5F0E8; border: 1px solid #d4c5bc; border-radius: 0; padding: 16px 18px; }
-  .axis-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 6px; }
+  .axis-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #FF6B35; line-height: 1; margin-bottom: 6px; }
   .axis-heading { font-size: 12px; font-weight: 700; color: #6B2737; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
   .axis-text { font-size: 12px; font-weight: 300; color: #4a3a3e; line-height: 1.60; }
-  .axis-arrow { text-align: center; vertical-align: middle; padding: 0 6px; font-size: 18px; color: #C9A84C; }
+  .axis-arrow { text-align: center; vertical-align: middle; padding: 0 6px; font-size: 18px; color: #FF6B35; }
   .axis-source { margin-top: 14px; font-size: 11px; font-style: italic; color: #9e8080; line-height: 1.5; }
 
   /* SCIENCE CARDS */
   .cards-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
-  .science-card { border: 1px solid #C9A84C; border-radius: 4px; padding: 20px 22px; margin-bottom: 14px; background: #F5F0E8; }
+  .science-card { border: 1px solid #FF6B35; border-radius: 4px; padding: 20px 22px; margin-bottom: 14px; background: #F5F0E8; }
   .science-card:last-child { margin-bottom: 0; }
   .card-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #2d0f16; margin-bottom: 4px; line-height: 1.3; }
-  .card-author { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #C9A84C; margin-bottom: 10px; }
+  .card-author { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #FF6B35; margin-bottom: 10px; }
   .card-text { font-size: 13px; font-weight: 300; color: #4a3a3e; line-height: 1.70; margin-bottom: 8px; }
-  .card-app { font-size: 12px; font-weight: 400; color: #6B2737; line-height: 1.55; border-top: 1px solid rgba(201,168,76,0.25); padding-top: 8px; margin-top: 4px; }
+  .card-app { font-size: 12px; font-weight: 400; color: #6B2737; line-height: 1.55; border-top: 1px solid rgba(255,107,53,0.25); padding-top: 8px; margin-top: 4px; }
   .card-app strong { font-weight: 700; }
 
   /* LO QUE CAMBIA */
   .cambia-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
   .cambia-item { margin-bottom: 22px; }
   .cambia-item:last-child { margin-bottom: 0; }
-  .cambia-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #C9A84C; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .cambia-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #FF6B35; font-weight: 700; line-height: 1; margin-bottom: 4px; }
   .cambia-text { font-size: 15px; font-weight: 300; color: #4a3a3e; line-height: 1.78; }
   .cambia-text strong { color: #2a1a1e; font-weight: 700; }
 
   /* RECIPE */
   .recipe-wrap { padding: 36px 44px; background: #2d0f16; }
-  .recipe-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+  .recipe-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #FF6B35; margin-bottom: 6px; }
   .recipe-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #F5F0E8; line-height: 1.25; margin-bottom: 20px; }
   .recipe-col-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 10px; }
   .recipe-item { font-size: 14px; font-weight: 300; color: rgba(245,240,232,0.88); line-height: 1.65; margin-bottom: 5px; }
@@ -80,7 +80,7 @@ export function buildHtml(): string {
   .recipe-note { font-size: 13px; font-style: italic; color: rgba(245,240,232,0.65); line-height: 1.70; }
 
   /* PULL QUOTE */
-  .pullquote { background: #C9A84C; padding: 36px 44px; }
+  .pullquote { background: #FF6B35; padding: 36px 44px; }
   .pullquote-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2d0f16; line-height: 1.40; text-align: center; }
 
   /* BIBLIOGRAPHY */

@@ -242,7 +242,7 @@ export function EmotionalLandscape() {
             <div className="max-w-xl">
               <p
                 className="text-[10px] font-bold uppercase tracking-widest mb-4"
-                style={{ color: "#C9A84C" }}
+                style={{ color: "#FF6B35" }}
               >
                 Comunidad gratuita
               </p>

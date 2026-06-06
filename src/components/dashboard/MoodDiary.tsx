@@ -145,7 +145,7 @@ export function MoodDiary() {
         <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
           Tu diario de mood
         </h2>
-        <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
+        <div className="h-px bg-[#FF6B35] flex-1 opacity-20"></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

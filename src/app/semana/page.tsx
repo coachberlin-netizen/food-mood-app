@@ -105,7 +105,7 @@ function WeekMosaic({
                   aspectRatio: "1",
                   backgroundColor: color ?? "#e8e0d0",
                   opacity: isExample ? 0.45 : date > today ? 0.35 : 1,
-                  outline: isToday && !isExample ? "2px solid #C9A84C" : "none",
+                  outline: isToday && !isExample ? "2px solid #FF6B35" : "none",
                   outlineOffset: "2px",
                 }}
               />
@@ -215,7 +215,7 @@ export default function SemanaPage() {
     return (
       <main style={{ backgroundColor: "#F5F0E8", minHeight: "100vh" }}>
         <div className="max-w-[520px] mx-auto px-4 py-16 flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#C9A84C] border-t-transparent animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#FF6B35] border-t-transparent animate-spin" />
         </div>
       </main>
     )
@@ -250,7 +250,7 @@ export default function SemanaPage() {
         {/* ── Header ── */}
         <div className="flex items-center justify-between mb-8">
           <Link href="/" className="font-serif text-xl font-semibold" style={{ color: "#2d0f16" }}>
-            Food<span style={{ color: "#C9A84C" }}>·</span>Mood
+            Food<span style={{ color: "#FF6B35" }}>·</span>Mood
           </Link>
           <span className="text-xs font-light" style={{ color: "rgba(107,39,55,0.5)" }}>
             {formatShort(weekStart)} – {formatShort(weekEnd)}
@@ -259,7 +259,7 @@ export default function SemanaPage() {
 
         {/* ── Hero ── */}
         <div className="mb-7">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
             Tu semana en datos
           </p>
           <h1 className="font-serif text-3xl font-bold leading-tight mb-2" style={{ color: "#2d0f16" }}>
@@ -276,13 +276,13 @@ export default function SemanaPage() {
             className="rounded-3xl p-6 mb-6"
             style={{ backgroundColor: "#2d0f16" }}
           >
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
               Índice Food·Mood — media semanal
             </p>
             <div className="flex items-end gap-3 mb-2">
               <span
                 className="font-serif font-black leading-none"
-                style={{ fontSize: "clamp(52px,16vw,64px)", color: "#C9A84C" }}
+                style={{ fontSize: "clamp(52px,16vw,64px)", color: "#FF6B35" }}
               >
                 {digest.fm_index_avg}
               </span>
@@ -303,7 +303,7 @@ export default function SemanaPage() {
             {digest.record_broken && (
               <div
                 className="mt-3 px-3 py-2 rounded-xl text-xs font-semibold"
-                style={{ backgroundColor: "rgba(201,168,76,0.18)", color: "#C9A84C" }}
+                style={{ backgroundColor: "rgba(255,107,53,0.18)", color: "#FF6B35" }}
               >
                 🏆 ¡Nuevo récord personal esta semana!
               </div>
@@ -316,7 +316,7 @@ export default function SemanaPage() {
           className="rounded-3xl p-5 mb-6"
           style={{ backgroundColor: "white", boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}
         >
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: "#FF6B35" }}>
             Tu semana en colores
           </p>
           <WeekMosaic weekStart={weekStart} dayEntries={dayEntries} />
@@ -339,7 +339,7 @@ export default function SemanaPage() {
                   <div
                     key={i}
                     className="p-4 rounded-2xl mb-2"
-                    style={{ backgroundColor: "white", borderLeft: "4px solid #C9A84C" }}
+                    style={{ backgroundColor: "white", borderLeft: "4px solid #FF6B35" }}
                   >
                     <p className="text-sm italic" style={{ color: "#2d0f16" }}>{txt}</p>
                   </div>
@@ -365,7 +365,7 @@ export default function SemanaPage() {
           ) : correlations.length === 0 ? (
             <div
               className="p-4 rounded-2xl"
-              style={{ backgroundColor: "white", borderLeft: "4px solid rgba(201,168,76,0.35)" }}
+              style={{ backgroundColor: "white", borderLeft: "4px solid rgba(255,107,53,0.35)" }}
             >
               <p className="text-sm" style={{ color: "rgba(107,39,55,0.6)" }}>
                 Aún no hay correlaciones — combina test diario, bol y síntomas esta semana.
@@ -377,7 +377,7 @@ export default function SemanaPage() {
                 <div
                   key={i}
                   className="p-4 rounded-2xl"
-                  style={{ backgroundColor: "white", borderLeft: "4px solid #C9A84C", boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}
+                  style={{ backgroundColor: "white", borderLeft: "4px solid #FF6B35", boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}
                 >
                   <ConfidenceBadge />
                   <p
@@ -416,7 +416,7 @@ export default function SemanaPage() {
                     <div key={cat}>
                       <p
                         className="text-[10px] font-bold uppercase tracking-widest mb-2"
-                        style={{ color: "#C9A84C" }}
+                        style={{ color: "#FF6B35" }}
                       >
                         {meta.emoji} {meta.label}
                       </p>
@@ -460,7 +460,7 @@ export default function SemanaPage() {
           className="rounded-3xl p-6 text-center"
           style={{ backgroundColor: "#2d0f16" }}
         >
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#C9A84C" }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#FF6B35" }}>
             Comunidad gratuita
           </p>
           <p className="font-serif text-lg font-bold text-white mb-2">

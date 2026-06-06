@@ -1,0 +1,79 @@
+
+> food-mood@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ○ (pwa) PWA support is disabled.
+ ✓ Ready in 3.9s
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 1025ms (124 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 12.1s (1670 modules)
+ GET / 200 in 13819ms
+ ✓ Compiled in 1806ms (812 modules)
+ GET / 200 in 148ms
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (215kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ GET / 200 in 131ms
+ GET / 200 in 247ms
+ ✓ Compiled in 2.9s (1643 modules)
+ ✓ Compiled in 1925ms (1643 modules)
+ ✓ Compiled in 1960ms (1643 modules)
+ ✓ Compiled in 2s (1643 modules)
+ ✓ Compiled in 1776ms (1643 modules)
+ ✓ Compiled in 1854ms (1643 modules)
+ ✓ Compiled in 1848ms (1643 modules)
+ ✓ Compiled in 1989ms (1643 modules)
+ ✓ Compiled in 1933ms (1643 modules)
+ ✓ Compiled in 1820ms (1643 modules)
+ ✓ Compiled in 1694ms (1643 modules)
+ ✓ Compiled in 1161ms (812 modules)
+ ✓ Compiled in 287ms (812 modules)
+ ✓ Compiled in 534ms (1767 modules)
+ ✓ Compiled in 607ms (1767 modules)
+ GET / 200 in 345ms
+ GET / 200 in 124ms
+ ✓ Compiled in 2s (1767 modules)
+ ✓ Compiled in 1052ms (812 modules)
+ ✓ Compiled in 1025ms (812 modules)
+ ✓ Compiled in 936ms (812 modules)
+ ✓ Compiled in 1080ms (812 modules)
+ ✓ Compiled in 1046ms (812 modules)
+ ✓ Compiled in 1086ms (812 modules)
+ ✓ Compiled in 990ms (812 modules)
+ ✓ Compiled in 1129ms (812 modules)
+ ✓ Compiled in 782ms (812 modules)
+ ✓ Compiled in 582ms (812 modules)
+ ✓ Compiled in 952ms (812 modules)
+ ✓ Compiled in 629ms (812 modules)
+ ✓ Compiled in 1121ms (812 modules)
+ ✓ Compiled in 678ms (812 modules)
+ ✓ Compiled in 1160ms (1643 modules)
+ ✓ Compiled in 1126ms (812 modules)
+ ✓ Compiled in 1047ms (812 modules)
+ ✓ Compiled in 3s (1643 modules)
+ ✓ Compiled in 2.1s (1643 modules)
+ ✓ Compiled in 2.1s (1643 modules)
+ GET / 200 in 827ms
+ GET / 200 in 200ms
+ ✓ Compiled in 2.1s (1643 modules)
+ ✓ Compiled in 766ms (812 modules)
+ ✓ Compiled in 561ms (812 modules)
+ ✓ Compiled in 590ms (812 modules)
+ ✓ Compiled in 600ms (812 modules)
+ ✓ Compiled in 765ms (812 modules)
+ ✓ Compiled in 546ms (812 modules)
+ ✓ Compiled in 734ms (812 modules)
+ ✓ Compiled in 502ms (812 modules)
+ ✓ Compiled in 633ms (812 modules)
+ ✓ Compiled in 503ms (812 modules)
+ ✓ Compiled in 486ms (812 modules)
+ ✓ Compiled in 627ms (812 modules)
+ ✓ Compiled in 2.6s (1643 modules)
+ ✓ Compiled in 692ms (1643 modules)
+ ✓ Compiled in 647ms (1643 modules)
+ ✓ Compiled /_not-found in 463ms (1644 modules)
+ GET / 404 in 882ms

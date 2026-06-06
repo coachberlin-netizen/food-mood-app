@@ -24,7 +24,7 @@ function ProgressDots({ done, total }: { done: number; total: number }) {
           <motion.span
             key={i}
             className="block w-3 h-3 rounded-full"
-            style={{ background: "#C9A84C" }}
+            style={{ background: "#FF6B35" }}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.3, delay: i * 0.08, type: "spring", stiffness: 300, damping: 15 }}
@@ -154,7 +154,7 @@ export function MisAsignacionesClient() {
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold mb-0.5" style={{ color: "#2d0f16" }}>{a.title}</p>
-                        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#C9A84C" }}>
+                        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#FF6B35" }}>
                           {toolLabel}
                         </p>
                       </div>
@@ -172,7 +172,7 @@ export function MisAsignacionesClient() {
 
                     <p
                       className="text-xs leading-relaxed mb-3"
-                      style={{ color: "rgba(107,39,55,0.65)", borderLeft: "2px solid rgba(201,168,76,0.35)", paddingLeft: "8px", lineHeight: "1.6" }}
+                      style={{ color: "rgba(107,39,55,0.65)", borderLeft: "2px solid rgba(255,107,53,0.35)", paddingLeft: "8px", lineHeight: "1.6" }}
                     >
                       {a.instruction}
                     </p>

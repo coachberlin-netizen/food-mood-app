@@ -40,7 +40,7 @@ export default function EquipoPage() {
           {roles.map((role, idx) => (
             <div key={idx} className="grid grid-cols-1 md:grid-cols-12 gap-8 border-t border-aubergine-dark/10 pt-16 group">
               <div className="md:col-span-4">
-                <h2 className="text-2xl md:text-3xl font-serif text-aubergine-dark group-hover:text-[#C9A84C] transition-colors duration-500">
+                <h2 className="text-2xl md:text-3xl font-serif text-aubergine-dark group-hover:text-[#FF6B35] transition-colors duration-500">
                   {role.role}
                 </h2>
               </div>
@@ -49,7 +49,7 @@ export default function EquipoPage() {
                   {role.description}
                 </p>
                 <div className="flex items-start gap-4">
-                  <span className="shrink-0 w-6 h-px bg-[#C9A84C] mt-2.5" />
+                  <span className="shrink-0 w-6 h-px bg-[#FF6B35] mt-2.5" />
                   <p className="text-sm font-sans tracking-wide text-aubergine-dark/60 leading-relaxed max-w-xl">
                     <span className="font-semibold text-aubergine-dark/80 uppercase mr-1">Impacto en tu viaje:</span> 
                     {role.impact}

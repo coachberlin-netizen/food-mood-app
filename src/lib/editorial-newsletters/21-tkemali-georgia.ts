@@ -12,28 +12,28 @@ export function buildHtml(): string {
   .wrapper { max-width: 680px; margin: 0 auto; background: #F5F0E8; }
   .header { background: #2d0f16; padding: 48px 44px 44px; }
   .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #6B2737; letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
-  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; }
+  .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #FF6B35; margin-bottom: 8px; }
   .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.45); margin-bottom: 32px; }
   .header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; color: #F5F0E8; line-height: 1.18; margin-bottom: 0; }
-  .header-title em { font-style: italic; color: #C9A84C; font-weight: 400; }
+  .header-title em { font-style: italic; color: #FF6B35; font-weight: 400; }
   .intro { padding: 36px 44px; border-bottom: 1px solid #e0d5c8; }
   .intro p { font-size: 15px; line-height: 1.80; color: #4a3a3e; font-weight: 300; margin-bottom: 16px; }
   .intro p:last-child { margin-bottom: 0; }
   .section-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 18px; }
-  .section-label-dark { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 18px; }
+  .section-label-dark { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,107,53,0.55); margin-bottom: 18px; }
   .bio-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; background: #1e0b11; }
   .bio-table { width: 100%; border-collapse: collapse; }
   .bio-table thead tr { background: #2d0f16; }
-  .bio-table thead th { padding: 10px 12px; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(201,168,76,0.60); text-align: left; }
-  .bio-table tbody tr { border-bottom: 1px solid rgba(201,168,76,0.08); }
+  .bio-table thead th { padding: 10px 12px; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,107,53,0.60); text-align: left; }
+  .bio-table tbody tr { border-bottom: 1px solid rgba(255,107,53,0.08); }
   .bio-table tbody tr:last-child { border-bottom: none; }
   .bio-table tbody td { padding: 13px 12px; font-size: 12px; font-weight: 300; line-height: 1.60; vertical-align: top; }
-  .td-compuesto { color: #C9A84C; font-weight: 700; font-size: 12px; }
+  .td-compuesto { color: #FF6B35; font-weight: 700; font-size: 12px; }
   .td-fuente { color: rgba(245,240,232,0.60); }
   .td-mecanismo { color: rgba(245,240,232,0.75); }
-  .bio-note { margin-top: 16px; font-size: 11px; font-style: italic; color: rgba(201,168,76,0.50); line-height: 1.60; }
+  .bio-note { margin-top: 16px; font-size: 11px; font-style: italic; color: rgba(255,107,53,0.50); line-height: 1.60; }
   .cifras-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
-  .cifra-value { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 8px; }
+  .cifra-value { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #FF6B35; line-height: 1; margin-bottom: 8px; }
   .cifra-label { font-size: 12px; font-weight: 300; color: #4a3a3e; line-height: 1.65; }
   .cifra-label em { font-style: italic; color: #6B2737; }
   .comp-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
@@ -49,18 +49,18 @@ export function buildHtml(): string {
   .puntos-wrap { padding: 32px 44px; border-bottom: 1px solid #e0d5c8; }
   .punto-item { margin-bottom: 28px; }
   .punto-item:last-child { margin-bottom: 0; }
-  .punto-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #C9A84C; font-weight: 700; line-height: 1; margin-bottom: 6px; }
+  .punto-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #FF6B35; font-weight: 700; line-height: 1; margin-bottom: 6px; }
   .punto-text { font-size: 15px; font-weight: 300; color: #4a3a3e; line-height: 1.78; }
   .punto-text strong { color: #2a1a1e; font-weight: 700; }
   .punto-ref { font-size: 11px; font-style: italic; color: #9e8080; margin-top: 6px; display: block; }
   .recipe-wrap { padding: 36px 44px; background: #2d0f16; }
-  .recipe-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+  .recipe-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #FF6B35; margin-bottom: 6px; }
   .recipe-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #F5F0E8; line-height: 1.25; margin-bottom: 24px; }
   .recipe-col-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 10px; }
   .recipe-item { font-size: 14px; font-weight: 300; color: rgba(245,240,232,0.88); line-height: 1.65; margin-bottom: 6px; }
   .recipe-item:last-child { margin-bottom: 0; }
   .recipe-prep { font-size: 14px; font-weight: 300; color: rgba(245,240,232,0.80); line-height: 1.78; margin-bottom: 10px; }
-  .recipe-day { color: #C9A84C; font-weight: 700; }
+  .recipe-day { color: #FF6B35; font-weight: 700; }
   .recipe-usos-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 8px; }
   .recipe-usos { font-size: 13px; font-weight: 300; color: rgba(245,240,232,0.72); line-height: 1.70; }
   .recipe-note-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 8px; }
@@ -68,7 +68,7 @@ export function buildHtml(): string {
   .biblio-wrap { padding: 28px 44px; border-bottom: 1px solid #e0d5c8; background: #fafaf5; }
   .biblio-title { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9e8080; margin-bottom: 12px; }
   .biblio-item { font-size: 11px; font-weight: 300; color: #7a6a6e; line-height: 1.65; margin-bottom: 5px; }
-  .pullquote { background: #C9A84C; padding: 36px 44px; }
+  .pullquote { background: #FF6B35; padding: 36px 44px; }
   .pullquote-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2d0f16; line-height: 1.45; text-align: center; }
   .cta-wrap { padding: 36px 44px; text-align: center; border-bottom: 1px solid #e0d5c8; }
   .cta-btn { display: inline-block; background: #6B2737; color: #F5F0E8 !important; text-decoration: none; padding: 14px 32px; font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .06em; border-radius: 3px; }
@@ -249,14 +249,14 @@ export function buildHtml(): string {
         </td>
       </tr>
     </table>
-    <div style="margin-top: 24px; border-top: 1px solid rgba(201,168,76,0.15); padding-top: 20px;">
+    <div style="margin-top: 24px; border-top: 1px solid rgba(255,107,53,0.15); padding-top: 20px;">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td width="45%" valign="top" style="padding-right: 20px;">
             <p class="recipe-usos-label">Usos Food&middot;Mood</p>
             <p class="recipe-usos">Con carnes asadas, con legumbres, como dressing &aacute;cido en ensaladas, mezclado con k&eacute;fir como salsa para verduras crudas.</p>
           </td>
-          <td width="55%" valign="top" style="border-left: 1px solid rgba(201,168,76,0.15); padding-left: 20px;">
+          <td width="55%" valign="top" style="border-left: 1px solid rgba(255,107,53,0.15); padding-left: 20px;">
             <p class="recipe-note-label">Nota Food&middot;Mood</p>
             <p class="recipe-note">El tkemali casero es fermentaci&oacute;n espont&aacute;nea &mdash;no hay cultivo iniciador a&ntilde;adido. Las bacterias del entorno y de la propia fruta hacen el trabajo. Es el mismo principio que el pan de masa madre: confiar en los microorganismos que ya est&aacute;n ah&iacute;. La ciencia de los psicobi&oacute;ticos sugiere que esta diversidad microbiana espont&aacute;nea puede ser precisamente su valor. (Sonnenburg, 2015)</p>
           </td>

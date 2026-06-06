@@ -83,7 +83,7 @@ export function ConsentModal() {
       >
         {/* Header */}
         <div className="mb-3">
-          <p className="text-[9px] font-bold uppercase tracking-widest text-[#C9A84C] mb-0.5">
+          <p className="text-[9px] font-bold uppercase tracking-widest text-[#FF6B35] mb-0.5">
             Tus datos, tus reglas
           </p>
           <p className="text-sm font-medium text-[#2d0f16] leading-snug">

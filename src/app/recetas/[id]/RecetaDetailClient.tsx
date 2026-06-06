@@ -71,7 +71,7 @@ function Toast({ show, message }: { show: boolean; message: string }) {
           exit={{ opacity: 0, y: 40 }}
           className="fixed bottom-[calc(56px+24px)] md:bottom-8 left-1/2 -translate-x-1/2 z-50 bg-aubergine-dark text-cream px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 text-sm font-medium"
         >
-          <Check className="w-4 h-4 text-[#C9A84C]" />
+          <Check className="w-4 h-4 text-[#FF6B35]" />
           {message}
         </motion.div>
       )}
@@ -177,7 +177,7 @@ export default function RecetaDetailClient({
         {parts.map((part, i) => {
           const term = sorted.find(t => t.name.toLowerCase() === part.toLowerCase());
           return term
-            ? <Link key={i} href={`/glosario/${term.slug}`} className="text-[#C9A84C] hover:underline font-medium">{part}</Link>
+            ? <Link key={i} href={`/glosario/${term.slug}`} className="text-[#FF6B35] hover:underline font-medium">{part}</Link>
             : part;
         })}
       </>
@@ -257,11 +257,11 @@ export default function RecetaDetailClient({
 
           {/* Ingrediente firma */}
           {(receta.ingrediente_firma || receta.base_acida) && (
-            <motion.div {...anim(0.2)} className="relative bg-gradient-to-br from-[#C9A84C]/10 via-cream to-[#C9A84C]/5 rounded-2xl p-6 md:p-8 mb-10 border border-[#C9A84C]/20 overflow-hidden">
+            <motion.div {...anim(0.2)} className="relative bg-gradient-to-br from-[#FF6B35]/10 via-cream to-[#FF6B35]/5 rounded-2xl p-6 md:p-8 mb-10 border border-[#FF6B35]/20 overflow-hidden">
               <div className="absolute top-4 right-4 opacity-15">
-                <Droplets className="w-16 h-16 text-[#C9A84C]" />
+                <Droplets className="w-16 h-16 text-[#FF6B35]" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-2 block">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B35] mb-2 block">
                 Ingrediente firma
               </span>
               <p className="text-lg md:text-xl font-serif text-aubergine-dark font-semibold leading-snug">
@@ -296,10 +296,10 @@ export default function RecetaDetailClient({
           {/* Mecanismo / Nota Food·Mood — siempre visible */}
           <motion.section {...anim(0.28)} className="mb-10">
             <div className="bg-gradient-to-br from-aubergine-dark to-aubergine rounded-2xl p-7 md:p-9 text-cream/90 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF6B35]/5 rounded-full blur-3xl" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-cream/5 rounded-full blur-3xl" />
               <div className="relative">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-4 block">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B35] mb-4 block">
                   Por qué funciona
                 </span>
                 <p className="text-[15px] md:text-base font-light leading-[1.85] text-cream/85">
@@ -349,9 +349,9 @@ export default function RecetaDetailClient({
                 <button
                   onClick={() => setShowCookGuide(true)}
                   className="mt-6 w-full flex items-center justify-center gap-2.5 py-3.5 rounded-2xl text-sm font-semibold transition-all hover:opacity-90"
-                  style={{ background: "#1A0A0E", color: "#F5F0E8", border: "1px solid rgba(201,168,76,0.25)" }}
+                  style={{ background: "#1A0A0E", color: "#F5F0E8", border: "1px solid rgba(255,107,53,0.25)" }}
                 >
-                  <ChefHat className="w-4 h-4 text-[#C9A84C]" />
+                  <ChefHat className="w-4 h-4 text-[#FF6B35]" />
                   Cocinar con guía de voz
                 </button>
               </>
@@ -432,7 +432,7 @@ export default function RecetaDetailClient({
                 className="w-full flex items-center justify-between py-4 px-5 rounded-xl bg-cream border border-aubergine-dark/10 hover:border-aubergine-dark/20 transition-all text-left group"
               >
                 <span className="flex items-center gap-2 text-sm font-medium text-aubergine-dark/70 group-hover:text-aubergine-dark transition-colors">
-                  <Beaker className="w-4 h-4 text-[#C9A84C]" />
+                  <Beaker className="w-4 h-4 text-[#FF6B35]" />
                   🔬 Ciencia
                 </span>
                 {showCiencia ? <ChevronUp className="w-4 h-4 text-aubergine-dark/40" /> : <ChevronDown className="w-4 h-4 text-aubergine-dark/40" />}

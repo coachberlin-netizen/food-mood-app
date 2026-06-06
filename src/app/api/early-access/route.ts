@@ -105,45 +105,45 @@ function confirmationHtml(name: string, calendlyUrl: string): string {
 
         <!-- One-pager en HTML -->
         <tr><td style="padding:0 40px 32px;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="border-radius:12px;overflow:hidden;border:1px solid rgba(201,168,76,0.2);">
+          <table width="100%" cellpadding="0" cellspacing="0" style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,107,53,0.2);">
 
-            <tr><td style="background:rgba(201,168,76,0.12);padding:20px 24px;">
-              <p style="margin:0;font-size:11px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;font-family:system-ui,sans-serif;">Propuesta de valor · Resumen ejecutivo</p>
+            <tr><td style="background:rgba(255,107,53,0.12);padding:20px 24px;">
+              <p style="margin:0;font-size:11px;letter-spacing:2px;color:#FF6B35;text-transform:uppercase;font-family:system-ui,sans-serif;">Propuesta de valor · Resumen ejecutivo</p>
             </td></tr>
 
             <tr><td style="padding:24px;">
               <table width="100%" cellpadding="0" cellspacing="0">
 
                 <tr><td style="padding-bottom:20px;">
-                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#C9A84C;font-family:system-ui,sans-serif;">01 · El problema que resolvemos</p>
+                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#FF6B35;font-family:system-ui,sans-serif;">01 · El problema que resolvemos</p>
                   <p style="margin:0;font-size:13px;line-height:1.65;color:rgba(245,240,232,0.75);font-family:system-ui,sans-serif;">
                     El 80 % de los pacientes con dificultades alimentarias tiene un componente emocional que no queda registrado entre sesiones. Tu historial clínico captura lo que ocurre en consulta; Food·Mood Pro captura lo que ocurre fuera de ella.
                   </p>
                 </td></tr>
 
                 <tr><td style="padding-bottom:20px;">
-                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#C9A84C;font-family:system-ui,sans-serif;">02 · Qué hacen tus pacientes</p>
+                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#FF6B35;font-family:system-ui,sans-serif;">02 · Qué hacen tus pacientes</p>
                   <p style="margin:0;font-size:13px;line-height:1.65;color:rgba(245,240,232,0.75);font-family:system-ui,sans-serif;">
                     60 segundos al día: registran hambre física vs. emocional, estado del sistema nervioso, pensamiento automático y emoción dominante. Sin app adicional en iOS · Añadible como PWA en 10 segundos.
                   </p>
                 </td></tr>
 
                 <tr><td style="padding-bottom:20px;">
-                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#C9A84C;font-family:system-ui,sans-serif;">03 · Qué ves tú</p>
+                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#FF6B35;font-family:system-ui,sans-serif;">03 · Qué ves tú</p>
                   <p style="margin:0;font-size:13px;line-height:1.65;color:rgba(245,240,232,0.75);font-family:system-ui,sans-serif;">
                     Un panel profesional con: paleta emocional semanal, correlaciones comida-emoción, patrones de tensión del sistema nervioso, adherencia a las tareas que asignas entre sesiones. Tiempo de lectura antes de sesión: &lt; 2 minutos.
                   </p>
                 </td></tr>
 
                 <tr><td style="padding-bottom:20px;">
-                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#C9A84C;font-family:system-ui,sans-serif;">04 · Frameworks clínicos integrados</p>
+                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#FF6B35;font-family:system-ui,sans-serif;">04 · Frameworks clínicos integrados</p>
                   <p style="margin:0;font-size:13px;line-height:1.65;color:rgba(245,240,232,0.75);font-family:system-ui,sans-serif;">
                     Teoría Polivagal (Porges) · Granularidad emocional (Barrett) · Psiconutrición conductual · Interoception-informed therapy. Los registros del paciente están diseñados con lenguaje clínico, no de bienestar general.
                   </p>
                 </td></tr>
 
                 <tr><td style="padding-bottom:0;">
-                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#C9A84C;font-family:system-ui,sans-serif;">05 · Seguridad y cumplimiento</p>
+                  <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#FF6B35;font-family:system-ui,sans-serif;">05 · Seguridad y cumplimiento</p>
                   <p style="margin:0;font-size:13px;line-height:1.65;color:rgba(245,240,232,0.75);font-family:system-ui,sans-serif;">
                     RGPD desde el diseño · Cifrado AES-256 en reposo · Hosting en infraestructura europea (eu-west) · Sin acceso de terceros a datos de pacientes · IA transparente (Art. 50 EU AI Act).
                   </p>
@@ -159,7 +159,7 @@ function confirmationHtml(name: string, calendlyUrl: string): string {
         <tr><td style="padding:0 40px 24px;">
           <p style="margin:0;font-size:13px;color:rgba(245,240,232,0.55);font-family:system-ui,sans-serif;">
             ¿Prefieres leerlo en PDF?
-            <a href="${ONEPAGER_URL}" style="color:#C9A84C;text-decoration:underline;">Descarga el one-pager →</a>
+            <a href="${ONEPAGER_URL}" style="color:#FF6B35;text-decoration:underline;">Descarga el one-pager →</a>
           </p>
         </td></tr>
 
@@ -171,7 +171,7 @@ function confirmationHtml(name: string, calendlyUrl: string): string {
               <p style="margin:0 0 16px;font-size:13px;color:rgba(245,240,232,0.7);font-family:system-ui,sans-serif;">
                 15 minutos · Sin permanencia · Sin tarjeta de crédito
               </p>
-              <a href="${calendlyUrl}" style="display:inline-block;background:#C9A84C;color:#0f0a0d;text-decoration:none;font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;font-family:system-ui,sans-serif;">
+              <a href="${calendlyUrl}" style="display:inline-block;background:#FF6B35;color:#0f0a0d;text-decoration:none;font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;font-family:system-ui,sans-serif;">
                 Reservar mi demo →
               </a>
             </td></tr>

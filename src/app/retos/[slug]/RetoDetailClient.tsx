@@ -507,7 +507,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             style={{ backgroundColor: `rgba(${rgb},0.06)`, borderColor: `rgba(${rgb},0.2)` }}
           >
             <div className="flex justify-center mb-3">
-              <Trophy size={40} strokeWidth={1.5} style={{ color: '#C9A84C' }} />
+              <Trophy size={40} strokeWidth={1.5} style={{ color: '#FF6B35' }} />
             </div>
             <p className="font-serif text-xl font-bold mb-1" style={{ color: '#2d0f16' }}>
               ¡Reto completado!
@@ -911,8 +911,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             ))}
             <div className="relative mb-0">
               <div className="absolute -left-4 top-1 w-4 h-4 rounded-full border-2 border-white"
-                style={{ backgroundColor: '#C9A84C' }} />
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#C9A84C' }}>
+                style={{ backgroundColor: '#FF6B35' }} />
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#FF6B35' }}>
                 Al completar
               </p>
               <p className="text-sm font-light" style={{ color: '#2d0f16' }}>
@@ -962,7 +962,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             style={{ backgroundColor: `rgba(${rgb},0.06)`, borderColor: `rgba(${rgb},0.2)` }}
           >
             <div className="flex justify-center mb-3">
-              <Trophy size={36} strokeWidth={1.5} style={{ color: '#C9A84C' }} />
+              <Trophy size={36} strokeWidth={1.5} style={{ color: '#FF6B35' }} />
             </div>
             <p className="font-serif text-xl font-bold mb-1" style={{ color: '#2d0f16' }}>
               ¡Reto completado!
@@ -1051,7 +1051,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             {isPremium ? (
               /* Premium / beta user — bypass payment */
               <>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
                   Acceso incluido
                 </p>
                 <p className="text-sm font-light mb-6" style={{ color: 'rgba(255,255,255,0.55)' }}>
@@ -1072,11 +1072,11 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
             ) : (
               /* Standard purchase flow */
               <>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
                   {enrollment ? 'Completar pago' : 'Únete ahora'}
                 </p>
                 <div className="mb-6">
-                  <p className="font-serif text-5xl font-black" style={{ color: '#C9A84C' }}>
+                  <p className="font-serif text-5xl font-black" style={{ color: '#FF6B35' }}>
                     {priceEur}€
                   </p>
                   <p className="text-xs font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
@@ -1104,7 +1104,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                 {/* Beta / influencer code input */}
                 <div className="mt-6 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                   {betaState === 'success' ? (
-                    <p className="text-center text-sm font-medium" style={{ color: '#C9A84C' }}>
+                    <p className="text-center text-sm font-medium" style={{ color: '#FF6B35' }}>
                       ✓ Código activado — redirigiendo…
                     </p>
                   ) : (
@@ -1133,7 +1133,7 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                             onClick={() => redeemBetaCode(betaCode)}
                             disabled={betaState === 'loading' || !betaCode.trim()}
                             className="px-4 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-40 hover:opacity-90 transition-opacity whitespace-nowrap"
-                            style={{ backgroundColor: '#C9A84C' }}
+                            style={{ backgroundColor: '#FF6B35' }}
                           >
                             {betaState === 'loading' ? '…' : 'Canjear'}
                           </button>

@@ -35,7 +35,7 @@ export default async function OraclePage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#1A0A0E] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#C9A84C]/20 border-t-[#C9A84C] animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-[#FF6B35]/20 border-t-[#FF6B35] animate-spin" />
       </div>
     }>
       <OracleClient isPremium={isPremium} />

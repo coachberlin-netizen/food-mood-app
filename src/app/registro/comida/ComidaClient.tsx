@@ -109,14 +109,14 @@ export default function ComidaClient() {
           </div>
           <h2 className="font-serif text-2xl font-bold mb-3" style={{ color: "#2d0f16" }}>Registro guardado</h2>
           {negativePost && (
-            <div className="mb-6 px-5 py-4 rounded-2xl text-sm text-left leading-relaxed" style={{ background: "white", borderLeft: "3px solid #C9A84C", color: "#6B2737" }}>
+            <div className="mb-6 px-5 py-4 rounded-2xl text-sm text-left leading-relaxed" style={{ background: "white", borderLeft: "3px solid #FF6B35", color: "#6B2737" }}>
               <p className="font-semibold mb-1">Tu cuerpo pide algo.</p>
               <p className="font-light">Notar el cambio ya es información valiosa. Si quieres explorar qué necesitas, el check-in interoceptivo puede ayudar.</p>
             </div>
           )}
           <div className="flex flex-col gap-3">
             {negativePost && (
-              <Link href="/registro/interoceptivo" className="block w-full py-3 rounded-full text-sm font-medium text-center" style={{ background: "#C9A84C", color: "white" }}>
+              <Link href="/registro/interoceptivo" className="block w-full py-3 rounded-full text-sm font-medium text-center" style={{ background: "#FF6B35", color: "white" }}>
                 Check-in interoceptivo →
               </Link>
             )}

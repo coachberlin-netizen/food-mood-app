@@ -188,8 +188,8 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
           style={{ background: "linear-gradient(135deg, #2d0f16 0%, #6B2737 100%)", color: "#F5F0E8" }}
         >
           <div className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
-            style={{ backgroundColor: "rgba(201,168,76,0.2)", border: "1px solid rgba(201,168,76,0.3)" }}>
-            <Mic size={18} style={{ color: "#C9A84C" }} />
+            style={{ backgroundColor: "rgba(255,107,53,0.2)", border: "1px solid rgba(255,107,53,0.3)" }}>
+            <Mic size={18} style={{ color: "#FF6B35" }} />
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-[14px] font-semibold">Check-in de voz</p>
@@ -198,7 +198,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
             </p>
           </div>
           <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full shrink-0"
-            style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C" }}>
+            style={{ backgroundColor: "rgba(255,107,53,0.15)", color: "#FF6B35" }}>
             Nuevo
           </span>
         </Link>
@@ -219,7 +219,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
               ].map((obs, i) => (
                 <div key={i} className="bg-white rounded-2xl p-6 border border-[#6B2737]/8">
                   <div className="flex items-start gap-3">
-                    <Brain size={16} className="text-[#C9A84C] mt-0.5 shrink-0" />
+                    <Brain size={16} className="text-[#FF6B35] mt-0.5 shrink-0" />
                     <div>
                       <p className="text-[14px] text-[#2d0f16] leading-relaxed">{obs}</p>
                       <p className="text-[13px] text-[#6B2737]/60 mt-2 italic">¿Te apetecería probar una semana de cenas a las 19h?</p>
@@ -249,7 +249,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
         ) : (
           <section className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
-              <Brain className="w-5 h-5 text-[#C9A84C]" />
+              <Brain className="w-5 h-5 text-[#FF6B35]" />
               <h2 className="font-serif text-[26px] text-[#6B2737] font-bold italic">Lo que ve el agente</h2>
             </div>
 
@@ -282,7 +282,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
                     <div className="flex items-start gap-3">
                       <span
                         className="mt-1 w-2 h-2 rounded-full shrink-0"
-                        style={{ background: p.confianza === "alta" ? "#C9A84C" : "#B8A9C9" }}
+                        style={{ background: p.confianza === "alta" ? "#FF6B35" : "#B8A9C9" }}
                       />
                       <div>
                         <p className="text-[14px] text-[#2d0f16] leading-relaxed font-medium">{p.observacion}</p>
@@ -308,7 +308,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
             {weekAnalysis && (
               <section className="flex flex-col gap-10">
                 <div className="flex items-center gap-4">
-                  <Sparkles className="w-6 h-6 text-[#C9A84C]" />
+                  <Sparkles className="w-6 h-6 text-[#FF6B35]" />
                   <h2 className="font-serif text-[28px] md:text-[32px] text-[#6B2737] font-bold italic">Esta semana</h2>
                 </div>
                 <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-[#6B2737]/5">
@@ -333,7 +333,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
             {monthAnalysis && (
               <section className="flex flex-col gap-10">
                 <div className="flex items-center gap-4">
-                  <BookOpen className="w-6 h-6 text-[#C9A84C]" />
+                  <BookOpen className="w-6 h-6 text-[#FF6B35]" />
                   <h2 className="font-serif text-[28px] md:text-[32px] text-[#6B2737] font-bold italic">Este mes</h2>
                 </div>
                 <MonthMosaic
@@ -350,7 +350,7 @@ export default function DiarioClient({ initialIsPremium }: { initialIsPremium: b
             {historyMonths.length > 0 && (
               <section className="flex flex-col gap-10">
                 <div className="flex items-center gap-4">
-                  <Calendar className="w-6 h-6 text-[#C9A84C]" />
+                  <Calendar className="w-6 h-6 text-[#FF6B35]" />
                   <h2 className="font-serif text-[28px] md:text-[32px] text-[#6B2737] font-bold italic">Tu historia emocional</h2>
                 </div>
                 <div className="flex flex-col gap-4">

@@ -89,9 +89,9 @@ export async function POST(req: NextRequest) {
 
             <!-- Header -->
             <div style="background:#2d0f16;padding:40px 32px 32px;border-radius:0">
-              <p style="color:#C9A84C;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;margin:0 0 16px;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">Reto completado</p>
+              <p style="color:#FF6B35;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;margin:0 0 16px;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">Reto completado</p>
               <h1 style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:32px;font-weight:900;color:#F5F0E8;margin:0 0 8px;letter-spacing:-0.03em;line-height:1.1">
-                Lo has hecho.<br/><span style="color:#C9A84C">${challenge.duration_days} días.</span>
+                Lo has hecho.<br/><span style="color:#FF6B35">${challenge.duration_days} días.</span>
               </h1>
               <p style="font-size:15px;color:rgba(245,240,232,0.6);margin:0;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">${challenge.title}</p>
             </div>
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
                   <div style="font-size:32px;font-weight:700;color:#2d0f16;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">${indexStart}</div>
                   <div style="font-size:11px;color:#9e8080;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">al empezar</div>
                 </div>
-                <div style="font-size:20px;color:#C9A84C">→</div>
+                <div style="font-size:20px;color:#FF6B35">→</div>
                 <div style="text-align:center">
                   <div style="font-size:32px;font-weight:700;color:#6B2737;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">${indexEnd}</div>
                   <div style="font-size:11px;color:#9e8080;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">al terminar</div>

@@ -57,7 +57,7 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
             {/* Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
               <span style={{ fontFamily: 'Georgia, serif', fontSize: '22px', fontWeight: 700, color: '#3F1A22' }}>
-                Food<span style={{ color: '#C9A84C' }}>·</span>Mood
+                Food<span style={{ color: '#FF6B35' }}>·</span>Mood
               </span>
               <button
                 type="button"
@@ -137,7 +137,7 @@ function NavLink({ href, label, close, gold }: { href: string; label: string; cl
         padding: '10px 8px',
         fontSize: '17px',
         fontWeight: gold ? 700 : 500,
-        color: gold ? '#C9A84C' : '#3F1A22',
+        color: gold ? '#FF6B35' : '#3F1A22',
         textDecoration: 'none',
         borderRadius: '8px',
         transition: 'background 0.15s, color 0.15s',

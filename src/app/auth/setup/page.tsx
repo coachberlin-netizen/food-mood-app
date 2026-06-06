@@ -102,7 +102,7 @@ function SetupForm() {
 
         <div className="bg-cream rounded-[2.5rem] p-8 md:p-12 shadow-2xl w-full relative overflow-hidden">
           {/* Subtle premium accent */}
-          <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#C9A84C]/40 via-[#C9A84C] to-[#C9A84C]/40" />
+          <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#FF6B35]/40 via-[#FF6B35] to-[#FF6B35]/40" />
 
           {!sessionId ? (
              <div className="text-center py-6">
@@ -123,12 +123,12 @@ function SetupForm() {
                <p className="text-aubergine-dark/60 text-sm mb-6">
                  Creando tu sesión segura y redirigiendo a tu espacio personal...
                </p>
-               <Loader2 className="w-6 h-6 animate-spin text-[#C9A84C]" />
+               <Loader2 className="w-6 h-6 animate-spin text-[#FF6B35]" />
             </div>
           ) : (
             <>
               <div className="flex items-center justify-center gap-2 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A84C]/15 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest border border-[#C9A84C]/20">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF6B35]/15 text-[#FF6B35] text-[10px] font-bold uppercase tracking-widest border border-[#FF6B35]/20">
                   <Sparkles className="w-3 h-3" /> Pago Confirmado
                 </span>
               </div>
@@ -152,7 +152,7 @@ function SetupForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/30 transition-all font-medium text-aubergine-dark"
+                    className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]/30 transition-all font-medium text-aubergine-dark"
                     placeholder="Min. 6 caracteres"
                   />
                 </div>
@@ -165,7 +165,7 @@ function SetupForm() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/30 transition-all font-medium text-aubergine-dark"
+                    className="w-full bg-aubergine-dark/5 border border-aubergine-dark/10 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]/30 transition-all font-medium text-aubergine-dark"
                     placeholder="Repite tu contraseña"
                   />
                 </div>
@@ -173,7 +173,7 @@ function SetupForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#C9A84C] text-white hover:bg-[#b8953e] py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex justify-center items-center gap-2 mt-4 disabled:opacity-70"
+                  className="w-full bg-[#FF6B35] text-white hover:bg-[#b8953e] py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex justify-center items-center gap-2 mt-4 disabled:opacity-70"
                 >
                   {loading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -192,7 +192,7 @@ function SetupForm() {
 
 export default function SetupPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-aubergine-dark flex items-center justify-center"><Loader2 className="w-8 h-8 text-[#C9A84C] animate-spin" /></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-aubergine-dark flex items-center justify-center"><Loader2 className="w-8 h-8 text-[#FF6B35] animate-spin" /></div>}>
       <SetupForm />
     </Suspense>
   );

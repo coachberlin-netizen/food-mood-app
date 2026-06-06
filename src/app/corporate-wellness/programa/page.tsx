@@ -117,7 +117,7 @@ export default async function CorporateWellnessProgramaPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-6" style={{ backgroundColor: '#2d0f16' }}>
         <div className="rounded-3xl p-10 max-w-sm w-full text-center" style={{ backgroundColor: '#F5F0E8' }}>
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: '#C9A84C' }}>
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: '#FF6B35' }}>
             Acceso privado
           </p>
           <h1 className="font-serif text-2xl font-bold mb-2" style={{ color: '#2d0f16' }}>
@@ -154,7 +154,7 @@ export default async function CorporateWellnessProgramaPage() {
 
       {/* ── Header ── */}
       <div className="py-10 px-6 text-center border-b" style={{ backgroundColor: '#2d0f16', borderColor: 'rgba(255,255,255,0.06)' }}>
-        <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C9A84C' }}>
+        <p className="text-[10px] font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#FF6B35' }}>
           Food·Mood for Work · Documento interno
         </p>
         <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2" style={{ color: '#F5F0E8' }}>
@@ -168,13 +168,13 @@ export default async function CorporateWellnessProgramaPage() {
       {/* ── Lista de compra ── */}
       <section className="py-12 px-6" style={{ backgroundColor: '#2d0f16' }}>
         <div className="max-w-4xl mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-8 text-center" style={{ color: '#C9A84C' }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-8 text-center" style={{ color: '#FF6B35' }}>
             Lista de compra semanal · Para el equipo
           </p>
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
             {Object.entries(LISTA_COMPRA).map(([cat, items]) => (
               <div key={cat} className="rounded-2xl p-5" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#FF6B35' }}>
                   {cat}
                 </p>
                 <ul className="space-y-1.5">
@@ -209,7 +209,7 @@ export default async function CorporateWellnessProgramaPage() {
 
               {/* Ciencia */}
               <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(107,39,55,0.07)', backgroundColor: '#FEFBF4' }}>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#FF6B35' }}>
                   La ciencia de hoy
                 </p>
                 <p className="text-sm font-light leading-relaxed mb-2" style={{ color: 'rgba(107,39,55,0.75)' }}>
@@ -248,7 +248,7 @@ export default async function CorporateWellnessProgramaPage() {
               {/* Micro-hábito + audio */}
               <div className="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x border-t" style={{ borderColor: 'rgba(107,39,55,0.07)' }}>
                 <div className="px-6 py-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: '#C9A84C' }}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: '#FF6B35' }}>
                     Micro-hábito
                   </p>
                   <p className="text-xs font-light leading-relaxed" style={{ color: 'rgba(107,39,55,0.7)' }}>

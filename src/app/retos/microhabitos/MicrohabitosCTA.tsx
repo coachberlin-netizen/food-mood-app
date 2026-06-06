@@ -54,7 +54,7 @@ export default function MicrohabitosCTA({ challengeId, isAuthenticated, compact 
         onClick={handleCheckout}
         disabled={isPending}
         className="w-full py-4 rounded-full text-base font-bold transition-all hover:opacity-90 disabled:opacity-50"
-        style={{ backgroundColor: '#C9A84C', color: '#2d0f16' }}
+        style={{ backgroundColor: '#FF6B35', color: '#2d0f16' }}
       >
         {isPending ? 'Procesando…' : 'Empezar los 21 días — 29€ →'}
       </button>

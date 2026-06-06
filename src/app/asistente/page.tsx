@@ -162,8 +162,8 @@ export default function AsistentePage() {
     return (
       <div className="min-h-[calc(100svh-80px)] flex items-center justify-center p-6" style={{ backgroundColor: "#F5F0E8" }}>
         <div className="max-w-sm w-full text-center space-y-6">
-          <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center border" style={{ backgroundColor: "rgba(201,168,76,0.08)", borderColor: "rgba(201,168,76,0.25)" }}>
-            <Sparkles className="w-7 h-7" style={{ color: "#C9A84C" }} />
+          <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center border" style={{ backgroundColor: "rgba(255,107,53,0.08)", borderColor: "rgba(255,107,53,0.25)" }}>
+            <Sparkles className="w-7 h-7" style={{ color: "#FF6B35" }} />
           </div>
           <div className="space-y-3">
             <h1 className="font-serif text-2xl font-black" style={{ color: "#2d0f16" }}>
@@ -176,7 +176,7 @@ export default function AsistentePage() {
           <Link
             href="/pricing"
             className="inline-flex px-8 py-3.5 rounded-2xl text-sm font-bold transition-all hover:brightness-105"
-            style={{ backgroundColor: "#C9A84C", color: "#2d0f16" }}
+            style={{ backgroundColor: "#FF6B35", color: "#2d0f16" }}
           >
             Suscribirme
           </Link>
@@ -190,9 +190,9 @@ export default function AsistentePage() {
     <div className="flex flex-col" style={{ height: "calc(100svh - 80px)", backgroundColor: "#F5F0E8" }}>
 
       {/* Page header */}
-      <div className="shrink-0 border-b px-6 py-4 flex items-center gap-3" style={{ backgroundColor: "#2d0f16", borderColor: "rgba(201,168,76,0.15)" }}>
-        <div className="w-9 h-9 rounded-full flex items-center justify-center border shrink-0" style={{ backgroundColor: "rgba(201,168,76,0.15)", borderColor: "rgba(201,168,76,0.3)" }}>
-          <Sparkles className="w-4 h-4" style={{ color: "#C9A84C" }} />
+      <div className="shrink-0 border-b px-6 py-4 flex items-center gap-3" style={{ backgroundColor: "#2d0f16", borderColor: "rgba(255,107,53,0.15)" }}>
+        <div className="w-9 h-9 rounded-full flex items-center justify-center border shrink-0" style={{ backgroundColor: "rgba(255,107,53,0.15)", borderColor: "rgba(255,107,53,0.3)" }}>
+          <Sparkles className="w-4 h-4" style={{ color: "#FF6B35" }} />
         </div>
         <div className="flex-1 min-w-0">
           <h1 className="text-sm font-bold" style={{ color: "#F5F0E8" }}>Asistente Food·Mood</h1>
@@ -207,8 +207,8 @@ export default function AsistentePage() {
               title={ttsEnabled ? "Silenciar voz" : "Activar voz"}
               className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
               style={{
-                backgroundColor: ttsEnabled ? "rgba(201,168,76,0.15)" : "rgba(245,240,232,0.06)",
-                color: ttsEnabled ? "#C9A84C" : "rgba(245,240,232,0.3)",
+                backgroundColor: ttsEnabled ? "rgba(255,107,53,0.15)" : "rgba(245,240,232,0.06)",
+                color: ttsEnabled ? "#FF6B35" : "rgba(245,240,232,0.3)",
               }}
             >
               {ttsEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
@@ -216,9 +216,9 @@ export default function AsistentePage() {
           )}
           {messagesRemaining !== null && (
             <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{
-              backgroundColor: limitReached ? "rgba(201,168,76,0.15)" : "rgba(245,240,232,0.08)",
-              color: limitReached ? "#C9A84C" : "rgba(245,240,232,0.7)",
-              border: `1px solid ${limitReached ? "rgba(201,168,76,0.3)" : "rgba(245,240,232,0.12)"}`,
+              backgroundColor: limitReached ? "rgba(255,107,53,0.15)" : "rgba(245,240,232,0.08)",
+              color: limitReached ? "#FF6B35" : "rgba(245,240,232,0.7)",
+              border: `1px solid ${limitReached ? "rgba(255,107,53,0.3)" : "rgba(245,240,232,0.12)"}`,
             }}>
               {limitReached ? "Límite alcanzado" : `${messagesRemaining}/${DAILY_LIMIT} hoy`}
             </span>
@@ -233,8 +233,8 @@ export default function AsistentePage() {
           {/* Empty state */}
           {messages.length === 0 && !loading && (
             <div className="flex flex-col items-center justify-center h-full pt-16 pb-8 text-center px-6 space-y-5">
-              <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)" }}>
-                <Sparkles className="w-6 h-6" style={{ color: "#C9A84C" }} />
+              <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(255,107,53,0.12)", border: "1px solid rgba(255,107,53,0.2)" }}>
+                <Sparkles className="w-6 h-6" style={{ color: "#FF6B35" }} />
               </div>
               <div className="space-y-2 max-w-xs">
                 <p className="font-serif text-lg font-semibold" style={{ color: "#2d0f16" }}>FOOD-MOOD Guide</p>
@@ -262,7 +262,7 @@ export default function AsistentePage() {
           {messages.map((msg, i) => (
             <div key={i} ref={i === messages.length - 1 ? lastMsgRef : undefined} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               {msg.role === "assistant" && (
-                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1 font-serif text-[10px] font-black" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)", color: "#C9A84C" }}>
+                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1 font-serif text-[10px] font-black" style={{ backgroundColor: "rgba(255,107,53,0.12)", border: "1px solid rgba(255,107,53,0.2)", color: "#FF6B35" }}>
                   FM
                 </div>
               )}
@@ -280,7 +280,7 @@ export default function AsistentePage() {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1 font-serif text-[10px] font-black" style={{ backgroundColor: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.2)", color: "#C9A84C" }}>
+              <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mr-2 mt-1 font-serif text-[10px] font-black" style={{ backgroundColor: "rgba(255,107,53,0.12)", border: "1px solid rgba(255,107,53,0.2)", color: "#FF6B35" }}>
                 FM
               </div>
               <div className="rounded-2xl px-5 py-3.5" style={{ backgroundColor: "#fff", border: "1px solid rgba(45,15,22,0.07)", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>

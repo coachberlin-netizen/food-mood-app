@@ -132,7 +132,7 @@ export default async function SymptomDetailPage({ params }: PageProps) {
         {/* Hero */}
         <div className="mb-20 text-center md:text-left mt-8">
           <h1 className="text-5xl md:text-7xl font-serif text-aubergine-dark mb-6 tracking-tight">{info.titulo}</h1>
-          <p className="text-xl md:text-2xl font-serif italic text-[#C9A84C] mb-8 leading-tight max-w-3xl">
+          <p className="text-xl md:text-2xl font-serif italic text-[#FF6B35] mb-8 leading-tight max-w-3xl">
             {info.subtitulo}
           </p>
           
@@ -155,14 +155,14 @@ export default async function SymptomDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="bg-[#1a1118] p-8 md:p-10 rounded-2xl border border-[#C9A84C]/20 shadow-xl">
-              <h3 className="text-lg font-serif text-[#C9A84C] mb-6 flex items-center gap-2">
+            <div className="bg-[#1a1118] p-8 md:p-10 rounded-2xl border border-[#FF6B35]/20 shadow-xl">
+              <h3 className="text-lg font-serif text-[#FF6B35] mb-6 flex items-center gap-2">
                 <Sparkles className="w-4 h-4" /> Activos Clave
               </h3>
               <ul className="space-y-4">
                 {info.nutritionFocus.map((ing, i) => (
-                  <li key={i} className="flex items-start gap-3 text-cream/80 font-light text-sm border-b border-[#C9A84C]/10 pb-3 last:border-0">
-                    <CheckCircle className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-3 text-cream/80 font-light text-sm border-b border-[#FF6B35]/10 pb-3 last:border-0">
+                    <CheckCircle className="w-4 h-4 text-[#FF6B35] shrink-0 mt-0.5" />
                     <span className="leading-snug">{ing}</span>
                   </li>
                 ))}
@@ -235,7 +235,7 @@ export default async function SymptomDetailPage({ params }: PageProps) {
                   Desbloquea el mapa completo de nutrición emocional y accede a todas las recetas diseñadas para equilibrar tu {slug.replace('-', ' ')} desde el intestino.
                 </p>
                 <div className="flex flex-col items-center gap-6 pt-4">
-                  <Link href="/pricing" className="bg-[#C9A84C] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-xl hover:shadow-gold/20 transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                  <Link href="/pricing" className="bg-[#FF6B35] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-xl hover:shadow-gold/20 transition-all transform hover:-translate-y-1 flex items-center gap-3">
                     <Lock className="w-5 h-5" />
                     Ver todas las recetas — desde 7€/mes
                   </Link>

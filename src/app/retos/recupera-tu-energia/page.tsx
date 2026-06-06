@@ -46,7 +46,7 @@ const MECANISMOS = [
 
 const HITOS = [
   { dia: 1, titulo: 'Día 1 — empieza el reset.',     desc: 'CoQ10 y la cadena respiratoria.',          color: '#6B2737' },
-  { dia: 4, titulo: 'Día 4 — punto de inflexión.',   desc: 'La mayoría nota el cambio aquí.',           color: '#C9A84C' },
+  { dia: 4, titulo: 'Día 4 — punto de inflexión.',   desc: 'La mayoría nota el cambio aquí.',           color: '#FF6B35' },
   { dia: 7, titulo: 'Día 7 — reset completado.',     desc: 'Informe personalizado. Siguiente reto.',    color: '#4B8A6B' },
 ]
 
@@ -222,7 +222,7 @@ export default async function RetoEnergiaPage() {
           <p className="text-[13px] text-center mb-1.5" style={{ color: '#9e8080' }}>
             Acceso completo · 7 días
           </p>
-          <p className="text-xs font-medium text-center mb-4" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-medium text-center mb-4" style={{ color: '#FF6B35' }}>
             Solo quedan algunas plazas esta semana
           </p>
           <BuyRetoButton slug="recupera-tu-energia" challengeId={challengeId} precio={19} yaComprado={yaComprado} />

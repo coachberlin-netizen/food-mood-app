@@ -120,7 +120,7 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
               </span>
             )}
             {item.moods && item.moods.map((mood: string, i: number) => (
-              <span key={i} className="px-3 py-1 bg-[#C9A84C]/10 text-[#C9A84C] rounded-md text-xs font-bold uppercase tracking-widest border border-[#C9A84C]/20">
+              <span key={i} className="px-3 py-1 bg-[#FF6B35]/10 text-[#FF6B35] rounded-md text-xs font-bold uppercase tracking-widest border border-[#FF6B35]/20">
                 {mood}
               </span>
             ))}
@@ -151,7 +151,7 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
                 Accede a la evidencia científica, las sinergias perfectas y los efectos sobre tu cuerpo y tu ánimo.
               </p>
               <div className="pt-6">
-                <Link href="/pricing" className="inline-flex items-center gap-3 bg-[#C9A84C] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#C9A84C]/20 transition-all transform hover:-translate-y-1">
+                <Link href="/pricing" className="inline-flex items-center gap-3 bg-[#FF6B35] hover:bg-[#b8953e] text-white px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#FF6B35]/20 transition-all transform hover:-translate-y-1">
                   <Sparkles className="w-5 h-5 opacity-80" />
                   Ver planes de acceso
                 </Link>
@@ -175,7 +175,7 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
               )}
               {item.longevity_effect && (
                 <div className="bg-cream rounded-[2rem] p-8 md:p-10 border border-[#6B2737]/10">
-                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6 flex items-center gap-3">
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF6B35] mb-6 flex items-center gap-3">
                     <Dna className="w-5 h-5" /> Para tu longevidad
                   </h3>
                   <p className="text-lg text-aubergine-dark/80 leading-relaxed font-light">
@@ -211,13 +211,13 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
                     )}
                     {item.benefits && item.benefits.length > 0 && (
                       <div>
-                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] mb-4">Propiedades</h4>
+                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#FF6B35] mb-4">Propiedades</h4>
                         <ul className="space-y-3">
                           {item.benefits.map((ben: any, i: number) => {
                             const label = typeof ben === 'string' ? ben : ben?.description || ben?.title || ''
                             return (
                               <li key={i} className="text-aubergine-dark/80 font-light flex items-start gap-3">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mt-2 shrink-0" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] mt-2 shrink-0" />
                                 {label}
                               </li>
                             )
@@ -270,14 +270,14 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
             {item.food_mood_recipes && item.food_mood_recipes.length > 0 && (
               <section className="pt-8">
                 <div className="flex items-center gap-4 mb-10">
-                  <Sparkles className="w-6 h-6 text-[#C9A84C]" />
+                  <Sparkles className="w-6 h-6 text-[#FF6B35]" />
                   <h3 className="text-3xl font-serif text-aubergine-dark">Recetas Food·Mood</h3>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   {item.food_mood_recipes.map((recipe: any, i: number) => {
                     if (typeof recipe === 'string') {
                       return (
-                        <div key={i} className="bg-cream border border-[#C9A84C]/20 p-6 rounded-2xl flex items-center justify-between">
+                        <div key={i} className="bg-cream border border-[#FF6B35]/20 p-6 rounded-2xl flex items-center justify-between">
                           <span className="text-lg font-serif italic text-aubergine-dark capitalize">
                             {recipe}
                           </span>
@@ -285,11 +285,11 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
                       )
                     }
                     return (
-                      <Link key={i} href={`/recetas/${recipe.id}`} className="bg-cream border border-[#C9A84C]/20 p-6 rounded-2xl hover:bg-[#C9A84C]/5 transition-colors group flex items-center justify-between">
+                      <Link key={i} href={`/recetas/${recipe.id}`} className="bg-cream border border-[#FF6B35]/20 p-6 rounded-2xl hover:bg-[#FF6B35]/5 transition-colors group flex items-center justify-between">
                         <span className="text-lg font-serif italic text-aubergine-dark group-hover:text-[#6B2737] transition-colors capitalize">
                           {recipe.nombre}
                         </span>
-                        <span className="text-[#C9A84C] font-mono text-xl group-hover:translate-x-1 transition-transform">→</span>
+                        <span className="text-[#FF6B35] font-mono text-xl group-hover:translate-x-1 transition-transform">→</span>
                       </Link>
                     )
                   })}

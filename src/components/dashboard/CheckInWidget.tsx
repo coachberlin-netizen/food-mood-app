@@ -63,10 +63,10 @@ export function CheckInWidget() {
       <Link
         href="/eloraculo"
         className="max-w-[520px] w-full mx-auto block rounded-3xl p-5 transition-all hover:scale-[1.01]"
-        style={{ backgroundColor: '#1A0A0E', border: '1px solid rgba(201,168,76,0.15)' }}
+        style={{ backgroundColor: '#1A0A0E', border: '1px solid rgba(255,107,53,0.15)' }}
       >
         <div className="flex items-center justify-between mb-3">
-          <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+          <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#FF6B35' }}>
             ✦ Check-in diario
           </p>
           {ago !== null && (
@@ -78,7 +78,7 @@ export function CheckInWidget() {
         <p className="font-serif text-lg font-light mb-4 leading-snug" style={{ color: '#F5F0E8' }}>
           {checkin ? 'Aún no has hecho tu registro de hoy' : 'Registra tu estado emocional y físico de hoy'}
         </p>
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: '#C9A84C' }}>
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: '#FF6B35' }}>
           Hacer mi registro <ArrowRight className="w-3 h-3" />
         </span>
       </Link>
@@ -94,10 +94,10 @@ export function CheckInWidget() {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-[520px] w-full mx-auto rounded-3xl p-5"
-      style={{ backgroundColor: '#1A0A0E', border: '1px solid rgba(201,168,76,0.15)' }}
+      style={{ backgroundColor: '#1A0A0E', border: '1px solid rgba(255,107,53,0.15)' }}
     >
       <div className="flex items-center justify-between mb-3">
-        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#C9A84C' }}>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#FF6B35' }}>
           ✦ Check-in · Hoy
         </p>
         <div className="flex items-center gap-3">

@@ -54,7 +54,7 @@ export function UpsellBlock() {
       {/* Headline */}
       <div className="text-center mb-10">
         <h2 className="text-2xl md:text-3xl font-serif text-aubergine-dark leading-snug mb-4">
-          Lo que tu microbioma necesita<br />sobre todo es <em className="text-[#C9A84C] not-italic">variedad</em>
+          Lo que tu microbioma necesita<br />sobre todo es <em className="text-[#FF6B35] not-italic">variedad</em>
         </h2>
         <p className="text-aubergine-dark/55 font-light text-base max-w-xl mx-auto leading-relaxed">
           Una sola receta es un primer paso. La variedad real nutre tu eje intestino-cerebro.
@@ -89,12 +89,12 @@ export function UpsellBlock() {
 
         {/* PREMIUM column */}
         <div className="relative bg-gradient-to-br from-aubergine-dark to-aubergine rounded-2xl p-7 shadow-luxury overflow-hidden">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-[#C9A84C]/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF6B35]/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-cream/5 rounded-full blur-3xl" />
           <div className="relative">
             <div className="flex items-center gap-2 mb-6">
-              <Crown className="w-4 h-4 text-[#C9A84C]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
+              <Crown className="w-4 h-4 text-[#FF6B35]" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B35]">
                 Premium
               </span>
               <span className="text-cream/40 text-sm font-light ml-auto">desde 7€/mes</span>
@@ -102,7 +102,7 @@ export function UpsellBlock() {
             <ul className="space-y-3.5">
               {PREMIUM_FEATURES.map((f, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" />
+                  <Check className="w-4 h-4 text-[#FF6B35] shrink-0 mt-0.5" />
                   <span className="text-sm font-light text-cream/80">{f.text}</span>
                 </li>
               ))}
@@ -114,7 +114,7 @@ export function UpsellBlock() {
       {/* CTA */}
       <div className="flex flex-col items-center gap-4">
         <Link href="/pricing" className="w-full max-w-md">
-          <button className="w-full py-4.5 px-8 bg-[#C9A84C] hover:bg-[#b8953e] text-white text-base font-medium rounded-xl shadow-luxury hover:shadow-luxury-hover transition-all duration-300 flex items-center justify-center gap-3">
+          <button className="w-full py-4.5 px-8 bg-[#FF6B35] hover:bg-[#b8953e] text-white text-base font-medium rounded-xl shadow-luxury hover:shadow-luxury-hover transition-all duration-300 flex items-center justify-center gap-3">
             <Sparkles className="w-5 h-5" />
             Empieza tu variedad — desde 7€/mes
             <ArrowRight className="w-4 h-4" />

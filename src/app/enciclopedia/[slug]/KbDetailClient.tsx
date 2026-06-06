@@ -73,8 +73,8 @@ export function KbDetailClient({ kb }: Props) {
               disabled={saving === section.anchor}
               className="shrink-0 mt-1 p-1.5 rounded-full transition-all hover:scale-110 active:scale-95"
               style={{
-                color: bookmarks[section.anchor] ? '#C9A84C' : 'rgba(26,22,18,0.2)',
-                backgroundColor: bookmarks[section.anchor] ? 'rgba(201,168,76,0.08)' : 'transparent',
+                color: bookmarks[section.anchor] ? '#FF6B35' : 'rgba(26,22,18,0.2)',
+                backgroundColor: bookmarks[section.anchor] ? 'rgba(255,107,53,0.08)' : 'transparent',
               }}
               title={bookmarks[section.anchor] ? 'Quitar marcador' : 'Guardar sección'}
               aria-label={bookmarks[section.anchor] ? 'Quitar marcador' : 'Guardar sección'}

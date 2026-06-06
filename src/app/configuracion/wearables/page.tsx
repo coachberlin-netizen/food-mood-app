@@ -64,7 +64,7 @@ export default function WearablesPage() {
             <li key={n} className="flex gap-3 items-start">
               <span
                 className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold mt-0.5"
-                style={{ backgroundColor: "rgba(201,168,76,0.15)", color: "#C9A84C" }}
+                style={{ backgroundColor: "rgba(255,107,53,0.15)", color: "#FF6B35" }}
               >
                 {n}
               </span>
@@ -76,7 +76,7 @@ export default function WearablesPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline underline-offset-2"
-                    style={{ color: "#C9A84C" }}
+                    style={{ color: "#FF6B35" }}
                   >
                     {link.label}
                   </a>
@@ -132,7 +132,7 @@ export default function WearablesPage() {
 
           {state === "ok" ? (
             <div className="text-center py-4">
-              <p className="text-base font-semibold" style={{ color: "#C9A84C" }}>
+              <p className="text-base font-semibold" style={{ color: "#FF6B35" }}>
                 ¡Oura conectado! Redirigiendo...
               </p>
             </div>
@@ -141,7 +141,7 @@ export default function WearablesPage() {
               type="submit"
               disabled={state === "loading" || !token.trim() || !consent}
               className="w-full py-3.5 rounded-2xl font-semibold text-sm transition-all disabled:opacity-50"
-              style={{ backgroundColor: "#C9A84C", color: "#120a0e" }}
+              style={{ backgroundColor: "#FF6B35", color: "#120a0e" }}
             >
               {state === "loading" ? "Verificando..." : "Conectar Oura Ring"}
             </button>

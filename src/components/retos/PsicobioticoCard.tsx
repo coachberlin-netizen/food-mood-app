@@ -42,7 +42,7 @@ export default function PsicobioticoCard({ titulo, texto, alimento_estrella }: P
           </p>
           <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full"
             style={{ backgroundColor: '#fdf5e0', color: '#7a5a00' }}>
-            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: '#C9A84C' }} />
+            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: '#FF6B35' }} />
             Prioridad esta semana
           </span>
         </div>

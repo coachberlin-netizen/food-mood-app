@@ -42,7 +42,7 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium shadow-sm ${
-          dark ? 'bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C]' : 'bg-[#1A2332]/10 border border-[#1A2332]/20 text-[#1A2332]'
+          dark ? 'bg-[#FF6B35]/10 border border-[#FF6B35]/20 text-[#FF6B35]' : 'bg-[#1A2332]/10 border border-[#1A2332]/20 text-[#1A2332]'
         }`}
       >
         <CheckCircle2 className="w-5 h-5" />
@@ -66,7 +66,7 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
             style={{ fontSize: '16px' }}
             className={`w-full sm:w-48 pl-9 pr-3 py-2.5 rounded-lg border placeholder:text-opacity-25 focus:outline-none focus:ring-1 transition-all ${
               dark 
-                ? 'bg-cream/10 border-cream/15 text-white placeholder:text-cream focus:ring-[#C9A84C]/40' 
+                ? 'bg-cream/10 border-cream/15 text-white placeholder:text-cream focus:ring-[#FF6B35]/40' 
                 : 'bg-aubergine-dark/5 border-aubergine-dark/10 text-aubergine-dark placeholder:text-aubergine-dark focus:ring-aubergine-dark/20'
             }`}
             required
@@ -77,7 +77,7 @@ export function NewsletterForm({ source = 'footer', dark = true }: NewsletterFor
           disabled={nlLoading}
           className={`px-6 py-2.5 font-bold rounded-lg transition-all flex items-center gap-2 shrink-0 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg active:scale-95 min-w-[110px] justify-center text-xs ${
             dark 
-              ? 'bg-[#C9A84C] hover:bg-[#b8953e] text-white hover:shadow-[#C9A84C]/20' 
+              ? 'bg-[#FF6B35] hover:bg-[#b8953e] text-white hover:shadow-[#FF6B35]/20' 
               : 'bg-aubergine-dark hover:bg-aubergine-dark/90 text-cream'
           }`}
         >

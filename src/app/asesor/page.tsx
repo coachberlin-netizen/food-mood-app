@@ -116,9 +116,9 @@ function RecomendacionCard({ r }: { r: Extract<AgentResponse, { modo: "recomenda
           <span
             className="shrink-0 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
             style={{
-              backgroundColor: "rgba(201,168,76,0.12)",
-              color: "#C9A84C",
-              border: "1px solid rgba(201,168,76,0.25)",
+              backgroundColor: "rgba(255,107,53,0.12)",
+              color: "#FF6B35",
+              border: "1px solid rgba(255,107,53,0.25)",
             }}
           >
             {r.receta.categoria_food_mood}
@@ -150,7 +150,7 @@ function RecomendacionCard({ r }: { r: Extract<AgentResponse, { modo: "recomenda
               >
                 <span
                   className="w-1 h-1 rounded-full shrink-0"
-                  style={{ backgroundColor: "#C9A84C" }}
+                  style={{ backgroundColor: "#FF6B35" }}
                 />
                 {ing}
               </li>
@@ -189,11 +189,11 @@ function RecomendacionCard({ r }: { r: Extract<AgentResponse, { modo: "recomenda
       {/* Microacción */}
       <div
         className="px-5 py-4 border-t"
-        style={{ backgroundColor: "rgba(201,168,76,0.04)", borderColor: "rgba(201,168,76,0.15)" }}
+        style={{ backgroundColor: "rgba(255,107,53,0.04)", borderColor: "rgba(255,107,53,0.15)" }}
       >
         <p
           className="text-[10px] font-bold uppercase tracking-widest mb-1.5"
-          style={{ color: "#C9A84C" }}
+          style={{ color: "#FF6B35" }}
         >
           Microacción
         </p>
@@ -419,8 +419,8 @@ function GateScreen({
         <div
           className="w-16 h-16 rounded-full mx-auto flex items-center justify-center border"
           style={{
-            backgroundColor: gold ? "rgba(201,168,76,0.08)" : "rgba(107,39,55,0.06)",
-            borderColor: gold ? "rgba(201,168,76,0.25)" : "transparent",
+            backgroundColor: gold ? "rgba(255,107,53,0.08)" : "rgba(107,39,55,0.06)",
+            borderColor: gold ? "rgba(255,107,53,0.25)" : "transparent",
           }}
         >
           {icon}
@@ -437,7 +437,7 @@ function GateScreen({
           href={href}
           className="inline-flex px-8 py-3.5 rounded-2xl text-sm font-bold transition-all hover:brightness-105"
           style={{
-            backgroundColor: gold ? "#C9A84C" : "#2d0f16",
+            backgroundColor: gold ? "#FF6B35" : "#2d0f16",
             color: gold ? "#2d0f16" : "#F5F0E8",
           }}
         >
@@ -671,7 +671,7 @@ export default function AsesorPage() {
     return (
       <GateScreen
         gold
-        icon={<Sparkles className="w-7 h-7" style={{ color: "#C9A84C" }} />}
+        icon={<Sparkles className="w-7 h-7" style={{ color: "#FF6B35" }} />}
         title="Tu Asesor Digital Personal"
         description="Entrenado por nuestro equipo de expertos en nutrición, psicología alimentaria y longevidad. Incluido en la membresía Food·Mood Premium."
         href="/pricing"
@@ -690,16 +690,16 @@ export default function AsesorPage() {
       {/* Header */}
       <div
         className="shrink-0 border-b px-5 py-3.5 flex items-center gap-3"
-        style={{ backgroundColor: "#2d0f16", borderColor: "rgba(201,168,76,0.15)" }}
+        style={{ backgroundColor: "#2d0f16", borderColor: "rgba(255,107,53,0.15)" }}
       >
         <div
           className="w-9 h-9 rounded-full flex items-center justify-center border shrink-0"
           style={{
-            backgroundColor: "rgba(201,168,76,0.15)",
-            borderColor: "rgba(201,168,76,0.3)",
+            backgroundColor: "rgba(255,107,53,0.15)",
+            borderColor: "rgba(255,107,53,0.3)",
           }}
         >
-          <Sparkles className="w-4 h-4" style={{ color: "#C9A84C" }} />
+          <Sparkles className="w-4 h-4" style={{ color: "#FF6B35" }} />
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-bold" style={{ color: "#F5F0E8" }}>
@@ -717,10 +717,10 @@ export default function AsesorPage() {
             className="text-[10px] font-semibold shrink-0 px-2.5 py-1 rounded-full"
             style={{
               backgroundColor: limitReached
-                ? "rgba(201,168,76,0.15)"
+                ? "rgba(255,107,53,0.15)"
                 : "rgba(245,240,232,0.08)",
-              color: limitReached ? "#C9A84C" : "rgba(245,240,232,0.45)",
-              border: `1px solid ${limitReached ? "rgba(201,168,76,0.3)" : "rgba(245,240,232,0.1)"}`,
+              color: limitReached ? "#FF6B35" : "rgba(245,240,232,0.45)",
+              border: `1px solid ${limitReached ? "rgba(255,107,53,0.3)" : "rgba(245,240,232,0.1)"}`,
             }}
           >
             {limitReached ? "Límite alcanzado" : `${remaining}/${MONTHLY_LIMIT}`}

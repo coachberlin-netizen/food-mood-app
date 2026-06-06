@@ -118,8 +118,8 @@ function TrendChart({ data }: { data: HistoryEntry[] }) {
     >
       <defs>
         <linearGradient id="fmi-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#C9A84C" stopOpacity="0" />
+          <stop offset="0%" stopColor="#FF6B35" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#FF6B35" stopOpacity="0" />
         </linearGradient>
       </defs>
       {areaPath && <path d={areaPath} fill="url(#fmi-grad)" />}
@@ -127,7 +127,7 @@ function TrendChart({ data }: { data: HistoryEntry[] }) {
         <path
           d={linePath}
           fill="none"
-          stroke="#C9A84C"
+          stroke="#FF6B35"
           strokeWidth="2"
           strokeLinejoin="round"
           strokeLinecap="round"
@@ -138,7 +138,7 @@ function TrendChart({ data }: { data: HistoryEntry[] }) {
         cx={pts[n - 1].x}
         cy={pts[n - 1].y}
         r="3.5"
-        fill="#C9A84C"
+        fill="#FF6B35"
       />
     </svg>
   )
@@ -172,7 +172,7 @@ function ColorCard({ test }: { test: TestSnapshot }) {
     >
       <p
         className="text-[10px] font-bold uppercase tracking-widest mb-4"
-        style={{ color: "#C9A84C" }}
+        style={{ color: "#FF6B35" }}
       >
         Tu color de hoy
       </p>
@@ -392,7 +392,7 @@ export function FoodMoodIndex() {
         <div className="flex items-center justify-between mb-5">
           <p
             className="text-[10px] font-bold uppercase tracking-widest"
-            style={{ color: "rgba(201,168,76,0.7)" }}
+            style={{ color: "rgba(255,107,53,0.7)" }}
           >
             Tu índice hoy
           </p>
@@ -409,7 +409,7 @@ export function FoodMoodIndex() {
               {STREAK_MILESTONES.has(streak) && !prefersReduced && (
                 <motion.span
                   className="absolute inset-0 rounded-full pointer-events-none"
-                  style={{ border: "2px solid #C9A84C" }}
+                  style={{ border: "2px solid #FF6B35" }}
                   initial={{ scale: 1, opacity: 0.7 }}
                   animate={{ scale: 1.8, opacity: 0 }}
                   transition={{ duration: 1.5, ease: "easeOut" }}
@@ -433,7 +433,7 @@ export function FoodMoodIndex() {
             className="font-serif leading-none"
             style={{
               fontSize: "clamp(64px, 18vw, 96px)",
-              color: hasData ? "#C9A84C" : "rgba(201,168,76,0.25)",
+              color: hasData ? "#FF6B35" : "rgba(255,107,53,0.25)",
               fontWeight: 700,
             }}
           >
@@ -483,7 +483,7 @@ export function FoodMoodIndex() {
             >
               <p
                 className="text-xl font-serif font-bold"
-                style={{ color: s.value != null ? "#C9A84C" : "rgba(201,168,76,0.25)" }}
+                style={{ color: s.value != null ? "#FF6B35" : "rgba(255,107,53,0.25)" }}
               >
                 {s.value ?? "—"}
               </p>

@@ -82,11 +82,11 @@ export function InspirationSection({ currentMoodId }: { currentMoodId: string })
         <h2 className="text-[10px] font-bold text-aubergine-dark/40 uppercase tracking-[0.2em]">
           Inspiración de hoy
         </h2>
-        <div className="h-px bg-[#C9A84C] flex-1 opacity-20"></div>
+        <div className="h-px bg-[#FF6B35] flex-1 opacity-20"></div>
       </div>
 
       <div className="bg-cream rounded-[1.5rem] p-8 border border-aubergine-dark/10 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-[#C9A84C]/5 rounded-full -mr-12 -mt-12 blur-2xl"></div>
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[#FF6B35]/5 rounded-full -mr-12 -mt-12 blur-2xl"></div>
         <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
           
           <div className="flex flex-col gap-2">
