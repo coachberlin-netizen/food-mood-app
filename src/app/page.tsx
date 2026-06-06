@@ -45,79 +45,6 @@ const FAQS = [
 const fade = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }
 
-// ─── Mockup del dashboard profesional ────────────────────────────────────────
-
-function DashboardMock() {
-  return (
-    <div
-      className="rounded-2xl overflow-hidden shadow-2xl"
-      style={{ backgroundColor: "#0f0a0d", border: "1px solid rgba(255,107,53,0.18)", fontFamily: "monospace" }}
-    >
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", backgroundColor: "#140c10" }}>
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold" style={{ color: "#FF6B35" }}>Food·Mood Pro</span>
-          <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.25)" }}>· Portal profesional</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#22c55e" }} />
-          <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.35)" }}>En línea</span>
-        </div>
-      </div>
-
-      {/* Paciente header */}
-      <div className="px-4 pt-4 pb-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-xs font-semibold text-white">María T. · 46 años</span>
-          <span className="text-[9px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(90,155,138,0.2)", color: "#5A9B8A" }}>Sesión 12</span>
-        </div>
-        <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.35)" }}>Última entrada hace 2h · 18 registros esta semana</span>
-      </div>
-
-      {/* Métricas */}
-      <div className="grid grid-cols-3 gap-px" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
-        {[
-          { label: "SN dominante", value: "Ventral", color: "#5A9B8A", sub: "últimas 48h" },
-          { label: "Hambre emocional", value: "7.2 / 10", color: "#FF6B35", sub: "↑ desde el lunes" },
-          { label: "Granularidad", value: "↗ mejora", color: "#A07BBE", sub: "3 sesiones" },
-        ].map((m) => (
-          <div key={m.label} className="px-3 py-3" style={{ backgroundColor: "#0f0a0d" }}>
-            <p className="text-[8px] mb-1" style={{ color: "rgba(255,255,255,0.32)" }}>{m.label}</p>
-            <p className="text-xs font-semibold" style={{ color: m.color }}>{m.value}</p>
-            <p className="text-[8px] mt-0.5" style={{ color: "rgba(255,255,255,0.2)" }}>{m.sub}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Patrón detectado */}
-      <div className="px-4 py-3" style={{ borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-        <p className="text-[8px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(255,107,53,0.55)" }}>Patrón detectado esta semana</p>
-        <div className="flex items-start gap-2.5">
-          <div className="w-1 h-full rounded-full shrink-0 mt-0.5" style={{ backgroundColor: "#FF6B35", minHeight: 28 }} />
-          <p className="text-[10px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.75)" }}>
-            Hambre emocional alta (≥7) en franja 18:00–19:00h tres días consecutivos. Coincide con registros de estrés laboral.
-          </p>
-        </div>
-      </div>
-
-      {/* Preparación de sesión */}
-      <div className="px-4 py-3">
-        <p className="text-[8px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "#FF6B35" }}>Preparación de sesión · 3 preguntas sugeridas</p>
-        {[
-          "¿Qué ocurre en tu cuerpo a las 18h que identifies como hambre?",
-          "¿Qué has intentado para manejar ese momento? ¿Qué funciona?",
-          "¿Qué necesitarías tener a mano en esa franja para sentirte más segura?",
-        ].map((q, i) => (
-          <div key={i} className="flex items-start gap-2 mb-1.5">
-            <span className="text-[8px] font-mono shrink-0 mt-0.5" style={{ color: "rgba(255,107,53,0.45)" }}>0{i + 1}</span>
-            <p className="text-[9px] font-light" style={{ color: "rgba(245,240,232,0.5)" }}>{q}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 // ─── Formulario de demo unificado ────────────────────────────────────────────
 
 const PATIENT_COUNT_OPTIONS = ["1-10", "11-30", "31-100", "Más de 100"] as const
@@ -514,6 +441,72 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
       <div className="absolute -left-[3px] top-20 w-1 h-7 rounded-l-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
       <div className="absolute -left-[3px] top-32 w-1 h-10 rounded-l-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
       <div className="absolute -right-[3px] top-24 w-1 h-14 rounded-r-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
+    </div>
+  )
+}
+
+// ─── Teléfono animado del hero ───────────────────────────────────────────────
+
+function HeroPhone() {
+  const [active, setActive] = useState(1) // arranca en "Panel profesional"
+  const [dir, setDir]       = useState(1)
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setDir(1)
+      setActive(prev => (prev + 1) % APP_SCREENS.length)
+    }, 4500)
+    return () => clearInterval(t)
+  }, [])
+
+  const Screen = APP_SCREENS[active].screen
+
+  return (
+    <div className="flex flex-col items-center">
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={active}
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 6 }}
+          transition={{ duration: 0.25 }}
+          className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4 text-center"
+          style={{ color: APP_SCREENS[active].color }}
+        >
+          {APP_SCREENS[active].label}
+        </motion.p>
+      </AnimatePresence>
+
+      <PhoneFrame>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, x: dir * 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: dir * -30 }}
+            transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
+            className="absolute inset-0"
+          >
+            <Screen />
+          </motion.div>
+        </AnimatePresence>
+      </PhoneFrame>
+
+      <div className="flex justify-center gap-2 mt-5">
+        {APP_SCREENS.map((s, i) => (
+          <button
+            key={s.id}
+            onClick={() => { setDir(i > active ? 1 : -1); setActive(i) }}
+            aria-label={s.label}
+            className="rounded-full transition-all"
+            style={{
+              width: i === active ? 20 : 6,
+              height: 6,
+              backgroundColor: i === active ? APP_SCREENS[i].color : "rgba(255,255,255,0.18)",
+            }}
+          />
+        ))}
+      </div>
     </div>
   )
 }
@@ -938,10 +931,9 @@ export default function ProLanding() {
               </div>
             </motion.div>
 
-            {/* Dashboard mockup */}
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.85, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}>
-              <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#FF6B35" }}>Vista profesional · Preparación de sesión</p>
-              <DashboardMock />
+            {/* Hero phone */}
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.85, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }} className="flex justify-center lg:justify-end">
+              <HeroPhone />
             </motion.div>
 
           </div>
