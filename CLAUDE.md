@@ -148,7 +148,7 @@ Aplica a TODO copy: emails, paywall, mensajes del agente, errores, microcopy de 
 - **Sin tecnicismos no traducidos** en superficies de usuaria: nada de RAG, pipeline, postbiótico, mTOR, NAD+ en home ni en chat sin explicación corta.
 - **Sin emojis** salvo que se pida explícitamente.
 - Brand language: usar *nutrir, equilibrio, vitalidad, placer*; NUNCA usar *dieta, restricción, detox, culpa*.
-- Brand palette: burgundy `#6B2737`, cream `#F5F0E8`, gold `#C9A84C` — NEVER use navy.
+- Brand palette: burgundy `#6B2737`, cream `#F5F0E8`, orange `#FF6B35` — NEVER use navy. (El gold `#C9A84C` fue reemplazado por naranja brillante en junio 2026.)
 - NEVER write "Kombucha vinegar" — always "vinagre de kombucha" or "vinagre de manzana".
 
 ## Reglas de Seguridad del Producto
