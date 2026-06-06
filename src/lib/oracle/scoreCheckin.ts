@@ -73,13 +73,13 @@ export function scoreCheckin(input: OracleInput): OracleScore {
   if (sym === 'digestion-pesada')       { s.reset += 2; s.calma += 2 }
   if (sym === 'irritabilidad')          { s.calma += 3; s.reset += 1 }
 
-  const cr = input.cravingState
-  if (cr === 'dulce')       { s.reset += 1; s.confort += 1 }
-  if (cr === 'calor')       { s.confort += 2 }
-  if (cr === 'proteina')    { s.activacion += 1 }
-  if (cr === 'fresco')      { s.reset += 1 }
-  if (cr === 'fermento')    { s.reset += 1; s.calma += 1 }
-  if (cr === 'estimulante') { s.activacion += 1; s.reset += 1 }
+  const cravings = input.cravingState
+  if (cravings.includes('dulce'))       { s.reset += 1; s.confort += 1 }
+  if (cravings.includes('calor'))       { s.confort += 2 }
+  if (cravings.includes('proteina'))    { s.activacion += 1 }
+  if (cravings.includes('fresco'))      { s.reset += 1 }
+  if (cravings.includes('fermento'))    { s.reset += 1; s.calma += 1 }
+  if (cravings.includes('estimulante')) { s.activacion += 1; s.reset += 1 }
 
   const moodIds: MoodId[] = ['activacion', 'calma', 'focus', 'social', 'reset', 'confort']
   const dominantNeed = moodIds.reduce<MoodId>(

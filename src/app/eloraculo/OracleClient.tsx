@@ -16,7 +16,7 @@ interface OracleData {
   energyLevel: number
   sleepQuality: number
   primarySymptom: string | null
-  cravingState: string | null
+  cravingState: string[]
   cyclePhase: string | null
   notes: string
 }
@@ -232,7 +232,7 @@ function Screen2EnergiaSueno({
 function Screen3SenalesContexto({
   cravingState, notes, onCraving, onNotes,
 }: {
-  cravingState: string | null; notes: string
+  cravingState: string[]; notes: string
   onCraving: (v: string) => void; onNotes: (v: string) => void
 }) {
   return (
@@ -241,14 +241,14 @@ function Screen3SenalesContexto({
       {/* Cravings */}
       <div>
         <p className="text-[#F5F0E8]/40 text-[10px] font-bold uppercase tracking-widest mb-4">
-          ¿Qué te pide el cuerpo?
+          ¿Qué te pide el cuerpo? <span className="normal-case font-normal">(puedes elegir varios)</span>
         </p>
         <div className="grid grid-cols-2 gap-2">
           {CRAVINGS.map(c => (
             <button
               key={c.id}
               onClick={() => onCraving(c.id)}
-              className={`${cardBase} py-3 ${cravingState === c.id ? cardSelected : cardIdle}`}
+              className={`${cardBase} py-3 ${cravingState.includes(c.id) ? cardSelected : cardIdle}`}
             >
               <span className="text-lg mb-1 block">{c.icon}</span>
               <p className="text-[#F5F0E8] text-xs font-medium leading-snug">{c.label}</p>
@@ -326,7 +326,7 @@ function OracleResult({ data, isPremium: _isPremium, onReset }: { data: OracleDa
             energy_level:      data.energyLevel,
             sleep_quality:     data.sleepQuality,
             primary_symptom:   data.primarySymptom,
-            craving_state:     data.cravingState,
+            craving_state:     data.cravingState.length > 0 ? data.cravingState.join(',') : null,
             cycle_phase:       data.cyclePhase === 'skip' ? null : data.cyclePhase,
             notes:             data.notes || null,
             oracle_reading:    score.reading,
@@ -563,7 +563,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
     energyLevel:    5,
     sleepQuality:   0,
     primarySymptom: null,
-    cravingState:   null,
+    cravingState:   [],
     cyclePhase:     null,
     notes:          '',
   })
@@ -590,7 +590,7 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
 
   const reset = () => {
     setScreen('hero'); setStep(0); setDir(1)
-    setData({ emotions: [], energyLevel: 5, sleepQuality: 0, primarySymptom: null, cravingState: null, cyclePhase: null, notes: '' })
+    setData({ emotions: [], energyLevel: 5, sleepQuality: 0, primarySymptom: null, cravingState: [], cyclePhase: null, notes: '' })
   }
 
   if (screen === 'result') {
@@ -706,7 +706,11 @@ export default function OracleClient({ isPremium }: { isPremium: boolean }) {
               <Screen3SenalesContexto
                 cravingState={data.cravingState}
                 notes={data.notes}
-                onCraving={v => update('cravingState', v)}
+                onCraving={v => update('cravingState',
+                  data.cravingState.includes(v)
+                    ? data.cravingState.filter(c => c !== v)
+                    : [...data.cravingState, v]
+                )}
                 onNotes={v => update('notes', v)}
               />
             )}

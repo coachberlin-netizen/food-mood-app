@@ -6,11 +6,11 @@ export const PATTERN_INSIGHTS: Array<{ match: (i: OracleInput) => boolean; text:
     text:  'El cansancio de hoy parece más de recuperación que de déficit nutricional — el sistema nervioso necesita recargar antes que activarse.',
   },
   {
-    match: i => (i.cravingState === 'dulce') && (i.primarySymptom === 'ansiedad' || i.primarySymptom === 'irritabilidad'),
+    match: i => i.cravingState.includes('dulce') && (i.primarySymptom === 'ansiedad' || i.primarySymptom === 'irritabilidad'),
     text:  'El antojo de dulce junto con el estado emocional apunta a cortisol elevado — no es hambre real, es una señal del eje HPA buscando glucosa rápida.',
   },
   {
-    match: i => i.cravingState === 'estimulante' && i.energyLevel <= 4,
+    match: i => i.cravingState.includes('estimulante') && i.energyLevel <= 4,
     text:  'Buscar estimulación con energía baja suele ser una señal de adenosín acumulado — el cuerpo pide café pero necesita recuperación real.',
   },
   {
@@ -18,7 +18,7 @@ export const PATTERN_INSIGHTS: Array<{ match: (i: OracleInput) => boolean; text:
     text:  'La niebla mental combinada con mal descanso apunta a limpieza glinfática incompleta — el cerebro necesita sueño profundo para depurarse, no solo nutrientes.',
   },
   {
-    match: i => i.primarySymptom === 'digestion-pesada' && i.cravingState === 'calor',
+    match: i => i.primarySymptom === 'digestion-pesada' && i.cravingState.includes('calor'),
     text:  'La digestión pesada junto con el antojo de calor señala un intestino que pide bálsamo — fermentos suaves y caldos antes que fibra dura o cruda.',
   },
   {
@@ -30,7 +30,7 @@ export const PATTERN_INSIGHTS: Array<{ match: (i: OracleInput) => boolean; text:
     text:  'El hambre constante con energía baja puede apuntar a un déficit de ácidos grasos de cadena corta (butirato) — el intestino no está enviando señales de saciedad al hipotálamo.',
   },
   {
-    match: i => i.cyclePhase === 'lutea' && (i.primarySymptom === 'irritabilidad' || i.cravingState === 'dulce'),
+    match: i => i.cyclePhase === 'lutea' && (i.primarySymptom === 'irritabilidad' || i.cravingState.includes('dulce')),
     text:  'En fase lútea el estrógeno cae y la progesterona sube — el craving de dulce y la irritabilidad son señales hormonales, no falta de voluntad. El magnesio y el triptófano son prioritarios.',
   },
 ]

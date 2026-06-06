@@ -5,7 +5,7 @@ export interface OracleInput {
   energyLevel:    number         // 1–10
   sleepQuality:   number         // 1–5
   primarySymptom: string | null
-  cravingState:   string | null
+  cravingState:   string[]
   cyclePhase:     string | null
   notes:          string
 }
