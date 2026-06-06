@@ -13,12 +13,13 @@ import { moods } from "@/data/moods"
 type Tab = "conductual" | "prescripciones" | "sesiones" | "asignaciones"
 
 type ClinicalProtocol = {
-  id:           string
-  name:         string
-  slug:         string
-  description:  string
+  id:            string
+  name:          string
+  slug:          string
+  description:   string
   duration_days: number
-  stages:       ProtocolStage[]
+  stages:        ProtocolStage[]
+  challenge_id:  string | null
 }
 
 type ProtocolStage = {
@@ -683,7 +684,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
     const supabase = createClient()
     supabase
       .from("clinical_protocols")
-      .select("id, name, slug, description, duration_days, stages")
+      .select("id, name, slug, description, duration_days, stages, challenge_id")
       .eq("is_active", true)
       .order("created_at", { ascending: true })
       .then(({ data }) => {
@@ -1717,14 +1718,14 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
             <div className="px-6 py-5 border-b" style={{ borderColor: "rgba(107,39,55,0.08)" }}>
               <div className="flex items-center justify-between">
                 <h3 className="font-serif text-lg font-bold" style={{ color: "#2d0f16" }}>
-                  Iniciar protocolo clínico
+                  Iniciar protocolo o programa
                 </h3>
                 <button onClick={() => setShowProtocolDrawer(false)} className="touch-target" style={{ color: "rgba(107,39,55,0.4)" }}>
                   <X className="w-4 h-4" />
                 </button>
               </div>
               <p className="text-xs mt-1 font-light" style={{ color: "rgba(107,39,55,0.5)" }}>
-                Activa un protocolo de 28 días para {patientName ?? "este paciente"}
+                Selecciona un protocolo o programa para {patientName ?? "este paciente"}
               </p>
             </div>
 
@@ -1735,15 +1736,16 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                 </div>
               ) : availableProtocols.length === 0 ? (
                 <p className="text-sm text-center py-8" style={{ color: "rgba(107,39,55,0.4)" }}>No hay protocolos disponibles.</p>
-              ) : (
-                <div className="flex flex-col gap-4">
-                  {availableProtocols.map(protocol => (
+              ) : (() => {
+                  const clinicalProtocols = availableProtocols.filter(p => p.challenge_id === null)
+                  const programas         = availableProtocols.filter(p => p.challenge_id !== null)
+                  const renderCard = (protocol: ClinicalProtocol) => (
                     <div key={protocol.id} className="rounded-xl p-5" style={{ border: "1px solid rgba(107,39,55,0.12)" }}>
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <div>
                           <p className="text-sm font-bold" style={{ color: "#2d0f16" }}>{protocol.name}</p>
                           <p className="text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: "#FF6B35" }}>
-                            {protocol.duration_days} días · {protocol.stages.length} etapas
+                            {protocol.duration_days} días{protocol.stages.length > 0 ? ` · ${protocol.stages.length} etapas` : ""}
                           </p>
                         </div>
                         <button
@@ -1753,7 +1755,7 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                           style={{ background: "#6B2737", color: "#F5F0E8" }}
                         >
                           {activatingProtocol && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-                          Activar para {patientName ?? "este paciente"}
+                          Activar
                         </button>
                       </div>
 
@@ -1763,30 +1765,51 @@ export default function PacienteDetailClient({ patientUserId }: { patientUserId:
                         </p>
                       )}
 
-                      <div className="flex flex-col gap-2">
-                        {protocol.stages.map(stage => (
-                          <div key={stage.stage} className="flex items-start gap-3 rounded-lg px-3 py-2" style={{ background: "rgba(107,39,55,0.03)" }}>
-                            <span
-                              className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5"
-                              style={{ background: "#6B2737", color: "#F5F0E8", fontSize: "9px", fontWeight: 700 }}
-                            >
-                              {stage.stage}
-                            </span>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[10px] font-semibold" style={{ color: "#2d0f16" }}>
-                                {stage.name}
-                                <span className="ml-1.5 font-normal" style={{ color: "rgba(107,39,55,0.4)" }}>días {stage.days}</span>
-                              </p>
-                              <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>{stage.description}</p>
+                      {protocol.stages.length > 0 && (
+                        <div className="flex flex-col gap-2">
+                          {protocol.stages.map(stage => (
+                            <div key={stage.stage} className="flex items-start gap-3 rounded-lg px-3 py-2" style={{ background: "rgba(107,39,55,0.03)" }}>
+                              <span
+                                className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5"
+                                style={{ background: "#6B2737", color: "#F5F0E8", fontSize: "9px", fontWeight: 700 }}
+                              >
+                                {stage.stage}
+                              </span>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-[10px] font-semibold" style={{ color: "#2d0f16" }}>
+                                  {stage.name}
+                                  <span className="ml-1.5 font-normal" style={{ color: "rgba(107,39,55,0.4)" }}>días {stage.days}</span>
+                                </p>
+                                <p className="text-[9px] font-light mt-0.5" style={{ color: "rgba(107,39,55,0.5)" }}>{stage.description}</p>
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  ))}
-                  {protocolError && <p className="text-xs text-red-600 mt-2">{protocolError}</p>}
-                </div>
-              )}
+                  )
+                  return (
+                    <div className="flex flex-col gap-6">
+                      {clinicalProtocols.length > 0 && (
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(107,39,55,0.35)" }}>
+                            Protocolos clínicos
+                          </p>
+                          <div className="flex flex-col gap-4">{clinicalProtocols.map(renderCard)}</div>
+                        </div>
+                      )}
+                      {programas.length > 0 && (
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(107,39,55,0.35)" }}>
+                            Programas
+                          </p>
+                          <div className="flex flex-col gap-4">{programas.map(renderCard)}</div>
+                        </div>
+                      )}
+                      {protocolError && <p className="text-xs text-red-600 mt-2">{protocolError}</p>}
+                    </div>
+                  )
+                })()}
             </div>
           </div>
         </div>
