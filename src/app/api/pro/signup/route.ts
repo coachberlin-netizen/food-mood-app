@@ -4,12 +4,12 @@ import { z } from "zod"
 import logger from "@/lib/logger"
 
 const SignupSchema = z.object({
-  email:              z.string().email(),
-  password:           z.string().min(8),
-  full_name:          z.string().min(2),
-  professional_title: z.string().min(2),
-  license_number:     z.string().optional(),
-  bio:                z.string().optional(),
+  email:              z.string().email().max(254),
+  password:           z.string().min(8).max(128),
+  full_name:          z.string().min(2).max(120),
+  professional_title: z.string().min(2).max(80),
+  license_number:     z.string().max(40).optional(),
+  bio:                z.string().max(1000).optional(),
 })
 
 export async function POST(req: NextRequest) {

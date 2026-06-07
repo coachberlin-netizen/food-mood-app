@@ -29,6 +29,19 @@ export async function GET(
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: "Autenticación requerida." }, { status: 401 })
 
+  // Verify professional profile and patient link before using admin client
+  const { data: professional } = await supabase.from("professionals").select("id").maybeSingle()
+  if (!professional) return NextResponse.json({ error: "Perfil profesional no encontrado." }, { status: 403 })
+
+  const { data: link } = await supabase
+    .from("professional_patient_links")
+    .select("id")
+    .eq("professional_id", user.id)
+    .eq("patient_user_id", patientId)
+    .eq("status", "active")
+    .maybeSingle()
+  if (!link) return NextResponse.json({ error: "Paciente no vinculado." }, { status: 403 })
+
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.RECETAS_SUPABASE_KEY
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !serviceKey) {
     return NextResponse.json({ error: "Error de configuración." }, { status: 500 })
