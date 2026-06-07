@@ -29,6 +29,7 @@ export default function SignupClient() {
     bio:                "",
   })
   const [error,   setError]   = useState("")
+  const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const router  = useRouter()
   const supabase = useMemo(() => createClient(), [])
@@ -72,21 +73,8 @@ export default function SignupClient() {
       return
     }
 
-    // Auto-login after account creation
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email:    form.email,
-      password: form.password,
-    })
-
-    if (signInError) {
-      setError("Cuenta creada. Inicia sesión en el portal profesional.")
-      setLoading(false)
-      router.push("/pro/login")
-      return
-    }
-
-    router.push("/pro/dashboard")
-    router.refresh()
+    setSuccess(true)
+    setLoading(false)
   }
 
   return (
@@ -112,13 +100,24 @@ export default function SignupClient() {
             Crea tu cuenta para vincular pacientes y hacer seguimiento.
           </p>
 
-          {error && (
+          {success && (
+            <div className="p-5 rounded-xl text-sm text-center bg-green-50 border border-green-200 mb-6">
+              <p className="font-semibold text-green-800 mb-1">Cuenta creada correctamente.</p>
+              <p className="text-green-700">Revisa tu correo y confirma tu dirección para acceder al portal.</p>
+              <a href="/pro/login" className="inline-block mt-4 text-[#6B2737] font-bold underline text-sm">
+                Ir al acceso profesional
+              </a>
+            </div>
+          )}
+
+          {!success && error && (
+
             <div className="p-4 rounded-xl text-sm mb-6 text-center bg-red-50 text-red-600 border border-red-100">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          {!success && <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-xs font-bold uppercase tracking-widest text-[#6B2737]/50 mb-2">
                 Nombre completo
@@ -203,7 +202,7 @@ export default function SignupClient() {
                 <>Crear cuenta profesional <ArrowRight className="w-4 h-4" /></>
               )}
             </button>
-          </form>
+          </form>}
 
           <div className="mt-8 border-t border-[#6B2737]/10 pt-8 text-center text-sm text-[#6B2737]/60">
             <p>
