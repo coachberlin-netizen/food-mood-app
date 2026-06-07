@@ -203,7 +203,7 @@ export function buildHtml(): string {
       <div class="cta-li"><span class="cta-check">✓</span> Informe hormonal personalizado al completar</div>
       <div class="cta-li"><span class="cta-check">✓</span> Protocolo de mantenimiento post-reto</div>
     </div>
-    <a href="https://www.food-mood.app/retos/equilibrio-hormonal-45/dia/1" class="cta-btn">Empezar el reto ahora →</a>
+
     <p class="cta-precio">29€ · Acceso inmediato · Pago seguro vía Stripe</p>
   </div>
 

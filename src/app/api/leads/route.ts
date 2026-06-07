@@ -117,9 +117,8 @@ export async function POST(req: NextRequest) {
 
   <div style="padding:36px 40px;text-align:center;">
     <p style="font-size:22px;font-weight:300;font-style:italic;color:#6B2737;margin:0 0 10px;">¿Te ha gustado este estilo?</p>
-    <p style="font-family:sans-serif;font-size:14px;font-weight:300;line-height:1.75;color:#3A2A1E;margin:0 0 24px;max-width:440px;margin-left:auto;margin-right:auto;">Slow Food·Mood — 21 días de recetas como esta, con audios de contexto científico y tracking emocional diario.</p>
-    <a href="https://food-mood.app/retos/slow-food-mood" style="display:inline-block;background:#6B2737;color:#F5F0E8;text-decoration:none;font-family:sans-serif;font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;padding:14px 32px;margin-bottom:20px;">Ver el reto — 29€ pago único</a>
-    <p style="font-family:sans-serif;font-size:12px;font-weight:300;color:#8B7355;margin:0;">O empieza con el test gratuito en <a href="https://food-mood.app" style="color:#6B2737;">food-mood.app</a></p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:300;line-height:1.75;color:#3A2A1E;margin:0 0 24px;max-width:440px;margin-left:auto;margin-right:auto;">Accede a Food·Mood y descubre tu paleta emocional y recetas personalizadas.</p>
+    <p style="font-family:sans-serif;font-size:12px;font-weight:300;color:#8B7355;margin:0;">Empieza con el test gratuito en <a href="https://food-mood.app" style="color:#6B2737;">food-mood.app</a></p>
   </div>
 
   <div style="background:#2C1810;padding:18px 40px;text-align:center;">

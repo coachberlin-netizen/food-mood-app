@@ -393,7 +393,7 @@ export default function SlowFoodMoodNewsletter() {
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <Link href="/retos/slow-food-mood" style={{
+            <Link href="/auth/login" style={{
               display: 'block',
               backgroundColor: GOLD,
               color: BURG,
@@ -407,19 +407,7 @@ export default function SlowFoodMoodNewsletter() {
               letterSpacing: '0.01em',
               transition: 'opacity 0.2s',
             }}>
-              Empezar el reto · 29€
-            </Link>
-
-            <Link href="/retos/slow-food-mood" style={{
-              display: 'block',
-              textAlign: 'center',
-              color: GOLD,
-              textDecoration: 'underline',
-              textDecorationColor: GOLD,
-              fontSize: 14,
-              padding: '8px 0',
-            }}>
-              Ver todos los retos Food·Mood →
+              Acceder a Food·Mood
             </Link>
           </div>
         </section>

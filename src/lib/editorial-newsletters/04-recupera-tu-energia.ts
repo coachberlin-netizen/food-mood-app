@@ -296,22 +296,6 @@ export function buildHtml(): string {
       </div>
     </div>
   </div>
-  <div class="cta-reto">
-    <p class="cta-reto-eyebrow">🔋 Reto · 7 días · 19€</p>
-    <p class="cta-reto-title">Recupera tu energía<br><em>en una semana.</em></p>
-    <p class="cta-reto-desc">Reset mitocondrial completo. 7 días con recetas, audios y seguimiento real
-      de tu índice Food·Mood. Resultados medibles antes de terminar la semana.</p>
-    <div class="cta-incluye">
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> 7 recetas de reset — una por día</div>
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> 7 audios de apoyo</div>
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> Seguimiento diario con tu índice Food·Mood</div>
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> Acceso al grupo WhatsApp Premium</div>
-    </div>
-    <a href="https://www.food-mood.app/retos/recupera-tu-energia" class="cta-btn-grande">
-      Empezar el reto ahora →
-    </a>
-    <p class="cta-precio">19€ · Acceso inmediato · Pago seguro vía Stripe</p>
-  </div>
   <div class="cierre">
     <p class="cierre-text">
       La fatiga que llevas meses normalizando no es tu nueva normalidad.

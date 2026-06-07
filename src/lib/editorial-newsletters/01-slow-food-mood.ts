@@ -99,7 +99,7 @@ export function buildHtml(): string {
     <h2 style="font-family:Georgia,serif;font-size:36px;font-weight:400;color:${CREAM};line-height:1.15;margin:0 0 24px">Fast life.<br>Slow Food·Mood.</h2>
     <p style="font-size:17px;line-height:1.7;color:rgba(245,240,232,0.8);margin:0 0 36px">Durante 21 días vas a preparar alimentos que tienen su propio ritmo biológico. Fermentos, masas, caldos, reposos.</p>
     <div style="text-align:center">
-      <a href="https://food-mood.app/retos/slow-food-mood" style="display:inline-block;background:${GOLD};color:${BURG};padding:18px 48px;border-radius:999px;font-family:Georgia,serif;font-size:17px;font-weight:700;text-decoration:none">Empezar el reto · 29€</a>
+
     </div>
   </div>
 

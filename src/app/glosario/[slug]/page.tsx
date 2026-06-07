@@ -1,78 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Brain, Dna, FlaskConical, Shuffle, Lock, Sparkles, ArrowRight } from "lucide-react"
+import { ArrowLeft, Brain, Dna, FlaskConical, Shuffle, Lock, Sparkles } from "lucide-react"
 import { getPremiumStatus } from "@/lib/premium"
-
-// ─── Internal linking: glosario → reto relacionado ───────────────────────────
-const RETO_INFO: Record<string, { title: string; slug: string; color: string; tagline: string }> = {
-  'reset-antiinflamatorio': { title: 'Reset antiinflamatorio',      slug: 'reset-antiinflamatorio',  color: '#3F5A37', tagline: 'Postbióticos antiinflamatorios en 7 días.' },
-  'food-mood-reset':        { title: 'Food·Mood Reset',             slug: 'food-mood-reset',         color: '#B14F31', tagline: 'Mental fitness desde el plato en 21 días.' },
-  'equilibrio-hormonal-45': { title: 'Equilibrio hormonal 45+',     slug: 'equilibrio-hormonal-45',  color: '#8C3F5C', tagline: 'Estrobioma y hormonas en 28 días.' },
-  'mejora-tu-sueno':        { title: 'Reto Circadiano',             slug: 'mejora-tu-sueno',         color: '#D6B26C', tagline: 'Crononutrición y ritmo circadiano en 4 semanas.' },
-  'slow-food-mood':         { title: 'Slow Food·Mood',              slug: 'slow-food-mood',          color: '#5A4570', tagline: 'Nervous system care con cocina lenta en 21 días.' },
-  'recupera-tu-energia':    { title: 'Recupera tu energía',         slug: 'recupera-tu-energia',     color: '#B85A1F', tagline: 'Energía estable sin cafeína en 7 días.' },
-  'activa-tu-longevidad':   { title: 'Activa tu longevidad',        slug: 'activa-tu-longevidad',    color: '#7A3A20', tagline: 'Longevidad basada en evidencia en 10 días.' },
-  'microhabitos':           { title: 'Microhábitos',                slug: 'microhabitos',            color: '#243A5C', tagline: 'Micro-prácticas diarias en 21 días.' },
-}
-
-// Mapa de slug de glosario → retos relacionados (por orden de relevancia)
-const SLUG_TO_RETOS: Record<string, string[]> = {
-  // Fermentos
-  'kimchi':         ['food-mood-reset', 'slow-food-mood'],
-  'miso':           ['food-mood-reset', 'slow-food-mood'],
-  'kefir':          ['equilibrio-hormonal-45', 'food-mood-reset'],
-  'kefir-de-agua':  ['food-mood-reset', 'slow-food-mood'],
-  'tempeh':         ['reset-antiinflamatorio', 'equilibrio-hormonal-45'],
-  'nukazuke':       ['food-mood-reset', 'slow-food-mood'],
-  'doenjang':       ['food-mood-reset', 'reset-antiinflamatorio'],
-  'injera':         ['food-mood-reset', 'activa-tu-longevidad'],
-  'dosa':           ['food-mood-reset'],
-  'gochujang':      ['reset-antiinflamatorio', 'food-mood-reset'],
-  'natto':          ['reset-antiinflamatorio', 'food-mood-reset'],
-  'tepache':        ['food-mood-reset', 'slow-food-mood'],
-  'chucrut':        ['reset-antiinflamatorio', 'food-mood-reset'],
-  'tkemali':        ['reset-antiinflamatorio', 'food-mood-reset'],
-  'skyr':           ['equilibrio-hormonal-45'],
-  // Compuestos / ingredientes
-  'curcuma':        ['reset-antiinflamatorio'],
-  'omega-3':        ['reset-antiinflamatorio', 'recupera-tu-energia'],
-  'probioticos':    ['food-mood-reset', 'equilibrio-hormonal-45'],
-  'prebioticos':    ['food-mood-reset', 'equilibrio-hormonal-45'],
-  'postbioticos':   ['reset-antiinflamatorio', 'equilibrio-hormonal-45'],
-  'butirato':       ['reset-antiinflamatorio', 'food-mood-reset'],
-  'estrobioma':     ['equilibrio-hormonal-45'],
-  'fitoestrogenos': ['equilibrio-hormonal-45'],
-  'magnesio':       ['mejora-tu-sueno', 'recupera-tu-energia'],
-  'triptofano':     ['mejora-tu-sueno'],
-  'melatonina':     ['mejora-tu-sueno'],
-  'serotonina':     ['food-mood-reset', 'mejora-tu-sueno'],
-  'colageno':       ['activa-tu-longevidad', 'recupera-tu-energia'],
-  'hierro':         ['recupera-tu-energia'],
-  'vitamina-d':     ['equilibrio-hormonal-45', 'recupera-tu-energia'],
-  'nervio-vago':    ['slow-food-mood', 'food-mood-reset'],
-}
-
-// Fallback por categoría del ítem si no hay slug match
-const CATEGORY_TO_RETOS: Record<string, string[]> = {
-  'Fermentado':     ['food-mood-reset', 'slow-food-mood'],
-  'Fermentos':      ['food-mood-reset', 'slow-food-mood'],
-  'Probiótico':     ['food-mood-reset', 'equilibrio-hormonal-45'],
-  'Postbiótico':    ['reset-antiinflamatorio', 'equilibrio-hormonal-45'],
-  'Antiinflamatorio': ['reset-antiinflamatorio'],
-  'Hormonal':       ['equilibrio-hormonal-45'],
-  'Adaptógeno':     ['recupera-tu-energia', 'food-mood-reset'],
-  'Sueño':          ['mejora-tu-sueno'],
-  'Energía':        ['recupera-tu-energia'],
-  'Longevidad':     ['activa-tu-longevidad'],
-}
-
-function getRelatedRetos(slug: string, category?: string): typeof RETO_INFO[string][] {
-  const slugs = SLUG_TO_RETOS[slug]
-    ?? (category ? CATEGORY_TO_RETOS[category] : null)
-    ?? []
-  return slugs.slice(0, 2).map(s => RETO_INFO[s]).filter(Boolean)
-}
 
 export const dynamic = 'force-dynamic'
 
@@ -296,44 +226,6 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
                 </div>
               </section>
             )}
-
-            {/* Internal link: glosario → reto relacionado */}
-            {(() => {
-              const retos = getRelatedRetos(slug, item.category)
-              if (!retos.length) return null
-              return (
-                <section className="border-t border-[#6B2737]/10 pt-12">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#6B2737]/50 mb-6">
-                    Aplícalo en tu reto
-                  </p>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {retos.map(reto => (
-                      <Link
-                        key={reto.slug}
-                        href={`/retos/${reto.slug}`}
-                        className="group flex items-center justify-between gap-4 rounded-2xl px-6 py-5 border transition-all hover:-translate-y-0.5"
-                        style={{
-                          backgroundColor: reto.color + '0d',
-                          borderColor: reto.color + '33',
-                        }}
-                      >
-                        <div className="min-w-0">
-                          <p className="text-xs font-bold uppercase tracking-widest mb-1 truncate"
-                            style={{ color: reto.color }}>
-                            {reto.title}
-                          </p>
-                          <p className="text-sm font-light text-aubergine-dark/60 leading-snug">
-                            {reto.tagline}
-                          </p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 shrink-0 opacity-40 group-hover:opacity-80 group-hover:translate-x-0.5 transition-all"
-                          style={{ color: reto.color }} />
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              )
-            })()}
 
           </div>
         )}

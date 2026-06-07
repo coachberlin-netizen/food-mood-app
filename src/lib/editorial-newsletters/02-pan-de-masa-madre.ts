@@ -136,9 +136,9 @@ export function buildHtml(): string {
       <h2 style="font-family:Georgia,serif;font-size:34px;font-weight:400;color:${CREAM};line-height:1.2;margin:0 0 24px">21 días de cocina lenta.<br>Una preparación al día.<br>Y la ansiedad empieza a tener<br>otro ritmo.</h2>
       <p style="font-size:16px;line-height:1.7;color:rgba(245,240,232,0.75);margin:0 0 36px">Fermentos, masas, caldos, reposos. Y en ese proceso — sin que te des cuenta — tu mente empieza a soltar.</p>
       <div style="text-align:center">
-        <a href="https://food-mood.app/retos/slow-food-mood" style="display:inline-block;background:${GOLD};color:${BURG};padding:18px 48px;border-radius:999px;font-family:Georgia,serif;font-size:17px;font-weight:700;text-decoration:none;margin-bottom:16px">Ver el reto Slow Food·Mood · 29€</a>
+
         <br>
-        <a href="https://food-mood.app/retos/slow-food-mood" style="font-size:14px;color:rgba(245,240,232,0.7);text-decoration:underline">Empezar con 7 días · 19€</a>
+
       </div>
     </div>
   </div>

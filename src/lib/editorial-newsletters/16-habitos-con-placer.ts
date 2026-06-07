@@ -349,29 +349,6 @@ export function buildHtml(): string {
     </div>
   </div>
 
-  <div class="cta-reto">
-    <p class="cta-reto-eyebrow">✨ Reto · 21 días · 29€</p>
-    <p class="cta-reto-title">
-      Come con placer.<br>
-      <em>Crea hábitos. Siéntete mejor.</em>
-    </p>
-    <p class="cta-reto-desc">
-      Slow Food·Mood: 21 días de recetas funcionales como esta, con audios de contexto científico
-      y seguimiento emocional diario. El reto que no necesitas terminar con fuerza de voluntad —
-      porque cada receta ya es la recompensa.
-    </p>
-    <div class="cta-incluye">
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> 21 recetas diseñadas para el placer y la nutrición</div>
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> 21 audios de contexto científico</div>
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> Seguimiento emocional diario con tu índice Food·Mood</div>
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> Sin restricciones. Sin culpa. Sin disciplina.</div>
-      <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> Acceso de por vida tras el reto</div>
-    </div>
-    <a href="https://www.food-mood.app/retos/slow-food-mood" class="cta-btn-grande">
-      Empezar el reto ahora →
-    </a>
-    <p class="cta-precio">29€ · Pago único · Acceso inmediato</p>
-  </div>
 
   <div class="cierre">
     <p class="cierre-text">

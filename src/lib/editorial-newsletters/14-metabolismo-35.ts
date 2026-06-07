@@ -237,16 +237,6 @@ export function buildHtml(): string {
     </div>
   </div>
 
-  <div class="cta-section">
-    <p class="cta-ey">Dos retos para ti</p>
-    <p class="cta-title">Elige tu punto<br><em>de entrada.</em></p>
-    <p class="cta-desc">Si el foco es la energía y el metabolismo — empieza por el reset de 7 días. Si quieres el protocolo completo de alimentación emocional — el Food·Mood Reset de 21 días.</p>
-    <div class="cta-doble">
-      <a href="https://www.food-mood.app/retos/recupera-tu-energia" class="cta-btn-a">Reset energético · 7 días · 19€ →</a>
-      <a href="https://www.food-mood.app/retos/slow-food-mood" class="cta-btn-b">Food·Mood Reset · 21 días · 29€</a>
-    </div>
-    <p class="cta-precio">Acceso inmediato · Pago seguro vía Stripe</p>
-  </div>
 
   <div class="cierre">
     <p class="cierre-text">El cuerpo de los 35 no es peor que el de los 25. Es diferente. Y diferente tiene soluciones diferentes — no más duras, solo más inteligentes.<br><br>La próxima vez que el cuerpo no responda como esperas, antes de juzgarte, pregúntate si el protocolo está actualizado. Casi siempre, la respuesta es que no. Y casi siempre, se arregla con el desayuno de mañana.</p>

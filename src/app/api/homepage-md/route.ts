@@ -23,19 +23,6 @@ Food·Mood es una plataforma de nutrición emocional basada en la ciencia del ej
 - **Premium mensual (9€/mes)** — 200+ recetas completas, paleta personalizada, historial de 90 días, glosario científico, canal privado de Telegram.
 - **Premium trimestral (7€/mes · 21€ cada 3 meses)** — Todo el plan mensual + ahorro del 22%.
 
-## Retos de transformación
-
-Programas de 7–28 días con recetas funcionales, audios científicos y tracking emocional diario:
-
-- Recupera tu energía (7 días · 19€) — /retos/recupera-tu-energia
-- Reset antiinflamatorio (7 días · 19€) — /retos/reset-antiinflamatorio
-- Activa tu longevidad (10 días · 19€) — /retos/activa-tu-longevidad
-- Microhábitos (21 días · 29€) — /retos/microhabitos
-- Slow Food·Mood — ansiedad (21 días · 29€) — /retos/slow-food-mood
-- Food·Mood Reset (21 días · 29€) — /retos/food-mood-reset
-- Equilibrio hormonal 45+ (28 días · 29€) — /retos/equilibrio-hormonal-45
-- Mejora tu sueño (4 semanas · 29€) — /retos/mejora-tu-sueno
-
 ## Corporate Wellness
 
 **Food·Mood for Work** — Programa corporativo de 7 días: snacks funcionales, micro-hábitos y tracking para mejorar el foco, la energía y el bienestar en la jornada laboral. Incluye check-in diario, audios de pausa consciente e informe agregado para RRHH. Desde 490€.

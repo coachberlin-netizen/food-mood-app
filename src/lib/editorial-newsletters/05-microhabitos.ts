@@ -286,10 +286,6 @@ export function buildHtml(): string {
       <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> Diario de reflexión mañana, tarde y noche</div>
       <div class="cta-incluye-item"><span class="cta-incluye-check">✓</span> Acceso de por vida al contenido</div>
     </div>
-    <a href="https://www.food-mood.app/retos/microhabitos" class="cta-btn-grande">
-      Ver el reto Microhábitos →
-    </a>
-    <div class="cta-precio">29€ · Pago único · Acceso inmediato</div>
   </div>
 
   <!-- CIERRE -->
