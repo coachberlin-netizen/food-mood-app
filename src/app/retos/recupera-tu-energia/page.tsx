@@ -180,6 +180,12 @@ export default async function RetoEnergiaPage() {
               </div>
             ))}
           </div>
+
+          <div className="mt-4 rounded-xl p-3.5" style={{ background: '#f5eaec', borderLeft: '3px solid #6B2737' }}>
+            <p className="text-[12px] leading-relaxed" style={{ color: '#4a3a3e' }}>
+              El programa trabaja estos cofactores a través de la alimentación. Si valoras incorporarlos como suplementos, consúltalo con tu profesional de salud.
+            </p>
+          </div>
         </div>
 
         {/* Cómo funciona */}

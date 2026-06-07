@@ -272,6 +272,15 @@ export default async function EquilibrioHormonalPage() {
                 </div>
               ))}
             </div>
+
+            <div className="mt-4 rounded-xl p-3.5" style={{ background: '#fdf3f5', borderLeft: '3px solid #7B4B8C' }}>
+              <p className="text-[11px] font-medium uppercase tracking-widest mb-1.5" style={{ color: '#7B4B8C' }}>
+                Nota de seguridad
+              </p>
+              <p className="text-[12px] leading-relaxed" style={{ color: '#4a3a3e' }}>
+                Los fitoestrógenos actúan como moduladores hormonales suaves. Si tienes antecedentes personales o familiares de cáncer hormonodependiente (mama, útero, ovario), consulta con tu médico antes de iniciar este programa.
+              </p>
+            </div>
           </div>
 
           {/* Cómo funciona — 4 semanas */}
