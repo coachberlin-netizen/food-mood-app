@@ -5,13 +5,11 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
 interface Props {
-  params:       Promise<{ slug: string }>
-  searchParams: Promise<{ session_id?: string }>
+  params: Promise<{ slug: string }>
 }
 
-export default async function AccesoPage({ params, searchParams }: Props) {
-  const { slug }       = await params
-  const { session_id } = await searchParams
+export default async function AccesoPage({ params }: Props) {
+  const { slug } = await params
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -26,19 +24,16 @@ export default async function AccesoPage({ params, searchParams }: Props) {
 
   if (!reto) redirect('/retos')
 
-  const { data: purchase } = await supabase
-    .from('reto_purchases')
-    .select('id, purchased_at')
+  // Check access via user_challenges (professional assignment) or legacy reto_purchases (Stripe)
+  const { data: enrollment } = await supabase
+    .from('user_challenges')
+    .select('id')
     .eq('user_id', user.id)
     .eq('challenge_id', reto.id)
-    .eq('status', 'active')
+    .eq('paid', true)
     .maybeSingle()
 
-  if (!purchase && session_id) {
-    redirect(`/retos/${slug}/acceso/procesando?session_id=${session_id}`)
-  }
-
-  if (!purchase) redirect(`/retos/${slug}`)
+  if (!enrollment) redirect(`/retos/${slug}`)
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6"
