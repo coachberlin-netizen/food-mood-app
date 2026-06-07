@@ -101,8 +101,8 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/newsletter/') &&
     pathname !== '/newsletter/archivo'
 
-  // Redirect unauthenticated users from protected routes (not /recetas — that's public)
-  if (isProtectedRoute && !user) {
+  // Redirect unauthenticated users from protected routes and /recetas (acceso solo por prescripción)
+  if ((isProtectedRoute || isRecetasRoute) && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
     return NextResponse.redirect(url)
