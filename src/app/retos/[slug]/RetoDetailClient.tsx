@@ -1039,112 +1039,22 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
           <FAQSection accentColor={color} slug={challenge.slug} />
         )}
 
-        {/* ── CTA de compra / acceso premium ── */}
+        {/* ── Acceso por prescripción profesional ── */}
         {!enrollment?.paid && (
           <section
-            id="cta-compra"
-            className="rounded-3xl p-8 md:p-10"
+            id="cta-acceso"
+            className="rounded-3xl p-8 md:p-10 text-center"
             style={{ backgroundColor: '#2d0f16' }}
           >
-            {isPremium ? (
-              /* Premium / beta user — bypass payment */
-              <>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
-                  Acceso incluido
-                </p>
-                <p className="text-sm font-light mb-6" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                  Tu cuenta tiene acceso completo a todos los retos. Empieza cuando quieras — sin coste adicional.
-                </p>
-                {checkoutErr && (
-                  <p className="text-red-400 text-sm mb-4">{checkoutErr}</p>
-                )}
-                <button
-                  onClick={handleCheckout}
-                  disabled={isPending}
-                  className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
-                  style={{ backgroundColor: color }}
-                >
-                  {isPending ? 'Activando…' : 'Empezar mi reto gratis →'}
-                </button>
-              </>
-            ) : (
-              /* Standard purchase flow */
-              <>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
-                  {enrollment ? 'Completar pago' : 'Únete ahora'}
-                </p>
-                <div className="mb-6">
-                  <p className="font-serif text-5xl font-black" style={{ color: '#FF6B35' }}>
-                    {priceEur}€
-                  </p>
-                  <p className="text-xs font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                    Acceso completo · {durationD} días · Pago único
-                  </p>
-                </div>
-
-                {checkoutErr && (
-                  <p className="text-red-400 text-sm mb-4">{checkoutErr}</p>
-                )}
-
-                <button
-                  onClick={handleCheckout}
-                  disabled={isPending}
-                  className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
-                  style={{ backgroundColor: CTA_BUY }}
-                >
-                  {isPending ? 'Procesando…' : enrollment ? 'Completar pago →' : 'Empezar mi reto →'}
-                </button>
-
-                <p className="text-xs font-light text-center mt-4" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                  Pago seguro vía Stripe · Acceso inmediato al completar
-                </p>
-
-                {/* Beta / influencer code input */}
-                <div className="mt-6 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                  {betaState === 'success' ? (
-                    <p className="text-center text-sm font-medium" style={{ color: '#FF6B35' }}>
-                      ✓ Código activado — redirigiendo…
-                    </p>
-                  ) : (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => setShowBetaBox(v => !v)}
-                        className="w-full text-center text-xs font-light transition-opacity hover:opacity-80"
-                        style={{ color: 'rgba(255,255,255,0.35)' }}
-                      >
-                        ¿Tienes un código de acceso?
-                      </button>
-                      {showBetaBox && (
-                        <div className="mt-3 flex gap-2">
-                          <input
-                            type="text"
-                            value={betaCode}
-                            onChange={e => setBetaCode(e.target.value)}
-                            onKeyDown={e => e.key === 'Enter' && redeemBetaCode(betaCode)}
-                            placeholder="Código beta o influencer"
-                            disabled={betaState === 'loading'}
-                            className="flex-1 px-4 py-2.5 rounded-xl text-sm bg-white/10 text-white placeholder:text-white/25 border border-white/15 focus:outline-none focus:border-white/30 disabled:opacity-50"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => redeemBetaCode(betaCode)}
-                            disabled={betaState === 'loading' || !betaCode.trim()}
-                            className="px-4 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-40 hover:opacity-90 transition-opacity whitespace-nowrap"
-                            style={{ backgroundColor: '#FF6B35' }}
-                          >
-                            {betaState === 'loading' ? '…' : 'Canjear'}
-                          </button>
-                        </div>
-                      )}
-                      {betaError && (
-                        <p className="text-xs mt-2 text-center" style={{ color: '#f87171' }}>{betaError}</p>
-                      )}
-                    </>
-                  )}
-                </div>
-              </>
-            )}
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: '#FF6B35' }}>
+              Acceso por prescripción
+            </p>
+            <p className="font-serif text-2xl font-bold mb-3 leading-snug" style={{ color: '#F5F0E8' }}>
+              Programa disponible a través de tu profesional de salud
+            </p>
+            <p className="text-sm font-light" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              Tu profesional puede asignarte este programa directamente desde el portal Food·Mood Pro.
+            </p>
           </section>
         )}
 
@@ -1159,24 +1069,6 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
       </div>
 
-      {/* ── Sticky CTA móvil — aparece tras scroll 50% ── */}
-      {!enrollment?.paid && showStickyCta && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden px-4 pt-3"
-          style={{ background: 'linear-gradient(to top, #F5F0E8 70%, transparent)', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}>
-          <button
-            onClick={handleCheckout}
-            disabled={isPending}
-            className="w-full py-4 rounded-full text-base font-bold text-white transition-all hover:opacity-90 disabled:opacity-50 shadow-lg"
-            style={{ backgroundColor: isPremium ? color : CTA_BUY }}
-          >
-            {isPending
-              ? (isPremium ? 'Activando…' : 'Procesando…')
-              : isPremium
-              ? 'Empezar mi reto gratis →'
-              : `Empezar mi reto · ${priceEur}€ →`}
-          </button>
-        </div>
-      )}
 
     </main>
   )

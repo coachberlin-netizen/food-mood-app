@@ -12,6 +12,7 @@ const CANONICAL = 'https://www.food-mood.app/retos/slow-food-mood'
 export const metadata: Metadata = {
   title: 'Slow Food·Mood — 21 días para cultivar la calma interior | Food·Mood',
   description: 'Programa de cocina lenta: 21 días para cultivar la calma interior. Fermentos, masas madre y caldos desde 29€. Mindfulness encarnado basado en evidencia.',
+  robots: { index: false, follow: false },
   alternates: {
     canonical: CANONICAL,
     languages: { 'es': CANONICAL },

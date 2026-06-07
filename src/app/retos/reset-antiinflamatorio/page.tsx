@@ -8,6 +8,7 @@ const CANONICAL = 'https://www.food-mood.app/retos/reset-antiinflamatorio'
 export const metadata: Metadata = {
   title:       'Reset antiinflamatorio en una semana | Food·Mood',
   description: 'Cúrcuma, omega-3, fermentados y polifenoles. Seis vías antiinflamatorias en 7 días con seguimiento real. Basado en evidencia. 19€.',
+  robots: { index: false, follow: false },
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },

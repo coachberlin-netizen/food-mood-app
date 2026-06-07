@@ -8,6 +8,7 @@ const CANONICAL = 'https://www.food-mood.app/retos/recupera-tu-energia'
 export const metadata: Metadata = {
   title:       'Recupera tu energía en 7 días | Food·Mood',
   description: 'Sin cafeína forzada, sin azúcares de rebote. CoQ10, magnesio, hierro y adaptógenos. Protocolo mitocondrial de 7 días basado en evidencia. 19€.',
+  robots: { index: false, follow: false },
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },

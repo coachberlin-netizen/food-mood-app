@@ -3,6 +3,7 @@ import { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Retos de Transformación — Food·Mood",
   description: "Programas de 7 a 28 días con seguimiento diario, recetas funcionales y tracking del índice Food·Mood. Un objetivo, un camino, datos reales.",
+  robots: { index: false, follow: false },
   alternates: { canonical: "/retos" },
   openGraph: {
     title: "Retos de Transformación — Food·Mood",

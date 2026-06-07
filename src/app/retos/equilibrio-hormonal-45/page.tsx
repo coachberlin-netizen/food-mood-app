@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Equilibrio hormonal después de los 45 — 28 días | Food·Mood',
   description:
     'Programa de 28 días de alimentación y hábitos para apoyar la salud hormonal en perimenopausia, SOP y estrés crónico. Basado en evidencia. 39€, acceso de por vida.',
+  robots: { index: false, follow: false },
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },

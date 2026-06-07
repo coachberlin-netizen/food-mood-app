@@ -9,6 +9,7 @@ const CANONICAL = 'https://www.food-mood.app/retos/microhabitos'
 export const metadata: Metadata = {
   title: 'Microhábitos — 21 días para crear hábitos sin fuerza de voluntad | Food·Mood',
   description: 'Crea hábitos que duran con Tiny Habits, ancla hedónica y bebidas fermentadas. 21 días de psicología del comportamiento. Sin disciplina. Desde 29€.',
+  robots: { index: false, follow: false },
   alternates: {
     canonical: CANONICAL,
     languages: { 'es': CANONICAL },

@@ -8,6 +8,7 @@ const CANONICAL = 'https://www.food-mood.app/retos/activa-tu-longevidad'
 export const metadata: Metadata = {
   title:       'Activa tu longevidad en 10 días — Come rico. Vive más joven. | Food·Mood',
   description: 'Telómeros, autofagia, colágeno y NAD+. 10 mecanismos antiaging activados desde el plato en 10 días. Sin suplementos, sin restricciones. Basado en la ciencia de las zonas azules. Desde 19€.',
+  robots: { index: false, follow: false },
   alternates: {
     canonical: CANONICAL,
     languages: { es: CANONICAL },
