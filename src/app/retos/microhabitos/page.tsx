@@ -607,8 +607,8 @@ export default async function MicrohabitosPage() {
 
         {/* â"€â"€ BACK LINK â"€â"€ */}
         <div className="text-center pb-16">
-          <a href="/retos" className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
-            ← Ver todos los retos
+          <a href="/" className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.45)' }}>
+            ← Inicio
           </a>
         </div>
 

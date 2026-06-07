@@ -177,8 +177,8 @@ export default async function EquilibrioHormonalPage() {
 
         {/* Nav */}
         <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
-          <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: '#7B4B8C' }}>
-            ← Ver todos los retos
+          <Link href="/" className="text-[13px] font-medium no-underline" style={{ color: '#7B4B8C' }}>
+            ← Inicio
           </Link>
         </div>
 

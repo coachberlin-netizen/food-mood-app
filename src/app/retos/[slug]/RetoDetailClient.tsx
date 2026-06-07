@@ -476,8 +476,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
     return (
       <main className="min-h-screen" style={{ background: '#F5F0E8' }}>
         <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
-          <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: color }}>
-            ← Ver todos los retos
+          <Link href="/" className="text-[13px] font-medium no-underline" style={{ color: color }}>
+            ← Inicio
           </Link>
         </div>
 
@@ -562,11 +562,11 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
               </p>
             )}
             <Link
-              href="/retos"
+              href="/"
               className="block py-3 rounded-2xl text-sm font-bold text-center border-2 transition-all hover:opacity-80 no-underline"
               style={{ borderColor: color, color: color }}
             >
-              Ver más retos →
+              Ir a Food·Mood →
             </Link>
             <button
               onClick={() => {
@@ -600,8 +600,8 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
       <main className="min-h-screen" style={{ background: '#F5F0E8' }}>
         {/* Nav */}
         <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
-          <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: color }}>
-            ← Ver todos los retos
+          <Link href="/" className="text-[13px] font-medium no-underline" style={{ color: color }}>
+            ← Inicio
           </Link>
         </div>
 
@@ -795,8 +795,6 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
       <nav aria-label="Ruta de navegación" className="pt-24 pb-0 px-6 max-w-2xl mx-auto">
         <ol className="flex items-center gap-2 text-[12px] font-light flex-wrap" style={{ color: 'rgba(107,39,55,0.45)' }}>
           <li><Link href="/" style={{ color: 'rgba(107,39,55,0.45)' }} className="hover:underline">Inicio</Link></li>
-          <li aria-hidden="true">›</li>
-          <li><Link href="/retos" style={{ color: 'rgba(107,39,55,0.45)' }} className="hover:underline">Retos</Link></li>
           <li aria-hidden="true">›</li>
           <li style={{ color: '#2d0f16' }} aria-current="page">{challenge.title}</li>
         </ol>
@@ -1009,11 +1007,11 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
                 </p>
               )}
               <Link
-                href="/retos"
+                href="/"
                 className="block py-3 rounded-full text-sm font-bold text-center border-2 transition-all hover:opacity-80"
                 style={{ borderColor: color, color: color }}
               >
-                Ver más retos →
+                Ir a Food·Mood →
               </Link>
               <button
                 onClick={() => {
@@ -1152,11 +1150,11 @@ export default function RetoDetailClient({ challenge, enrollment: initialEnrollm
 
         {/* Back */}
         <Link
-          href="/retos"
+          href="/"
           className="block text-center text-sm font-light"
           style={{ color: 'rgba(107,39,55,0.45)' }}
         >
-          ← Ver todos los retos
+          ← Inicio
         </Link>
 
       </div>

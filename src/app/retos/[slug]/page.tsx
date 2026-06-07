@@ -217,7 +217,7 @@ export default async function RetoDetailPage({ params }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(slug)) }} />
       <div className="sr-only">
         <nav aria-label="Ruta de navegación">
-          <a href="/retos">Retos</a> › <span>{challenge.title}</span>
+          <a href="/">Inicio</a> › <span>{challenge.title}</span>
         </nav>
         <h1>{challenge.title}</h1>
         {challenge.subtitle && <p>{challenge.subtitle}</p>}

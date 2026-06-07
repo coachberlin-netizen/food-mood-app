@@ -107,8 +107,8 @@ export default async function RetoEnergiaPage() {
 
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
-        <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: '#6B2737' }}>
-          ← Ver todos los retos
+        <Link href="/" className="text-[13px] font-medium no-underline" style={{ color: '#6B2737' }}>
+          ← Inicio
         </Link>
       </div>
 

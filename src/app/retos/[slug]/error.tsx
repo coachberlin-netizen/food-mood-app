@@ -21,8 +21,8 @@ export default function RetoError({ error, reset }: { error: Error & { digest?: 
       >
         Reintentar
       </button>
-      <a href="/retos" className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.5)' }}>
-        ← Ver todos los retos
+      <a href="/" className="text-sm font-light" style={{ color: 'rgba(107,39,55,0.5)' }}>
+        ← Inicio
       </a>
     </main>
   )

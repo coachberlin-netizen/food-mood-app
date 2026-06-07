@@ -181,8 +181,8 @@ export default async function RetoLongevidadPage() {
 
       {/* Nav */}
       <div className="px-5 py-4 border-b border-[#e8ddd5] bg-white">
-        <Link href="/retos" className="text-[13px] font-medium no-underline" style={{ color: COLOR }}>
-          ← Ver todos los retos
+        <Link href="/" className="text-[13px] font-medium no-underline" style={{ color: COLOR }}>
+          ← Inicio
         </Link>
       </div>
 

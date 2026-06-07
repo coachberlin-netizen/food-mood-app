@@ -122,6 +122,11 @@ const nextConfig = {
         destination: '/retos/microhabitos',
         permanent: true,
       },
+      {
+        source: '/retos',
+        destination: '/',
+        permanent: false,
+      },
     ]
   },
 };
