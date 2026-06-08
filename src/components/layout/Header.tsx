@@ -132,7 +132,7 @@ export function Header() {
           ) : (
             /* Landing pública B2B */
             <nav className="hidden md:flex items-center space-x-7">
-              <Link href="/" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+              <Link href="/#acceso" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Para profesionales
               </Link>
               <Link href="/canjear" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">

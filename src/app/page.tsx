@@ -1378,6 +1378,11 @@ export default function ProLanding() {
             <motion.h2 variants={fade} className="font-serif text-3xl md:text-4xl leading-tight" style={{ color: "#2d0f16" }}>Las dudas habituales.</motion.h2>
           </motion.div>
           {FAQS.map((faq, i) => <FaqItem key={i} faq={faq} isOpen={openFaqs.has(i)} onToggle={() => toggleFaq(i)} />)}
+          <div className="mt-10 text-center">
+            <Link href="/fundamento-clinico" className="text-sm font-light transition-opacity hover:opacity-70" style={{ color: "rgba(107,39,55,0.45)" }}>
+              Ver el fundamento clínico →
+            </Link>
+          </div>
         </div>
       </section>
 
