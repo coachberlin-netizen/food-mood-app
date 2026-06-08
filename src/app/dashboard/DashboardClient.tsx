@@ -17,6 +17,7 @@ import { WeekMosaic } from "@/components/diary/WeekMosaic"
 import { getWeekData, getCurrentWeekStart, WeekData } from "@/lib/mood-diary"
 import { useLinkedProfessional, usePrescriptions } from "@/hooks/usePrescriptions"
 import { useAssignmentsBadge } from "@/hooks/useAssignments"
+import { FEATURES } from "@/lib/featureFlags"
 
 // ── PrescriptionsCard ─────────────────────────────────────────────────────────
 function PrescriptionsCardInner({ professionalName }: { professionalName: string | null }) {
@@ -347,9 +348,11 @@ export default function DashboardClient({
         {isAuthenticated && <CheckInWidget />}
 
         {/* ── FM Index ── */}
-        <div className="max-w-[520px] w-full mx-auto">
-          <FoodMoodIndex />
-        </div>
+        {FEATURES.fmIndex && (
+          <div className="max-w-[520px] w-full mx-auto">
+            <FoodMoodIndex />
+          </div>
+        )}
 
         {/* ── Protocolo activo ── */}
         {isAuthenticated && <ProtocolCard />}
@@ -364,16 +367,16 @@ export default function DashboardClient({
         {isAuthenticated && <NudgeCard />}
 
         {/* ── Mis prácticas ── */}
-        {isAuthenticated && <PracticasCard />}
+        {FEATURES.herramientasConducuales && isAuthenticated && <PracticasCard />}
 
         {/* ── Viaje ── */}
-        {isAuthenticated && <JourneyCard />}
+        {FEATURES.journey90d && isAuthenticated && <JourneyCard />}
 
         {/* ── Biomarcadores (solo premium) ── */}
-        {isAuthenticated && isPremium && <BiomarkerPanel />}
+        {FEATURES.biomarcadores && isAuthenticated && isPremium && <BiomarkerPanel />}
 
         {/* ── Semana en colores ── */}
-        {isAuthenticated && (
+        {FEATURES.paletaEmocional && isAuthenticated && (
           <div className="max-w-[520px] w-full mx-auto bg-white rounded-[2rem] p-8 border border-aubergine-dark/5 shadow-sm">
             <h4 className="font-sans text-[14px] font-medium text-[#6B2737] mb-6">Tu semana en colores</h4>
             {isLoadingWeekly ? (
