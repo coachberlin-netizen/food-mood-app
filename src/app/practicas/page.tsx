@@ -1,7 +1,9 @@
+import { redirect } from 'next/navigation'
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Brain, BookOpen, MessageSquare, Thermometer, Utensils, Heart, Target } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
+import { FEATURES } from "@/lib/featureFlags"
 
 export const metadata: Metadata = {
   title: "Mis prácticas | Food·Mood",
@@ -106,6 +108,7 @@ function relativeTime(iso: string): string {
 }
 
 export default async function PracticasPage() {
+  if (!FEATURES.herramientasConducuales) redirect('/construccion')
   const supabase  = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
