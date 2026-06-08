@@ -996,12 +996,6 @@ export default function ProLanding() {
             </motion.div>
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl px-8 py-8 text-center" style={{ backgroundColor: "#2d0f16" }}>
-            <p className="font-serif text-xl md:text-2xl text-white leading-relaxed">
-              Tus pacientes no fallan por falta de información.{" "}
-              <em className="font-light italic" style={{ color: "#FF6B35" }}>Fallan por lo que sienten, repiten y no consiguen ver.</em>
-            </p>
-          </motion.div>
         </div>
       </section>
 
