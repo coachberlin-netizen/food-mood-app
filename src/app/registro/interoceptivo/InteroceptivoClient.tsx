@@ -65,11 +65,18 @@ export default function InteroceptivoClient() {
   const [done,         setDone]         = useState(false)
   const [error,        setError]        = useState("")
 
+  const [scannedZones, setScannedZones] = useState<Set<string>>(new Set())
+
   function toggleZone(zone: string) {
-    setLocations(prev => {
-      const exists = prev.find(l => l.zone === zone)
-      if (exists) return prev.filter(l => l.zone !== zone)
-      return [...prev, { zone, intensity: 5, quality: "" }]
+    setScannedZones(prev => {
+      const next = new Set(prev)
+      if (next.has(zone)) {
+        next.delete(zone)
+        setLocations(locs => locs.filter(l => l.zone !== zone))
+      } else {
+        next.add(zone)
+      }
+      return next
     })
   }
 
@@ -253,60 +260,90 @@ export default function InteroceptivoClient() {
           <div>
             <h2 className="text-sm font-semibold mb-1" style={{ color: "#2d0f16" }}>Escaneo corporal</h2>
             <p className="text-xs mb-5" style={{ color: "rgba(107,39,55,0.5)", lineHeight: "1.6" }}>
-              Cierra los ojos 15 segundos. ¿Dónde lo notas en el cuerpo?
+              Recorre cada zona de arriba abajo, relajándola. Márcala al pasar. Si notas algo en alguna, puedes añadir el detalle.
             </p>
-            <div className="grid grid-cols-2 gap-2 mb-6">
+
+            <div className="flex flex-col gap-2 mb-6">
               {BODY_ZONES.map(zone => {
-                const selected = locations.some(l => l.zone === zone)
+                const scanned  = scannedZones.has(zone)
+                const hasSensation = locations.some(l => l.zone === zone)
+                const loc      = locations.find(l => l.zone === zone)
                 return (
-                  <button
-                    key={zone}
-                    onClick={() => toggleZone(zone)}
-                    className="px-3 py-2.5 rounded-xl border text-xs font-medium text-left transition-all"
-                    style={{
-                      background:  selected ? "#6B2737" : "white",
-                      borderColor: selected ? "#6B2737" : "rgba(107,39,55,0.15)",
-                      color:       selected ? "#F5F0E8" : "#6B2737",
-                    }}
-                  >
-                    {zone}
-                  </button>
+                  <div key={zone}>
+                    <button
+                      onClick={() => toggleZone(zone)}
+                      className="w-full px-4 py-3 rounded-xl border text-sm font-medium text-left transition-all flex items-center gap-3"
+                      style={{
+                        background:  scanned ? "rgba(107,39,55,0.06)" : "white",
+                        borderColor: scanned ? "#6B2737"              : "rgba(107,39,55,0.15)",
+                        color:       "#2d0f16",
+                      }}
+                    >
+                      <span
+                        className="w-5 h-5 rounded-full border flex items-center justify-center shrink-0 text-[11px] font-bold transition-all"
+                        style={{
+                          background:  scanned ? "#6B2737" : "transparent",
+                          borderColor: scanned ? "#6B2737" : "rgba(107,39,55,0.3)",
+                          color:       "#F5F0E8",
+                        }}
+                      >
+                        {scanned ? "✓" : ""}
+                      </span>
+                      <span>{zone}</span>
+                    </button>
+
+                    {scanned && (
+                      <div className="mt-1 ml-4 pl-4" style={{ borderLeft: "2px solid rgba(107,39,55,0.12)" }}>
+                        {!hasSensation ? (
+                          <button
+                            onClick={() => setLocations(prev => [...prev, { zone, intensity: 5, quality: "" }])}
+                            className="text-[11px] py-1.5 px-0"
+                            style={{ color: "rgba(107,39,55,0.45)" }}
+                          >
+                            + ¿Notas algo aquí?
+                          </button>
+                        ) : (
+                          <div className="py-3 pr-2">
+                            <div className="flex items-center justify-between mb-2">
+                              <p className="text-[11px] font-semibold" style={{ color: "#6B2737" }}>
+                                Intensidad: <strong>{loc!.intensity}</strong>/10
+                              </p>
+                              <button
+                                onClick={() => setLocations(prev => prev.filter(l => l.zone !== zone))}
+                                className="text-[10px]"
+                                style={{ color: "rgba(107,39,55,0.35)" }}
+                              >
+                                Quitar
+                              </button>
+                            </div>
+                            <input
+                              type="range" min={0} max={10} value={loc!.intensity}
+                              onChange={e => updateLocation(zone, "intensity", Number(e.target.value))}
+                              className="w-full accent-[#6B2737] mb-3"
+                            />
+                            <div className="flex flex-wrap gap-1.5">
+                              {QUALITIES.map(q => (
+                                <button
+                                  key={q}
+                                  onClick={() => updateLocation(zone, "quality", loc!.quality === q ? "" : q)}
+                                  className="px-2.5 py-1 rounded-full text-[10px] font-medium transition-colors"
+                                  style={{
+                                    background: loc!.quality === q ? "#FF6B35" : "rgba(255,107,53,0.1)",
+                                    color:      loc!.quality === q ? "white"   : "#6B2737",
+                                  }}
+                                >
+                                  {q}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 )
               })}
             </div>
-
-            {locations.length > 0 && (
-              <div className="flex flex-col gap-4 mb-6">
-                {locations.map(loc => (
-                  <div key={loc.zone} className="bg-white rounded-2xl p-4" style={{ border: "1px solid rgba(107,39,55,0.1)" }}>
-                    <p className="text-xs font-bold mb-3" style={{ color: "#6B2737" }}>{loc.zone}</p>
-                    <label className="text-[11px] font-medium block mb-1" style={{ color: "rgba(107,39,55,0.6)" }}>
-                      Intensidad: <strong>{loc.intensity}</strong>/10
-                    </label>
-                    <input
-                      type="range" min={0} max={10} value={loc.intensity}
-                      onChange={e => updateLocation(loc.zone, "intensity", Number(e.target.value))}
-                      className="w-full accent-[#6B2737] mb-3"
-                    />
-                    <div className="flex flex-wrap gap-1.5">
-                      {QUALITIES.map(q => (
-                        <button
-                          key={q}
-                          onClick={() => updateLocation(loc.zone, "quality", loc.quality === q ? "" : q)}
-                          className="px-2.5 py-1 rounded-full text-[10px] font-medium transition-colors"
-                          style={{
-                            background:  loc.quality === q ? "#FF6B35" : "rgba(255,107,53,0.1)",
-                            color:       loc.quality === q ? "white" : "#6B2737",
-                          }}
-                        >
-                          {q}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
 
             <div className="flex gap-3">
               <button
