@@ -1387,22 +1387,6 @@ export default function ProLanding() {
         </div>
       </section>
 
-      {/* ── 11. PULL QUOTE ───────────────────────────────────────────────────── */}
-      <section aria-label="Propuesta de valor" className="py-16 px-6" style={{ backgroundColor: "#F5F0E8" }}>
-        <div className="max-w-3xl mx-auto">
-          <motion.blockquote
-            initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl px-8 py-10"
-            style={{ borderTop: "1px solid rgba(107,39,55,0.12)", borderRight: "1px solid rgba(107,39,55,0.12)", borderBottom: "1px solid rgba(107,39,55,0.12)", borderLeft: "5px solid #6B2737", boxShadow: "0 4px 24px rgba(107,39,55,0.08)" }}
-          >
-            <p className="font-serif text-xl md:text-2xl leading-relaxed" style={{ color: "#6B2737" }}>
-              Food·Mood Pro no sustituye tu criterio profesional. Te da la capa psicológica y conductual que normalmente se pierde entre una consulta y la siguiente.
-            </p>
-          </motion.blockquote>
-        </div>
-      </section>
-
       {/* ── 12. CTA FINAL ────────────────────────────────────────────────────── */}
       <section id="acceso" aria-label="Solicitar acceso" className="py-24 md:py-32 px-6" style={{ backgroundColor: "#0f0a0d" }}>
         <div className="max-w-xl mx-auto">
