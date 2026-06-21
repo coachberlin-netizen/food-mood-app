@@ -48,6 +48,28 @@ export async function middleware(request: NextRequest) {
     return NextResponse.rewrite(url)
   }
 
+  // ── Site access gate ──────────────────────────────────────────────────────
+  // When BETA_ACCESS_CODE is set, all pages require a cookie set by /api/entrar.
+  // Exempt: the gate page itself, all API routes, and auth login routes.
+  const currentPath = request.nextUrl.pathname
+  const isGateExempt =
+    currentPath === '/entrar' ||
+    currentPath.startsWith('/api/') ||
+    currentPath.startsWith('/auth/') ||
+    currentPath.startsWith('/pro/login') ||
+    currentPath.startsWith('/pro/signup')
+
+  const hasGateCookie = request.cookies.get('fm_preview')?.value === 'ok'
+  const gateEnabled   = !!process.env.BETA_ACCESS_CODE
+
+  if (gateEnabled && !isGateExempt && !hasGateCookie) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/entrar'
+    if (currentPath !== '/') url.searchParams.set('from', currentPath)
+    return NextResponse.redirect(url)
+  }
+  // ──────────────────────────────────────────────────────────────────────────
+
   let supabaseResponse = NextResponse.next({
     request,
   })

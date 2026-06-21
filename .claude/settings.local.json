@@ -241,7 +241,20 @@
       "Bash(grep -E \"^.*error.*$|Error:\")",
       "mcp__plugin_supabase_supabase__get_logs",
       "PowerShell(Get-Item *)",
-      "mcp__plugin_vercel_vercel__deploy_to_vercel"
+      "mcp__plugin_vercel_vercel__deploy_to_vercel",
+      "mcp__plugin_vercel_vercel__get_project",
+      "Bash(vercel ls *)",
+      "Bash(vercel logs *)",
+      "Bash(vercel --prod --yes)",
+      "Bash(awk '{print $NF}')",
+      "Bash(grep -v \"//.*retos\")",
+      "Bash(sed -i 's|.*href=\"https://food-mood.app/retos/slow-food-mood\".*Empezar el reto · 29€.*||g' \"C:/Users/coach/food-mood-app/src/lib/editorial-newsletters/01-slow-food-mood.ts\")",
+      "Bash(sed -i 's|.*href=\"https://food-mood.app/retos/slow-food-mood\".*29€.*||g' \"C:/Users/coach/food-mood-app/src/lib/editorial-newsletters/02-pan-de-masa-madre.ts\")",
+      "Bash(sed -i 's|.*href=\"https://food-mood.app/retos/slow-food-mood\".*19€.*||g' \"C:/Users/coach/food-mood-app/src/lib/editorial-newsletters/02-pan-de-masa-madre.ts\")",
+      "Bash(sed -i 's|.*href=\"https://www.food-mood.app/retos/equilibrio-hormonal-45.*Empezar el reto ahora.*||g' \"C:/Users/coach/food-mood-app/src/lib/editorial-newsletters/06-estrobioma.ts\")",
+      "Bash(sed -i 's|.*href=\"https://www.food-mood.app/retos/equilibrio-hormonal-45.*Empezar el reto ahora.*||g' \"C:/Users/coach/food-mood-app/src/lib/editorial-newsletters/07-legumbres-menopausia.ts\")",
+      "mcp__plugin_supabase_supabase__get_project",
+      "PowerShell(npx tsc --noEmit 2>&1 | Select-Object -First 20)"
     ]
   }
 }
