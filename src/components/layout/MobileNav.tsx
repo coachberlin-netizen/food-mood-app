@@ -89,7 +89,20 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                 <>
                   <NavLink href="/blog"        label="Journal"                    close={close} />
                   <NavLink href="/pro"         label="Para profesionales"         close={close} />
-                  <NavLink href="/studio"      label="The Longevity Studio"       close={close} />
+                  <a
+                    href="https://thelongevity.studio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={close}
+                    style={{
+                      display: 'flex', alignItems: 'center', minHeight: '44px',
+                      padding: '10px 8px', fontSize: '17px', fontWeight: 500,
+                      color: '#3F1A22', textDecoration: 'none', borderRadius: '8px',
+                      transition: 'background 0.15s',
+                    }}
+                  >
+                    The Longevity Studio
+                  </a>
                   <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
                   <NavLink href="/pro/login"   label="Portal Pro"                 close={close} gold />
                 </>

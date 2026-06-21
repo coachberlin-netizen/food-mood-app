@@ -241,7 +241,9 @@ export default function LabHomepage() {
                 Leer el Journal <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href="/studio"
+                href="https://thelongevity.studio"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium transition-all hover:bg-white/8"
                 style={{ color: "rgba(245,240,232,0.72)", border: "1px solid rgba(255,255,255,0.14)" }}
               >
@@ -504,7 +506,9 @@ export default function LabHomepage() {
               </p>
               <div>
                 <Link
-                  href="/studio"
+                  href="https://thelongevity.studio"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:bg-white/10"
                   style={{ color: "rgba(245,240,232,0.78)", border: "1px solid rgba(255,255,255,0.18)" }}
                 >

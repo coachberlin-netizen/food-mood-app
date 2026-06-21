@@ -18,7 +18,7 @@ export function Footer() {
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-[11px] tracking-[0.16em] uppercase text-white/60">
             <Link href="/blog"    className="hover:text-gold transition-colors">Journal</Link>
             <Link href="/pro"     className="hover:text-gold transition-colors">Para profesionales</Link>
-            <Link href="/studio"  className="hover:text-gold transition-colors">The Longevity Studio</Link>
+            <a href="https://thelongevity.studio" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">The Longevity Studio</a>
             <Link href="/pro/login" className="hover:text-gold transition-colors">Portal Pro</Link>
           </div>
         </div>

@@ -138,9 +138,9 @@ export function Header() {
               <Link href="/pro" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Para profesionales
               </Link>
-              <Link href="/studio" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+              <a href="https://thelongevity.studio" target="_blank" rel="noopener noreferrer" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 The Longevity Studio
-              </Link>
+              </a>
             </nav>
           )}
         </div>
