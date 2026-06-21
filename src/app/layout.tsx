@@ -8,7 +8,6 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ConsentModal } from "@/components/ui/ConsentModal";
-import { BetaBanner } from "@/components/layout/BetaBanner";
 import { PaletteProvider } from "@/contexts/PaletteContext";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { AccessibilityWidget } from "@/components/ui/AccessibilityWidget";
@@ -155,7 +154,6 @@ export default function RootLayout({
             Saltar al contenido principal
           </a>
           <AnalyticsProvider />
-          <BetaBanner />
           <Header />
           <Suspense fallback={<div className="flex-1">{children}</div>}>
             <PageTransition>
