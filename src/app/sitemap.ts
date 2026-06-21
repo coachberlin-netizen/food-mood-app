@@ -23,7 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '',                     priority: 1.0,  freq: 'weekly',  lastMod: '2026-06-21' },
     { route: '/professionals',       priority: 0.85, freq: 'monthly', lastMod: '2026-06-21' },
     { route: '/pro',                 priority: 0.85, freq: 'monthly', lastMod: '2026-06-21' },
-    { route: '/studio',              priority: 0.85, freq: 'monthly', lastMod: '2026-06-21' },
     { route: '/como-funciona',       priority: 0.8,  freq: 'monthly', lastMod: '2026-05-31' },
     { route: '/corporate-wellness',  priority: 0.8,  freq: 'monthly', lastMod: '2026-05-31' },
     { route: '/servicios',           priority: 0.8,  freq: 'monthly', lastMod: '2026-05-31' },
