@@ -130,19 +130,16 @@ export function Header() {
               <NavDropdown label="Mi espacio" items={COMPANION_NAV} />
             </nav>
           ) : (
-            /* Landing pública B2B */
+            /* Nav editorial */
             <nav className="hidden md:flex items-center space-x-7">
-              <Link href="/#acceso" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+              <Link href="/blog" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                Journal
+              </Link>
+              <Link href="/pro" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
                 Para profesionales
               </Link>
-              <Link href="/canjear" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
-                Para pacientes
-              </Link>
-              <Link
-                href="/#precios"
-                className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors"
-              >
-                Precios
+              <Link href="/studio" className="text-sm font-light tracking-wide text-cream/70 hover:text-cream transition-colors">
+                The Longevity Studio
               </Link>
             </nav>
           )}
@@ -153,7 +150,7 @@ export function Header() {
           <span className="font-serif text-xl sm:text-2xl font-semibold tracking-tight text-cream">
             Food<span className="text-gold">·</span>Mood
             {!isAuthenticated && (
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest ml-1.5 align-middle" style={{ color: "#FF6B35", opacity: 0.75 }}>Pro</span>
+              <span className="text-[9px] font-sans font-bold uppercase tracking-widest ml-1.5 align-middle" style={{ color: "#FF6B35", opacity: 0.6 }}>Lab</span>
             )}
           </span>
         </Link>
@@ -163,14 +160,14 @@ export function Header() {
           {isAuthenticated === false && (
             <>
               <Link href="/pro/login" className="hidden md:inline-flex text-sm font-medium text-cream/60 hover:text-cream transition-colors">
-                Entrar
+                Portal Pro
               </Link>
               <Link
-                href="/#acceso"
+                href="/blog"
                 className="hidden md:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:brightness-110 active:scale-95"
                 style={{ backgroundColor: "#FF6B35", color: "#0f0a0d" }}
               >
-                Solicitar acceso
+                Leer el Journal
               </Link>
             </>
           )}

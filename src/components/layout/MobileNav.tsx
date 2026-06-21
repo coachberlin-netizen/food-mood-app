@@ -85,15 +85,13 @@ export function MobileNav({ isAuthenticated, isPremium }: MobileNavProps) {
                   <NavLink href="/configuracion" label="Configuración"  close={close} />
                 </>
               ) : (
-                /* Landing pública B2B */
+                /* Nav editorial */
                 <>
-                  <NavLink href="/#acceso"     label="Para profesionales" close={close} />
-                  <NavLink href="/canjear"     label="Para pacientes"     close={close} />
+                  <NavLink href="/blog"        label="Journal"                    close={close} />
+                  <NavLink href="/pro"         label="Para profesionales"         close={close} />
+                  <NavLink href="/studio"      label="The Longevity Studio"       close={close} />
                   <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
-                  <NavLink href="/#precios"    label="Precios"            close={close} />
-                  <NavLink href="/blog"        label="Newsletter"         close={close} />
-                  <div style={{ height: '1px', background: 'rgba(107,39,55,0.12)', margin: '12px 0' }} />
-                  <NavLink href="/pro/login"   label="Entrar al portal"   close={close} gold />
+                  <NavLink href="/pro/login"   label="Portal Pro"                 close={close} gold />
                 </>
               )}
             </nav>

@@ -19,16 +19,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages — Pro pages get high priority, B2C consumer pages are deprioritized
   // so that Google correctly identifies the site's primary audience (health professionals).
   const staticRoutes: StaticRoute[] = [
-    // ── Pro marketing pages (primary signal) ──────────────────────────
-    { route: '',                     priority: 1.0, freq: 'weekly',  lastMod: '2026-05-31' },
-    { route: '/como-funciona',       priority: 0.9, freq: 'monthly', lastMod: '2026-05-31' },
-    { route: '/corporate-wellness',  priority: 0.9, freq: 'monthly', lastMod: '2026-05-31' },
-    { route: '/servicios',           priority: 0.9, freq: 'monthly', lastMod: '2026-05-31' },
-    { route: '/quienes-somos',       priority: 0.7, freq: 'monthly', lastMod: '2026-05-31' },
-    { route: '/saber-mas',           priority: 0.6, freq: 'monthly' },
+    // ── Editorial homepage & content hub ──────────────────────────────
+    { route: '',                     priority: 1.0,  freq: 'weekly',  lastMod: '2026-06-21' },
+    { route: '/professionals',       priority: 0.85, freq: 'monthly', lastMod: '2026-06-21' },
+    { route: '/pro',                 priority: 0.85, freq: 'monthly', lastMod: '2026-06-21' },
+    { route: '/studio',              priority: 0.85, freq: 'monthly', lastMod: '2026-06-21' },
+    { route: '/como-funciona',       priority: 0.8,  freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/corporate-wellness',  priority: 0.8,  freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/servicios',           priority: 0.8,  freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/quienes-somos',       priority: 0.7,  freq: 'monthly', lastMod: '2026-05-31' },
+    { route: '/saber-mas',           priority: 0.6,  freq: 'monthly' },
 
     // ── Editorial & authority content ─────────────────────────────────
-    { route: '/blog',                priority: 0.75, freq: 'weekly', lastMod: '2026-05-25' },
+    { route: '/blog',                priority: 0.9,  freq: 'weekly',  lastMod: '2026-06-21' },
     { route: '/glosario',            priority: 0.65, freq: 'monthly' },
     { route: '/fermentos-del-mundo', priority: 0.65, freq: 'monthly' },
 
@@ -42,7 +45,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/test',                priority: 0.5, freq: 'monthly', lastMod: '2025-09-01' },
     { route: '/recetas',             priority: 0.6, freq: 'weekly' },
     { route: '/sintomas',            priority: 0.6, freq: 'monthly' },
-    { route: '/retos',               priority: 0.6, freq: 'weekly' },
   ];
 
   const staticPages = staticRoutes.map(({ route, priority, freq, lastMod }) => ({
@@ -85,19 +87,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // Reto landing pages
-  const { data: challenges } = await supabase
-    .from('challenges')
-    .select('slug, updated_at')
-    .eq('is_active', true);
-
-  const retoPages = (challenges || []).map((ch) => ({
-    url: `${baseUrl}/retos/${ch.slug}`,
-    lastModified: ch.updated_at ? new Date(ch.updated_at) : new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
-
   // Editorial newsletter pages
   const newsletterEditorialPages = [
     { slug: 'slow-food-mood',             date: '2026-04-27' },
@@ -129,5 +118,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority:        0.75,
   };
 
-  return [...staticPages, ...blogPages, ...recipePages, ...symptomPages, ...retoPages, newsletterIndexPage, ...newsletterEditorialPages];
+  return [...staticPages, ...blogPages, ...recipePages, ...symptomPages, newsletterIndexPage, ...newsletterEditorialPages];
 }

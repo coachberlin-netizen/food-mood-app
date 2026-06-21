@@ -39,8 +39,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.food-mood.app'),
-  title: "Food·Mood Pro — Psicología práctica para consultas nutricionales",
-  description: "La plataforma que integra TCC, ACT e interocepción al seguimiento entre sesiones. Adherencia, preparación de consulta y herramientas conductuales para nutricionistas y psiconutricionistas.",
+  title: "Food·Mood Lab — Comida, emoción y longevidad aplicada",
+  description: "Espacio editorial de The Longevity Studio sobre nutrición, psicología, estrés, hábitos y longevidad. Contenido basado en evidencia para profesionales, hoteles y clínicas.",
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
@@ -51,29 +51,29 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     statusBarStyle: "black-translucent",
-    title: "Food·Mood Pro",
+    title: "Food·Mood Lab",
     startupImage: "/icons/icon-512.png",
   },
   openGraph: {
     type: "website",
     url: "https://www.food-mood.app/",
-    title: "Food·Mood Pro — La capa psicológica que le faltaba al software nutricional",
-    description: "Aplica psicología práctica entre sesiones. Herramientas de TCC, ACT e interocepción para nutricionistas, psicólogas y psiconutricionistas.",
-    siteName: "Food·Mood Pro",
+    title: "Food·Mood Lab — Comida, emoción y longevidad aplicada",
+    description: "Espacio editorial de The Longevity Studio sobre nutrición, psicología, estrés, hábitos y longevidad. Evidencia aplicable para profesionales, hoteles y clínicas.",
+    siteName: "Food·Mood Lab",
     locale: "es_ES",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Food·Mood Pro — Plataforma profesional de psiconutrición",
+        alt: "Food·Mood Lab — Espacio editorial de The Longevity Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Food·Mood Pro — La capa psicológica que le faltaba al software nutricional",
-    description: "Aplica psicología práctica entre sesiones. Herramientas de TCC, ACT e interocepción para nutricionistas, psicólogas y psiconutricionistas.",
+    title: "Food·Mood Lab — Comida, emoción y longevidad aplicada",
+    description: "Espacio editorial de The Longevity Studio sobre nutrición, psicología, estrés, hábitos y longevidad.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -110,18 +110,16 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: "Food·Mood Pro",
+              "@type": "WebSite",
+              name: "Food·Mood Lab",
               url: "https://www.food-mood.app",
-              description: "Plataforma profesional de psiconutrición asistida por IA. Captura emoción, interocepción y patrones conductuales del paciente entre sesiones para psicólogas, nutricionistas y psiconutricionistas.",
-              applicationCategory: "BusinessApplication",
-              applicationSubCategory: "HealthcareApplication",
-              operatingSystem: "Web",
+              description: "Espacio editorial de The Longevity Studio sobre nutrición, psicología, estrés, hábitos y longevidad. Contenido basado en evidencia para profesionales de salud, hoteles y clínicas.",
               inLanguage: "es",
-              offers: [
-                { "@type": "Offer", name: "Plan Profesional", price: "39.00", priceCurrency: "EUR" },
-                { "@type": "Offer", name: "Plan Clínica", price: "99.00", priceCurrency: "EUR" },
-              ],
+              publisher: {
+                "@type": "Organization",
+                name: "The Longevity Studio",
+                url: "https://www.food-mood.app",
+              },
             }),
           }}
         />
@@ -131,10 +129,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Food·Mood",
+              name: "Food·Mood Lab / The Longevity Studio",
               url: "https://www.food-mood.app",
               logo: "https://www.food-mood.app/icons/icon-512.png",
-              description: "Plataforma profesional de psiconutrición para psicólogas, nutricionistas y psiconutricionistas. Herramienta clínica de seguimiento emocional e interoceptivo entre sesiones.",
+              description: "Espacio editorial y consultoría de longevidad aplicada. Nutrición, psicología, estrés, hábitos y longevidad para profesionales de salud, hoteles y clínicas.",
               sameAs: [],
               contactPoint: {
                 "@type": "ContactPoint",
