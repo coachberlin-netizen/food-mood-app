@@ -16,30 +16,30 @@ export function ProCTA() {
           className="text-[10px] font-sans tracking-[0.25em] uppercase mb-3"
           style={{ color: '#FF6B35' }}
         >
-          Para profesionales de la salud
+          The Longevity Studio · Food·Mood Lab
         </p>
         <h3
           className="font-serif text-xl md:text-2xl mb-3 leading-snug"
           style={{ color: '#F5F0E8' }}
         >
-          ¿Eres profesional de la salud?
+          Protocolos de cocina funcional para tu proyecto
         </h3>
         <p
           className="text-sm md:text-base leading-relaxed font-light mb-8 max-w-xl"
           style={{ color: 'rgba(245,240,232,0.6)' }}
         >
-          Food·Mood Pro captura lo que ocurre entre sesiones — para que tú puedas
-          trabajar con datos emocionales e interoceptivos reales en consulta.
+          Accede a los protocolos aplicados de The Longevity Studio — recetas funcionales
+          con su nivel de evidencia, para hoteles, spas y profesionales de la salud.
         </p>
         <Link
-          href="/"
+          href="/protocolos"
           className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
           style={{
             backgroundColor: '#FF6B35',
             color: '#0f0a0d',
           }}
         >
-          Solicitar acceso anticipado
+          Ver protocolos
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

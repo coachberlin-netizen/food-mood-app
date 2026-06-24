@@ -10,22 +10,22 @@ import { NewsletterForm } from '@/components/layout/NewsletterForm'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Blog · Food·Mood Pro — Recursos para profesionales de psiconutrición',
+  title: 'Longevidad aplicada · Food·Mood Lab — The Longevity Studio',
   description:
-    'Artículos con base científica sobre psiconutrición, seguimiento conductual y herramientas TCC para nutricionistas y psicólogos.',
+    'Ciencia de la longevidad, la nutrición y el bienestar, aplicada. Para hoteles, spas y profesionales de la salud que quieren trabajar con criterio y evidencia.',
   alternates: { canonical: '/blog' },
   openGraph: {
-    title: 'Blog · Food·Mood Pro — Recursos para profesionales de psiconutrición',
+    title: 'Longevidad aplicada · Food·Mood Lab — The Longevity Studio',
     description:
-      'Psiconutrición, seguimiento conductual y herramientas clínicas para profesionales de la salud. Ciencia aplicada a la consulta.',
+      'Ciencia de la longevidad, la nutrición y el bienestar, aplicada. Para hoteles, spas y profesionales de la salud.',
     url: 'https://www.food-mood.app/blog',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Blog Food·Mood Pro' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Food·Mood Lab' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Blog · Food·Mood Pro — Recursos para profesionales de psiconutrición',
+    title: 'Longevidad aplicada · Food·Mood Lab — The Longevity Studio',
     description:
-      'Psiconutrición, seguimiento conductual y herramientas clínicas para profesionales de la salud.',
+      'Ciencia de la longevidad, la nutrición y el bienestar, aplicada. Para hoteles, spas y profesionales de la salud.',
     images: ['/og-image.png'],
   },
 }
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
 const BLOG_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
-  name: 'Blog Food·Mood Pro',
+  name: 'Food·Mood Lab',
   description:
-    'Artículos con base científica sobre psiconutrición, seguimiento conductual y herramientas clínicas para profesionales de la salud.',
+    'Ciencia de la longevidad, la nutrición y el bienestar, aplicada. Para hoteles, spas y profesionales de la salud.',
   url: 'https://www.food-mood.app/blog',
   publisher: {
     '@type': 'Organization',
-    name: 'Food·Mood Pro',
+    name: 'The Longevity Studio',
     url: 'https://www.food-mood.app',
   },
 }
@@ -63,16 +63,26 @@ export default async function BlogPage() {
         <section className="px-6 mb-16 text-center">
           <div className="max-w-3xl mx-auto">
             <span className="text-[11px] font-sans tracking-[0.2em] uppercase text-aubergine-dark/50 mb-6 block">
-              Recursos para profesionales
+              FOOD·MOOD LAB · THE LONGEVITY STUDIO
             </span>
             <h1 className="text-4xl md:text-6xl font-serif text-aubergine-dark mb-6 leading-tight">
-              Ciencia aplicada<br />
-              <span className="italic">a la consulta</span>
+              Longevidad<br />
+              <span className="italic">aplicada</span>
             </h1>
             <p className="text-lg text-aubergine-dark/60 font-light leading-relaxed max-w-2xl mx-auto">
-              Psiconutrición, seguimiento conductual y herramientas TCC para profesionales de la salud —
-              con evidencia científica y aplicación clínica directa.
+              Ciencia de la longevidad, la nutrición y el bienestar, aplicada. Para hoteles, spas
+              y profesionales de la salud que quieren trabajar con criterio y evidencia.
             </p>
+            <a
+              href="https://www.thelongevity.studio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-6 text-[11px] tracking-wide"
+              style={{ color: 'rgba(107,39,55,0.4)' }}
+            >
+              Food·Mood Lab es el espacio editorial de The Longevity Studio
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </section>
 
@@ -116,7 +126,9 @@ export default async function BlogPage() {
                       </p>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-aubergine-dark/40">{post.author}</span>
+                        <span className="text-xs text-aubergine-dark/40">
+                          {post.author}{post.author ? ' · The Longevity Studio' : 'The Longevity Studio'}
+                        </span>
                         <Link
                           href={post.canonical}
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-aubergine-dark/70 hover:text-aubergine-dark transition-colors group/link"
@@ -151,7 +163,7 @@ export default async function BlogPage() {
                 ¿Quieres recibirlo cada domingo?
               </h2>
               <p className="text-cream/60 font-light text-lg mb-10 max-w-xl mx-auto">
-                Únete a la comunidad y recibe ciencia aplicada directo a tu email.
+                Únete y recibe ciencia de longevidad y bienestar, aplicada, directa a tu email.
               </p>
               <div className="max-w-md mx-auto h-12 flex items-center justify-center">
                 <NewsletterForm source="newsletter_footer" dark={true} />
