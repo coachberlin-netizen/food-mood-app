@@ -28,7 +28,7 @@ export function ProtocolCard() {
       <p className="font-serif text-base font-semibold mb-1" style={{ color: '#F5F0E8' }}>
         {protocol.protocol_name}
       </p>
-      <p className="text-xs mb-4" style={{ color: 'rgba(245,240,232,0.45)' }}>
+      <p className="text-xs mb-4" style={{ color: 'rgba(245,240,232,0.60)' }}>
         Día {protocol.days_elapsed} de {protocol.duration_days} · {protocol.stage_name}
       </p>
       <div className="w-full h-1 rounded-full" style={{ backgroundColor: 'rgba(245,240,232,0.08)' }}>

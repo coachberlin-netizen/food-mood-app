@@ -90,7 +90,7 @@ export function ProtocolosContent() {
       {/* Header */}
       <div style={{ background: '#2d0f16', borderBottom: '1px solid rgba(255,107,53,0.15)' }}>
         <div className="max-w-5xl mx-auto px-5 py-10">
-          <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'rgba(245,240,232,0.4)' }}>
+          <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'rgba(245,240,232,0.55)' }}>
             The Longevity Studio · Zona de cliente
           </p>
           <h1 className="font-serif text-3xl md:text-4xl font-bold mb-3" style={{ color: '#F5F0E8' }}>

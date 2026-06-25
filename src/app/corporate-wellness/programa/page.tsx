@@ -160,7 +160,7 @@ export default async function CorporateWellnessProgramaPage() {
         <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2" style={{ color: '#F5F0E8' }}>
           7-Day Focus Snack Challenge
         </h1>
-        <p className="text-sm font-light" style={{ color: 'rgba(245,240,232,0.45)' }}>
+        <p className="text-sm font-light" style={{ color: 'rgba(245,240,232,0.60)' }}>
           Programa completo · Para uso en propuestas y reuniones con empresas
         </p>
       </div>

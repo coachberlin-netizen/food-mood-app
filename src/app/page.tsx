@@ -313,7 +313,7 @@ export default function LabHomepage() {
               >
                 <div className="w-1.5 h-5 rounded-full mb-4" style={{ backgroundColor: p.color }} />
                 <p className="text-sm font-semibold text-white mb-2">{p.label}</p>
-                <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>{p.desc}</p>
+                <p className="text-xs font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.60)" }}>{p.desc}</p>
               </motion.div>
             ))}
           </div>
