@@ -7,6 +7,7 @@ import { useProfessional } from "@/hooks/useProfessional"
 import { useAttentionFlagsSummary } from "@/hooks/useAttentionFlags"
 import Link from "next/link"
 import ProAlertsPanel from "@/components/pro/ProAlertsPanel"
+import { DemoSection } from "./DemoSection"
 
 type RecentPatient = {
   id: string
@@ -67,12 +68,12 @@ export default function ProDashboardClient() {
   return (
     <div className="p-8 max-w-5xl mx-auto">
       <div className="mb-10">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#6B2737]/40 mb-1">
+          Panel de The Longevity Studio
+        </p>
         <h1 className="text-2xl font-serif font-bold text-[#6B2737]">
-          {professional ? `Hola, ${professional.full_name.split(" ")[0]}` : "Dashboard"}
+          {professional ? professional.full_name.split(" ")[0] : "Demo"}
         </h1>
-        {professional && (
-          <p className="text-xs font-bold uppercase tracking-widest text-[#6B2737]/40 mt-1">Profesional</p>
-        )}
       </div>
 
       {patientsWithFlags > 0 && (
@@ -93,51 +94,44 @@ export default function ProDashboardClient() {
 
       <ProAlertsPanel />
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        <StatCard
-          icon={<Users className="w-5 h-5" />}
-          label="Pacientes activos"
-          value={stats?.activePatients ?? "—"}
-          href="/pro/pacientes"
-        />
-        <StatCard
-          icon={<MailOpen className="w-5 h-5" />}
-          label="Invitaciones pendientes"
-          value={stats?.pendingInvitations ?? "—"}
-          href="/pro/invitaciones"
-        />
-        <StatCard
-          icon={<Clock className="w-5 h-5" />}
-          label="Última vinculación"
-          value={
-            stats?.recentPatients[0]
-              ? new Date(stats.recentPatients[0].linked_at).toLocaleDateString("es-ES", {
-                  day: "numeric", month: "short",
-                })
-              : "—"
-          }
-        />
-      </div>
-
-      {/* Recent patients */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#6B2737]/10">
-        <div className="px-6 py-4 border-b border-[#6B2737]/10 flex items-center justify-between">
-          <h2 className="font-semibold text-[#6B2737]">Pacientes recientes</h2>
-          <Link href="/pro/pacientes" className="text-xs font-medium text-[#6B2737]/60 hover:text-[#6B2737] transition-colors">
-            Ver todos
-          </Link>
+      {/* Stats — solo cuando hay datos reales */}
+      {stats && stats.activePatients > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          <StatCard
+            icon={<Users className="w-5 h-5" />}
+            label="Huéspedes activos"
+            value={stats.activePatients}
+            href="/pro/pacientes"
+          />
+          <StatCard
+            icon={<MailOpen className="w-5 h-5" />}
+            label="Invitaciones pendientes"
+            value={stats.pendingInvitations}
+            href="/pro/invitaciones"
+          />
+          <StatCard
+            icon={<Clock className="w-5 h-5" />}
+            label="Última vinculación"
+            value={
+              stats.recentPatients[0]
+                ? new Date(stats.recentPatients[0].linked_at).toLocaleDateString("es-ES", {
+                    day: "numeric", month: "short",
+                  })
+                : "—"
+            }
+          />
         </div>
-        {!stats ? (
-          <div className="px-6 py-8 text-center text-sm text-[#6B2737]/40">Cargando...</div>
-        ) : stats.recentPatients.length === 0 ? (
-          <div className="px-6 py-8 text-center text-sm text-[#6B2737]/40">
-            Ningún paciente vinculado todavía.{" "}
-            <Link href="/pro/invitaciones" className="font-medium underline">
-              Crear primera invitación
+      )}
+
+      {/* Recent patients — only when real data exists */}
+      {stats && stats.recentPatients.length > 0 && (
+        <div className="bg-white rounded-2xl shadow-sm border border-[#6B2737]/10">
+          <div className="px-6 py-4 border-b border-[#6B2737]/10 flex items-center justify-between">
+            <h2 className="font-semibold text-[#6B2737]">Huéspedes recientes</h2>
+            <Link href="/pro/pacientes" className="text-xs font-medium text-[#6B2737]/60 hover:text-[#6B2737] transition-colors">
+              Ver todos
             </Link>
           </div>
-        ) : (
           <ul className="divide-y divide-[#6B2737]/5">
             {stats.recentPatients.map((p) => (
               <li key={p.id} className="px-6 py-4 flex items-center justify-between">
@@ -152,8 +146,11 @@ export default function ProDashboardClient() {
               </li>
             ))}
           </ul>
-        )}
-      </div>
+        </div>
+      )}
+
+      {/* Demo section — visible cuando no hay datos reales */}
+      {stats !== null && stats.activePatients === 0 && <DemoSection />}
     </div>
   )
 }
