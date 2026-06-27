@@ -101,10 +101,11 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/blog') &&
     !pathname.startsWith('/blog/acceso')
 
-  // Newsletter articles: require authentication (exclude index and archivo listing pages)
+  // Newsletter articles: protegidos con cookie de acceso por código
   const isNewsletterArticle =
     pathname.startsWith('/newsletter/') &&
-    pathname !== '/newsletter/archivo'
+    pathname !== '/newsletter/archivo' &&
+    !pathname.startsWith('/newsletter/acceso')
 
   // Blog: gate de código — no depende de Supabase auth
   if (isBlogRoute && request.cookies.get('blog_access')?.value !== 'ok') {
@@ -127,11 +128,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // newsletters are professional-only — redirect to pro login, not consumer auth
-  if (isNewsletterArticle && !user) {
+  // Newsletter: gate de código — no depende de Supabase auth
+  if (isNewsletterArticle && request.cookies.get('newsletter_access')?.value !== 'ok') {
     const url = request.nextUrl.clone()
-    url.pathname = '/pro/login'
-    url.searchParams.set('redirect', pathname)
+    url.pathname = '/newsletter/acceso'
     return NextResponse.redirect(url)
   }
 

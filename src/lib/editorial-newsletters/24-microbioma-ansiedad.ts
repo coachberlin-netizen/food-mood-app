@@ -11,9 +11,9 @@ export function buildHtml(): string {
   body { background: #EDE8DF; font-family: 'Lato', Arial, sans-serif; color: #2a1a1e; -webkit-font-smoothing: antialiased; }
   .wrapper { max-width: 680px; margin: 0 auto; background: #F5F0E8; }
   .header { background: #2d0f16; padding: 48px 44px 44px; }
-  .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #6B2737; letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
+  .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: rgba(245,240,232,0.85); letter-spacing: .06em; display: inline-block; margin-bottom: 28px; }
   .header-numero { font-size: 10px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #FF6B35; margin-bottom: 8px; }
-  .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.45); margin-bottom: 32px; }
+  .header-tagline { font-size: 11px; font-weight: 300; letter-spacing: .08em; color: rgba(245,240,232,0.58); margin-bottom: 32px; }
   .header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; color: #F5F0E8; line-height: 1.20; }
   .header-title em { font-style: italic; color: #FF6B35; font-weight: 400; }
   .intro { padding: 36px 44px; border-bottom: 1px solid #e0d5c8; }
