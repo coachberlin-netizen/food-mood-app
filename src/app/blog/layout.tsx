@@ -1,27 +1,9 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
-
+// El acceso al blog está gestionado por el middleware (cookie blog_access=ok).
+// Este layout no necesita verificar auth — el middleware ya redirige a /blog/acceso.
 export const metadata = {
   robots: { index: false, follow: false },
 }
 
-export default async function BlogLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect('/pro/login?redirect=/blog')
-  }
-
-  const { data: pro } = await supabase
-    .from('professionals')
-    .select('id')
-    .maybeSingle()
-
-  if (!pro) {
-    redirect('/pro/login?redirect=/blog')
-  }
-
+export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
