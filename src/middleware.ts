@@ -96,10 +96,22 @@ export async function middleware(request: NextRequest) {
     !pathname.startsWith('/pro/login') &&
     !pathname.startsWith('/pro/signup')
 
+  // Blog: protegido con cookie de acceso por código
+  const isBlogRoute =
+    pathname.startsWith('/blog') &&
+    !pathname.startsWith('/blog/acceso')
+
   // Newsletter articles: require authentication (exclude index and archivo listing pages)
   const isNewsletterArticle =
     pathname.startsWith('/newsletter/') &&
     pathname !== '/newsletter/archivo'
+
+  // Blog: gate de código — no depende de Supabase auth
+  if (isBlogRoute && request.cookies.get('blog_access')?.value !== 'ok') {
+    const url = request.nextUrl.clone()
+    url.pathname = '/blog/acceso'
+    return NextResponse.redirect(url)
+  }
 
   // Redirect unauthenticated users from protected routes and /recetas (acceso solo por prescripción)
   if ((isProtectedRoute || isRecetasRoute) && !user) {
