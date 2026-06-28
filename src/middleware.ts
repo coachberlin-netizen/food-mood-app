@@ -101,10 +101,9 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/blog') &&
     !pathname.startsWith('/blog/acceso')
 
-  // Newsletter articles: protegidos con cookie de acceso por código
+  // Newsletter: protegido con cookie de acceso por código (incluye /newsletter/archivo)
   const isNewsletterArticle =
     pathname.startsWith('/newsletter/') &&
-    pathname !== '/newsletter/archivo' &&
     !pathname.startsWith('/newsletter/acceso')
 
   // Blog: gate de código — no depende de Supabase auth

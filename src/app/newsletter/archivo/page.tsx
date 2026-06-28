@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { NewsletterGate } from '@/components/newsletter/NewsletterGate'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Archivo de newsletters editoriales | Food·Mood',
@@ -230,10 +233,10 @@ function NewsletterList() {
   )
 }
 
-export default function NewsletterArchivoPage() {
-  return (
-    <NewsletterGate>
-      <NewsletterList />
-    </NewsletterGate>
-  )
+export default async function NewsletterArchivoPage() {
+  const cookieStore = await cookies()
+  if (cookieStore.get('newsletter_access')?.value !== 'ok') {
+    redirect('/newsletter/acceso')
+  }
+  return <NewsletterList />
 }
