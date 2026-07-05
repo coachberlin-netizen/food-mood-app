@@ -9,7 +9,7 @@ import { Brain, Leaf, Hourglass, FlaskConical, ArrowRight, Heart, Search, BookOp
 const PERSON_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Susana Ferreras Díez",
+  name: "M.Muralter",
   jobTitle: "Psicóloga · Tecnóloga de alimentos",
   url: "https://www.food-mood.app/quienes-somos",
   worksFor: {
@@ -146,7 +146,7 @@ export default function QuienesSomosPage() {
         </div>
       </section>
 
-      {/* 2. SUSANA FERRERAS DÍEZ — sección de autoridad */}
+      {/* 2. M.MURALTER — sección de autoridad */}
       <section className="py-24 md:py-32 bg-cream border-b border-aubergine-dark/10">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div
@@ -160,12 +160,12 @@ export default function QuienesSomosPage() {
             <div className="flex flex-col items-center md:items-start gap-6">
               <div
                 className="w-56 h-56 md:w-64 md:h-64 rounded-3xl overflow-hidden bg-aubergine-dark/5 flex items-center justify-center border border-aubergine-dark/10 shadow-luxury"
-                aria-label="Foto de Susana Ferreras Díez"
+                aria-label="Foto de M.Muralter"
               >
-                {/* [SUSANA COMPLETAR] — Sustituir con <Image> cuando tengas la foto */}
+                {/* [COMPLETAR] — Sustituir con <Image> cuando tengas la foto */}
                 <div className="text-center text-aubergine-dark/30 p-8">
                   <div className="w-20 h-20 rounded-full bg-aubergine-dark/10 mx-auto mb-3 flex items-center justify-center">
-                    <span className="text-3xl font-serif text-aubergine-dark/40">S</span>
+                    <span className="text-3xl font-serif text-aubergine-dark/40">M</span>
                   </div>
                   <p className="text-xs font-light">Foto próximamente</p>
                 </div>
@@ -192,7 +192,7 @@ export default function QuienesSomosPage() {
             <div>
               <p className="text-[11px] font-sans tracking-[0.25em] uppercase text-gold mb-4">Fundadora</p>
               <h2 className="text-3xl md:text-4xl font-serif text-aubergine-dark font-semibold mb-2">
-                Susana Ferreras Díez
+                M.Muralter
               </h2>
               <p className="text-sm text-aubergine-dark/45 font-light mb-8">
                 Psicóloga · Tecnóloga de alimentos · Especialista en gerontología

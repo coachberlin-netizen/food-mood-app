@@ -2,7 +2,7 @@ export function PersonSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Susana Ferreras Díez',
+    name: 'M.Muralter',
     jobTitle: 'Psicóloga · Tecnóloga de alimentos',
     url: 'https://www.food-mood.app/quienes-somos',
     worksFor: {

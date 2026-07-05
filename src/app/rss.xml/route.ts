@@ -72,7 +72,7 @@ export async function GET() {
     <atom:link href="${BASE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
     <language>es</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <managingEditor>hola@food-mood.app (Susana Ferreras Díez)</managingEditor>${itemsXml}
+    <managingEditor>hola@food-mood.app (M.Muralter)</managingEditor>${itemsXml}
   </channel>
 </rss>`
 

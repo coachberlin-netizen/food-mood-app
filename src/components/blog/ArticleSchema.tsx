@@ -24,7 +24,7 @@ export function ArticleSchema({
     dateModified: dateModified ?? datePublished,
     author: {
       '@type': 'Person',
-      name: 'Susana Ferreras Díez',
+      name: 'M.Muralter',
       url: `${BASE_URL}/quienes-somos`,
       jobTitle: 'Psicóloga y Tecnóloga de alimentos',
       sameAs: [],
